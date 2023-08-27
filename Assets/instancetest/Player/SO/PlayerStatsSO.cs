@@ -33,45 +33,40 @@ public class PlayerStatsSO : ScriptableObject
     [Header("HP")]
     public int playerCurrentHP;
     public int playerMaxHP;
+    int baseMaxCurrentHP = 100;
+    int basePlayerMaxHP = 100;
 
     [Header("Fend")]
     public int playerFend;
     [SerializeField] float fendMoveMod;
     [SerializeField] int fendBase;
+    int basePlayerFendBase = 8;
     [SerializeField] float fendPotMod;
 
     [Header("Power")]
     public int attackPower;
     [SerializeField] float attackPowerMoveMod;
     [SerializeField] int attackPowerBase;
+    public int basePlayerAttackPowerBase = 8;
     [SerializeField] float attackPowerPotMod;
+    int basePlayerAttackPowerMoveMod = 0;
 
     [Header("Potential")]
     [SerializeField] int playerCurrentPotential;
     [SerializeField] int playerMaxPotential;
     [SerializeField] int playerFocusbase;
+    int basePlayerFocusbase = 10;
+    int basePlayerFocusMoveMod = 0;
     public float playerFocusMoveMod;
+    int basePlayerCurrentPotential = 50;
+    int basePlayerMaxPotential = 100;
 
     [Header("Other")]
     [SerializeField] Vector2 position;
-    public int enemyAttackPower;
-
-    int basePlayerCurrentHP = 100;
-
-    public int basePlayerAttackPowerBase = 8;
-    int basePlayerAttackPowerMoveMod = 0;
-
-    int  basePlayerMaxHP = 100;
-    int basePlayerFendBase = 8;
-
-    int basePlayerCurrentPotential = 50;
-    int basePlayerMaxPotential = 100;
-    int basePlayerFocusbase = 10;
-    int basePlayerFocusMoveMod = 0;
 
     public void InitalisePlayerStats()
     {
-        playerCurrentHP = basePlayerCurrentHP;
+        playerCurrentHP = baseMaxCurrentHP;
 
 
         attackPowerBase = basePlayerAttackPowerBase;
@@ -86,9 +81,7 @@ public class PlayerStatsSO : ScriptableObject
         playerFocusbase = basePlayerFocusbase;
         playerFocusMoveMod = basePlayerFocusMoveMod;
 
-        enemyAttackPower = 0;
-
-        UpdatePlayerAttackPower();
+        TotalPlayerMovePower();
         CombatEvents.InitializePlayerPotDisplay.Invoke(playerCurrentPotential);
 
     }
@@ -110,7 +103,7 @@ public class PlayerStatsSO : ScriptableObject
         }
     }
 
-    public void UpdatePlayerAttackPower()
+    public void TotalPlayerMovePower()
     {
         CheckForPotPunishment();
         attackPower = Mathf.Clamp(Mathf.CeilToInt(attackPowerBase + attackPowerMoveMod + attackPowerPotMod), 0, 9999);
@@ -123,7 +116,7 @@ public class PlayerStatsSO : ScriptableObject
         { attackPowerMoveMod = attackPowerBase * moveModMultiplier; }
     else { attackPowerMoveMod -= attackPowerBase; }
 
-        UpdatePlayerAttackPower();
+        TotalPlayerMovePower();
     }
 
     public void UpdatePlayerFendMoveMod(float moveModMultiplier, bool isFend)
@@ -136,7 +129,7 @@ public class PlayerStatsSO : ScriptableObject
         }
         else { fendMoveMod -= fendBase; }
 
-        UpdatePlayerAttackPower();
+        TotalPlayerMovePower();
     }
 
     public void UpdatePlayerFocusMoveMod(float moveModMultiplier, int focusMoveCost, bool isFocus)
@@ -148,10 +141,12 @@ public class PlayerStatsSO : ScriptableObject
             attackPowerBase++;
             fendBase++;
         }
-        else { playerFocusMoveMod = focusMoveCost + (playerFocusbase * moveModMultiplier);
-
-            CombatEvents.UpdatePlayerPot.Invoke(Mathf.CeilToInt(playerFocusMoveMod));
+        else 
+        { 
+            playerFocusMoveMod = focusMoveCost + (playerFocusbase * moveModMultiplier);            
         }
+
+        CombatEvents.UpdatePlayerPot.Invoke(Mathf.CeilToInt(playerFocusMoveMod));
     }
 
     public void PlayerPotChange(int value)
@@ -162,7 +157,7 @@ public class PlayerStatsSO : ScriptableObject
      void UpdatePlayerHP(int value)
     {
         playerCurrentHP -= value;
-        CombatEvents.UpdatePlayerHPDisplay.Invoke(playerCurrentHP);
+        CombatEvents.UpdatePlayerHPDisplay?.Invoke(playerCurrentHP);
     }
 
     public void ResetAllMoveMods()

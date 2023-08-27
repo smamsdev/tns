@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,15 +8,14 @@ using UnityEngine.UI;
 public class CombatUIScript : MonoBehaviour
 {
     [SerializeField] GameObject firstMoveMenu;
-    [SerializeField] GameObject targetDisplayContainer;
 
-    [SerializeField] Display1stMoveScript displayFirstMoveText;
-
-    [SerializeField] Display2ndMoveScript displaySecondMoveText;
     public GameObject secondMoveMenu;
 
     [SerializeField] GameObject targetmenu;
     [SerializeField] AttackTargetMenuScript attackTargetMenuScript;
+
+    [SerializeField] TextMeshProUGUI textMeshProUGUIFirstMoveDisplay;
+    [SerializeField] TextMeshProUGUI textMeshProUGUISecondMoveDisplay;
 
     public Button secondAttackButton; //to auto select attack on 2nd menu
 
@@ -29,6 +29,22 @@ public class CombatUIScript : MonoBehaviour
     public bool firstdMoveIsBeingDecided;
     public bool secondMoveIsBeingDecided;
 
+    public bool firstAttackButtonIsHighlighted;
+    public bool secondAttackButtonIsHighlighted;
+
+    private void OnEnable()
+    {
+        CombatEvents.UpdateFirstMoveDisplay += UpdateFirstMoveDisplay;
+        CombatEvents.UpdateSecondMoveDisplay += UpdateSecondMoveDisplay;
+    }
+
+    private void OnDisable()
+    {
+        CombatEvents.UpdateFirstMoveDisplay -= UpdateFirstMoveDisplay;
+        CombatEvents.UpdateSecondMoveDisplay -= UpdateSecondMoveDisplay;
+    }
+
+
     private void Start()
     {
         secondAttackButton.GetComponent<Button>();  //to auto select attack on 2nd menu
@@ -36,24 +52,28 @@ public class CombatUIScript : MonoBehaviour
 
         firstdMoveIsBeingDecided = false;
         secondMoveIsBeingDecided = false;
-
     }
 
     public void ShowFirstMoveMenu()
 
     {
-  
 
         if (firstdMoveIsBeingDecided == false)
         {
+
+            while (!firstAttackButtonIsHighlighted)
+
+            {
+                firstAttackButton.Select();
+                firstAttackButtonIsHighlighted = true;
+
+            }
+
             firstMoveMenu.SetActive(true);
+            secondMoveMenu.SetActive(false);
 
-            //CheckPotIsHighEnoughToInput();
-
-            firstAttackButton.Select();
-
-            displayFirstMoveText.UpdateFirstDisplayText("First Move");
-            displaySecondMoveText.UpdateSecondDisplayText("Second Move");
+            UpdateFirstMoveDisplay("First Move");
+            UpdateSecondMoveDisplay("Second Move");
 
             firstdMoveIsBeingDecided = true;
         }
@@ -63,6 +83,13 @@ public class CombatUIScript : MonoBehaviour
     public void ShowSecondMoveMenu()
 
     {
+        while (!secondAttackButtonIsHighlighted)
+
+        {
+            secondAttackButton.Select();
+            secondAttackButtonIsHighlighted = true;
+        }
+
         if (secondMoveIsBeingDecided == false)
         {
             StartCoroutine(HideFirstMoveAfterDelay());     //makes nice colored text highlight linger
@@ -71,15 +98,18 @@ public class CombatUIScript : MonoBehaviour
         IEnumerator HideFirstMoveAfterDelay()
 
         {
+            attackTargetMenuScript.EnableSecondMoveButtonsAgainForNextTurn();
+
             yield return new WaitForSeconds(0.2f);
             firstMoveMenu.SetActive(false);
+            targetmenu.SetActive(false);
             secondMoveMenu.SetActive(true);
-            secondAttackButton.Select();
             secondMoveIsBeingDecided = true;
+            attackTargetMenuScript.targetSelected = false;
         }
     }
 
-   
+
 
 
 
@@ -99,26 +129,22 @@ public class CombatUIScript : MonoBehaviour
 
     }
 
+    void UpdateFirstMoveDisplay(string value)
 
-
-    public void CheckPotIsHighEnoughToInput()
     {
+        textMeshProUGUIFirstMoveDisplay.text = value;
+    }
 
-//       if (playerStats.playerCurrentPotential <= 0)
-//       {
-//           firstAttackButton.interactable = false;
-//           firstDefendButton.interactable = false;
-//
-//           firstFocusButton.Select();
-//
-//       }
-//
-//       else
-//       {
-//           firstAttackButton.interactable = true;
-//           firstDefendButton.interactable = true;
-//           firstAttackButton.Select();
-//       }
+    void UpdateSecondMoveDisplay(string value)
+
+    {
+        textMeshProUGUISecondMoveDisplay.text = value;
+    }
+
+    void HighlightFirstAttack()
+
+    {
+        firstAttackButton.Select();
     }
 
 

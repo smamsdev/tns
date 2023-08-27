@@ -188,7 +188,7 @@ public class PlayerMoveManagerSO : ScriptableObject
     public void FirstMoveIsAttack()
 
     {
-        //displayFirstMoveText.UpdateFirstDisplayText("Attack");
+        CombatEvents.UpdateFirstMoveDisplay.Invoke("Attack");
         firstMoveIs = 1;
     }
 
@@ -196,7 +196,7 @@ public class PlayerMoveManagerSO : ScriptableObject
     public void FirstMoveIsDefend()
 
     {
-        //displayFirstMoveText.UpdateFirstDisplayText("Defend");
+        CombatEvents.UpdateFirstMoveDisplay.Invoke("Defend");
         firstMoveIs = 2;
     }
 
@@ -204,7 +204,7 @@ public class PlayerMoveManagerSO : ScriptableObject
 
     {
 
-       // displayFirstMoveText.UpdateFirstDisplayText("Focus");
+        CombatEvents.UpdateFirstMoveDisplay.Invoke("Focus");
         firstMoveIs = 3;
     }
 
@@ -212,7 +212,7 @@ public class PlayerMoveManagerSO : ScriptableObject
     public void SecondMoveIsAttack()
 
     {
-      //  displaySecondMoveText.UpdateSecondDisplayText("Attack");
+        CombatEvents.UpdateSecondMoveDisplay.Invoke("Attack");
         secondMoveIs = 1;
     }
 
@@ -220,14 +220,14 @@ public class PlayerMoveManagerSO : ScriptableObject
     public void SecondMoveIsDefend()
 
     {
-       // displaySecondMoveText.UpdateSecondDisplayText("Defend");
+        CombatEvents.UpdateSecondMoveDisplay.Invoke("Defend");
         secondMoveIs = 2;
     }
 
     public void SecondMoveIsFocus()
 
     {
-       // displaySecondMoveText.UpdateSecondDisplayText("Focus");
+        CombatEvents.UpdateSecondMoveDisplay.Invoke("Focus");
         secondMoveIs = 3;
     }
 

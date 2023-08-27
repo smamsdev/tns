@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 
 
-public enum BattleState { RoundStartFirstMove, SecondMove, SelectAttackTarget, ApplyMove, Animating, EnemyAttack, Reset, Setup, Victory, Defeat }
+public enum BattleState { NoBattle, RoundStartFirstMove, SecondMove, SelectAttackTarget, ApplyMove, Animating, EnemyAttack, Reset, Setup, Victory, Defeat }
 
 public class CombatManagerV2 : MonoBehaviour
 {
@@ -21,49 +21,72 @@ public class CombatManagerV2 : MonoBehaviour
     [SerializeField] GameObject roundCounter;
 
     [SerializeField] GameObject combatMenuContainerObj;
+    [SerializeField] GameObject playerStatsObj;
+
     [SerializeField] CombatUIScript combatUIScript;
+    [SerializeField] PlayerMovementScript playerMovementScript;
+
     [SerializeField] AttackTargetMenuScript attackTargetMenuScript;
 
     [SerializeField] PlayerMoveManagerSO playerMoveManager;
     [SerializeField] PlayerStatsSO playerStats;
 
+    [SerializeField] GameObject enemyLoaderObject;
+    [SerializeField] GameObject playerDefaultPosition;
+
     private void OnEnable()
     {
-        CombatEvents.EnemyIsDefeated += SetBattleStateVictory;
-        CombatEvents.EnemyAttackPower += EnemyRawAttackPower;
+        CombatEvents.EnemyIsDefeated += Victory;
+        CombatEvents.EnemyAttackPower += EnemyRawAttackPowerIS;
+        CombatEvents.BeginBattle += Setup;
     }
 
     private void OnDisable()
     {
-        CombatEvents.EnemyIsDefeated -= SetBattleStateVictory;
-        CombatEvents.EnemyAttackPower -= EnemyRawAttackPower;
+        CombatEvents.EnemyIsDefeated -= Victory;
+        CombatEvents.EnemyAttackPower -= EnemyRawAttackPowerIS;
+        CombatEvents.BeginBattle -= Setup;
     }
 
-
-//start
-    void Start()
+    private void Start()
     {
-        Setup();
-        roundCounterText = roundCounter.GetComponent<TextMeshPro>();
+        SetBattleStateNoBattle();
     }
 
     void RoundStart()
 
     {
+        combatUIScript.firstdMoveIsBeingDecided = false;
+        combatUIScript.secondAttackButtonIsHighlighted = false;
+
         combatMenuContainerObj.SetActive(true);
         combatUIScript.ShowFirstMoveMenu();
-        CombatEvents.ShowHideFendDisplay.Invoke(false);
+        playerMoveManager.firstMoveIs = 0;
 
+        CombatEvents.ShowHideFendDisplay?.Invoke(false);
+        CombatEvents.GetEnemyAttackPower?.Invoke();
     }
 
     void SetSecondMove()
 
-    { combatUIScript.ShowSecondMoveMenu(); }
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) { SetBattleStateRoundStart(); }
+
+        combatUIScript.firstAttackButtonIsHighlighted = false;  
+        combatUIScript.secondMoveIsBeingDecided = false;
+        combatUIScript.ShowSecondMoveMenu();
+        playerMoveManager.secondMoveIs = 0;
+    }
 
 
     void SetAttackTarget()
 
     {
+        
+        if (Input.GetKeyDown(KeyCode.Escape)) { SetBattleStateSecondMove(); }
+        
+        
+        combatUIScript.secondAttackButtonIsHighlighted = false;
         if (playerMoveManager.firstMoveIs == 1 || playerMoveManager.secondMoveIs == 1)
 
         {
@@ -83,6 +106,7 @@ public class CombatManagerV2 : MonoBehaviour
         if (playerMoveCompleted == false)
         {
             playerMoveCompleted = true;
+            yield return new WaitForSeconds(0.6f);
 
             CombatEvents.ShowHideFendDisplay.Invoke(true);
             combatUIScript.HideTargetMenu();
@@ -92,14 +116,26 @@ public class CombatManagerV2 : MonoBehaviour
 
             CombatEvents.UpdateNarrator.Invoke(playerMoveManager.moveForNarrator);
 
-            yield return new WaitForSeconds(0.3f);
+            if (playerMoveManager.firstMoveIs ==1 || playerMoveManager.secondMoveIs == 1)
+            {
+                CombatEvents.UpdatePlayerPosition.Invoke(new Vector2(enemyLoaderObject.transform.position.x - 0.3f, enemyLoaderObject.transform.position.y), 0.5f);
+                yield return new WaitForSeconds(1);
+            }
 
-            CombatEvents.UpdateEnemyHP.Invoke(playerStats.attackPower);
+            if (playerMoveManager.firstMoveIs == 1 || playerMoveManager.secondMoveIs == 1)
+            {
+                CombatEvents.UpdatePlayerPosition.Invoke(playerDefaultPosition.transform.position, 0.5f);
+            }
 
+            CombatEvents.CalculateEnemyDamageTaken.Invoke(playerStats.attackPower);
 
             CombatEvents.IsEnemyDefeated.Invoke();
 
-            battleState = BattleState.EnemyAttack;
+            if (battleState != BattleState.Victory) 
+            { 
+            
+                battleState = BattleState.EnemyAttack;
+            }
 
         }
     }
@@ -110,28 +146,42 @@ public class CombatManagerV2 : MonoBehaviour
         if (enemyAttackCompleted == false)
         {
             enemyAttackCompleted = true;
-            CombatEvents.GetEnemyAttackPower.Invoke();
-            CombatEvents.UpdateFendDisplay.Invoke(playerStats.playerFend - enemyRawAttackPower);
-            yield return new WaitForSeconds(0.3f);
 
 
+            yield return new WaitForSeconds(1);
 
             int enemyAttackPower = Mathf.Clamp(enemyRawAttackPower - playerStats.playerFend, 0, 9999);
             CombatEvents.UpdatePlayerHP.Invoke(enemyAttackPower);
 
-
-            // Debug.Log("enemy attacks for " + enemyRawAttackPower + " but is blocked for " + playerStats.playerFend + " total damage is " + enemyAttackPower);
+            StartCoroutine (AnimateEnemyCoRoutine());
 
             SetBattleStateReset();
         }
     }
 
-    void EnemyRawAttackPower(int value)
+    IEnumerator AnimateEnemyCoRoutine() 
+    
+    {
+
+        CombatEvents.UpdateEnemyPosition.Invoke(new Vector2 (playerDefaultPosition.transform.position.x+0.3f, playerDefaultPosition.transform.position.y), 0.5f);
+        yield return new WaitForSeconds(0.5f);
+
+        CombatEvents.UpdateFendDisplay.Invoke(playerStats.playerFend - enemyRawAttackPower);
+
+        yield return new WaitForSeconds(0.5f);
+
+        CombatEvents.UpdateEnemyPosition.Invoke(enemyLoaderObject.transform.position, 0.5f);
+    }
+
+    void EnemyRawAttackPowerIS(int value)
     { enemyRawAttackPower = value; }
 
-    void RoundReset()
+    IEnumerator RoundReset()
 
     {
+
+        yield return new WaitForSeconds(1f);
+
         playerMoveCompleted = false;
         enemyAttackCompleted = false;
 
@@ -155,21 +205,39 @@ public class CombatManagerV2 : MonoBehaviour
         CombatEvents.UpdateFendDisplay.Invoke(0);
         CombatEvents.UpdateNarrator.Invoke("");
 
-        SetBattleStateRoundStart();
+        playerMoveManager.firstMoveIs = 0;
+        playerMoveManager.secondMoveIs = 0;
+
+
+        if (battleState != BattleState.Victory)
+        {
+
+            SetBattleStateRoundStart();
+        }
+
+
+
     }
 
     void Victory()
 
     {
-        Debug.Log("congrats u are gay");
+        StartCoroutine(RoundReset());
+        battleState = BattleState.Victory;
+        playerStatsObj.SetActive(false);
+        playerMovementScript.movementLocked = false;
     }
 
     void Setup()
 
     {
+        playerMovementScript.movementLocked = true;
+        playerMovementScript.playerPosition = new Vector2(-1.7f, -0.4f);
+        roundCounterText = roundCounter.GetComponent<TextMeshPro>();
+        playerStatsObj.SetActive(true);
         playerStats.InitalisePlayerStats();
         CombatEvents.InitializePlayerHP.Invoke(playerStats.playerMaxHP);
-        CombatEvents.InitializePartsHP.Invoke();
+
         battleState = BattleState.RoundStartFirstMove;
         enemyRawAttackPower = 0;
     }
@@ -184,12 +252,15 @@ public class CombatManagerV2 : MonoBehaviour
             case BattleState.SelectAttackTarget: SetAttackTarget(); break;
             case BattleState.ApplyMove: StartCoroutine(ApplyMove()); break;
             case BattleState.EnemyAttack: StartCoroutine(EnemyAttack()); break;
-            case BattleState.Reset: RoundReset(); break;
-            case BattleState.Victory: Victory(); break;
+            case BattleState.Reset: StartCoroutine(RoundReset()); break;
         }
     }
 
     //BattleState setter functions
+
+    public void SetBattleStateNoBattle()
+    { battleState = BattleState.NoBattle; }
+
     public void SetBattleStateSetup()
     { battleState = BattleState.Setup; }
 
@@ -217,6 +288,4 @@ public class CombatManagerV2 : MonoBehaviour
     public void SetBattleStateReset()
     { battleState = BattleState.Reset; }
 
-    public void SetBattleStateVictory()
-    { battleState = BattleState.Victory; }
 }

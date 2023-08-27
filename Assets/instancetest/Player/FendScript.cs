@@ -9,6 +9,7 @@ public class FendScript : MonoBehaviour
 
     TextMeshPro textMeshPro;
     [SerializeField] GameObject fendTextObj;
+    [SerializeField] PlayerMoveManagerSO playerMoveManager;
 
     public int fend = 0;
 
@@ -31,15 +32,27 @@ public class FendScript : MonoBehaviour
 
     void UpdateFendText(int value)
     {
-        fend = value;
-        textMeshPro.text = "Fend: " + fend.ToString();     
+        if (value <= 0) { textMeshPro.text = "SMASHED!"; }
+
+        else 
+        {
+            fend = value;
+            textMeshPro.text = "Fend: " + fend.ToString();
+        }
     }
 
     void ShowHideFendDisplay(bool on)
 
     {
-        if (on && fend > 0 ){ fendTextObj.SetActive(true); }
+        if (on && (playerMoveManager.firstMoveIs==2 || playerMoveManager.secondMoveIs == 2))
+      
+        { 
+            fendTextObj.SetActive(true);
+        }
 
-        else { fendTextObj.SetActive(false); }
+        else 
+        { 
+            fendTextObj.SetActive(false); 
+        }
     }
 }

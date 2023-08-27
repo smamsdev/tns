@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 
@@ -16,6 +15,9 @@ public class Enemy : MonoBehaviour
     public int enemyArmsHP;
     public int enemyHeadHP;
 
+    public int damageReceivedInjuryBonus;
+    public int totalDamage;
+
     public Target targetIs;
 
     public int injuryPenalty;
@@ -24,43 +26,55 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] TargetDisplay targetDisplay;
 
+    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] GameObject playerObject;
+
     SpriteRenderer spriteRenderer;
-    Transform myTransform;
 
     private void OnEnable()
     {
+        CombatEvents.CalculateEnemyDamageTaken += CalculateEnemyDamageTaken;
         CombatEvents.UpdateEnemyHP += UpdateEnemyHP;
         CombatEvents.IsEnemyDefeated += CheckForEnemyDefeated;
-        CombatEvents.GetEnemyAttackPower += SendEnemyRawAttackPower;
+        CombatEvents.GetEnemyAttackPower += SendEnemyRawAttackPowerIS;
         CombatEvents.SetEnemyBodyPartTarget += SetEnemyBodyPartTarget;
+        CombatEvents.UpdateEnemyPosition += UpdateEnemyPosition;
     }
 
     private void OnDisable()
     {
-        CombatEvents.UpdateEnemyHP -= UpdateEnemyHP;
+        CombatEvents.CalculateEnemyDamageTaken -= CalculateEnemyDamageTaken;
+        CombatEvents.UpdateEnemyHP += UpdateEnemyHP;
         CombatEvents.IsEnemyDefeated -= CheckForEnemyDefeated;
-        CombatEvents.GetEnemyAttackPower += SendEnemyRawAttackPower;
+        CombatEvents.GetEnemyAttackPower += SendEnemyRawAttackPowerIS;
         CombatEvents.SetEnemyBodyPartTarget += SetEnemyBodyPartTarget;
+        CombatEvents.UpdateEnemyPosition -= UpdateEnemyPosition;
     }
 
     private void Start()
     {
         injuryPenalty = 0;
+        damageReceivedInjuryBonus = 0;
+
+
+
     }
 
-    public void UpdateEnemyHP(int value)
+    public void CalculateEnemyDamageTaken(int value)
     {
+
         if (targetIs == Target.body) 
         
         {
-            enemyHP = Mathf.Clamp(enemyHP-value, 0,9999);
+            totalDamage = value + damageReceivedInjuryBonus;
             enemyBodyHP = Mathf.Clamp(enemyBodyHP - value, 0, 9999);
         }
 
         if (targetIs == Target.arms)
 
         {
-            enemyHP = Mathf.CeilToInt(enemyHP-value * 0.6f);
+            totalDamage = Mathf.CeilToInt((value * 0.6f) + damageReceivedInjuryBonus);
+
             enemyArmsHP = Mathf.Clamp(enemyArmsHP - value, 0, 9999);
             injuryPenalty += Mathf.CeilToInt(value * 0.1f);
         }
@@ -68,13 +82,13 @@ public class Enemy : MonoBehaviour
         if (targetIs == Target.head)
 
         {
-            enemyHP = Mathf.CeilToInt(enemyHP-value * 0.4f);
+            totalDamage = Mathf.CeilToInt((value * 0.4f) + damageReceivedInjuryBonus);
             enemyHeadHP = Mathf.Clamp(enemyHeadHP - value, 0,9999);
         }
 
         if (enemyBodyHP == 0)
-        { 
-            injuryPenalty = enemyAttack / 2;
+        {
+            damageReceivedInjuryBonus = value;
 
         }
 
@@ -90,16 +104,23 @@ public class Enemy : MonoBehaviour
 
         }
 
+        CombatEvents.UpdateEnemyHP.Invoke(totalDamage);
+
+    }
+
+    void UpdateEnemyHP(int value)
+    {
+        enemyHP = Mathf.Clamp(enemyHP - value, 0, 9999);
     }
 
     public void CheckForEnemyDefeated()
     {
         if (enemyHP <= 0)
-        { //CombatEvents.EnemyIsDefeated.Invoke();
+        { CombatEvents.EnemyIsDefeated.Invoke();
         }
     }
 
-    public void SendEnemyRawAttackPower() 
+    public void SendEnemyRawAttackPowerIS() 
     
     {
         enemyAttackTotal = enemyAttack - injuryPenalty;
@@ -121,5 +142,25 @@ public class Enemy : MonoBehaviour
             targetIs = Target.head;
         }
     }
+
+     public void UpdateEnemyPosition(Vector2 end, float seconds) //call the coroutine using a function because you can't call coroutines when invoking events
+
+    {
+        StartCoroutine(UpdateEnemyPositionCoRoutine(end, seconds));
+    }
+
+            public IEnumerator UpdateEnemyPositionCoRoutine(Vector2 end, float seconds)
+            {
+                float elapsedTime = 0;
+                Vector2 startingPos = enemyPrefab.transform.position;
+                while (elapsedTime < seconds)
+                {
+                    enemyPrefab.transform.position = Vector2.Lerp(startingPos, end, (elapsedTime / seconds));
+                    elapsedTime += Time.deltaTime;
+                    yield return new WaitForEndOfFrame();
+                }
+                enemyPrefab.transform.position = end;
+            }
+
 
 }

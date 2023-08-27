@@ -26,7 +26,7 @@ public class EnemyLoader : MonoBehaviour
 
         private void Start()
     {
-        SpawnEnemy();
+       // SpawnEnemy();
     }
 
 
@@ -43,7 +43,9 @@ public class EnemyLoader : MonoBehaviour
         enemySprite.color = enemyBaseStats.enemyColor;
         enemy.enemyBodyHP = enemyBaseStats.enemyBodyHP;
         enemy.enemyArmsHP = enemyBaseStats.enemyArmsHP;
-        enemy.enemyHeadHP = enemyBaseStats.enemyHeadHP; 
+        enemy.enemyHeadHP = enemyBaseStats.enemyHeadHP;
+
+        CombatEvents.InitializePartsHP.Invoke();
 
         CombatEvents.InitializeEnemyHP.Invoke(enemy.enemyHP);
 

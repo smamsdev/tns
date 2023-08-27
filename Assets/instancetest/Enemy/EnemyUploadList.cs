@@ -10,7 +10,7 @@ public class EnemyUploadList : MonoBehaviour
 
     private void Start()
     {
-        EnemyEasy();
+        //EnemyEasy();
     }
 
     public void EnemyEasy()
