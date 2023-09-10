@@ -54,14 +54,20 @@ public class AttackTargetMenuScript : MonoBehaviour
     private IEnumerator DisplayAttackTargetMenu()
       
     {
-        attackTargetMenu.SetActive(true);
-        targetDisplayContainerObj.SetActive(true);
+
 
         if (targetSelected == false) 
    
         {
-            yield return new WaitForSeconds(0.1f);
+            attackTargetMenu.SetActive(true);
+            targetDisplayContainerObj.SetActive(true);
             aimBodyButton.Select();
+
+            yield return new WaitForSeconds(0.3f);
+
+            CombatEvents.HighlightBodypartTarget.Invoke(true, false, false);
+
+
 
             CombatEvents.UpdateNarrator.Invoke("Select Target");
 
@@ -89,13 +95,10 @@ public class AttackTargetMenuScript : MonoBehaviour
 
     public void EnableSecondMoveButtonsAgainForNextTurn()
     {
-      
-        {
                 secondAttackButton.interactable = true;
                 secondDefButton.interactable = true;
                 secondFocButton.interactable = true;
                 secondEquipButton.interactable = true;
-        }
     }
 
 }

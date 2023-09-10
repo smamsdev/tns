@@ -42,7 +42,7 @@ public class TargetDisplay : MonoBehaviour
         CombatEvents.UpdateTargetDisplayBodyDescription += UpdateBodyDescription;
         CombatEvents.UpdateTargetDisplayArmsDescription += UpdateArmsDescription;
         CombatEvents.UpdateTargetDisplayHeadDescription += UpdateHeadDescription;
-}
+    }
 
     private void OnDisable()
     {
@@ -55,7 +55,8 @@ public class TargetDisplay : MonoBehaviour
 
     private void Start()
     {
-      }
+
+    }
 
 
     void UpdateTargetDisplay(bool showBody, bool showArms, bool showHead) 

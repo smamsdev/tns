@@ -30,7 +30,7 @@ public class EnemyLoader : MonoBehaviour
     }
 
 
-    void SpawnEnemy()
+    public void SpawnEnemy()
     {
         enemyInstance = Instantiate(enemyPf, transform);
         enemyIsInstantiated = true;

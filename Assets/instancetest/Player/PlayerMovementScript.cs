@@ -8,6 +8,7 @@ public class PlayerMovementScript : MonoBehaviour
 {
 
     public Rigidbody2D playerRigidBody2d;
+    public RaycastHit2D hit;
     public Vector2 playerPosition;
 
     float myHorizontalInput;
@@ -18,18 +19,21 @@ public class PlayerMovementScript : MonoBehaviour
     public bool movementLocked = false;
 
     public GameObject playerObject;
-    public GameObject loadButton;
+
+    public Vector2 lookDirection = new Vector2(1, 0);
 
     private void OnEnable()
     {
         CombatEvents.UpdatePlayerPosition += UpdatePlayerPosition;
-
+        CombatEvents.LockPlayerMovement += LockPlayerMovement;
+        CombatEvents.UnlockPlayerMovement += UnlockPlayerMovement;
     }
 
     private void OnDisable()
     {
         CombatEvents.UpdatePlayerPosition -= UpdatePlayerPosition;
-
+        CombatEvents.LockPlayerMovement -= LockPlayerMovement;
+        CombatEvents.UnlockPlayerMovement -= UnlockPlayerMovement;
     }
 
 
@@ -39,7 +43,6 @@ public class PlayerMovementScript : MonoBehaviour
         playerPosition = playerRigidBody2d.position;
         playerRigidBody2d = GetComponent<Rigidbody2D>();
     }
-
 
     void FixedUpdate()
     {
@@ -53,11 +56,26 @@ public class PlayerMovementScript : MonoBehaviour
         playerPosition.x = playerPosition.x + movementSpeed * myHorizontalInput * Time.deltaTime;
         playerPosition.y = playerPosition.y + movementSpeed * myVerticallInput * Time.deltaTime;
 
+        } 
+    }
+
+    private void Update()
+    {
+        Vector2 move = new Vector2(myHorizontalInput, myVerticallInput);
+
+        if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
+        {
+            lookDirection.Set(move.x, move.y);
+            lookDirection.Normalize();
         }
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            hit = Physics2D.Raycast(playerPosition , lookDirection, 0.4f, LayerMask.GetMask("NPC"));
 
-       
+        }
     }
+
 
     public void UpdatePlayerPosition(Vector2 end, float seconds) //call the coroutine using a function because you can't call coroutines when invoking events
 
@@ -78,4 +96,15 @@ public class PlayerMovementScript : MonoBehaviour
                  playerObject.transform.position = end;
             }
 
+
+
+
+
+    public void LockPlayerMovement()
+
+    { movementLocked = true; }
+
+    public void UnlockPlayerMovement()
+
+    { movementLocked = false; }
 }

@@ -8,6 +8,8 @@ public static class CombatEvents
 {
     //Combat Setup
     public static Action BeginBattle;
+    public static Action LockPlayerMovement;
+    public static Action UnlockPlayerMovement;
     public static Action<Vector2, float>UpdatePlayerPosition;
 
     //Combat UI

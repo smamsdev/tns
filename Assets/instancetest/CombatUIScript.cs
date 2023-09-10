@@ -88,6 +88,8 @@ public class CombatUIScript : MonoBehaviour
         {
             secondAttackButton.Select();
             secondAttackButtonIsHighlighted = true;
+            CombatEvents.HighlightBodypartTarget.Invoke(false, false, false);
+            UpdateSecondMoveDisplay("Second Move");
         }
 
         if (secondMoveIsBeingDecided == false)
@@ -100,7 +102,7 @@ public class CombatUIScript : MonoBehaviour
         {
             attackTargetMenuScript.EnableSecondMoveButtonsAgainForNextTurn();
 
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.3f);
             firstMoveMenu.SetActive(false);
             targetmenu.SetActive(false);
             secondMoveMenu.SetActive(true);
