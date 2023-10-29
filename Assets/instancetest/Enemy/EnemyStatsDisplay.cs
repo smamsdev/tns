@@ -7,36 +7,45 @@ public class EnemyStatsDisplay : MonoBehaviour
 {
 
     TextMeshPro textMeshProHP;
-    public int enemyHP;
+    [HideInInspector] public int enemyHPUI;
+    [SerializeField] GameObject enemyStats;
 
     private void Awake()
     {
-        textMeshProHP = GetComponent<TextMeshPro>();
+        textMeshProHP = enemyStats.GetComponent<TextMeshPro>();
     }
 
     private void OnEnable()
     {
-        CombatEvents.UpdateEnemyHP += UpdateEnemyHPText;
-        CombatEvents.InitializeEnemyHP += InitializeEnemyHP;
-
+        CombatEvents.UpdateenemyHPUI += UpdateenemyHPText;
+        CombatEvents.InitializeenemyHP += InitializeenemyHP;
     }
 
     private void OnDisable()
     {
-        CombatEvents.UpdateEnemyHP -= UpdateEnemyHPText;
-        CombatEvents.InitializeEnemyHP += InitializeEnemyHP;
+        CombatEvents.UpdateenemyHPUI -= UpdateenemyHPText;
+        CombatEvents.InitializeenemyHP += InitializeenemyHP;
     }
 
-    void InitializeEnemyHP(int value)
-
-    { enemyHP = value;
-        textMeshProHP.text = "Enemy HP: " + enemyHP;
-    }
-
-    public void UpdateEnemyHPText(int value)
+    void InitializeenemyHP(int value)
     {
-        enemyHP -= value;
-        textMeshProHP.text = "Enemy HP: " + (enemyHP).ToString();
+        enemyHPUI = value;
+        textMeshProHP.text = "Enemy HP: " + enemyHPUI;
+    }
+
+    public void UpdateenemyHPText(int value)
+    {
+        enemyHPUI = Mathf.Clamp(enemyHPUI - value, 0, 9999);
+
+        if (enemyHPUI <= 0) 
+        {
+            textMeshProHP.text = "DEAD";
+        }
+
+        else
+        {
+            textMeshProHP.text = "Enemy HP: " + (enemyHPUI).ToString();
+        }
     }
 
 }

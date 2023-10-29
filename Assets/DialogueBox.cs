@@ -1,10 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.VersionControl;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class DialogueBox : MonoBehaviour
 {
@@ -13,6 +9,7 @@ public class DialogueBox : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     [SerializeField] TextMeshProUGUI backgroundActorNameText;
     [SerializeField] TextMeshProUGUI backgroundDialogueText;
+    public string dialogueId;
     public Animator animator;
 
     [SerializeField] Transform dialoguePosition;

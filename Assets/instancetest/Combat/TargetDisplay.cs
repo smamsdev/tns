@@ -38,7 +38,7 @@ public class TargetDisplay : MonoBehaviour
     private void OnEnable()
     {
         CombatEvents.HighlightBodypartTarget += UpdateTargetDisplay;
-        CombatEvents.InitializePartsHP += InitializePartsHP;
+        CombatEvents.InitializeEnemyPartsHP += InitializeEnemyPartsHP;
         CombatEvents.UpdateTargetDisplayBodyDescription += UpdateBodyDescription;
         CombatEvents.UpdateTargetDisplayArmsDescription += UpdateArmsDescription;
         CombatEvents.UpdateTargetDisplayHeadDescription += UpdateHeadDescription;
@@ -47,7 +47,7 @@ public class TargetDisplay : MonoBehaviour
     private void OnDisable()
     {
         CombatEvents.HighlightBodypartTarget -= UpdateTargetDisplay;
-        CombatEvents.InitializePartsHP -= InitializePartsHP;
+        CombatEvents.InitializeEnemyPartsHP -= InitializeEnemyPartsHP;
         CombatEvents.UpdateTargetDisplayBodyDescription -= UpdateBodyDescription;
         CombatEvents.UpdateTargetDisplayArmsDescription -= UpdateArmsDescription;
         CombatEvents.UpdateTargetDisplayHeadDescription -= UpdateHeadDescription;
@@ -94,7 +94,7 @@ public class TargetDisplay : MonoBehaviour
 
     }
 
-    public void InitializePartsHP()
+    public void InitializeEnemyPartsHP()
 
     {
         bodyMaxHP = enemy.enemyBodyHP;

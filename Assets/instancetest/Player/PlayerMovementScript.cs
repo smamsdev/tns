@@ -80,7 +80,8 @@ public class PlayerMovementScript : MonoBehaviour
     public void UpdatePlayerPosition(Vector2 end, float seconds) //call the coroutine using a function because you can't call coroutines when invoking events
 
     { 
-        StartCoroutine(UpdatePlayerPositionCoRoutine(end, seconds)); 
+        StartCoroutine(UpdatePlayerPositionCoRoutine(end, seconds));
+        CombatEvents.LockPlayerMovement?.Invoke();
     }
 
             public IEnumerator UpdatePlayerPositionCoRoutine(Vector2 end, float seconds)
@@ -102,9 +103,16 @@ public class PlayerMovementScript : MonoBehaviour
 
     public void LockPlayerMovement()
 
-    { movementLocked = true; }
+    {
+        playerPosition = playerObject.transform.position;
+        movementLocked = true;
+    }
 
     public void UnlockPlayerMovement()
 
-    { movementLocked = false; }
+    {
+        playerPosition = playerObject.transform.position;
+        movementLocked = false;
+        //Debug.Log("unlocked") ;
+    }
 }

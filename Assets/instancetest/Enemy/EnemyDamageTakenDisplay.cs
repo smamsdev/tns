@@ -11,12 +11,12 @@ public class EnemyDamageTakenDisplay : MonoBehaviour
 
     private void OnEnable()
     {
-        CombatEvents.UpdateEnemyHP += ShowEnemyDamageDisplay;
+        CombatEvents.UpdateenemyHPUI += ShowEnemyDamageDisplay;
     }
 
     private void OnDisable()
     {
-        CombatEvents.UpdateEnemyHP -= ShowEnemyDamageDisplay;
+        CombatEvents.UpdateenemyHPUI -= ShowEnemyDamageDisplay;
     }
 
     void Start()

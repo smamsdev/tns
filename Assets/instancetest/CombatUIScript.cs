@@ -25,17 +25,13 @@ public class CombatUIScript : MonoBehaviour
     public int firstMoveIs;
     public int secondMoveIs;
 
-
-    public bool firstdMoveIsBeingDecided;
-    public bool secondMoveIsBeingDecided;
-
-    public bool firstAttackButtonIsHighlighted;
-    public bool secondAttackButtonIsHighlighted;
-
     private void OnEnable()
     {
         CombatEvents.UpdateFirstMoveDisplay += UpdateFirstMoveDisplay;
         CombatEvents.UpdateSecondMoveDisplay += UpdateSecondMoveDisplay;
+
+        secondAttackButton.GetComponent<Button>();  //to auto select attack on 2nd menu
+        firstAttackButton.GetComponent<Button>();
     }
 
     private void OnDisable()
@@ -44,91 +40,50 @@ public class CombatUIScript : MonoBehaviour
         CombatEvents.UpdateSecondMoveDisplay -= UpdateSecondMoveDisplay;
     }
 
-
-    private void Start()
-    {
-        secondAttackButton.GetComponent<Button>();  //to auto select attack on 2nd menu
-        firstAttackButton.GetComponent<Button>();
-
-        firstdMoveIsBeingDecided = false;
-        secondMoveIsBeingDecided = false;
-    }
-
     public void ShowFirstMoveMenu()
 
     {
+        CombatEvents.InputCoolDown?.Invoke(0.2f);
+        firstAttackButton.Select();
+                
+        firstMoveMenu.SetActive(true);
+        secondMoveMenu.SetActive(false);
+        targetmenu.SetActive(false);
 
-        if (firstdMoveIsBeingDecided == false)
-        {
+        CombatEvents.HighlightBodypartTarget?.Invoke(false, false, false);
 
-            while (!firstAttackButtonIsHighlighted)
-
-            {
-                firstAttackButton.Select();
-                firstAttackButtonIsHighlighted = true;
-
-            }
-
-            firstMoveMenu.SetActive(true);
-            secondMoveMenu.SetActive(false);
-
-            UpdateFirstMoveDisplay("First Move");
-            UpdateSecondMoveDisplay("Second Move");
-
-            firstdMoveIsBeingDecided = true;
-        }
-
+        UpdateFirstMoveDisplay("First Move");
+        UpdateSecondMoveDisplay("Second Move");
     }
 
     public void ShowSecondMoveMenu()
 
     {
-        while (!secondAttackButtonIsHighlighted)
+        secondAttackButton.Select();
+        CombatEvents.InputCoolDown?.Invoke(0.2f);
+        CombatEvents.HighlightBodypartTarget.Invoke(false, false, false);
 
-        {
-            secondAttackButton.Select();
-            secondAttackButtonIsHighlighted = true;
-            CombatEvents.HighlightBodypartTarget.Invoke(false, false, false);
-            UpdateSecondMoveDisplay("Second Move");
-        }
+        attackTargetMenuScript.EnableSecondMoveButtonsAgainForNextTurn();
 
-        if (secondMoveIsBeingDecided == false)
-        {
-            StartCoroutine(HideFirstMoveAfterDelay());     //makes nice colored text highlight linger
-        }
+        firstMoveMenu.SetActive(false);
+        targetmenu.SetActive(false);
+        secondMoveMenu.SetActive(true);
+        attackTargetMenuScript.targetSelected = false;
 
-        IEnumerator HideFirstMoveAfterDelay()
-
-        {
-            attackTargetMenuScript.EnableSecondMoveButtonsAgainForNextTurn();
-
-            yield return new WaitForSeconds(0.3f);
-            firstMoveMenu.SetActive(false);
-            targetmenu.SetActive(false);
-            secondMoveMenu.SetActive(true);
-            secondMoveIsBeingDecided = true;
-            attackTargetMenuScript.targetSelected = false;
-        }
+        UpdateSecondMoveDisplay("Second Move");
     }
-
-
-
-
-
 
     public void HideTargetMenu()
 
     {
         targetmenu.SetActive(false);
         attackTargetMenuScript.EnableSecondMoveButtonsAgainForNextTurn();
-
     }
 
     public void HideSecondMenu()
 
     {
         secondMoveMenu.SetActive(false);
-
     }
 
     void UpdateFirstMoveDisplay(string value)

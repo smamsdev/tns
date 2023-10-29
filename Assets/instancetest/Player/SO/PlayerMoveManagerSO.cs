@@ -27,7 +27,7 @@ public class PlayerMoveManagerSO : ScriptableObject
             moveForNarrator = "Reckless Attack!";
 
             //pot
-            CombatEvents.UpdatePlayerPotMoveMod.Invoke(0.2f,-20, false);
+            CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.2f,-20, false);
 
 
             //att
@@ -55,7 +55,7 @@ public class PlayerMoveManagerSO : ScriptableObject
             // fendScript.ShowFendText();
 
             //pot null
-            CombatEvents.UpdatePlayerPotMoveMod.Invoke(0.3f, -10, false);
+            CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.3f, -10, false);
 
 
 
@@ -76,7 +76,7 @@ public class PlayerMoveManagerSO : ScriptableObject
             CombatEvents.UpdatePlayerFendMoveMod.Invoke(0, false);
 
             //pot
-            CombatEvents.UpdatePlayerPotMoveMod.Invoke(0.8f, 0, true);
+            CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.8f, 0, true);
 
         }
 
@@ -97,7 +97,7 @@ public class PlayerMoveManagerSO : ScriptableObject
             //fendScript.ShowFendText();
 
             //pot
-            CombatEvents.UpdatePlayerPotMoveMod.Invoke(0.4f, -10, false);
+            CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.4f, -10, false);
         }
 
         if (firstMoveIs == 2 && secondMoveIs == 2)
@@ -114,7 +114,7 @@ public class PlayerMoveManagerSO : ScriptableObject
             //  fendScript.ShowFendText();
 
             //pot
-            CombatEvents.UpdatePlayerPotMoveMod.Invoke(0.2f, -15, false);
+            CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.2f, -15, false);
         }
 
         if (firstMoveIs == 2 && secondMoveIs == 3)
@@ -131,7 +131,7 @@ public class PlayerMoveManagerSO : ScriptableObject
             // playerStats.fendMoveMod = Mathf.CeilToInt(playerStats.playerFendBase * 0.4f);
 
             //pot
-            CombatEvents.UpdatePlayerPotMoveMod.Invoke(0.3f, 0, true);
+            CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.3f, 0, true);
         }
 
         //focus first
@@ -148,7 +148,7 @@ public class PlayerMoveManagerSO : ScriptableObject
             CombatEvents.UpdatePlayerFendMoveMod.Invoke(0, false);
 
             //pot
-            CombatEvents.UpdatePlayerPotMoveMod.Invoke(0.2f, 0, true);
+            CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.2f, 2, true);
         }
 
         if (firstMoveIs == 3 && secondMoveIs == 2)
@@ -164,7 +164,7 @@ public class PlayerMoveManagerSO : ScriptableObject
             // fendScript.ShowFendText();
 
             //pot
-            CombatEvents.UpdatePlayerPotMoveMod.Invoke(0.4f, 0, true);
+            CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.4f, 2, true);
         }
 
 
@@ -180,7 +180,7 @@ public class PlayerMoveManagerSO : ScriptableObject
             CombatEvents.UpdatePlayerFendMoveMod.Invoke(0, false);
 
             //pot
-            CombatEvents.UpdatePlayerPotMoveMod.Invoke(1.2f, 0, true);
+            CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(1.2f, 10, true);
         }
 
     }

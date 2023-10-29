@@ -8,6 +8,7 @@ public static class CombatEvents
 {
     //Combat Setup
     public static Action BeginBattle;
+    public static Action<bool> CameraBattleMode;
     public static Action LockPlayerMovement;
     public static Action UnlockPlayerMovement;
     public static Action<Vector2, float>UpdatePlayerPosition;
@@ -20,17 +21,15 @@ public static class CombatEvents
     public static Action<int> UpdatePlayerHPDisplay;
     public static Action<string> UpdateFirstMoveDisplay;
     public static Action<string> UpdateSecondMoveDisplay;
-
+    public static Action<float> InputCoolDown;
 
     //Enemy
-    public static Action IsEnemyDefeated;
-    public static Action EnemyIsDefeated;
     public static Action<int> EnemyAttackPower;
     public static Action GetEnemyAttackPower;
-    public static Action<int> InitializeEnemyHP;
+    public static Action<int> InitializeenemyHP;
     public static Action<int> CalculateEnemyDamageTaken;
-    public static Action<int> UpdateEnemyHP;
-    public static Action InitializePartsHP;
+    public static Action<int> UpdateenemyHPUI;
+    public static Action InitializeEnemyPartsHP;
     public static Action <int> SetEnemyBodyPartTarget;
 
     public static Action<Vector2, float> UpdateEnemyPosition;
@@ -39,11 +38,12 @@ public static class CombatEvents
     public static Action<string> UpdateTargetDisplayArmsDescription;
     public static Action<string> UpdateTargetDisplayHeadDescription;
 
+    public static Action<bool> EnemyIsDead;
 
     //Player
     public static Action<float, bool> UpdatePlayerAttackMoveMod;
     public static Action<float, bool> UpdatePlayerFendMoveMod;
-    public static Action<float, int, bool> UpdatePlayerPotMoveMod;
+    public static Action<float, int, bool> UpdatePlayerPotentialMoveCost;
     public static Action<int> UpdatePlayerPot;
     public static Action<int> InitializePlayerHP;
     public static Action<int> InitializePlayerPotDisplay;

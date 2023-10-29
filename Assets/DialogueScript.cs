@@ -7,15 +7,15 @@ public class DialogueScript : MonoBehaviour
 {
     [SerializeField] DialogueManager dialogueManager;
 
-    [SerializeField] Dialogue[] dialogue;
-    public bool dialogueCompleted;
+    public Dialogue[] dialogue;
+    public bool dialogueLaunched;
 
     public void StartDialogue()
 
     {
+        dialogue[0].dialogueGameObjectID = this.gameObject.name;
         dialogueManager.OpenDialogue(dialogue);
-        dialogueCompleted = true;
-
+        dialogueLaunched = true;
     }
 }
 
@@ -30,5 +30,6 @@ public class Dialogue
     public Vector2 dialogueFinalPosition;
     [HideInInspector] public Transform actorPosition;
     [HideInInspector] public GameObject dialogueBoxGameObject;
+    [HideInInspector] public string dialogueGameObjectID;
 }
 

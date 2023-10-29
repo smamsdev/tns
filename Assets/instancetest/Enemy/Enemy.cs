@@ -1,35 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public enum Target {body, arms, head};
 
 public class Enemy : MonoBehaviour
 {
+    [Header("")]
+    public string enemyName;
+    [Header("")]
     public int enemyHP;
+
+    [Header("")]
     public int enemyAttack;
     public int enemyAttackTotal;
-    public string enemyName;
+
+    [Header("")]
+    public int enemyXP;
+
+    [Header("Parts")]
     public int enemyBodyHP;
     public int enemyArmsHP;
     public int enemyHeadHP;
 
+    [Header("Misc")]
     public int damageReceivedInjuryBonus;
     public int totalDamage;
-
     public Target targetIs;
-
     public int injuryPenalty;
 
-
     SpriteRenderer spriteRenderer;
+    public GameObject battleSprites;
 
     private void OnEnable()
     {
         CombatEvents.CalculateEnemyDamageTaken += CalculateEnemyDamageTaken;
-        CombatEvents.UpdateEnemyHP += UpdateEnemyHP;
-        CombatEvents.IsEnemyDefeated += CheckForEnemyDefeated;
         CombatEvents.GetEnemyAttackPower += SendEnemyRawAttackPowerIS;
         CombatEvents.SetEnemyBodyPartTarget += SetEnemyBodyPartTarget;
     }
@@ -37,8 +40,6 @@ public class Enemy : MonoBehaviour
     private void OnDisable()
     {
         CombatEvents.CalculateEnemyDamageTaken -= CalculateEnemyDamageTaken;
-        CombatEvents.UpdateEnemyHP += UpdateEnemyHP;
-        CombatEvents.IsEnemyDefeated -= CheckForEnemyDefeated;
         CombatEvents.GetEnemyAttackPower += SendEnemyRawAttackPowerIS;
         CombatEvents.SetEnemyBodyPartTarget += SetEnemyBodyPartTarget;
     }
@@ -47,7 +48,6 @@ public class Enemy : MonoBehaviour
     {
         injuryPenalty = 0;
         damageReceivedInjuryBonus = 0;
-
     }
 
     public void CalculateEnemyDamageTaken(int value)
@@ -64,7 +64,6 @@ public class Enemy : MonoBehaviour
 
         {
             totalDamage = Mathf.CeilToInt((value * 0.6f) + damageReceivedInjuryBonus);
-
             enemyArmsHP = Mathf.Clamp(enemyArmsHP - value, 0, 9999);
             injuryPenalty += Mathf.CeilToInt(value * 0.1f);
         }
@@ -79,38 +78,39 @@ public class Enemy : MonoBehaviour
         if (enemyBodyHP == 0)
         {
             damageReceivedInjuryBonus = value;
-            this.transform.GetChild(3).GetChild(0).gameObject.SetActive(false);
-
+            battleSprites.transform.GetChild(0).gameObject.SetActive(false);
         }
 
         if (enemyArmsHP == 0)
         {
             injuryPenalty = enemyAttack / 2;
-            this.transform.GetChild(3).GetChild(2).gameObject.SetActive(false);
-
-
+            battleSprites.transform.GetChild(2).gameObject.SetActive(false);
         }
 
         if (enemyHeadHP == 0)
         {
             injuryPenalty = enemyAttack / 2;
-            this.transform.GetChild(3).GetChild(4).gameObject.SetActive(false);
-
+            battleSprites.transform.GetChild(4).gameObject.SetActive(false);
         }
 
-        CombatEvents.UpdateEnemyHP.Invoke(totalDamage);
-
+        UpdateenemyHP(totalDamage);
     }
 
-    void UpdateEnemyHP(int value)
+    void UpdateenemyHP(int value)
     {
-        enemyHP = Mathf.Clamp(enemyHP - value, 0, 9999);
-    }
+        enemyHP = enemyHP - value;
 
-    public void CheckForEnemyDefeated()
-    {
+        CombatEvents.UpdateenemyHPUI.Invoke(totalDamage);
+
         if (enemyHP <= 0)
-        { CombatEvents.EnemyIsDefeated.Invoke();
+        {
+            CombatEvents.EnemyIsDead.Invoke(true);
+
+            var foundAnimators = FindObjectsOfType<Animator>();
+            foreach (Animator animator in foundAnimators)
+            { 
+                animator.enabled = false;
+            }
         }
     }
 

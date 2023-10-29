@@ -47,39 +47,28 @@ public class AttackTargetMenuScript : MonoBehaviour
         targetIsSet = 0;
     }
 
-    public void DisplayAttackTargetMenuCoRoutine() //coroutine to stop the menu select glitching out if you pressed too fast
+    public void DisplayAttackTargetMenu() 
 
-    { StartCoroutine(DisplayAttackTargetMenu()); }
-
-    private IEnumerator DisplayAttackTargetMenu()
-      
     {
+        CombatEvents.InputCoolDown?.Invoke(0.1f);
 
-
-        if (targetSelected == false) 
-   
+        if (targetSelected == false)
         {
             attackTargetMenu.SetActive(true);
             targetDisplayContainerObj.SetActive(true);
             aimBodyButton.Select();
 
-            yield return new WaitForSeconds(0.3f);
-
             CombatEvents.HighlightBodypartTarget.Invoke(true, false, false);
-
-
-
-            CombatEvents.UpdateNarrator.Invoke("Select Target");
 
             //disable the buttons from 2nd move  menu
             secondAttackButton.interactable = false;
             secondDefButton.interactable = false;
             secondFocButton.interactable = false;
             secondEquipButton.interactable = false;
-
-            targetSelected = true;   
-        } 
+            targetSelected = true;
+        }
     }
+
 
     public void TargetBody()
 

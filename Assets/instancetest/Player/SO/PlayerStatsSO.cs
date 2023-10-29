@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Events;
 using System;
+using UnityEngine.PlayerLoop;
 
 [CreateAssetMenu]
 
@@ -16,9 +17,9 @@ public class PlayerStatsSO : ScriptableObject
         CombatEvents.UpdatePlayerFendMoveMod += UpdatePlayerFendMoveMod;
         CombatEvents.UpdatePlayerAttackMoveMod += UpdatePlayerAttackMoveMod;
         CombatEvents.UpdatePlayerHP += UpdatePlayerHP;
-        CombatEvents.UpdatePlayerPotMoveMod += UpdatePlayerFocusMoveMod;
-        CombatEvents.UpdatePlayerPot += PlayerPotChange;
-
+        CombatEvents.UpdatePlayerPotentialMoveCost += UpdatePlayerPotentialMoveCost;
+        CombatEvents.UpdatePlayerPot += UpdatePlayerPot;
+        FieldEvents.HasBeenDefeated += UpdateXP;
     }
 
     private void OnDisable()
@@ -26,64 +27,86 @@ public class PlayerStatsSO : ScriptableObject
         CombatEvents.UpdatePlayerFendMoveMod -= UpdatePlayerFendMoveMod;
         CombatEvents.UpdatePlayerAttackMoveMod += UpdatePlayerAttackMoveMod;
         CombatEvents.UpdatePlayerHP -= UpdatePlayerHP;
-        CombatEvents.UpdatePlayerPotMoveMod -= UpdatePlayerFocusMoveMod;
-        CombatEvents.UpdatePlayerPot -= PlayerPotChange;
+        CombatEvents.UpdatePlayerPotentialMoveCost -= UpdatePlayerPotentialMoveCost;
+        CombatEvents.UpdatePlayerPot -= UpdatePlayerPot;
+        FieldEvents.HasBeenDefeated -= UpdateXP;
     }
 
     [Header("HP")]
     public int playerCurrentHP;
     public int playerMaxHP;
     int baseMaxCurrentHP = 100;
-    int basePlayerMaxHP = 100;
+    int defaultPlayerMaxHP = 100;
 
     [Header("Fend")]
     public int playerFend;
     [SerializeField] float fendMoveMod;
     [SerializeField] int fendBase;
-    int basePlayerFendBase = 8;
+
     [SerializeField] float fendPotMod;
 
     [Header("Power")]
     public int attackPower;
     [SerializeField] float attackPowerMoveMod;
     [SerializeField] int attackPowerBase;
-    public int basePlayerAttackPowerBase = 8;
+
     [SerializeField] float attackPowerPotMod;
-    int basePlayerAttackPowerMoveMod = 0;
+
 
     [Header("Potential")]
     [SerializeField] int playerCurrentPotential;
     [SerializeField] int playerMaxPotential;
     [SerializeField] int playerFocusbase;
-    int basePlayerFocusbase = 10;
-    int basePlayerFocusMoveMod = 0;
-    public float playerFocusMoveMod;
-    int basePlayerCurrentPotential = 50;
-    int basePlayerMaxPotential = 100;
 
-    [Header("Other")]
+
+    public float playerPotentialMoveCost;
+    int defaultPlayerCurrentPotential = 50;
+    int defaultPlayerMaxPotential = 100;
+
+    [Header("Exp")]
+    public int level;
+    public int XP;
+    public int XPThreshold;
+    public int XPremainder;
+
+    [Header("Other, careful with these")]
     [SerializeField] Vector2 position;
+    public int defaultXPThreshold;
+    public int defaultPlayerAttackPowerBase = 8;
+    [SerializeField] int defaultPlayerFendBase = 8;
+    [SerializeField] int defaultPlayerFocusbase = 10;
+    [SerializeField] int playerFocusbaseChange;
+    [SerializeField] int attackPowerBaseChange;
+    [SerializeField] int fendBaseChange;
+
 
     public void InitalisePlayerStats()
     {
-        playerCurrentHP = baseMaxCurrentHP;
+        playerCurrentHP = defaultPlayerMaxHP;
+        playerMaxHP = defaultPlayerMaxHP;
+        fendBase = defaultPlayerFendBase;
+
+        attackPowerBase = defaultPlayerAttackPowerBase;
+
+        playerCurrentPotential = defaultPlayerCurrentPotential;
+        playerMaxPotential = defaultPlayerMaxPotential;
+
+        playerFocusbase = defaultPlayerFocusbase;
+
+        playerPotentialMoveCost = 0;
+
+        attackPowerBaseChange = 0;
+        fendBaseChange = 0;
+        playerFocusbaseChange = 0;
 
 
-        attackPowerBase = basePlayerAttackPowerBase;
-        attackPowerMoveMod = basePlayerAttackPowerMoveMod;
 
-        playerMaxHP = basePlayerMaxHP;
-        fendBase = basePlayerFendBase;
+        XPremainder = 0;
+        XPThreshold = defaultXPThreshold + (level * 30);
 
-        playerCurrentPotential = basePlayerCurrentPotential;
-        playerMaxPotential = basePlayerMaxPotential;
-
-        playerFocusbase = basePlayerFocusbase;
-        playerFocusMoveMod = basePlayerFocusMoveMod;
 
         TotalPlayerMovePower();
-        CombatEvents.InitializePlayerPotDisplay.Invoke(playerCurrentPotential);
-
+        CombatEvents.InitializePlayerPotDisplay?.Invoke(playerCurrentPotential);
     }
 
     public void CheckForPotPunishment()
@@ -114,7 +137,7 @@ public class PlayerStatsSO : ScriptableObject
     public void UpdatePlayerAttackMoveMod(float moveModMultiplier, bool isAttack)
     { if (isAttack)
         { attackPowerMoveMod = attackPowerBase * moveModMultiplier; }
-    else { attackPowerMoveMod -= attackPowerBase; }
+    else { attackPowerMoveMod = -attackPowerBase; }
 
         TotalPlayerMovePower();
     }
@@ -132,26 +155,29 @@ public class PlayerStatsSO : ScriptableObject
         TotalPlayerMovePower();
     }
 
-    public void UpdatePlayerFocusMoveMod(float moveModMultiplier, int focusMoveCost, bool isFocus)
+    public void UpdatePlayerPotentialMoveCost(float moveModMultiplier, int focusMoveCost, bool isFocus)
     {
         if (isFocus)
-        { playerFocusMoveMod = playerFocusbase * moveModMultiplier;
+        { playerPotentialMoveCost = (playerFocusbase * moveModMultiplier) + focusMoveCost;
 
-            playerFocusbase++;
-            attackPowerBase++;
-            fendBase++;
+            playerFocusbaseChange++;
+            attackPowerBaseChange++;
+            fendBaseChange++;
         }
         else 
         { 
-            playerFocusMoveMod = focusMoveCost + (playerFocusbase * moveModMultiplier);            
+            playerPotentialMoveCost = focusMoveCost + (playerFocusbase * moveModMultiplier);
         }
 
-        CombatEvents.UpdatePlayerPot.Invoke(Mathf.CeilToInt(playerFocusMoveMod));
     }
 
-    public void PlayerPotChange(int value)
+    public void UpdatePlayerPot(int value)
     {
         playerCurrentPotential = Mathf.Clamp(playerCurrentPotential+value, 0, 100);
+        
+        playerFocusbase += playerFocusbaseChange;
+        attackPowerBase += attackPowerBaseChange;
+        fendBase += fendBaseChange;
     }
 
      void UpdatePlayerHP(int value)
@@ -165,7 +191,33 @@ public class PlayerStatsSO : ScriptableObject
     {
         attackPowerMoveMod = 0;
         fendMoveMod = 0;
-        playerFocusMoveMod = 0;
+        playerPotentialMoveCost = 0;
+    }
+
+    public void LevelUp()
+    {
+        defaultPlayerFendBase = defaultPlayerFendBase + Mathf.CeilToInt(defaultPlayerFendBase * 0.02f);
+        defaultPlayerAttackPowerBase = defaultPlayerAttackPowerBase + Mathf.CeilToInt(defaultPlayerAttackPowerBase * 0.02f);
+        defaultPlayerFocusbase = defaultPlayerFocusbase + Mathf.CeilToInt(defaultPlayerAttackPowerBase * 0.02f);
+        level++;
+
+        XP = 0 + XPremainder;
+        Debug.Log("LEVELUP");
+    }
+
+    public void UpdateXP(GameObject gameObject)
+    {
+        var enemy = gameObject.transform.GetChild(0).GetComponent<Enemy>();
+        XP += enemy.enemyXP;
+        XPremainder = XP - XPThreshold;
+
+        if (XPThreshold <= XP)
+
+        {
+            LevelUp();
+        }
+
+        InitalisePlayerStats();
     }
 
 }

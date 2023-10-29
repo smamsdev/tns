@@ -14,16 +14,6 @@ public class EnemyLoader : MonoBehaviour
     GameObject enemyInstance;
     bool enemyIsInstantiated = false;
 
-    private void OnEnable()
-    {
-        CombatEvents.EnemyIsDefeated += DestroyEnemy;
-    }
-
-    private void OnDisable()
-    {
-        CombatEvents.EnemyIsDefeated -= DestroyEnemy;
-    }
-
         private void Start()
     {
        // SpawnEnemy();
@@ -45,9 +35,9 @@ public class EnemyLoader : MonoBehaviour
         enemy.enemyArmsHP = enemyBaseStats.enemyArmsHP;
         enemy.enemyHeadHP = enemyBaseStats.enemyHeadHP;
 
-        CombatEvents.InitializePartsHP.Invoke();
+        CombatEvents.InitializeEnemyPartsHP.Invoke();
 
-        CombatEvents.InitializeEnemyHP.Invoke(enemy.enemyHP);
+        CombatEvents.InitializeenemyHP.Invoke(enemy.enemyHP);
 
     }
 
