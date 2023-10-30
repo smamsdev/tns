@@ -33,7 +33,7 @@ public class DialogueManager : MonoBehaviour
 
         dialogueBox.DisplayMessage(dialogue[dialogueElement]);
         FieldEvents.DialogueEvent?.Invoke(dialogue[dialogueElement].dialogueGameObjectID, dialogueElement, false);
-        StartCoroutine(CoolDown());
+        StartCoroutine(FieldEvents.CoolDown(0.3f));
     }
 
     public void SpawnDialogueBox()
@@ -47,19 +47,12 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && dialogueIsActive == true &! isCoolDown)
+        if (Input.GetKeyDown(KeyCode.Space) && dialogueIsActive == true &! FieldEvents.isCooldown())
 
         {
             StartCoroutine(NextMessage());
-            StartCoroutine(CoolDown());
+            StartCoroutine(FieldEvents.CoolDown(0.3f));
         }
-    }
-
-    IEnumerator CoolDown()
-    {
-        isCoolDown = true;
-        yield return new WaitForSeconds(0.3f);
-        isCoolDown = false;
     }
 
     public IEnumerator NextMessage()
@@ -68,43 +61,35 @@ public class DialogueManager : MonoBehaviour
 
         if (dialogueElement == (dialogue.Length-1))
         {
-            StartCoroutine(CoolDown());
+            dialogueElement++;
+            StartCoroutine(FieldEvents.CoolDown(0.3f));
             CombatEvents.UnlockPlayerMovement?.Invoke();
             dialogueIsActive = false;
             dialogueBox.animator.SetTrigger("CloseDialogue");
 
-            FieldEvents.DialogueEvent?.Invoke(dialogueGameObjectID, dialogueElement+1, true);
             yield return new WaitForSeconds(0.3f);
 
+            FieldEvents.DialogueEvent?.Invoke(dialogueGameObjectID, dialogueElement, true);
 
-            DestroyDialogueBox();
+            dialogueElement = -1; //just set it to something negative so we know it's cooked
 
-            dialogueElement++;
         }
 
-        if (dialogueElement < dialogue.Length)
+        if (dialogueElement < dialogue.Length && dialogueElement != -1)
          {
             dialogueBox.animator.SetTrigger("CloseDialogue");
 
             yield return new WaitForSeconds(0.3f);
 
-            DestroyDialogueBox();
             dialogueElement++;
-
             SpawnDialogueBox();
 
             FieldEvents.DialogueEvent?.Invoke(dialogueGameObjectID, dialogueElement, false);
             dialogueBox.DisplayMessage(dialogue[dialogueElement]);
         }
-
-
     }
 
-    public void DestroyDialogueBox()
-
-    {
-        Destroy(dialogue[dialogueElement].dialogueBoxGameObject);
-    }
+ 
 
 }
 

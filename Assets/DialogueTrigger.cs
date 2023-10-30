@@ -4,60 +4,31 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-
-    DialogueScript dialogueToPlay;
-    [SerializeField] DialogueScript firstDialogueScript;
-    [SerializeField] DialogueScript secondDialogueScript;
-    bool isChainDialogueMode;
-
-    [SerializeField] PlayerMovementScript playerMovementScript;
+    public DialogueContainer dialogueToPlay;
 
     private void OnEnable()
     {
-        FieldEvents.DialogueEvent += DialogueEvent;
+        FieldEvents.PlayerRayCastHit += PlayerRayCastHit;
     }
 
     private void OnDisable()
     {
-        FieldEvents.DialogueEvent -= DialogueEvent;
+        FieldEvents.PlayerRayCastHit -= PlayerRayCastHit;
     }
 
     private void Start()
     {
-        dialogueToPlay = firstDialogueScript;
+        dialogueToPlay = this.transform.GetChild(0).gameObject.GetComponent<DialogueContainer>();
     }
 
-    private void Update()
-    {
-
-       if (playerMovementScript.hit.collider != null && playerMovementScript.hit.collider.tag == "Vegeta" && !dialogueToPlay.dialogueLaunched && !isChainDialogueMode)
-    
-       { dialogueToPlay.StartDialogue(); }
-    }
-
-    public void DialogueEvent(string ID, int dialogueElement, bool isDialogueComplete)
+    void PlayerRayCastHit(RaycastHit2D raycastHit2D)
 
     {
-
-        if (ID == "1stDialogue" && isDialogueComplete)
-
+        if (raycastHit2D.collider.tag == this.transform.parent.gameObject.tag && !dialogueToPlay.dialogueLaunched && !FieldEvents.isCooldown())    
         {
-            isChainDialogueMode = true;
-            dialogueToPlay = secondDialogueScript;
-            StartCoroutine(PlayDialogue(secondDialogueScript));
+            StartCoroutine(FieldEvents.CoolDown(0.3f));
+            dialogueToPlay.StartDialogue(); 
         }
-
-        else { isChainDialogueMode = false; }
-    }
-
-    IEnumerator PlayDialogue(DialogueScript _dialogueToPlay)
-
-    {
-        yield return new WaitForSeconds(0.01f);
-        CombatEvents.LockPlayerMovement?.Invoke();
-        yield return new WaitForSeconds(0.5f);
-        dialogueToPlay = _dialogueToPlay;
-        dialogueToPlay.StartDialogue();
     }
 
 }

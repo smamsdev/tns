@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SceneScript : MonoBehaviour
 {
-    public DialogueScript[] Dialogue;
+    public DialogueContainer[] Dialogue;
+    public DialogueContainer[] DialogueTriggerReload;
     public Act[] Act;
     public GameObject[] Battles;
 
@@ -38,13 +39,14 @@ public class SceneScript : MonoBehaviour
     IEnumerator HasBeenDefeatedCoRoutine(GameObject enemyGameObject)
 
     {
-
         if (enemyGameObject == Battles[0].GetComponent<CombatManagerV3>().enemyGameObject)
 
         {
-            Act[2].StartAct();
+            Act[1].StartAct();
             yield return new WaitForSeconds(3);
-            Dialogue[0].StartDialogue();
+
+            StartCoroutine(ChainNewDialogue(Dialogue[0]));
+
         }
     }
 
@@ -52,11 +54,24 @@ public class SceneScript : MonoBehaviour
     public void DialogueEvent(string ID, int dialogueElement, bool isDialogueComplete)
 
     {
+          if (ID == "1stDialogue" && isDialogueComplete)
+
+        {
+
+            StartCoroutine(ChainNewDialogue(Dialogue[2]));
+        }
+
         if (ID == "2ndDialogue" && isDialogueComplete) 
         
         {
             var battle = Battles[0].GetComponentInChildren<CombatManagerV3>();
             battle.SetBattleSetupBattle(); 
+        }
+
+        if (ID == "DefeatedDialogue" && isDialogueComplete)
+
+        {
+            DialogueReload(DialogueTriggerReload[0]);
         }
     }
 
@@ -68,11 +83,27 @@ public class SceneScript : MonoBehaviour
 
     void ActorActionHasCompleted(string ID, bool isCompleted)
     {
-        if (ID == "PlayerEnter" && isCompleted) 
+        if (ID == "PlayerEnter"  && isCompleted) 
         
-        { 
-            Act[1].StartAct();
-        }
+        { Dialogue[1].StartDialogue(); }
+    }
+
+    void DialogueReload (DialogueContainer dialogueToReload) 
+    
+    {
+        var actorDialogueTrigger = dialogueToReload.transform.parent.gameObject.GetComponent<DialogueTrigger>();
+        actorDialogueTrigger.dialogueToPlay = dialogueToReload;
+    }
+
+    IEnumerator ChainNewDialogue(DialogueContainer dialogue)
+
+    {
+        var actorDialogue = dialogue.transform.parent.gameObject.GetComponent<DialogueTrigger>();
+        actorDialogue.dialogueToPlay = dialogue;
+
+        yield return new WaitForSeconds(0.01f); //i forget why but it breaks if you dont put this
+        actorDialogue.dialogueToPlay.StartDialogue();
+
     }
 }
 

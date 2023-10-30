@@ -56,5 +56,6 @@ public class DialogueBox : MonoBehaviour
         }
     }
 
+    public void DestoryDialogueBox() { Destroy(this.gameObject); }
 }
 

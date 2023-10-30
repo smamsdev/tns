@@ -2,16 +2,34 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public static class FieldEvents
 {
 
+    static bool isCoolDownBool;
+
     public static Action<string, int, bool> DialogueEvent;
     public static Action<string, bool> ActorActionHasStarted;
     public static Action<string, bool> ActorActionHasCompleted;
     public static Action<GameObject> HasBeenDefeated;
+    public static Action<RaycastHit2D> PlayerRayCastHit;
 
+    public static bool isCooldown()
 
+    {
+        return isCoolDownBool; 
+    }
+    
+    
+    public static IEnumerator CoolDown(float seconds)
+    {
+        isCoolDownBool = true;
+        yield return new WaitForSeconds(seconds);
+        isCoolDownBool = false;
+        isCooldown();
+    }
 
+        
 }

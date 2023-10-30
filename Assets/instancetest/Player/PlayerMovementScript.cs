@@ -8,7 +8,7 @@ public class PlayerMovementScript : MonoBehaviour
 {
 
     public Rigidbody2D playerRigidBody2d;
-    public RaycastHit2D hit;
+    public RaycastHit2D raycastHit2D;
     public Vector2 playerPosition;
 
     float myHorizontalInput;
@@ -71,8 +71,11 @@ public class PlayerMovementScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            hit = Physics2D.Raycast(playerPosition , lookDirection, 0.4f, LayerMask.GetMask("NPC"));
-
+            raycastHit2D = Physics2D.Raycast(playerPosition , lookDirection, 0.4f, LayerMask.GetMask("NPC"));
+            if (raycastHit2D.collider != null)
+            {
+                FieldEvents.PlayerRayCastHit?.Invoke(raycastHit2D);  
+            }
         }
     }
 
