@@ -14,7 +14,10 @@ public class PlayerMovementScript : MonoBehaviour
     float myHorizontalInput;
     float myVerticallInput;
 
+    public bool isWalkwayBoost;
+
     public float movementSpeed = 1.75f;
+    public float baseMovementSpeed;
 
     public bool movementLocked = false;
 
@@ -27,6 +30,7 @@ public class PlayerMovementScript : MonoBehaviour
         CombatEvents.UpdatePlayerPosition += UpdatePlayerPosition;
         CombatEvents.LockPlayerMovement += LockPlayerMovement;
         CombatEvents.UnlockPlayerMovement += UnlockPlayerMovement;
+        FieldEvents.IsWalkwayBoost += IsWalkwayBoost;
     }
 
     private void OnDisable()
@@ -34,6 +38,7 @@ public class PlayerMovementScript : MonoBehaviour
         CombatEvents.UpdatePlayerPosition -= UpdatePlayerPosition;
         CombatEvents.LockPlayerMovement -= LockPlayerMovement;
         CombatEvents.UnlockPlayerMovement -= UnlockPlayerMovement;
+        FieldEvents.IsWalkwayBoost -= IsWalkwayBoost;
     }
 
 
@@ -42,20 +47,22 @@ public class PlayerMovementScript : MonoBehaviour
     {
         playerPosition = playerRigidBody2d.position;
         playerRigidBody2d = GetComponent<Rigidbody2D>();
+        baseMovementSpeed = movementSpeed;
     }
 
     void FixedUpdate()
     {
         if (!movementLocked) 
         {
-        playerRigidBody2d.MovePosition(playerPosition);
-
+        Vector2 movePosition = playerRigidBody2d.position;
         myHorizontalInput = Input.GetAxis("Horizontal");
         myVerticallInput = Input.GetAxis("Vertical");
 
-        playerPosition.x = playerPosition.x + movementSpeed * myHorizontalInput * Time.deltaTime;
-        playerPosition.y = playerPosition.y + movementSpeed * myVerticallInput * Time.deltaTime;
+        movePosition.x = movePosition.x + movementSpeed * myHorizontalInput * Time.deltaTime;
+        movePosition.y = movePosition.y + movementSpeed * myVerticallInput * Time.deltaTime;
 
+        playerRigidBody2d.MovePosition(movePosition);
+        playerPosition = movePosition;
         } 
     }
 
@@ -71,11 +78,19 @@ public class PlayerMovementScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            raycastHit2D = Physics2D.Raycast(playerPosition , lookDirection, 0.4f, LayerMask.GetMask("NPC"));
+            this.GetComponent<BoxCollider2D>().enabled = false;
+
+
+            raycastHit2D = Physics2D.BoxCast(gameObject.transform.position, new Vector2(0.2f, 0.5f), 0f, lookDirection, 0.10f, Physics.AllLayers);
+
             if (raycastHit2D.collider != null)
+
+
             {
-                FieldEvents.PlayerRayCastHit?.Invoke(raycastHit2D);  
+                FieldEvents.PlayerRayCastHit?.Invoke(raycastHit2D);
             }
+
+            this.GetComponent<BoxCollider2D>().enabled = true;
         }
     }
 
@@ -100,10 +115,6 @@ public class PlayerMovementScript : MonoBehaviour
                  playerObject.transform.position = end;
             }
 
-
-
-
-
     public void LockPlayerMovement()
 
     {
@@ -118,4 +129,33 @@ public class PlayerMovementScript : MonoBehaviour
         movementLocked = false;
         //Debug.Log("unlocked") ;
     }
+
+    void IsWalkwayBoost(bool _isWalkwayBoost, float _speedBonus)
+
+    {
+        isWalkwayBoost = _isWalkwayBoost;
+
+        if (isWalkwayBoost)
+
+        {
+            float SpeedBonus = _speedBonus;
+
+            float boostedMovementSpeed = baseMovementSpeed + (baseMovementSpeed * SpeedBonus);
+
+            movementSpeed = boostedMovementSpeed;
+
+        }
+
+        if (!isWalkwayBoost)
+
+        {
+            movementSpeed = baseMovementSpeed;          
+        }
+
+  
+    }
+
+
+
+
 }

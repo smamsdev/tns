@@ -9,6 +9,7 @@ public class CameraFollow : MonoBehaviour
     public float xOffset;
     public float yOffset;
     public bool battleModeOn;
+    public Vector3 newPos;
 
     float floatValueFromCoRoutine;
     float testFloat;
@@ -23,10 +24,16 @@ public class CameraFollow : MonoBehaviour
         CombatEvents.CameraBattleMode -= CameraBattleMode;
     }
 
+    private void Start()
+    {
+        transform.position = new Vector3(playerTransform.position.x, playerTransform.position.y, (playerTransform.position.z - 10));
+       // newPos = new Vector3(playerTransform.position.x, playerTransform.position.y, (playerTransform.position.z - 10));
+    }
+
     private void FixedUpdate()
     {
-        Vector3 newPos = new Vector3(playerTransform.position.x + xOffset, playerTransform.position.y + yOffset, -10f);
-        transform.position = Vector3.Slerp(transform.position, newPos, cameraSpeed*Time.deltaTime);
+       newPos = new Vector3(playerTransform.position.x + xOffset, playerTransform.position.y + yOffset, -10f);
+       transform.position = Vector3.Slerp(transform.position, newPos, cameraSpeed*Time.deltaTime);
     }
 
 

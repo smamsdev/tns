@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
+
     public DialogueContainer dialogueToPlay;
+
+    public DialogueReload[] dialogueReloads;
 
     private void OnEnable()
     {
         FieldEvents.PlayerRayCastHit += PlayerRayCastHit;
+        FieldEvents.HasCompleted += ReloadDialogue;
     }
 
     private void OnDisable()
     {
         FieldEvents.PlayerRayCastHit -= PlayerRayCastHit;
+        FieldEvents.HasCompleted -= ReloadDialogue;
     }
 
     private void Start()
@@ -24,11 +29,45 @@ public class DialogueTrigger : MonoBehaviour
     void PlayerRayCastHit(RaycastHit2D raycastHit2D)
 
     {
-        if (raycastHit2D.collider.tag == this.transform.parent.gameObject.tag && !dialogueToPlay.dialogueLaunched && !FieldEvents.isCooldown())    
+        if (raycastHit2D.collider.gameObject == this.transform.parent.gameObject && !dialogueToPlay.dialogueLaunched && !FieldEvents.isCooldown() && !FieldEvents.isDialogueActive)    
         {
             StartCoroutine(FieldEvents.CoolDown(0.3f));
-            dialogueToPlay.StartDialogue(); 
+            dialogueToPlay.OpenDialogue();
         }
     }
 
+    public void ReloadDialogue(GameObject gameObject)
+
+    {
+        if (gameObject == dialogueToPlay.dialogue[0].dialogueGameObject)
+     
+           if (dialogueToPlay.isLoopedDialogue)
+           {
+               dialogueToPlay.dialogueLaunched = false;
+           }
+     
+       if (dialogueReloads.Length > 0)
+    
+              for (int i = 0; i < dialogueReloads.Length; i++)
+              {
+                  if (gameObject == dialogueReloads[i].dialogueToTrigger.dialogue[0].dialogueGameObject)
+    
+                  {
+                      dialogueToPlay = dialogueReloads[i].dialogueToReplace;
+                  }
+              }
+    }
+
 }
+
+[System.Serializable]
+
+public class DialogueReload
+
+{
+    public DialogueContainer dialogueToTrigger;
+    public DialogueContainer dialogueToReplace;
+
+
+}
+

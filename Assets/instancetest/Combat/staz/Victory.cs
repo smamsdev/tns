@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Victory : State
 {
@@ -13,6 +14,7 @@ public class Victory : State
     {
         combatManagerV3.enemyGameObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
         combatManagerV3.enemyGameObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+        combatManagerV3.enemyGameObject.GetComponent<SortingGroup>().enabled = true;
 
         combatManagerV3.transform.GetChild(0).GetChild(0).gameObject.SetActive(false); //combat menu container
         combatManagerV3.transform.GetChild(0).GetChild(1).gameObject.SetActive(false); //player stats container

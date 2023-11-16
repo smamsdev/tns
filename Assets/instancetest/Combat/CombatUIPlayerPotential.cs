@@ -16,26 +16,27 @@ public class CombatUIPlayerPotential : MonoBehaviour
 
     private void OnEnable()
     {
-        CombatEvents.UpdatePlayerPot += PlayerPotChange;
-        CombatEvents.InitializePlayerPotDisplay += InitializePlayerPotDisplay;
+        CombatEvents.UpdatePlayerPotOnUI += UpdatePlayerPotOnUI;
+        CombatEvents.InitializePlayerPotUI += InitializePlayerPotUI;
     }
 
     private void OnDisable()
     {
-        CombatEvents.UpdatePlayerPot -= PlayerPotChange;
-        CombatEvents.InitializePlayerPotDisplay -= InitializePlayerPotDisplay;
+        CombatEvents.UpdatePlayerPotOnUI -= UpdatePlayerPotOnUI;
+        CombatEvents.InitializePlayerPotUI -= InitializePlayerPotUI;
     }
 
-    public void InitializePlayerPotDisplay(int value)
+    public void InitializePlayerPotUI(int value)
     {
         playerCurrentPotential = value;
         textMeshProUGUI.text = "Potential: " + playerCurrentPotential.ToString();
+
     }
 
 
-    public void PlayerPotChange(int value)
+    public void UpdatePlayerPotOnUI(int value)
     {
-        playerCurrentPotential = Mathf.Clamp(playerCurrentPotential + value, 0, 100);
+        playerCurrentPotential = value;
         textMeshProUGUI.text = "Potential: " + playerCurrentPotential.ToString();
     }
 

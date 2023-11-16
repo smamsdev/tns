@@ -104,9 +104,10 @@ public class PlayerStatsSO : ScriptableObject
         XPremainder = 0;
         XPThreshold = defaultXPThreshold + (level * 30);
 
-
         TotalPlayerMovePower();
-        CombatEvents.InitializePlayerPotDisplay?.Invoke(playerCurrentPotential);
+        CombatEvents.InitializePlayerPotUI?.Invoke(playerCurrentPotential);
+
+
     }
 
     public void CheckForPotPunishment()
@@ -178,6 +179,8 @@ public class PlayerStatsSO : ScriptableObject
         playerFocusbase += playerFocusbaseChange;
         attackPowerBase += attackPowerBaseChange;
         fendBase += fendBaseChange;
+
+        CombatEvents.UpdatePlayerPotOnUI(playerCurrentPotential);
     }
 
      void UpdatePlayerHP(int value)
@@ -198,7 +201,7 @@ public class PlayerStatsSO : ScriptableObject
     {
         defaultPlayerFendBase = defaultPlayerFendBase + Mathf.CeilToInt(defaultPlayerFendBase * 0.02f);
         defaultPlayerAttackPowerBase = defaultPlayerAttackPowerBase + Mathf.CeilToInt(defaultPlayerAttackPowerBase * 0.02f);
-        defaultPlayerFocusbase = defaultPlayerFocusbase + Mathf.CeilToInt(defaultPlayerAttackPowerBase * 0.02f);
+        defaultPlayerFocusbase = defaultPlayerFocusbase + Mathf.CeilToInt(defaultPlayerFocusbase * 0.02f);
         level++;
 
         XP = 0 + XPremainder;

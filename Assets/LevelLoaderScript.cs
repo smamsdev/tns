@@ -5,21 +5,33 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoaderScript : MonoBehaviour
 {
+    public int sceneNumber;
+    public bool rememberPosition;
+    public bool isFreshScene;
 
-    [SerializeField] Collider2D firstEnemy;
-
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("change level");
+        if (isFreshScene)
 
-        if(other.tag == "Player")
+        { FieldEvents.freshScene = true; }
+
+        if (!isFreshScene)
+
+        { FieldEvents.freshScene = false; }
+
+
+
+        if (collision.tag == "Player")
 
         {
-            SceneManager.LoadScene(0, LoadSceneMode.Single);
-                                
+            if (rememberPosition) 
+            { 
+            var playerMovementScript = GameObject.Find("player").GetComponent<PlayerMovementScript>();
+            FieldEvents.playerLastKnownPos = playerMovementScript.transform.position;
+            }
+
+            SceneManager.LoadScene(sceneNumber, LoadSceneMode.Single);
         }
-
-
     }
 
 

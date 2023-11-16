@@ -11,7 +11,6 @@ public class SceneScript : MonoBehaviour
 
     private void OnEnable()
     {
-        FieldEvents.DialogueEvent += DialogueEvent;
         FieldEvents.HasBeenDefeated += HasBeenDefeated;
         FieldEvents.ActorActionHasStarted += ActorActionHasStarted;
         FieldEvents.ActorActionHasCompleted += ActorActionHasCompleted;
@@ -19,7 +18,6 @@ public class SceneScript : MonoBehaviour
 
     private void OnDisable()
     {
-        FieldEvents.DialogueEvent -= DialogueEvent;
         FieldEvents.HasBeenDefeated -= HasBeenDefeated;
         FieldEvents.ActorActionHasStarted -= ActorActionHasStarted;
         FieldEvents.ActorActionHasCompleted -= ActorActionHasCompleted;
@@ -27,7 +25,10 @@ public class SceneScript : MonoBehaviour
 
     private void Start()
     {
-       Act[0].StartAct();
+         Act[0].StartAct();
+
+      // Battles[0].GetComponentInChildren<CombatManagerV3>().SetBattleSetupBattle();
+
     }
 
     void HasBeenDefeated(GameObject enemyGameObject)
@@ -64,14 +65,20 @@ public class SceneScript : MonoBehaviour
         if (ID == "2ndDialogue" && isDialogueComplete) 
         
         {
-            var battle = Battles[0].GetComponentInChildren<CombatManagerV3>();
-            battle.SetBattleSetupBattle(); 
+            DialogueReload(DialogueTriggerReload[1]);
+            DialogueReload(DialogueTriggerReload[2]);
         }
 
         if (ID == "DefeatedDialogue" && isDialogueComplete)
 
         {
             DialogueReload(DialogueTriggerReload[0]);
+        }
+
+        if (ID == "Larmy1stDialogue" && isDialogueComplete)
+
+        {
+            FieldEvents.objectFetched = false;
         }
     }
 
@@ -83,9 +90,9 @@ public class SceneScript : MonoBehaviour
 
     void ActorActionHasCompleted(string ID, bool isCompleted)
     {
-        if (ID == "PlayerEnter"  && isCompleted) 
-        
-        { Dialogue[1].StartDialogue(); }
+      //  if (ID == "PlayerEnter"  && isCompleted) 
+      //  
+      //  { Dialogue[1].DoAction(); }
     }
 
     void DialogueReload (DialogueContainer dialogueToReload) 
@@ -102,7 +109,7 @@ public class SceneScript : MonoBehaviour
         actorDialogue.dialogueToPlay = dialogue;
 
         yield return new WaitForSeconds(0.01f); //i forget why but it breaks if you dont put this
-        actorDialogue.dialogueToPlay.StartDialogue();
+//actorDialogue.dialogueToPlay.DoAction();
 
     }
 }

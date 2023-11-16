@@ -48,6 +48,8 @@ public class Enemy : MonoBehaviour
     {
         injuryPenalty = 0;
         damageReceivedInjuryBonus = 0;
+
+        battleSprites = this.transform.parent.gameObject.transform.GetChild(1).gameObject;
     }
 
     public void CalculateEnemyDamageTaken(int value)
@@ -106,7 +108,7 @@ public class Enemy : MonoBehaviour
         {
             CombatEvents.EnemyIsDead.Invoke(true);
 
-            var foundAnimators = FindObjectsOfType<Animator>();
+            var foundAnimators = battleSprites.GetComponentsInChildren<Animator>();
             foreach (Animator animator in foundAnimators)
             { 
                 animator.enabled = false;

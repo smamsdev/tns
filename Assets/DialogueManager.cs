@@ -10,12 +10,9 @@ public class DialogueManager : MonoBehaviour
 
     DialogueBox dialogueBox;
     public int dialogueElement;
-    string dialogueGameObjectID;
 
     public bool dialogueIsActive;
     public int dialogueLength;
-    bool isCoolDown;
-
 
     public void OpenDialogue(Dialogue[] _dialogue)
 
@@ -29,10 +26,7 @@ public class DialogueManager : MonoBehaviour
 
         dialogueIsActive = true;
         CombatEvents.LockPlayerMovement?.Invoke();
-        dialogueGameObjectID = dialogue[0].dialogueGameObjectID;
-
         dialogueBox.DisplayMessage(dialogue[dialogueElement]);
-        FieldEvents.DialogueEvent?.Invoke(dialogue[dialogueElement].dialogueGameObjectID, dialogueElement, false);
         StartCoroutine(FieldEvents.CoolDown(0.3f));
     }
 
@@ -41,7 +35,8 @@ public class DialogueManager : MonoBehaviour
     {
         dialogue[dialogueElement].dialogueBoxGameObject = Instantiate(dialogueBoxPrefab, transform);
 
-        dialogue[dialogueElement].dialogueBoxGameObject.name = dialogueGameObjectID + "Dialogue#" + dialogueElement;
+
+        dialogue[dialogueElement].dialogueBoxGameObject.name = dialogue[0].dialogueGameObject.name + "Dialogue#" + dialogueElement;
         dialogueBox = dialogue[dialogueElement].dialogueBoxGameObject.GetComponent<DialogueBox>();
     }
 
@@ -56,22 +51,29 @@ public class DialogueManager : MonoBehaviour
     }
 
     public IEnumerator NextMessage()
-
+         
     {
 
         if (dialogueElement == (dialogue.Length-1))
         {
+
             dialogueElement++;
             StartCoroutine(FieldEvents.CoolDown(0.3f));
             CombatEvents.UnlockPlayerMovement?.Invoke();
-            dialogueIsActive = false;
+
             dialogueBox.animator.SetTrigger("CloseDialogue");
+
+            dialogueElement = -1; //just set it to something negative so we know it's cooked
+            dialogueIsActive = false;
 
             yield return new WaitForSeconds(0.3f);
 
-            FieldEvents.DialogueEvent?.Invoke(dialogueGameObjectID, dialogueElement, true);
+            FieldEvents.isDialogueActive = false;
 
-            dialogueElement = -1; //just set it to something negative so we know it's cooked
+            FieldEvents.HasCompleted.Invoke(dialogue[0].dialogueGameObject);
+
+
+
 
         }
 
@@ -84,7 +86,6 @@ public class DialogueManager : MonoBehaviour
             dialogueElement++;
             SpawnDialogueBox();
 
-            FieldEvents.DialogueEvent?.Invoke(dialogueGameObjectID, dialogueElement, false);
             dialogueBox.DisplayMessage(dialogue[dialogueElement]);
         }
     }
