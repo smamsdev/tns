@@ -7,60 +7,55 @@ using UnityEngine.UIElements;
 
 public class DialogueBox : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI actorNameText;
     public TextMeshProUGUI dialogueText;
     [SerializeField] TextMeshProUGUI backgroundActorNameText;
     [SerializeField] TextMeshProUGUI backgroundDialogueText;
     public string dialogueId;
     public Animator animator;
 
+    Vector2 startPosition;
+
     public Dialogue[] dialogue;
 
- 
     public void DisplayMessage(Dialogue dialogue)
 
-
     {
-        animator.SetTrigger("OpenDialogue");
+        // if there is no end position set in the inspector, default the position to slightly above center of its GameObject
+        if (dialogue.dialogueFinalPosition.x == 0 && dialogue.dialogueFinalPosition.y == 0)
 
-        // Set the starting position for the dialogue box
-        // if there is no Actor GameObject just default to roughly the dialogue GO postion
+        {
+            dialogue.dialogueFinalPosition.x = 0;
+            dialogue.dialogueFinalPosition.y = 0.8f;
+
+        }
+
+            animator.SetTrigger("OpenDialogue");
 
         if (dialogue.actorGameObject == null)
 
         {
-            this.transform.localPosition = new Vector2(dialogue.dialogueFinalPosition.x, dialogue.dialogueFinalPosition.y);
+            startPosition = this.transform.position;
         }
-
 
         else
-        {
-            this.transform.position = dialogue.actorGameObject.transform.position;
-        }
-
-        if (dialogue.dialogueFinalPosition == Vector2.zero)
 
         {
-            this.transform.position = dialogue.dialogueDefaultTransform.position;
-            dialogue.dialogueFinalPosition = new Vector2((GetComponentInParent<Transform>().localPosition.x- dialogue.dialoguetext.Length*5), (GetComponentInParent<Transform>().localPosition.y + 325));
+            startPosition = dialogue.actorGameObject.transform.position;
         }
+            StartCoroutine(AnimateDialoguePositionCoRoutine(new Vector2((dialogue.actorGameObject.transform.position.x + dialogue.dialogueFinalPosition.x), (dialogue.actorGameObject.transform.position.y + dialogue.dialogueFinalPosition.y)), 0.4f)); ;
 
-        StartCoroutine(AnimateDialoguePositionCoRoutine(new Vector2(dialogue.dialogueFinalPosition.x, dialogue.dialogueFinalPosition.y), 0.4f)); ;
-
+        //if there is no Gameobject set in inspector, then hide the name
         if (dialogue.actorGameObject == null)
         {
             backgroundActorNameText.text = "";
-            actorNameText.text = "";
         }
 
         else
         {
             backgroundActorNameText.text = dialogue.actorGameObject.name;
-            actorNameText.text = dialogue.actorGameObject.name;
         }
 
         backgroundDialogueText.text = dialogue.dialoguetext;
-
 
         StartCoroutine(AnimateLetters(dialogue.dialoguetext, dialogueText, 0.02f));
     }
@@ -81,10 +76,10 @@ public class DialogueBox : MonoBehaviour
     public IEnumerator AnimateDialoguePositionCoRoutine(Vector2 finalPosition, float seconds)
     {
         float elapsedTime = 0;
-        Vector2 startingPos = this.transform.localPosition;
+        Vector2 startingPos = startPosition;
         while (elapsedTime < seconds)
         {
-            this.transform.localPosition = Vector2.Lerp(startingPos, finalPosition, (elapsedTime / seconds));
+            this.transform.position = Vector2.Lerp(startingPos, finalPosition, (elapsedTime / seconds));
             elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }

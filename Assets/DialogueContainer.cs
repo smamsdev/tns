@@ -16,7 +16,6 @@ public class DialogueContainer : ToTrigger
         for (int i = 0; i < dialogue.Length; i++)
         {
             dialogue[i].dialogueGameObject = gameObject;
-            dialogue[i].dialogueDefaultTransform = this.transform.parent.transform.parent.transform;
         }
 
 
@@ -34,6 +33,8 @@ public class DialogueContainer : ToTrigger
    public override IEnumerator DoAction()
 
    {
+        CombatEvents.LockPlayerMovement?.Invoke();
+
         FieldEvents.isDialogueActive = true;
 
         yield return new WaitForSeconds(0.3f);
@@ -53,10 +54,8 @@ public class Dialogue
     [HideInInspector] public string actorName;
     [TextArea(2, 5)] public string dialoguetext;
     public Vector2 dialogueFinalPosition;
-    [HideInInspector] public Transform actorPosition;
-    [HideInInspector] public GameObject dialogueBoxGameObject;
-    public GameObject dialogueGameObject;
-    [HideInInspector] public Transform dialogueDefaultTransform;
+    [HideInInspector] public Transform actorPosition; //do i need this?
+    [HideInInspector] public GameObject dialogueGameObject;
 }
 
 

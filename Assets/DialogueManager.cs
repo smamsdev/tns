@@ -6,13 +6,24 @@ public class DialogueManager : MonoBehaviour
 {
 
     Dialogue[] dialogue;
+
+    public string dialogueCurrentlyInPlay;
+
     [SerializeField] GameObject dialogueBoxPrefab;
 
     DialogueBox dialogueBox;
+
+    GameObject dialogueBoxGameObject;
+
     public int dialogueElement;
 
     public bool dialogueIsActive;
     public int dialogueLength;
+
+    private void Start()
+    {
+        FieldEvents.isDialogueActive = false;
+    }
 
     public void OpenDialogue(Dialogue[] _dialogue)
 
@@ -33,11 +44,13 @@ public class DialogueManager : MonoBehaviour
     public void SpawnDialogueBox()
 
     {
-        dialogue[dialogueElement].dialogueBoxGameObject = Instantiate(dialogueBoxPrefab, transform);
+        dialogueBoxGameObject = Instantiate(dialogueBoxPrefab, dialogue[0].dialogueGameObject.transform);
 
+        dialogueBoxGameObject.name = dialogue[0].dialogueGameObject.name + "Dialogue#" + dialogueElement;
 
-        dialogue[dialogueElement].dialogueBoxGameObject.name = dialogue[0].dialogueGameObject.name + "Dialogue#" + dialogueElement;
-        dialogueBox = dialogue[dialogueElement].dialogueBoxGameObject.GetComponent<DialogueBox>();
+        dialogueCurrentlyInPlay = dialogueBoxGameObject.name;
+
+        dialogueBox = dialogueBoxGameObject.GetComponent<DialogueBox>();
     }
 
     private void Update()
@@ -59,7 +72,7 @@ public class DialogueManager : MonoBehaviour
 
             dialogueElement++;
             StartCoroutine(FieldEvents.CoolDown(0.3f));
-            CombatEvents.UnlockPlayerMovement?.Invoke();
+
 
             dialogueBox.animator.SetTrigger("CloseDialogue");
 
@@ -69,6 +82,7 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
 
             FieldEvents.isDialogueActive = false;
+            CombatEvents.UnlockPlayerMovement?.Invoke();
 
             FieldEvents.HasCompleted.Invoke(dialogue[0].dialogueGameObject);
 
