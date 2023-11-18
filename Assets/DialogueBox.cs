@@ -10,55 +10,114 @@ public class DialogueBox : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     [SerializeField] TextMeshProUGUI backgroundActorNameText;
     [SerializeField] TextMeshProUGUI backgroundDialogueText;
-    public string dialogueId;
     public Animator animator;
 
-    Vector2 startPosition;
+    public Vector2 startPosition;
+    public Vector2 dialogueFinalPosition;
 
-    public Dialogue[] dialogue;
+    public Dialogue dialogueElement;
 
-    public void DisplayMessage(Dialogue dialogue)
+    public void DisplayMessage(Dialogue _dialogueElement)
 
     {
-        // if there is no end position set in the inspector, default the position to slightly above center of its GameObject
-        if (dialogue.dialogueFinalPosition.x == 0 && dialogue.dialogueFinalPosition.y == 0)
+        dialogueElement = _dialogueElement;
+
+        SetFinalPosition();
+        animator.SetTrigger("OpenDialogue");
+        SetTextAndName();
+        StartCoroutine(AnimateDialoguePositionCoRoutine(new Vector2((dialogueFinalPosition.x), (dialogueFinalPosition.y)), 0.4f)); ;
+        StartCoroutine(AnimateLetters(dialogueElement.dialoguetext, dialogueText, 0.02f));
+    }
+
+    void SetFinalPosition()
+
+    {
+        // if there is no Optional end position set in the inspector...
+        if (dialogueElement.optionalDialogueFinalPosition.x == 0 && dialogueElement.optionalDialogueFinalPosition.y == 0)
 
         {
-            dialogue.dialogueFinalPosition.x = 0;
-            dialogue.dialogueFinalPosition.y = 0.8f;
+            //place it a little above and center the ActorGO 
+            dialogueFinalPosition.y = 0.8f;
+            dialogueFinalPosition.x = 0;
 
+            //tweak it a bit based on look direction
+            if (dialogueElement.actorGameObject != GameObject.Find("Player"))
+
+            {
+                if (FieldEvents.lookDirection == Vector2.right)
+                {
+                    dialogueFinalPosition.x = 0.4f;
+                }
+
+                if (FieldEvents.lookDirection == Vector2.left)
+                {
+                    dialogueFinalPosition.x = -0.4f;
+                }
+
+                if (FieldEvents.lookDirection == Vector2.up)
+                {
+                    dialogueFinalPosition.x = 0.7f;
+                    dialogueFinalPosition.y = -0.2f;
+                }
+
+                if (FieldEvents.lookDirection == Vector2.down)
+                {
+                    dialogueFinalPosition.x = 0.5f;
+                    dialogueFinalPosition.y = 0.9f;
+                }
+            }
+
+            if (dialogueElement.actorGameObject == GameObject.Find("Player"))
+
+            {
+                if (FieldEvents.lookDirection == Vector2.right)
+                {
+                    dialogueFinalPosition.x = -0.4f;
+                }
+
+                if (FieldEvents.lookDirection == Vector2.left)
+                {
+                    dialogueFinalPosition.x = 0.8f;
+                }
+
+                if (FieldEvents.lookDirection == Vector2.up)
+                {
+                    dialogueFinalPosition.x = -0.4f;
+                    dialogueFinalPosition.y = -0.3f;
+                }
+
+                if (FieldEvents.lookDirection == Vector2.down)
+                {
+                    dialogueFinalPosition.x = -0.3f;
+                    dialogueFinalPosition.y = 1.0f;
+                }
+            }
         }
 
-            animator.SetTrigger("OpenDialogue");
-
-        if (dialogue.actorGameObject == null)
-
+        else 
         {
-            startPosition = this.transform.position;
+            dialogueFinalPosition = dialogueElement.optionalDialogueFinalPosition;
         }
+    }
 
-        else
+    void SetTextAndName()
 
-        {
-            startPosition = dialogue.actorGameObject.transform.position;
-        }
-            StartCoroutine(AnimateDialoguePositionCoRoutine(new Vector2((dialogue.actorGameObject.transform.position.x + dialogue.dialogueFinalPosition.x), (dialogue.actorGameObject.transform.position.y + dialogue.dialogueFinalPosition.y)), 0.4f)); ;
-
+    {
         //if there is no Gameobject set in inspector, then hide the name
-        if (dialogue.actorGameObject == null)
+        if (dialogueElement.actorGameObject == null)
         {
             backgroundActorNameText.text = "";
         }
 
         else
         {
-            backgroundActorNameText.text = dialogue.actorGameObject.name;
+            backgroundActorNameText.text = dialogueElement.actorGameObject.name;
         }
 
-        backgroundDialogueText.text = dialogue.dialoguetext;
-
-        StartCoroutine(AnimateLetters(dialogue.dialoguetext, dialogueText, 0.02f));
+        backgroundDialogueText.text = dialogueElement.dialoguetext;
     }
+
+
 
     IEnumerator AnimateLetters(string dialoguetext, TextMeshProUGUI textToUpdate, float time)
 
@@ -79,10 +138,12 @@ public class DialogueBox : MonoBehaviour
         Vector2 startingPos = startPosition;
         while (elapsedTime < seconds)
         {
-            this.transform.position = Vector2.Lerp(startingPos, finalPosition, (elapsedTime / seconds));
+            this.transform.localPosition = Vector2.Lerp(startingPos, finalPosition, (elapsedTime / seconds));
             elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+
+        this.transform.localPosition = finalPosition;
     }
 
     public void DestoryDialogueBox() { Destroy(this.gameObject); }

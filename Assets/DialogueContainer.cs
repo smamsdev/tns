@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DialogueContainer : ToTrigger
 {
-    [SerializeField] DialogueManager dialogueManager;
+    DialogueManager dialogueManager;
 
     public Dialogue[] dialogue;
     public bool dialogueLaunched;
@@ -13,12 +13,12 @@ public class DialogueContainer : ToTrigger
 
     private void Awake()
     {
+        dialogueManager = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
+
         for (int i = 0; i < dialogue.Length; i++)
         {
             dialogue[i].dialogueGameObject = gameObject;
         }
-
-
     }
 
     public void OpenDialogue()
@@ -53,7 +53,7 @@ public class Dialogue
     public GameObject actorGameObject;
     [HideInInspector] public string actorName;
     [TextArea(2, 5)] public string dialoguetext;
-    public Vector2 dialogueFinalPosition;
+    public Vector2 optionalDialogueFinalPosition;
     [HideInInspector] public Transform actorPosition; //do i need this?
     [HideInInspector] public GameObject dialogueGameObject;
 }

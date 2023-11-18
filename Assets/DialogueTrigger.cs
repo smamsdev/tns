@@ -21,6 +21,8 @@ public class DialogueTrigger : MonoBehaviour
         FieldEvents.HasCompleted -= ReloadDialogue;
     }
 
+
+    //auto load the first Dialogue Child
     private void Start()
     {
         dialogueToPlay = this.transform.GetChild(0).gameObject.GetComponent<DialogueContainer>();
@@ -50,7 +52,7 @@ public class DialogueTrigger : MonoBehaviour
     
               for (int i = 0; i < dialogueReloads.Length; i++)
               {
-                  if (gameObject == dialogueReloads[i].dialogueToTrigger.dialogue[0].dialogueGameObject)
+                  if (gameObject == dialogueReloads[i].GOToTrigger)
     
                   {
                       dialogueToPlay = dialogueReloads[i].dialogueToReplace;
@@ -65,9 +67,7 @@ public class DialogueTrigger : MonoBehaviour
 public class DialogueReload
 
 {
-    public DialogueContainer dialogueToTrigger;
+    public GameObject GOToTrigger;
     public DialogueContainer dialogueToReplace;
-
-
 }
 

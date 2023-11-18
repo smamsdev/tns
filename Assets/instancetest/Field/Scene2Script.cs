@@ -31,14 +31,14 @@ public class Scene2Script : MonoBehaviour
     {
         if (resetStartPositionToDefault)
         {
-            FieldEvents.playerLastKnownPos = GameObject.Find("player").transform.position;
+            FieldEvents.playerLastKnownPos = GameObject.Find("Player").transform.position;
             resetStartPositionToDefault = false;
 
         }
 
         if (!FieldEvents.freshScene)
         {
-            var playerMovementScript = GameObject.Find("player").GetComponent<PlayerMovementScript>();
+            var playerMovementScript = GameObject.Find("Player").GetComponent<PlayerMovementScript>();
 
             playerMovementScript.transform.position = new Vector2(FieldEvents.playerLastKnownPos.x, FieldEvents.playerLastKnownPos.y - 0.02f);
         }

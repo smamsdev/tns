@@ -18,7 +18,6 @@ public class SceneTriggers : MonoBehaviour
         FieldEvents.HasCompleted -= TriggerAction;
     }
 
-
     void TriggerAction(GameObject gameObject)
     {
         for (int i = 0; i < trigger.Length; i++)

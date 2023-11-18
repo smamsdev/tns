@@ -23,8 +23,6 @@ public class PlayerMovementScript : MonoBehaviour
 
     public GameObject playerObject;
 
-    public Vector2 lookDirection = new Vector2(1, 0);
-
     private void OnEnable()
     {
         CombatEvents.UpdatePlayerPosition += UpdatePlayerPosition;
@@ -48,6 +46,8 @@ public class PlayerMovementScript : MonoBehaviour
         playerPosition = playerRigidBody2d.position;
         playerRigidBody2d = GetComponent<Rigidbody2D>();
         baseMovementSpeed = movementSpeed;
+
+        FieldEvents.lookDirection = new Vector2(1, 0);
     }
 
     void FixedUpdate()
@@ -72,20 +72,16 @@ public class PlayerMovementScript : MonoBehaviour
 
         if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
         {
-            lookDirection.Set(move.x, move.y);
-            lookDirection.Normalize();
+            FieldEvents.lookDirection.Set(move.x, move.y);
+            FieldEvents.lookDirection.Normalize();
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             this.GetComponent<BoxCollider2D>().enabled = false;
-
-
-            raycastHit2D = Physics2D.BoxCast(gameObject.transform.position, new Vector2(0.2f, 0.5f), 0f, lookDirection, 0.10f, Physics.AllLayers);
+            raycastHit2D = Physics2D.BoxCast(gameObject.transform.position, new Vector2(0.2f, 0.5f), 0f, FieldEvents.lookDirection, 0.10f, Physics.AllLayers);
 
             if (raycastHit2D.collider != null)
-
-
             {
                 FieldEvents.PlayerRayCastHit?.Invoke(raycastHit2D);
             }

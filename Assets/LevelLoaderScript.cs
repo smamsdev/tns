@@ -26,7 +26,7 @@ public class LevelLoaderScript : MonoBehaviour
         {
             if (rememberPosition) 
             { 
-            var playerMovementScript = GameObject.Find("player").GetComponent<PlayerMovementScript>();
+            var playerMovementScript = GameObject.Find("Player").GetComponent<PlayerMovementScript>();
             FieldEvents.playerLastKnownPos = playerMovementScript.transform.position;
             }
 
