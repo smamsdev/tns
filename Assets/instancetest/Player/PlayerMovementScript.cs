@@ -70,10 +70,24 @@ public class PlayerMovementScript : MonoBehaviour
     {
         Vector2 move = new Vector2(myHorizontalInput, myVerticallInput);
 
-        if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
+        if (myHorizontalInput > 0)
         {
-            FieldEvents.lookDirection.Set(move.x, move.y);
-            FieldEvents.lookDirection.Normalize();
+            FieldEvents.lookDirection = Vector2.right;
+        }
+
+        if (myHorizontalInput < 0)
+        {
+            FieldEvents.lookDirection = Vector2.left;
+        }
+
+        if (myVerticallInput > 0)
+        {
+            FieldEvents.lookDirection = Vector2.up;
+        }
+
+        if (myVerticallInput < 0)
+        {
+            FieldEvents.lookDirection = Vector2.down;
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -116,6 +130,7 @@ public class PlayerMovementScript : MonoBehaviour
     {
         playerPosition = playerObject.transform.position;
         movementLocked = true;
+        Debug.Log("locked");
     }
 
     public void UnlockPlayerMovement()
@@ -123,7 +138,7 @@ public class PlayerMovementScript : MonoBehaviour
     {
         playerPosition = playerObject.transform.position;
         movementLocked = false;
-        //Debug.Log("unlocked") ;
+        Debug.Log("unlocked") ;
     }
 
     void IsWalkwayBoost(bool _isWalkwayBoost, float _speedBonus)

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DialogueContainer : ToTrigger
 {
-    DialogueManager dialogueManager;
+    public DialogueManager dialogueManager;
 
     public Dialogue[] dialogue;
     public bool dialogueLaunched;
@@ -13,8 +13,6 @@ public class DialogueContainer : ToTrigger
 
     private void Awake()
     {
-        dialogueManager = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
-
         for (int i = 0; i < dialogue.Length; i++)
         {
             dialogue[i].dialogueGameObject = gameObject;

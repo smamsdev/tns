@@ -62,7 +62,7 @@ public class DialogueBox : MonoBehaviour
 
                 if (FieldEvents.lookDirection == Vector2.down)
                 {
-                    dialogueFinalPosition.x = 0.5f;
+                    dialogueFinalPosition.x = 0.4f;
                     dialogueFinalPosition.y = 0.9f;
                 }
             }

@@ -21,8 +21,10 @@ public class Victory : State
 
         yield return new WaitForSeconds(0);
 
-        FieldEvents.HasBeenDefeated(combatManagerV3.enemyGameObject);
+        FieldEvents.UpdateXP(combatManagerV3.enemyGameObject);
         CombatEvents.CameraBattleMode?.Invoke(false);
+        CombatEvents.UnlockPlayerMovement?.Invoke();
+        FieldEvents.HasCompleted(combatManagerV3.gameObject);
 
     }
 }

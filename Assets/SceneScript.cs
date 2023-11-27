@@ -6,26 +6,13 @@ public class SceneScript : MonoBehaviour
 {
     public DialogueContainer[] Dialogue;
     public DialogueContainer[] DialogueTriggerReload;
-    public Act[] Act;
+    public Shift[] shift;
     public GameObject[] Battles;
 
-    private void OnEnable()
-    {
-        FieldEvents.HasBeenDefeated += HasBeenDefeated;
-        FieldEvents.ActorActionHasStarted += ActorActionHasStarted;
-        FieldEvents.ActorActionHasCompleted += ActorActionHasCompleted;
-    }
-
-    private void OnDisable()
-    {
-        FieldEvents.HasBeenDefeated -= HasBeenDefeated;
-        FieldEvents.ActorActionHasStarted -= ActorActionHasStarted;
-        FieldEvents.ActorActionHasCompleted -= ActorActionHasCompleted;
-    }
 
     private void Start()
     {
-         Act[0].StartAct();
+      //   Act[0].StartAct();
 
       // Battles[0].GetComponentInChildren<CombatManagerV3>().SetBattleSetupBattle();
 
@@ -43,11 +30,12 @@ public class SceneScript : MonoBehaviour
         if (enemyGameObject == Battles[0].GetComponent<CombatManagerV3>().enemyGameObject)
 
         {
-            Act[1].StartAct();
+            //Act[1].StartAct();
+            //
+            //
+            //StartCoroutine(ChainNewDialogue(Dialogue[0]));
+            //
             yield return new WaitForSeconds(3);
-
-            StartCoroutine(ChainNewDialogue(Dialogue[0]));
-
         }
     }
 

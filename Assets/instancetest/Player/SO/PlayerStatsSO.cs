@@ -19,7 +19,7 @@ public class PlayerStatsSO : ScriptableObject
         CombatEvents.UpdatePlayerHP += UpdatePlayerHP;
         CombatEvents.UpdatePlayerPotentialMoveCost += UpdatePlayerPotentialMoveCost;
         CombatEvents.UpdatePlayerPot += UpdatePlayerPot;
-        FieldEvents.HasBeenDefeated += UpdateXP;
+        FieldEvents.UpdateXP += UpdateXP;
     }
 
     private void OnDisable()
@@ -29,7 +29,7 @@ public class PlayerStatsSO : ScriptableObject
         CombatEvents.UpdatePlayerHP -= UpdatePlayerHP;
         CombatEvents.UpdatePlayerPotentialMoveCost -= UpdatePlayerPotentialMoveCost;
         CombatEvents.UpdatePlayerPot -= UpdatePlayerPot;
-        FieldEvents.HasBeenDefeated -= UpdateXP;
+        FieldEvents.UpdateXP -= UpdateXP;
     }
 
     [Header("HP")]

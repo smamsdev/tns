@@ -6,55 +6,32 @@ public class Scene2Script : MonoBehaviour
 {
     public DialogueContainer[] Dialogue;
     public DialogueContainer[] DialogueTriggerReload;
-    public Act[] Act;
+    public Shift[] shift;
+
     public GameObject[] Battles;
     public bool isFreshScene;
     public bool resetStartPositionToDefault;
 
-    private void OnEnable()
-    {
-
-        FieldEvents.HasBeenDefeated += HasBeenDefeated;
-        FieldEvents.ActorActionHasStarted += ActorActionHasStarted;
-        FieldEvents.ActorActionHasCompleted += ActorActionHasCompleted;
-    }
-
-    private void OnDisable()
-    {
-
-        FieldEvents.HasBeenDefeated -= HasBeenDefeated;
-        FieldEvents.ActorActionHasStarted -= ActorActionHasStarted;
-        FieldEvents.ActorActionHasCompleted -= ActorActionHasCompleted;
-    }
 
     private void Awake()
     {
-        if (resetStartPositionToDefault)
-        {
-            FieldEvents.playerLastKnownPos = GameObject.Find("Player").transform.position;
-            resetStartPositionToDefault = false;
-
-        }
-
-        if (!FieldEvents.freshScene)
-        {
-            var playerMovementScript = GameObject.Find("Player").GetComponent<PlayerMovementScript>();
-
-            playerMovementScript.transform.position = new Vector2(FieldEvents.playerLastKnownPos.x, FieldEvents.playerLastKnownPos.y - 0.02f);
-        }
+    //   if (resetStartPositionToDefault)
+    //   {
+    //       FieldEvents.playerLastKnownPos = GameObject.Find("Player").transform.position;
+    //       resetStartPositionToDefault = false;
+    //
+    //   }
+    //
+    //   if (!FieldEvents.freshScene)
+    //   {
+    //       var playerMovementScript = GameObject.Find("Player").GetComponent<PlayerMovementScript>();
+    //
+    //       playerMovementScript.transform.position = new Vector2(FieldEvents.playerLastKnownPos.x, FieldEvents.playerLastKnownPos.y - 0.02f);
+    //   }
 
 
     }
 
-
-    private void Start()
-    {
-
-        if (FieldEvents.objectFetched)
-       {
-           DialogueReload(DialogueTriggerReload[0]);
-       }
-    }
 
     void HasBeenDefeated(GameObject enemyGameObject)
 

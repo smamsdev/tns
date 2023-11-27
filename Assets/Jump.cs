@@ -1,0 +1,43 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Jump : ToTrigger
+{
+
+    public ActorJump[] actorJump;
+    int i;
+
+
+    // Start is called before the first frame update
+    public override IEnumerator DoAction()
+    {
+        for (i = 0; i < actorJump.Length;)
+        {
+            CombatEvents.LockPlayerMovement();
+            actorJump[i].actorGO = transform.parent.transform.parent.gameObject;
+
+            actorJump[i].actorGO.transform.position = actorJump[i].locationToAppear;
+
+            i++;
+            yield return null;
+        }
+
+        CombatEvents.UnlockPlayerMovement();
+
+        if (i == actorJump.Length)
+        {
+            FieldEvents.HasCompleted.Invoke(this.gameObject);
+        }
+    }
+}
+
+[System.Serializable]
+
+public class ActorJump
+{
+    public GameObject actorGO;
+    public Vector2 locationToAppear;
+
+}
+

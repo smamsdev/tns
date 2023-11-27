@@ -6,22 +6,9 @@ public class ArenaSceneScript : MonoBehaviour
 {
     public DialogueContainer[] Dialogue;
     public DialogueContainer[] DialogueTriggerReload;
-    public Act[] Act;
+    public Shift[] shift;
     public GameObject[] Battles;
 
-    private void OnEnable()
-    {
-        FieldEvents.HasBeenDefeated += HasBeenDefeated;
-        FieldEvents.ActorActionHasStarted += ActorActionHasStarted;
-        FieldEvents.ActorActionHasCompleted += ActorActionHasCompleted;
-    }
-
-    private void OnDisable()
-    {
-        FieldEvents.HasBeenDefeated -= HasBeenDefeated;
-        FieldEvents.ActorActionHasStarted -= ActorActionHasStarted;
-        FieldEvents.ActorActionHasCompleted -= ActorActionHasCompleted;
-    }
 
 
 

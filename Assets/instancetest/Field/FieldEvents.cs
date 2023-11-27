@@ -8,11 +8,9 @@ using UnityEngine;
 public static class FieldEvents
 {
     public static Action<GameObject> HasCompleted;
-    public static Action<string, bool> ActorActionHasStarted;
-    public static Action<string, bool> ActorActionHasCompleted;
     public static Action<bool, float> IsWalkwayBoost;
 
-    public static Action<GameObject> HasBeenDefeated;
+    public static Action<GameObject> UpdateXP;
     public static Action<RaycastHit2D> PlayerRayCastHit;
 
     static bool isCoolDownBool;
