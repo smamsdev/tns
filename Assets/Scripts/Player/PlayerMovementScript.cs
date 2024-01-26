@@ -15,6 +15,7 @@ public class PlayerMovementScript : MonoBehaviour
     float myVerticallInput;
 
     public bool isWalkwayBoost;
+    public bool isDescending = false;
 
     public float movementSpeed = 1.75f;
     public float baseMovementSpeed;
