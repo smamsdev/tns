@@ -40,6 +40,8 @@ public class DescendingMovementScript : MonoBehaviour
 
             playerRigidBody2d.MovePosition(movePosition);
             playerPosition = movePosition;
+
+            Debug.Log("desc triggered");
         }
     }
 

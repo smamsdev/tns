@@ -19,6 +19,8 @@ public class stairsReset : MonoBehaviour
             ascend.GetComponent<BoxCollider2D>().enabled = true;
             this.GetComponent<BoxCollider2D>().enabled=false;
 
+            Debug.Log("reset triggered");
+
         }
 
     }

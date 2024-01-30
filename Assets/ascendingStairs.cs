@@ -9,7 +9,7 @@ public class ascendingStairs : MonoBehaviour
     public BoxCollider2D stairsResetTrigger;
     [SerializeField] PlayerMovementScript playerMovementScript;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.tag == "Player" && playerMovementScript.isDescending)
 
@@ -19,6 +19,8 @@ public class ascendingStairs : MonoBehaviour
             playerMovementScript.isDescending = false;
             stairsResetTrigger.enabled = true;
             this.GetComponent<BoxCollider2D>().enabled = false;
+
+            Debug.Log("asc triggered");
 
         }
 
