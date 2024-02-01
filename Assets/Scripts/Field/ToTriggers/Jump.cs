@@ -15,7 +15,9 @@ public class Jump : ToTrigger
         for (i = 0; i < actorJump.Length;)
         {
             CombatEvents.LockPlayerMovement();
-            actorJump[i].actorGO = transform.parent.transform.parent.gameObject;
+
+            if (actorJump[i].actorGO == null)
+            { actorJump[i].actorGO = transform.parent.transform.parent.gameObject; }
 
             actorJump[i].actorGO.transform.position = actorJump[i].locationToAppear;
 
@@ -27,7 +29,9 @@ public class Jump : ToTrigger
 
         if (i == actorJump.Length)
         {
+
             FieldEvents.HasCompleted.Invoke(this.gameObject);
+            CombatEvents.UnlockPlayerMovement();
         }
     }
 }
@@ -37,7 +41,7 @@ public class Jump : ToTrigger
 public class ActorJump
 {
     public GameObject actorGO;
-    public Vector2 locationToAppear;
+    public Vector3 locationToAppear;
 
 }
 

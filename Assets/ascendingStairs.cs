@@ -20,8 +20,6 @@ public class ascendingStairs : MonoBehaviour
             stairsResetTrigger.enabled = true;
             this.GetComponent<BoxCollider2D>().enabled = false;
 
-            Debug.Log("asc triggered");
-
         }
 
     }

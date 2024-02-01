@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelLoaderScript : MonoBehaviour
+public class LevelLoaderScript : ToTrigger
 {
     public int sceneNumber;
     public bool rememberPosition;
@@ -19,8 +19,6 @@ public class LevelLoaderScript : MonoBehaviour
 
         { FieldEvents.freshScene = false; }
 
-
-
         if (collision.tag == "Player")
 
         {
@@ -33,6 +31,16 @@ public class LevelLoaderScript : MonoBehaviour
             SceneManager.LoadScene(sceneNumber, LoadSceneMode.Single);
         }
     }
+
+    public override IEnumerator DoAction()
+
+    {
+        SceneManager.LoadScene(sceneNumber, LoadSceneMode.Single);
+
+        yield return null;
+    }
+
+
 
 
 }
