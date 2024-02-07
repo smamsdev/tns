@@ -36,6 +36,7 @@ public class LevelLoaderScript : ToTrigger
 
     {
         SceneManager.LoadScene(sceneNumber, LoadSceneMode.Single);
+        Debug.Log("test");
 
         yield return null;
     }
