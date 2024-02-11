@@ -27,17 +27,16 @@ public class Slerp : ToTrigger
             actorJump[i].actorGO.transform.localPosition = actorJump[i].locationToAppear;
 
             i++;
-            yield return null;
-        }
 
-        CombatEvents.UnlockPlayerMovement();
+        }
 
         if (i == actorJump.Length)
         {
-
             FieldEvents.HasCompleted.Invoke(this.gameObject);
             CombatEvents.UnlockPlayerMovement();
         }
+
+        yield return null;
     }
 
 }

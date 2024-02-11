@@ -29,12 +29,15 @@ public class LevelLoaderScript : ToTrigger
             }
 
             SceneManager.LoadScene(sceneNumber, LoadSceneMode.Single);
+            Debug.Log(this.gameObject);
         }
     }
 
     public override IEnumerator DoAction()
 
     {
+
+        Debug.Log("changing");
         SceneManager.LoadScene(sceneNumber, LoadSceneMode.Single);
         Debug.Log("test");
 

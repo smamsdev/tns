@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnableObject : ToTrigger
 {
-    [SerializeField] GameObject GoToEnable;
+    [SerializeField] GameObject GameObjectToEnable;
 
 
     private void OnEnable()
@@ -21,7 +21,7 @@ public class EnableObject : ToTrigger
 
     {
         CombatEvents.LockPlayerMovement();
-        GoToEnable.SetActive(true);
+        GameObjectToEnable.SetActive(true);
 
         FieldEvents.HasCompleted.Invoke(this.gameObject);
         yield return null;

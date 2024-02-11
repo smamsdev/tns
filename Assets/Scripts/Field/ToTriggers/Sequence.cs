@@ -6,7 +6,7 @@ public class Sequence : ToTrigger
 {
 
     public ToTrigger[] toTrigger;
-    int i;
+    int i = 0;
     bool isSequenceRunning;
 
     private void OnEnable()
@@ -25,32 +25,40 @@ public class Sequence : ToTrigger
         CombatEvents.LockPlayerMovement();
         isSequenceRunning = true;
         StartCoroutine(toTrigger[i].DoAction());
-        i = 1;
+        i++;
+
 
         yield return null;
     }
 
     void TriggerAction(GameObject gameObject) 
     {
-
         if (isSequenceRunning) 
         {
             if (toTrigger[(i-1)].gameObject == gameObject && (i) < toTrigger.Length)
 
-            { 
+            {
+
                 toTrigger[i-1] = null;
 
                 StartCoroutine(toTrigger[i].DoAction());
                 i++;
-            }
 
-            else
-            {
-                toTrigger[i - 1] = null;
-                isSequenceRunning = false;
-                FieldEvents.HasCompleted.Invoke(this.gameObject);
+                if (i == toTrigger.Length)
+                { EndSequence(); }
             }
         }
+
+    }
+
+    void EndSequence()
+    {
+        toTrigger[i - 1] = null;
+            
+        Debug.Log("ending");
+            
+        isSequenceRunning = false;
+        FieldEvents.HasCompleted.Invoke(this.gameObject);
     }
 
 }
