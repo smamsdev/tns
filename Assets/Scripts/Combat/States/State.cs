@@ -10,9 +10,7 @@ public abstract class State : MonoBehaviour
 
     { 
         combatManagerV3 = _combatManagerV3;
-
     }
-
 
     public virtual IEnumerator Start()
 
@@ -25,12 +23,5 @@ public abstract class State : MonoBehaviour
     {
   
     }
-
-    public virtual IEnumerator Heal()
-
-    {
-        yield break;
-    }
-
 
 }

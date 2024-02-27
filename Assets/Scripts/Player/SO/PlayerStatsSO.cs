@@ -51,6 +51,8 @@ public class PlayerStatsSO : ScriptableObject
     [SerializeField] int attackPowerBase;
 
     [SerializeField] float attackPowerPotMod;
+    public float attackPowerGearMod;
+    public float fendPowerGearMod;
 
 
     [Header("Potential")]
@@ -99,6 +101,9 @@ public class PlayerStatsSO : ScriptableObject
         fendBaseChange = 0;
         playerFocusbaseChange = 0;
 
+        attackPowerGearMod = 0;
+        fendPowerGearMod = 0;
+
 
 
         XPremainder = 0;
@@ -130,7 +135,7 @@ public class PlayerStatsSO : ScriptableObject
     public void TotalPlayerMovePower()
     {
         CheckForPotPunishment();
-        attackPower = Mathf.Clamp(Mathf.CeilToInt(attackPowerBase + attackPowerMoveMod + attackPowerPotMod), 0, 9999);
+        attackPower = Mathf.Clamp(Mathf.CeilToInt(attackPowerBase + attackPowerMoveMod + attackPowerPotMod + attackPowerGearMod), 0, 9999);
         playerFend = Mathf.Clamp(Mathf.CeilToInt(fendBase + fendMoveMod + fendPotMod), 0, 9999);
         CombatEvents.UpdateFendDisplay(playerFend);
     }
@@ -147,7 +152,7 @@ public class PlayerStatsSO : ScriptableObject
     {
         if (isFend)
         {
-            fendMoveMod = fendBase * moveModMultiplier;
+            fendMoveMod = (fendBase * moveModMultiplier) + fendPowerGearMod;
 
         
         }

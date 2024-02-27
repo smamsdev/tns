@@ -12,17 +12,19 @@ public class Setup : State
     public override IEnumerator Start()
 
     {
+
         yield return new WaitForSeconds(0.01f);
         CombatEvents.CameraBattleMode?.Invoke(true);
+        CombatEvents.LockPlayerMovement.Invoke();
 
-        CombatEvents.UpdatePlayerPosition?.Invoke(combatManagerV3.playerFightingPosition.transform.position, 1f);
+        CombatEvents.UpdateFighterPosition.Invoke(combatManagerV3.player, combatManagerV3.playerFightingPosition.transform.position, 1f);
 
         //enemy
-        combatManagerV3.enemyGameObjectDefaulPosition = combatManagerV3.enemyGameObject.transform.position;
+        combatManagerV3.enemyGameObjectDefaultPosition = combatManagerV3.enemyGameObject.transform.position;
         combatManagerV3.enemyGameObject.transform.GetChild(0).GetComponent<Enemy>().enabled = true; //turn on Enemy script, you don't want this on for every 'enemy' in the scnene
         combatManagerV3.enemyGameObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(true); //combat menu container
         combatManagerV3.enemyGameObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(true); //player stats container
-        combatManagerV3.UpdateEnemyPosition(combatManagerV3.enemyGameObject.transform.position, 1);
+        combatManagerV3.UpdateFighterPosition(combatManagerV3.enemyGameObject, combatManagerV3.enemyFightingPosition.transform.position, 1);
         combatManagerV3.enemyGameObject.GetComponent<SortingGroup>().enabled = false;
 
         combatManagerV3.enemyRawAttackPower = 0;

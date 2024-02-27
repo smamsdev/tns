@@ -11,37 +11,45 @@ public class CombatManagerV3 : MonoBehaviour
 {
 
     BattleState internalbattleState; //cross check if the battlestate was changed via inspector for debugging
+
+
+    [Header("Settings")]
+    public GameObject player;
+    public GameObject enemyGameObject;
+    public GameObject playerFightingPosition;
+    public GameObject enemyFightingPosition;
+
+    [Header("Debugging")]
     public BattleState battleState;
-
-    [HideInInspector] public State currentState;
-
-    [HideInInspector] public int enemyRawAttackPower;
-
     public CombatUIScript combatUIScript;
     public AttackTargetMenuScript attackTargetMenuScript;
     public PlayerMoveManagerSO playerMoveManager;
     public PlayerStatsSO playerStats;
-    public GameObject playerFightingPosition;
-    public GameObject enemyGameObject;
-    [HideInInspector] public Vector2 enemyGameObjectDefaulPosition; //default position data is required as a return point after attacking
     public int roundCount;
     public bool enemyIsDead = false;
+
+    [HideInInspector] public Vector2 enemyGameObjectDefaultPosition; //default position data is required as a return point after attacking
+    [HideInInspector] public State currentState;
+    [HideInInspector] public int enemyRawAttackPower;
+
 
     private void OnEnable()
     {
         CombatEvents.EnemyAttackPower += EnemyRawAttackPowerIS;
+        CombatEvents.UpdateFighterPosition += UpdateFighterPosition;
     }
 
     private void OnDisable()
     {
         CombatEvents.EnemyAttackPower -= EnemyRawAttackPowerIS;
+        CombatEvents.UpdateFighterPosition -= UpdateFighterPosition;
     }
 
     private void Start()
     {
-        //SetBattleSetupBattle();
         enemyGameObject.transform.GetChild(0).gameObject.SetActive(true);
         this.transform.GetChild(2).gameObject.SetActive(false);
+        player = GameObject.Find("Player");
     }
 
     public void SetState(State state)
@@ -160,23 +168,23 @@ public class CombatManagerV3 : MonoBehaviour
 
     }
 
-    public void UpdateEnemyPosition(Vector2 end, float seconds) //call the coroutine using a function because you can't call coroutines when invoking events
+    public void UpdateFighterPosition(GameObject fighterGameObject, Vector2 end, float seconds) //call the coroutine using a function because you can't call coroutines when invoking events
 
     {
-        StartCoroutine(UpdateEnemyPositionCoRoutine(end, seconds));
+        StartCoroutine(UpdateEnemyPositionCoRoutine(fighterGameObject, end, seconds));
     }
 
-    public IEnumerator UpdateEnemyPositionCoRoutine(Vector2 end, float seconds)
+    public IEnumerator UpdateEnemyPositionCoRoutine(GameObject fighterGameObject, Vector2 end, float seconds)
     {
         float elapsedTime = 0;
-        Vector2 startingPos = enemyGameObject.transform.position;
+        Vector2 startingPos = fighterGameObject.transform.position;
         while (elapsedTime < seconds)
         {
-            enemyGameObject.transform.position = Vector2.Lerp(startingPos, end, (elapsedTime / seconds));
+            fighterGameObject.transform.position = Vector2.Lerp(startingPos, end, (elapsedTime / seconds));
             elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
-        enemyGameObject.transform.position = end;
+        fighterGameObject.transform.position = end;
     }
 
 }

@@ -18,6 +18,8 @@ public class RoundReset : State
         combatManagerV3.combatUIScript.HideTargetMenu();
 
         combatManagerV3.playerStats.ResetAllMoveMods();
+        combatManagerV3.player.GetComponent<GearEquip>().equippedGear[0].ResetAttackGear();
+        combatManagerV3.player.GetComponent<GearEquip>().equippedGear[0].ResetFendGear();
 
         combatManagerV3.attackTargetMenuScript.attackTargetMenu.SetActive(false);
         combatManagerV3.attackTargetMenuScript.targetSelected = false;

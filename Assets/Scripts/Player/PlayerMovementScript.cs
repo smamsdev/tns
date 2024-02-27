@@ -26,7 +26,6 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void OnEnable()
     {
-        CombatEvents.UpdatePlayerPosition += UpdatePlayerPosition;
         CombatEvents.LockPlayerMovement += LockPlayerMovement;
         CombatEvents.UnlockPlayerMovement += UnlockPlayerMovement;
         FieldEvents.IsWalkwayBoost += IsWalkwayBoost;
@@ -34,7 +33,6 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void OnDisable()
     {
-        CombatEvents.UpdatePlayerPosition -= UpdatePlayerPosition;
         CombatEvents.LockPlayerMovement -= LockPlayerMovement;
         CombatEvents.UnlockPlayerMovement -= UnlockPlayerMovement;
         FieldEvents.IsWalkwayBoost -= IsWalkwayBoost;
@@ -93,27 +91,6 @@ public class PlayerMovementScript : MonoBehaviour
 
     }
 
-
-    public void UpdatePlayerPosition(Vector2 end, float seconds) //call the coroutine using a function because you can't call coroutines when invoking events
-
-    { 
-        StartCoroutine(UpdatePlayerPositionCoRoutine(end, seconds));
-        CombatEvents.LockPlayerMovement?.Invoke();
-    }
-
-            public IEnumerator UpdatePlayerPositionCoRoutine(Vector2 end, float seconds)
-            {
-                float elapsedTime = 0;
-                Vector2 startingPos = playerObject.transform.position;
-                while (elapsedTime < seconds)
-                {
-                    playerObject.transform.position = Vector2.Lerp(startingPos, end, (elapsedTime / seconds));
-                    elapsedTime += Time.deltaTime;
-                    yield return new WaitForEndOfFrame();
-                }
-                 playerObject.transform.position = end;
-            }
-
     public void LockPlayerMovement()
 
     {
@@ -127,7 +104,6 @@ public class PlayerMovementScript : MonoBehaviour
     {
         playerPosition = playerObject.transform.position;
         movementLocked = false;
-     //   Debug.Log("unlocked") ;
     }
 
     void IsWalkwayBoost(bool _isWalkwayBoost, float _speedBonus)

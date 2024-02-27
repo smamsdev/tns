@@ -17,6 +17,8 @@ public class DialogueContainer : ToTrigger
         {
             dialogue[i].dialogueGameObject = gameObject;
         }
+
+        dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
     }
 
     public void OpenDialogue()

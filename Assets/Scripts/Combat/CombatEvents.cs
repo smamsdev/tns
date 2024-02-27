@@ -11,7 +11,7 @@ public static class CombatEvents
     public static Action<bool> CameraBattleMode;
     public static Action LockPlayerMovement;
     public static Action UnlockPlayerMovement;
-    public static Action<Vector2, float>UpdatePlayerPosition;
+    public static Action<GameObject, Vector2, float>UpdateFighterPosition;
 
     //Combat UI
     public static Action<string> UpdateNarrator;
@@ -32,8 +32,6 @@ public static class CombatEvents
     public static Action<int> UpdateenemyHPUI;
     public static Action InitializeEnemyPartsHP;
     public static Action <int> SetEnemyBodyPartTarget;
-
-    public static Action<Vector2, float> UpdateEnemyPosition;
 
     public static Action<string> UpdateTargetDisplayBodyDescription;
     public static Action<string> UpdateTargetDisplayArmsDescription;

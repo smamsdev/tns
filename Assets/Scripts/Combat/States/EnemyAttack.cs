@@ -11,19 +11,31 @@ public class EnemyAttack : State
 
     public override IEnumerator Start()
     {
+
+        var equippedGear = combatManagerV3.player.GetComponent<GearEquip>().equippedGear;
+        int i;
+
+        for (i = 0; i < equippedGear.Length;)
+
+        {
+            equippedGear[i].ApplyFendGear();
+            i++;
+        }
+
         int enemyAttackPower = Mathf.Clamp(combatManagerV3.enemyRawAttackPower - combatManagerV3.playerStats.playerFend, 0, 9999);
         CombatEvents.UpdatePlayerHP.Invoke(enemyAttackPower);
 
         combatManagerV3.combatUIScript.HideTargetMenu();
+        CombatEvents.ShowHideFendDisplay.Invoke(true);
 
-        combatManagerV3.UpdateEnemyPosition(new Vector2(combatManagerV3.playerFightingPosition.transform.position.x + 0.3f, combatManagerV3.playerFightingPosition.transform.position.y), 0.5f);
+        combatManagerV3.UpdateFighterPosition(combatManagerV3.enemyGameObject, new Vector2(combatManagerV3.playerFightingPosition.transform.position.x + 0.3f, combatManagerV3.playerFightingPosition.transform.position.y), 0.5f);
         yield return new WaitForSeconds(0.5f);
         
         CombatEvents.UpdateFendDisplay?.Invoke(combatManagerV3.playerStats.playerFend - combatManagerV3.enemyRawAttackPower);
         
         yield return new WaitForSeconds(0.5f);
         
-        combatManagerV3.UpdateEnemyPosition(combatManagerV3.enemyGameObjectDefaulPosition, 0.5f);
+        combatManagerV3.UpdateFighterPosition(combatManagerV3.enemyGameObject, combatManagerV3.enemyFightingPosition.transform.position, 0.5f);
 
         combatManagerV3.SetBattleStateRoundReset();
     }

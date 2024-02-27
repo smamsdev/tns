@@ -20,8 +20,6 @@ public class clock : MonoBehaviour
     {
         DateTime currentTime = System.DateTime.Now;
 
-        Debug.Log(MinuteHangAngle(currentTime));
-
         hours.transform.rotation = Quaternion.Euler(0, 0, -(currentTime.Hour * 30));
         minutes.transform.rotation = Quaternion.Euler(0, 0, -MinuteHangAngle(currentTime));
         seconds.transform.rotation = Quaternion.Euler(0, 0, -SecondHangAngle(currentTime));
