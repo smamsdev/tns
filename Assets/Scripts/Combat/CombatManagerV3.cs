@@ -14,10 +14,8 @@ public class CombatManagerV3 : MonoBehaviour
 
 
     [Header("Settings")]
+    public Battle battleScheme;
     public GameObject player;
-    public GameObject enemyGameObject;
-    public GameObject playerFightingPosition;
-    public GameObject enemyFightingPosition;
 
     [Header("Debugging")]
     public BattleState battleState;
@@ -47,7 +45,7 @@ public class CombatManagerV3 : MonoBehaviour
 
     private void Start()
     {
-        enemyGameObject.transform.GetChild(0).gameObject.SetActive(true);
+        battleScheme.enemyGameObject.transform.GetChild(0).gameObject.SetActive(true);
         this.transform.GetChild(2).gameObject.SetActive(false);
         player = GameObject.Find("Player");
     }

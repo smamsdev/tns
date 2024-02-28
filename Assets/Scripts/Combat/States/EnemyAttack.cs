@@ -28,14 +28,14 @@ public class EnemyAttack : State
         combatManagerV3.combatUIScript.HideTargetMenu();
         CombatEvents.ShowHideFendDisplay.Invoke(true);
 
-        combatManagerV3.UpdateFighterPosition(combatManagerV3.enemyGameObject, new Vector2(combatManagerV3.playerFightingPosition.transform.position.x + 0.3f, combatManagerV3.playerFightingPosition.transform.position.y), 0.5f);
+        combatManagerV3.UpdateFighterPosition(combatManagerV3.battleScheme.enemyGameObject, new Vector2(combatManagerV3.battleScheme.playerFightingPosition.transform.position.x + 0.3f, combatManagerV3.battleScheme.playerFightingPosition.transform.position.y), 0.5f);
         yield return new WaitForSeconds(0.5f);
         
         CombatEvents.UpdateFendDisplay?.Invoke(combatManagerV3.playerStats.playerFend - combatManagerV3.enemyRawAttackPower);
         
         yield return new WaitForSeconds(0.5f);
         
-        combatManagerV3.UpdateFighterPosition(combatManagerV3.enemyGameObject, combatManagerV3.enemyFightingPosition.transform.position, 0.5f);
+        combatManagerV3.UpdateFighterPosition(combatManagerV3.battleScheme.enemyGameObject, combatManagerV3.battleScheme.enemyFightingPosition.transform.position, 0.5f);
 
         combatManagerV3.SetBattleStateRoundReset();
     }

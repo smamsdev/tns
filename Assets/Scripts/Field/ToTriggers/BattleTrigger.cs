@@ -5,9 +5,17 @@ using UnityEngine;
 
 public class BattleTrigger : ToTrigger
 {
+    [SerializeField] Battle battleToTrigger;
+
+
     public override IEnumerator DoAction()
     {
-        GetComponent<CombatManagerV3>().SetBattleSetupBattle();
+        CombatManagerV3 combatManager = GameObject.Find("CombatManager").GetComponent<CombatManagerV3>();
+
+        combatManager.battleScheme = battleToTrigger;
+
+        combatManager.SetBattleSetupBattle();
+
         yield return null;
     }
 }

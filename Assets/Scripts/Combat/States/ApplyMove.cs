@@ -42,9 +42,9 @@ public class ApplyMove : State
 
         if (combatManagerV3.playerMoveManager.firstMoveIs == 1 || combatManagerV3.playerMoveManager.secondMoveIs == 1)
         {
-            CombatEvents.UpdateFighterPosition.Invoke(combatManagerV3.player, new Vector2(combatManagerV3.enemyGameObject.transform.position.x - 0.3f, combatManagerV3.enemyGameObject.transform.position.y), 0.5f);
+            CombatEvents.UpdateFighterPosition.Invoke(combatManagerV3.player, new Vector2(combatManagerV3.battleScheme.enemyGameObject.transform.position.x - 0.3f, combatManagerV3.battleScheme.enemyGameObject.transform.position.y), 0.5f);
             yield return new WaitForSeconds(1);
-            CombatEvents.UpdateFighterPosition.Invoke(combatManagerV3.player, combatManagerV3.playerFightingPosition.transform.position, 0.5f);
+            CombatEvents.UpdateFighterPosition.Invoke(combatManagerV3.player, combatManagerV3.battleScheme.playerFightingPosition.transform.position, 0.5f);
             CombatEvents.CalculateEnemyDamageTaken.Invoke(combatManagerV3.playerStats.attackPower);
         }
 
