@@ -22,7 +22,7 @@ public class Victory : State
         yield return new WaitForSeconds(0);
 
         FieldEvents.UpdateXP(combatManagerV3.battleScheme.enemyGameObject);
-        CombatEvents.CameraBattleMode?.Invoke(false);
+        CombatEvents.BattleMode?.Invoke(false);
         CombatEvents.UnlockPlayerMovement?.Invoke();
         FieldEvents.HasCompleted(combatManagerV3.gameObject);
 

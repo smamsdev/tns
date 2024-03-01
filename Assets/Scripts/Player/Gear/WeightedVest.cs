@@ -11,13 +11,29 @@ public class WeightedVest : Gear
 
     [TextArea(2, 5)] public string description;
 
-    private void Start()
-
+    private void OnEnable()
     {
-        StartCoroutine(LateStart(0.1f));
+        CombatEvents.BattleMode += LoadGear;
     }
 
-    IEnumerator LateStart(float waitTime)
+    private void OnDisable()
+    {
+        CombatEvents.BattleMode -= LoadGear;
+    }
+
+    private void Awake()
+    {
+        gearID = this.name;
+    }
+
+
+    private void LoadGear(bool on)
+
+    {
+        StartCoroutine(GetEnemyReference(0.1f));
+    }
+
+    IEnumerator GetEnemyReference(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
         enemy = GameObject.Find("CombatManager").GetComponent<CombatManagerV3>().battleScheme.enemyGameObject.GetComponentInChildren<Enemy>();
@@ -26,6 +42,7 @@ public class WeightedVest : Gear
     public override void ApplyFendGear()
 
     {
+        Debug.Log("applying wvest");
         enemy.enemyAttack += Mathf.RoundToInt(enemy.enemyAttack*0.3f);
     }
 

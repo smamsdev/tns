@@ -14,7 +14,7 @@ public class Setup : State
     {
 
         yield return new WaitForSeconds(0.01f);
-        CombatEvents.CameraBattleMode?.Invoke(true);
+        CombatEvents.BattleMode?.Invoke(true);
         CombatEvents.LockPlayerMovement.Invoke();
 
         CombatEvents.UpdateFighterPosition.Invoke(combatManagerV3.player, combatManagerV3.battleScheme.playerFightingPosition.transform.position, 1f);

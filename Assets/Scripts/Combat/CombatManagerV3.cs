@@ -45,7 +45,6 @@ public class CombatManagerV3 : MonoBehaviour
 
     private void Start()
     {
-        battleScheme.enemyGameObject.transform.GetChild(0).gameObject.SetActive(true);
         this.transform.GetChild(2).gameObject.SetActive(false);
         player = GameObject.Find("Player");
     }

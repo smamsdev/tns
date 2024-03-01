@@ -16,12 +16,12 @@ public class CameraFollow : MonoBehaviour
 
     private void OnEnable()
     {
-        CombatEvents.CameraBattleMode += CameraBattleMode;
+        CombatEvents.BattleMode += CameraBattleMode;
     }
 
     private void OnDisable()
     {
-        CombatEvents.CameraBattleMode -= CameraBattleMode;
+        CombatEvents.BattleMode -= CameraBattleMode;
     }
 
     private void Start()

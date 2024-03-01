@@ -5,6 +5,13 @@ using UnityEngine;
 public class Gear : MonoBehaviour
 {
 
+    public string gearID;
+
+    private void Awake()
+    {
+        gearID = this.name;
+    }
+
     public virtual void ApplyAttackGear()
 
     {

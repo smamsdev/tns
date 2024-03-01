@@ -7,8 +7,7 @@ using Unity.Mathematics;
 public static class CombatEvents
 {
     //Combat Setup
-    public static Action BeginBattle;
-    public static Action<bool> CameraBattleMode;
+    public static Action<bool> BattleMode;
     public static Action LockPlayerMovement;
     public static Action UnlockPlayerMovement;
     public static Action<GameObject, Vector2, float>UpdateFighterPosition;
