@@ -2,14 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ApplyMove : State
+public class ApplyMove : MonoBehaviour
 {
-    public ApplyMove(CombatManagerV3 _combatManagerV3) : base(_combatManagerV3)
-
-    {
-    }
-
-    int test;
+    [SerializeField] CombatManagerV3 combatManagerV3;
 
     void IsEnemyDead(bool _enemyIsDead)
 
@@ -17,7 +12,7 @@ public class ApplyMove : State
         combatManagerV3.enemyIsDead = _enemyIsDead;
     }
 
-    public override IEnumerator Start()
+    public IEnumerator StartState()
     {
         CombatEvents.EnemyIsDead += IsEnemyDead;
 
@@ -36,7 +31,8 @@ public class ApplyMove : State
 
         combatManagerV3.playerMoveManager.CombineMoves();
 
-        CombatEvents.HighlightBodypartTarget.Invoke(false, false, false);
+        CombatEvents.HighlightBodypartTarget?.Invoke(false, false, false);
+
         CombatEvents.UpdateNarrator.Invoke(combatManagerV3.playerMoveManager.moveForNarrator);
         CombatEvents.UpdatePlayerPot.Invoke(Mathf.CeilToInt(combatManagerV3.playerStats.playerPotentialMoveCost));
 
@@ -47,8 +43,6 @@ public class ApplyMove : State
             CombatEvents.UpdateFighterPosition.Invoke(combatManagerV3.player, combatManagerV3.battleScheme.playerFightingPosition.transform.position, 0.5f);
             CombatEvents.CalculateEnemyDamageTaken.Invoke(combatManagerV3.playerStats.attackPower);
         }
-
-        CombatEvents.UpdateNarrator.Invoke("");
 
         if (combatManagerV3.enemyIsDead) 
         
@@ -64,6 +58,11 @@ public class ApplyMove : State
         }
 
         CombatEvents.EnemyIsDead -= IsEnemyDead;
+
+        yield return new WaitForSeconds(1);
+        CombatEvents.UpdateNarrator.Invoke("");
+
+
 
     }
 

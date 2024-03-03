@@ -2,15 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoundReset : State
+public class RoundReset : MonoBehaviour
 {
+    [SerializeField] CombatManagerV3 combatManagerV3;
 
-    public RoundReset(CombatManagerV3 _combatManagerV3) : base(_combatManagerV3)
-
-    {
-    }
-
-    public override IEnumerator Start()
+    public IEnumerator StartState()
     {
         CombatEvents.ShowHideFendDisplay?.Invoke(false);
 
@@ -35,11 +31,6 @@ public class RoundReset : State
         combatManagerV3.SetBattleStateFirstMove();
 
         yield break;
-    }
-
-    public override void Update()
-    {
-
     }
 
 }

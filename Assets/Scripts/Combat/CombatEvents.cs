@@ -26,9 +26,9 @@ public static class CombatEvents
     //Enemy
     public static Action<int> EnemyAttackPower;
     public static Action GetEnemyAttackPower;
-    public static Action<int> InitializeenemyHP;
+    public static Action InitializeEnemyHP;
     public static Action<int> CalculateEnemyDamageTaken;
-    public static Action<int> UpdateenemyHPUI;
+    public static Action<int> UpdateEnemyHPUI;
     public static Action InitializeEnemyPartsHP;
     public static Action <int> SetEnemyBodyPartTarget;
 

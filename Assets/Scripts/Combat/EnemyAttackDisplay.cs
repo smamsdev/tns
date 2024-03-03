@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class EnemyAttackDisplay : MonoBehaviour
 {
-    [SerializeField] TextMeshPro textMeshPro;
+    [SerializeField]  TextMeshProUGUI EnemyAttackDamageTextMeshProUI;
+    [SerializeField] GameObject attackDisplayTextGO;
 
     private void OnEnable()
     {
         CombatEvents.EnemyAttackPower += UpdateAttackDisplay;
+        attackDisplayTextGO.SetActive(false);
     }
 
     private void OnDisable()
@@ -19,5 +21,13 @@ public class EnemyAttackDisplay : MonoBehaviour
 
     void UpdateAttackDisplay(int value)
 
-    { textMeshPro.text = value.ToString(); }
+    { 
+        if (value >= 0) 
+        {
+            attackDisplayTextGO.SetActive(false);
+        }
+
+        attackDisplayTextGO.SetActive(true);
+        EnemyAttackDamageTextMeshProUI.text = value.ToString();
+    }
 }

@@ -19,13 +19,13 @@ public class BattleUpdate : MonoBehaviour
         CombatEvents.InputCoolDown -= CoolDown;
     }
 
-        private void LateUpdate()
-
-    {
-        if (!isCoolDown)
-            { CombatManagerV3.currentState.Update(); }
-       
-    }
+ //      private void LateUpdate()
+ //
+ //  {
+ //      if (!isCoolDown)
+ //          { CombatManagerV3.currentState.Update(); }
+ //     
+ //  }
 
     void CoolDown(float _seconds)
 

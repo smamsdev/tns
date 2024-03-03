@@ -2,14 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackTarget : State
+public class AttackTarget : MonoBehaviour
 {
+    [SerializeField] CombatManagerV3 combatManagerV3;
 
-    public AttackTarget(CombatManagerV3 _combatManagerV3) : base(_combatManagerV3)
-    {
-    }
-
-    public override IEnumerator Start()
+    public IEnumerator StartState()
     {
         yield return new WaitForSeconds(0.1f);
 
@@ -24,7 +21,7 @@ public class AttackTarget : State
         yield break;
     }
 
-    public override void Update()
+    public void Update()
     {
 
         if (Input.GetKeyDown(KeyCode.Escape))

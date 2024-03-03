@@ -12,7 +12,9 @@ public class TargetDisplay : MonoBehaviour
     [SerializeField] GameObject armsTargetDisplay;
     [SerializeField] GameObject headTargetDisplay;
 
-    [SerializeField] Enemy enemy;
+    [SerializeField] CombatManagerV3 combatManagerV3;
+
+    Enemy enemy;
 
     [SerializeField] TextMeshPro bodyHPDisplayTextMeshPro;
     [SerializeField] TextMeshPro armsHPDisplayTextMeshPro;
@@ -53,7 +55,7 @@ public class TargetDisplay : MonoBehaviour
         CombatEvents.UpdateTargetDisplayHeadDescription -= UpdateHeadDescription;
     }
 
-    private void Start()
+    private void Awake()
     {
 
     }
@@ -97,6 +99,8 @@ public class TargetDisplay : MonoBehaviour
     public void InitializeEnemyPartsHP()
 
     {
+        enemy = combatManagerV3.battleScheme.enemyGameObject.GetComponent<Enemy>();
+
         bodyMaxHP = enemy.enemyBodyHP;
         armsMaxHP = enemy.enemyArmsHP;
         headMaxHP = enemy.enemyHeadHP;

@@ -7,8 +7,7 @@ public class CombatInventoryMenu : MonoBehaviour
 {
     public CombatManagerV3 combatManagerV3;
     public PlayerInventory playerInventory;
-    [SerializeField] GameObject inventorySlotPrefab;
-    GameObject inventorySlot;
+    [SerializeField] CombatInventorySlot[] inventorySlot;
     [SerializeField] GameObject background;
 
     public Gear gearToLoad;
@@ -33,21 +32,12 @@ public class CombatInventoryMenu : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
 
-        Debug.Log(playerInventory.inventory.Count);
-
-
         for (int i = 0; i < playerInventory.inventory.Count; i++)
 
         {
-            inventorySlot = Instantiate(inventorySlotPrefab, background.transform);
-
             gearToLoad = playerInventory.inventory[i].GetComponent<Gear>();
-
-            CombatInventorySlot combatInventorySlot = inventorySlot.GetComponent<CombatInventorySlot>();
-            combatInventorySlot.gear = gearToLoad;
-            combatInventorySlot.textMeshProUGUI.text = gearToLoad.name;
-            combatInventorySlot.name = gearToLoad.name + "" + "CombatMenuItem";
-
+            inventorySlot[i].gear = gearToLoad;
+            inventorySlot[i].textMeshProUGUI.text = gearToLoad.name;
         }
     }
 

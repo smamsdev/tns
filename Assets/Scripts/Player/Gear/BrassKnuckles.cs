@@ -19,8 +19,6 @@ public class BrassKnuckles : Gear
 
 
     {
-        Debug.Log("applying knuck");
-
         if (moveManager.firstMoveIs == 1 || moveManager.secondMoveIs == 1)
         {
             GameObject.Find("Player").GetComponent<GearEquip>().playerStats.attackPowerGearMod += 11;

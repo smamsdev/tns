@@ -42,7 +42,6 @@ public class WeightedVest : Gear
     public override void ApplyFendGear()
 
     {
-        Debug.Log("applying wvest");
         enemy.enemyAttack += Mathf.RoundToInt(enemy.enemyAttack*0.3f);
     }
 

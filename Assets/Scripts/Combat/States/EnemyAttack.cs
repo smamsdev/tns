@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack : State
+public class EnemyAttack : MonoBehaviour
 {
-    public EnemyAttack(CombatManagerV3 _combatManagerV3) : base(_combatManagerV3)
+    [SerializeField] CombatManagerV3 combatManagerV3;
+    [SerializeField] GameObject enemyAttackDisplay;
 
-    {
-    }
-
-    public override IEnumerator Start()
+    public IEnumerator StartState()
     {
 
         var equippedGear = combatManagerV3.player.GetComponent<GearEquip>().equippedGear;
@@ -28,6 +26,8 @@ public class EnemyAttack : State
         combatManagerV3.combatUIScript.HideTargetMenu();
         CombatEvents.ShowHideFendDisplay.Invoke(true);
 
+        enemyAttackDisplay.SetActive(false);
+
         combatManagerV3.UpdateFighterPosition(combatManagerV3.battleScheme.enemyGameObject, new Vector2(combatManagerV3.battleScheme.playerFightingPosition.transform.position.x + 0.3f, combatManagerV3.battleScheme.playerFightingPosition.transform.position.y), 0.5f);
         yield return new WaitForSeconds(0.5f);
         
@@ -37,12 +37,9 @@ public class EnemyAttack : State
         
         combatManagerV3.UpdateFighterPosition(combatManagerV3.battleScheme.enemyGameObject, combatManagerV3.battleScheme.enemyFightingPosition.transform.position, 0.5f);
 
+        yield return new WaitForSeconds(0.5f);
+
         combatManagerV3.SetBattleStateRoundReset();
-    }
-
-    public override void Update()
-    {
-
     }
 
 }

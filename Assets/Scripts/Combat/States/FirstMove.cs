@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FirstMove : State
+public class FirstMove : MonoBehaviour
 {
-    public FirstMove(CombatManagerV3 _combatManagerV3) : base(_combatManagerV3)
-    {
-    }
+    [SerializeField] CombatManagerV3 combatManagerV3;
+    [SerializeField] GameObject enemyAttackDisplay;
 
-    public override IEnumerator Start()
+    public  IEnumerator StartState()
     {
         yield return new WaitForSeconds(0.1f);
         combatManagerV3.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
@@ -18,13 +17,11 @@ public class FirstMove : State
 
         CombatEvents.ShowHideFendDisplay?.Invoke(false);
         CombatEvents.GetEnemyAttackPower?.Invoke();
+        enemyAttackDisplay.SetActive(true);
 
         yield break;
     }
 
-    public override void Update()
-    {
 
-    }
 
 }

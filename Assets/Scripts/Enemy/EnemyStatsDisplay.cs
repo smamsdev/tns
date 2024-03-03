@@ -5,46 +5,48 @@ using UnityEngine;
 
 public class EnemyStatsDisplay : MonoBehaviour
 {
-
-    TextMeshPro textMeshProHP;
-    [HideInInspector] public int enemyHPUI;
-    [SerializeField] GameObject enemyStats;
-
-    private void Awake()
-    {
-        textMeshProHP = enemyStats.GetComponent<TextMeshPro>();
-    }
+    [SerializeField] CombatManagerV3 combatManager;
+    [SerializeField] TextMeshProUGUI enemyHPtextMeshProHP;
+    [SerializeField] TextMeshProUGUI enemyNameMeshProHP;
+    [SerializeField] GameObject enemyStatsDisplay;
+    [SerializeField] RectTransform enemyHudRect;
+    Enemy enemy;
 
     private void OnEnable()
     {
-        CombatEvents.UpdateenemyHPUI += UpdateenemyHPText;
-        CombatEvents.InitializeenemyHP += InitializeenemyHP;
+        CombatEvents.UpdateEnemyHPUI += UpdateenemyHPText;
+        CombatEvents.InitializeEnemyHP += InitializeEnemyHP;
     }
 
     private void OnDisable()
     {
-        CombatEvents.UpdateenemyHPUI -= UpdateenemyHPText;
-        CombatEvents.InitializeenemyHP += InitializeenemyHP;
+        CombatEvents.UpdateEnemyHPUI -= UpdateenemyHPText;
+        CombatEvents.InitializeEnemyHP += InitializeEnemyHP;
     }
 
-    void InitializeenemyHP(int value)
+    void InitializeEnemyHP()
     {
-        enemyHPUI = value;
-        textMeshProHP.text = "Enemy HP: " + enemyHPUI;
+        enemyStatsDisplay.SetActive(true);
+        enemyHudRect.transform.position = combatManager.battleScheme.enemyFightingPosition.transform.position;
+
+        enemy = combatManager.battleScheme.enemyGameObject.GetComponent<Enemy>();
+
+        enemyNameMeshProHP.text = enemy.name;
+        enemyHPtextMeshProHP.text = "HP: " + enemy.enemyHP;
     }
 
     public void UpdateenemyHPText(int value)
     {
-        enemyHPUI = Mathf.Clamp(enemyHPUI - value, 0, 9999);
+        enemyHPtextMeshProHP.text = "Enemy HP: " + enemy.enemyHP;
 
-        if (enemyHPUI <= 0) 
+        if (enemy.enemyHP <= 0) 
         {
-            textMeshProHP.text = "DEAD";
+            enemyHPtextMeshProHP.text = "DEAD";
         }
 
         else
         {
-            textMeshProHP.text = "Enemy HP: " + (enemyHPUI).ToString();
+            enemyHPtextMeshProHP.text = "Enemy HP: " + enemy.enemyHP;
         }
     }
 

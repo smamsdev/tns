@@ -19,8 +19,6 @@ public class Vest : Gear
     public override void ApplyFendGear()
 
     {
-        Debug.Log("applying vest");
-
         if (moveManager.firstMoveIs == 2 || moveManager.secondMoveIs == 2)
         {
             GameObject.Find("Player").GetComponent<GearEquip>().playerStats.fendPowerGearMod += 5;

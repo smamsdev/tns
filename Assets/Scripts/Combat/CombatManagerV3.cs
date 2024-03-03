@@ -25,6 +25,18 @@ public class CombatManagerV3 : MonoBehaviour
     public PlayerStatsSO playerStats;
     public int roundCount;
     public bool enemyIsDead = false;
+    GameObject BattleUpdate;
+
+    [Header("States")]
+    [SerializeField] Setup setup;
+    [SerializeField] FirstMove firstMove;
+    [SerializeField] SecondMove secondMove;
+    [SerializeField] AttackTarget attackTarget;
+    [SerializeField] ApplyMove applyMove;
+    [SerializeField] EnemyAttack enemyAttack;
+    [SerializeField] RoundReset roundReset;
+    [SerializeField] Victory victory;
+
 
     [HideInInspector] public Vector2 enemyGameObjectDefaultPosition; //default position data is required as a return point after attacking
     [HideInInspector] public State currentState;
@@ -45,89 +57,87 @@ public class CombatManagerV3 : MonoBehaviour
 
     private void Start()
     {
-        this.transform.GetChild(2).gameObject.SetActive(false);
-        player = GameObject.Find("Player");
+        BattleUpdate = GameObject.Find("BattleUpdate");
+      //  BattleUpdate.SetActive(false); delete
     }
 
     public void SetState(State state)
 
     {
         currentState = state;
-        StartCoroutine(currentState.Start());
+
     }
 
     public void SetBattleSetupBattle()
 
     {
-        SetState(new Setup(this));
+        StartCoroutine(setup.StartState());
         battleState = BattleState.Setup;
         internalbattleState = battleState;
     }
 
     public void SetBattleStateFirstMove()
-
-  
+ 
     {
-        SetState(new FirstMove(this));
+        StartCoroutine(firstMove.StartState());
         battleState = BattleState.RoundStartFirstMove;
         internalbattleState = battleState;
-       
-        this.transform.GetChild(2).gameObject.SetActive(true);
+
+        BattleUpdate.SetActive(true);
     }
 
     public void SetBattleStateSecondMove()
 
     {
-        SetState(new SecondMove(this));
+        StartCoroutine(secondMove.StartState());
+
         battleState = BattleState.SecondMove;
         internalbattleState = battleState;
-        
-        this.transform.GetChild(2).gameObject.SetActive(true);
+
+        BattleUpdate.SetActive(true);
     }
 
 
     public void SetBattleStateAttackTarget()
 
     {
-        SetState(new AttackTarget(this));
-
+        StartCoroutine(attackTarget.StartState());
         battleState = BattleState.SelectAttackTarget;
         internalbattleState = battleState;
-       
-        this.transform.GetChild(2).gameObject.SetActive(true);
+
+        BattleUpdate.SetActive(true);
     }
 
 
     public void SetBattleStateApplyPlayerMove()
 
     {
-        SetState(new ApplyMove(this));
+        StartCoroutine(applyMove.StartState());
         battleState = BattleState.ApplyMove;
         internalbattleState = battleState;
 
-        this.transform.GetChild(2).gameObject.SetActive(true);
+        BattleUpdate.SetActive(true);
     }
 
     public void SetBattleStateEnemyAttack()
 
     {
-        SetState(new EnemyAttack(this));
+        StartCoroutine(enemyAttack.StartState());
         battleState  = BattleState.EnemyAttack;
         internalbattleState = battleState;
 
-        this.transform.GetChild(2).gameObject.SetActive(true);
+        BattleUpdate.SetActive(true);
     }
 
     public void SetBattleStateVictory()
 
     {
-        SetState(new Victory(this));
+        StartCoroutine(victory.StartState());
         battleState = BattleState.Victory;
         internalbattleState = battleState;
-        this.transform.GetChild(2).gameObject.SetActive(true);
+
+        BattleUpdate.SetActive(true);
     }
-
-
 
     void EnemyRawAttackPowerIS(int value)
     { enemyRawAttackPower = value; }
@@ -135,7 +145,7 @@ public class CombatManagerV3 : MonoBehaviour
     public void SetBattleStateRoundReset()
 
     {
-        SetState(new RoundReset(this));
+        StartCoroutine(roundReset.StartState());
     }
 
     private void Update()
