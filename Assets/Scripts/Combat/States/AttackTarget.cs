@@ -10,6 +10,8 @@ public class AttackTarget : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
 
+        combatManagerV3.combatUIScript.secondMoveMenu.SetActive(false);
+
         if (combatManagerV3.playerMoveManager.firstMoveIs == 1 || combatManagerV3.playerMoveManager.secondMoveIs == 1)
 
         {

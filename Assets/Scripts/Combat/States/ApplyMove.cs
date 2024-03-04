@@ -16,8 +16,13 @@ public class ApplyMove : MonoBehaviour
     {
         CombatEvents.EnemyIsDead += IsEnemyDead;
 
+        if (!combatManagerV3.combatUIScript.secondMoveMenu.activeSelf)
+        {
+            combatManagerV3.combatUIScript.secondMoveMenu.SetActive(false);
+        }
+
         combatManagerV3.combatUIScript.HideTargetMenu();
-        combatManagerV3.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+        CombatEvents.HighlightBodypartTarget?.Invoke(false, false, false);
 
         var equippedGear = combatManagerV3.player.GetComponent<GearEquip>().equippedGear;
         int i;
@@ -30,8 +35,6 @@ public class ApplyMove : MonoBehaviour
         }
 
         combatManagerV3.playerMoveManager.CombineMoves();
-
-        CombatEvents.HighlightBodypartTarget?.Invoke(false, false, false);
 
         CombatEvents.UpdateNarrator.Invoke(combatManagerV3.playerMoveManager.moveForNarrator);
         CombatEvents.UpdatePlayerPot.Invoke(Mathf.CeilToInt(combatManagerV3.playerStats.playerPotentialMoveCost));
@@ -53,6 +56,7 @@ public class ApplyMove : MonoBehaviour
 
         else 
         {
+            CombatEvents.ShowHideFendDisplay.Invoke(true);
             yield return new WaitForSeconds(1);
             combatManagerV3.SetBattleStateEnemyAttack();
         }
@@ -61,8 +65,6 @@ public class ApplyMove : MonoBehaviour
 
         yield return new WaitForSeconds(1);
         CombatEvents.UpdateNarrator.Invoke("");
-
-
 
     }
 

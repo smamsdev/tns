@@ -7,35 +7,20 @@ using UnityEngine;
 
 public class TargetDisplay : MonoBehaviour
 {
+    Enemy enemy;
+    [SerializeField] CombatManagerV3 combatManagerV3;
 
     [SerializeField] GameObject bodyTargetDisplay;
     [SerializeField] GameObject armsTargetDisplay;
     [SerializeField] GameObject headTargetDisplay;
 
-    [SerializeField] CombatManagerV3 combatManagerV3;
+    [SerializeField] TextMeshPro bodyDescriptionTextMeshPro, armsDescriptionTextMeshPro, headDescriptionTextMeshPro;
 
-    Enemy enemy;
+    [SerializeField] Animator bodyAnimator, armsAnimator, headAnimator;
 
-    [SerializeField] TextMeshPro bodyHPDisplayTextMeshPro;
-    [SerializeField] TextMeshPro armsHPDisplayTextMeshPro;
-    [SerializeField] TextMeshPro headHPDisplayTextMeshPro;
+    public int bodyMaxHP, armsMaxHP, headMaxHP;
 
-    [SerializeField] TextMeshPro bodyDescriptionTextMeshPro;
-    [SerializeField] TextMeshPro armsDescriptionTextMeshPro;
-    [SerializeField] TextMeshPro headDescriptionTextMeshPro;
-
-
-    [SerializeField] Animator bodyAnimator;
-    [SerializeField] Animator armsAnimator;
-    [SerializeField] Animator headAnimator;
-
-    public int bodyMaxHP;
-    public int armsMaxHP;
-    public int headMaxHP;
-
-    int bodyCurrentHP;
-    int armsCurrentHP;
-    int headCurrentHP;
+    public string bodyDescription, armsDescription, headDescription, injuredBodyDescription, injuredArmsDescription, injuredHeadDescription;
 
     private void OnEnable()
     {
@@ -55,45 +40,39 @@ public class TargetDisplay : MonoBehaviour
         CombatEvents.UpdateTargetDisplayHeadDescription -= UpdateHeadDescription;
     }
 
-    private void Awake()
-    {
-
-    }
-
 
     void UpdateTargetDisplay(bool showBody, bool showArms, bool showHead) 
     {
+
+        string bodyHP = enemy.enemyBodyHP.ToString() + " / " + bodyMaxHP.ToString();
+        string armsHP = enemy.enemyArmsHP.ToString() + " / " + armsMaxHP.ToString();
+        string headHP = enemy.enemyHeadHP.ToString() + " / " + headMaxHP.ToString();
+
         bodyTargetDisplay.SetActive(showBody);
         armsTargetDisplay.SetActive(showArms);
         headTargetDisplay.SetActive(showHead);
 
-        bodyCurrentHP = enemy.enemyBodyHP;
-        armsCurrentHP = enemy.enemyArmsHP;
-        headCurrentHP = enemy.enemyHeadHP;
+        bodyDescriptionTextMeshPro.text = bodyDescription + "<br>" + bodyHP;
+        armsDescriptionTextMeshPro.text = armsDescription + "<br>" + armsHP;
+        headDescriptionTextMeshPro.text = headDescription + "<br>" + headHP;
 
-
-       bodyHPDisplayTextMeshPro.text = bodyCurrentHP.ToString() + " / " + bodyMaxHP.ToString();
-       armsHPDisplayTextMeshPro.text = armsCurrentHP.ToString() + " / " + armsMaxHP.ToString();
-       headHPDisplayTextMeshPro.text = headCurrentHP.ToString() + " / " + headMaxHP.ToString();
-
-        if (bodyCurrentHP == 0)
+        if (enemy.enemyBodyHP == 0)
         {
-            CombatEvents.UpdateTargetDisplayBodyDescription.Invoke("Body Destroyed!<br>Enemy takes double damage");
+            CombatEvents.UpdateTargetDisplayBodyDescription.Invoke(injuredBodyDescription);
             bodyAnimator.SetBool("isDestroyed", true);
         }
 
-        if (armsCurrentHP == 0)
+        if (enemy.enemyArmsHP == 0)
         {
-            CombatEvents.UpdateTargetDisplayArmsDescription.Invoke("Arms Destroyed!<br>Enemy attacks are halved");
+            CombatEvents.UpdateTargetDisplayArmsDescription.Invoke(injuredArmsDescription);
             armsAnimator.SetBool("isDestroyed", true);
         }
 
-        if (headCurrentHP == 0)
+        if (enemy.enemyHeadHP == 0)
         {
-            CombatEvents.UpdateTargetDisplayHeadDescription.Invoke("Head Destroyed!<br>Enemy fumbles half their attacks");
+            CombatEvents.UpdateTargetDisplayHeadDescription.Invoke(injuredHeadDescription);
             headAnimator.SetBool("isDestroyed", true);
         }
-
     }
 
     public void InitializeEnemyPartsHP()
@@ -104,10 +83,6 @@ public class TargetDisplay : MonoBehaviour
         bodyMaxHP = enemy.enemyBodyHP;
         armsMaxHP = enemy.enemyArmsHP;
         headMaxHP = enemy.enemyHeadHP;
-
-        bodyCurrentHP = bodyMaxHP;
-        armsCurrentHP = armsMaxHP;
-        headCurrentHP = headMaxHP;
     }
 
     void UpdateBodyDescription(string description)
@@ -118,7 +93,5 @@ public class TargetDisplay : MonoBehaviour
 
     void UpdateHeadDescription(string description)
     { headDescriptionTextMeshPro.text = description; }
-
-
 
 }

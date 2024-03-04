@@ -8,11 +8,10 @@ using UnityEngine.UI;
 public class CombatUIScript : MonoBehaviour
 {
     [SerializeField] GameObject firstMoveMenu;
-
     public GameObject secondMoveMenu;
-
     [SerializeField] GameObject targetmenu;
     [SerializeField] AttackTargetMenuScript attackTargetMenuScript;
+    [SerializeField] CombatInventoryMenu combatInventoryMenu;
 
     [SerializeField] TextMeshProUGUI textMeshProUGUIFirstMoveDisplay;
     [SerializeField] TextMeshProUGUI textMeshProUGUISecondMoveDisplay;

@@ -20,11 +20,7 @@ public class EnemyAttack : MonoBehaviour
             i++;
         }
 
-        int enemyAttackPower = Mathf.Clamp(combatManagerV3.enemyRawAttackPower - combatManagerV3.playerStats.playerFend, 0, 9999);
-        CombatEvents.UpdatePlayerHP.Invoke(enemyAttackPower);
-
         combatManagerV3.combatUIScript.HideTargetMenu();
-        CombatEvents.ShowHideFendDisplay.Invoke(true);
 
         enemyAttackDisplay.SetActive(false);
 
@@ -32,7 +28,9 @@ public class EnemyAttack : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         
         CombatEvents.UpdateFendDisplay?.Invoke(combatManagerV3.playerStats.playerFend - combatManagerV3.enemyRawAttackPower);
-        
+        int enemyAttackPower = Mathf.Clamp(combatManagerV3.enemyRawAttackPower - combatManagerV3.playerStats.playerFend, 0, 9999);
+        CombatEvents.UpdatePlayerHP.Invoke(enemyAttackPower);
+
         yield return new WaitForSeconds(0.5f);
         
         combatManagerV3.UpdateFighterPosition(combatManagerV3.battleScheme.enemyGameObject, combatManagerV3.battleScheme.enemyFightingPosition.transform.position, 0.5f);

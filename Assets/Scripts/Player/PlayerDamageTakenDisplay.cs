@@ -17,10 +17,8 @@ public class PlayerDamageTakenDisplay : MonoBehaviour
 
     private void OnDisable()
     {
-
         CombatEvents.UpdatePlayerHP -= ShowPlayerDamageDisplay;
     }
-
 
     void Start()
     {
@@ -40,18 +38,14 @@ public class PlayerDamageTakenDisplay : MonoBehaviour
         { 
             textMeshPro.color = Color.white;
             textMeshPro.text = "FENDED!"; 
-
-        }
-        
+        }     
     }
 
     public void DisablePlayerDamageDisplay()
 
     {
         textMeshPro.enabled = false;
-
         animator.SetTrigger("PlayerDamageResetToDefault");
-
     }
 
    }

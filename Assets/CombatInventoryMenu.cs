@@ -8,34 +8,29 @@ public class CombatInventoryMenu : MonoBehaviour
     public CombatManagerV3 combatManagerV3;
     public PlayerInventory playerInventory;
     [SerializeField] CombatInventorySlot[] inventorySlot;
-    [SerializeField] GameObject background;
+    [SerializeField] GameObject inventoryMenu;
 
-    public Gear gearToLoad;
-
-    private void OnEnable()
+    private void Start()
     {
-        CombatEvents.BattleMode += init;
+        inventoryMenu.SetActive(false);
     }
 
-    private void OnDisable()
+    public void ShowMenu()
+
     {
-        CombatEvents.BattleMode -= init;
+        StartCoroutine(ShowMenuCoroutine(0.1f));
     }
 
-    void init(bool on)
-
+    IEnumerator ShowMenuCoroutine(float waitTime)
     {
-        StartCoroutine(LoadInventoryItemsToMenu(0.1f));
-    }
+        inventoryMenu.SetActive(true);
 
-    IEnumerator LoadInventoryItemsToMenu(float waitTime)
-    {
         yield return new WaitForSeconds(waitTime);
 
         for (int i = 0; i < playerInventory.inventory.Count; i++)
 
         {
-            gearToLoad = playerInventory.inventory[i].GetComponent<Gear>();
+            Gear gearToLoad = playerInventory.inventory[i].GetComponent<Gear>();
             inventorySlot[i].gear = gearToLoad;
             inventorySlot[i].textMeshProUGUI.text = gearToLoad.name;
         }
