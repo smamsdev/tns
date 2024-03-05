@@ -17,7 +17,12 @@ public class PlayerMoveManagerSO : ScriptableObject
 
     public void CombineMoves()
 
-    {
+        {
+        //for Gear equip
+        if (firstMoveIs == 0 && secondMoveIs == 0)
+
+            moveForNarrator = "";
+
         //attack first
 
         if (firstMoveIs == 1 && secondMoveIs == 1)
