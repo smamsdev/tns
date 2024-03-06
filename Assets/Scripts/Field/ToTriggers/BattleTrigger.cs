@@ -14,7 +14,7 @@ public class BattleTrigger : ToTrigger
 
         combatManager.battleScheme = battleToTrigger;
 
-        combatManager.SetBattleSetupBattle();
+        combatManager.StartBattle();
 
         yield return null;
     }

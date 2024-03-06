@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackTarget : MonoBehaviour
+public class AttackTarget : State
 {
     [SerializeField] CombatManagerV3 combatManagerV3;
 
-    public IEnumerator StartState()
+    public override IEnumerator StartState()
     {
         yield return new WaitForSeconds(0.1f);
 
@@ -18,18 +18,18 @@ public class AttackTarget : MonoBehaviour
             combatManagerV3.attackTargetMenuScript.DisplayAttackTargetMenu();
         }
 
-        else { combatManagerV3.SetBattleStateApplyPlayerMove(); }
+        else { combatManagerV3.SetState(combatManagerV3.applyMove); }
 
         yield break;
     }
 
-    public void Update()
+    public override void StateUpdate()
     {
 
         if (Input.GetKeyDown(KeyCode.Escape))
 
         {
-            combatManagerV3.SetBattleStateSecondMove();
+            combatManagerV3.SetState(combatManagerV3.secondMove);
             CombatEvents.InputCoolDown?.Invoke(0.2f);
         }
     }

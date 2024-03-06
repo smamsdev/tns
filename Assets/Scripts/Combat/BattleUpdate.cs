@@ -9,6 +9,9 @@ public class BattleUpdate : MonoBehaviour
     public bool isCoolDown;
     float seconds;
 
+
+    // detel this i think
+
     private void OnEnable()
     {
         CombatEvents.InputCoolDown += CoolDown;

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class Victory : MonoBehaviour
+public class Victory : State
 {
     [SerializeField] CombatManagerV3 combatManagerV3;
 
-    public IEnumerator StartState()
+    public override IEnumerator StartState()
     {
         combatManagerV3.battleScheme.enemyGameObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
         combatManagerV3.battleScheme.enemyGameObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);

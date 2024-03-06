@@ -29,13 +29,11 @@ public class CombatInventoryMenu : MonoBehaviour
         StartCoroutine(ShowMenuCoroutine(0.1f));
         equippedGearDisplayUI.enabled = false;
         CombatEvents.UpdateNarrator("");
-
     }
 
     IEnumerator ShowMenuCoroutine(float waitTime)
     {
         inventoryMenu.SetActive(true);
-
 
         yield return new WaitForSeconds(waitTime);
 
@@ -59,8 +57,14 @@ public class CombatInventoryMenu : MonoBehaviour
         equippedGear.equippedSlot[combatGearSlotSelected] = inventorySlot[InventorySlotNumberSelected].gear;
         equippedGearDisplayUI.UpdateGearDisplay(combatGearSlotSelected, inventorySlot[InventorySlotNumberSelected].gear.name);
 
-        inventoryMenu.SetActive(false); 
+        HideInventoryMenu();
 
-        combatManagerV3.SetBattleStateApplyPlayerMove();
+        combatManagerV3.SetState(combatManagerV3.applyMove);
+    }
+
+    public void HideInventoryMenu()
+
+    {
+        inventoryMenu.SetActive(false);
     }
 }

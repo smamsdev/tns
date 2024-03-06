@@ -6,10 +6,7 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class WeightedVest : Gear
 {
-
     Enemy enemy;
-
-    [TextArea(2, 5)] public string description;
 
     private void OnEnable()
     {
@@ -26,7 +23,6 @@ public class WeightedVest : Gear
         gearID = this.name;
     }
 
-
     private void LoadGear(bool on)
 
     {
@@ -39,7 +35,7 @@ public class WeightedVest : Gear
         enemy = GameObject.Find("CombatManager").GetComponent<CombatManagerV3>().battleScheme.enemyGameObject.GetComponentInChildren<Enemy>();
     }
 
-    public override void ApplyFendGear()
+    public override void ApplyFendGear() //asasd
 
     {
         enemy.enemyAttack += Mathf.RoundToInt(enemy.enemyAttack*0.3f);
@@ -50,5 +46,4 @@ public class WeightedVest : Gear
     {
         enemy.enemyXP += Mathf.RoundToInt(enemy.enemyXP * 0.1f);
     }
-
 }

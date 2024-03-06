@@ -4,24 +4,16 @@ using UnityEngine;
 
 public abstract class State : MonoBehaviour
 {
-    protected readonly CombatManagerV3 combatManagerV3;
 
-    public State(CombatManagerV3 _combatManagerV3)
-
-    { 
-        combatManagerV3 = _combatManagerV3;
-    }
-
-    public virtual IEnumerator Start()
+    public virtual IEnumerator StartState()
 
     {
         yield break;
     }
 
-    public virtual void Update()
-
+    public virtual void StateUpdate()
     {
-  
+        
     }
 
 }

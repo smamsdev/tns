@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour
+public class EnemyAttack : State
 {
     [SerializeField] CombatManagerV3 combatManagerV3;
     [SerializeField] GameObject enemyAttackDisplay;
 
-    public IEnumerator StartState()
+    public override IEnumerator StartState()
     {
 
         var equippedGear = combatManagerV3.player.GetComponent<GearEquip>().equippedGear;
@@ -37,7 +37,7 @@ public class EnemyAttack : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        combatManagerV3.SetBattleStateRoundReset();
+        combatManagerV3.SetState(combatManagerV3.roundReset);
     }
 
 }

@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoundReset : MonoBehaviour
+public class RoundReset : State
 {
     [SerializeField] CombatManagerV3 combatManagerV3;
 
-    public IEnumerator StartState()
+    public override IEnumerator StartState()
     {
         CombatEvents.ShowHideFendDisplay?.Invoke(false);
 
@@ -28,7 +28,7 @@ public class RoundReset : MonoBehaviour
 
         combatManagerV3.roundCount++;
 
-        combatManagerV3.SetBattleStateFirstMove();
+        combatManagerV3.SetState(combatManagerV3.firstMove);
 
         yield break;
     }

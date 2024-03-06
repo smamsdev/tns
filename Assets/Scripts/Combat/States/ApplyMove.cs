@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ApplyMove : MonoBehaviour
+public class ApplyMove : State
 {
     [SerializeField] CombatManagerV3 combatManagerV3;
 
@@ -12,7 +12,7 @@ public class ApplyMove : MonoBehaviour
         combatManagerV3.enemyIsDead = _enemyIsDead;
     }
 
-    public IEnumerator StartState()
+    public override IEnumerator StartState()
     {
         CombatEvents.EnemyIsDead += IsEnemyDead;
 
@@ -51,14 +51,14 @@ public class ApplyMove : MonoBehaviour
         
         {
             yield return new WaitForSeconds(1);
-            combatManagerV3.SetBattleStateVictory();
+            combatManagerV3.SetState(combatManagerV3.victory);
         }
 
         else 
         {
             CombatEvents.ShowHideFendDisplay.Invoke(true);
             yield return new WaitForSeconds(1);
-            combatManagerV3.SetBattleStateEnemyAttack();
+            combatManagerV3.SetState(combatManagerV3.enemyAttack);
         }
 
         CombatEvents.EnemyIsDead -= IsEnemyDead;

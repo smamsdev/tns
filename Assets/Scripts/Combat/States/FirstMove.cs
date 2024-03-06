@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FirstMove : MonoBehaviour
+public class FirstMove : State
 {
     [SerializeField] CombatManagerV3 combatManagerV3;
     [SerializeField] GameObject enemyAttackDisplay;
+    [SerializeField] GameObject firstMoveContainer;
 
-    public  IEnumerator StartState()
+    public override IEnumerator StartState()
     {
         yield return new WaitForSeconds(0.1f);
-        combatManagerV3.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+        firstMoveContainer.SetActive(true);
 
         combatManagerV3.combatUIScript.ShowFirstMoveMenu();
         combatManagerV3.playerMoveManager.firstMoveIs = 0;
@@ -21,7 +22,5 @@ public class FirstMove : MonoBehaviour
 
         yield break;
     }
-
-
 
 }

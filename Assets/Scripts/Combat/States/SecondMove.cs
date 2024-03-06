@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SecondMove : MonoBehaviour
+public class SecondMove : State
 {
     [SerializeField] CombatManagerV3 combatManagerV3;
 
-    public IEnumerator StartState()
+    public override IEnumerator StartState()
     {
         yield return new WaitForSeconds(0.1f);
 
@@ -16,14 +16,14 @@ public class SecondMove : MonoBehaviour
         yield break;
     }
 
-    public void Update()
+    public override void StateUpdate()
     {
 
         if (Input.GetKeyDown(KeyCode.Escape))
 
         {
-            combatManagerV3.SetBattleStateFirstMove();
-            CombatEvents.InputCoolDown?.Invoke(0.1f);
+          combatManagerV3.SetState(combatManagerV3.firstMove);
+          CombatEvents.InputCoolDown?.Invoke(0.1f);
         }
     }
 }

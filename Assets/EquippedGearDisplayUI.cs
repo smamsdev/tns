@@ -41,7 +41,7 @@ public class EquippedGearDisplayUI : MonoBehaviour
         }
     }
 
-    public void GearSelectionMenu()
+    public void ShowGearSelectionMenu()
 
     {
         for (int i = 0; i < buttonsToDisable.Length; i++)
@@ -57,13 +57,19 @@ public class EquippedGearDisplayUI : MonoBehaviour
     {
         gearSlotDisplay[gearSlotToUpdate].text = newlyEquippedGear;
         firstMoveContainer.SetActive(false);
+        EnableFirstMoveButtons();
+    }
 
+    public void EnableFirstMoveButtons()
+
+    {
         for (int i = 0; i < buttonsToDisable.Length; i++)
         {
             buttonsToDisable[i].interactable = true;
         }
 
     }
+
 
     void ButtonHighlighted(GameObject gameObject)
 

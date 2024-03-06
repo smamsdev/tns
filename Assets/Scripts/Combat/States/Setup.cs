@@ -2,14 +2,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class Setup : MonoBehaviour
+public class Setup : State
 {
     [SerializeField] CombatManagerV3 combatManagerV3;
 
     [SerializeField] GameObject combatMenuContainer;
     [SerializeField] GameObject playerStatsContainer;
 
-    public IEnumerator StartState()
+    public override IEnumerator StartState()
 
     {
         yield return new WaitForSeconds(0.01f);
@@ -44,10 +44,11 @@ public class Setup : MonoBehaviour
         combatManagerV3.playerStats.InitalisePlayerStats();
 
 
-        combatManagerV3.SetBattleStateFirstMove();
+        combatManagerV3.SetState(combatManagerV3.firstMove);
 
         yield break;
     }
+
 
 }
 

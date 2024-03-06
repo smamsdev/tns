@@ -12,6 +12,7 @@ public static class CombatEvents
     public static Action LockPlayerMovement;
     public static Action UnlockPlayerMovement;
     public static Action<GameObject, Vector2, float>UpdateFighterPosition;
+    public static Action<State> PassState;
 
     //Combat UI
     public static Action<string> UpdateNarrator;
