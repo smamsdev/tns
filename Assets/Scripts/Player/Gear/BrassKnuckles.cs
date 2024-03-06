@@ -8,8 +8,6 @@ public class BrassKnuckles : Gear
 
     [SerializeField] PlayerMoveManagerSO moveManager;
 
-    [TextArea(2, 5)] public string description;
-
     private void Awake()
     {
         gearID = this.name;

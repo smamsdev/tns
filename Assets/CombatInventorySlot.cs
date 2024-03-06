@@ -7,4 +7,10 @@ public class CombatInventorySlot : MonoBehaviour
 {
     public Gear gear;
     public TextMeshProUGUI textMeshProUGUI;
+
+    public void DisplayInventoryItemDescription()
+
+    {
+        CombatEvents.UpdateNarrator(gear.gearDescription);
+    }
 }

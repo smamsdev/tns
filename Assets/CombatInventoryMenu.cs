@@ -10,7 +10,7 @@ public class CombatInventoryMenu : MonoBehaviour
     public PlayerInventory playerInventory;
     [SerializeField] EquippedGear equippedGear;
     [SerializeField] EquippedGearDisplayUI equippedGearDisplayUI;
-    [SerializeField] CombatInventorySlot[] inventorySlot;
+    public CombatInventorySlot[] inventorySlot;
     [SerializeField] GameObject inventoryMenu;
     [SerializeField] Button inventorySlotOne;
     public int combatGearSlotSelected;
@@ -27,13 +27,15 @@ public class CombatInventoryMenu : MonoBehaviour
     {
         combatGearSlotSelected = int.Parse(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
         StartCoroutine(ShowMenuCoroutine(0.1f));
+        equippedGearDisplayUI.enabled = false;
+        CombatEvents.UpdateNarrator("");
 
     }
 
     IEnumerator ShowMenuCoroutine(float waitTime)
     {
         inventoryMenu.SetActive(true);
-        inventorySlotOne.Select();
+
 
         yield return new WaitForSeconds(waitTime);
 
@@ -44,11 +46,14 @@ public class CombatInventoryMenu : MonoBehaviour
             inventorySlot[i].gear = gearToLoad;
             inventorySlot[i].textMeshProUGUI.text = gearToLoad.name;
         }
+
+        inventorySlotOne.Select();
     }
 
     public void equipSelectedGear()
 
     {
+        equippedGearDisplayUI.enabled = true;
         InventorySlotNumberSelected = int.Parse(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
 
         equippedGear.equippedSlot[combatGearSlotSelected] = inventorySlot[InventorySlotNumberSelected].gear;
@@ -57,7 +62,5 @@ public class CombatInventoryMenu : MonoBehaviour
         inventoryMenu.SetActive(false); 
 
         combatManagerV3.SetBattleStateApplyPlayerMove();
-
     }
-
 }

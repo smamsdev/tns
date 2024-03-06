@@ -17,6 +17,16 @@ public class EquippedGearDisplayUI : MonoBehaviour
 
     public TextMeshProUGUI[] gearSlotDisplay;
 
+    private void OnEnable()
+    {
+        CombatEvents.ButtonHighlighted += ButtonHighlighted;
+    }
+
+    private void OnDisable()
+    {
+        CombatEvents.ButtonHighlighted -= ButtonHighlighted;
+    }
+
 
     private void Start()
     {
@@ -55,5 +65,17 @@ public class EquippedGearDisplayUI : MonoBehaviour
 
     }
 
+    void ButtonHighlighted(GameObject gameObject)
+
+    {
+        int gearSlot = int.Parse(gameObject.name);
+
+        if (equippedGear.equippedSlot[gearSlot] != null)
+        {
+            CombatEvents.UpdateNarrator(equippedGear.equippedSlot[gearSlot].GetComponent<Gear>().gearDescription);
+        }
+
+        else CombatEvents.UpdateNarrator("");
+    }
 }
 

@@ -6,4 +6,5 @@ using UnityEngine;
 public class EquippedGear : MonoBehaviour
 {
     public Gear[] equippedSlot;
+
 }

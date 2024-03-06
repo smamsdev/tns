@@ -2,13 +2,14 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.Events;
 
-public class ShowBodyAttackInfo : MonoBehaviour, ISelectHandler
+public class IButtonSelected : MonoBehaviour, ISelectHandler
 {
 
     public void OnSelect(BaseEventData eventData)
     {
-        CombatEvents.HighlightBodypartTarget.Invoke(true, false, false);
+        CombatEvents.ButtonHighlighted?.Invoke(this.gameObject);
     }
+
+
 }

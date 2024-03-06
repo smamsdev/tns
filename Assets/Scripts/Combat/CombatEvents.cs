@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Unity.Mathematics;
+using UnityEngine.UI;
 
 public static class CombatEvents
 {
@@ -22,6 +23,7 @@ public static class CombatEvents
     public static Action<string> UpdateFirstMoveDisplay;
     public static Action<string> UpdateSecondMoveDisplay;
     public static Action<float> InputCoolDown;
+    public static Action <GameObject> ButtonHighlighted;
 
     //Enemy
     public static Action<int> EnemyAttackPower;
