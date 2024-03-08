@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BattleUpdate : MonoBehaviour
 {
-    [SerializeField] CombatManagerV3 CombatManagerV3;
+    [SerializeField] CombatManager CombatManager;
     public bool isCoolDown;
     float seconds;
 
@@ -26,7 +26,7 @@ public class BattleUpdate : MonoBehaviour
  //
  //  {
  //      if (!isCoolDown)
- //          { CombatManagerV3.currentState.Update(); }
+ //          { CombatManager.currentState.Update(); }
  //     
  //  }
 

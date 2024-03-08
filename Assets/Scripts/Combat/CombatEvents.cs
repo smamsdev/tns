@@ -22,6 +22,7 @@ public static class CombatEvents
     public static Action<bool> ShowHideFendDisplay;
     public static Action<int> UpdatePlayerHPDisplay;
     public static Action<string> UpdateFirstMoveDisplay;
+    public static Action<string> AnimatorTrigger;
     public static Action<string> UpdateSecondMoveDisplay;
     public static Action<float> InputCoolDown;
     public static Action <GameObject> ButtonHighlighted;
@@ -49,6 +50,9 @@ public static class CombatEvents
     public static Action<int> InitializePlayerHP;
     public static Action<int> InitializePlayerPotUI;
     public static Action<int> UpdatePlayerHP;
+
+    //DEFTEST
+    public static Action<int> ATTACKTOAPPLY;
 
 
 }

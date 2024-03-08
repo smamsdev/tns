@@ -32,7 +32,7 @@ public class WeightedVest : Gear
     IEnumerator GetEnemyReference(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
-        enemy = GameObject.Find("CombatManager").GetComponent<CombatManagerV3>().battleScheme.enemyGameObject.GetComponentInChildren<Enemy>();
+        enemy = GameObject.Find("CombatManager").GetComponent<CombatManager>().battleScheme.enemyGameObject.GetComponentInChildren<Enemy>();
     }
 
     public override void ApplyFendGear() //asasd

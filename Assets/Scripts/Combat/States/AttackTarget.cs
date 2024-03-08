@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class AttackTarget : State
 {
-    [SerializeField] CombatManagerV3 combatManagerV3;
+    [SerializeField] CombatManager combatManager;
 
     public override IEnumerator StartState()
     {
         yield return new WaitForSeconds(0.1f);
 
-        combatManagerV3.combatUIScript.secondMoveMenu.SetActive(false);
+        combatManager.combatUIScript.secondMoveMenu.SetActive(false);
 
-        if (combatManagerV3.playerMoveManager.firstMoveIs == 1 || combatManagerV3.playerMoveManager.secondMoveIs == 1)
+        if (combatManager.playerMoveManager.firstMoveIs == 1 || combatManager.playerMoveManager.secondMoveIs == 1)
 
         {
-            combatManagerV3.attackTargetMenuScript.DisplayAttackTargetMenu();
+            combatManager.attackTargetMenuScript.DisplayAttackTargetMenu();
         }
 
-        else { combatManagerV3.SetState(combatManagerV3.applyMove); }
+        else { combatManager.SetState(combatManager.applyMove); }
 
         yield break;
     }
@@ -29,7 +29,7 @@ public class AttackTarget : State
         if (Input.GetKeyDown(KeyCode.Escape))
 
         {
-            combatManagerV3.SetState(combatManagerV3.secondMove);
+            combatManager.SetState(combatManager.secondMove);
             CombatEvents.InputCoolDown?.Invoke(0.2f);
         }
     }

@@ -8,7 +8,7 @@ using UnityEngine;
 public class TargetDisplay : MonoBehaviour
 {
     Enemy enemy;
-    [SerializeField] CombatManagerV3 combatManagerV3;
+    [SerializeField] CombatManager combatManager; 
 
     [SerializeField] GameObject bodyTargetDisplay;
     [SerializeField] GameObject armsTargetDisplay;
@@ -78,7 +78,7 @@ public class TargetDisplay : MonoBehaviour
     public void InitializeEnemyPartsHP()
 
     {
-        enemy = combatManagerV3.battleScheme.enemyGameObject.GetComponent<Enemy>();
+        enemy = combatManager.battleScheme.enemyGameObject.GetComponent<Enemy>();
 
         bodyMaxHP = enemy.enemyBodyHP;
         armsMaxHP = enemy.enemyArmsHP;

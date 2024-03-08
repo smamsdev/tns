@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class ApplyMove : State
 {
-    [SerializeField] CombatManagerV3 combatManagerV3;
+    [SerializeField] CombatManager combatManager;
 
     void IsEnemyDead(bool _enemyIsDead)
 
     {
-        combatManagerV3.enemyIsDead = _enemyIsDead;
+        combatManager.enemyIsDead = _enemyIsDead;
     }
 
     public override IEnumerator StartState()
     {
         CombatEvents.EnemyIsDead += IsEnemyDead;
 
-        if (!combatManagerV3.combatUIScript.secondMoveMenu.activeSelf)
+        if (!combatManager.combatUIScript.secondMoveMenu.activeSelf)
         {
-            combatManagerV3.combatUIScript.secondMoveMenu.SetActive(false);
+            combatManager.combatUIScript.secondMoveMenu.SetActive(false);
         }
 
-        combatManagerV3.combatUIScript.HideTargetMenu();
+        combatManager.combatUIScript.HideTargetMenu();
         CombatEvents.HighlightBodypartTarget?.Invoke(false, false, false);
 
-        var equippedGear = combatManagerV3.player.GetComponent<GearEquip>().equippedGear;
+        var equippedGear = combatManager.player.GetComponent<GearEquip>().equippedGear;
         int i;
 
         for (i = 0; i < equippedGear.Length;)
@@ -34,31 +34,31 @@ public class ApplyMove : State
             i++;
         }
 
-        combatManagerV3.playerMoveManager.CombineMoves();
+        combatManager.playerMoveManager.CombineMoves();
 
-        CombatEvents.UpdateNarrator.Invoke(combatManagerV3.playerMoveManager.moveForNarrator);
-        CombatEvents.UpdatePlayerPot.Invoke(Mathf.CeilToInt(combatManagerV3.playerStats.playerPotentialMoveCost));
+        CombatEvents.UpdateNarrator.Invoke(combatManager.playerMoveManager.moveForNarrator);
+        CombatEvents.UpdatePlayerPot.Invoke(Mathf.CeilToInt(combatManager.playerStats.playerPotentialMoveCost));
 
-        if (combatManagerV3.playerMoveManager.firstMoveIs == 1 || combatManagerV3.playerMoveManager.secondMoveIs == 1)
+        if (combatManager.playerMoveManager.firstMoveIs == 1 || combatManager.playerMoveManager.secondMoveIs == 1)
         {
-            CombatEvents.UpdateFighterPosition.Invoke(combatManagerV3.player, new Vector2(combatManagerV3.battleScheme.enemyGameObject.transform.position.x - 0.3f, combatManagerV3.battleScheme.enemyGameObject.transform.position.y), 0.5f);
+            CombatEvents.UpdateFighterPosition.Invoke(combatManager.player, new Vector2(combatManager.battleScheme.enemyGameObject.transform.position.x - 0.3f, combatManager.battleScheme.enemyGameObject.transform.position.y), 0.5f);
             yield return new WaitForSeconds(1);
-            CombatEvents.UpdateFighterPosition.Invoke(combatManagerV3.player, combatManagerV3.battleScheme.playerFightingPosition.transform.position, 0.5f);
-            CombatEvents.CalculateEnemyDamageTaken.Invoke(combatManagerV3.playerStats.attackPower);
+            CombatEvents.UpdateFighterPosition.Invoke(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 0.5f);
+            CombatEvents.CalculateEnemyDamageTaken.Invoke(combatManager.playerStats.attackPower);
         }
 
-        if (combatManagerV3.enemyIsDead) 
+        if (combatManager.enemyIsDead) 
         
         {
             yield return new WaitForSeconds(1);
-            combatManagerV3.SetState(combatManagerV3.victory);
+            combatManager.SetState(combatManager.victory);
         }
 
         else 
         {
             CombatEvents.ShowHideFendDisplay.Invoke(true);
             yield return new WaitForSeconds(1);
-            combatManagerV3.SetState(combatManagerV3.enemyAttack);
+            combatManager.SetState(combatManager.enemyAttack);
         }
 
         CombatEvents.EnemyIsDead -= IsEnemyDead;

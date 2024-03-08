@@ -6,53 +6,106 @@ using UnityEngine.UI;
 
 public class FendScript : MonoBehaviour
 {
-
-    TextMeshPro textMeshPro;
+    TextMeshProUGUI fendTextMeshProUGUI;
+    [SerializeField] CombatManager combatManager;
     [SerializeField] GameObject fendTextObj;
-    [SerializeField] PlayerMoveManagerSO playerMoveManager;
+    [SerializeField] GameObject fendIcon;
+    [SerializeField] Animator animator;
 
     public int fend = 0;
 
     private void OnEnable()
     {
+        CombatEvents.BattleMode += Init;
+        CombatEvents.AnimatorTrigger += TriggerAnimation;
         CombatEvents.UpdateFendDisplay += UpdateFendText;
+        CombatEvents.ATTACKTOAPPLY += EnemyAttack;
         CombatEvents.ShowHideFendDisplay += ShowHideFendDisplay;
     }
 
     private void OnDisable()
     {
-        CombatEvents.UpdateFendDisplay -= UpdateFendText;
+        CombatEvents.BattleMode -= Init;
+        CombatEvents.AnimatorTrigger -= TriggerAnimation;
+        CombatEvents.ATTACKTOAPPLY -= EnemyAttack;
+        CombatEvents.UpdateFendDisplay += UpdateFendText;
         CombatEvents.ShowHideFendDisplay -= ShowHideFendDisplay;
     }
 
-    void Awake()
+    void Init(bool on)
     {
-        textMeshPro = fendTextObj.GetComponent<TextMeshPro>();
+        ShowHideFendDisplay(false);
+        fendTextMeshProUGUI = fendTextObj.GetComponent<TextMeshProUGUI>();
+        this.transform.position = new Vector2(combatManager.battleScheme.playerFightingPosition.transform.position.x, combatManager.battleScheme.playerFightingPosition.transform.position.y + 0.8f);
+    }
+
+    void TriggerAnimation(string trigger)
+
+    {
+        animator.SetTrigger(trigger);
     }
 
     void UpdateFendText(int value)
     {
-        if (value <= 0) { textMeshPro.text = "SMASHED!"; }
+        if (value <= 0) { fendTextMeshProUGUI.text = "SMASHED!"; }
 
-        else 
+        else
         {
             fend = value;
-            textMeshPro.text = "Fend: " + fend.ToString();
+            fendTextMeshProUGUI.text = fend.ToString();
         }
     }
 
     void ShowHideFendDisplay(bool on)
 
     {
-        if (on && (playerMoveManager.firstMoveIs==2 || playerMoveManager.secondMoveIs == 2))
-      
-        { 
+        if (on && (combatManager.playerMoveManager.firstMoveIs == 2 || combatManager.playerMoveManager.secondMoveIs == 2))
+
+        {
             fendTextObj.SetActive(true);
+            fendIcon.SetActive(true);
         }
 
-        else 
-        { 
-            fendTextObj.SetActive(false); 
+        if (!on)
+        {
+            fendTextObj.SetActive(false);
+            fendIcon.SetActive(false);
         }
     }
+
+    void EnemyAttack(int attack)
+
+    {
+    StartCoroutine(EnemyAttackCoRo(attack));
+    
+    }
+
+    IEnumerator EnemyAttackCoRo(int attack)
+
+    {
+        float elapsedTime = 0f;
+        float lerpDuration = 0.5f;
+
+        int startNumber = fend;
+
+        int endValue = fend - attack;
+
+        while (elapsedTime < lerpDuration)
+        {
+            // Calculate the interpolation factor between 0 and 1 based on the elapsed time and duration
+            float t = Mathf.Clamp01(elapsedTime / lerpDuration);
+
+            // Lerp between the start and end values
+            fend = Mathf.RoundToInt(Mathf.Lerp(startNumber, endValue, t));
+            fendTextMeshProUGUI.text = fend.ToString();
+
+            // Increment the elapsed time
+            elapsedTime += Time.deltaTime;
+
+            yield return null;
+        }
+
+    }
+
+
 }

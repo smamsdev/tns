@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class SecondMove : State
 {
-    [SerializeField] CombatManagerV3 combatManagerV3;
+    [SerializeField] CombatManager combatManager;
 
     public override IEnumerator StartState()
     {
         yield return new WaitForSeconds(0.1f);
 
-        combatManagerV3.combatUIScript.ShowSecondMoveMenu();
-        combatManagerV3.playerMoveManager.secondMoveIs = 0;
+        combatManager.combatUIScript.ShowSecondMoveMenu();
+        combatManager.playerMoveManager.secondMoveIs = 0;
 
         yield break;
     }
@@ -22,7 +22,7 @@ public class SecondMove : State
         if (Input.GetKeyDown(KeyCode.Escape))
 
         {
-          combatManagerV3.SetState(combatManagerV3.firstMove);
+          combatManager.SetState(combatManager.firstMove);
           CombatEvents.InputCoolDown?.Invoke(0.1f);
         }
     }

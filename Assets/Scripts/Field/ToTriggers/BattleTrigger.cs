@@ -10,7 +10,7 @@ public class BattleTrigger : ToTrigger
 
     public override IEnumerator DoAction()
     {
-        CombatManagerV3 combatManager = GameObject.Find("CombatManager").GetComponent<CombatManagerV3>();
+        CombatManager combatManager = GameObject.Find("CombatManager").GetComponent<CombatManager>();
 
         combatManager.battleScheme = battleToTrigger;
 

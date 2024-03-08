@@ -4,7 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class CombatManagerV3 : MonoBehaviour
+public class CombatManager : MonoBehaviour
 {
     public State currentState;
 

@@ -8,7 +8,6 @@ using System;
 
 public class PlayerMoveManagerSO : ScriptableObject
 {
-
     public int firstMoveIs;
     public int secondMoveIs;
 
@@ -17,177 +16,205 @@ public class PlayerMoveManagerSO : ScriptableObject
 
     public void CombineMoves()
 
-        {
-        //for Gear equip
-        if (firstMoveIs == 0 && secondMoveIs == 0)
-
-            moveForNarrator = "";
-
-        //attack first
-
+    {
         if (firstMoveIs == 1 && secondMoveIs == 1)
         {
-
-            //ui
-            moveForNarrator = "Reckless Attack!";
-
-            //pot
-            CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.2f,-20, false);
-
-
-            //att
-            CombatEvents.UpdatePlayerAttackMoveMod.Invoke(1, true);
-
-
-            //def
-            CombatEvents.UpdatePlayerFendMoveMod.Invoke(0, false);
-
+            OneOne();
         }
 
         if (firstMoveIs == 1 && secondMoveIs == 2)
         {
-
-            //ui
-            moveForNarrator = "Slip Attack!";
-
-            //att
-            CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0.3f, true);
-
-
-            //def 
-            CombatEvents.UpdatePlayerFendMoveMod.Invoke(0.3f, true);
-
-            // fendScript.ShowFendText();
-
-            //pot null
-            CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.3f, -10, false);
-
-
-
+            OneTwo();
         }
 
         if (firstMoveIs == 1 && secondMoveIs == 3)
         {
-            //ui
-            moveForNarrator = "Calculating Attack";
-
-
-            //att
-            CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0.2f, true);
-
-
-
-            //def
-            CombatEvents.UpdatePlayerFendMoveMod.Invoke(0, false);
-
-            //pot
-            CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.8f, 0, true);
-
+            OneThree();
         }
-
-        //def first
 
         if (firstMoveIs == 2 && secondMoveIs == 1)
         {
-
-            //ui
-            moveForNarrator = "Counter Attack!";
-
-
-            //att
-            CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0.3f, true) ;
-
-            //def
-            CombatEvents.UpdatePlayerFendMoveMod.Invoke(0.5f, true);
-            //fendScript.ShowFendText();
-
-            //pot
-            CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.4f, -10, false);
+            TwoOne();
         }
 
         if (firstMoveIs == 2 && secondMoveIs == 2)
         {
-            //ui
-            moveForNarrator = "Stubborn Fend";
-
-            //att null
-            CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0,false);
-
-            //def
-            CombatEvents.UpdatePlayerFendMoveMod.Invoke(1, true);
-
-            //  fendScript.ShowFendText();
-
-            //pot
-            CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.2f, -15, false);
+            TwoTwo();
         }
 
         if (firstMoveIs == 2 && secondMoveIs == 3)
         {
-            //ui
-            moveForNarrator = "Pensive Fend!";
-
-            //att null
-            CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0,false);
-
-            //def
-            CombatEvents.UpdatePlayerFendMoveMod.Invoke(0.5f, true);
-            // fendScript.ShowFendText();
-            // playerStats.fendMoveMod = Mathf.CeilToInt(playerStats.playerFendBase * 0.4f);
-
-            //pot
-            CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.3f, 0, true);
+            TwoThree();
         }
-
-        //focus first
 
         if (firstMoveIs == 3 && secondMoveIs == 1)
         {
-            //ui
-            moveForNarrator = "Precise Attack!";
-
-            //att
-            CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0.4f,true);
-
-            //def
-            CombatEvents.UpdatePlayerFendMoveMod.Invoke(0, false);
-
-            //pot
-            CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.2f, 2, true);
+            ThreeOne();
         }
 
         if (firstMoveIs == 3 && secondMoveIs == 2)
         {
-            //ui
-            moveForNarrator = "Contrary Fend!";
-
-            //att null
-            CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0,false);
-
-            //def
-            CombatEvents.UpdatePlayerFendMoveMod.Invoke(0.2f, true);
-            // fendScript.ShowFendText();
-
-            //pot
-            CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.4f, 2, true);
+            ThreeTwo();
         }
-
 
         if (firstMoveIs == 3 && secondMoveIs == 3)
         {
-            //ui
-            moveForNarrator = "Zen Concentration!";
-
-            //att null
-            CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0,false);
-
-            //def
-            CombatEvents.UpdatePlayerFendMoveMod.Invoke(0, false);
-
-            //pot
-            CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(1.2f, 10, true);
+            ThreeThree();
         }
+    }
 
+    void OneOne()
+
+    {
+        //ui
+        moveForNarrator = "Reckless Attack!";
+
+        //pot
+        CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.2f, -20, false);
+
+        //att
+        CombatEvents.UpdatePlayerAttackMoveMod.Invoke(1, true);
+
+        //def
+        CombatEvents.UpdatePlayerFendMoveMod.Invoke(0, false);
+    }
+
+    void OneTwo()
+
+    {
+        //ui
+        moveForNarrator = "Slip Attack!";
+
+        //att
+        CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0.3f, true);
+
+        //def 
+        CombatEvents.UpdatePlayerFendMoveMod.Invoke(0.3f, true);
+
+        //pot null
+        CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.3f, -10, false);
+    }
+
+    void OneThree()
+
+    {
+        //ui
+        moveForNarrator = "Calculating Attack";
+
+        //att
+        CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0.2f, true);
+
+        //def
+        CombatEvents.UpdatePlayerFendMoveMod.Invoke(0, false);
+
+        //pot
+        CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.8f, 0, true);
+    }
+
+    void TwoOne()
+
+    {
+        //ui
+        moveForNarrator = "Counter Attack!";
+
+        //att
+        CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0.3f, true);
+
+        //def
+        CombatEvents.UpdatePlayerFendMoveMod.Invoke(0.5f, true);
+        //fendScript.ShowFendText();
+
+        //pot
+        CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.4f, -10, false);
+    }
+
+    void TwoTwo()
+
+    {
+        //ui
+        moveForNarrator = "Stubborn Fend";
+
+        //att null
+        CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0, false);
+
+        //def
+        CombatEvents.UpdatePlayerFendMoveMod.Invoke(1, true);
+
+        //pot
+        CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.2f, -15, false);
+    }
+
+    void TwoThree()
+
+    {
+        //ui
+        moveForNarrator = "Pensive Fend!";
+
+        //att null
+        CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0, false);
+
+        //def
+        CombatEvents.UpdatePlayerFendMoveMod.Invoke(0.5f, true);
+
+        //pot
+        CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.3f, 0, true);
+    }
+
+    void ThreeOne()
+
+    {
+        //ui
+        moveForNarrator = "Precise Attack!";
+
+        //att
+        CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0.4f, true);
+
+        //def
+        CombatEvents.UpdatePlayerFendMoveMod.Invoke(0, false);
+
+        //pot
+        CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.2f, 2, true);
+    }
+
+    void ThreeTwo()
+
+    {
+        //ui
+        moveForNarrator = "Contrary Fend!";
+
+        //att null
+        CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0, false);
+
+        //def
+        CombatEvents.UpdatePlayerFendMoveMod.Invoke(0.2f, true);
+
+        //pot
+        CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.4f, 2, true);
+    }
+
+    void ThreeThree()
+
+    {
+        //ui
+        moveForNarrator = "Zen Concentration!";
+
+        //att null
+        CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0, false);
+
+        //def
+        CombatEvents.UpdatePlayerFendMoveMod.Invoke(0, false);
+
+        //pot
+        CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(1.2f, 10, true);
+    }
+
+    public void GearMove()
+
+    {
+        if (firstMoveIs == 0 && secondMoveIs == 0)
+
+        moveForNarrator = "";
+        GearMove();
     }
 
     public void FirstMoveIsAttack()
@@ -196,7 +223,6 @@ public class PlayerMoveManagerSO : ScriptableObject
         CombatEvents.UpdateFirstMoveDisplay.Invoke("Attack");
         firstMoveIs = 1;
     }
-
 
     public void FirstMoveIsDefend()
 
@@ -208,12 +234,10 @@ public class PlayerMoveManagerSO : ScriptableObject
     public void FirstMoveIsFocus()
 
     {
-
         CombatEvents.UpdateFirstMoveDisplay.Invoke("Focus");
         firstMoveIs = 3;
     }
 
-    //second move
     public void SecondMoveIsAttack()
 
     {

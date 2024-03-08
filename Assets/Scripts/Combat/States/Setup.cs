@@ -4,7 +4,7 @@ using UnityEngine.Rendering;
 
 public class Setup : State
 {
-    [SerializeField] CombatManagerV3 combatManagerV3;
+    [SerializeField] CombatManager combatManager;
 
     [SerializeField] GameObject combatMenuContainer;
     [SerializeField] GameObject playerStatsContainer;
@@ -16,18 +16,18 @@ public class Setup : State
         CombatEvents.BattleMode?.Invoke(true);
         CombatEvents.LockPlayerMovement.Invoke();
 
-        CombatEvents.UpdateFighterPosition.Invoke(combatManagerV3.player, combatManagerV3.battleScheme.playerFightingPosition.transform.position, 1f);
+        CombatEvents.UpdateFighterPosition.Invoke(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 1f);
 
         //enemy
-        combatManagerV3.enemyGameObjectDefaultPosition = combatManagerV3.battleScheme.enemyGameObject.transform.position;
-        //  combatManagerV3.battleScheme.enemyGameObject.transform.GetChild(0).GetComponent<Enemy>().enabled = true; //turn on Enemy script, you don't want this on for every 'enemy' in the scnene
+        combatManager.enemyGameObjectDefaultPosition = combatManager.battleScheme.enemyGameObject.transform.position;
+        //  combatManager.battleScheme.enemyGameObject.transform.GetChild(0).GetComponent<Enemy>().enabled = true; //turn on Enemy script, you don't want this on for every 'enemy' in the scnene
         combatMenuContainer.SetActive(true); //combat menu container
         playerStatsContainer.SetActive(true); //player stats container
 
-        combatManagerV3.UpdateFighterPosition(combatManagerV3.battleScheme.enemyGameObject, combatManagerV3.battleScheme.enemyFightingPosition.transform.position, 1);
-        combatManagerV3.battleScheme.enemyGameObject.GetComponent<SortingGroup>().enabled = false;
+        combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, combatManager.battleScheme.enemyFightingPosition.transform.position, 1);
+        combatManager.battleScheme.enemyGameObject.GetComponent<SortingGroup>().enabled = false;
 
-        combatManagerV3.enemyRawAttackPower = 0;
+        combatManager.enemyRawAttackPower = 0;
 
         CombatEvents.InitializeEnemyPartsHP?.Invoke();
 
@@ -36,15 +36,15 @@ public class Setup : State
 
         //player stats
 
-        CombatEvents.InitializePlayerHP?.Invoke(combatManagerV3.playerStats.playerMaxHP);
+        CombatEvents.InitializePlayerHP?.Invoke(combatManager.playerStats.playerMaxHP);
        
-        // combatManagerV3.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);    ????/
+        // combatManager.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);    ????/
 
 
-        combatManagerV3.playerStats.InitalisePlayerStats();
+        combatManager.playerStats.InitalisePlayerStats();
 
 
-        combatManagerV3.SetState(combatManagerV3.firstMove);
+        combatManager.SetState(combatManager.firstMove);
 
         yield break;
     }

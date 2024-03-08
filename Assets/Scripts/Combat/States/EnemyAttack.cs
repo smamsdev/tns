@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class EnemyAttack : State
 {
-    [SerializeField] CombatManagerV3 combatManagerV3;
+    [SerializeField] CombatManager combatManager;
     [SerializeField] GameObject enemyAttackDisplay;
 
     public override IEnumerator StartState()
     {
 
-        var equippedGear = combatManagerV3.player.GetComponent<GearEquip>().equippedGear;
+        var equippedGear = combatManager.player.GetComponent<GearEquip>().equippedGear;
         int i;
 
         for (i = 0; i < equippedGear.Length;)
@@ -20,24 +20,29 @@ public class EnemyAttack : State
             i++;
         }
 
-        combatManagerV3.combatUIScript.HideTargetMenu();
+        combatManager.combatUIScript.HideTargetMenu();
 
         enemyAttackDisplay.SetActive(false);
 
-        combatManagerV3.UpdateFighterPosition(combatManagerV3.battleScheme.enemyGameObject, new Vector2(combatManagerV3.battleScheme.playerFightingPosition.transform.position.x + 0.3f, combatManagerV3.battleScheme.playerFightingPosition.transform.position.y), 0.5f);
+        combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, new Vector2(combatManager.battleScheme.playerFightingPosition.transform.position.x + 0.3f, combatManager.battleScheme.playerFightingPosition.transform.position.y), 0.5f);
         yield return new WaitForSeconds(0.5f);
         
-        CombatEvents.UpdateFendDisplay?.Invoke(combatManagerV3.playerStats.playerFend - combatManagerV3.enemyRawAttackPower);
-        int enemyAttackPower = Mathf.Clamp(combatManagerV3.enemyRawAttackPower - combatManagerV3.playerStats.playerFend, 0, 9999);
+      //  CombatEvents.UpdateFendDisplay?.Invoke(combatManager.playerStats.playerFend - combatManager.enemyRawAttackPower);
+        CombatEvents.ATTACKTOAPPLY?.Invoke(combatManager.enemyRawAttackPower);
+        int enemyAttackPower = Mathf.Clamp(combatManager.enemyRawAttackPower - combatManager.playerStats.playerFend, 0, 9999);
         CombatEvents.UpdatePlayerHP.Invoke(enemyAttackPower);
-
-        yield return new WaitForSeconds(0.5f);
-        
-        combatManagerV3.UpdateFighterPosition(combatManagerV3.battleScheme.enemyGameObject, combatManagerV3.battleScheme.enemyFightingPosition.transform.position, 0.5f);
+        CombatEvents.AnimatorTrigger.Invoke("deflect");
 
         yield return new WaitForSeconds(0.5f);
 
-        combatManagerV3.SetState(combatManagerV3.roundReset);
+
+        combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, combatManager.battleScheme.enemyFightingPosition.transform.position, 0.5f);
+
+        yield return new WaitForSeconds(0.5f);
+
+
+
+        combatManager.SetState(combatManager.roundReset);
     }
 
 }

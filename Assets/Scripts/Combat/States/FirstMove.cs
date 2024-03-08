@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FirstMove : State
 {
-    [SerializeField] CombatManagerV3 combatManagerV3;
+    [SerializeField] CombatManager combatManager;
     [SerializeField] GameObject enemyAttackDisplay;
     [SerializeField] GameObject firstMoveContainer;
 
@@ -13,8 +13,8 @@ public class FirstMove : State
         yield return new WaitForSeconds(0.1f);
         firstMoveContainer.SetActive(true);
 
-        combatManagerV3.combatUIScript.ShowFirstMoveMenu();
-        combatManagerV3.playerMoveManager.firstMoveIs = 0;
+        combatManager.combatUIScript.ShowFirstMoveMenu();
+        combatManager.playerMoveManager.firstMoveIs = 0;
 
         CombatEvents.ShowHideFendDisplay?.Invoke(false);
         CombatEvents.GetEnemyAttackPower?.Invoke();

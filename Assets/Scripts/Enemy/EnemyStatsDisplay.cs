@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyStatsDisplay : MonoBehaviour
 {
-    [SerializeField] CombatManagerV3 combatManager;
+    [SerializeField] CombatManager combatManager;
     [SerializeField] TextMeshProUGUI enemyHPtextMeshProHP;
     [SerializeField] TextMeshProUGUI enemyNameMeshProHP;
     [SerializeField] GameObject enemyStatsDisplay;

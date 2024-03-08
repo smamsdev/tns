@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class CombatInventoryMenu : MonoBehaviour
 {
-    public CombatManagerV3 combatManagerV3;
+    public CombatManager combatManager;
     public PlayerInventory playerInventory;
     [SerializeField] EquippedGear equippedGear;
     [SerializeField] EquippedGearDisplayUI equippedGearDisplayUI;
@@ -59,7 +59,7 @@ public class CombatInventoryMenu : MonoBehaviour
 
         HideInventoryMenu();
 
-        combatManagerV3.SetState(combatManagerV3.applyMove);
+        combatManager.SetState(combatManager.applyMove);
     }
 
     public void HideInventoryMenu()

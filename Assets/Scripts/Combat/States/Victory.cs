@@ -5,23 +5,23 @@ using UnityEngine.Rendering;
 
 public class Victory : State
 {
-    [SerializeField] CombatManagerV3 combatManagerV3;
+    [SerializeField] CombatManager combatManager;
 
     public override IEnumerator StartState()
     {
-        combatManagerV3.battleScheme.enemyGameObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
-        combatManagerV3.battleScheme.enemyGameObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
-        combatManagerV3.battleScheme.enemyGameObject.GetComponent<SortingGroup>().enabled = true;
+        combatManager.battleScheme.enemyGameObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+        combatManager.battleScheme.enemyGameObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+        combatManager.battleScheme.enemyGameObject.GetComponent<SortingGroup>().enabled = true;
 
-        combatManagerV3.transform.GetChild(0).GetChild(0).gameObject.SetActive(false); //combat menu container
-        combatManagerV3.transform.GetChild(0).GetChild(1).gameObject.SetActive(false); //player stats container
+        combatManager.transform.GetChild(0).GetChild(0).gameObject.SetActive(false); //combat menu container
+        combatManager.transform.GetChild(0).GetChild(1).gameObject.SetActive(false); //player stats container
 
         yield return new WaitForSeconds(0);
 
-        FieldEvents.UpdateXP(combatManagerV3.battleScheme.enemyGameObject);
+        FieldEvents.UpdateXP(combatManager.battleScheme.enemyGameObject);
         CombatEvents.BattleMode?.Invoke(false);
         CombatEvents.UnlockPlayerMovement?.Invoke();
-        FieldEvents.HasCompleted(combatManagerV3.gameObject);
+        FieldEvents.HasCompleted(combatManager.gameObject);
 
     }
 }

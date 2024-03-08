@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 
 public class GearSelect : State
 {
-    [SerializeField] CombatManagerV3 combatManagerV3;
+    [SerializeField] CombatManager combatManager;
     [SerializeField] EquippedGearDisplayUI equippedGearDisplayUI;
     [SerializeField] CombatInventoryMenu combatInventory;
 
@@ -39,13 +39,14 @@ public class GearSelect : State
             if (inventoryMenuEnabled) 
             {
                 StartCoroutine(FieldEvents.CoolDown(0.2f));
-                combatManagerV3.SetState(combatManagerV3.gearSelect);
+                combatManager.SetState(combatManager.gearSelect);
                 combatInventory.HideInventoryMenu();
             }
 
             if (!inventoryMenuEnabled && !FieldEvents.isCooldown())
             {
-                combatManagerV3.SetState(combatManagerV3.firstMove);
+                combatManager.SetState(combatManager.firstMove);
+                CombatEvents.UpdateNarrator("");
                 equippedGearDisplayUI.EnableFirstMoveButtons();
             }
         }
