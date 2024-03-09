@@ -16,8 +16,8 @@ public class FirstMove : State
         combatManager.combatUIScript.ShowFirstMoveMenu();
         combatManager.playerMoveManager.firstMoveIs = 0;
 
-        CombatEvents.ShowHideFendDisplay?.Invoke(false);
-        CombatEvents.GetEnemyAttackPower?.Invoke();
+        combatManager.combatUIScript.fendScript.ShowHideFendDisplay(true);
+        CombatEvents.UpdateEnemyAttackDisplay?.Invoke(combatManager.enemy.EnemyAttackTotal());
         enemyAttackDisplay.SetActive(true);
 
         yield break;

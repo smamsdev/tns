@@ -1096,6 +1096,7 @@ RectTransform:
   m_Children:
   - {fileID: 1565389694}
   - {fileID: 7106120817884372050}
+  - {fileID: 7106120816583477214}
   m_Father: {fileID: 7106120817501659252}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2241,11 +2242,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2573133599798067577, guid: 5563ee2f73971714580b438c5b29d28e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 0.006
       objectReference: {fileID: 0}
     - target: {fileID: 2573133599798067577, guid: 5563ee2f73971714580b438c5b29d28e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0.012
       objectReference: {fileID: 0}
     - target: {fileID: 2573133599798067577, guid: 5563ee2f73971714580b438c5b29d28e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4540,7 +4541,7 @@ RectTransform:
   - {fileID: 4742328225519046096}
   - {fileID: 4742328226803050808}
   m_Father: {fileID: 1683875960009685148}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5273,6 +5274,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combatManager: {fileID: 1683875960009685151}
   enemyAttackDisplay: {fileID: 4742328226593902554}
+  equippedGear: []
+  fendScript: {fileID: 1683875959662053696}
 --- !u!1 &1089989783
 GameObject:
   m_ObjectHideFlags: 0
@@ -5459,23 +5462,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &1129927200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7106120817525349659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b10526c3313bf0a4ea8cfd06b34be0ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  equippedGear:
-  - {fileID: 923651952}
-  - {fileID: 1584375349}
-  - {fileID: 337969691}
-  playerStats: {fileID: 11400000, guid: 891a8d8bd88cd9a45acd6a5ac406be03, type: 2}
 --- !u!1 &1134954060
 GameObject:
   m_ObjectHideFlags: 0
@@ -7155,6 +7141,7 @@ MonoBehaviour:
   - {fileID: 923651952}
   - {fileID: 0}
   - {fileID: 0}
+  playerStats: {fileID: 0}
 --- !u!114 &1414761908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8149,17 +8136,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565389693}
   m_CullTransparentMesh: 1
---- !u!114 &1584375349 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8657579784936819795, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-  m_PrefabInstance: {fileID: 8657579784896538106}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4723afc51388d54394a8567b1d28ced, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1598953852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8497,7 +8473,7 @@ Transform:
   m_Children:
   - {fileID: 1398635158}
   m_Father: {fileID: 7106120817525349635}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1677123145
 MonoBehaviour:
@@ -9628,7 +9604,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7106120817525349635}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 180}
 --- !u!212 &1853946506
 SpriteRenderer:
@@ -9720,7 +9696,7 @@ Transform:
   - {fileID: 1782982605}
   - {fileID: 1509999119}
   m_Father: {fileID: 1683875960009685148}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1873345832
 GameObject:
@@ -10604,6 +10580,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleToTrigger: {fileID: 2014045862}
+  combatManager: {fileID: 0}
+  combatManagerGO: {fileID: 0}
 --- !u!114 &2015719955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10737,13 +10715,25 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
+        m_MethodName: GearMove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
+        m_MethodName: GearMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -11434,6 +11424,8 @@ GameObject:
   - component: {fileID: 1683875959662053688}
   - component: {fileID: 1683875959662053691}
   - component: {fileID: 1683875959662053695}
+  - component: {fileID: 1683875959662053696}
+  - component: {fileID: 1683875959662053697}
   m_Layer: 0
   m_Name: CombatUI
   m_TagString: Untagged
@@ -11523,7 +11515,9 @@ MonoBehaviour:
   secondMoveMenu: {fileID: 1683875960508446854}
   targetmenu: {fileID: 1683875960093019472}
   attackTargetMenuScript: {fileID: 1683875959662053695}
-  combatInventoryMenu: {fileID: 0}
+  combatInventoryMenu: {fileID: 332224033}
+  playerDamageTakenDisplay: {fileID: 1683875959662053697}
+  fendScript: {fileID: 1683875959662053696}
   textMeshProUGUIFirstMoveDisplay: {fileID: 1050972400}
   textMeshProUGUISecondMoveDisplay: {fileID: 2094130997}
   secondAttackButton: {fileID: 1683875960196746500}
@@ -11578,6 +11572,40 @@ MonoBehaviour:
   aimHeadButton: {fileID: 1683875961288356937}
   targetSelected: 0
   targetIsSet: 0
+--- !u!114 &1683875959662053696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683875959662053685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c621a47bbf023b74298b71351d94431b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fendTextMeshProUGUI: {fileID: 7106120817884372061}
+  combatManager: {fileID: 1683875960009685151}
+  fendContainer: {fileID: 7106120817501659249}
+  animator: {fileID: 173009193}
+  attackRemainder: 0
+  fend: 175
+--- !u!114 &1683875959662053697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683875959662053685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12b2b4dc20275647a11fad849e0896f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 7106120816583477208}
+  textMeshProUGUI: {fileID: 7106120816583477215}
+  combatManager: {fileID: 1683875960009685151}
+  playerDamageTakenDisplayGO: {fileID: 7106120816583477213}
 --- !u!1 &1683875959675561528
 GameObject:
   m_ObjectHideFlags: 0
@@ -12493,7 +12521,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1683875959662053690}
-  - {fileID: 1683875960621292517}
   - {fileID: 1858551162}
   - {fileID: 7106120817501659252}
   - {fileID: 971317198}
@@ -12533,6 +12560,7 @@ MonoBehaviour:
   currentState: {fileID: 0}
   battleScheme: {fileID: 2014045862}
   player: {fileID: 7106120817525349659}
+  enemy: {fileID: 0}
   combatUIScript: {fileID: 1683875959662053691}
   attackTargetMenuScript: {fileID: 1683875959662053695}
   playerMoveManager: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
@@ -13540,52 +13568,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1683875960621292516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1683875960621292519}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4b5ac76a5b51174f9ef34a7d404c566, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CombatManager: {fileID: 0}
-  isCoolDown: 0
---- !u!4 &1683875960621292517
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1683875960621292519}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1683875960009685148}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1683875960621292519
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1683875960621292517}
-  - component: {fileID: 1683875960621292516}
-  m_Layer: 0
-  m_Name: BattleUpdate
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!224 &1683875960747554805
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15634,6 +15616,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
+        m_MethodName: GearMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &1729334825615906946
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15878,6 +15872,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
+        m_MethodName: GearMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1729334825676173053
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15994,6 +16000,18 @@ MonoBehaviour:
       - m_Target: {fileID: 328175471}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
         m_MethodName: InventoryMenuDisabled
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
+        m_MethodName: GearMove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16206,6 +16224,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
+        m_MethodName: GearMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1729334825985154945
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16355,6 +16385,18 @@ MonoBehaviour:
       - m_Target: {fileID: 328175471}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
         m_MethodName: InventoryMenuDisabled
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
+        m_MethodName: GearMove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16583,6 +16625,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
+        m_MethodName: GearMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &1729334826126115130
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16683,6 +16737,18 @@ MonoBehaviour:
       - m_Target: {fileID: 328175471}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
         m_MethodName: InventoryMenuDisabled
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
+        m_MethodName: GearMove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16841,6 +16907,18 @@ MonoBehaviour:
       - m_Target: {fileID: 328175471}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
         m_MethodName: InventoryMenuDisabled
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
+        m_MethodName: GearMove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17061,6 +17139,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
+        m_MethodName: GearMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1729334826305409095
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17169,6 +17259,18 @@ MonoBehaviour:
       - m_Target: {fileID: 328175471}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
         m_MethodName: InventoryMenuDisabled
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
+        m_MethodName: GearMove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17344,6 +17446,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
+        m_MethodName: GearMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &1729334826428998054
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17452,6 +17566,18 @@ MonoBehaviour:
       - m_Target: {fileID: 328175471}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
         m_MethodName: InventoryMenuDisabled
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
+        m_MethodName: GearMove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17975,6 +18101,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
+        m_MethodName: GearMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1729334826578169983
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18042,6 +18180,18 @@ MonoBehaviour:
       - m_Target: {fileID: 328175471}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
         m_MethodName: InventoryMenuDisabled
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
+        m_MethodName: GearMove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18470,6 +18620,18 @@ MonoBehaviour:
       - m_Target: {fileID: 328175471}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
         m_MethodName: InventoryMenuDisabled
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
+        m_MethodName: GearMove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19095,6 +19257,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
+        m_MethodName: GearMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1729334827062210859
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19387,6 +19561,18 @@ MonoBehaviour:
       - m_Target: {fileID: 328175471}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
         m_MethodName: InventoryMenuDisabled
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
+        m_MethodName: GearMove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19745,6 +19931,10 @@ PrefabInstance:
     - target: {fileID: 3203464326901901179, guid: 1043ae82aa594a04e89098cedb341589, type: 3}
       propertyPath: m_Name
       value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 3203464326901901182, guid: 1043ae82aa594a04e89098cedb341589, type: 3}
+      propertyPath: cameraSpeed
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3203464326901901182, guid: 1043ae82aa594a04e89098cedb341589, type: 3}
       propertyPath: playerTransform
@@ -20502,7 +20692,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4742328225593426535}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.11, y: 7.22, z: 0}
+  m_LocalPosition: {x: -1.745, y: 7.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -20636,7 +20826,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: VEgeta
   enemyHP: 100
-  enemyAttack: 12
+  enemyAttack: 33
   enemyAttackTotal: 0
   enemyXP: 110
   enemyBodyHP: 25
@@ -20646,7 +20836,6 @@ MonoBehaviour:
   totalDamage: 0
   targetIs: 0
   injuryPenalty: 0
-  battleSprites: {fileID: 0}
 --- !u!212 &4742328225632549828
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -23064,98 +23253,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7106120816583477209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7106120816583477213}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: 
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4278190282
-  m_fontColor: {r: 0.7924528, g: 0, b: 0, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 0
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0.012064458, z: -0.026802067, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  _SortingLayer: 0
-  _SortingLayerID: 0
-  _SortingOrder: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 7106120816583477210}
-  m_maskType: 0
 --- !u!23 &7106120816583477210
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23208,8 +23305,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7106120816583477214}
   - component: {fileID: 7106120816583477210}
-  - component: {fileID: 7106120816583477209}
   - component: {fileID: 7106120816583477208}
+  - component: {fileID: 7106120816583477216}
   - component: {fileID: 7106120816583477215}
   m_Layer: 7
   m_Name: PlayerDamageTakenDisplay
@@ -23227,16 +23324,16 @@ RectTransform:
   m_GameObject: {fileID: 7106120816583477213}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7106120817525349635}
-  m_RootOrder: 0
+  m_Father: {fileID: 173009192}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.057, y: 0.229}
-  m_SizeDelta: {x: 6.709, y: 7.13}
+  m_AnchoredPosition: {x: 0, y: 0.16}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7106120816583477215
 MonoBehaviour:
@@ -23247,11 +23344,94 @@ MonoBehaviour:
   m_GameObject: {fileID: 7106120816583477213}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c12b2b4dc20275647a11fad849e0896f, type: 3}
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 7106120816583477208}
-  textMeshPro: {fileID: 7106120816583477209}
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 5000
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4280090879
+  m_fontColor: {r: 1, g: 0, b: 0.1133728, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 1
+  m_fontSizeBase: 1
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &7106120816583477216
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7106120816583477213}
+  m_CullTransparentMesh: 1
 --- !u!4 &7106120816684251000
 Transform:
   m_ObjectHideFlags: 0
@@ -23331,7 +23511,7 @@ Transform:
   - {fileID: 7106120816386503447}
   - {fileID: 7106120817879072811}
   m_Father: {fileID: 7106120817525349635}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7106120817469461741
 GameObject:
@@ -23363,7 +23543,7 @@ Transform:
   m_Children:
   - {fileID: 7106120816684251000}
   m_Father: {fileID: 7106120817525349635}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7106120817501659249
 GameObject:
@@ -23374,7 +23554,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7106120817501659252}
-  - component: {fileID: 7106120817501659251}
   - component: {fileID: 7106120817501659253}
   - component: {fileID: 7106120817501659254}
   m_Layer: 7
@@ -23384,23 +23563,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &7106120817501659251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7106120817501659249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c621a47bbf023b74298b71351d94431b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  combatManager: {fileID: 1683875960009685151}
-  fendTextObj: {fileID: 7106120817884372049}
-  fendIcon: {fileID: 1565389693}
-  animator: {fileID: 173009193}
-  fend: 175
 --- !u!224 &7106120817501659252
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23415,7 +23577,7 @@ RectTransform:
   m_Children:
   - {fileID: 173009192}
   m_Father: {fileID: 1683875960009685148}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -23483,7 +23645,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7106120816583477214}
   - {fileID: 7106120817625954074}
   - {fileID: 7106120816768920662}
   - {fileID: 7106120817469461742}
@@ -23623,7 +23784,6 @@ GameObject:
   - component: {fileID: 7106120817525349644}
   - component: {fileID: 7106120817525349632}
   - component: {fileID: 7106120817525349646}
-  - component: {fileID: 1129927200}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -23662,7 +23822,7 @@ Transform:
   - {fileID: 7106120817919744042}
   - {fileID: 7106120816181221086}
   m_Father: {fileID: 7106120817525349635}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7106120817879072810
 GameObject:
@@ -23848,7 +24008,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

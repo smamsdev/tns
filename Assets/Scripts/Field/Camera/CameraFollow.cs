@@ -11,6 +11,7 @@ public class CameraFollow : MonoBehaviour
     public bool battleModeOn;
     public Vector3 newPos;
 
+
     float floatValueFromCoRoutine;
     float testFloat;
 
@@ -27,13 +28,13 @@ public class CameraFollow : MonoBehaviour
     private void Start()
     {
         transform.position = new Vector3(playerTransform.position.x, playerTransform.position.y, (playerTransform.position.z - 10));
-       // newPos = new Vector3(playerTransform.position.x, playerTransform.position.y, (playerTransform.position.z - 10));
+
     }
 
     private void FixedUpdate()
     {
-       newPos = new Vector3(playerTransform.position.x + xOffset, playerTransform.position.y + yOffset, -10f);
-       transform.position = Vector3.Slerp(transform.position, newPos, cameraSpeed*Time.deltaTime);
+        newPos = new Vector3(playerTransform.position.x + xOffset, playerTransform.position.y + yOffset, -10f);
+        transform.position = Vector3.Slerp(transform.position, newPos, cameraSpeed*Time.deltaTime);
     }
 
 
@@ -66,6 +67,9 @@ public class CameraFollow : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        { cameraSpeed = finalCameraSpeed; }
+
+
     }
     
     public IEnumerator UpdateCameraXOffsetOverTimeCoRoutine(float currentXOffset, float finalXOffset, float time)

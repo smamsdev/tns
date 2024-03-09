@@ -24,27 +24,27 @@ public class ApplyMove : State
         combatManager.combatUIScript.HideTargetMenu();
         CombatEvents.HighlightBodypartTarget?.Invoke(false, false, false);
 
-        var equippedGear = combatManager.player.GetComponent<GearEquip>().equippedGear;
-        int i;
-
-        for (i = 0; i < equippedGear.Length;)
-
-        {
-            equippedGear[i].ApplyAttackGear();
-            i++;
-        }
+     //   var equippedGear = combatManager.player.GetComponent<EquippedGear>().equippedGear;
+     //  int i;
+     //
+     //  for (i = 0; i < equippedGear.Length;)
+     //
+     //  {
+     //      equippedGear[i].ApplyAttackGear();
+     //      i++;
+     //  }
 
         combatManager.playerMoveManager.CombineMoves();
 
-        CombatEvents.UpdateNarrator.Invoke(combatManager.playerMoveManager.moveForNarrator);
         CombatEvents.UpdatePlayerPot.Invoke(Mathf.CeilToInt(combatManager.playerStats.playerPotentialMoveCost));
 
         if (combatManager.playerMoveManager.firstMoveIs == 1 || combatManager.playerMoveManager.secondMoveIs == 1)
         {
-            CombatEvents.UpdateFighterPosition.Invoke(combatManager.player, new Vector2(combatManager.battleScheme.enemyGameObject.transform.position.x - 0.3f, combatManager.battleScheme.enemyGameObject.transform.position.y), 0.5f);
+            combatManager.UpdateFighterPosition(combatManager.player, new Vector2(combatManager.battleScheme.enemyGameObject.transform.position.x - 0.3f, combatManager.battleScheme.enemyGameObject.transform.position.y), 0.5f);
             yield return new WaitForSeconds(1);
-            CombatEvents.UpdateFighterPosition.Invoke(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 0.5f);
+            combatManager.UpdateFighterPosition(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 0.5f);
             CombatEvents.CalculateEnemyDamageTaken.Invoke(combatManager.playerStats.attackPower);
+            yield return new WaitForSeconds(1);
         }
 
         if (combatManager.enemyIsDead) 
@@ -56,8 +56,10 @@ public class ApplyMove : State
 
         else 
         {
-            CombatEvents.ShowHideFendDisplay.Invoke(true);
-            yield return new WaitForSeconds(1);
+
+            combatManager.combatUIScript.fendScript.ShowHideFendDisplay(true);
+            combatManager.combatUIScript.fendScript.UpdateFendText(combatManager.playerStats.TotalPlayerMovePower("fend"));
+            yield return new WaitForSeconds(0.5f);
             combatManager.SetState(combatManager.enemyAttack);
         }
 

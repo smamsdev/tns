@@ -11,6 +11,7 @@ public class CombatManager : MonoBehaviour
     [Header("Settings")]
     public Battle battleScheme;
     public GameObject player;
+    public Enemy enemy;
 
     [Header("Debugging")]
     public CombatUIScript combatUIScript;
@@ -37,20 +38,17 @@ public class CombatManager : MonoBehaviour
 
     private void OnEnable()
     {
-        CombatEvents.EnemyAttackPower += EnemyRawAttackPowerIS;
-        CombatEvents.UpdateFighterPosition += UpdateFighterPosition;
         CombatEvents.PassState += SetState;
     }
 
     private void OnDisable()
     {
-        CombatEvents.EnemyAttackPower -= EnemyRawAttackPowerIS;
-        CombatEvents.UpdateFighterPosition -= UpdateFighterPosition;
         CombatEvents.PassState -= SetState;
     }
 
     public void StartBattle()
     {
+        enemy = battleScheme.enemyGameObject.GetComponent<Enemy>();
         SetState(setup);
     }
 
@@ -60,9 +58,6 @@ public class CombatManager : MonoBehaviour
         currentState = state;
         StartCoroutine(currentState.StartState());
     }
-
-    void EnemyRawAttackPowerIS(int value)
-    { enemyRawAttackPower = value; }
 
     private void Update()
 

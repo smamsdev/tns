@@ -11,9 +11,6 @@ public class PlayerMoveManagerSO : ScriptableObject
     public int firstMoveIs;
     public int secondMoveIs;
 
-    public string moveForNarrator;
-
-
     public void CombineMoves()
 
     {
@@ -67,7 +64,7 @@ public class PlayerMoveManagerSO : ScriptableObject
 
     {
         //ui
-        moveForNarrator = "Reckless Attack!";
+        CombatEvents.UpdateNarrator.Invoke("Reckless Attack");
 
         //pot
         CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.2f, -20, false);
@@ -83,7 +80,7 @@ public class PlayerMoveManagerSO : ScriptableObject
 
     {
         //ui
-        moveForNarrator = "Slip Attack!";
+        CombatEvents.UpdateNarrator.Invoke("Slip Attack");
 
         //att
         CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0.3f, true);
@@ -99,7 +96,7 @@ public class PlayerMoveManagerSO : ScriptableObject
 
     {
         //ui
-        moveForNarrator = "Calculating Attack";
+        CombatEvents.UpdateNarrator.Invoke("Calculating Attack");
 
         //att
         CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0.2f, true);
@@ -115,7 +112,7 @@ public class PlayerMoveManagerSO : ScriptableObject
 
     {
         //ui
-        moveForNarrator = "Counter Attack!";
+        CombatEvents.UpdateNarrator.Invoke("Counter Attack!");
 
         //att
         CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0.3f, true);
@@ -132,7 +129,7 @@ public class PlayerMoveManagerSO : ScriptableObject
 
     {
         //ui
-        moveForNarrator = "Stubborn Fend";
+        CombatEvents.UpdateNarrator.Invoke("Stubborn Fend");
 
         //att null
         CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0, false);
@@ -148,7 +145,7 @@ public class PlayerMoveManagerSO : ScriptableObject
 
     {
         //ui
-        moveForNarrator = "Pensive Fend!";
+        CombatEvents.UpdateNarrator.Invoke("Pensive Fend");
 
         //att null
         CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0, false);
@@ -164,7 +161,7 @@ public class PlayerMoveManagerSO : ScriptableObject
 
     {
         //ui
-        moveForNarrator = "Precise Attack!";
+        CombatEvents.UpdateNarrator.Invoke("Precise Attack");
 
         //att
         CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0.4f, true);
@@ -180,7 +177,7 @@ public class PlayerMoveManagerSO : ScriptableObject
 
     {
         //ui
-        moveForNarrator = "Contrary Fend!";
+        CombatEvents.UpdateNarrator.Invoke("Contrary Fend");
 
         //att null
         CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0, false);
@@ -196,7 +193,7 @@ public class PlayerMoveManagerSO : ScriptableObject
 
     {
         //ui
-        moveForNarrator = "Zen Concentration!";
+        CombatEvents.UpdateNarrator.Invoke("Zen Concentration");
 
         //att null
         CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0, false);
@@ -211,10 +208,9 @@ public class PlayerMoveManagerSO : ScriptableObject
     public void GearMove()
 
     {
-        if (firstMoveIs == 0 && secondMoveIs == 0)
-
-        moveForNarrator = "";
-        GearMove();
+        {
+            CombatEvents.UpdateNarrator.Invoke("");
+        }
     }
 
     public void FirstMoveIsAttack()

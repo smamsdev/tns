@@ -15,21 +15,19 @@ public class Setup : State
         yield return new WaitForSeconds(0.01f);
         CombatEvents.BattleMode?.Invoke(true);
         CombatEvents.LockPlayerMovement.Invoke();
-
-        CombatEvents.UpdateFighterPosition.Invoke(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 1f);
+        combatManager.UpdateFighterPosition(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 1f);
 
         //enemy
         combatManager.enemyGameObjectDefaultPosition = combatManager.battleScheme.enemyGameObject.transform.position;
-        //  combatManager.battleScheme.enemyGameObject.transform.GetChild(0).GetComponent<Enemy>().enabled = true; //turn on Enemy script, you don't want this on for every 'enemy' in the scnene
-        combatMenuContainer.SetActive(true); //combat menu container
-        playerStatsContainer.SetActive(true); //player stats container
+        combatMenuContainer.SetActive(true);
+        playerStatsContainer.SetActive(true); 
 
         combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, combatManager.battleScheme.enemyFightingPosition.transform.position, 1);
-        combatManager.battleScheme.enemyGameObject.GetComponent<SortingGroup>().enabled = false;
 
         combatManager.enemyRawAttackPower = 0;
 
         CombatEvents.InitializeEnemyPartsHP?.Invoke();
+        combatManager.combatUIScript.fendScript.ShowHideFendDisplay(false);
 
         yield return new WaitForSeconds(1);
         CombatEvents.InitializeEnemyHP?.Invoke();

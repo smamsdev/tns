@@ -10,16 +10,16 @@ public class EnemyAttackDisplay : MonoBehaviour
 
     private void OnEnable()
     {
-        CombatEvents.EnemyAttackPower += UpdateAttackDisplay;
+        CombatEvents.UpdateEnemyAttackDisplay += UpdateEnemyAttackDisplay;
         attackDisplayTextGO.SetActive(false);
     }
 
     private void OnDisable()
     {
-        CombatEvents.EnemyAttackPower -= UpdateAttackDisplay;
+        CombatEvents.UpdateEnemyAttackDisplay -= UpdateEnemyAttackDisplay;
     }
 
-    void UpdateAttackDisplay(int value)
+    void UpdateEnemyAttackDisplay(int value)
 
     { 
         if (value >= 0) 

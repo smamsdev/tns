@@ -7,45 +7,55 @@ public class PlayerDamageTakenDisplay : MonoBehaviour
 {
 
     [SerializeField] Animator animator;
-    [SerializeField] TextMeshPro textMeshPro;
-
-    private void OnEnable()
-    {
-
-        CombatEvents.UpdatePlayerHP += ShowPlayerDamageDisplay;
-    }
-
-    private void OnDisable()
-    {
-        CombatEvents.UpdatePlayerHP -= ShowPlayerDamageDisplay;
-    }
-
-    void Start()
-    {
-        textMeshPro.enabled = false;
-    }
+    [SerializeField] TextMeshProUGUI textMeshProUGUI;
+    [SerializeField] CombatManager combatManager;
+    [SerializeField] GameObject playerDamageTakenDisplayGO;
 
     public void ShowPlayerDamageDisplay(int value)
 
     {
-        textMeshPro.color = Color.red;
-        textMeshPro.enabled = true;
-        textMeshPro.text = value.ToString();
-        animator.SetTrigger("PlayerDamageTrigger");
+        textMeshProUGUI.enabled = true;
+        StartCoroutine(ShowPlayerDamageDisplayCoRo(value));
+        animator.SetTrigger("PlayerDamageTrigger");     
+    }
 
-        if (textMeshPro.text == "0" ) 
-        
-        { 
-            textMeshPro.color = Color.white;
-            textMeshPro.text = "FENDED!"; 
-        }     
+    private void Start()
+    {
+        DisablePlayerDamageDisplay();
+    }
+
+    IEnumerator ShowPlayerDamageDisplayCoRo(int damage)
+
+    {
+        float elapsedTime = 0f;
+        float lerpDuration = 0.5f;
+        int startNumber = 1;
+        int endValue = damage;
+        int valueToDisplay;
+
+        while (elapsedTime < lerpDuration)
+        {
+            // Calculate the interpolation factor between 0 and 1 based on the elapsed time and duration
+            float t = Mathf.Clamp01(elapsedTime / lerpDuration);
+
+            // Lerp between the start and end values
+            valueToDisplay = Mathf.RoundToInt(Mathf.Lerp(startNumber, endValue, t));
+            textMeshProUGUI.text = valueToDisplay.ToString();
+
+            // Increment the elapsed time
+            elapsedTime += Time.deltaTime;
+
+            yield return null;
+        }
+
     }
 
     public void DisablePlayerDamageDisplay()
 
     {
-        textMeshPro.enabled = false;
+        textMeshProUGUI.enabled = false;
         animator.SetTrigger("PlayerDamageResetToDefault");
     }
 
-   }
+
+}

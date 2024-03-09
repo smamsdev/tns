@@ -28,7 +28,7 @@ public class CombatInventoryMenu : MonoBehaviour
         combatGearSlotSelected = int.Parse(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
         StartCoroutine(ShowMenuCoroutine(0.1f));
         equippedGearDisplayUI.enabled = false;
-        CombatEvents.UpdateNarrator("");
+        CombatEvents.UpdateNarrator.Invoke("");
     }
 
     IEnumerator ShowMenuCoroutine(float waitTime)
@@ -56,8 +56,10 @@ public class CombatInventoryMenu : MonoBehaviour
 
         equippedGear.equippedSlot[combatGearSlotSelected] = inventorySlot[InventorySlotNumberSelected].gear;
         equippedGearDisplayUI.UpdateGearDisplay(combatGearSlotSelected, inventorySlot[InventorySlotNumberSelected].gear.name);
+        CombatEvents.UpdateNarrator.Invoke("");
 
         HideInventoryMenu();
+
 
         combatManager.SetState(combatManager.applyMove);
     }

@@ -127,12 +127,33 @@ public class PlayerStatsSO : ScriptableObject
         }
     }
 
+    public int TotalPlayerMovePower(string returnType)
+    {
+        CheckForPotPunishment();
+        attackPower = Mathf.Clamp(Mathf.RoundToInt(attackPowerBase + attackPowerMoveMod + attackPowerPotMod + attackPowerGearMod), 0, 9999);
+        playerFend = Mathf.Clamp(Mathf.RoundToInt(fendBase + fendMoveMod + fendPotMod), 0, 9999);
+
+        if (returnType == "attack")
+
+        { return attackPower; }
+
+        if (returnType == "fend")
+
+        { return playerFend; }
+
+        else
+
+        {
+            Debug.Log("whoops");
+            return attackPower;
+        }
+    }
+
     public void TotalPlayerMovePower()
     {
         CheckForPotPunishment();
-        attackPower = Mathf.Clamp(Mathf.CeilToInt(attackPowerBase + attackPowerMoveMod + attackPowerPotMod + attackPowerGearMod), 0, 9999);
-        playerFend = Mathf.Clamp(Mathf.CeilToInt(fendBase + fendMoveMod + fendPotMod), 0, 9999);
-        CombatEvents.UpdateFendDisplay(playerFend);
+        attackPower = Mathf.Clamp(Mathf.RoundToInt(attackPowerBase + attackPowerMoveMod + attackPowerPotMod + attackPowerGearMod), 0, 9999);
+        playerFend = Mathf.Clamp(Mathf.RoundToInt(fendBase + fendMoveMod + fendPotMod), 0, 9999);
     }
 
     public void UpdatePlayerAttackMoveMod(float moveModMultiplier, bool isAttack)
@@ -148,9 +169,7 @@ public class PlayerStatsSO : ScriptableObject
         if (isFend)
         {
             fendMoveMod = (fendBase * moveModMultiplier) + fendPowerGearMod;
-
-        
-        }
+         }
         else { fendMoveMod -= fendBase; }
 
         TotalPlayerMovePower();
@@ -185,7 +204,7 @@ public class PlayerStatsSO : ScriptableObject
 
      void UpdatePlayerHP(int value)
     {
-        playerCurrentHP -= value;
+        playerCurrentHP += value;
         CombatEvents.UpdatePlayerHPDisplay?.Invoke(playerCurrentHP);
     }
 

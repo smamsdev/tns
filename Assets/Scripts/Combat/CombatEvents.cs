@@ -11,7 +11,6 @@ public static class CombatEvents
     public static Action<bool> BattleMode;
     public static Action LockPlayerMovement;
     public static Action UnlockPlayerMovement;
-    public static Action<GameObject, Vector2, float>UpdateFighterPosition;
     public static Action<State> PassState;
 
     //Combat UI
@@ -19,7 +18,6 @@ public static class CombatEvents
     public static Action<bool, bool, bool> HighlightBodypartTarget;
     public static Action<int> UpdateFendDisplay;
     public static Action<int> UpdatePlayerPotOnUI;
-    public static Action<bool> ShowHideFendDisplay;
     public static Action<int> UpdatePlayerHPDisplay;
     public static Action<string> UpdateFirstMoveDisplay;
     public static Action<string> AnimatorTrigger;
@@ -28,13 +26,12 @@ public static class CombatEvents
     public static Action <GameObject> ButtonHighlighted;
 
     //Enemy
-    public static Action<int> EnemyAttackPower;
-    public static Action GetEnemyAttackPower;
     public static Action InitializeEnemyHP;
     public static Action<int> CalculateEnemyDamageTaken;
     public static Action<int> UpdateEnemyHPUI;
     public static Action InitializeEnemyPartsHP;
     public static Action <int> SetEnemyBodyPartTarget;
+    public static Action<int> UpdateEnemyAttackDisplay;
 
     public static Action<string> UpdateTargetDisplayBodyDescription;
     public static Action<string> UpdateTargetDisplayArmsDescription;
@@ -50,9 +47,6 @@ public static class CombatEvents
     public static Action<int> InitializePlayerHP;
     public static Action<int> InitializePlayerPotUI;
     public static Action<int> UpdatePlayerHP;
-
-    //DEFTEST
-    public static Action<int> ATTACKTOAPPLY;
 
 
 }

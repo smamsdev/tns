@@ -6,11 +6,17 @@ using UnityEngine;
 public class BattleTrigger : ToTrigger
 {
     [SerializeField] Battle battleToTrigger;
+    public CombatManager combatManager;
+    public GameObject combatManagerGO;
 
 
     public override IEnumerator DoAction()
     {
-        CombatManager combatManager = GameObject.Find("CombatManager").GetComponent<CombatManager>();
+        combatManager = FindObjectOfType<CombatManager>(true);
+        combatManagerGO = combatManager.gameObject;
+        combatManagerGO.SetActive(true);
+
+
 
         combatManager.battleScheme = battleToTrigger;
 

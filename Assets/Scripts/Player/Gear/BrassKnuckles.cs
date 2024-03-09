@@ -19,14 +19,14 @@ public class BrassKnuckles : Gear
     {
         if (moveManager.firstMoveIs == 1 || moveManager.secondMoveIs == 1)
         {
-            GameObject.Find("Player").GetComponent<GearEquip>().playerStats.attackPowerGearMod += 11;
+            GameObject.Find("Player").GetComponent<EquippedGear>().playerStats.attackPowerGearMod += 11;
         }
     }
 
     public override void ResetAttackGear()
 
     {
-        GameObject.Find("Player").GetComponent<GearEquip>().playerStats.attackPowerGearMod = 0;
+        GameObject.Find("Player").GetComponent<EquippedGear>().playerStats.attackPowerGearMod = 0;
     }
 
 }

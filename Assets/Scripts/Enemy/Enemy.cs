@@ -27,20 +27,15 @@ public class Enemy : MonoBehaviour
     public Target targetIs;
     public int injuryPenalty;
 
-    SpriteRenderer spriteRenderer;
-    public GameObject battleSprites;
-
     private void OnEnable()
     {
         CombatEvents.CalculateEnemyDamageTaken += CalculateEnemyDamageTaken;
-        CombatEvents.GetEnemyAttackPower += SendEnemyRawAttackPowerIS;
         CombatEvents.SetEnemyBodyPartTarget += SetEnemyBodyPartTarget;
     }
 
     private void OnDisable()
     {
         CombatEvents.CalculateEnemyDamageTaken -= CalculateEnemyDamageTaken;
-        CombatEvents.GetEnemyAttackPower += SendEnemyRawAttackPowerIS;
         CombatEvents.SetEnemyBodyPartTarget += SetEnemyBodyPartTarget;
     }
 
@@ -48,8 +43,6 @@ public class Enemy : MonoBehaviour
     {
         injuryPenalty = 0;
         damageReceivedInjuryBonus = 0;
-
-        battleSprites = this.transform.parent.gameObject.transform.GetChild(0).gameObject;
     }
 
     public void CalculateEnemyDamageTaken(int value)
@@ -80,19 +73,19 @@ public class Enemy : MonoBehaviour
         if (enemyBodyHP == 0)
         {
             damageReceivedInjuryBonus = value;
-            battleSprites.transform.GetChild(0).gameObject.SetActive(false);
+           // battleSprites.transform.GetChild(0).gameObject.SetActive(false);
         }
 
         if (enemyArmsHP == 0)
         {
             injuryPenalty = enemyAttack / 2;
-            battleSprites.transform.GetChild(2).gameObject.SetActive(false);
+           // battleSprites.transform.GetChild(2).gameObject.SetActive(false);
         }
 
         if (enemyHeadHP == 0)
         {
             injuryPenalty = enemyAttack / 2;
-            battleSprites.transform.GetChild(4).gameObject.SetActive(false);
+          // battleSprites.transform.GetChild(4).gameObject.SetActive(false);
         }
 
         UpdateenemyHP(totalDamage);
@@ -108,19 +101,19 @@ public class Enemy : MonoBehaviour
         {
             CombatEvents.EnemyIsDead.Invoke(true);
 
-            var foundAnimators = battleSprites.GetComponentsInChildren<Animator>();
-            foreach (Animator animator in foundAnimators)
-            { 
-                animator.enabled = false;
-            }
+          // var foundAnimators = battleSprites.GetComponentsInChildren<Animator>();
+          // foreach (Animator animator in foundAnimators)
+          // { 
+          //     animator.enabled = false;
+          // }
         }
     }
 
-    public void SendEnemyRawAttackPowerIS() 
+    public int EnemyAttackTotal() 
     
     {
         enemyAttackTotal = enemyAttack - injuryPenalty;
-        CombatEvents.EnemyAttackPower.Invoke(enemyAttackTotal);
+        return enemyAttackTotal;
     }
 
     void SetEnemyBodyPartTarget(int value)
