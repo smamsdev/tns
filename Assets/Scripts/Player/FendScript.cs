@@ -10,6 +10,8 @@ public class FendScript : MonoBehaviour
     [SerializeField] CombatManager combatManager;
     [SerializeField] GameObject fendContainer;
     [SerializeField] Animator animator;
+    [SerializeField] Animator iconAnimator;
+
 
     public int attackRemainder;
 
@@ -105,9 +107,10 @@ public class FendScript : MonoBehaviour
     void FendBreached()
 
     {
+        iconAnimator.SetBool("fendbreak", true);
         fendTextMeshProUGUI.text = "";
         combatManager.combatUIScript.playerDamageTakenDisplay.ShowPlayerDamageDisplay(attackRemainder);
     }
-
+    
 
 }

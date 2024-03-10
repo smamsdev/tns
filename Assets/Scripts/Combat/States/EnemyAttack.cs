@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyAttack : State
 {
     [SerializeField] CombatManager combatManager;
-    [SerializeField] GameObject enemyAttackDisplay;
     public Gear[] equippedGear;
     [SerializeField] FendScript fendScript;
 
@@ -24,8 +23,6 @@ public class EnemyAttack : State
 
         combatManager.combatUIScript.HideTargetMenu();
 
-        enemyAttackDisplay.SetActive(false);
-
         combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, new Vector2(combatManager.battleScheme.playerFightingPosition.transform.position.x + 0.3f, combatManager.battleScheme.playerFightingPosition.transform.position.y), 0.5f);
         yield return new WaitForSeconds(0.5f);
 
@@ -38,7 +35,7 @@ public class EnemyAttack : State
 
         combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, combatManager.battleScheme.enemyFightingPosition.transform.position, 0.5f);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
 
         combatManager.combatUIScript.playerDamageTakenDisplay.DisablePlayerDamageDisplay();
         combatManager.SetState(combatManager.roundReset);

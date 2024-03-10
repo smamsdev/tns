@@ -20,10 +20,11 @@ public class Setup : State
         //enemy
         combatManager.enemyGameObjectDefaultPosition = combatManager.battleScheme.enemyGameObject.transform.position;
         combatMenuContainer.SetActive(true);
-        playerStatsContainer.SetActive(true); 
+        playerStatsContainer.SetActive(true);
 
-        combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, combatManager.battleScheme.enemyFightingPosition.transform.position, 1);
+        combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, combatManager.battleScheme.enemyFightingPosition.transform.position, 1f);
 
+     //   combatManager.battleScheme.enemyGameObject.transform.position = combatManager.battleScheme.enemyFightingPosition.transform.position;
         combatManager.enemyRawAttackPower = 0;
 
         CombatEvents.InitializeEnemyPartsHP?.Invoke();

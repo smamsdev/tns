@@ -37,7 +37,7 @@ public class EnemyStatsDisplay : MonoBehaviour
 
     public void UpdateenemyHPText(int value)
     {
-        enemyHPtextMeshProHP.text = "Enemy HP: " + enemy.enemyHP;
+        enemyHPtextMeshProHP.text = "HP: " + enemy.enemyHP;
 
         if (enemy.enemyHP <= 0) 
         {
@@ -46,7 +46,7 @@ public class EnemyStatsDisplay : MonoBehaviour
 
         else
         {
-            enemyHPtextMeshProHP.text = "Enemy HP: " + enemy.enemyHP;
+            enemyHPtextMeshProHP.text = "HP: " + enemy.enemyHP;
         }
     }
 

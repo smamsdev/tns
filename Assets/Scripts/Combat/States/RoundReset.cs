@@ -30,6 +30,7 @@ public class RoundReset : State
         combatManager.roundCount++;
 
         combatManager.SetState(combatManager.firstMove);
+        CombatEvents.AnimatorTrigger.Invoke("resetfendicon");
 
         yield break;
     }

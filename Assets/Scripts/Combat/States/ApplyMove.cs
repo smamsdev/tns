@@ -5,6 +5,7 @@ using UnityEngine;
 public class ApplyMove : State
 {
     [SerializeField] CombatManager combatManager;
+    [SerializeField] GameObject enemyAttackDisplay;
 
     void IsEnemyDead(bool _enemyIsDead)
 
@@ -22,17 +23,20 @@ public class ApplyMove : State
         }
 
         combatManager.combatUIScript.HideTargetMenu();
+        enemyAttackDisplay.SetActive(false);
         CombatEvents.HighlightBodypartTarget?.Invoke(false, false, false);
 
-     //   var equippedGear = combatManager.player.GetComponent<EquippedGear>().equippedGear;
-     //  int i;
-     //
-     //  for (i = 0; i < equippedGear.Length;)
-     //
-     //  {
-     //      equippedGear[i].ApplyAttackGear();
-     //      i++;
-     //  }
+        //   var equippedGear = combatManager.player.GetComponent<EquippedGear>().equippedGear;
+        //  int i;
+        //
+        //  for (i = 0; i < equippedGear.Length;)
+        //
+        //  {
+        //      equippedGear[i].ApplyAttackGear();
+        //      i++;
+        //  }
+
+
 
         combatManager.playerMoveManager.CombineMoves();
 

@@ -81,8 +81,6 @@ public class CombatManager : MonoBehaviour
                 elapsedTime += Time.deltaTime;
                 yield return new WaitForEndOfFrame();
             }
-
-        fighterGameObject.transform.position = end;
     }
 
 }
