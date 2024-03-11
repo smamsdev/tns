@@ -13,7 +13,9 @@ public class CombatUIScript : MonoBehaviour
     [SerializeField] AttackTargetMenuScript attackTargetMenuScript;
     [SerializeField] CombatInventoryMenu combatInventoryMenu;
     public PlayerDamageTakenDisplay playerDamageTakenDisplay;
-    public FendScript fendScript;
+    public EnemyDamageTakenDisplay enemyDamageTakenDisplay;
+    public FendScript playerFendScript;
+    public EnemyFendScript enemyFendScript;
 
     [SerializeField] TextMeshProUGUI textMeshProUGUIFirstMoveDisplay;
     [SerializeField] TextMeshProUGUI textMeshProUGUISecondMoveDisplay;

@@ -36,7 +36,8 @@ public class ApplyMove : State
         //      i++;
         //  }
 
-
+        combatManager.combatUIScript.playerDamageTakenDisplay.DisablePlayerDamageDisplay();
+        combatManager.combatUIScript.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
 
         combatManager.playerMoveManager.CombineMoves();
 
@@ -45,9 +46,12 @@ public class ApplyMove : State
         if (combatManager.playerMoveManager.firstMoveIs == 1 || combatManager.playerMoveManager.secondMoveIs == 1)
         {
             combatManager.UpdateFighterPosition(combatManager.player, new Vector2(combatManager.battleScheme.enemyGameObject.transform.position.x - 0.3f, combatManager.battleScheme.enemyGameObject.transform.position.y), 0.5f);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
+            combatManager.combatUIScript.enemyFendScript.ApplPlayerAttackToFend(combatManager.playerStats.attackPower);
+
+            yield return new WaitForSeconds(0.3f);
             combatManager.UpdateFighterPosition(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 0.5f);
-            CombatEvents.CalculateEnemyDamageTaken.Invoke(combatManager.playerStats.attackPower);
+
             yield return new WaitForSeconds(1);
         }
 
@@ -60,9 +64,11 @@ public class ApplyMove : State
 
         else 
         {
+            combatManager.combatUIScript.enemyFendScript.ShowHideFendDisplay(false);
+            combatManager.combatUIScript.enemyDamageTakenDisplay.EnemyDamageTakenTextMeshProUGUI.enabled = false;
 
-            combatManager.combatUIScript.fendScript.ShowHideFendDisplay(true);
-            combatManager.combatUIScript.fendScript.UpdateFendText(combatManager.playerStats.TotalPlayerMovePower("fend"));
+            combatManager.combatUIScript.playerFendScript.ShowHideFendDisplay(true);
+            combatManager.combatUIScript.playerFendScript.UpdateFendText(combatManager.playerStats.TotalPlayerMovePower("fend"));
             yield return new WaitForSeconds(0.5f);
             combatManager.SetState(combatManager.enemyAttack);
         }

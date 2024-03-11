@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using Unity.Mathematics;
 using UnityEngine.UI;
+using TMPro;
 
 public static class CombatEvents
 {
@@ -20,18 +21,17 @@ public static class CombatEvents
     public static Action<int> UpdatePlayerPotOnUI;
     public static Action<int> UpdatePlayerHPDisplay;
     public static Action<string> UpdateFirstMoveDisplay;
-    public static Action<string> AnimatorTrigger;
     public static Action<string> UpdateSecondMoveDisplay;
     public static Action<float> InputCoolDown;
     public static Action <GameObject> ButtonHighlighted;
 
     //Enemy
     public static Action InitializeEnemyHP;
-    public static Action<int> CalculateEnemyDamageTaken;
     public static Action<int> UpdateEnemyHPUI;
     public static Action InitializeEnemyPartsHP;
     public static Action <int> SetEnemyBodyPartTarget;
     public static Action<int> UpdateEnemyAttackDisplay;
+    public static Action<int> UpdateEnemyFendDisplay;
 
     public static Action<string> UpdateTargetDisplayBodyDescription;
     public static Action<string> UpdateTargetDisplayArmsDescription;
@@ -47,6 +47,4 @@ public static class CombatEvents
     public static Action<int> InitializePlayerHP;
     public static Action<int> InitializePlayerPotUI;
     public static Action<int> UpdatePlayerHP;
-
-
 }

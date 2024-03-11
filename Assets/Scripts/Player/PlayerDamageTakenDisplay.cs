@@ -11,17 +11,17 @@ public class PlayerDamageTakenDisplay : MonoBehaviour
     [SerializeField] CombatManager combatManager;
     [SerializeField] GameObject playerDamageTakenDisplayGO;
 
-    public void ShowPlayerDamageDisplay(int value)
-
-    {
-        textMeshProUGUI.enabled = true;
-        StartCoroutine(ShowPlayerDamageDisplayCoRo(value));
-        animator.SetTrigger("PlayerDamageTrigger");     
-    }
-
     private void Start()
     {
         DisablePlayerDamageDisplay();
+    }
+
+    public void ShowPlayerDamageDisplay(int value)
+
+    {
+        animator.SetInteger("animState", 1);
+        textMeshProUGUI.enabled = true;
+        StartCoroutine(ShowPlayerDamageDisplayCoRo(value));
     }
 
     IEnumerator ShowPlayerDamageDisplayCoRo(int damage)
@@ -54,7 +54,7 @@ public class PlayerDamageTakenDisplay : MonoBehaviour
 
     {
         textMeshProUGUI.enabled = false;
-        animator.SetTrigger("PlayerDamageResetToDefault");
+        animator.SetInteger("animState", 0);
     }
 
 

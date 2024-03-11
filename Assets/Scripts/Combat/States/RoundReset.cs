@@ -8,7 +8,7 @@ public class RoundReset : State
 
     public override IEnumerator StartState()
     {
-        combatManager.combatUIScript.fendScript.ShowHideFendDisplay(false);
+        combatManager.combatUIScript.playerFendScript.ShowHideFendDisplay(false);
 
         combatManager.combatUIScript.HideSecondMenu();
         combatManager.combatUIScript.HideTargetMenu();
@@ -21,7 +21,11 @@ public class RoundReset : State
         combatManager.attackTargetMenuScript.targetSelected = false;
         combatManager.attackTargetMenuScript.targetIsSet = 0;
 
-        combatManager.combatUIScript.fendScript.UpdateFendText(0);
+        combatManager.combatUIScript.playerFendScript.UpdateFendText(0);
+        combatManager.combatUIScript.playerFendScript.FendIconAnimationState(0);
+        combatManager.combatUIScript.enemyFendScript.FendIconAnimationState(0);
+        combatManager.combatUIScript.enemyFendScript.ShowHideFendDisplay(false);
+
 
 
         combatManager.playerMoveManager.firstMoveIs = 0;
@@ -30,7 +34,6 @@ public class RoundReset : State
         combatManager.roundCount++;
 
         combatManager.SetState(combatManager.firstMove);
-        CombatEvents.AnimatorTrigger.Invoke("resetfendicon");
 
         yield break;
     }

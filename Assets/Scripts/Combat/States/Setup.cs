@@ -28,10 +28,12 @@ public class Setup : State
         combatManager.enemyRawAttackPower = 0;
 
         CombatEvents.InitializeEnemyPartsHP?.Invoke();
-        combatManager.combatUIScript.fendScript.ShowHideFendDisplay(false);
+        combatManager.combatUIScript.playerFendScript.ShowHideFendDisplay(false);
+        combatManager.combatUIScript.enemyFendScript.ShowHideFendDisplay(false);
 
         yield return new WaitForSeconds(1);
         CombatEvents.InitializeEnemyHP?.Invoke();
+      //  combatManager.combatUIScript..ShowHideFendDisplay(false);
 
         //player stats
 

@@ -26,10 +26,10 @@ public class EnemyAttack : State
         combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, new Vector2(combatManager.battleScheme.playerFightingPosition.transform.position.x + 0.3f, combatManager.battleScheme.playerFightingPosition.transform.position.y), 0.5f);
         yield return new WaitForSeconds(0.5f);
 
-        combatManager.combatUIScript.fendScript.ApplEnemyAttackToFend(combatManager.enemy.EnemyAttackTotal());
+        combatManager.combatUIScript.playerFendScript.ApplyEnemyAttackToFend(combatManager.enemy.EnemyAttackTotal());
 
         CombatEvents.UpdatePlayerHP.Invoke(-fendScript.attackRemainder);
-        CombatEvents.AnimatorTrigger.Invoke("deflect");
+        combatManager.combatUIScript.playerFendScript.FendIconAnimationState(1);
 
         yield return new WaitForSeconds(0.5f);
 
@@ -37,7 +37,6 @@ public class EnemyAttack : State
 
         yield return new WaitForSeconds(1.0f);
 
-        combatManager.combatUIScript.playerDamageTakenDisplay.DisablePlayerDamageDisplay();
         combatManager.SetState(combatManager.roundReset);
 
     }

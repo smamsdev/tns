@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public enum Target {body, arms, head};
@@ -12,6 +13,7 @@ public class Enemy : MonoBehaviour
     [Header("")]
     public int enemyAttack;
     public int enemyAttackTotal;
+    public int fend;
 
     [Header("")]
     public int enemyXP;
@@ -29,13 +31,11 @@ public class Enemy : MonoBehaviour
 
     private void OnEnable()
     {
-        CombatEvents.CalculateEnemyDamageTaken += CalculateEnemyDamageTaken;
         CombatEvents.SetEnemyBodyPartTarget += SetEnemyBodyPartTarget;
     }
 
     private void OnDisable()
     {
-        CombatEvents.CalculateEnemyDamageTaken -= CalculateEnemyDamageTaken;
         CombatEvents.SetEnemyBodyPartTarget += SetEnemyBodyPartTarget;
     }
 
@@ -45,7 +45,14 @@ public class Enemy : MonoBehaviour
         damageReceivedInjuryBonus = 0;
     }
 
-    public void CalculateEnemyDamageTaken(int value)
+    public void DamageTaken(int attackRemainder)
+
+    {
+        DamageToHP(attackRemainder);
+    }
+
+
+    public void DamageToParts(int value)
     {
 
         if (targetIs == Target.body) 
@@ -87,13 +94,11 @@ public class Enemy : MonoBehaviour
             injuryPenalty = enemyAttack / 2;
           // battleSprites.transform.GetChild(4).gameObject.SetActive(false);
         }
-
-        UpdateenemyHP(totalDamage);
     }
 
-    void UpdateenemyHP(int value)
+    void DamageToHP(int attackRemainder)
     {
-        enemyHP = enemyHP - value;
+        enemyHP = enemyHP - attackRemainder;
 
         CombatEvents.UpdateEnemyHPUI.Invoke(totalDamage);
 
