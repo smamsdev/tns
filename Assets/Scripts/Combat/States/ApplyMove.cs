@@ -47,7 +47,7 @@ public class ApplyMove : State
         {
             combatManager.UpdateFighterPosition(combatManager.player, new Vector2(combatManager.battleScheme.enemyGameObject.transform.position.x - 0.3f, combatManager.battleScheme.enemyGameObject.transform.position.y), 0.5f);
             yield return new WaitForSeconds(0.5f);
-            combatManager.combatUIScript.enemyFendScript.ApplPlayerAttackToFend(combatManager.playerStats.attackPower);
+            combatManager.combatUIScript.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerStats.attackPower);
 
             yield return new WaitForSeconds(0.3f);
             combatManager.UpdateFighterPosition(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 0.5f);

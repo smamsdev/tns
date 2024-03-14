@@ -20,7 +20,7 @@ public class TargetDisplay : MonoBehaviour
 
     public int bodyMaxHP, armsMaxHP, headMaxHP;
 
-    public string bodyDescription, armsDescription, headDescription, injuredBodyDescription, injuredArmsDescription, injuredHeadDescription;
+    public string  bodyHeader, armsHeader, headHeader, defaultBodyDescription, defaultArmsDescription, defaultHeadDescription, injuredBodyDescription, injuredArmsDescription, injuredHeadDescription;
 
     private void OnEnable()
     {
@@ -52,9 +52,9 @@ public class TargetDisplay : MonoBehaviour
         armsTargetDisplay.SetActive(showArms);
         headTargetDisplay.SetActive(showHead);
 
-        bodyDescriptionTextMeshPro.text = bodyDescription + "<br>" + bodyHP;
-        armsDescriptionTextMeshPro.text = armsDescription + "<br>" + armsHP;
-        headDescriptionTextMeshPro.text = headDescription + "<br>" + headHP;
+        bodyDescriptionTextMeshPro.text = bodyHeader+ "<br>" + defaultBodyDescription + "<br>" + bodyHP;
+        armsDescriptionTextMeshPro.text = armsHeader + "<br>" + defaultArmsDescription + "<br>" + armsHP;
+        headDescriptionTextMeshPro.text = headHeader + "<br>" + defaultHeadDescription + "<br>" + headHP;
 
         if (enemy.enemyBodyHP == 0)
         {

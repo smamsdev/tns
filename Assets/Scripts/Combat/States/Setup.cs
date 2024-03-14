@@ -12,6 +12,9 @@ public class Setup : State
     public override IEnumerator StartState()
 
     {
+        combatManager.playerStats.InitalisePlayerStats();
+        CombatEvents.InitializePlayerHP?.Invoke(combatManager.playerStats.playerCurrentHP);
+
         yield return new WaitForSeconds(0.01f);
         CombatEvents.BattleMode?.Invoke(true);
         CombatEvents.LockPlayerMovement.Invoke();
@@ -37,12 +40,12 @@ public class Setup : State
 
         //player stats
 
-        CombatEvents.InitializePlayerHP?.Invoke(combatManager.playerStats.playerMaxHP);
+        CombatEvents.InitializePlayerHP?.Invoke(combatManager.playerStats.playerCurrentHP);
        
         // combatManager.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);    ????/
 
 
-        combatManager.playerStats.InitalisePlayerStats();
+
 
 
         combatManager.SetState(combatManager.firstMove);

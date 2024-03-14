@@ -30,8 +30,6 @@ public class PlayerStatsSO : ScriptableObject
     [Header("HP")]
     public int playerCurrentHP;
     public int playerMaxHP;
-    int baseMaxCurrentHP = 100;
-    int defaultPlayerMaxHP = 100;
 
     [Header("Fend")]
     public int playerFend;
@@ -70,6 +68,7 @@ public class PlayerStatsSO : ScriptableObject
     [SerializeField] Vector2 position;
     public int defaultXPThreshold;
     public int defaultPlayerAttackPowerBase = 8;
+    public int defaultPlayerMaxHP = 100;
     [SerializeField] int defaultPlayerFendBase = 8;
     [SerializeField] int defaultPlayerFocusbase = 10;
     [SerializeField] int playerFocusbaseChange;
@@ -204,7 +203,7 @@ public class PlayerStatsSO : ScriptableObject
 
      void UpdatePlayerHP(int value)
     {
-        playerCurrentHP += value;
+        playerCurrentHP = Mathf.Clamp(playerCurrentHP + value, 0, 100);
         CombatEvents.UpdatePlayerHPDisplay?.Invoke(playerCurrentHP);
     }
 

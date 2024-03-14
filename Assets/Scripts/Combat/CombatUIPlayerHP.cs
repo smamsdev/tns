@@ -4,12 +4,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using static UnityEngine.Rendering.DebugUI;
 
 public class CombatUIPlayerHP : MonoBehaviour
 {
 
     TextMeshProUGUI textMeshProUGUI;
-    int playerCurrentHP;
+    [SerializeField] Animator animator;
+    public int playerCurrentHP;
 
     private void Awake()
     {
@@ -28,16 +30,39 @@ public class CombatUIPlayerHP : MonoBehaviour
         CombatEvents.InitializePlayerHP -= InitializePlayerHP;
     }
 
-    void UpdatePlayerHP(int value)
+    void UpdatePlayerHP(int finalValue)
     {
 
-        playerCurrentHP = value;
-        textMeshProUGUI.text = "HP: " + playerCurrentHP.ToString();
+        StartCoroutine(UpdatePlayerHPDisplayCoroutine(playerCurrentHP,finalValue));
     }
 
     void InitializePlayerHP(int value)
     {
         playerCurrentHP = value;
         textMeshProUGUI.text = "HP: " + value.ToString();
+    }
+
+    IEnumerator UpdatePlayerHPDisplayCoroutine(int currentHP, int finalValue)
+
+    {
+      //  yield return new WaitForSeconds(0.5f); //give a little break for the move to finish
+        animator.SetTrigger("bump");
+
+        float elapsedTime = 0f;
+        float lerpDuration = 1f;
+        int valueToOutput;
+
+        while (elapsedTime < lerpDuration)
+        {
+            float t = Mathf.Clamp01(elapsedTime / lerpDuration);
+
+            valueToOutput = Mathf.RoundToInt(Mathf.Lerp(currentHP, finalValue, t));
+            textMeshProUGUI.text = "HP: " + valueToOutput.ToString();
+            playerCurrentHP = valueToOutput;
+
+            elapsedTime += Time.deltaTime;
+
+            yield return null;
+        }
     }
 }

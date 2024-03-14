@@ -9,22 +9,22 @@ public class EnemyDamageTakenDisplay : MonoBehaviour
     [SerializeField] Animator animator;
     public TextMeshProUGUI EnemyDamageTakenTextMeshProUGUI;
 
-    private void OnEnable()
-    {
-        CombatEvents.UpdateEnemyHPUI += ShowEnemyDamageDisplay;
-    }
-
-    private void OnDisable()
-    {
-        CombatEvents.UpdateEnemyHPUI -= ShowEnemyDamageDisplay;
-    }
-
     void Start()
     {
         EnemyDamageTakenTextMeshProUGUI.enabled = false;
     }
 
-     public void ShowEnemyDamageDisplay(int remainder)
+    private void OnEnable()
+    {
+        CombatEvents.ShowEnemyDamageTakenDisplay += ShowEnemyDamageDisplay;
+    }
+
+    private void OnDisable()
+    {
+        CombatEvents.ShowEnemyDamageTakenDisplay -= ShowEnemyDamageDisplay;
+    }
+
+    public void ShowEnemyDamageDisplay(int remainder)
     {
         animator.SetInteger("animState", 1);
         EnemyDamageTakenTextMeshProUGUI.enabled = true;
@@ -43,14 +43,11 @@ public class EnemyDamageTakenDisplay : MonoBehaviour
 
         while (elapsedTime < lerpDuration)
         {
-            // Calculate the interpolation factor between 0 and 1 based on the elapsed time and duration
             float t = Mathf.Clamp01(elapsedTime / lerpDuration);
 
-            // Lerp between the start and end values
             valueToDisplay = Mathf.RoundToInt(Mathf.Lerp(startNumber, endValue, t));
             EnemyDamageTakenTextMeshProUGUI.text = valueToDisplay.ToString();
 
-            // Increment the elapsed time
             elapsedTime += Time.deltaTime;
 
             yield return null;

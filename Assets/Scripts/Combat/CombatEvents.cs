@@ -17,6 +17,7 @@ public static class CombatEvents
     //Combat UI
     public static Action<string> UpdateNarrator;
     public static Action<bool, bool, bool> HighlightBodypartTarget;
+    public static Action<string, int, int, int> BodyPartDamageTakenDisplay;
     public static Action<int> UpdateFendDisplay;
     public static Action<int> UpdatePlayerPotOnUI;
     public static Action<int> UpdatePlayerHPDisplay;
@@ -29,6 +30,7 @@ public static class CombatEvents
     public static Action InitializeEnemyHP;
     public static Action<int> UpdateEnemyHPUI;
     public static Action InitializeEnemyPartsHP;
+    public static Action<int> ShowEnemyDamageTakenDisplay;
     public static Action <int> SetEnemyBodyPartTarget;
     public static Action<int> UpdateEnemyAttackDisplay;
     public static Action<int> UpdateEnemyFendDisplay;

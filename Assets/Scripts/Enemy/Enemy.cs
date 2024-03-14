@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public enum Target {body, arms, head};
 
@@ -23,6 +24,10 @@ public class Enemy : MonoBehaviour
     public int enemyArmsHP;
     public int enemyHeadHP;
 
+    [HideInInspector] int enemyBodyMaxHP;
+    [HideInInspector] int enemyArmsMaxHP;
+    [HideInInspector] int enemyHeadMaxHP;
+
     [Header("Misc")]
     public int damageReceivedInjuryBonus;
     public int totalDamage;
@@ -43,74 +48,70 @@ public class Enemy : MonoBehaviour
     {
         injuryPenalty = 0;
         damageReceivedInjuryBonus = 0;
-    }
+
+        enemyBodyMaxHP = enemyBodyHP; 
+        enemyArmsMaxHP = enemyArmsHP; 
+        enemyHeadMaxHP = enemyHeadHP;
+}
 
     public void DamageTaken(int attackRemainder)
 
     {
-        DamageToHP(attackRemainder);
+        DamageToHP(attackRemainder + damageReceivedInjuryBonus);
+        DamageToParts(attackRemainder);
     }
 
 
-    public void DamageToParts(int value)
+    public void DamageToParts(int attackRemainder)
     {
 
         if (targetIs == Target.body) 
         
         {
-            totalDamage = value + damageReceivedInjuryBonus;
-            enemyBodyHP = Mathf.Clamp(enemyBodyHP - value, 0, 9999);
+            CombatEvents.BodyPartDamageTakenDisplay.Invoke("Body", enemyBodyHP, enemyBodyHP-attackRemainder, enemyBodyMaxHP);
+            enemyBodyHP = Mathf.Clamp(enemyBodyHP - attackRemainder, 0, 9999);
         }
 
         if (targetIs == Target.arms)
 
         {
-            totalDamage = Mathf.CeilToInt((value * 0.6f) + damageReceivedInjuryBonus);
-            enemyArmsHP = Mathf.Clamp(enemyArmsHP - value, 0, 9999);
-            injuryPenalty += Mathf.CeilToInt(value * 0.1f);
+            CombatEvents.BodyPartDamageTakenDisplay.Invoke("Arms", enemyArmsHP, enemyArmsHP - attackRemainder, enemyArmsMaxHP);
+            enemyArmsHP = Mathf.Clamp(enemyArmsHP - attackRemainder, 0, 9999);
         }
 
         if (targetIs == Target.head)
 
         {
-            totalDamage = Mathf.CeilToInt((value * 0.4f) + damageReceivedInjuryBonus);
-            enemyHeadHP = Mathf.Clamp(enemyHeadHP - value, 0,9999);
+            CombatEvents.BodyPartDamageTakenDisplay.Invoke("Head", enemyHeadHP, enemyHeadHP - attackRemainder, enemyHeadMaxHP);
+            enemyHeadHP = Mathf.Clamp(enemyHeadHP - attackRemainder, 0,9999);
         }
 
         if (enemyBodyHP == 0)
         {
-            damageReceivedInjuryBonus = value;
-           // battleSprites.transform.GetChild(0).gameObject.SetActive(false);
+            damageReceivedInjuryBonus = attackRemainder;
         }
 
         if (enemyArmsHP == 0)
         {
             injuryPenalty = enemyAttack / 2;
-           // battleSprites.transform.GetChild(2).gameObject.SetActive(false);
         }
 
         if (enemyHeadHP == 0)
         {
             injuryPenalty = enemyAttack / 2;
-          // battleSprites.transform.GetChild(4).gameObject.SetActive(false);
         }
     }
 
-    void DamageToHP(int attackRemainder)
+    void DamageToHP(int damageTotal)
     {
-        enemyHP = enemyHP - attackRemainder;
+        enemyHP = enemyHP - damageTotal;
 
-        CombatEvents.UpdateEnemyHPUI.Invoke(totalDamage);
+        CombatEvents.UpdateEnemyHPUI.Invoke(enemyHP);
+        CombatEvents.ShowEnemyDamageTakenDisplay?.Invoke(damageTotal);
 
         if (enemyHP <= 0)
         {
             CombatEvents.EnemyIsDead.Invoke(true);
-
-          // var foundAnimators = battleSprites.GetComponentsInChildren<Animator>();
-          // foreach (Animator animator in foundAnimators)
-          // { 
-          //     animator.enabled = false;
-          // }
         }
     }
 

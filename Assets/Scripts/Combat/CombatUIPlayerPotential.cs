@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class CombatUIPlayerPotential : MonoBehaviour
 {
     TextMeshProUGUI textMeshProUGUI;
     int playerCurrentPotential;
+    [SerializeField] Animator animator;
 
     private void Awake()
     {
@@ -33,11 +35,33 @@ public class CombatUIPlayerPotential : MonoBehaviour
 
     }
 
-
-    public void UpdatePlayerPotOnUI(int value)
+    public void UpdatePlayerPotOnUI(int newValue)
     {
-        playerCurrentPotential = value;
-        textMeshProUGUI.text = "Potential: " + playerCurrentPotential.ToString();
+        StartCoroutine(UpdatePlayerPotentialDisplayCoroutine(playerCurrentPotential, newValue));
+    }
+
+
+    IEnumerator UpdatePlayerPotentialDisplayCoroutine(int currentHP, int finalValue)
+
+    {
+        animator.SetTrigger("bump");
+
+        float elapsedTime = 0f;
+        float lerpDuration = 1f;
+        int valueToOutput;
+
+        while (elapsedTime < lerpDuration)
+        {
+            float t = Mathf.Clamp01(elapsedTime / lerpDuration);
+
+            valueToOutput = Mathf.RoundToInt(Mathf.Lerp(currentHP, finalValue, t));
+            textMeshProUGUI.text = "Potential: " + valueToOutput.ToString();
+            playerCurrentPotential = valueToOutput;
+
+            elapsedTime += Time.deltaTime;
+
+            yield return null;
+        }
     }
 
 }

@@ -28,7 +28,6 @@ public class EnemyAttack : State
 
         combatManager.combatUIScript.playerFendScript.ApplyEnemyAttackToFend(combatManager.enemy.EnemyAttackTotal());
 
-        CombatEvents.UpdatePlayerHP.Invoke(-fendScript.attackRemainder);
         combatManager.combatUIScript.playerFendScript.FendIconAnimationState(1);
 
         yield return new WaitForSeconds(0.5f);

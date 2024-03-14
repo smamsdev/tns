@@ -37,22 +37,27 @@ public class EnemyFendScript : MonoBehaviour
         animatorContainer.SetInteger("deflectState", state);
     }
 
-    public void ApplPlayerAttackToFend(int attack)
+    public void ApplyPlayerAttackToFend(int attack)
 
     {
         attackRemainder = attack - combatManager.enemy.fend;
-        StartCoroutine(ApplyPlayerAttackToFendCoroutine(attack));
+
+        if (combatManager.enemy.fend == 0)
+        {
+            FendBreached();
+            return;
+        }
+
+        else
+        {
+            StartCoroutine(ApplyPlayerAttackToFendCoroutine(attack));
+        }
+       
     }
 
     IEnumerator ApplyPlayerAttackToFendCoroutine(int attack)
 
     {
-        if (combatManager.enemy.fend == 0)
-        {
-            FendBreached();
-            yield return null;
-        }
-
         FendIconAnimationState(1);
 
         float elapsedTime = 0f;
@@ -61,8 +66,6 @@ public class EnemyFendScript : MonoBehaviour
         int startNumber = combatManager.enemy.fend;
 
         int endValue = combatManager.enemy.fend - attack;
-
-        if (combatManager.enemy.fend == 0) { FendBreached(); }
 
         while (elapsedTime < lerpDuration && combatManager.enemy.fend > 0)
         {
@@ -91,7 +94,6 @@ public class EnemyFendScript : MonoBehaviour
         if (attackRemainder > 0)
         {
             combatManager.enemy.DamageTaken(attackRemainder);
-            combatManager.combatUIScript.enemyDamageTakenDisplay.ShowEnemyDamageDisplay(attackRemainder);
         }
     }
 

@@ -10,17 +10,19 @@ public class EnemyStatsDisplay : MonoBehaviour
     [SerializeField] TextMeshProUGUI enemyNameMeshProHP;
     [SerializeField] GameObject enemyStatsDisplay;
     [SerializeField] RectTransform enemyHudRect;
+    [SerializeField] Animator animator;
     Enemy enemy;
+    int enemyHP;
 
     private void OnEnable()
     {
-        CombatEvents.UpdateEnemyHPUI += UpdateenemyHPText;
+        CombatEvents.UpdateEnemyHPUI += UpdateEnemyHPDisplay;
         CombatEvents.InitializeEnemyHP += InitializeEnemyHP;
     }
 
     private void OnDisable()
     {
-        CombatEvents.UpdateEnemyHPUI -= UpdateenemyHPText;
+        CombatEvents.UpdateEnemyHPUI -= UpdateEnemyHPDisplay;
         CombatEvents.InitializeEnemyHP += InitializeEnemyHP;
     }
 
@@ -32,13 +34,12 @@ public class EnemyStatsDisplay : MonoBehaviour
         enemy = combatManager.battleScheme.enemyGameObject.GetComponent<Enemy>();
 
         enemyNameMeshProHP.text = enemy.name;
-        enemyHPtextMeshProHP.text = "HP: " + enemy.enemyHP;
+        enemyHP = enemy.enemyHP; 
+        enemyHPtextMeshProHP.text = "HP: " + enemyHP;
     }
 
-    public void UpdateenemyHPText(int value)
+    public void UpdateEnemyHPDisplay(int newHPValue)
     {
-        enemyHPtextMeshProHP.text = "HP: " + enemy.enemyHP;
-
         if (enemy.enemyHP <= 0) 
         {
             enemyHPtextMeshProHP.text = "DEAD";
@@ -46,7 +47,30 @@ public class EnemyStatsDisplay : MonoBehaviour
 
         else
         {
-            enemyHPtextMeshProHP.text = "HP: " + enemy.enemyHP;
+            StartCoroutine(UpdateEnemyHPDisplayCoroutine(enemyHP, newHPValue));
+        }
+    }
+
+    IEnumerator UpdateEnemyHPDisplayCoroutine(int _enemyHP, int newHPValue)
+
+    {
+        animator.SetTrigger("bump");
+
+        float elapsedTime = 0f;
+        float lerpDuration = 1f;
+        int valueToOutput;
+
+        while (elapsedTime < lerpDuration)
+        {
+            float t = Mathf.Clamp01(elapsedTime / lerpDuration);
+
+            valueToOutput = Mathf.RoundToInt(Mathf.Lerp(_enemyHP, newHPValue, t));
+            enemyHPtextMeshProHP.text = "HP: " + valueToOutput.ToString();
+            enemyHP = valueToOutput;
+
+            elapsedTime += Time.deltaTime;
+
+            yield return null;
         }
     }
 

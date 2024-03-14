@@ -114,6 +114,7 @@ public class FendScript : MonoBehaviour
         if (attackRemainder > 0)
         {
             combatManager.combatUIScript.playerDamageTakenDisplay.ShowPlayerDamageDisplay(attackRemainder);
+            CombatEvents.UpdatePlayerHP.Invoke(-attackRemainder);
         }
     }
     
