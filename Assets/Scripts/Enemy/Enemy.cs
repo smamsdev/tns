@@ -12,9 +12,10 @@ public class Enemy : MonoBehaviour
     public int enemyHP;
 
     [Header("")]
-    public int enemyAttack;
-    public int enemyAttackTotal;
-    public int fend;
+    public int attackBase;
+    public int fendBase;
+    public int attackTotal;
+    public int fendTotal;
 
     [Header("")]
     public int enemyXP;
@@ -24,15 +25,26 @@ public class Enemy : MonoBehaviour
     public int enemyArmsHP;
     public int enemyHeadHP;
 
+
     [HideInInspector] int enemyBodyMaxHP;
     [HideInInspector] int enemyArmsMaxHP;
     [HideInInspector] int enemyHeadMaxHP;
+
+    [Header("Moves")]
+
+    [SerializeField] EnemyMoves[] enemyMoves;
 
     [Header("Misc")]
     public int damageReceivedInjuryBonus;
     public int totalDamage;
     public Target targetIs;
     public int injuryPenalty;
+
+    int moveWeightingTotal = 0;
+    public int randomValue;
+    public int rng;
+
+    public EnemyMoves moveSelected;
 
     private void OnEnable()
     {
@@ -52,7 +64,12 @@ public class Enemy : MonoBehaviour
         enemyBodyMaxHP = enemyBodyHP; 
         enemyArmsMaxHP = enemyArmsHP; 
         enemyHeadMaxHP = enemyHeadHP;
-}
+
+        foreach (var enemyMoves in enemyMoves)
+        {
+            moveWeightingTotal += enemyMoves.moveWeighting;
+        }
+    }
 
     public void DamageTaken(int attackRemainder)
 
@@ -68,22 +85,31 @@ public class Enemy : MonoBehaviour
         if (targetIs == Target.body) 
         
         {
-            CombatEvents.BodyPartDamageTakenDisplay.Invoke("Body", enemyBodyHP, enemyBodyHP-attackRemainder, enemyBodyMaxHP);
-            enemyBodyHP = Mathf.Clamp(enemyBodyHP - attackRemainder, 0, 9999);
+            if (enemyBodyHP > 0)
+            {
+                CombatEvents.BodyPartDamageTakenDisplay.Invoke("Body", enemyBodyHP, Mathf.Clamp(enemyBodyHP - attackRemainder, 0, 9999), enemyBodyMaxHP);
+                enemyBodyHP = Mathf.Clamp(enemyBodyHP - attackRemainder, 0, 9999);
+            }
         }
 
         if (targetIs == Target.arms)
 
         {
-            CombatEvents.BodyPartDamageTakenDisplay.Invoke("Arms", enemyArmsHP, enemyArmsHP - attackRemainder, enemyArmsMaxHP);
-            enemyArmsHP = Mathf.Clamp(enemyArmsHP - attackRemainder, 0, 9999);
+            if (enemyArmsHP > 0)
+            {
+                CombatEvents.BodyPartDamageTakenDisplay.Invoke("Arms", enemyArmsHP, Mathf.Clamp(enemyArmsHP - attackRemainder, 0, 9999), enemyArmsMaxHP);
+                enemyArmsHP = Mathf.Clamp(enemyArmsHP - attackRemainder, 0, 9999);
+            }
         }
 
         if (targetIs == Target.head)
 
         {
-            CombatEvents.BodyPartDamageTakenDisplay.Invoke("Head", enemyHeadHP, enemyHeadHP - attackRemainder, enemyHeadMaxHP);
-            enemyHeadHP = Mathf.Clamp(enemyHeadHP - attackRemainder, 0,9999);
+            if (enemyHeadHP > 0)
+            {
+                CombatEvents.BodyPartDamageTakenDisplay.Invoke("Head", enemyHeadHP, Mathf.Clamp(enemyHeadHP - attackRemainder, 0, 9999), enemyHeadMaxHP);
+                enemyHeadHP = Mathf.Clamp(enemyHeadHP - attackRemainder, 0, 9999);
+            }
         }
 
         if (enemyBodyHP == 0)
@@ -93,12 +119,12 @@ public class Enemy : MonoBehaviour
 
         if (enemyArmsHP == 0)
         {
-            injuryPenalty = enemyAttack / 2;
+            injuryPenalty = attackTotal / 2;
         }
 
         if (enemyHeadHP == 0)
         {
-            injuryPenalty = enemyAttack / 2;
+            injuryPenalty = attackTotal / 2;
         }
     }
 
@@ -118,8 +144,7 @@ public class Enemy : MonoBehaviour
     public int EnemyAttackTotal() 
     
     {
-        enemyAttackTotal = enemyAttack - injuryPenalty;
-        return enemyAttackTotal;
+        return attackTotal;
     }
 
     void SetEnemyBodyPartTarget(int value)
@@ -137,5 +162,41 @@ public class Enemy : MonoBehaviour
             targetIs = Target.head;
         }
     }
+
+    public void SelectEnemyMove()
+
+    {
+        randomValue = Mathf.RoundToInt(Random.Range(0f, moveWeightingTotal));
+        Debug.Log("initial RNG: " + randomValue);
+
+        foreach (var enemyMove in enemyMoves)
+        {
+
+            if (randomValue >= enemyMove.moveWeighting)
+            {
+                randomValue -= enemyMove.moveWeighting;
+            }
+            else 
+            {
+                LoadMove(enemyMove);
+                return;
+            }
+        }
+
+        Debug.LogError("Failed to select a move!");
+    }
+
+    public void LoadMove(EnemyMoves enemyMove)
+
+    {
+        moveSelected = enemyMove;
+        attackTotal = Mathf.RoundToInt(attackBase * moveSelected.attackMoveModPercent);
+        fendTotal = Mathf.RoundToInt(fendBase * moveSelected.fendMoveModPercent);
+
+        rng = Mathf.RoundToInt(attackTotal * Random.Range(-0.2f, 0.2f));
+
+        attackTotal = Mathf.RoundToInt(attackTotal - injuryPenalty) + rng; //throw in some RNG for fun
+    }
+
 
 }

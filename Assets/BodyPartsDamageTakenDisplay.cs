@@ -29,7 +29,7 @@ public class BodyPartsDamageTakenDisplay : MonoBehaviour
         //animator.SetTrigger("bump");
 
         float elapsedTime = 0f;
-        float lerpDuration = 1f;
+        float lerpDuration = 0.5f;
         int valueToOutput;
 
         while (elapsedTime < lerpDuration)
@@ -47,6 +47,7 @@ public class BodyPartsDamageTakenDisplay : MonoBehaviour
             yield return null;
         }
 
+        yield return new WaitForSeconds(1f);
         textMeshProUGUI.enabled = false;
     }
 }

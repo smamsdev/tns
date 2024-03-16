@@ -38,7 +38,7 @@ public class WeightedVest : Gear
     public override void ApplyFendGear() //asasd
 
     {
-        enemy.enemyAttack += Mathf.RoundToInt(enemy.enemyAttack*0.3f);
+        enemy.attackTotal += Mathf.RoundToInt(enemy.attackTotal * 0.3f);
     }
 
     public override void ResetFendGear()

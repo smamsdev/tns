@@ -23,18 +23,23 @@ public class EnemyAttack : State
 
         combatManager.combatUIScript.HideTargetMenu();
 
-        combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, new Vector2(combatManager.battleScheme.playerFightingPosition.transform.position.x + 0.3f, combatManager.battleScheme.playerFightingPosition.transform.position.y), 0.5f);
-        yield return new WaitForSeconds(0.5f);
+        if (combatManager.enemy.attackTotal > 0)
 
-        combatManager.combatUIScript.playerFendScript.ApplyEnemyAttackToFend(combatManager.enemy.EnemyAttackTotal());
+        {
 
-        combatManager.combatUIScript.playerFendScript.FendIconAnimationState(1);
+            combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, new Vector2(combatManager.battleScheme.playerFightingPosition.transform.position.x + 0.3f, combatManager.battleScheme.playerFightingPosition.transform.position.y), 0.5f);
+            yield return new WaitForSeconds(0.5f);
 
-        yield return new WaitForSeconds(0.5f);
+            combatManager.combatUIScript.playerFendScript.ApplyEnemyAttackToFend(combatManager.enemy.EnemyAttackTotal());
 
-        combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, combatManager.battleScheme.enemyFightingPosition.transform.position, 0.5f);
+            combatManager.combatUIScript.playerFendScript.FendIconAnimationState(1);
 
-        yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.5f);
+
+            combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, combatManager.battleScheme.enemyFightingPosition.transform.position, 0.5f);
+
+            yield return new WaitForSeconds(1.0f);
+        }
 
         combatManager.SetState(combatManager.roundReset);
 

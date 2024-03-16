@@ -40,9 +40,9 @@ public class EnemyFendScript : MonoBehaviour
     public void ApplyPlayerAttackToFend(int attack)
 
     {
-        attackRemainder = attack - combatManager.enemy.fend;
+        attackRemainder = attack - combatManager.enemy.fendTotal;
 
-        if (combatManager.enemy.fend == 0)
+        if (combatManager.enemy.fendTotal == 0)
         {
             FendBreached();
             return;
@@ -63,20 +63,20 @@ public class EnemyFendScript : MonoBehaviour
         float elapsedTime = 0f;
         float lerpDuration = 0.5f;
 
-        int startNumber = combatManager.enemy.fend;
+        int startNumber = combatManager.enemy.fendTotal;
 
-        int endValue = combatManager.enemy.fend - attack;
+        int endValue = combatManager.enemy.fendTotal - attack;
 
-        while (elapsedTime < lerpDuration && combatManager.enemy.fend > 0)
+        while (elapsedTime < lerpDuration && combatManager.enemy.fendTotal > 0)
         {
             float t = Mathf.Clamp01(elapsedTime / lerpDuration);
 
-            combatManager.enemy.fend = Mathf.RoundToInt(Mathf.Lerp(startNumber, endValue, t));
-            fendTextMeshProUGUI.text = combatManager.enemy.fend.ToString();
+            combatManager.enemy.fendTotal = Mathf.RoundToInt(Mathf.Lerp(startNumber, endValue, t));
+            fendTextMeshProUGUI.text = combatManager.enemy.fendTotal.ToString();
 
             elapsedTime += Time.deltaTime;
 
-            if (combatManager.enemy.fend == 0)
+            if (combatManager.enemy.fendTotal == 0)
             {
                FendBreached();
                yield return null;

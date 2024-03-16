@@ -18,11 +18,15 @@ public class FirstMove : State
 
         combatManager.combatUIScript.playerFendScript.ShowHideFendDisplay(true);
 
-        //combatManager.enemy.fend = 10;
+        combatManager.enemy.SelectEnemyMove();
 
-        CombatEvents.UpdateEnemyFendDisplay?.Invoke(combatManager.enemy.fend);
-        CombatEvents.UpdateEnemyAttackDisplay?.Invoke(combatManager.enemy.EnemyAttackTotal());
-        enemyAttackDisplay.SetActive(true);
+        CombatEvents.UpdateEnemyFendDisplay?.Invoke(combatManager.enemy.fendTotal);
+
+        if (combatManager.enemy.attackTotal > 0)
+        {
+            CombatEvents.UpdateEnemyAttackDisplay?.Invoke(combatManager.enemy.EnemyAttackTotal());
+            enemyAttackDisplay.SetActive(true);
+        }
 
         yield break;
     }
