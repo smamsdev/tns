@@ -5,6 +5,7 @@ using UnityEngine;
 public class RoundReset : State
 {
     [SerializeField] CombatManager combatManager;
+    [SerializeField] GameObject enemyAttackDisplay;
 
     public override IEnumerator StartState()
     {
@@ -32,6 +33,15 @@ public class RoundReset : State
         combatManager.playerMoveManager.secondMoveIs = 0;
 
         combatManager.roundCount++;
+
+        combatManager.enemy.SelectEnemyMove();
+        CombatEvents.UpdateEnemyFendDisplay?.Invoke(combatManager.enemy.fendTotal);
+
+        if (combatManager.enemy.attackTotal > 0)
+        {
+            CombatEvents.UpdateEnemyAttackDisplay?.Invoke(combatManager.enemy.EnemyAttackTotal());
+            enemyAttackDisplay.SetActive(true);
+        }
 
         combatManager.SetState(combatManager.firstMove);
 

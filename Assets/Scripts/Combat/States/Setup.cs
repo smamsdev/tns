@@ -8,6 +8,7 @@ public class Setup : State
 
     [SerializeField] GameObject combatMenuContainer;
     [SerializeField] GameObject playerStatsContainer;
+    [SerializeField] GameObject enemyAttackDisplay;
 
     public override IEnumerator StartState()
 
@@ -27,7 +28,6 @@ public class Setup : State
 
         combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, combatManager.battleScheme.enemyFightingPosition.transform.position, 1f);
 
-     //   combatManager.battleScheme.enemyGameObject.transform.position = combatManager.battleScheme.enemyFightingPosition.transform.position;
         combatManager.enemyRawAttackPower = 0;
 
         CombatEvents.InitializeEnemyPartsHP?.Invoke();
@@ -36,16 +36,17 @@ public class Setup : State
 
         yield return new WaitForSeconds(1);
         CombatEvents.InitializeEnemyHP?.Invoke();
-      //  combatManager.combatUIScript..ShowHideFendDisplay(false);
-
-        //player stats
 
         CombatEvents.InitializePlayerHP?.Invoke(combatManager.playerStats.playerCurrentHP);
-       
-        // combatManager.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);    ????/
 
+        combatManager.enemy.SelectEnemyMove();
+        CombatEvents.UpdateEnemyFendDisplay?.Invoke(combatManager.enemy.fendTotal);
 
-
+        if (combatManager.enemy.attackTotal > 0)
+        {
+            CombatEvents.UpdateEnemyAttackDisplay?.Invoke(combatManager.enemy.EnemyAttackTotal());
+            enemyAttackDisplay.SetActive(true);
+        }
 
 
         combatManager.SetState(combatManager.firstMove);

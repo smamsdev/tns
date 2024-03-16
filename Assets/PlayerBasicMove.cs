@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicMove : EnemyMoves
+public class PlayerBasicMove : PlayerMove
 {
 
 }

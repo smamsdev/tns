@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Moves")]
 
-    [SerializeField] EnemyMoves[] enemyMoves;
+    [SerializeField] EnemyMove[] enemyMoves;
 
     [Header("Misc")]
     public int damageReceivedInjuryBonus;
@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour
     public int randomValue;
     public int rng;
 
-    public EnemyMoves moveSelected;
+    public EnemyMove moveSelected;
 
     private void OnEnable()
     {
@@ -167,7 +167,6 @@ public class Enemy : MonoBehaviour
 
     {
         randomValue = Mathf.RoundToInt(Random.Range(0f, moveWeightingTotal));
-        Debug.Log("initial RNG: " + randomValue);
 
         foreach (var enemyMove in enemyMoves)
         {
@@ -186,7 +185,7 @@ public class Enemy : MonoBehaviour
         Debug.LogError("Failed to select a move!");
     }
 
-    public void LoadMove(EnemyMoves enemyMove)
+    public void LoadMove(EnemyMove enemyMove)
 
     {
         moveSelected = enemyMove;

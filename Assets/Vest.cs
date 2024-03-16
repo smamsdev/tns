@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Vest : Gear
 {
-    [SerializeField] PlayerMoveManagerSO moveManager;
+  //  [SerializeField] combatManager.playerMoveManager moveManager;
 
     private void Awake()
     {
@@ -15,10 +15,10 @@ public class Vest : Gear
     public override void ApplyFendGear()
 
     {
-        if (moveManager.firstMoveIs == 2 || moveManager.secondMoveIs == 2)
-        {
-            GameObject.Find("Player").GetComponent<EquippedGear>().playerStats.fendPowerGearMod += 5;
-        }
+      //if (moveManager.firstMoveIs == 2 || moveManager.secondMoveIs == 2)
+      //{
+      //    GameObject.Find("Player").GetComponent<EquippedGear>().playerStats.fendPowerGearMod += 5;
+      //}
     }
 
     public override void ResetFendGear()

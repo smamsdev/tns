@@ -64,12 +64,6 @@ public class ApplyMove : State
 
         else 
         {
-            combatManager.combatUIScript.enemyFendScript.ShowHideFendDisplay(false);
-            combatManager.combatUIScript.enemyDamageTakenDisplay.EnemyDamageTakenTextMeshProUGUI.enabled = false;
-
-            combatManager.combatUIScript.playerFendScript.ShowHideFendDisplay(true);
-            combatManager.combatUIScript.playerFendScript.UpdateFendText(combatManager.playerStats.TotalPlayerMovePower("fend"));
-            yield return new WaitForSeconds(0.5f);
             combatManager.SetState(combatManager.enemyAttack);
         }
 

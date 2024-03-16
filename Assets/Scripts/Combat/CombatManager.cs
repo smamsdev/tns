@@ -16,7 +16,7 @@ public class CombatManager : MonoBehaviour
     [Header("Debugging")]
     public CombatUIScript combatUIScript;
     public AttackTargetMenuScript attackTargetMenuScript;
-    public PlayerMoveManagerSO playerMoveManager;
+    public PlayerMoveManager playerMoveManager;
     public PlayerStatsSO playerStats;
     public int roundCount;
     public bool enemyIsDead = false;

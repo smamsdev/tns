@@ -6,7 +6,7 @@ using UnityEngine;
 public class BrassKnuckles : Gear
 {
 
-    [SerializeField] PlayerMoveManagerSO moveManager;
+  //  [SerializeField] combatManager.playerMoveManager moveManager;
 
     private void Awake()
     {
@@ -17,10 +17,10 @@ public class BrassKnuckles : Gear
 
 
     {
-        if (moveManager.firstMoveIs == 1 || moveManager.secondMoveIs == 1)
-        {
-            GameObject.Find("Player").GetComponent<EquippedGear>().playerStats.attackPowerGearMod += 11;
-        }
+      //  if (moveManager.firstMoveIs == 1 || moveManager.secondMoveIs == 1)
+      //  {
+      //      GameObject.Find("Player").GetComponent<EquippedGear>().playerStats.attackPowerGearMod += 11;
+      //  }
     }
 
     public override void ResetAttackGear()

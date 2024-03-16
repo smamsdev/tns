@@ -5,8 +5,9 @@ using UnityEngine;
 public class FirstMove : State
 {
     [SerializeField] CombatManager combatManager;
-    [SerializeField] GameObject enemyAttackDisplay;
     [SerializeField] GameObject firstMoveContainer;
+
+    public float testLerp = 0;
 
     public override IEnumerator StartState()
     {
@@ -18,15 +19,16 @@ public class FirstMove : State
 
         combatManager.combatUIScript.playerFendScript.ShowHideFendDisplay(true);
 
-        combatManager.enemy.SelectEnemyMove();
 
-        CombatEvents.UpdateEnemyFendDisplay?.Invoke(combatManager.enemy.fendTotal);
 
-        if (combatManager.enemy.attackTotal > 0)
-        {
-            CombatEvents.UpdateEnemyAttackDisplay?.Invoke(combatManager.enemy.EnemyAttackTotal());
-            enemyAttackDisplay.SetActive(true);
-        }
+
+        //   // Example: Lerp testLerp from 0 to 10 over 3 seconds
+        //   StartCoroutine(Lerper.LerpFloat(testLerp, 10f, 3f, (lerpedValue) =>
+        //   {
+        //       testLerp = lerpedValue; // Update testLerp each frame
+        //   }));
+
+
 
         yield break;
     }

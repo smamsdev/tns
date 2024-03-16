@@ -4,9 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 
-[CreateAssetMenu]
-
-public class PlayerMoveManagerSO : ScriptableObject
+public class PlayerMoveManager : MonoBehaviour
 {
     public int firstMoveIs;
     public int secondMoveIs;
@@ -74,6 +72,9 @@ public class PlayerMoveManagerSO : ScriptableObject
 
         //def
         CombatEvents.UpdatePlayerFendMoveMod.Invoke(0, false);
+
+
+
     }
 
     void OneTwo()
