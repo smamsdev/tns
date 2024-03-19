@@ -16,7 +16,7 @@ public class CombatManager : MonoBehaviour
     [Header("Debugging")]
     public CombatUIScript combatUIScript;
     public AttackTargetMenuScript attackTargetMenuScript;
-    public PlayerMoveManager playerMoveManager;
+    [HideInInspector] public PlayerMoveManager playerMoveManager;
     public PlayerStatsSO playerStats;
     public int roundCount;
     public bool enemyIsDead = false;
@@ -38,17 +38,19 @@ public class CombatManager : MonoBehaviour
 
     private void OnEnable()
     {
-        CombatEvents.PassState += SetState;
+        CombatEvents.SendState += SetState;
     }
 
     private void OnDisable()
     {
-        CombatEvents.PassState -= SetState;
+        CombatEvents.SendState -= SetState;
     }
 
     public void StartBattle()
     {
         enemy = battleScheme.enemyGameObject.GetComponent<Enemy>();
+        playerMoveManager = player.GetComponentInChildren< PlayerMoveManager>();
+
         SetState(setup);
     }
 

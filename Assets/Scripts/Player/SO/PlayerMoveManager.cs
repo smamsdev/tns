@@ -8,202 +8,115 @@ public class PlayerMoveManager : MonoBehaviour
 {
     public int firstMoveIs;
     public int secondMoveIs;
+    public PlayerMoveListSO playerMoveListSO;
+    public PlayerEquippedMoves playerEquippedMoves;
 
-    public void CombineMoves()
+    public List<ViolentMove> violentAttacks = new List<ViolentMove>();
+    public List<ViolentMove> violentFends = new List<ViolentMove>();
+    public List<ViolentMove> violentFocuses = new List<ViolentMove>();
 
+    public List<CautiousMove> cautiousAttacks = new List<CautiousMove>();
+    public List<CautiousMove> cautiousFends = new List<CautiousMove>();
+    public List<CautiousMove> cautiousFocuses = new List<CautiousMove>();
+
+    public List<PreciseMove> preciseAttacks = new List<PreciseMove>();
+    public List<PreciseMove> preciseFends = new List<PreciseMove>();
+    public List<PreciseMove> preciseFocuses = new List<PreciseMove>();
+
+    private void Start()
     {
-        if (firstMoveIs == 1 && secondMoveIs == 1)
-        {
-            OneOne();
-        }
+        LoadMoveListFromSO();
+    }
 
-        if (firstMoveIs == 1 && secondMoveIs == 2)
-        {
-            OneTwo();
-        }
+    private void SaveMoveListToSO()
+    {
+     //   for (int i = 0; i < playerMoveInventory.Count; i++)
+     //   {
+     //       if (!playerMoveListSO.moveListString.Contains(playerMoveInventory[i].moveName))
+     //           playerMoveListSO.moveListString.Add(playerMoveInventory[i].moveName);
+     //   }
+    }
 
-        if (firstMoveIs == 1 && secondMoveIs == 3)
-        {
-            OneThree();
-        }
+    public void LoadMoveListFromSO()
+    {
+        LoadMovesOfType<ViolentMove>(playerMoveListSO.violentAttacksListString, violentAttacks);
+        LoadMovesOfType<ViolentMove>(playerMoveListSO.violentFendsListString, violentFends);
+        LoadMovesOfType<ViolentMove>(playerMoveListSO.violentFocusesListString, violentFocuses);
 
-        if (firstMoveIs == 2 && secondMoveIs == 1)
-        {
-            TwoOne();
-        }
+        LoadMovesOfType<CautiousMove>(playerMoveListSO.cautiousAttackssListString, cautiousAttacks);
+        LoadMovesOfType<CautiousMove>(playerMoveListSO.cautiousFendsListString, cautiousFends);
+        LoadMovesOfType<CautiousMove>(playerMoveListSO.cautiousFocusesListString, cautiousFocuses);
 
-        if (firstMoveIs == 2 && secondMoveIs == 2)
-        {
-            TwoTwo();
-        }
+        LoadMovesOfType<PreciseMove>(playerMoveListSO.preciseAttacksListString, preciseAttacks);
+        LoadMovesOfType<PreciseMove>(playerMoveListSO.preciseFendsListString, preciseFends);
+        LoadMovesOfType<PreciseMove>(playerMoveListSO.preciseFocusesListString, preciseFocuses);
+    }
 
-        if (firstMoveIs == 2 && secondMoveIs == 3)
+    private void LoadMovesOfType<T>(List<string> moveNames, List<T> moveList) where T : Component
+    {
+        foreach (string moveName in moveNames)
         {
-            TwoThree();
-        }
-
-        if (firstMoveIs == 3 && secondMoveIs == 1)
-        {
-            ThreeOne();
-        }
-
-        if (firstMoveIs == 3 && secondMoveIs == 2)
-        {
-            ThreeTwo();
-        }
-
-        if (firstMoveIs == 3 && secondMoveIs == 3)
-        {
-            ThreeThree();
+            var moveGameObject = GameObject.Find(moveName);
+            var moveComponent = moveGameObject.GetComponent<T>();
+            if (moveComponent != null)
+            {
+                moveList.Add(moveComponent);
+            }
         }
     }
 
-    void OneOne()
+    public void CombineStanceAndMove()
 
     {
-        //ui
-        CombatEvents.UpdateNarrator.Invoke("Reckless Attack");
+        if (firstMoveIs == 0)
+        {
+            GearMove();
+        }
+        else
+        {
+            Action[] actions = new Action[3 * 3]
+            {
+            () => SelectMoveFromEquippedMoves(violentAttacks),
+            () => SelectMoveFromEquippedMoves(violentFends),
+            () => SelectMoveFromEquippedMoves(violentFocuses),
+            () => SelectMoveFromEquippedMoves(cautiousAttacks),
+            () => SelectMoveFromEquippedMoves(cautiousFends),
+            () => SelectMoveFromEquippedMoves(cautiousFocuses),
+            () => SelectMoveFromEquippedMoves(preciseAttacks),
+            () => SelectMoveFromEquippedMoves(preciseFends),
+            () => SelectMoveFromEquippedMoves(preciseFocuses)
+            };
 
-        //pot
-        CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.2f, -20, false);
-
-        //att
-        CombatEvents.UpdatePlayerAttackMoveMod.Invoke(1, true);
-
-        //def
-        CombatEvents.UpdatePlayerFendMoveMod.Invoke(0, false);
-
-
-
+            int index = (firstMoveIs - 1) * 3 + (secondMoveIs - 1);
+            actions[index]();
+        }
     }
 
-    void OneTwo()
-
+    void SelectMoveFromEquippedMoves<T>(List<T> equippedMoveList) where T : PlayerMove
     {
-        //ui
-        CombatEvents.UpdateNarrator.Invoke("Slip Attack");
+        int moveWeightingTotal = 0;
+        int randomValue = 0;
 
-        //att
-        CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0.3f, true);
+        foreach (var playerMove in equippedMoveList)
+        {
+            moveWeightingTotal += playerMove.moveWeighting;
+        }
 
-        //def 
-        CombatEvents.UpdatePlayerFendMoveMod.Invoke(0.3f, true);
+        randomValue = Mathf.RoundToInt(UnityEngine.Random.Range(0f, moveWeightingTotal));
 
-        //pot null
-        CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.3f, -10, false);
-    }
-
-    void OneThree()
-
-    {
-        //ui
-        CombatEvents.UpdateNarrator.Invoke("Calculating Attack");
-
-        //att
-        CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0.2f, true);
-
-        //def
-        CombatEvents.UpdatePlayerFendMoveMod.Invoke(0, false);
-
-        //pot
-        CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.8f, 0, true);
-    }
-
-    void TwoOne()
-
-    {
-        //ui
-        CombatEvents.UpdateNarrator.Invoke("Counter Attack!");
-
-        //att
-        CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0.3f, true);
-
-        //def
-        CombatEvents.UpdatePlayerFendMoveMod.Invoke(0.5f, true);
-        //fendScript.ShowFendText();
-
-        //pot
-        CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.4f, -10, false);
-    }
-
-    void TwoTwo()
-
-    {
-        //ui
-        CombatEvents.UpdateNarrator.Invoke("Stubborn Fend");
-
-        //att null
-        CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0, false);
-
-        //def
-        CombatEvents.UpdatePlayerFendMoveMod.Invoke(1, true);
-
-        //pot
-        CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.2f, -15, false);
-    }
-
-    void TwoThree()
-
-    {
-        //ui
-        CombatEvents.UpdateNarrator.Invoke("Pensive Fend");
-
-        //att null
-        CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0, false);
-
-        //def
-        CombatEvents.UpdatePlayerFendMoveMod.Invoke(0.5f, true);
-
-        //pot
-        CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.3f, 0, true);
-    }
-
-    void ThreeOne()
-
-    {
-        //ui
-        CombatEvents.UpdateNarrator.Invoke("Precise Attack");
-
-        //att
-        CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0.4f, true);
-
-        //def
-        CombatEvents.UpdatePlayerFendMoveMod.Invoke(0, false);
-
-        //pot
-        CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.2f, 2, true);
-    }
-
-    void ThreeTwo()
-
-    {
-        //ui
-        CombatEvents.UpdateNarrator.Invoke("Contrary Fend");
-
-        //att null
-        CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0, false);
-
-        //def
-        CombatEvents.UpdatePlayerFendMoveMod.Invoke(0.2f, true);
-
-        //pot
-        CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(0.4f, 2, true);
-    }
-
-    void ThreeThree()
-
-    {
-        //ui
-        CombatEvents.UpdateNarrator.Invoke("Zen Concentration");
-
-        //att null
-        CombatEvents.UpdatePlayerAttackMoveMod.Invoke(0, false);
-
-        //def
-        CombatEvents.UpdatePlayerFendMoveMod.Invoke(0, false);
-
-        //pot
-        CombatEvents.UpdatePlayerPotentialMoveCost.Invoke(1.2f, 10, true);
+        foreach (var playerMove in equippedMoveList)
+        {
+            if (randomValue >= playerMove.moveWeighting)
+            {
+                randomValue -= playerMove.moveWeighting;
+            }
+            else
+            {
+                Debug.Log(playerMove);
+                return;
+            }
+        }
+        Debug.LogError("Failed to select a move!");
     }
 
     public void GearMove()
@@ -213,49 +126,5 @@ public class PlayerMoveManager : MonoBehaviour
             CombatEvents.UpdateNarrator.Invoke("");
         }
     }
-
-    public void FirstMoveIsAttack()
-
-    {
-        CombatEvents.UpdateFirstMoveDisplay.Invoke("Attack");
-        firstMoveIs = 1;
-    }
-
-    public void FirstMoveIsDefend()
-
-    {
-        CombatEvents.UpdateFirstMoveDisplay.Invoke("Defend");
-        firstMoveIs = 2;
-    }
-
-    public void FirstMoveIsFocus()
-
-    {
-        CombatEvents.UpdateFirstMoveDisplay.Invoke("Focus");
-        firstMoveIs = 3;
-    }
-
-    public void SecondMoveIsAttack()
-
-    {
-        CombatEvents.UpdateSecondMoveDisplay.Invoke("Attack");
-        secondMoveIs = 1;
-    }
-
-
-    public void SecondMoveIsDefend()
-
-    {
-        CombatEvents.UpdateSecondMoveDisplay.Invoke("Defend");
-        secondMoveIs = 2;
-    }
-
-    public void SecondMoveIsFocus()
-
-    {
-        CombatEvents.UpdateSecondMoveDisplay.Invoke("Focus");
-        secondMoveIs = 3;
-    }
-
 
 }

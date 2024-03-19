@@ -8,6 +8,8 @@ public class SecondMove : State
 
     public override IEnumerator StartState()
     {
+        CombatEvents.SendMove += SetSecondMove;
+
         yield return new WaitForSeconds(0.1f);
 
         combatManager.combatUIScript.ShowSecondMoveMenu();
@@ -25,5 +27,28 @@ public class SecondMove : State
           combatManager.SetState(combatManager.firstMove);
           CombatEvents.InputCoolDown?.Invoke(0.1f);
         }
+    }
+
+    void SetSecondMove(int moveValue)
+    {
+        combatManager.playerMoveManager.secondMoveIs = moveValue;
+        string moveName = "";
+
+        switch (moveValue)
+
+        {
+            case 1:
+                moveName = "Attack";
+                break;
+            case 2:
+                moveName = "Fend";
+                break;
+            case 3:
+                moveName = "Focus";
+                break;
+        };
+
+        CombatEvents.UpdateSecondMoveDisplay.Invoke(moveName);
+        CombatEvents.SendMove -= SetSecondMove;
     }
 }

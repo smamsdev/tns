@@ -12,7 +12,7 @@ public static class CombatEvents
     public static Action<bool> BattleMode;
     public static Action LockPlayerMovement;
     public static Action UnlockPlayerMovement;
-    public static Action<State> PassState;
+    public static Action<State> SendState;
 
     //Combat UI
     public static Action<string> UpdateNarrator;
@@ -49,4 +49,5 @@ public static class CombatEvents
     public static Action<int> InitializePlayerHP;
     public static Action<int> InitializePlayerPotUI;
     public static Action<int> UpdatePlayerHP;
+    public static Action<int> SendMove;
 }

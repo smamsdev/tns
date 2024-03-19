@@ -39,7 +39,7 @@ public class ApplyMove : State
         combatManager.combatUIScript.playerDamageTakenDisplay.DisablePlayerDamageDisplay();
         combatManager.combatUIScript.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
 
-        combatManager.playerMoveManager.CombineMoves();
+        combatManager.playerMoveManager.CombineStanceAndMove();
 
         CombatEvents.UpdatePlayerPot.Invoke(Mathf.CeilToInt(combatManager.playerStats.playerPotentialMoveCost));
 
