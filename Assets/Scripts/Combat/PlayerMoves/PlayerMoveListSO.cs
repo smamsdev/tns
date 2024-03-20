@@ -17,4 +17,6 @@ public class PlayerMoveListSO : ScriptableObject
 
 
     public List<string> genericString = new List<string>();
+
+    public GameObject testGO;
 }
