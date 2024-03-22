@@ -19,7 +19,7 @@ public static class CombatEvents
     public static Action<bool, bool, bool> HighlightBodypartTarget;
     public static Action<string, int, int, int> BodyPartDamageTakenDisplay;
     public static Action<int> UpdateFendDisplay;
-    public static Action<int> UpdatePlayerPotOnUI;
+
     public static Action<int> UpdatePlayerHPDisplay;
     public static Action<string> UpdateFirstMoveDisplay;
     public static Action<string> UpdateSecondMoveDisplay;
@@ -47,7 +47,17 @@ public static class CombatEvents
     public static Action<float, int, bool> UpdatePlayerPotentialMoveCost;
     public static Action<int> UpdatePlayerPot;
     public static Action<int> InitializePlayerHP;
+    public static Action<int> UpdatePlayerPotOnUI;
     public static Action<int> InitializePlayerPotUI;
     public static Action<int> UpdatePlayerHP;
+    public static Action<int> PlayerDamageDisplay;
+    public static Action DisablePlayerDamageDisplay;
     public static Action<int> SendMove;
+
+    //ApplyMove events
+
+    public static Action MeleeAttack;
+    public static Action CounterAttack;
+    public static Action EndMove;
+
 }

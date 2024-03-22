@@ -17,14 +17,14 @@ public class Vest : Gear
     {
       //if (moveManager.firstMoveIs == 2 || moveManager.secondMoveIs == 2)
       //{
-      //    GameObject.Find("Player").GetComponent<EquippedGear>().playerStats.fendPowerGearMod += 5;
+      //    GameObject.Find("Player").GetComponent<EquippedGear>().playerPermanentStats.fendPowerGearMod += 5;
       //}
     }
 
     public override void ResetFendGear()
 
     {
-        GameObject.Find("Player").GetComponent<EquippedGear>().playerStats.attackPowerGearMod = 0;
+  //      GameObject.Find("Player").GetComponent<EquippedGear>().playerPermanentStats.attackPowerGearMod = 0;
     }
 
 }

@@ -336,10 +336,10 @@ RectTransform:
   m_Father: {fileID: 1066952757}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -179.55}
+  m_SizeDelta: {x: 100, y: 39.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &28249048
 MonoBehaviour:
@@ -446,10 +446,10 @@ RectTransform:
   m_Father: {fileID: 1066952757}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -19.95}
+  m_SizeDelta: {x: 100, y: 39.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &67438804
 MonoBehaviour:
@@ -663,10 +663,10 @@ RectTransform:
   m_Father: {fileID: 1306265665}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 269, y: -56}
+  m_SizeDelta: {x: 200, y: 71.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &122683674
 MonoBehaviour:
@@ -973,15 +973,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 655d8cde86dc11846aa943c008816fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveName: 
-  moveDescription: 
-  attackMoveModPercent: 0
-  fendMoveModPercent: 0
-  potentialCost: 0
-  potentialRestorePercent: 0
-  moveWeighting: 0
-  botched: 0
-  test: 0
+  moveName: Precise Attack
+  moveDescription: Deals 3x damage to body parts
+  attackMoveMultiplier: 0
+  damageToBodyMultiplier: 0
+  fendMoveMultiplier: 0
+  potentialChange: 10
+  moveWeighting: 55
 --- !u!1 &159543198
 GameObject:
   m_ObjectHideFlags: 0
@@ -1666,15 +1664,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad23615e1bdd8e44f802ca6eb6c23670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveName: 
+  moveName: Slip Attack
   moveDescription: 
-  attackMoveModPercent: 0
-  fendMoveModPercent: 0
-  potentialCost: 0
-  potentialRestorePercent: 0
-  moveWeighting: 0
-  botched: 0
-  test: 0
+  attackMoveMultiplier: 0
+  damageToBodyMultiplier: 0
+  fendMoveMultiplier: 0
+  potentialChange: -15
+  moveWeighting: 55
+  isAttack: 1
 --- !u!1 &217589502
 GameObject:
   m_ObjectHideFlags: 0
@@ -2102,7 +2099,7 @@ GameObject:
   - component: {fileID: 262855594}
   - component: {fileID: 262855595}
   m_Layer: 7
-  m_Name: RecklessFend
+  m_Name: CounterAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2135,14 +2132,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78f78e03a63b6d4db83620e9fe383c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveName: Reckless Attack VIO
-  moveDescription: 
-  attackMoveModPercent: 0
-  fendMoveModPercent: 0
-  potentialCost: 0
-  potentialRestorePercent: 0
-  moveWeighting: 0
-  botched: 0
+  moveName: Counter Attack
+  moveDescription: Deals heavy damage to attacking enemies
+  attackMoveMultiplier: 0
+  damageToBodyMultiplier: 0
+  fendMoveMultiplier: 0
+  potentialChange: -10
+  moveWeighting: 55
+  isCounterAttack: 1
 --- !u!1 &265044338
 GameObject:
   m_ObjectHideFlags: 0
@@ -2509,7 +2506,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &332224032
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2934,7 +2931,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Flexible
+  m_text: Organised
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -3248,10 +3245,10 @@ RectTransform:
   m_Father: {fileID: 1066952757}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -99.75}
+  m_SizeDelta: {x: 100, y: 39.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &474234925
 MonoBehaviour:
@@ -3646,50 +3643,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gear: {fileID: 0}
   textMeshProUGUI: {fileID: 1729334827008987443}
---- !u!1 &576397274
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 576397276}
-  - component: {fileID: 576397277}
-  m_Layer: 0
-  m_Name: testScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &576397276
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 576397274}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.7065039, y: 7.4244366, z: 0.07702284}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &576397277
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 576397274}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c050ca8262dbd3c449c076ba07350abc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &577177477
 GameObject:
   m_ObjectHideFlags: 0
@@ -4207,12 +4160,12 @@ GameObject:
   - component: {fileID: 805316268}
   - component: {fileID: 805316267}
   m_Layer: 0
-  m_Name: FirstMoveDisplay
+  m_Name: StyleDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &805316266
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4227,7 +4180,7 @@ RectTransform:
   m_Children:
   - {fileID: 1050972399}
   m_Father: {fileID: 1683875959662053690}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5668,7 +5621,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: FIRST MOVE
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -6835,15 +6788,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad23615e1bdd8e44f802ca6eb6c23670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveName: 
+  moveName: Slip Focus
   moveDescription: 
-  attackMoveModPercent: 0
-  fendMoveModPercent: 0
-  potentialCost: 0
-  potentialRestorePercent: 0
-  moveWeighting: 0
-  botched: 0
-  test: 0
+  attackMoveMultiplier: 0
+  damageToBodyMultiplier: 0
+  fendMoveMultiplier: 0
+  potentialChange: 5
+  moveWeighting: 55
+  isAttack: 0
 --- !u!114 &1205919270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6891,10 +6843,10 @@ RectTransform:
   m_Father: {fileID: 1066952757}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -139.65001}
+  m_SizeDelta: {x: 100, y: 39.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1253326417
 MonoBehaviour:
@@ -7050,7 +7002,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackMoveModPercent: 0
   fendMoveModPercent: 2
-  moveWeighting: 5
+  moveWeighting: 20
   moveName: 
 --- !u!1 &1282511517
 GameObject:
@@ -7552,10 +7504,10 @@ RectTransform:
   m_Father: {fileID: 1306265665}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 269, y: -199}
+  m_SizeDelta: {x: 200, y: 71.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1318979819
 MonoBehaviour:
@@ -7950,7 +7902,6 @@ Transform:
   - {fileID: 1912238682}
   - {fileID: 228085028}
   - {fileID: 1616654026}
-  - {fileID: 1481970393}
   m_Father: {fileID: 7106120817525349635}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7970,6 +7921,7 @@ MonoBehaviour:
   secondMoveIs: 0
   playerMoveListSO: {fileID: 11400000, guid: 4658aa4d7d4f0c24fb16a242861b273c, type: 2}
   playerEquippedMoves: {fileID: 1379896138}
+  selectedPlayerMove: {fileID: 0}
   violentAttacks: []
   violentFends: []
   violentFocuses: []
@@ -8320,7 +8272,6 @@ MonoBehaviour:
   - {fileID: 923651952}
   - {fileID: 0}
   - {fileID: 0}
-  playerStats: {fileID: 0}
 --- !u!114 &1414761908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8579,15 +8530,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 655d8cde86dc11846aa943c008816fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveName: 
+  moveName: Precise Fend
   moveDescription: 
-  attackMoveModPercent: 0
-  fendMoveModPercent: 0
-  potentialCost: 0
-  potentialRestorePercent: 0
-  moveWeighting: 0
-  botched: 0
-  test: 0
+  attackMoveMultiplier: 0
+  damageToBodyMultiplier: 0
+  fendMoveMultiplier: 0
+  potentialChange: 12
+  moveWeighting: 55
 --- !u!1 &1444561202
 GameObject:
   m_ObjectHideFlags: 0
@@ -8753,12 +8702,12 @@ GameObject:
   - component: {fileID: 1449029404}
   - component: {fileID: 1449029403}
   m_Layer: 0
-  m_Name: SecondMoveDisplay
+  m_Name: MoveDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1449029402
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8773,7 +8722,7 @@ RectTransform:
   m_Children:
   - {fileID: 2094130996}
   m_Father: {fileID: 1683875959662053690}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8829,7 +8778,6 @@ GameObject:
   - component: {fileID: 1683875961715589180}
   - component: {fileID: 1683875961715589182}
   - component: {fileID: 1683875961715589179}
-  - component: {fileID: 1683875961715589183}
   m_Layer: 0
   m_Name: Violent
   m_TagString: Untagged
@@ -9205,50 +9153,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7537494617456302249, guid: c3bb57f952f67be4191546779eeb8be8, type: 3}
   m_PrefabInstance: {fileID: 7537494617835775525}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1481970392
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1481970393}
-  - component: {fileID: 1481970394}
-  m_Layer: 7
-  m_Name: Botch
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1481970393
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1481970392}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1379896136}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1481970394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1481970392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b38ea4a5868f4f449fa03605f2f7969, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1493849019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10036,7 +9940,7 @@ GameObject:
   - component: {fileID: 1665482559}
   - component: {fileID: 1665482560}
   m_Layer: 7
-  m_Name: RecklessSuccess
+  m_Name: RecklessAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10069,14 +9973,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78f78e03a63b6d4db83620e9fe383c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveName: Reckless Attack VIO
-  moveDescription: 
-  attackMoveModPercent: 0
-  fendMoveModPercent: 0
-  potentialCost: 0
-  potentialRestorePercent: 0
-  moveWeighting: 50
-  botched: 0
+  moveName: Reckless Attack
+  moveDescription: Deals heavy damage
+  attackMoveMultiplier: 1.5
+  damageToBodyMultiplier: 1
+  fendMoveMultiplier: 0
+  potentialChange: -15
+  moveWeighting: 85
+  isCounterAttack: 0
 --- !u!4 &1677123144
 Transform:
   m_ObjectHideFlags: 0
@@ -10159,10 +10063,10 @@ RectTransform:
   m_Father: {fileID: 1066952757}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -219.45}
+  m_SizeDelta: {x: 100, y: 39.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1679390909
 MonoBehaviour:
@@ -10232,15 +10136,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 655d8cde86dc11846aa943c008816fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveName: 
+  moveName: Precise Focus
   moveDescription: 
-  attackMoveModPercent: 0
-  fendMoveModPercent: 0
-  potentialCost: 0
-  potentialRestorePercent: 0
-  moveWeighting: 0
-  botched: 0
-  test: 0
+  attackMoveMultiplier: 0
+  damageToBodyMultiplier: 0
+  fendMoveMultiplier: 0
+  potentialChange: 12
+  moveWeighting: 55
 --- !u!1 &1704548636
 GameObject:
   m_ObjectHideFlags: 0
@@ -10552,7 +10454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combatManager: {fileID: 1683875960009685151}
   combatMenuContainer: {fileID: 1683875959662053685}
-  playerStatsContainer: {fileID: 1683875961325491512}
+  playerStatsUIContainer: {fileID: 1683875961325491512}
   enemyAttackDisplay: {fileID: 4742328226314191491}
 --- !u!1 &1731738272
 GameObject:
@@ -10757,10 +10659,10 @@ RectTransform:
   m_Father: {fileID: 1306265665}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 269, y: -127.5}
+  m_SizeDelta: {x: 200, y: 71.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1767600227
 MonoBehaviour:
@@ -10984,7 +10886,7 @@ GameObject:
   - component: {fileID: 1788371536}
   - component: {fileID: 1788371537}
   m_Layer: 7
-  m_Name: RecklessFail
+  m_Name: Botch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11014,17 +10916,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1788371535}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b78f78e03a63b6d4db83620e9fe383c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ddd4a3c74ff1514583ae198b7bb6b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveName: Reckless Attack VIO
+  moveName: Botched Move
   moveDescription: 
-  attackMoveModPercent: 0
-  fendMoveModPercent: 0
-  potentialCost: 0
-  potentialRestorePercent: 0
-  moveWeighting: 50
-  botched: 0
+  attackMoveMultiplier: 0
+  damageToBodyMultiplier: 0
+  fendMoveMultiplier: 0
+  potentialChange: -10
+  moveWeighting: 15
+  hpLossMultiplier: 0
+  playerCombatStats: {fileID: 1683875960009685154}
 --- !u!1 &1790800757
 GameObject:
   m_ObjectHideFlags: 0
@@ -12251,7 +12154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1975800147}
-  - component: {fileID: 1975800148}
+  - component: {fileID: 1975800149}
   m_Layer: 7
   m_Name: RecklessFocus
   m_TagString: Untagged
@@ -12274,7 +12177,7 @@ Transform:
   m_Father: {fileID: 1154300828}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1975800148
+--- !u!114 &1975800149
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12283,17 +12186,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1975800146}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b78f78e03a63b6d4db83620e9fe383c1, type: 3}
+  m_Script: {fileID: 11500000, guid: ee8698e8b690d624c9c940e6597dbfaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveName: Reckless Attack VIO
+  moveName: Reckless Focus
   moveDescription: 
-  attackMoveModPercent: 0
-  fendMoveModPercent: 0
-  potentialCost: 0
-  potentialRestorePercent: 0
-  moveWeighting: 0
-  botched: 0
+  attackMoveMultiplier: 0
+  damageToBodyMultiplier: 0
+  fendMoveMultiplier: 0
+  potentialChange: 15
+  moveWeighting: 111
+  playerCombatStats: {fileID: 1683875960009685154}
 --- !u!1 &1976333984
 GameObject:
   m_ObjectHideFlags: 0
@@ -12329,10 +12232,10 @@ RectTransform:
   m_Father: {fileID: 1066952757}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -59.850002}
+  m_SizeDelta: {x: 100, y: 39.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1976333986
 MonoBehaviour:
@@ -12651,10 +12554,10 @@ RectTransform:
   m_Father: {fileID: 67438803}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 180.515, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2030656592
 MonoBehaviour:
@@ -13027,7 +12930,7 @@ GameObject:
   - component: {fileID: 2082055230}
   - component: {fileID: 2082055231}
   m_Layer: 7
-  m_Name: SlipFend
+  m_Name: CautiousFend
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13060,15 +12963,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad23615e1bdd8e44f802ca6eb6c23670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveName: 
+  moveName: Cautious Fend
   moveDescription: 
-  attackMoveModPercent: 0
-  fendMoveModPercent: 0
-  potentialCost: 0
-  potentialRestorePercent: 0
-  moveWeighting: 25
-  botched: 0
-  test: 0
+  attackMoveMultiplier: 0
+  damageToBodyMultiplier: 0
+  fendMoveMultiplier: 0
+  potentialChange: -20
+  moveWeighting: 55
+  isAttack: 0
 --- !u!1 &2094130995
 GameObject:
   m_ObjectHideFlags: 0
@@ -13127,7 +13029,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SECOND MOVE
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -13250,7 +13152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackMoveModPercent: 0
   fendMoveModPercent: 1
-  moveWeighting: 200
+  moveWeighting: 20
   moveName: 
 --- !u!1 &2102489984
 GameObject:
@@ -13283,7 +13185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackMoveModPercent: 1
   fendMoveModPercent: 0.8
-  moveWeighting: 40
+  moveWeighting: 80
   moveName: 
 --- !u!4 &2102489986
 Transform:
@@ -13544,15 +13446,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad23615e1bdd8e44f802ca6eb6c23670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveName: 
+  moveName: Botch
   moveDescription: 
-  attackMoveModPercent: 0
-  fendMoveModPercent: 0
-  potentialCost: 0
-  potentialRestorePercent: 0
-  moveWeighting: 25
-  botched: 1
-  test: 0
+  attackMoveMultiplier: 0
+  damageToBodyMultiplier: 0
+  fendMoveMultiplier: 0
+  potentialChange: 0
+  moveWeighting: 1
+  isAttack: 0
 --- !u!114 &1683875959620982479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13769,9 +13670,9 @@ RectTransform:
   m_Children:
   - {fileID: 1683875959629965042}
   - {fileID: 1683875961091700359}
-  - {fileID: 1683875961325491513}
   - {fileID: 805316266}
   - {fileID: 1449029402}
+  - {fileID: 1683875961325491513}
   - {fileID: 332224032}
   m_Father: {fileID: 1683875960009685148}
   m_RootOrder: 0
@@ -13802,8 +13703,8 @@ MonoBehaviour:
   enemyDamageTakenDisplay: {fileID: 1683875959662053699}
   playerFendScript: {fileID: 1683875959662053696}
   enemyFendScript: {fileID: 1683875959662053698}
-  textMeshProUGUIFirstMoveDisplay: {fileID: 1050972400}
-  textMeshProUGUISecondMoveDisplay: {fileID: 2094130997}
+  StyleDisplay: {fileID: 805316265}
+  MoveDisplay: {fileID: 1449029401}
   secondAttackButton: {fileID: 1683875960196746500}
   firstAttackButton: {fileID: 1683875961715589179}
   firstFocusButton: {fileID: 1683875960760717077}
@@ -14128,7 +14029,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Potential: 100'
+  m_text: 'Potential: 69'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14402,7 +14303,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'HP: 100'
+  m_text: 'HP: 69'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14917,6 +14818,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1683875960009685148}
   - component: {fileID: 1683875960009685151}
+  - component: {fileID: 1683875960009685154}
   - component: {fileID: 1683875960009685153}
   - component: {fileID: 1683875960009685152}
   m_Layer: 0
@@ -14942,10 +14844,11 @@ MonoBehaviour:
   battleScheme: {fileID: 2014045862}
   player: {fileID: 7106120817525349659}
   enemy: {fileID: 0}
+  selectedPlayerMove: {fileID: 0}
+  playerCombatStats: {fileID: 1683875960009685154}
   combatUIScript: {fileID: 1683875959662053691}
   attackTargetMenuScript: {fileID: 1683875959662053695}
   playerMoveManager: {fileID: 0}
-  playerStats: {fileID: 11400000, guid: 891a8d8bd88cd9a45acd6a5ac406be03, type: 2}
   roundCount: 0
   enemyIsDead: 0
   setup: {fileID: 1729907207}
@@ -14989,6 +14892,36 @@ MonoBehaviour:
   buttonClickEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1683875960009685154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683875960009685150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69585983eb1cf6f4bab827c80845cbe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPermanentStats: {fileID: 11400000, guid: 891a8d8bd88cd9a45acd6a5ac406be03, type: 2}
+  playerCurrentHP: 0
+  playerMaxHP: 0
+  playerFend: 0
+  fendPotMod: 0
+  attackPower: 0
+  attackPowerPotMod: 0
+  currentPotential: 0
+  maxPotential: 0
+  potentialMod: 0
+  attackPowerBaseMod: 0
+  fendBaseMod: 0
+  playerFocusbaseMod: 0
+  attackPowerGearMod: 0
+  fendPowerGearMod: 0
+  playerFocusbaseChange: 0
+  attackPowerBaseChange: 0
+  fendBaseChange: 0
 --- !u!1 &1683875960044735873
 GameObject:
   m_ObjectHideFlags: 0
@@ -17003,7 +16936,7 @@ RectTransform:
   - {fileID: 1683875959821355478}
   - {fileID: 1683875959700906394}
   m_Father: {fileID: 1683875959662053690}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -17736,18 +17669,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1456900262}
   m_CullTransparentMesh: 1
---- !u!114 &1683875961715589183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1456900262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f76522341ebf8ae47992696670ca2270, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1729334825585303786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17899,10 +17820,10 @@ RectTransform:
   m_Father: {fileID: 1679390908}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 180.515, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1729334825610291073
 GameObject:
@@ -18183,10 +18104,10 @@ RectTransform:
   m_Father: {fileID: 1253326416}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 782.575, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1729334825676173052
 MonoBehaviour:
@@ -18292,10 +18213,10 @@ RectTransform:
   m_Father: {fileID: 1976333985}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 782.575, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1729334825807140877
 GameObject:
@@ -18664,10 +18585,10 @@ RectTransform:
   m_Father: {fileID: 1253326416}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 180.515, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1729334826047708812
 GameObject:
@@ -18705,10 +18626,10 @@ RectTransform:
   m_Father: {fileID: 28249047}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 782.575, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1729334826047708818
 MonoBehaviour:
@@ -19037,10 +18958,10 @@ RectTransform:
   m_Father: {fileID: 474234924}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 481.54498, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1729334826126115131
 GameObject:
@@ -19186,10 +19107,10 @@ RectTransform:
   m_Father: {fileID: 1679390908}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 782.575, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1729334826168682956
 GameObject:
@@ -19227,10 +19148,10 @@ RectTransform:
   m_Father: {fileID: 1679390908}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 481.54498, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1729334826168682962
 MonoBehaviour:
@@ -19579,10 +19500,10 @@ RectTransform:
   m_Father: {fileID: 28249047}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 180.515, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1729334826305519308
 MonoBehaviour:
@@ -19708,10 +19629,10 @@ RectTransform:
   m_Father: {fileID: 1976333985}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 180.515, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &1729334826343678188
 RectTransform:
@@ -19729,10 +19650,10 @@ RectTransform:
   m_Father: {fileID: 1976333985}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 481.54498, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1729334826343678189
 GameObject:
@@ -19858,10 +19779,10 @@ RectTransform:
   m_Father: {fileID: 474234924}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 782.575, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1729334826428998055
 GameObject:
@@ -20412,10 +20333,10 @@ RectTransform:
   m_Father: {fileID: 474234924}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 180.515, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1729334826578169982
 MonoBehaviour:
@@ -20629,10 +20550,10 @@ RectTransform:
   m_Father: {fileID: 67438803}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 782.575, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1729334826663071296
 MonoBehaviour:
@@ -20940,10 +20861,10 @@ RectTransform:
   m_Father: {fileID: 67438803}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 481.54498, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1729334826740139956
 MonoBehaviour:
@@ -21697,10 +21618,10 @@ RectTransform:
   m_Father: {fileID: 1253326416}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 481.54498, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &1729334827088279104
 RectTransform:
@@ -21853,10 +21774,10 @@ RectTransform:
   m_Father: {fileID: 28249047}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 481.54498, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1729334827099097411
 GameObject:

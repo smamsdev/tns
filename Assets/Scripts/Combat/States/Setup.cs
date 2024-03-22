@@ -7,14 +7,13 @@ public class Setup : State
     [SerializeField] CombatManager combatManager;
 
     [SerializeField] GameObject combatMenuContainer;
-    [SerializeField] GameObject playerStatsContainer;
+    [SerializeField] GameObject playerStatsUIContainer;
     [SerializeField] GameObject enemyAttackDisplay;
 
     public override IEnumerator StartState()
 
     {
-        combatManager.playerStats.InitalisePlayerStats();
-        CombatEvents.InitializePlayerHP?.Invoke(combatManager.playerStats.playerCurrentHP);
+        combatManager.playerCombatStats.InitialiseStats();
 
         yield return new WaitForSeconds(0.01f);
         CombatEvents.BattleMode?.Invoke(true);
@@ -24,7 +23,7 @@ public class Setup : State
         //enemy
         combatManager.enemyGameObjectDefaultPosition = combatManager.battleScheme.enemyGameObject.transform.position;
         combatMenuContainer.SetActive(true);
-        playerStatsContainer.SetActive(true);
+        playerStatsUIContainer.SetActive(true);
 
         combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, combatManager.battleScheme.enemyFightingPosition.transform.position, 1f);
 
@@ -36,8 +35,6 @@ public class Setup : State
 
         yield return new WaitForSeconds(1);
         CombatEvents.InitializeEnemyHP?.Invoke();
-
-        CombatEvents.InitializePlayerHP?.Invoke(combatManager.playerStats.playerCurrentHP);
 
         combatManager.enemy.SelectEnemyMove();
         CombatEvents.UpdateEnemyFendDisplay?.Invoke(combatManager.enemy.fendTotal);

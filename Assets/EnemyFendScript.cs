@@ -93,7 +93,7 @@ public class EnemyFendScript : MonoBehaviour
         fendTextMeshProUGUI.text = "";
         if (attackRemainder > 0)
         {
-            combatManager.enemy.DamageTaken(attackRemainder);
+            combatManager.enemy.DamageTaken(attackRemainder, combatManager.selectedPlayerMove.damageToBodyMultiplier);
         }
     }
 

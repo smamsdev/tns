@@ -14,7 +14,7 @@ public class RoundReset : State
         combatManager.combatUIScript.HideSecondMenu();
         combatManager.combatUIScript.HideTargetMenu();
 
-        combatManager.playerStats.ResetAllMoveMods();
+       // combatManager.playerCombatStats.ResetAllMoveMods();
         //combatManager.player.GetComponent<EquippedGear>().equippedGear[0].ResetAttackGear();
         //combatManager.player.GetComponent<EquippedGear>().equippedGear[0].ResetFendGear();
 
@@ -26,8 +26,6 @@ public class RoundReset : State
         combatManager.combatUIScript.playerFendScript.FendIconAnimationState(0);
         combatManager.combatUIScript.enemyFendScript.FendIconAnimationState(0);
         combatManager.combatUIScript.enemyFendScript.ShowHideFendDisplay(false);
-
-
 
         combatManager.playerMoveManager.firstMoveIs = 0;
         combatManager.playerMoveManager.secondMoveIs = 0;

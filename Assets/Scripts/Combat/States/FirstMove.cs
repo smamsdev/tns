@@ -53,4 +53,9 @@ public class FirstMove : State
         CombatEvents.UpdateFirstMoveDisplay.Invoke(moveName);
         CombatEvents.SendMove -= SetFirstMove;
     }
+
+    private void OnDisable()
+    {
+        CombatEvents.SendMove -= SetFirstMove;
+    }
 }

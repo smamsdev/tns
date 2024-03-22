@@ -8,11 +8,15 @@ public abstract class PlayerMove : MonoBehaviour
     public string moveDescription;
 
     [Header("")]
-    public float attackMoveModPercent;
-    public float fendMoveModPercent;
-    public int potentialCost;
-    public int potentialRestorePercent;
+    public float attackMoveMultiplier;
+    public float damageToBodyMultiplier;
+    public float fendMoveMultiplier;
+    public int potentialChange;
     public int moveWeighting;
-    public bool botched;
+
+    public abstract void OnApplyMove();
+
+
+    public abstract void OnEnemyAttack();
 
 }

@@ -17,8 +17,11 @@ public class CombatUIScript : MonoBehaviour
     public FendScript playerFendScript;
     public EnemyFendScript enemyFendScript;
 
-    [SerializeField] TextMeshProUGUI textMeshProUGUIFirstMoveDisplay;
-    [SerializeField] TextMeshProUGUI textMeshProUGUISecondMoveDisplay;
+    TextMeshProUGUI textMeshProUGUIStyleDisplay;
+    TextMeshProUGUI textMeshProUGUIMoveDisplay;
+
+    [SerializeField] GameObject StyleDisplay;
+    [SerializeField] GameObject MoveDisplay;
 
     public Button secondAttackButton; //to auto select attack on 2nd menu
 
@@ -35,6 +38,10 @@ public class CombatUIScript : MonoBehaviour
 
         secondAttackButton.GetComponent<Button>();  //to auto select attack on 2nd menu
         firstAttackButton.GetComponent<Button>();
+
+        textMeshProUGUIStyleDisplay = StyleDisplay.GetComponentInChildren<TextMeshProUGUI>();
+        textMeshProUGUIMoveDisplay = MoveDisplay.GetComponentInChildren<TextMeshProUGUI>();
+
     }
 
     private void OnDisable()
@@ -50,13 +57,17 @@ public class CombatUIScript : MonoBehaviour
         firstAttackButton.Select();
                 
         firstMoveMenu.SetActive(true);
+        StyleDisplay.SetActive(true);
+        MoveDisplay.SetActive(true);
+
+
         secondMoveMenu.SetActive(false);
         targetmenu.SetActive(false);
 
         CombatEvents.HighlightBodypartTarget?.Invoke(false, false, false);
 
-        UpdateFirstMoveDisplay("First Move");
-        UpdateSecondMoveDisplay("Second Move");
+        UpdateFirstMoveDisplay("Style?");
+        UpdateSecondMoveDisplay("Move?");
     }
 
     public void ShowSecondMoveMenu()
@@ -75,7 +86,7 @@ public class CombatUIScript : MonoBehaviour
         secondMoveMenu.SetActive(true);
         attackTargetMenuScript.targetSelected = false;
 
-        UpdateSecondMoveDisplay("Second Move");
+        UpdateSecondMoveDisplay("Move?");
     }
 
     public void HideTargetMenu()
@@ -94,13 +105,13 @@ public class CombatUIScript : MonoBehaviour
     void UpdateFirstMoveDisplay(string value)
 
     {
-        textMeshProUGUIFirstMoveDisplay.text = value;
+        textMeshProUGUIStyleDisplay.text = value;
     }
 
     void UpdateSecondMoveDisplay(string value)
 
     {
-        textMeshProUGUISecondMoveDisplay.text = value;
+        textMeshProUGUIMoveDisplay.text = value;
     }
 
     void HighlightFirstAttack()

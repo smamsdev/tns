@@ -11,6 +11,8 @@ public class PlayerMoveManager : MonoBehaviour
     public PlayerMoveListSO playerMoveListSO;
     public PlayerEquippedMoves playerEquippedMoves;
 
+    public PlayerMove selectedPlayerMove;
+
     public List<ViolentMove> violentAttacks = new List<ViolentMove>();
     public List<ViolentMove> violentFends = new List<ViolentMove>();
     public List<ViolentMove> violentFocuses = new List<ViolentMove>();
@@ -112,11 +114,17 @@ public class PlayerMoveManager : MonoBehaviour
             }
             else
             {
-                Debug.Log(playerMove);
+                selectedPlayerMove = playerMove;
                 return;
             }
         }
         Debug.LogError("Failed to select a move!");
+    }
+
+    public PlayerMove GetSelectedPlayerMove() 
+    
+    { 
+        return selectedPlayerMove;
     }
 
     public void GearMove()

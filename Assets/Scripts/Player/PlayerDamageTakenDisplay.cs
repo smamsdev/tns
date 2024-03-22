@@ -11,6 +11,18 @@ public class PlayerDamageTakenDisplay : MonoBehaviour
     [SerializeField] CombatManager combatManager;
     [SerializeField] GameObject playerDamageTakenDisplayGO;
 
+    private void OnEnable()
+    {
+        CombatEvents.PlayerDamageDisplay += ShowPlayerDamageDisplay;
+        CombatEvents.DisablePlayerDamageDisplay += DisablePlayerDamageDisplay;
+    }
+
+    private void OnDisable()
+    {
+        CombatEvents.PlayerDamageDisplay -= ShowPlayerDamageDisplay;
+        CombatEvents.DisablePlayerDamageDisplay -= DisablePlayerDamageDisplay;
+    }
+
     private void Start()
     {
         DisablePlayerDamageDisplay();

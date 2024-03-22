@@ -13,14 +13,17 @@ public class CombatManager : MonoBehaviour
     public GameObject player;
     public Enemy enemy;
 
+    [Header("PlayerMove")]
+    public PlayerMove selectedPlayerMove;
+
     [Header("Debugging")]
+    public PlayerCombatStats playerCombatStats;
+
     public CombatUIScript combatUIScript;
     public AttackTargetMenuScript attackTargetMenuScript;
     [HideInInspector] public PlayerMoveManager playerMoveManager;
-    public PlayerStatsSO playerStats;
     public int roundCount;
     public bool enemyIsDead = false;
-
 
     [Header("States")]
     public Setup setup;

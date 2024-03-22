@@ -47,7 +47,7 @@ public class CombatUIPlayerPotential : MonoBehaviour
         animator.SetTrigger("bump");
 
         float elapsedTime = 0f;
-        float lerpDuration = 1f;
+        float lerpDuration = 0.5f;
         int valueToOutput;
 
         while (elapsedTime < lerpDuration)

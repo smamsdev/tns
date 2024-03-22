@@ -129,7 +129,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySO: {fileID: 11400000, guid: 75a32f9470620854d86fdadedb6906f6, type: 2}
-  gearGameObject: {fileID: 0}
   inventory: []
 --- !u!1 &7106120816319450563
 GameObject:
@@ -524,7 +523,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7106120816956570980}
-  textMeshPro: {fileID: 7106120816956570981}
+  textMeshProUGUI: {fileID: 0}
+  combatManager: {fileID: 0}
+  playerDamageTakenDisplayGO: {fileID: 0}
 --- !u!1 &7106120817227768469
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,8 +930,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c621a47bbf023b74298b71351d94431b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fendTextObj: {fileID: 7106120817259472621}
-  playerMoveManager: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
+  fendTextMeshProUGUI: {fileID: 0}
+  combatManager: {fileID: 0}
+  fendContainer: {fileID: 0}
+  fendIcon: {fileID: 0}
+  animatorContainer: {fileID: 0}
+  iconAnimator: {fileID: 0}
+  attackRemainder: 0
   fend: 0
 --- !u!1 &7106120818158512039
 GameObject:
@@ -946,7 +952,6 @@ GameObject:
   - component: {fileID: 7106120818158512048}
   - component: {fileID: 7106120818158512060}
   - component: {fileID: 7106120818158512050}
-  - component: {fileID: 1771743388}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -1065,7 +1070,7 @@ BoxCollider2D:
   m_Offset: {x: -0.01, y: 0.095}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.55062014, y: 0.047593832}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 0.64, y: 0.64}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -1110,20 +1115,9 @@ MonoBehaviour:
   layer_mask:
     serializedVersion: 2
     m_Bits: 256
---- !u!114 &1771743388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7106120818158512039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b10526c3313bf0a4ea8cfd06b34be0ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  equippedGear: []
-  playerStats: {fileID: 11400000, guid: 891a8d8bd88cd9a45acd6a5ac406be03, type: 2}
+  testGear: {fileID: 0}
+  inventory: {fileID: 0}
+  inventorySO: {fileID: 0}
 --- !u!1 &7106120818178223697
 GameObject:
   m_ObjectHideFlags: 0

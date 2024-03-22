@@ -6,6 +6,6 @@ using UnityEngine;
 public class EquippedGear : MonoBehaviour
 {
     public Gear[] equippedSlot;
-    public PlayerStatsSO playerStats;
+//    public PlayerPermanentStats playerPStats;
 
 }

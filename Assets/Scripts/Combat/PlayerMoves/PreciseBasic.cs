@@ -4,5 +4,17 @@ using UnityEngine;
 
 public class PreciseBasic : PreciseMove
 {
-    public int test;
+
+    public override void OnApplyMove()
+
+    {
+            CombatEvents.MeleeAttack();
+    }
+
+    public override void OnEnemyAttack()
+
+    {
+        //blank
+    }
+
 }

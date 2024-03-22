@@ -71,13 +71,12 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void DamageTaken(int attackRemainder)
+    public void DamageTaken(int attackRemainder, float damageToBodyMod)
 
     {
         DamageToHP(attackRemainder + damageReceivedInjuryBonus);
-        DamageToParts(attackRemainder);
+        DamageToParts(Mathf.RoundToInt(attackRemainder * damageToBodyMod));
     }
-
 
     public void DamageToParts(int attackRemainder)
     {

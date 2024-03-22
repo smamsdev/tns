@@ -4,5 +4,23 @@ using UnityEngine;
 
 public class CautiousBasic : CautiousMove
 {
-    public int test;
+    public bool isAttack;
+
+    public override void OnApplyMove()
+
+    {
+        if (isAttack)
+
+            CombatEvents.MeleeAttack.Invoke();
+
+        else
+
+            CombatEvents.EndMove.Invoke();
+    }
+
+    public override void OnEnemyAttack()
+
+    {
+        //blank
+    }
 }
