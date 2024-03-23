@@ -27,7 +27,7 @@ public class EnemyAttack : State
 
         combatManager.playerCombatStats.TotalPlayerFendPower(combatManager.selectedPlayerMove.fendMoveMultiplier);
         combatManager.combatUIScript.playerFendScript.UpdateFendText(combatManager.playerCombatStats.playerFend);
-        combatManager.combatUIScript.playerFendScript.ShowHideFendDisplay(true);
+        combatManager.combatUIScript.playerFendScript.ShowFendDisplay(true);
 
         CombatEvents.UpdatePlayerPot.Invoke(combatManager.playerCombatStats.currentPotential + combatManager.selectedPlayerMove.potentialChange);
 
@@ -36,12 +36,10 @@ public class EnemyAttack : State
         if (combatManager.enemy.attackTotal == 0 && combatManager.enemy.fendTotal > 0)
         {
 
-            yield return new WaitForSeconds(0.5f);
+            // yield return new WaitForSeconds(0.5f);
 
             combatManager.combatUIScript.enemyFendScript.ShowHideFendDisplay(false);
             combatManager.combatUIScript.enemyDamageTakenDisplay.EnemyDamageTakenTextMeshProUGUI.enabled = false;
-
-            combatManager.combatUIScript.playerFendScript.ShowHideFendDisplay(false);
 
         }
 
@@ -61,10 +59,12 @@ public class EnemyAttack : State
 
             yield return new WaitForSeconds(0.5f);
 
-            combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, combatManager.battleScheme.enemyFightingPosition.transform.position, 0.5f);
+            combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, combatManager.enemy.enemyFightingPosition.transform.position, 0.5f);
+
+            yield return new WaitForSeconds(0.5f);
         }
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
 
         CombatEvents.CounterAttack -= CounterAttack;
         combatManager.SetState(combatManager.roundReset);

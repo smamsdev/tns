@@ -14,6 +14,11 @@ public abstract class PlayerMove : MonoBehaviour
     public int potentialChange;
     public int moveWeighting;
 
+    [Header("")]
+    public bool isAttack;
+    [Header("")]
+    public bool isFend;
+
     public abstract void OnApplyMove();
 
 

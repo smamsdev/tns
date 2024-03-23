@@ -11,7 +11,7 @@ public class FendScript : MonoBehaviour
     [SerializeField] GameObject fendContainer;
     [SerializeField] GameObject fendIcon;
     public Animator animatorContainer;
-    [SerializeField] Animator iconAnimator;
+    public Animator iconAnimator;
 
 
     public int attackRemainder;
@@ -30,12 +30,12 @@ public class FendScript : MonoBehaviour
 
     void Init(bool on)
     {
-        ShowHideFendDisplay(false);
+        ShowFendDisplay(false);
 
         fendContainer.transform.position = new Vector2(combatManager.battleScheme.playerFightingPosition.transform.position.x, combatManager.battleScheme.playerFightingPosition.transform.position.y + 0.8f);
     }
 
-    public void ShowHideFendDisplay(bool on)
+    public void ShowFendDisplay(bool on)
 
     {
         if (on && (combatManager.playerMoveManager.firstMoveIs == 2 || combatManager.playerMoveManager.secondMoveIs == 2))

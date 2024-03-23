@@ -8,11 +8,15 @@ public class AttackTarget : State
 
     public override IEnumerator StartState()
     {
+
+        combatManager.playerMoveManager.CombineStanceAndMove();
+        combatManager.selectedPlayerMove = combatManager.playerMoveManager.GetSelectedPlayerMove();
+
         yield return new WaitForSeconds(0.1f);
 
         combatManager.combatUIScript.secondMoveMenu.SetActive(false);
 
-        if (combatManager.playerMoveManager.firstMoveIs == 1 || combatManager.playerMoveManager.secondMoveIs == 1)
+        if (combatManager.selectedPlayerMove.isAttack)
 
         {
             combatManager.attackTargetMenuScript.DisplayAttackTargetMenu();

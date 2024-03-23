@@ -28,7 +28,7 @@ public class EnemyFendScript : MonoBehaviour
 
     void Init(bool on)
     {
-        enemyFendContainer.transform.position = new Vector2(combatManager.battleScheme.enemyFightingPosition.transform.position.x, combatManager.battleScheme.enemyFightingPosition.transform.position.y + 0.8f);
+        enemyFendContainer.transform.position = new Vector2(combatManager.enemy.enemyFightingPosition.transform.position.x, combatManager.enemy.enemyFightingPosition.transform.position.y + 0.8f);
     }
 
     public void FendIconAnimationState(int state)

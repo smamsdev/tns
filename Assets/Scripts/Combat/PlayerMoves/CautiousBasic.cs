@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CautiousBasic : CautiousMove
 {
-    public bool isAttack;
-
     public override void OnApplyMove()
 
     {

@@ -41,9 +41,6 @@ public class ApplyMove : State
         combatManager.combatUIScript.playerDamageTakenDisplay.DisablePlayerDamageDisplay();
         combatManager.combatUIScript.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
 
-        combatManager.playerMoveManager.CombineStanceAndMove();
-        combatManager.selectedPlayerMove = combatManager.playerMoveManager.GetSelectedPlayerMove();
-
         combatManager.playerCombatStats.TotalPlayerAttackPower(combatManager.selectedPlayerMove.attackMoveMultiplier);
         CombatEvents.UpdateNarrator.Invoke(combatManager.selectedPlayerMove.moveName);
 

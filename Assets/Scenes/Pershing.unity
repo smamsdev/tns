@@ -975,11 +975,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveName: Precise Attack
   moveDescription: Deals 3x damage to body parts
-  attackMoveMultiplier: 0
-  damageToBodyMultiplier: 0
+  attackMoveMultiplier: 0.4
+  damageToBodyMultiplier: 3
   fendMoveMultiplier: 0
-  potentialChange: 10
+  potentialChange: -10
   moveWeighting: 55
+  isAttack: 1
+  isFend: 0
 --- !u!1 &159543198
 GameObject:
   m_ObjectHideFlags: 0
@@ -1666,12 +1668,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveName: Slip Attack
   moveDescription: 
-  attackMoveMultiplier: 0
-  damageToBodyMultiplier: 0
-  fendMoveMultiplier: 0
+  attackMoveMultiplier: 0.4
+  damageToBodyMultiplier: 1
+  fendMoveMultiplier: 0.5
   potentialChange: -15
   moveWeighting: 55
   isAttack: 1
+  isFend: 0
 --- !u!1 &217589502
 GameObject:
   m_ObjectHideFlags: 0
@@ -2134,11 +2137,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveName: Counter Attack
   moveDescription: Deals heavy damage to attacking enemies
-  attackMoveMultiplier: 0
+  attackMoveMultiplier: 0.3
   damageToBodyMultiplier: 0
-  fendMoveMultiplier: 0
+  fendMoveMultiplier: 1
   potentialChange: -10
   moveWeighting: 55
+  isAttack: 0
+  isFend: 0
   isCounterAttack: 1
 --- !u!1 &265044338
 GameObject:
@@ -4809,7 +4814,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackMoveModPercent: 1.2
   fendMoveModPercent: 0.3
-  moveWeighting: 10
+  moveWeighting: 25
   moveName: 
 --- !u!114 &923651952 stripped
 MonoBehaviour:
@@ -6792,10 +6797,11 @@ MonoBehaviour:
   moveDescription: 
   attackMoveMultiplier: 0
   damageToBodyMultiplier: 0
-  fendMoveMultiplier: 0
-  potentialChange: 5
+  fendMoveMultiplier: 0.5
+  potentialChange: 10
   moveWeighting: 55
   isAttack: 0
+  isFend: 0
 --- !u!114 &1205919270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7002,7 +7008,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackMoveModPercent: 0
   fendMoveModPercent: 2
-  moveWeighting: 20
+  moveWeighting: 25
   moveName: 
 --- !u!1 &1282511517
 GameObject:
@@ -8534,9 +8540,11 @@ MonoBehaviour:
   moveDescription: 
   attackMoveMultiplier: 0
   damageToBodyMultiplier: 0
-  fendMoveMultiplier: 0
+  fendMoveMultiplier: 0.7
   potentialChange: 12
   moveWeighting: 55
+  isAttack: 0
+  isFend: 0
 --- !u!1 &1444561202
 GameObject:
   m_ObjectHideFlags: 0
@@ -9980,6 +9988,8 @@ MonoBehaviour:
   fendMoveMultiplier: 0
   potentialChange: -15
   moveWeighting: 85
+  isAttack: 1
+  isFend: 0
   isCounterAttack: 0
 --- !u!4 &1677123144
 Transform:
@@ -10141,8 +10151,10 @@ MonoBehaviour:
   attackMoveMultiplier: 0
   damageToBodyMultiplier: 0
   fendMoveMultiplier: 0
-  potentialChange: 12
+  potentialChange: 14
   moveWeighting: 55
+  isAttack: 0
+  isFend: 0
 --- !u!1 &1704548636
 GameObject:
   m_ObjectHideFlags: 0
@@ -10925,7 +10937,9 @@ MonoBehaviour:
   damageToBodyMultiplier: 0
   fendMoveMultiplier: 0
   potentialChange: -10
-  moveWeighting: 15
+  moveWeighting: 1
+  isAttack: 0
+  isFend: 0
   hpLossMultiplier: 0
   playerCombatStats: {fileID: 1683875960009685154}
 --- !u!1 &1790800757
@@ -12193,9 +12207,11 @@ MonoBehaviour:
   moveDescription: 
   attackMoveMultiplier: 0
   damageToBodyMultiplier: 0
-  fendMoveMultiplier: 0
+  fendMoveMultiplier: 1
   potentialChange: 15
   moveWeighting: 111
+  isAttack: 0
+  isFend: 0
   playerCombatStats: {fileID: 1683875960009685154}
 --- !u!1 &1976333984
 GameObject:
@@ -12478,7 +12494,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyGameObject: {fileID: 4742328225593426535}
   playerFightingPosition: {fileID: 1553898931}
-  enemyFightingPosition: {fileID: 1073956660}
 --- !u!114 &2014045863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12870,7 +12885,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackMoveModPercent: 2.5
   fendMoveModPercent: 0
-  moveWeighting: 5
+  moveWeighting: 20
   moveName: 
 --- !u!4 &2061033827
 Transform:
@@ -12967,10 +12982,11 @@ MonoBehaviour:
   moveDescription: 
   attackMoveMultiplier: 0
   damageToBodyMultiplier: 0
-  fendMoveMultiplier: 0
+  fendMoveMultiplier: 2
   potentialChange: -20
   moveWeighting: 55
   isAttack: 0
+  isFend: 0
 --- !u!1 &2094130995
 GameObject:
   m_ObjectHideFlags: 0
@@ -13152,7 +13168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackMoveModPercent: 0
   fendMoveModPercent: 1
-  moveWeighting: 20
+  moveWeighting: 35
   moveName: 
 --- !u!1 &2102489984
 GameObject:
@@ -13185,7 +13201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackMoveModPercent: 1
   fendMoveModPercent: 0.8
-  moveWeighting: 80
+  moveWeighting: 45
   moveName: 
 --- !u!4 &2102489986
 Transform:
@@ -13454,6 +13470,7 @@ MonoBehaviour:
   potentialChange: 0
   moveWeighting: 1
   isAttack: 0
+  isFend: 0
 --- !u!114 &1683875959620982479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23135,6 +23152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d7e7d453d431143ab5807ed0947b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyFightingPosition: {fileID: 1073956660}
   enemyName: VEgeta
   enemyHP: 100
   attackBase: 10

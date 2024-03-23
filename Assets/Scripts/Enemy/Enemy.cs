@@ -6,6 +6,8 @@ public enum Target {body, arms, head};
 
 public class Enemy : MonoBehaviour
 {
+    public GameObject enemyFightingPosition;
+
     [Header("")]
     public string enemyName;
     [Header("")]
@@ -49,6 +51,8 @@ public class Enemy : MonoBehaviour
     private void OnEnable()
     {
         CombatEvents.SetEnemyBodyPartTarget += SetEnemyBodyPartTarget;
+
+        if (enemyFightingPosition == null ) { enemyFightingPosition = this.gameObject; }
     }
 
     private void OnDisable()
@@ -64,6 +68,8 @@ public class Enemy : MonoBehaviour
         enemyBodyMaxHP = enemyBodyHP; 
         enemyArmsMaxHP = enemyArmsHP; 
         enemyHeadMaxHP = enemyHeadHP;
+
+
 
         foreach (var enemyMoves in enemyMoves)
         {

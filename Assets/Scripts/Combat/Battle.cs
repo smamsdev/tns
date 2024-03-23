@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class Battle : MonoBehaviour
 {
-
     public GameObject enemyGameObject;
     public GameObject playerFightingPosition;
-    public GameObject enemyFightingPosition;
-
-
 }

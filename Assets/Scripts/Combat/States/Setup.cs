@@ -25,12 +25,12 @@ public class Setup : State
         combatMenuContainer.SetActive(true);
         playerStatsUIContainer.SetActive(true);
 
-        combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, combatManager.battleScheme.enemyFightingPosition.transform.position, 1f);
+        combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, combatManager.enemy.enemyFightingPosition.transform.position, 1f);
 
         combatManager.enemyRawAttackPower = 0;
 
         CombatEvents.InitializeEnemyPartsHP?.Invoke();
-        combatManager.combatUIScript.playerFendScript.ShowHideFendDisplay(false);
+        combatManager.combatUIScript.playerFendScript.ShowFendDisplay(false); 
         combatManager.combatUIScript.enemyFendScript.ShowHideFendDisplay(false);
 
         yield return new WaitForSeconds(1);

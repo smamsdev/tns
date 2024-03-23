@@ -29,7 +29,7 @@ public class EnemyStatsDisplay : MonoBehaviour
     void InitializeEnemyHP()
     {
         enemyStatsDisplay.SetActive(true);
-        enemyHudRect.transform.position = combatManager.battleScheme.enemyFightingPosition.transform.position;
+        enemyHudRect.transform.position = combatManager.enemy.enemyFightingPosition.transform.position;
 
         enemy = combatManager.battleScheme.enemyGameObject.GetComponent<Enemy>();
 

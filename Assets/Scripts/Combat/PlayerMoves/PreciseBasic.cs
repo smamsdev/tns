@@ -8,7 +8,13 @@ public class PreciseBasic : PreciseMove
     public override void OnApplyMove()
 
     {
-            CombatEvents.MeleeAttack();
+        if (isAttack)
+
+            CombatEvents.MeleeAttack.Invoke();
+
+        else
+
+            CombatEvents.EndMove.Invoke();
     }
 
     public override void OnEnemyAttack()
