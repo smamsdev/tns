@@ -6,43 +6,35 @@ using UnityEngine;
 public class EnemyStatsDisplay : MonoBehaviour
 {
     [SerializeField] CombatManager combatManager;
-    [SerializeField] TextMeshProUGUI enemyHPtextMeshProHP;
-    [SerializeField] TextMeshProUGUI enemyNameMeshProHP;
-    [SerializeField] GameObject enemyStatsDisplay;
-    [SerializeField] RectTransform enemyHudRect;
+    [SerializeField] TextMeshProUGUI enemyNameTextMeshPro;
+    [SerializeField] TextMeshProUGUI enemyHPTextMeshPro;
+    [SerializeField] GameObject enemyStatsDisplayGameObject;
     [SerializeField] Animator animator;
     Enemy enemy;
     int enemyHP;
 
-    private void OnEnable()
-    {
-        CombatEvents.UpdateEnemyHPUI += UpdateEnemyHPDisplay;
-        CombatEvents.InitializeEnemyHP += InitializeEnemyHP;
+    public void ShowEnemyStatsDisplay(bool on)
+
+    { 
+     if (on) { enemyStatsDisplayGameObject.SetActive(true); }
+     if (!on) { enemyStatsDisplayGameObject.SetActive(false);}  
     }
 
-    private void OnDisable()
+    public void InitializeEnemyHP(Enemy _enemy)
     {
-        CombatEvents.UpdateEnemyHPUI -= UpdateEnemyHPDisplay;
-        CombatEvents.InitializeEnemyHP += InitializeEnemyHP;
-    }
+        enemyStatsDisplayGameObject.SetActive(true);
 
-    void InitializeEnemyHP()
-    {
-        enemyStatsDisplay.SetActive(true);
-        enemyHudRect.transform.position = combatManager.enemy.enemyFightingPosition.transform.position;
-
-        enemy = combatManager.battleScheme.enemyGameObject.GetComponent<Enemy>();
-
-        enemyNameMeshProHP.text = enemy.name;
-        enemyHP = enemy.enemyHP; 
-        enemyHPtextMeshProHP.text = "HP: " + enemyHP;
+        enemy = _enemy;
+        enemyNameTextMeshPro.text = enemy.name;
+        enemyHP = enemy.enemyHP;
+        enemyHPTextMeshPro.text = "HP: " + enemyHP;
     }
 
     public void UpdateEnemyHPDisplay(int newHPValue)
     {
         if (enemy.enemyHP <= 0) 
         {
-            enemyHPtextMeshProHP.text = "DEAD";
+            enemyHPTextMeshPro.text = "DEAD";
         }
 
         else
@@ -65,7 +57,7 @@ public class EnemyStatsDisplay : MonoBehaviour
             float t = Mathf.Clamp01(elapsedTime / lerpDuration);
 
             valueToOutput = Mathf.RoundToInt(Mathf.Lerp(_enemyHP, newHPValue, t));
-            enemyHPtextMeshProHP.text = "HP: " + valueToOutput.ToString();
+            enemyHPTextMeshPro.text = "HP: " + valueToOutput.ToString();
             enemyHP = valueToOutput;
 
             elapsedTime += Time.deltaTime;

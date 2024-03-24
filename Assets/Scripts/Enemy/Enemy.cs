@@ -7,6 +7,7 @@ public enum Target {body, arms, head};
 public class Enemy : MonoBehaviour
 {
     public GameObject enemyFightingPosition;
+    public EnemyUI enemyUI;
 
     [Header("")]
     public string enemyName;
@@ -34,6 +35,8 @@ public class Enemy : MonoBehaviour
 
     [Header("Moves")]
 
+    public EnemyMove moveSelected;
+
     [SerializeField] EnemyMove[] enemyMoves;
 
     [Header("Misc")]
@@ -46,7 +49,7 @@ public class Enemy : MonoBehaviour
     public int randomValue;
     public int rng;
 
-    public EnemyMove moveSelected;
+
 
     private void OnEnable()
     {
@@ -92,7 +95,7 @@ public class Enemy : MonoBehaviour
         {
             if (enemyBodyHP > 0)
             {
-                CombatEvents.BodyPartDamageTakenDisplay.Invoke("Body", enemyBodyHP, Mathf.Clamp(enemyBodyHP - attackRemainder, 0, 9999), enemyBodyMaxHP);
+                enemyUI.bodyPartsDamageTakenDisplay.BodyPartDamageTakenDisplay("Body", enemyBodyHP, Mathf.Clamp(enemyBodyHP - attackRemainder, 0, 9999), enemyBodyMaxHP);
                 enemyBodyHP = Mathf.Clamp(enemyBodyHP - attackRemainder, 0, 9999);
             }
         }
@@ -102,7 +105,7 @@ public class Enemy : MonoBehaviour
         {
             if (enemyArmsHP > 0)
             {
-                CombatEvents.BodyPartDamageTakenDisplay.Invoke("Arms", enemyArmsHP, Mathf.Clamp(enemyArmsHP - attackRemainder, 0, 9999), enemyArmsMaxHP);
+                enemyUI.bodyPartsDamageTakenDisplay.BodyPartDamageTakenDisplay("Arms", enemyArmsHP, Mathf.Clamp(enemyArmsHP - attackRemainder, 0, 9999), enemyArmsMaxHP);
                 enemyArmsHP = Mathf.Clamp(enemyArmsHP - attackRemainder, 0, 9999);
             }
         }
@@ -112,7 +115,7 @@ public class Enemy : MonoBehaviour
         {
             if (enemyHeadHP > 0)
             {
-                CombatEvents.BodyPartDamageTakenDisplay.Invoke("Head", enemyHeadHP, Mathf.Clamp(enemyHeadHP - attackRemainder, 0, 9999), enemyHeadMaxHP);
+                enemyUI.bodyPartsDamageTakenDisplay.BodyPartDamageTakenDisplay("Head", enemyHeadHP, Mathf.Clamp(enemyHeadHP - attackRemainder, 0, 9999), enemyHeadMaxHP);
                 enemyHeadHP = Mathf.Clamp(enemyHeadHP - attackRemainder, 0, 9999);
             }
         }
@@ -137,7 +140,7 @@ public class Enemy : MonoBehaviour
     {
         enemyHP = enemyHP - damageTotal;
 
-        CombatEvents.UpdateEnemyHPUI.Invoke(enemyHP);
+        enemyUI.enemyStatsDisplay.UpdateEnemyHPDisplay(enemyHP);
         CombatEvents.ShowEnemyDamageTakenDisplay?.Invoke(damageTotal);
 
         if (enemyHP <= 0)
@@ -152,7 +155,7 @@ public class Enemy : MonoBehaviour
         return attackTotal;
     }
 
-    void SetEnemyBodyPartTarget(int value)
+    public void SetEnemyBodyPartTarget(int value)
     {
         if (value == 1)
         {

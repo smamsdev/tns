@@ -7,42 +7,24 @@ public class EnemyFendScript : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI fendTextMeshProUGUI;
     [SerializeField] CombatManager combatManager;
-    [SerializeField] GameObject enemyFendContainer;
-    [SerializeField] GameObject fendIcon;
-    public Animator animatorContainer;
-    [SerializeField] Animator iconAnimator;
+    [SerializeField] GameObject fendGameObject;
+    [SerializeField] GameObject fendTextGameObject;
+    [SerializeField] Animator enemyFendAnimator;
 
-    public int attackRemainder;
+    int attackRemainder;
 
-    private void OnEnable()
+    private void Start()
     {
-        CombatEvents.BattleMode += Init;
-        CombatEvents.UpdateEnemyFendDisplay += UpdateFendDisplay;
-    }
-
-    private void OnDisable()
-    {
-        CombatEvents.BattleMode -= Init;
-        CombatEvents.UpdateEnemyFendDisplay -= UpdateFendDisplay;
-    }
-
-    void Init(bool on)
-    {
-        enemyFendContainer.transform.position = new Vector2(combatManager.enemy.enemyFightingPosition.transform.position.x, combatManager.enemy.enemyFightingPosition.transform.position.y + 0.8f);
-    }
-
-    public void FendIconAnimationState(int state)
-
-    {
-        animatorContainer.SetInteger("deflectState", state);
+        ShowFendDisplay(false);
     }
 
     public void ApplyPlayerAttackToFend(int attack)
 
     {
-        attackRemainder = attack - combatManager.enemy.fendTotal;
+        attackRemainder = attack - combatManager.enemy[combatManager.selectedEnemy].fendTotal;
+        enemyFendAnimator.SetTrigger("fendDeflect");
 
-        if (combatManager.enemy.fendTotal == 0)
+        if (combatManager.enemy[combatManager.selectedEnemy].fendTotal == 0)
         {
             FendBreached();
             return;
@@ -51,32 +33,30 @@ public class EnemyFendScript : MonoBehaviour
         else
         {
             StartCoroutine(ApplyPlayerAttackToFendCoroutine(attack));
-        }
-       
+        }   
     }
 
     IEnumerator ApplyPlayerAttackToFendCoroutine(int attack)
 
     {
-        FendIconAnimationState(1);
 
         float elapsedTime = 0f;
         float lerpDuration = 0.5f;
 
-        int startNumber = combatManager.enemy.fendTotal;
+        int startNumber = combatManager.enemy[combatManager.selectedEnemy].fendTotal;
 
-        int endValue = combatManager.enemy.fendTotal - attack;
+        int endValue = combatManager.enemy[combatManager.selectedEnemy].fendTotal - attack;
 
-        while (elapsedTime < lerpDuration && combatManager.enemy.fendTotal > 0)
+        while (elapsedTime < lerpDuration && combatManager.enemy[combatManager.selectedEnemy].fendTotal > 0)
         {
             float t = Mathf.Clamp01(elapsedTime / lerpDuration);
 
-            combatManager.enemy.fendTotal = Mathf.RoundToInt(Mathf.Lerp(startNumber, endValue, t));
-            fendTextMeshProUGUI.text = combatManager.enemy.fendTotal.ToString();
+            combatManager.enemy[combatManager.selectedEnemy].fendTotal = Mathf.RoundToInt(Mathf.Lerp(startNumber, endValue, t));
+            fendTextMeshProUGUI.text = combatManager.enemy[combatManager.selectedEnemy].fendTotal.ToString();
 
             elapsedTime += Time.deltaTime;
 
-            if (combatManager.enemy.fendTotal == 0)
+            if (combatManager.enemy[combatManager.selectedEnemy].fendTotal == 0)
             {
                FendBreached();
                yield return null;
@@ -89,26 +69,28 @@ public class EnemyFendScript : MonoBehaviour
     void FendBreached()
 
     {
-        iconAnimator.SetBool("fendbreak", true);
+        enemyFendAnimator.SetTrigger("fendBreak");
         fendTextMeshProUGUI.text = "";
         if (attackRemainder > 0)
         {
-            combatManager.enemy.DamageTaken(attackRemainder, combatManager.selectedPlayerMove.damageToBodyMultiplier);
+            combatManager.enemy[combatManager.selectedEnemy].DamageTaken(attackRemainder, combatManager.selectedPlayerMove.damageToBodyMultiplier);
         }
     }
 
-    public void ShowHideFendDisplay(bool on)
+    public void ShowFendDisplay(bool on)
 
     {
         if (on)
 
         {
-            fendIcon.SetActive(true);
+            fendGameObject.SetActive(true);
+            fendTextGameObject.SetActive(true);
         }
 
         if (!on)
         {
-            fendIcon.SetActive(false);
+            fendGameObject.SetActive(false);
+            fendTextGameObject.SetActive(false);
         }
     }
 
@@ -117,7 +99,13 @@ public class EnemyFendScript : MonoBehaviour
         if (fend > 0)
         {
             fendTextMeshProUGUI.text = fend.ToString();
-            ShowHideFendDisplay(true);
+            ShowFendDisplay(true);
+            enemyFendAnimator.SetTrigger("fendAppear");
+        }
+
+        else
+        {
+            fendGameObject.SetActive(false);
         }
     }
 }

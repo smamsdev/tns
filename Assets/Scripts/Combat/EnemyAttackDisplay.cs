@@ -19,7 +19,7 @@ public class EnemyAttackDisplay : MonoBehaviour
         CombatEvents.UpdateEnemyAttackDisplay -= UpdateEnemyAttackDisplay;
     }
 
-    void UpdateEnemyAttackDisplay(int value)
+    public void UpdateEnemyAttackDisplay(int value)
 
     { 
         if (value >= 0) 
@@ -29,5 +29,12 @@ public class EnemyAttackDisplay : MonoBehaviour
 
         attackDisplayTextGO.SetActive(true);
         EnemyAttackDamageTextMeshProUI.text = value.ToString();
+    }
+
+    public void ShowAttackDisplay(bool on)
+
+    { 
+        if (on) { attackDisplayTextGO.SetActive(true); }
+        if (!on) { attackDisplayTextGO.SetActive(false); }
     }
 }

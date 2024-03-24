@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class AttackTargetMenuScript : MonoBehaviour
 {
+    [SerializeField] CombatManager combatManager;
+    
     //buttons
     [SerializeField] GameObject secondAttackObj;
     [SerializeField] GameObject secondDefObj;
@@ -72,15 +74,21 @@ public class AttackTargetMenuScript : MonoBehaviour
 
     public void TargetBody()
 
-    { CombatEvents.SetEnemyBodyPartTarget.Invoke(1);}
+    {
+        combatManager.enemy[combatManager.selectedEnemy].SetEnemyBodyPartTarget(1);
+    }
 
     public void TargetArms()
 
-    { CombatEvents.SetEnemyBodyPartTarget.Invoke(2);}
+    {
+        combatManager.enemy[combatManager.selectedEnemy].SetEnemyBodyPartTarget(2);
+    }
 
     public void TargetHead()
 
-    { CombatEvents.SetEnemyBodyPartTarget.Invoke(3);}
+    {
+        combatManager.enemy[combatManager.selectedEnemy].SetEnemyBodyPartTarget(3);
+    }
 
     public void EnableSecondMoveButtonsAgainForNextTurn()
     {

@@ -70,28 +70,19 @@ public class PlayerMoveManager : MonoBehaviour
     public void CombineStanceAndMove()
 
     {
-        if (firstMoveIs == 0)
-        {
-            GearMove();
-        }
-        else
-        {
-            Action[] actions = new Action[3 * 3]
-            {
-            () => SelectMoveFromEquippedMoves(violentAttacks),
-            () => SelectMoveFromEquippedMoves(violentFends),
-            () => SelectMoveFromEquippedMoves(violentFocuses),
-            () => SelectMoveFromEquippedMoves(cautiousAttacks),
-            () => SelectMoveFromEquippedMoves(cautiousFends),
-            () => SelectMoveFromEquippedMoves(cautiousFocuses),
-            () => SelectMoveFromEquippedMoves(preciseAttacks),
-            () => SelectMoveFromEquippedMoves(preciseFends),
-            () => SelectMoveFromEquippedMoves(preciseFocuses)
-            };
+        if (firstMoveIs == 0) {GearMove();}
 
-            int index = (firstMoveIs - 1) * 3 + (secondMoveIs - 1);
-            actions[index]();
-        }
+        if (firstMoveIs == 1 && secondMoveIs == 1) { SelectMoveFromEquippedMoves(violentAttacks); }
+        if (firstMoveIs == 1 && secondMoveIs == 2) { SelectMoveFromEquippedMoves(violentFends); }
+        if (firstMoveIs == 1 && secondMoveIs == 3) { SelectMoveFromEquippedMoves(violentFocuses); }
+
+        if (firstMoveIs == 2 && secondMoveIs == 1) { SelectMoveFromEquippedMoves(cautiousAttacks); }
+        if (firstMoveIs == 2 && secondMoveIs == 2) { SelectMoveFromEquippedMoves(cautiousFends); }
+        if (firstMoveIs == 2 && secondMoveIs == 3) { SelectMoveFromEquippedMoves(cautiousFocuses); }
+
+        if (firstMoveIs == 3 && secondMoveIs == 1) { SelectMoveFromEquippedMoves(preciseAttacks); }
+        if (firstMoveIs == 3 && secondMoveIs == 2) { SelectMoveFromEquippedMoves(preciseFends); }
+        if (firstMoveIs == 3 && secondMoveIs == 3) { SelectMoveFromEquippedMoves(preciseFocuses); }
     }
 
     void SelectMoveFromEquippedMoves<T>(List<T> equippedMoveList) where T : PlayerMove

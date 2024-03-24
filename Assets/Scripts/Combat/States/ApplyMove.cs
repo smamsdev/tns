@@ -19,13 +19,25 @@ public class ApplyMove : State
         CombatEvents.MeleeAttack += MeleeAttack;
         CombatEvents.EndMove += EndMove;
 
+        combatManager.combatUIScript.playerDamageTakenDisplay.DisablePlayerDamageDisplay();
+        combatManager.combatUIScript.selectEnemyMenuScript.ShowEnemySelectMenu(false);
+
+        foreach (Enemy enemy in combatManager.enemy)
+
+        {
+            enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
+        }
+        //make sure all this stuff is gone before attacking, maybe this is sloppy tho, fix later
+
+
         if (!combatManager.combatUIScript.secondMoveMenu.activeSelf)
         {
             combatManager.combatUIScript.secondMoveMenu.SetActive(false);
         }
 
         combatManager.combatUIScript.HideTargetMenu();
-        enemyAttackDisplay.SetActive(false);
+        combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyAttackDisplay.ShowAttackDisplay(false);
+
         CombatEvents.HighlightBodypartTarget?.Invoke(false, false, false);
 
         //   var equippedGear = combatManager.player.GetComponent<EquippedGear>().equippedGear;
@@ -37,9 +49,6 @@ public class ApplyMove : State
         //      equippedGear[i].ApplyAttackGear();
         //      i++;
         //  }
-
-        combatManager.combatUIScript.playerDamageTakenDisplay.DisablePlayerDamageDisplay();
-        combatManager.combatUIScript.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
 
         combatManager.playerCombatStats.TotalPlayerAttackPower(combatManager.selectedPlayerMove.attackMoveMultiplier);
         CombatEvents.UpdateNarrator.Invoke(combatManager.selectedPlayerMove.moveName);
@@ -58,11 +67,9 @@ public class ApplyMove : State
     IEnumerator MeleeAttackCoroutine()
 
     {
-        if (combatManager.playerMoveManager.firstMoveIs == 1 || combatManager.playerMoveManager.secondMoveIs == 1)
-        {
-            combatManager.UpdateFighterPosition(combatManager.player, new Vector2(combatManager.battleScheme.enemyGameObject.transform.position.x - 0.3f, combatManager.battleScheme.enemyGameObject.transform.position.y), 0.5f);
+            combatManager.UpdateFighterPosition(combatManager.player, new Vector2(combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.position.x - 0.3f, combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.position.y), 0.5f);
             yield return new WaitForSeconds(0.5f);
-            combatManager.combatUIScript.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombatStats.attackPower);
+            combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombatStats.attackPower);
 
             yield return new WaitForSeconds(0.3f);
             combatManager.UpdateFighterPosition(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 0.5f);
@@ -70,7 +77,6 @@ public class ApplyMove : State
             yield return new WaitForSeconds(1);
 
             EndMove();
-        }
     }
 
     void EndMove()

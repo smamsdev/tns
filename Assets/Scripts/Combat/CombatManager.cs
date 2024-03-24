@@ -11,10 +11,11 @@ public class CombatManager : MonoBehaviour
     [Header("Settings")]
     public Battle battleScheme;
     public GameObject player;
-    public Enemy enemy;
+    public Enemy[] enemy;
 
     [Header("PlayerMove")]
     public PlayerMove selectedPlayerMove;
+    public int selectedEnemy = 0;
 
     [Header("Debugging")]
     public PlayerCombatStats playerCombatStats;
@@ -36,7 +37,6 @@ public class CombatManager : MonoBehaviour
     public Victory victory;
     public GearSelect gearSelect;
 
-    [HideInInspector] public Vector2 enemyGameObjectDefaultPosition; //default position data is required as a return point after attacking
     [HideInInspector] public int enemyRawAttackPower;
 
     private void OnEnable()
@@ -51,8 +51,14 @@ public class CombatManager : MonoBehaviour
 
     public void StartBattle()
     {
-        enemy = battleScheme.enemyGameObject.GetComponent<Enemy>();
         playerMoveManager = player.GetComponentInChildren< PlayerMoveManager>();
+
+        enemy = new Enemy[battleScheme.enemyGameObject.Length];
+
+        for (int i = 0; i < battleScheme.enemyGameObject.Length; i++)
+        {
+            enemy[i] = battleScheme.enemyGameObject[i].GetComponent<Enemy>();
+        }
 
         SetState(setup);
     }

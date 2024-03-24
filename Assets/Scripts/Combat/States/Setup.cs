@@ -10,47 +10,65 @@ public class Setup : State
     [SerializeField] GameObject playerStatsUIContainer;
     [SerializeField] GameObject enemyAttackDisplay;
 
+    [SerializeField] GameObject EnemyUIPrefab;
+
     public override IEnumerator StartState()
 
     {
-        combatManager.playerCombatStats.InitialiseStats();
 
+       // for (int i = 0; i < combatManager.enemy.Length; i++)
+       // {
+       //     Instantiate(EnemyUIPrefab, combatManager.gameObject.transform);
+       // }
+
+        //setup
         yield return new WaitForSeconds(0.01f);
         CombatEvents.BattleMode?.Invoke(true);
         CombatEvents.LockPlayerMovement.Invoke();
-        combatManager.UpdateFighterPosition(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 1f);
 
-        //enemy
-        combatManager.enemyGameObjectDefaultPosition = combatManager.battleScheme.enemyGameObject.transform.position;
+        //player
+        combatManager.playerCombatStats.InitialiseStats();
+        CombatEvents.InitializeEnemyPartsHP?.Invoke();
+        combatManager.combatUIScript.playerFendScript.ShowFendDisplay(false);
+        combatManager.UpdateFighterPosition(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 1f);
         combatMenuContainer.SetActive(true);
         playerStatsUIContainer.SetActive(true);
 
-        combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject, combatManager.enemy.enemyFightingPosition.transform.position, 1f);
+        combatManager.combatUIScript.selectEnemyMenuScript.InitializeButtonSlots();
 
-        combatManager.enemyRawAttackPower = 0;
+        //enemy
 
-        CombatEvents.InitializeEnemyPartsHP?.Invoke();
-        combatManager.combatUIScript.playerFendScript.ShowFendDisplay(false); 
-        combatManager.combatUIScript.enemyFendScript.ShowHideFendDisplay(false);
+        // for (int i = 0; i < combatManager.enemy.Length; i++)
+        // {
+        //     Instantiate(EnemyUIPrefab, combatManager.gameObject.transform);
+        // }
 
-        yield return new WaitForSeconds(1);
-        CombatEvents.InitializeEnemyHP?.Invoke();
+        foreach (Enemy enemy in combatManager.enemy)
 
-        combatManager.enemy.SelectEnemyMove();
-        CombatEvents.UpdateEnemyFendDisplay?.Invoke(combatManager.enemy.fendTotal);
-
-        if (combatManager.enemy.attackTotal > 0)
         {
-            CombatEvents.UpdateEnemyAttackDisplay?.Invoke(combatManager.enemy.EnemyAttackTotal());
-            enemyAttackDisplay.SetActive(true);
+            enemy.enemyUI.enemyFendScript.ShowFendDisplay(false);
+            enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
+            enemy.enemyUI.enemyStatsDisplay.ShowEnemyStatsDisplay(false);
+
+            enemy.SelectEnemyMove();
+            enemy.enemyUI.AnchorEnemyUIToEnemyGameObject(enemy.enemyFightingPosition);
+            combatManager.UpdateFighterPosition(enemy.gameObject, enemy.enemyFightingPosition.transform.position, 1f);
+
+            yield return new WaitForSeconds(1);
+
+            enemy.enemyUI.enemyFendScript.UpdateFendDisplay(enemy.fendTotal);
+            enemy.enemyUI.enemyStatsDisplay.InitializeEnemyHP(enemy);
+ 
+            if (combatManager.enemy[combatManager.selectedEnemy].attackTotal > 0)
+            {
+                CombatEvents.UpdateEnemyAttackDisplay?.Invoke(combatManager.enemy[combatManager.selectedEnemy].EnemyAttackTotal());
+            }
+
         }
-
-
         combatManager.SetState(combatManager.firstMove);
 
         yield break;
     }
-
 
 }
 

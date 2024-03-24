@@ -8,45 +8,36 @@ public class FendScript : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI fendTextMeshProUGUI;
     [SerializeField] CombatManager combatManager;
-    [SerializeField] GameObject fendContainer;
-    [SerializeField] GameObject fendIcon;
-    public Animator animatorContainer;
-    public Animator iconAnimator;
-
+    [SerializeField] GameObject playerFendContainer;
+    [SerializeField] GameObject playerFendIcon, playerFendText;
+    public Animator animator;
 
     public int attackRemainder;
 
     public int fend = 0;
 
-    private void OnEnable()
-    {
-        CombatEvents.BattleMode += Init;
-    }
-
-    private void OnDisable()
-    {
-        CombatEvents.BattleMode -= Init;
-    }
-
-    void Init(bool on)
+    private void Start()
     {
         ShowFendDisplay(false);
 
-        fendContainer.transform.position = new Vector2(combatManager.battleScheme.playerFightingPosition.transform.position.x, combatManager.battleScheme.playerFightingPosition.transform.position.y + 0.8f);
+        playerFendContainer.transform.position = new Vector2(combatManager.battleScheme.playerFightingPosition.transform.position.x + 0.02f, combatManager.battleScheme.playerFightingPosition.transform.position.y + 0.8f);
     }
 
     public void ShowFendDisplay(bool on)
 
     {
-        if (on && (combatManager.playerMoveManager.firstMoveIs == 2 || combatManager.playerMoveManager.secondMoveIs == 2))
+        if (on && combatManager.playerCombatStats.playerFend > 0)
 
         {
-            fendIcon.SetActive(true);
+            playerFendIcon.SetActive(true);
+            playerFendText.SetActive(true);
+            animator.SetTrigger("fendAppear");
         }
 
         if (!on)
         {
-            fendIcon.SetActive(false);
+            playerFendIcon.SetActive(false);
+            playerFendText.SetActive(false);
         }
     }
 
@@ -54,6 +45,7 @@ public class FendScript : MonoBehaviour
 
     {
         attackRemainder = attack - fend;
+        animator.SetTrigger("fendDeflect");
         StartCoroutine(ApplyEnemyAttackToFendCoRo(attack));
     }
 
@@ -94,12 +86,6 @@ public class FendScript : MonoBehaviour
         }
     }
 
-    public void FendIconAnimationState(int state)
-
-    {
-        animatorContainer.SetInteger("deflectState", state);
-    }
-
     public void UpdateFendText(int value)
     {
             fend = value;
@@ -109,7 +95,7 @@ public class FendScript : MonoBehaviour
     void FendBreached()
 
     {
-        iconAnimator.SetBool("fendbreak", true);
+        animator.SetTrigger("fendBreak");
         fendTextMeshProUGUI.text = "";
         if (attackRemainder > 0)
         {

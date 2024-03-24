@@ -5,16 +5,11 @@ using UnityEngine;
 public class RoundReset : State
 {
     [SerializeField] CombatManager combatManager;
-    [SerializeField] GameObject enemyAttackDisplay;
 
     public override IEnumerator StartState()
     {
-        combatManager.combatUIScript.playerFendScript.ShowFendDisplay(false);
+        combatManager.combatUIScript.playerFendScript.animator.SetTrigger("fendFade");
 
-        combatManager.combatUIScript.HideSecondMenu();
-        combatManager.combatUIScript.HideTargetMenu();
-
-       // combatManager.playerCombatStats.ResetAllMoveMods();
         //combatManager.player.GetComponent<EquippedGear>().equippedGear[0].ResetAttackGear();
         //combatManager.player.GetComponent<EquippedGear>().equippedGear[0].ResetFendGear();
 
@@ -22,25 +17,36 @@ public class RoundReset : State
         combatManager.attackTargetMenuScript.targetSelected = false;
         combatManager.attackTargetMenuScript.targetIsSet = 0;
 
-        combatManager.combatUIScript.playerFendScript.UpdateFendText(0);
-        combatManager.combatUIScript.playerFendScript.FendIconAnimationState(2);
-        combatManager.combatUIScript.enemyFendScript.FendIconAnimationState(0);
-        combatManager.combatUIScript.enemyFendScript.ShowHideFendDisplay(false);
+        combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ShowFendDisplay(false);
 
         combatManager.playerMoveManager.firstMoveIs = 0;
         combatManager.playerMoveManager.secondMoveIs = 0;
 
+        yield return new WaitForSeconds(0.5f);
+
         combatManager.roundCount++;
 
-        combatManager.enemy.SelectEnemyMove();
-        CombatEvents.UpdateEnemyFendDisplay?.Invoke(combatManager.enemy.fendTotal);
-
-        if (combatManager.enemy.attackTotal > 0)
+        foreach (Enemy enemy in combatManager.enemy)
         {
-            CombatEvents.UpdateEnemyAttackDisplay?.Invoke(combatManager.enemy.EnemyAttackTotal());
-            enemyAttackDisplay.SetActive(true);
+            enemy.SelectEnemyMove();
+
+            if (enemy.attackTotal > 0)
+            {
+                enemy.enemyUI.enemyAttackDisplay.UpdateEnemyAttackDisplay(combatManager.enemy[combatManager.selectedEnemy].EnemyAttackTotal());
+                enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(true);
+            }
+
+            if (enemy.fendTotal > 0)
+            {
+                enemy.enemyUI.enemyFendScript.UpdateFendDisplay(enemy.fendTotal);
+                enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(true);
+            }
         }
 
+        combatManager.playerCombatStats.attackPower = 0;
+        combatManager.playerCombatStats.playerFend = 0;
+
+        combatManager.combatUIScript.playerFendScript.UpdateFendText(0);
         combatManager.SetState(combatManager.firstMove);
 
         yield break;

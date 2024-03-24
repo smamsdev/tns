@@ -78,7 +78,7 @@ public class TargetDisplay : MonoBehaviour
     public void InitializeEnemyPartsHP()
 
     {
-        enemy = combatManager.battleScheme.enemyGameObject.GetComponent<Enemy>();
+        enemy = combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].GetComponent<Enemy>();
 
         bodyMaxHP = enemy.enemyBodyHP;
         armsMaxHP = enemy.enemyArmsHP;
