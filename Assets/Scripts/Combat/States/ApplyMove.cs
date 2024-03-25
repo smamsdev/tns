@@ -5,7 +5,6 @@ using UnityEngine;
 public class ApplyMove : State
 {
     [SerializeField] CombatManager combatManager;
-    [SerializeField] GameObject enemyAttackDisplay;
 
     void IsEnemyDead(bool _enemyIsDead)
 
@@ -38,7 +37,8 @@ public class ApplyMove : State
         combatManager.combatUIScript.HideTargetMenu();
         combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyAttackDisplay.ShowAttackDisplay(false);
 
-        CombatEvents.HighlightBodypartTarget?.Invoke(false, false, false);
+        combatManager.enemy[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(false, false, false);
+
 
         //   var equippedGear = combatManager.player.GetComponent<EquippedGear>().equippedGear;
         //  int i;

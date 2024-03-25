@@ -5,12 +5,11 @@ using UnityEngine.EventSystems;// Required when using Event data.
 
 public class ShowArmsAttackInfo : MonoBehaviour, ISelectHandler// required interface when using the OnSelect method.
 {
+    [SerializeField] CombatManager combatManager;
 
-        //Do this when the selectable UI object is selected.
     public void OnSelect(BaseEventData eventData)
     {
-        CombatEvents.HighlightBodypartTarget.Invoke(false, true, false);
+        combatManager.enemy[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(false, true, false);
     }
-
-    
 }
+

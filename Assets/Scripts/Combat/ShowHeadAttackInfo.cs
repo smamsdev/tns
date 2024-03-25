@@ -5,10 +5,10 @@ using UnityEngine.EventSystems;// Required when using Event data.
 
 public class ShowHeadAttackInfo : MonoBehaviour, ISelectHandler
 {
+    [SerializeField] CombatManager combatManager;
 
-    //Do this when the selectable UI object is selected.
     public void OnSelect(BaseEventData eventData)
     {
-        CombatEvents.HighlightBodypartTarget.Invoke(false, false, true);
+        combatManager.enemy[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(false, false, true);
     }
 }

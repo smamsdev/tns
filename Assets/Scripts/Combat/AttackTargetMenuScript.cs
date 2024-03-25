@@ -60,7 +60,7 @@ public class AttackTargetMenuScript : MonoBehaviour
             targetDisplayContainerObj.SetActive(true);
             aimBodyButton.Select();
 
-            CombatEvents.HighlightBodypartTarget.Invoke(true, false, false);
+            combatManager.enemy[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(true, false, false);
 
             //disable the buttons from 2nd move  menu
             secondAttackButton.interactable = false;

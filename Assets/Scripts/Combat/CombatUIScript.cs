@@ -65,8 +65,6 @@ public class CombatUIScript : MonoBehaviour
         secondMoveMenu.SetActive(false);
         targetmenu.SetActive(false);
 
-        CombatEvents.HighlightBodypartTarget?.Invoke(false, false, false);
-
         UpdateFirstMoveDisplay("Style?");
         UpdateSecondMoveDisplay("Move?");
     }
@@ -76,9 +74,6 @@ public class CombatUIScript : MonoBehaviour
     {
         secondAttackButton.Select();
         CombatEvents.InputCoolDown?.Invoke(0.2f);
-
-
-       CombatEvents.HighlightBodypartTarget?.Invoke(false, false, false);
 
        attackTargetMenuScript.EnableSecondMoveButtonsAgainForNextTurn();
 

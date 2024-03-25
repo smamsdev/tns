@@ -13,6 +13,7 @@ public class SecondMove : State
         yield return new WaitForSeconds(0.1f);
 
         combatManager.combatUIScript.ShowSecondMoveMenu();
+        combatManager.enemy[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(false, false, false);
         combatManager.playerMoveManager.secondMoveIs = 0;
 
         yield break;

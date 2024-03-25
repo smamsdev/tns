@@ -8,7 +8,6 @@ public class Setup : State
 
     [SerializeField] GameObject combatMenuContainer;
     [SerializeField] GameObject playerStatsUIContainer;
-    [SerializeField] GameObject enemyAttackDisplay;
 
     [SerializeField] GameObject EnemyUIPrefab;
 
@@ -28,7 +27,7 @@ public class Setup : State
 
         //player
         combatManager.playerCombatStats.InitialiseStats();
-        CombatEvents.InitializeEnemyPartsHP?.Invoke();
+
         combatManager.combatUIScript.playerFendScript.ShowFendDisplay(false);
         combatManager.UpdateFighterPosition(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 1f);
         combatMenuContainer.SetActive(true);
@@ -38,14 +37,17 @@ public class Setup : State
 
         //enemy
 
-        // for (int i = 0; i < combatManager.enemy.Length; i++)
-        // {
-        //     Instantiate(EnemyUIPrefab, combatManager.gameObject.transform);
-        // }
-
         foreach (Enemy enemy in combatManager.enemy)
 
         {
+            GameObject newEnemyCombatUI = Instantiate(EnemyUIPrefab, combatManager.gameObject.transform);
+            newEnemyCombatUI.name = "EnemyUI For " + enemy.name;
+
+            enemy.enemyUI = newEnemyCombatUI.GetComponent<EnemyUI>();
+            enemy.enemyUI.partsTargetDisplay.enemy = enemy;
+            enemy.enemyUI.combatManager = combatManager;
+
+
             enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
             enemy.enemyUI.enemyStatsDisplay.ShowEnemyStatsDisplay(false);
 
@@ -56,12 +58,12 @@ public class Setup : State
             yield return new WaitForSeconds(1);
 
             enemy.enemyUI.enemyFendScript.UpdateFendDisplay(enemy.fendTotal);
-
             enemy.enemyUI.enemyStatsDisplay.InitializeEnemyStatsUI(enemy);
- 
+            enemy.enemyUI.partsTargetDisplay.InitializeEnemyPartsHP();
+
             if (combatManager.enemy[combatManager.selectedEnemy].attackTotal > 0)
             {
-                CombatEvents.UpdateEnemyAttackDisplay?.Invoke(combatManager.enemy[combatManager.selectedEnemy].EnemyAttackTotal());
+                enemy.enemyUI.enemyAttackDisplay.UpdateEnemyAttackDisplay(combatManager.enemy[combatManager.selectedEnemy].EnemyAttackTotal());
             }
 
         }

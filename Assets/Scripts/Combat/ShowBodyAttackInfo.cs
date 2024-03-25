@@ -6,9 +6,10 @@ using UnityEngine.Events;
 
 public class ShowBodyAttackInfo : MonoBehaviour, ISelectHandler
 {
+    [SerializeField] CombatManager combatManager;
 
     public void OnSelect(BaseEventData eventData)
     {
-        CombatEvents.HighlightBodypartTarget.Invoke(true, false, false);
+        combatManager.enemy[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(true, false, false);
     }
 }

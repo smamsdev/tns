@@ -13,6 +13,11 @@ public class EnemyStatsDisplay : MonoBehaviour
     Enemy enemy;
     int enemyHP;
 
+    private void OnEnable()
+    {
+        combatManager = GetComponentInParent<CombatManager>();
+    }
+
     public void ShowEnemyStatsDisplay(bool on)
 
     { 

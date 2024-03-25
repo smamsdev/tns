@@ -9,6 +9,9 @@ public class EnemyUI : MonoBehaviour
     public EnemyStatsDisplay enemyStatsDisplay;
     public EnemyAttackDisplay enemyAttackDisplay;
     public BodyPartsDamageTakenDisplay bodyPartsDamageTakenDisplay;
+    public TargetDisplay partsTargetDisplay;
+
+    public CombatManager combatManager;
 
     public void AnchorEnemyUIToEnemyGameObject(GameObject fightingPosition)
 

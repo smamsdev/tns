@@ -13,9 +13,9 @@ public class EnemyFendScript : MonoBehaviour
 
     int attackRemainder;
 
-    private void Start()
+    private void OnEnable()
     {
-
+        combatManager = GetComponentInParent<CombatManager>();
     }
 
     public void ApplyPlayerAttackToFend(int attack)
@@ -39,7 +39,6 @@ public class EnemyFendScript : MonoBehaviour
     IEnumerator ApplyPlayerAttackToFendCoroutine(int attack)
 
     {
-
         float elapsedTime = 0f;
         float lerpDuration = 0.5f;
 

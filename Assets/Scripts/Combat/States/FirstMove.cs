@@ -20,6 +20,7 @@ public class FirstMove : State
         firstMoveContainer.SetActive(true);
 
         combatManager.combatUIScript.ShowFirstMoveMenu();
+ 
         combatManager.playerMoveManager.firstMoveIs = 0;
 
         //   // Example: Lerp testLerp from 0 to 10 over 3 seconds

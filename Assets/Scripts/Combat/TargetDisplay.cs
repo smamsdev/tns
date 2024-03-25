@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class TargetDisplay : MonoBehaviour
 {
-    Enemy enemy;
+    public Enemy enemy;
     [SerializeField] CombatManager combatManager; 
 
     [SerializeField] GameObject bodyTargetDisplay;
@@ -24,24 +24,10 @@ public class TargetDisplay : MonoBehaviour
 
     private void OnEnable()
     {
-        CombatEvents.HighlightBodypartTarget += UpdateTargetDisplay;
-        CombatEvents.InitializeEnemyPartsHP += InitializeEnemyPartsHP;
-        CombatEvents.UpdateTargetDisplayBodyDescription += UpdateBodyDescription;
-        CombatEvents.UpdateTargetDisplayArmsDescription += UpdateArmsDescription;
-        CombatEvents.UpdateTargetDisplayHeadDescription += UpdateHeadDescription;
+        combatManager = GetComponentInParent<CombatManager>();
     }
 
-    private void OnDisable()
-    {
-        CombatEvents.HighlightBodypartTarget -= UpdateTargetDisplay;
-        CombatEvents.InitializeEnemyPartsHP -= InitializeEnemyPartsHP;
-        CombatEvents.UpdateTargetDisplayBodyDescription -= UpdateBodyDescription;
-        CombatEvents.UpdateTargetDisplayArmsDescription -= UpdateArmsDescription;
-        CombatEvents.UpdateTargetDisplayHeadDescription -= UpdateHeadDescription;
-    }
-
-
-    void UpdateTargetDisplay(bool showBody, bool showArms, bool showHead) 
+    public void UpdateTargetDisplay(bool showBody, bool showArms, bool showHead) 
     {
 
         string bodyHP = enemy.enemyBodyHP.ToString() + " / " + bodyMaxHP.ToString();
@@ -58,19 +44,19 @@ public class TargetDisplay : MonoBehaviour
 
         if (enemy.enemyBodyHP == 0)
         {
-            CombatEvents.UpdateTargetDisplayBodyDescription.Invoke(injuredBodyDescription);
+            UpdateBodyDescription(injuredBodyDescription);
             bodyAnimator.SetBool("isDestroyed", true);
         }
 
         if (enemy.enemyArmsHP == 0)
         {
-            CombatEvents.UpdateTargetDisplayArmsDescription.Invoke(injuredArmsDescription);
+            UpdateArmsDescription(injuredArmsDescription);
             armsAnimator.SetBool("isDestroyed", true);
         }
 
         if (enemy.enemyHeadHP == 0)
         {
-            CombatEvents.UpdateTargetDisplayHeadDescription.Invoke(injuredHeadDescription);
+            UpdateHeadDescription(injuredHeadDescription);
             headAnimator.SetBool("isDestroyed", true);
         }
     }
@@ -78,8 +64,6 @@ public class TargetDisplay : MonoBehaviour
     public void InitializeEnemyPartsHP()
 
     {
-        enemy = combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].GetComponent<Enemy>();
-
         bodyMaxHP = enemy.enemyBodyHP;
         armsMaxHP = enemy.enemyArmsHP;
         headMaxHP = enemy.enemyHeadHP;
