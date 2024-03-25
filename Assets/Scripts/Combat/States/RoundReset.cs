@@ -17,8 +17,6 @@ public class RoundReset : State
         combatManager.attackTargetMenuScript.targetSelected = false;
         combatManager.attackTargetMenuScript.targetIsSet = 0;
 
-        combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ShowFendDisplay(false);
-
         combatManager.playerMoveManager.firstMoveIs = 0;
         combatManager.playerMoveManager.secondMoveIs = 0;
 
@@ -28,6 +26,8 @@ public class RoundReset : State
 
         foreach (Enemy enemy in combatManager.enemy)
         {
+            enemy.enemyUI.enemyFendScript.ResetAllAnimationTriggers(); //its just easier this way 
+
             enemy.SelectEnemyMove();
 
             if (enemy.attackTotal > 0)
@@ -39,7 +39,6 @@ public class RoundReset : State
             if (enemy.fendTotal > 0)
             {
                 enemy.enemyUI.enemyFendScript.UpdateFendDisplay(enemy.fendTotal);
-                enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(true);
             }
         }
 
@@ -47,6 +46,10 @@ public class RoundReset : State
         combatManager.playerCombatStats.playerFend = 0;
 
         combatManager.combatUIScript.playerFendScript.UpdateFendText(0);
+
+        combatManager.combatUIScript.playerFendScript.ResetAllAnimationTriggers(); //its just easier this way 
+
+
         combatManager.SetState(combatManager.firstMove);
 
         yield break;

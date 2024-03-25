@@ -46,6 +46,7 @@ public class FendScript : MonoBehaviour
     {
         attackRemainder = attack - fend;
         animator.SetTrigger("fendDeflect");
+
         StartCoroutine(ApplyEnemyAttackToFendCoRo(attack));
     }
 
@@ -57,7 +58,7 @@ public class FendScript : MonoBehaviour
             FendBreached();
             yield return null;
         }
-            float elapsedTime = 0f;
+        float elapsedTime = 0f;
         float lerpDuration = 0.5f;
 
         int startNumber = fend;
@@ -88,8 +89,8 @@ public class FendScript : MonoBehaviour
 
     public void UpdateFendText(int value)
     {
-            fend = value;
-            fendTextMeshProUGUI.text = fend.ToString();
+        fend = value;
+        fendTextMeshProUGUI.text = fend.ToString();
     }
 
     void FendBreached()
@@ -103,5 +104,13 @@ public class FendScript : MonoBehaviour
             CombatEvents.UpdatePlayerHP.Invoke(-attackRemainder);
         }
     }
-    
+
+    public void ResetAllAnimationTriggers()
+
+    {
+        animator.ResetTrigger("fendAppear");
+        animator.ResetTrigger("fendDeflect");
+        animator.ResetTrigger("fendBreak");
+        animator.ResetTrigger("fendFade");
+    }
 }

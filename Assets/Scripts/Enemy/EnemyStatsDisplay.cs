@@ -20,7 +20,7 @@ public class EnemyStatsDisplay : MonoBehaviour
      if (!on) { enemyStatsDisplayGameObject.SetActive(false);}  
     }
 
-    public void InitializeEnemyHP(Enemy _enemy)
+    public void InitializeEnemyStatsUI(Enemy _enemy)
     {
         enemyStatsDisplayGameObject.SetActive(true);
 

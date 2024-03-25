@@ -38,8 +38,8 @@ public class EnemyAttack : State
         if (combatManager.enemy[combatManager.selectedEnemy].attackTotal == 0 && combatManager.enemy[combatManager.selectedEnemy].fendTotal > 0)
         {
 
-            combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ShowFendDisplay(false);
-            combatManager.combatUIScript.enemyDamageTakenDisplay.EnemyDamageTakenTextMeshProUGUI.enabled = false;
+            //combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ShowFendDisplay(false); needed?
+            combatManager.combatUIScript.playerFendScript.animator.SetTrigger("fendFade");
 
         }
 
@@ -47,7 +47,7 @@ public class EnemyAttack : State
 
         {
 
-            combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ShowFendDisplay(false);
+            //combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ShowFendDisplay(false);
 
             combatManager.enemy[enemyIteration].enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
 

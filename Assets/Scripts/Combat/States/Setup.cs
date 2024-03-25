@@ -46,7 +46,6 @@ public class Setup : State
         foreach (Enemy enemy in combatManager.enemy)
 
         {
-            enemy.enemyUI.enemyFendScript.ShowFendDisplay(false);
             enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
             enemy.enemyUI.enemyStatsDisplay.ShowEnemyStatsDisplay(false);
 
@@ -57,7 +56,8 @@ public class Setup : State
             yield return new WaitForSeconds(1);
 
             enemy.enemyUI.enemyFendScript.UpdateFendDisplay(enemy.fendTotal);
-            enemy.enemyUI.enemyStatsDisplay.InitializeEnemyHP(enemy);
+
+            enemy.enemyUI.enemyStatsDisplay.InitializeEnemyStatsUI(enemy);
  
             if (combatManager.enemy[combatManager.selectedEnemy].attackTotal > 0)
             {

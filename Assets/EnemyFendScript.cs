@@ -9,13 +9,13 @@ public class EnemyFendScript : MonoBehaviour
     [SerializeField] CombatManager combatManager;
     [SerializeField] GameObject fendGameObject;
     [SerializeField] GameObject fendTextGameObject;
-    [SerializeField] Animator enemyFendAnimator;
+    public Animator enemyFendAnimator;
 
     int attackRemainder;
 
     private void Start()
     {
-        ShowFendDisplay(false);
+
     }
 
     public void ApplyPlayerAttackToFend(int attack)
@@ -91,6 +91,8 @@ public class EnemyFendScript : MonoBehaviour
         {
             fendGameObject.SetActive(false);
             fendTextGameObject.SetActive(false);
+
+            Debug.Log("do you really need this");
         }
     }
 
@@ -107,5 +109,14 @@ public class EnemyFendScript : MonoBehaviour
         {
             fendGameObject.SetActive(false);
         }
+    }
+
+    public void ResetAllAnimationTriggers()
+
+    {
+        enemyFendAnimator.ResetTrigger("fendAppear");
+        enemyFendAnimator.ResetTrigger("fendDeflect");
+        enemyFendAnimator.ResetTrigger("fendBreak");
+        enemyFendAnimator.ResetTrigger("fendFade");
     }
 }

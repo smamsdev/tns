@@ -88,7 +88,15 @@ public class ApplyMove : State
     IEnumerator EndMoveCoro()
 
     {
+        foreach (Enemy enemy in combatManager.enemy)
+
+        {
+            enemy.enemyUI.enemyFendScript.enemyFendAnimator.SetTrigger("fendFade");
+        }
+
         yield return new WaitForSeconds(0.5f);
+
+
 
         if (combatManager.enemyIsDead)
 
