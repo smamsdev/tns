@@ -18,16 +18,14 @@ public class ApplyMove : State
         CombatEvents.MeleeAttack += MeleeAttack;
         CombatEvents.EndMove += EndMove;
 
-        combatManager.combatUIScript.playerDamageTakenDisplay.DisablePlayerDamageDisplay();
         combatManager.combatUIScript.selectEnemyMenuScript.ShowEnemySelectMenu(false);
 
         foreach (Enemy enemy in combatManager.enemy)
 
         {
             enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
+            enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(false);
         }
-        //make sure all this stuff is gone before attacking, maybe this is sloppy tho, fix later
-
 
         if (!combatManager.combatUIScript.secondMoveMenu.activeSelf)
         {
@@ -35,10 +33,7 @@ public class ApplyMove : State
         }
 
         combatManager.combatUIScript.HideTargetMenu();
-        combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyAttackDisplay.ShowAttackDisplay(false);
-
         combatManager.enemy[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(false, false, false);
-
 
         //   var equippedGear = combatManager.player.GetComponent<EquippedGear>().equippedGear;
         //  int i;
@@ -95,8 +90,6 @@ public class ApplyMove : State
         }
 
         yield return new WaitForSeconds(0.5f);
-
-
 
         if (combatManager.enemyIsDead)
 

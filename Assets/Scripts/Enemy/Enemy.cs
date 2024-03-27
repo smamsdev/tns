@@ -141,11 +141,11 @@ public class Enemy : MonoBehaviour
         enemyHP = enemyHP - damageTotal;
 
         enemyUI.enemyStatsDisplay.UpdateEnemyHPDisplay(enemyHP);
-        CombatEvents.ShowEnemyDamageTakenDisplay?.Invoke(damageTotal);
+        enemyUI.enemyDamageTakenDisplay.ShowEnemyDamageDisplay(damageTotal);
 
         if (enemyHP <= 0)
         {
-            CombatEvents.EnemyIsDead.Invoke(true);
+           // CombatEvents.EnemyIsDead.Invoke(true); fix this
         }
     }
 

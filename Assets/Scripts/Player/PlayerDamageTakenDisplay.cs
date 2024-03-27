@@ -14,18 +14,11 @@ public class PlayerDamageTakenDisplay : MonoBehaviour
     private void OnEnable()
     {
         CombatEvents.PlayerDamageDisplay += ShowPlayerDamageDisplay;
-        CombatEvents.DisablePlayerDamageDisplay += DisablePlayerDamageDisplay;
     }
 
     private void OnDisable()
     {
         CombatEvents.PlayerDamageDisplay -= ShowPlayerDamageDisplay;
-        CombatEvents.DisablePlayerDamageDisplay -= DisablePlayerDamageDisplay;
-    }
-
-    private void Start()
-    {
-        DisablePlayerDamageDisplay();
     }
 
     public void ShowPlayerDamageDisplay(int value)
@@ -60,14 +53,8 @@ public class PlayerDamageTakenDisplay : MonoBehaviour
             yield return null;
         }
 
+       animator.SetInteger("animState", 2);
+
     }
-
-    public void DisablePlayerDamageDisplay()
-
-    {
-        textMeshProUGUI.enabled = false;
-        animator.SetInteger("animState", 0);
-    }
-
 
 }

@@ -23,53 +23,45 @@ public class EnemyAttack : State
         //       i++;
         //   }
 
-        combatManager.combatUIScript.HideTargetMenu();
-
-
-        combatManager.playerCombatStats.TotalPlayerFendPower(combatManager.selectedPlayerMove.fendMoveMultiplier);
-
-        combatManager.combatUIScript.playerFendScript.UpdateFendText(combatManager.playerCombatStats.playerFend);
-        combatManager.combatUIScript.playerFendScript.ShowFendDisplay(true);
+        TidyUp();
 
         CombatEvents.UpdatePlayerPot.Invoke(combatManager.playerCombatStats.currentPotential + combatManager.selectedPlayerMove.potentialChange);
 
         yield return new WaitForSeconds(1.0f);
 
-        if (combatManager.enemy[combatManager.selectedEnemy].attackTotal == 0 && combatManager.enemy[combatManager.selectedEnemy].fendTotal > 0)
-        {
 
-            //combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ShowFendDisplay(false); needed?
-            combatManager.combatUIScript.playerFendScript.animator.SetTrigger("fendFade");
-
-        }
-
-        else if (combatManager.enemy[combatManager.selectedEnemy].attackTotal > 0)
+        foreach (Enemy enemy in combatManager.enemy)
 
         {
+            if (enemy.attackTotal == 0 && enemy.fendTotal > 0)
+            {
+                combatManager.combatUIScript.playerFendScript.animator.SetTrigger("fendFade");
+            }
 
-            //combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ShowFendDisplay(false);
+            else if (enemy.attackTotal > 0)
 
-            combatManager.enemy[enemyIteration].enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
+            {
+                enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
+                combatManager.UpdateFighterPosition(enemy.gameObject, new Vector2(combatManager.battleScheme.playerFightingPosition.transform.position.x + 0.3f, combatManager.battleScheme.playerFightingPosition.transform.position.y), 0.5f);
 
+                yield return new WaitForSeconds(0.5f);
 
-            combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy], new Vector2(combatManager.battleScheme.playerFightingPosition.transform.position.x + 0.3f, combatManager.battleScheme.playerFightingPosition.transform.position.y), 0.5f);
+                combatManager.selectedPlayerMove.OnEnemyAttack();
+                combatManager.combatUIScript.playerFendScript.ApplyEnemyAttackToFend(combatManager.enemy[combatManager.selectedEnemy].EnemyAttackTotal());
+
+                yield return new WaitForSeconds(0.5f);
+
+                combatManager.UpdateFighterPosition(enemy.gameObject, enemy.enemyFightingPosition.transform.position, 0.5f);
+
+                yield return new WaitForSeconds(0.5f);
+            }
 
             yield return new WaitForSeconds(0.5f);
 
-            combatManager.selectedPlayerMove.OnEnemyAttack();
-            combatManager.combatUIScript.playerFendScript.ApplyEnemyAttackToFend(combatManager.enemy[combatManager.selectedEnemy].EnemyAttackTotal());
+            CombatEvents.CounterAttack -= CounterAttack;
 
-            yield return new WaitForSeconds(0.5f);
-
-            combatManager.UpdateFighterPosition(combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy], combatManager.enemy[combatManager.selectedEnemy].enemyFightingPosition.transform.position, 0.5f);
-
-            yield return new WaitForSeconds(0.5f);
         }
-
-        yield return new WaitForSeconds(0.5f);
-
-        CombatEvents.CounterAttack -= CounterAttack;
-        combatManager.SetState(combatManager.roundReset);
+            combatManager.SetState(combatManager.roundReset);
 
     }
 
@@ -91,6 +83,15 @@ public class EnemyAttack : State
     private void OnDisable()
     {
         CombatEvents.CounterAttack -= CounterAttack;
+    }
+
+    void TidyUp()
+
+    {
+        combatManager.combatUIScript.HideTargetMenu();
+        combatManager.playerCombatStats.TotalPlayerFendPower(combatManager.selectedPlayerMove.fendMoveMultiplier);
+        combatManager.combatUIScript.playerFendScript.UpdateFendText(combatManager.playerCombatStats.playerFend);
+        combatManager.combatUIScript.playerFendScript.ShowFendDisplay(true);
     }
 }
 

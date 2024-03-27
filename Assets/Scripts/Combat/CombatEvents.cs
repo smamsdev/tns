@@ -25,7 +25,6 @@ public static class CombatEvents
     public static Action <GameObject> ButtonHighlighted;
 
     //Enemy
-    public static Action<int> ShowEnemyDamageTakenDisplay;
     public static Action <int> SetEnemyBodyPartTarget;
     public static Action<int> UpdateEnemyAttackDisplay;
 

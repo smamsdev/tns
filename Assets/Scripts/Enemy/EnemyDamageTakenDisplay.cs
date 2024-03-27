@@ -14,23 +14,13 @@ public class EnemyDamageTakenDisplay : MonoBehaviour
         EnemyDamageTakenTextMeshProUGUI.enabled = false;
     }
 
-    private void OnEnable()
-    {
-        CombatEvents.ShowEnemyDamageTakenDisplay += ShowEnemyDamageDisplay;
-    }
-
-    private void OnDisable()
-    {
-        CombatEvents.ShowEnemyDamageTakenDisplay -= ShowEnemyDamageDisplay;
-    }
-
     public void ShowEnemyDamageDisplay(int remainder)
     {
+        Debug.Log("should be setting to 1");
         animator.SetInteger("animState", 1);
         EnemyDamageTakenTextMeshProUGUI.enabled = true;
         StartCoroutine(ShoweEnemyDamageDisplayCoroutine(remainder));
     }
-
 
     IEnumerator ShoweEnemyDamageDisplayCoroutine(int damage)
 
@@ -55,12 +45,11 @@ public class EnemyDamageTakenDisplay : MonoBehaviour
 
     }
 
-
     public void DisableEnemyDamageDisplay()
 
     {
         animator.SetInteger("animState", 0);
-        EnemyDamageTakenTextMeshProUGUI.enabled = false;
+        //EnemyDamageTakenTextMeshProUGUI.enabled = false;
     }
 
    }
