@@ -18,7 +18,8 @@ public class ApplyMove : State
         CombatEvents.MeleeAttack += MeleeAttack;
         CombatEvents.EndMove += EndMove;
 
-        combatManager.combatUIScript.ShowEnemySelectMenu(false);
+        combatManager.combatUIScript.ShowBodyPartTargetMenu(false);
+        combatManager.combatUIScript.ShowSecondMoveMenu(false);
 
         foreach (Enemy enemy in combatManager.enemy)
 
@@ -27,13 +28,7 @@ public class ApplyMove : State
             enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(false);
         }
 
-        if (!combatManager.combatUIScript.secondMoveMenu.activeSelf)
-        {
-            combatManager.combatUIScript.secondMoveMenu.SetActive(false);
-        }
 
-        combatManager.combatUIScript.HideTargetMenu();
-        combatManager.enemy[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(false, false, false);
 
         //   var equippedGear = combatManager.player.GetComponent<EquippedGear>().equippedGear;
         //  int i;

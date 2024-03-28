@@ -12,8 +12,8 @@ public class EnemySelect : State
     {
         CombatEvents.SendMove += SelectEnemyTarget;
 
-        combatManager.combatUIScript.secondMoveMenu.SetActive(false);
         combatManager.combatUIScript.ShowEnemySelectMenu(true);
+        combatManager.combatUIScript.ShowSecondMoveMenu(false);
         yield break;
     }
 

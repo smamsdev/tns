@@ -88,7 +88,6 @@ public class EnemyAttack : State
     void TidyUp()
 
     {
-        combatManager.combatUIScript.HideTargetMenu();
         combatManager.playerCombatStats.TotalPlayerFendPower(combatManager.selectedPlayerMove.fendMoveMultiplier);
         combatManager.combatUIScript.playerFendScript.UpdateFendText(combatManager.playerCombatStats.playerFend);
         combatManager.combatUIScript.playerFendScript.ShowFendDisplay(true);

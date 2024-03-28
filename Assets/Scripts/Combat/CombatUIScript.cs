@@ -7,80 +7,67 @@ using UnityEngine.UI;
 
 public class CombatUIScript : MonoBehaviour
 {
+    [SerializeField] CombatManager combatManager;
+    public FendScript playerFendScript;
+    public PlayerDamageTakenDisplay playerDamageTakenDisplay;
+
+    [Header("Menu GameObjects")]
     [SerializeField] GameObject firstMoveMenu;
-    public GameObject secondMoveMenu;
+    [SerializeField] GameObject secondMoveMenu;
     [SerializeField] GameObject enemySelectMenu;
-    [SerializeField] GameObject targetmenu;
-    public AttackTargetMenuScript attackTargetMenuScript;
+    [SerializeField] GameObject attackTargetMenu;
     [SerializeField] CombatInventoryMenu combatInventoryMenu;
+
+    [Header("Menu Scripts")]
+    public AttackTargetMenuScript attackTargetMenuScript;
     public SelectEnemyMenuScript selectEnemyMenuScript;
 
-    public PlayerDamageTakenDisplay playerDamageTakenDisplay;
-    public FendScript playerFendScript;
+    [SerializeField] TextMeshProUGUI StyleDisplayText;
+    [SerializeField] TextMeshProUGUI MoveDisplayText;
 
-    TextMeshProUGUI textMeshProUGUIStyleDisplay;
-    TextMeshProUGUI textMeshProUGUIMoveDisplay;
+    public Button firstMenuFirstButton; 
+    public Button secondMenuFirstButton;
+    public Button thirdMMenuFirstButton;
+    public Button targetMenuFirstButton;
 
-    [SerializeField] GameObject StyleDisplay;
-    [SerializeField] GameObject MoveDisplay;
+    public void ShowFirstMoveMenu(bool on)
 
-
-
-    public Button firstAttackButton; 
-    public Button secondAttackButton;
-    public Button thirdMenuFirstEnemySlotButton;
-
-    private void OnEnable()
     {
-        CombatEvents.UpdateFirstMoveDisplay += UpdateFirstMoveDisplay;
-        CombatEvents.UpdateSecondMoveDisplay += UpdateSecondMoveDisplay;
+        if (on)
+        {
+            CombatEvents.InputCoolDown?.Invoke(0.2f);
+            firstMoveMenu.SetActive(true);
+            firstMenuFirstButton.Select();
 
-        secondAttackButton.GetComponent<Button>();  //to auto select attack on 2nd menu
-        firstAttackButton.GetComponent<Button>();
+            UpdateFirstMoveDisplay("Style?");
+            UpdateSecondMoveDisplay("Move?");
+        }
 
-        textMeshProUGUIStyleDisplay = StyleDisplay.GetComponentInChildren<TextMeshProUGUI>();
-        textMeshProUGUIMoveDisplay = MoveDisplay.GetComponentInChildren<TextMeshProUGUI>();
-
+        if (!on)
+        {
+            firstMoveMenu.SetActive(false);
+        }
     }
 
-    private void OnDisable()
-    {
-        CombatEvents.UpdateFirstMoveDisplay -= UpdateFirstMoveDisplay;
-        CombatEvents.UpdateSecondMoveDisplay -= UpdateSecondMoveDisplay;
-    }
-
-    public void ShowFirstMoveMenu()
+    public void ShowSecondMoveMenu(bool on)
 
     {
-        CombatEvents.InputCoolDown?.Invoke(0.2f);
-        firstAttackButton.Select();
-                
-        firstMoveMenu.SetActive(true);
-        StyleDisplay.SetActive(true);
-        MoveDisplay.SetActive(true);
+        if (on)
+        {
+            secondMenuFirstButton.Select();
+            CombatEvents.InputCoolDown?.Invoke(0.1f);
 
+            ShowFirstMoveMenu(false);
+            ShowEnemySelectMenu(false);
+            secondMoveMenu.SetActive(true);
 
-        secondMoveMenu.SetActive(false);
-        targetmenu.SetActive(false);
+            UpdateSecondMoveDisplay("Move?");
+        }
 
-        UpdateFirstMoveDisplay("Style?");
-        UpdateSecondMoveDisplay("Move?");
-    }
-
-    public void ShowSecondMoveMenu()
-
-    {
-        secondAttackButton.Select();
-        CombatEvents.InputCoolDown?.Invoke(0.2f);
-
-       attackTargetMenuScript.EnableSecondMoveButtonsAgainForNextTurn();
-
-        firstMoveMenu.SetActive(false);
-        targetmenu.SetActive(false);
-        secondMoveMenu.SetActive(true);
-        attackTargetMenuScript.targetSelected = false;
-
-        UpdateSecondMoveDisplay("Move?");
+        if (!on)
+        {
+            secondMoveMenu.SetActive(false);
+        }
     }
 
     public void ShowEnemySelectMenu(bool on)
@@ -89,7 +76,7 @@ public class CombatUIScript : MonoBehaviour
         if (on) 
         {
         enemySelectMenu.SetActive(true);
-        thirdMenuFirstEnemySlotButton.Select();
+            thirdMMenuFirstButton.Select();
         }
 
         if (!on) 
@@ -99,38 +86,36 @@ public class CombatUIScript : MonoBehaviour
         }
     }
 
-    public void HideTargetMenu()
+    public void ShowBodyPartTargetMenu(bool on)
 
     {
-        targetmenu.SetActive(false);
-        attackTargetMenuScript.EnableSecondMoveButtonsAgainForNextTurn(); //make this better
+        CombatEvents.InputCoolDown?.Invoke(0.1f);
+
+        if (on)
+        {
+            attackTargetMenu.SetActive(true);
+            targetMenuFirstButton.Select();
+
+            combatManager.enemy[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(true, false, false);
+        }
+
+        if (!on)
+        {
+            attackTargetMenu.SetActive(false);
+            combatManager.enemy[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(false, false, false);
+        }
     }
 
-
-
-    public void HideSecondMenu()
+    public void UpdateFirstMoveDisplay(string value)
 
     {
-        secondMoveMenu.SetActive(false);
+        StyleDisplayText.text = value;
     }
 
-    void UpdateFirstMoveDisplay(string value)
+    public void UpdateSecondMoveDisplay(string value)
 
     {
-        textMeshProUGUIStyleDisplay.text = value;
+        MoveDisplayText.text = value;
     }
-
-    void UpdateSecondMoveDisplay(string value)
-
-    {
-        textMeshProUGUIMoveDisplay.text = value;
-    }
-
-    void HighlightFirstAttack()
-
-    {
-        firstAttackButton.Select();
-    }
-
 
 }

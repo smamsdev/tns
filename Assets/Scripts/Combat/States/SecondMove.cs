@@ -12,8 +12,9 @@ public class SecondMove : State
 
         yield return new WaitForSeconds(0.1f);
 
-        combatManager.combatUIScript.ShowSecondMoveMenu();
-        combatManager.enemy[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(false, false, false);
+        combatManager.combatUIScript.ShowSecondMoveMenu(true);
+        combatManager.combatUIScript.ShowFirstMoveMenu(false);
+        combatManager.combatUIScript.ShowEnemySelectMenu(false);
         combatManager.playerMoveManager.secondMoveIs = 0;
 
         yield break;
@@ -57,9 +58,14 @@ public class SecondMove : State
         }
 
         else
-        { combatManager.SetState(combatManager.enemyAttack); }
+        { combatManager.SetState(combatManager.applyMove); }
 
-        CombatEvents.UpdateSecondMoveDisplay.Invoke(moveName);
+        combatManager.combatUIScript.UpdateSecondMoveDisplay(moveName);
+        CombatEvents.SendMove -= SetSecondMove;
+    }
+
+    private void OnDisable()
+    {
         CombatEvents.SendMove -= SetSecondMove;
     }
 }

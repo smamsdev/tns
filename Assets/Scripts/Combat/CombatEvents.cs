@@ -19,10 +19,8 @@ public static class CombatEvents
     public static Action<int> UpdateFendDisplay;
 
     public static Action<int> UpdatePlayerHPDisplay;
-    public static Action<string> UpdateFirstMoveDisplay;
-    public static Action<string> UpdateSecondMoveDisplay;
     public static Action<float> InputCoolDown;
-    public static Action <GameObject> ButtonHighlighted;
+    public static Action <GameObject> ButtonHighlighted; //i forgot how this works
 
     //Enemy
     public static Action <int> SetEnemyBodyPartTarget;

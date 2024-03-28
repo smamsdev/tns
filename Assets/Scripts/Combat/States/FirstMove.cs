@@ -17,10 +17,8 @@ public class FirstMove : State
         combatManager.combatUIScript.playerFendScript.animator.SetBool("fendbreak", false);
 
         yield return new WaitForSeconds(0.1f);
-        firstMoveContainer.SetActive(true);
 
-        combatManager.combatUIScript.ShowFirstMoveMenu();
- 
+        combatManager.combatUIScript.ShowFirstMoveMenu(true);
         combatManager.playerMoveManager.firstMoveIs = 0;
 
         //   // Example: Lerp testLerp from 0 to 10 over 3 seconds
@@ -62,7 +60,7 @@ public class FirstMove : State
             combatManager.SetState(combatManager.secondMove);
         }
 
-        CombatEvents.UpdateFirstMoveDisplay.Invoke(moveName);
+        combatManager.combatUIScript.UpdateFirstMoveDisplay(moveName);
         CombatEvents.SendMove -= SetFirstMove;
     }
 
