@@ -49,6 +49,16 @@ public class SecondMove : State
                 break;
         };
 
+        combatManager.playerMoveManager.CombineStanceAndMove();
+        combatManager.selectedPlayerMove = combatManager.playerMoveManager.GetSelectedPlayerMove();
+
+        if (combatManager.selectedPlayerMove.isAttack)
+        { combatManager.SetState(combatManager.enemySelect);
+        }
+
+        else
+        { combatManager.SetState(combatManager.enemyAttack); }
+
         CombatEvents.UpdateSecondMoveDisplay.Invoke(moveName);
         CombatEvents.SendMove -= SetSecondMove;
     }

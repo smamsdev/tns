@@ -57,8 +57,6 @@ public class PlayerCombatStats : MonoBehaviour
         maxPotential = playerPermanentStats.maxPotential;
         currentPotential = maxPotential / 2;
 
-
-
         CombatEvents.InitializePlayerHP.Invoke(playerMaxHP);
         CombatEvents.InitializePlayerPotUI.Invoke(currentPotential);
 
@@ -103,14 +101,32 @@ public class PlayerCombatStats : MonoBehaviour
     }
 
     public void UpdatePlayerPot(int value)
-        {
-            currentPotential = value;
-            CombatEvents.UpdatePlayerPotOnUI(currentPotential);
-        }
+    {
+        CurrentPotential += value;
+        CombatEvents.UpdatePlayerPotOnUI(currentPotential);
+    }
 
-        void UpdatePlayerHP(int value)
+    void UpdatePlayerHP(int value)
+    {
+        PlayerCurrentHP += value;
+        CombatEvents.UpdatePlayerHPDisplay?.Invoke(playerCurrentHP);
+    }
+
+    public int PlayerCurrentHP
+    {
+        get { return playerCurrentHP; }
+        set
         {
-            playerCurrentHP = Mathf.Clamp(playerCurrentHP + value, 0, 100);
-            CombatEvents.UpdatePlayerHPDisplay?.Invoke(playerCurrentHP);
+            playerCurrentHP = Mathf.Clamp(value, 0, 9999);
         }
     }
+
+    public int CurrentPotential
+    {
+        get { return currentPotential; }
+        set
+        {
+            currentPotential = Mathf.Clamp(value, 0, 9999);
+        }
+    }
+}

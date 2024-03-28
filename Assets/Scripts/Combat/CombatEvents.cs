@@ -33,7 +33,6 @@ public static class CombatEvents
     //Player
     public static Action<float, bool> UpdatePlayerAttackMoveMod;
     public static Action<float, bool> UpdatePlayerFendMoveMod;
-    public static Action<float, int, bool> UpdatePlayerPotentialMoveCost;
     public static Action<int> UpdatePlayerPot;
     public static Action<int> InitializePlayerHP;
     public static Action<int> UpdatePlayerPotOnUI;

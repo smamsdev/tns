@@ -18,7 +18,7 @@ public class ApplyMove : State
         CombatEvents.MeleeAttack += MeleeAttack;
         CombatEvents.EndMove += EndMove;
 
-        combatManager.combatUIScript.selectEnemyMenuScript.ShowEnemySelectMenu(false);
+        combatManager.combatUIScript.ShowEnemySelectMenu(false);
 
         foreach (Enemy enemy in combatManager.enemy)
 

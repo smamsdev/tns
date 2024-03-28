@@ -157,15 +157,15 @@ public class Enemy : MonoBehaviour
 
     public void SetEnemyBodyPartTarget(int value)
     {
-        if (value == 1)
+        if (value == 0)
         {
             targetIs = Target.body;
         }
-        if (value == 2)
+        if (value == 1)
         {
             targetIs = Target.arms;
         }
-        if (value == 3)
+        if (value == 2)
         {
             targetIs = Target.head;
         }

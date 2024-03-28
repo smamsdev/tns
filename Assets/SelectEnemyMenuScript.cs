@@ -13,11 +13,6 @@ public class SelectEnemyMenuScript : MonoBehaviour
 
     [SerializeField] GameObject EnemySelectMenu;
 
-    private void Start()
-    {
-        ShowEnemySelectMenu(false);
-    }
-
     public void InitializeButtonSlots()
     {
         for (int i = 0; i < combatManager.enemy.Length; i++)
@@ -29,20 +24,6 @@ public class SelectEnemyMenuScript : MonoBehaviour
             text.text = combatManager.enemy[i].name;
         }
 
-    }
-
-    public void ShowEnemySelectMenu(bool on)
-    {
-
-        { 
-        if (on) 
-            { 
-                EnemySelectMenu.SetActive(true);
-                firstEnemyButton.Select();
-            }
-
-        if (!on) { EnemySelectMenu.SetActive(false); }
-        }
     }
 
     //enemy

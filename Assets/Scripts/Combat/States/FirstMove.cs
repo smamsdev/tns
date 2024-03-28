@@ -51,6 +51,17 @@ public class FirstMove : State
                 break; 
         };
 
+        if (moveValue == 4)
+
+        {
+            combatManager.SetState(combatManager.gearSelect);
+        }
+
+        else
+        {
+            combatManager.SetState(combatManager.secondMove);
+        }
+
         CombatEvents.UpdateFirstMoveDisplay.Invoke(moveName);
         CombatEvents.SendMove -= SetFirstMove;
     }

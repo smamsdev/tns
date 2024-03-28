@@ -71,25 +71,6 @@ public class AttackTargetMenuScript : MonoBehaviour
         }
     }
 
-
-    public void TargetBody()
-
-    {
-        combatManager.enemy[combatManager.selectedEnemy].SetEnemyBodyPartTarget(1);
-    }
-
-    public void TargetArms()
-
-    {
-        combatManager.enemy[combatManager.selectedEnemy].SetEnemyBodyPartTarget(2);
-    }
-
-    public void TargetHead()
-
-    {
-        combatManager.enemy[combatManager.selectedEnemy].SetEnemyBodyPartTarget(3);
-    }
-
     public void EnableSecondMoveButtonsAgainForNextTurn()
     {
                 secondAttackButton.interactable = true;

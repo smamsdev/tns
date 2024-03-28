@@ -25,7 +25,7 @@ public class EnemyAttack : State
 
         TidyUp();
 
-        CombatEvents.UpdatePlayerPot.Invoke(combatManager.playerCombatStats.currentPotential + combatManager.selectedPlayerMove.potentialChange);
+        CombatEvents.UpdatePlayerPot.Invoke(combatManager.selectedPlayerMove.potentialChange);
 
         yield return new WaitForSeconds(1.0f);
 

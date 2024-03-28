@@ -30,6 +30,7 @@ public class CombatManager : MonoBehaviour
     public Setup setup;
     public FirstMove firstMove;
     public SecondMove secondMove;
+    public EnemySelect enemySelect;
     public AttackTarget attackTarget;
     public ApplyMove applyMove;
     public EnemyAttack enemyAttack;

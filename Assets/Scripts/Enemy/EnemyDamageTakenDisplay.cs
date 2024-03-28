@@ -16,7 +16,6 @@ public class EnemyDamageTakenDisplay : MonoBehaviour
 
     public void ShowEnemyDamageDisplay(int remainder)
     {
-        Debug.Log("should be setting to 1");
         animator.SetInteger("animState", 1);
         EnemyDamageTakenTextMeshProUGUI.enabled = true;
         StartCoroutine(ShoweEnemyDamageDisplayCoroutine(remainder));

@@ -8,28 +8,26 @@ public class AttackTarget : State
 
     public override IEnumerator StartState()
     {
-
-        combatManager.playerMoveManager.CombineStanceAndMove();
-        combatManager.selectedPlayerMove = combatManager.playerMoveManager.GetSelectedPlayerMove();
-
+        CombatEvents.SendMove += SelectBodyPart;
         yield return new WaitForSeconds(0.1f);
 
-        combatManager.combatUIScript.secondMoveMenu.SetActive(false);
-
-        if (combatManager.selectedPlayerMove.isAttack)
-
-        {
-            combatManager.attackTargetMenuScript.DisplayAttackTargetMenu();
-        }
-
-        else { combatManager.SetState(combatManager.applyMove); }
+        combatManager.combatUIScript.ShowEnemySelectMenu(false);
+        combatManager.combatUIScript.attackTargetMenuScript.DisplayAttackTargetMenu();
 
         yield break;
     }
 
+    void SelectBodyPart(int moveValue)
+
+    {
+        combatManager.enemy[combatManager.selectedEnemy].SetEnemyBodyPartTarget(moveValue);
+        combatManager.SetState(combatManager.applyMove);
+
+        CombatEvents.SendMove -= SelectBodyPart;
+    }
+
     public override void StateUpdate()
     {
-
         if (Input.GetKeyDown(KeyCode.Escape))
 
         {
@@ -37,6 +35,6 @@ public class AttackTarget : State
             CombatEvents.InputCoolDown?.Invoke(0.2f);
         }
     }
-
+    //
 }
 

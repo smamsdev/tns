@@ -15168,18 +15168,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1683875960009685152}
-        m_TargetAssemblyTypeName: ButtonStateHandler, Assembly-CSharp
-        m_MethodName: ButtonClick
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 970319637}
-          m_ObjectArgumentAssemblyTypeName: State, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!224 &1683875959620982480
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16111,14 +16099,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1683875960009685152}
-        m_TargetAssemblyTypeName: ButtonStateHandler, Assembly-CSharp
-        m_MethodName: ButtonClick
-        m_Mode: 2
+      - m_Target: {fileID: 1683875960009685153}
+        m_TargetAssemblyTypeName: ButtonMoveHandler, Assembly-CSharp
+        m_MethodName: ButtonClickWithInt
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 328175471}
-          m_ObjectArgumentAssemblyTypeName: State, Assembly-CSharp
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -16349,18 +16337,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1683875960009685152}
-        m_TargetAssemblyTypeName: ButtonStateHandler, Assembly-CSharp
-        m_MethodName: ButtonClick
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 220881444}
-          m_ObjectArgumentAssemblyTypeName: State, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!222 &1683875959967845980
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16451,7 +16427,6 @@ GameObject:
   - component: {fileID: 1683875960009685151}
   - component: {fileID: 1683875960009685154}
   - component: {fileID: 1683875960009685153}
-  - component: {fileID: 1683875960009685152}
   m_Layer: 0
   m_Name: CombatManager
   m_TagString: Untagged
@@ -16486,6 +16461,7 @@ MonoBehaviour:
   setup: {fileID: 1729907207}
   firstMove: {fileID: 1924549202}
   secondMove: {fileID: 970319637}
+  enemySelect: {fileID: 220881444}
   attackTarget: {fileID: 1651953572}
   applyMove: {fileID: 1704548638}
   enemyAttack: {fileID: 1082377171}
@@ -16493,21 +16469,6 @@ MonoBehaviour:
   victory: {fileID: 1509999120}
   gearSelect: {fileID: 328175471}
   enemyRawAttackPower: 0
---- !u!114 &1683875960009685152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1683875960009685150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97bed6600e7655846a3edf238da3269f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonClickEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1683875960009685153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16944,18 +16905,6 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1683875960009685152}
-        m_TargetAssemblyTypeName: ButtonStateHandler, Assembly-CSharp
-        m_MethodName: ButtonClick
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 220881444}
-          m_ObjectArgumentAssemblyTypeName: State, Assembly-CSharp
-          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -17678,18 +17627,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1683875960009685152}
-        m_TargetAssemblyTypeName: ButtonStateHandler, Assembly-CSharp
-        m_MethodName: ButtonClick
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 970319637}
-          m_ObjectArgumentAssemblyTypeName: State, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!224 &1683875960760717078
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17997,7 +17934,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
-      - m_Target: {fileID: 1683875960009685152}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ButtonStateHandler, Assembly-CSharp
         m_MethodName: ButtonClick
         m_Mode: 2
@@ -18208,7 +18145,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1683875960009685152}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ButtonStateHandler, Assembly-CSharp
         m_MethodName: ButtonClick
         m_Mode: 2
@@ -18445,7 +18382,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1683875960009685152}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ButtonStateHandler, Assembly-CSharp
         m_MethodName: ButtonClick
         m_Mode: 2
@@ -18691,18 +18628,6 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 3
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1683875960009685152}
-        m_TargetAssemblyTypeName: ButtonStateHandler, Assembly-CSharp
-        m_MethodName: ButtonClick
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 220881444}
-          m_ObjectArgumentAssemblyTypeName: State, Assembly-CSharp
-          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -19258,18 +19183,6 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1683875960009685152}
-        m_TargetAssemblyTypeName: ButtonStateHandler, Assembly-CSharp
-        m_MethodName: ButtonClick
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 970319637}
-          m_ObjectArgumentAssemblyTypeName: State, Assembly-CSharp
-          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -26349,6 +26262,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1458070173}
     m_Modifications:
+    - target: {fileID: 7344182069827436656, guid: c3bb57f952f67be4191546779eeb8be8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344182069827436662, guid: c3bb57f952f67be4191546779eeb8be8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0054
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344182069827436662, guid: c3bb57f952f67be4191546779eeb8be8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344182069827436662, guid: c3bb57f952f67be4191546779eeb8be8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344182069827436662, guid: c3bb57f952f67be4191546779eeb8be8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 7537494617456302249, guid: c3bb57f952f67be4191546779eeb8be8, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -26359,7 +26292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7537494617456302249, guid: c3bb57f952f67be4191546779eeb8be8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.47
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 7537494617456302249, guid: c3bb57f952f67be4191546779eeb8be8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -26397,6 +26330,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: Clock
       objectReference: {fileID: 0}
+    - target: {fileID: 7537494617835343655, guid: c3bb57f952f67be4191546779eeb8be8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0055
+      objectReference: {fileID: 0}
+    - target: {fileID: 7537494617835343655, guid: c3bb57f952f67be4191546779eeb8be8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7537494617835343655, guid: c3bb57f952f67be4191546779eeb8be8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7537494617835343655, guid: c3bb57f952f67be4191546779eeb8be8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7537494618067929140, guid: c3bb57f952f67be4191546779eeb8be8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7537494618067929143, guid: c3bb57f952f67be4191546779eeb8be8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0055
+      objectReference: {fileID: 0}
+    - target: {fileID: 7537494618067929143, guid: c3bb57f952f67be4191546779eeb8be8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7537494618067929143, guid: c3bb57f952f67be4191546779eeb8be8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7537494618067929143, guid: c3bb57f952f67be4191546779eeb8be8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3bb57f952f67be4191546779eeb8be8, type: 3}
 --- !u!1001 &8467866450490880310
@@ -26410,6 +26379,30 @@ PrefabInstance:
       propertyPath: combatManager
       value: 
       objectReference: {fileID: 1683875960009685151}
+    - target: {fileID: 8467866450475516578, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467866450475516578, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467866450475516578, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467866450475516578, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467866450475516578, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467866450475516578, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.395
+      objectReference: {fileID: 0}
     - target: {fileID: 8467866451163868920, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -26497,6 +26490,34 @@ PrefabInstance:
     - target: {fileID: 8467866451163868923, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
       propertyPath: m_Name
       value: EnemyUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467866451163868923, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467866451271208326, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467866451271208326, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467866451271208326, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467866451271208326, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467866451271208326, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467866451271208326, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2.605
       objectReference: {fileID: 0}
     - target: {fileID: 8467866451713439312, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
       propertyPath: combatManager

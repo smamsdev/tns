@@ -9,13 +9,13 @@ public class CombatUIScript : MonoBehaviour
 {
     [SerializeField] GameObject firstMoveMenu;
     public GameObject secondMoveMenu;
+    [SerializeField] GameObject enemySelectMenu;
     [SerializeField] GameObject targetmenu;
-    [SerializeField] AttackTargetMenuScript attackTargetMenuScript;
+    public AttackTargetMenuScript attackTargetMenuScript;
     [SerializeField] CombatInventoryMenu combatInventoryMenu;
     public SelectEnemyMenuScript selectEnemyMenuScript;
 
     public PlayerDamageTakenDisplay playerDamageTakenDisplay;
-    public EnemyDamageTakenDisplay enemyDamageTakenDisplay;
     public FendScript playerFendScript;
 
     TextMeshProUGUI textMeshProUGUIStyleDisplay;
@@ -24,13 +24,11 @@ public class CombatUIScript : MonoBehaviour
     [SerializeField] GameObject StyleDisplay;
     [SerializeField] GameObject MoveDisplay;
 
-    public Button secondAttackButton; //to auto select attack on 2nd menu
 
-    public Button firstAttackButton; //to auto select attack on 1st menu
-    public Button firstFocusButton; // to autphighlight when other 2 options are disabled
 
-    public int firstMoveIs;
-    public int secondMoveIs;
+    public Button firstAttackButton; 
+    public Button secondAttackButton;
+    public Button thirdMenuFirstEnemySlotButton;
 
     private void OnEnable()
     {
@@ -85,12 +83,30 @@ public class CombatUIScript : MonoBehaviour
         UpdateSecondMoveDisplay("Move?");
     }
 
+    public void ShowEnemySelectMenu(bool on)
+
+    {
+        if (on) 
+        {
+        enemySelectMenu.SetActive(true);
+        thirdMenuFirstEnemySlotButton.Select();
+        }
+
+        if (!on) 
+        
+        {
+            enemySelectMenu.SetActive(false);
+        }
+    }
+
     public void HideTargetMenu()
 
     {
         targetmenu.SetActive(false);
-        attackTargetMenuScript.EnableSecondMoveButtonsAgainForNextTurn();
+        attackTargetMenuScript.EnableSecondMoveButtonsAgainForNextTurn(); //make this better
     }
+
+
 
     public void HideSecondMenu()
 
