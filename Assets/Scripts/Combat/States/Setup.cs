@@ -51,7 +51,6 @@ public class Setup : State
             enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
             enemy.enemyUI.enemyStatsDisplay.ShowEnemyStatsDisplay(false);
 
-            enemy.SelectEnemyMove();
             enemy.enemyUI.AnchorEnemyUIToEnemyGameObject(enemy.enemyFightingPosition);
             combatManager.UpdateFighterPosition(enemy.gameObject, enemy.enemyFightingPosition.transform.position, 1f);
 
@@ -61,9 +60,17 @@ public class Setup : State
             enemy.enemyUI.enemyStatsDisplay.InitializeEnemyStatsUI(enemy);
             enemy.enemyUI.partsTargetDisplay.InitializeEnemyPartsHP();
 
-            if (combatManager.enemy[combatManager.selectedEnemy].attackTotal > 0)
+            enemy.SelectEnemyMove();
+
+            if (enemy.attackTotal > 0)
             {
-                enemy.enemyUI.enemyAttackDisplay.UpdateEnemyAttackDisplay(combatManager.enemy[combatManager.selectedEnemy].EnemyAttackTotal());
+                enemy.enemyUI.enemyAttackDisplay.UpdateEnemyAttackDisplay(enemy.EnemyAttackTotal());
+                enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(true);
+            }
+
+            if (enemy.fendTotal > 0)
+            {
+                enemy.enemyUI.enemyFendScript.UpdateFendDisplay(enemy.fendTotal);
             }
 
         }

@@ -28,7 +28,7 @@ public class RoundReset : State
 
             if (enemy.attackTotal > 0)
             {
-                enemy.enemyUI.enemyAttackDisplay.UpdateEnemyAttackDisplay(combatManager.enemy[combatManager.selectedEnemy].EnemyAttackTotal());
+                enemy.enemyUI.enemyAttackDisplay.UpdateEnemyAttackDisplay(enemy.EnemyAttackTotal());
                 enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(true);
             }
 

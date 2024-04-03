@@ -25,6 +25,7 @@ public static class CombatEvents
     //Enemy
     public static Action <int> SetEnemyBodyPartTarget;
     public static Action<int> UpdateEnemyAttackDisplay;
+    public static Action<int> ApplyEnemyAttackToFend;
 
     public static Action<bool> EnemyIsDead;
 
@@ -39,11 +40,5 @@ public static class CombatEvents
     public static Action<int> PlayerDamageDisplay;
     public static Action DisablePlayerDamageDisplay;
     public static Action<int> SendMove;
-
-    //ApplyMove events
-
-    public static Action MeleeAttack;
-    public static Action CounterAttack;
-    public static Action EndMove;
 
 }

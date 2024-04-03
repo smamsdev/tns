@@ -11,8 +11,6 @@ public class EnemyAttack : State
 
     public override IEnumerator StartState()
     {
-        CombatEvents.CounterAttack += CounterAttack;
-
         //   equippedGear = combatManager.player.GetComponent<GearEquip>().equippedGear;
         //   int i;
         //
@@ -22,13 +20,6 @@ public class EnemyAttack : State
         //       equippedGear[i].ApplyFendGear();
         //       i++;
         //   }
-
-        TidyUp();
-
-        CombatEvents.UpdatePlayerPot.Invoke(combatManager.selectedPlayerMove.potentialChange);
-
-        yield return new WaitForSeconds(1.0f);
-
 
         foreach (Enemy enemy in combatManager.enemy)
 
@@ -46,8 +37,8 @@ public class EnemyAttack : State
 
                 yield return new WaitForSeconds(0.5f);
 
-                combatManager.selectedPlayerMove.OnEnemyAttack();
-                combatManager.combatUIScript.playerFendScript.ApplyEnemyAttackToFend(combatManager.enemy[combatManager.selectedEnemy].EnemyAttackTotal());
+                enemy.moveSelected.OnEnemyAttack();
+                StartCoroutine(combatManager.selectedPlayerMove.OnEnemyAttack(combatManager, enemy));
 
                 yield return new WaitForSeconds(0.5f);
 
@@ -58,39 +49,10 @@ public class EnemyAttack : State
 
             yield return new WaitForSeconds(0.5f);
 
-            CombatEvents.CounterAttack -= CounterAttack;
-
         }
             combatManager.SetState(combatManager.roundReset);
 
     }
 
-    void CounterAttack()
-
-    {
-        StartCoroutine(CounterAttackCoro());
-    }
-
-    IEnumerator CounterAttackCoro()
-
-    {
-        //hit *do animation or something here
-        yield return new WaitForSeconds(1.0f);
-
-        combatManager.enemy[combatManager.selectedEnemy].DamageTaken(combatManager.playerCombatStats.attackPower, combatManager.selectedPlayerMove.damageToBodyMultiplier);
-    }
-
-    private void OnDisable()
-    {
-        CombatEvents.CounterAttack -= CounterAttack;
-    }
-
-    void TidyUp()
-
-    {
-        combatManager.playerCombatStats.TotalPlayerFendPower(combatManager.selectedPlayerMove.fendMoveMultiplier);
-        combatManager.combatUIScript.playerFendScript.UpdateFendText(combatManager.playerCombatStats.playerFend);
-        combatManager.combatUIScript.playerFendScript.ShowFendDisplay(true);
-    }
 }
 

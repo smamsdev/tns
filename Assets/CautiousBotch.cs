@@ -2,21 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ViolentBotch : ViolentMove
+public class CautiousBotch : CautiousMove
 {
     public override IEnumerator OnApplyMove(CombatManager _combatManager, Enemy _enemy)
     {
         combatManager = _combatManager;
-        
-        yield return new WaitForSeconds(0.5f);
-
-        int damageToPlayer = Mathf.RoundToInt(-combatManager.playerCombatStats.playerMaxHP * 0.11f);
-
-        CombatEvents.UpdatePlayerHP.Invoke(damageToPlayer);
-        CombatEvents.PlayerDamageDisplay.Invoke(damageToPlayer);
 
         yield return new WaitForSeconds(1.0f);
-
         combatManager.applyMove.EndMove();
     }
 

@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class RecklessFocus : ViolentMove
 {
-    [SerializeField] PlayerCombatStats playerCombatStats;
-
-    public override void OnApplyMove()
+    public override IEnumerator OnApplyMove(CombatManager _combatManager, Enemy _enemy)
 
     {
-        CombatEvents.UpdatePlayerHP.Invoke(Mathf.RoundToInt(-playerCombatStats.playerMaxHP /10));
-        CombatEvents.EndMove.Invoke();
+        combatManager = _combatManager;
+
+        yield return new WaitForSeconds(0.5f);
+
+        int damageToPlayer = Mathf.RoundToInt(-combatManager.playerCombatStats.playerMaxHP / 10);
+
+        CombatEvents.UpdatePlayerHP.Invoke(damageToPlayer);
+        CombatEvents.PlayerDamageDisplay.Invoke(damageToPlayer);
+        yield return new WaitForSeconds(1);
+        combatManager.applyMove.EndMove();
     }
 
-    public override void OnEnemyAttack()
+    public override IEnumerator OnEnemyAttack(CombatManager _combatManager, Enemy _enemy)
 
     {
-        //blank
+        yield break;
     }
-
 }

@@ -904,12 +904,13 @@ MonoBehaviour:
   moveName: Precise Attack
   moveDescription: Deals 3x damage to body parts
   attackMoveMultiplier: 0.4
-  damageToBodyMultiplier: 3
+  damageToPartsMultiplier: 0
   fendMoveMultiplier: 0
   potentialChange: -10
   moveWeighting: 55
   isAttack: 1
-  isFend: 0
+  combatManager: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!1 &159543198
 GameObject:
   m_ObjectHideFlags: 0
@@ -1387,12 +1388,13 @@ MonoBehaviour:
   moveName: Slip Attack
   moveDescription: 
   attackMoveMultiplier: 0.4
-  damageToBodyMultiplier: 1
+  damageToPartsMultiplier: 0
   fendMoveMultiplier: 0.5
   potentialChange: -15
   moveWeighting: 55
   isAttack: 1
-  isFend: 0
+  combatManager: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!1 &217589502
 GameObject:
   m_ObjectHideFlags: 0
@@ -2031,19 +2033,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 262855593}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b78f78e03a63b6d4db83620e9fe383c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 94b1093f0dc782649afc7a39e0a86db8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveName: Counter Attack
-  moveDescription: Deals heavy damage to attacking enemies
-  attackMoveMultiplier: 0.3
-  damageToBodyMultiplier: 0
-  fendMoveMultiplier: 1
-  potentialChange: -10
-  moveWeighting: 55
+  moveName: 
+  moveDescription: 
+  attackMoveMultiplier: 1.4
+  damageToPartsMultiplier: 0
+  fendMoveMultiplier: 0.3
+  potentialChange: -15
+  moveWeighting: 25
   isAttack: 0
-  isFend: 0
-  isCounterAttack: 1
+  combatManager: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!1 &265044338
 GameObject:
   m_ObjectHideFlags: 0
@@ -3518,6 +3520,60 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!1 &458335650
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 458335651}
+  - component: {fileID: 458335652}
+  m_Layer: 7
+  m_Name: CautiousBotch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &458335651
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458335650}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 864245033}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &458335652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458335650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb2d360e6c4d6e74ea9818fd24289065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveName: Botch
+  moveDescription: 
+  attackMoveMultiplier: 0
+  damageToPartsMultiplier: 0
+  fendMoveMultiplier: 0.2
+  potentialChange: -5
+  moveWeighting: 25
+  isAttack: 0
+  combatManager: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!1 &462949574
 GameObject:
   m_ObjectHideFlags: 0
@@ -4497,7 +4553,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: STYLE
+  m_text: SELECT STYLE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -4622,6 +4678,7 @@ MonoBehaviour:
   fendMoveModPercent: 0.3
   moveWeighting: 25
   moveName: 
+  rng: 0
 --- !u!114 &605130124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4896,6 +4953,7 @@ MonoBehaviour:
   fendMoveModPercent: 0
   moveWeighting: 20
   moveName: 
+  rng: 0
 --- !u!1 &721446983
 GameObject:
   m_ObjectHideFlags: 0
@@ -5158,7 +5216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &805316266
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5230,7 +5288,7 @@ GameObject:
   - component: {fileID: 840194102}
   - component: {fileID: 840194101}
   m_Layer: 0
-  m_Name: FirstMove
+  m_Name: SELECT STYLE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5338,7 +5396,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2082055230}
-  - {fileID: 2145597827}
   m_Father: {fileID: 228085028}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5371,6 +5428,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 212905321}
+  - {fileID: 458335651}
   m_Father: {fileID: 228085028}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5604,6 +5662,7 @@ MonoBehaviour:
   fendMoveModPercent: 1
   moveWeighting: 35
   moveName: 
+  rng: 0
 --- !u!1 &920032239
 GameObject:
   m_ObjectHideFlags: 0
@@ -5782,8 +5841,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackMoveModPercent: 1
   fendMoveModPercent: 0
-  moveWeighting: 25
+  moveWeighting: 99999999
   moveName: 
+  rng: 0
 --- !u!114 &926564938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6112,8 +6172,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackMoveModPercent: 1
   fendMoveModPercent: 0
-  moveWeighting: 25
+  moveWeighting: 99999999
   moveName: 
+  rng: 0
 --- !u!1 &1006560356
 GameObject:
   m_ObjectHideFlags: 0
@@ -7756,12 +7817,13 @@ MonoBehaviour:
   moveName: Slip Focus
   moveDescription: 
   attackMoveMultiplier: 0
-  damageToBodyMultiplier: 0
+  damageToPartsMultiplier: 0
   fendMoveMultiplier: 0.5
   potentialChange: 10
   moveWeighting: 55
   isAttack: 0
-  isFend: 0
+  combatManager: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!114 &1205919270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9305,12 +9367,13 @@ MonoBehaviour:
   moveName: Precise Fend
   moveDescription: 
   attackMoveMultiplier: 0
-  damageToBodyMultiplier: 0
+  damageToPartsMultiplier: 0
   fendMoveMultiplier: 0.7
   potentialChange: 12
   moveWeighting: 55
   isAttack: 0
-  isFend: 0
+  combatManager: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!1 &1444561202
 GameObject:
   m_ObjectHideFlags: 0
@@ -9546,6 +9609,7 @@ MonoBehaviour:
   fendMoveModPercent: 0.3
   moveWeighting: 25
   moveName: 
+  rng: 0
 --- !u!1001 &1448017567
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9632,7 +9696,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1449029402
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10650,6 +10714,7 @@ MonoBehaviour:
   fendMoveModPercent: 1
   moveWeighting: 35
   moveName: 
+  rng: 0
 --- !u!114 &1598953852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11086,13 +11151,13 @@ MonoBehaviour:
   moveName: Reckless Attack
   moveDescription: Deals heavy damage
   attackMoveMultiplier: 1.5
-  damageToBodyMultiplier: 1
+  damageToPartsMultiplier: 0
   fendMoveMultiplier: 0
   potentialChange: -15
-  moveWeighting: 85
+  moveWeighting: 25
   isAttack: 1
-  isFend: 0
-  isCounterAttack: 0
+  combatManager: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!4 &1677123144
 Transform:
   m_ObjectHideFlags: 0
@@ -11357,12 +11422,13 @@ MonoBehaviour:
   moveName: Precise Focus
   moveDescription: 
   attackMoveMultiplier: 0
-  damageToBodyMultiplier: 0
+  damageToPartsMultiplier: 0
   fendMoveMultiplier: 0
   potentialChange: 14
   moveWeighting: 55
   isAttack: 0
-  isFend: 0
+  combatManager: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!1 &1704548636
 GameObject:
   m_ObjectHideFlags: 0
@@ -11913,6 +11979,7 @@ MonoBehaviour:
   fendMoveModPercent: 2
   moveWeighting: 25
   moveName: 
+  rng: 0
 --- !u!1 &1755648960
 GameObject:
   m_ObjectHideFlags: 0
@@ -12202,6 +12269,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5ef53f274f6af74084f51ac5d33048a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1777889519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1777889520}
+  - component: {fileID: 1777889521}
+  m_Layer: 7
+  m_Name: PreciseBotch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1777889520
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1777889519}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2103869391}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1777889521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1777889519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7701ca0ed09c60749b6769d27a67ca57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveName: 
+  moveDescription: 
+  attackMoveMultiplier: 0
+  damageToPartsMultiplier: 0
+  fendMoveMultiplier: 0.3
+  potentialChange: 5
+  moveWeighting: 0
+  isAttack: 0
+  combatManager: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!1 &1782982604
 GameObject:
   m_ObjectHideFlags: 0
@@ -12258,7 +12379,7 @@ GameObject:
   - component: {fileID: 1788371536}
   - component: {fileID: 1788371537}
   m_Layer: 7
-  m_Name: Botch
+  m_Name: ViolentBotch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12294,14 +12415,13 @@ MonoBehaviour:
   moveName: Botched Move
   moveDescription: 
   attackMoveMultiplier: 0
-  damageToBodyMultiplier: 0
+  damageToPartsMultiplier: 0
   fendMoveMultiplier: 0
   potentialChange: -10
-  moveWeighting: 1
+  moveWeighting: 55
   isAttack: 0
-  isFend: 0
-  hpLossMultiplier: 0
-  playerCombatStats: {fileID: 1683875960009685154}
+  combatManager: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!1 &1790800757
 GameObject:
   m_ObjectHideFlags: 0
@@ -13470,6 +13590,7 @@ MonoBehaviour:
   fendMoveModPercent: 2
   moveWeighting: 25
   moveName: 
+  rng: 0
 --- !u!4 &1927522093
 Transform:
   m_ObjectHideFlags: 0
@@ -13898,13 +14019,13 @@ MonoBehaviour:
   moveName: Reckless Focus
   moveDescription: 
   attackMoveMultiplier: 0
-  damageToBodyMultiplier: 0
+  damageToPartsMultiplier: 0
   fendMoveMultiplier: 1
   potentialChange: 15
-  moveWeighting: 111
+  moveWeighting: 25
   isAttack: 0
-  isFend: 0
-  playerCombatStats: {fileID: 1683875960009685154}
+  combatManager: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!1 &1976333984
 GameObject:
   m_ObjectHideFlags: 0
@@ -14670,12 +14791,13 @@ MonoBehaviour:
   moveName: Cautious Fend
   moveDescription: 
   attackMoveMultiplier: 0
-  damageToBodyMultiplier: 0
+  damageToPartsMultiplier: 0
   fendMoveMultiplier: 2
   potentialChange: -20
-  moveWeighting: 55
+  moveWeighting: 25
   isAttack: 0
-  isFend: 0
+  combatManager: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!1 &2094130995
 GameObject:
   m_ObjectHideFlags: 0
@@ -14840,6 +14962,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 139322346}
+  - {fileID: 1777889520}
   m_Father: {fileID: 1616654026}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14975,6 +15098,7 @@ MonoBehaviour:
   fendMoveModPercent: 0
   moveWeighting: 20
   moveName: 
+  rng: 0
 --- !u!1 &2139596099
 GameObject:
   m_ObjectHideFlags: 0
@@ -15059,59 +15183,6 @@ Transform:
   m_Father: {fileID: 958854276}
   m_RootOrder: 55
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2145597826
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2145597827}
-  - component: {fileID: 2145597828}
-  m_Layer: 7
-  m_Name: SlipBotch
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2145597827
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2145597826}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 844049536}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2145597828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2145597826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad23615e1bdd8e44f802ca6eb6c23670, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Botch
-  moveDescription: 
-  attackMoveMultiplier: 0
-  damageToBodyMultiplier: 0
-  fendMoveMultiplier: 0
-  potentialChange: 0
-  moveWeighting: 1
-  isAttack: 0
-  isFend: 0
 --- !u!114 &1683875959620982479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15349,8 +15420,8 @@ MonoBehaviour:
   combatInventoryMenu: {fileID: 332224033}
   attackTargetMenuScript: {fileID: 1683875959662053695}
   selectEnemyMenuScript: {fileID: 1683875959662053701}
-  StyleDisplayText: {fileID: 596520289}
-  MoveDisplayText: {fileID: 1683875959675561534}
+  StyleDisplayText: {fileID: 1050972400}
+  MoveDisplayText: {fileID: 2094130997}
   firstMenuFirstButton: {fileID: 1683875961715589179}
   secondMenuFirstButton: {fileID: 1683875960196746500}
   thirdMMenuFirstButton: {fileID: 445453009}
@@ -15442,8 +15513,6 @@ MonoBehaviour:
   - {fileID: 1875172583}
   - {fileID: 1432220127}
   - {fileID: 1445202761}
-  firstEnemyButton: {fileID: 0}
-  EnemySelectMenu: {fileID: 1680410906}
 --- !u!1 &1683875959675561528
 GameObject:
   m_ObjectHideFlags: 0
@@ -15502,7 +15571,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SECOND MOVE
+  m_text: SELECT MOVE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -15833,7 +15902,7 @@ GameObject:
   - component: {fileID: 1683875959713333246}
   - component: {fileID: 1683875959713333240}
   m_Layer: 0
-  m_Name: SecondMove
+  m_Name: SELECT MOVE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

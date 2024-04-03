@@ -2,27 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ViolentBotch : ViolentMove
+public class ViolentCounterAttack : ViolentMove
 {
     public override IEnumerator OnApplyMove(CombatManager _combatManager, Enemy _enemy)
+
     {
         combatManager = _combatManager;
-        
-        yield return new WaitForSeconds(0.5f);
+        enemy = _enemy;
 
-        int damageToPlayer = Mathf.RoundToInt(-combatManager.playerCombatStats.playerMaxHP * 0.11f);
-
-        CombatEvents.UpdatePlayerHP.Invoke(damageToPlayer);
-        CombatEvents.PlayerDamageDisplay.Invoke(damageToPlayer);
-
-        yield return new WaitForSeconds(1.0f);
 
         combatManager.applyMove.EndMove();
+        yield break;
     }
 
     public override IEnumerator OnEnemyAttack(CombatManager _combatManager, Enemy _enemy)
 
     {
+        combatManager = _combatManager;
+        enemy = _enemy;
+
+        yield return new WaitForSeconds(1.0f);
+        enemy.DamageTaken(combatManager.playerCombatStats.attackPower, combatManager.selectedPlayerMove.damageToPartsMultiplier);
         yield break;
     }
 }

@@ -16,6 +16,16 @@ public class FendScript : MonoBehaviour
 
     public int fend = 0;
 
+    private void OnEnable()
+    {
+        CombatEvents.ApplyEnemyAttackToFend += ApplyEnemyAttackToFend;
+    }
+
+    private void OnDisable()
+    {
+        CombatEvents.ApplyEnemyAttackToFend -= ApplyEnemyAttackToFend;
+    }
+
     private void Start()
     {
         ShowFendDisplay(false);

@@ -15,8 +15,6 @@ public class ApplyMove : State
     public override IEnumerator StartState()
     {
         CombatEvents.EnemyIsDead += IsEnemyDead;
-        CombatEvents.MeleeAttack += MeleeAttack;
-        CombatEvents.EndMove += EndMove;
 
         combatManager.combatUIScript.ShowBodyPartTargetMenu(false);
         combatManager.combatUIScript.ShowSecondMoveMenu(false);
@@ -27,7 +25,6 @@ public class ApplyMove : State
             enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
             enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(false);
         }
-
 
 
         //   var equippedGear = combatManager.player.GetComponent<EquippedGear>().equippedGear;
@@ -42,34 +39,12 @@ public class ApplyMove : State
 
         combatManager.playerCombatStats.TotalPlayerAttackPower(combatManager.selectedPlayerMove.attackMoveMultiplier);
         CombatEvents.UpdateNarrator.Invoke(combatManager.selectedPlayerMove.moveName);
+        StartCoroutine(combatManager.selectedPlayerMove.OnApplyMove(combatManager, combatManager.enemy[combatManager.selectedEnemy]));
 
-        combatManager.selectedPlayerMove.OnApplyMove();
-
-        yield return null;//
+        yield return null;
     }
 
-    public void MeleeAttack()
-
-    {
-        StartCoroutine(MeleeAttackCoroutine());
-    }
-
-    IEnumerator MeleeAttackCoroutine()
-
-    {
-            combatManager.UpdateFighterPosition(combatManager.player, new Vector2(combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.position.x - 0.3f, combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.position.y), 0.5f);
-            yield return new WaitForSeconds(0.5f);
-            combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombatStats.attackPower);
-
-            yield return new WaitForSeconds(0.3f);
-            combatManager.UpdateFighterPosition(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 0.5f);
-
-            yield return new WaitForSeconds(1);
-
-            EndMove();
-    }
-
-    void EndMove()
+    public void EndMove()
 
     {
         StartCoroutine(EndMoveCoro());
@@ -78,38 +53,46 @@ public class ApplyMove : State
     IEnumerator EndMoveCoro()
 
     {
+        yield return new WaitForSeconds(0.5f);
+
         foreach (Enemy enemy in combatManager.enemy)
 
         {
             enemy.enemyUI.enemyFendScript.enemyFendAnimator.SetTrigger("fendFade");
         }
 
-        yield return new WaitForSeconds(0.5f);
-
         if (combatManager.enemyIsDead)
 
         {
-            yield return new WaitForSeconds(1);
             combatManager.SetState(combatManager.victory);
+            CombatEvents.EnemyIsDead -= IsEnemyDead;
         }
 
         else
         {
+            CombatEvents.UpdatePlayerPot.Invoke(combatManager.selectedPlayerMove.potentialChange);
+            combatManager.playerCombatStats.TotalPlayerFendPower(combatManager.selectedPlayerMove.fendMoveMultiplier);
+            combatManager.combatUIScript.playerFendScript.UpdateFendText(combatManager.playerCombatStats.playerFend);
+
+            if (combatManager.playerCombatStats.playerFend >0)
+            {
+                combatManager.combatUIScript.playerFendScript.ShowFendDisplay(true);
+                yield return new WaitForSeconds(1f);
+            }
+
             combatManager.SetState(combatManager.enemyAttack);
+
+            CombatEvents.EnemyIsDead -= IsEnemyDead;
+
+
+            yield return new WaitForSeconds(.5f);
+            CombatEvents.UpdateNarrator.Invoke("");
         }
 
-        CombatEvents.EnemyIsDead -= IsEnemyDead;
-        CombatEvents.MeleeAttack -= MeleeAttack;
-        CombatEvents.EndMove -= EndMove;
-
-        yield return new WaitForSeconds(1);
-        CombatEvents.UpdateNarrator.Invoke("");
     }
 
     private void OnDisable()
     {
         CombatEvents.EnemyIsDead -= IsEnemyDead;
-        CombatEvents.MeleeAttack -= MeleeAttack;
-        CombatEvents.EndMove -= EndMove;
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class PlayerMove : MonoBehaviour
@@ -9,19 +10,19 @@ public abstract class PlayerMove : MonoBehaviour
 
     [Header("")]
     public float attackMoveMultiplier;
-    public float damageToBodyMultiplier;
+    public float damageToPartsMultiplier;
     public float fendMoveMultiplier;
     public int potentialChange;
     public int moveWeighting;
 
     [Header("")]
     public bool isAttack;
-    [Header("")]
-    public bool isFend;
 
-    public abstract void OnApplyMove();
+    public CombatManager combatManager;
+    public Enemy enemy;
 
+    public abstract IEnumerator OnApplyMove(CombatManager _combatManager, Enemy _enemy);
 
-    public abstract void OnEnemyAttack();
+    public abstract IEnumerator OnEnemyAttack(CombatManager _combatManager, Enemy _enemy);
 
 }

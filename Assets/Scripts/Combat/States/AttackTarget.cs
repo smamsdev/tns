@@ -35,6 +35,10 @@ public class AttackTarget : State
             CombatEvents.InputCoolDown?.Invoke(0.2f);
         }
     }
-    //
+
+    private void OnDisable()
+    {
+        CombatEvents.SendMove -= SelectBodyPart;
+    }
 }
 

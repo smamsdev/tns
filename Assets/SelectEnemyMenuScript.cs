@@ -8,10 +8,6 @@ public class SelectEnemyMenuScript : MonoBehaviour
 {
     [SerializeField] CombatManager combatManager;
     public GameObject[] buttonSlot;
-    public Button firstEnemyButton;
-
-
-    [SerializeField] GameObject EnemySelectMenu;
 
     public void InitializeButtonSlots()
     {
@@ -25,11 +21,4 @@ public class SelectEnemyMenuScript : MonoBehaviour
         }
 
     }
-
-    //enemy
-
-    // for (int i = 0; i < combatManager.enemy.Length; i++)
-    // {
-    //     Instantiate(EnemyUIPrefab, combatManager.gameObject.transform);
-    // }
 }

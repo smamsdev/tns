@@ -185,25 +185,13 @@ public class Enemy : MonoBehaviour
             }
             else 
             {
-                LoadMove(enemyMove);
+                moveSelected = enemyMove;
+                moveSelected.LoadMove(this);
                 return;
             }
         }
 
         Debug.LogError("Failed to select a move!");
     }
-
-    public void LoadMove(EnemyMove enemyMove)
-
-    {
-        moveSelected = enemyMove;
-        attackTotal = Mathf.RoundToInt(attackBase * moveSelected.attackMoveModPercent);
-        fendTotal = Mathf.RoundToInt(fendBase * moveSelected.fendMoveModPercent);
-
-        rng = Mathf.RoundToInt(attackTotal * Random.Range(-0.2f, 0.2f));
-
-        attackTotal = Mathf.RoundToInt(attackTotal - injuryPenalty) + rng; //throw in some RNG for fun
-    }
-
 
 }
