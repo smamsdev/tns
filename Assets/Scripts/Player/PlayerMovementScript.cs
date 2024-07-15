@@ -11,8 +11,10 @@ public class PlayerMovementScript : MonoBehaviour
 
     public Vector2 playerPosition;
 
-    float myHorizontalInput;
-    float myVerticallInput;
+    float horizontalInput;
+    float verticalInput;
+    float horizontalInputRaw;
+    float verticalInputRaw;
 
     public bool isWalkwayBoost;
     public bool isDescending = false;
@@ -23,6 +25,7 @@ public class PlayerMovementScript : MonoBehaviour
     public bool movementLocked = false;
 
     public GameObject playerObject;
+    public Animator animator;
 
     private void OnEnable()
     {
@@ -54,42 +57,45 @@ public class PlayerMovementScript : MonoBehaviour
         if (!movementLocked) 
         {
         Vector2 movePosition = playerRigidBody2d.position;
-        myHorizontalInput = Input.GetAxis("Horizontal");
-        myVerticallInput = Input.GetAxis("Vertical");
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
 
-        movePosition.x = movePosition.x + movementSpeed * myHorizontalInput * Time.deltaTime;
-        movePosition.y = movePosition.y + movementSpeed * myVerticallInput * Time.deltaTime;
+            horizontalInputRaw = Input.GetAxisRaw("Horizontal");
+            verticalInputRaw = Input.GetAxisRaw("Vertical");
+
+            movePosition.x = movePosition.x + movementSpeed * horizontalInput * Time.deltaTime;
+        movePosition.y = movePosition.y + movementSpeed * verticalInput * Time.deltaTime;
 
         playerRigidBody2d.MovePosition(movePosition);
         playerPosition = movePosition;
+
+            animator.SetFloat("horizontalInput", horizontalInput);
+            animator.SetFloat("verticalInput", verticalInput);
+            animator.SetFloat("horizontalInputRaw", horizontalInputRaw);
+            animator.SetFloat("verticalInputRaw", verticalInputRaw);
+
+            if (horizontalInput > 0)
+            {
+                FieldEvents.lookDirection = Vector2.right;
+            }
+
+            if (horizontalInput < 0)
+            {
+                FieldEvents.lookDirection = Vector2.left;
+            }
+
+            if (horizontalInput > 0)
+            {
+                FieldEvents.lookDirection = Vector2.up;
+            }
+
+            if (horizontalInput < 0)
+            {
+                FieldEvents.lookDirection = Vector2.down;
+            }
         } 
     }
 
-    private void Update()
-    {
-        Vector2 move = new Vector2(myHorizontalInput, myVerticallInput);
-
-        if (myHorizontalInput > 0)
-        {
-            FieldEvents.lookDirection = Vector2.right;
-        }
-
-        if (myHorizontalInput < 0)
-        {
-            FieldEvents.lookDirection = Vector2.left;
-        }
-
-        if (myVerticallInput > 0)
-        {
-            FieldEvents.lookDirection = Vector2.up;
-        }
-
-        if (myVerticallInput < 0)
-        {
-            FieldEvents.lookDirection = Vector2.down;
-        }
-
-    }
 
     public void LockPlayerMovement()
 
