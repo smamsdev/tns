@@ -20,7 +20,10 @@ public class PlayerMovementScript : MonoBehaviour
     public bool isDescending = false;
 
     public float movementSpeed = 1.75f;
-    public float baseMovementSpeed;
+    public float defaultMovementspeed;
+
+    float fastMovementspeed;
+
 
     public bool movementLocked = false;
 
@@ -47,9 +50,31 @@ public class PlayerMovementScript : MonoBehaviour
     {
         playerPosition = playerRigidBody2d.position;
         playerRigidBody2d = GetComponent<Rigidbody2D>();
-        baseMovementSpeed = movementSpeed;
+        defaultMovementspeed = movementSpeed;
 
         FieldEvents.lookDirection = new Vector2(1, 0);
+    }
+
+    private void Start()
+    {
+        fastMovementspeed = movementSpeed * 3;
+        defaultMovementspeed = movementSpeed;
+    }
+
+    private void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+
+        {
+            movementSpeed = fastMovementspeed;
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+
+        {
+            movementSpeed = defaultMovementspeed;
+        }
     }
 
     void FixedUpdate()
@@ -93,7 +118,7 @@ public class PlayerMovementScript : MonoBehaviour
             {
                 FieldEvents.lookDirection = Vector2.down;
             }
-        } 
+        }
     }
 
 
@@ -122,7 +147,7 @@ public class PlayerMovementScript : MonoBehaviour
         {
             float SpeedBonus = _speedBonus;
 
-            float boostedMovementSpeed = baseMovementSpeed + (baseMovementSpeed * SpeedBonus);
+            float boostedMovementSpeed = defaultMovementspeed + (defaultMovementspeed * SpeedBonus);
 
             movementSpeed = boostedMovementSpeed;
 
@@ -131,7 +156,7 @@ public class PlayerMovementScript : MonoBehaviour
         if (!isWalkwayBoost)
 
         {
-            movementSpeed = baseMovementSpeed;          
+            movementSpeed = defaultMovementspeed;          
         }
 
   
