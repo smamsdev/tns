@@ -21,11 +21,13 @@ ScriptedImporter:
     convertToNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
     isReadable: 0
     streamingMipmaps: 0
     streamingMipmapsPriority: 0
     vTOnly: 0
-    ignoreMasterTextureLimit: 0
+    ignoreMipmapLimit: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -388,9 +390,9 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 2432
-      y: 738
+      y: 758
       width: 383
-      height: 259
+      height: 239
     spriteID: 4882301f98e018d4189c127baa6b641b
     spriteBone: []
     spriteOutline: []
@@ -602,15 +604,15 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: HamiltonEastBuildings_23
     originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 7
+    pivot: {x: 0.4975242, y: 0.049968954}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 1365
-      y: 244
+      y: 233
       width: 777
-      height: 185
+      height: 196
     spriteID: 3f81b76f035c64243bcd26a444d17b7c
     spriteBone: []
     spriteOutline: []
@@ -840,6 +842,26 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
+  - name: HamiltonEastBuildings_35
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 2432
+      y: 739
+      width: 383
+      height: 19
+    spriteID: 8a11e67982b7ebe4480149c23260eb66
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
   asepriteLayers:
   - layerIndex: 0
     guid: -636477904
@@ -850,6 +872,7 @@ ScriptedImporter:
     cells:
     - name: HamiltonEastBuildings
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
@@ -861,6 +884,7 @@ ScriptedImporter:
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
+    ignorePlatformSupport: 0
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
@@ -872,6 +896,7 @@ ScriptedImporter:
     androidETC2FallbackOverride: 0
   - name: Standalone
     overridden: 0
+    ignorePlatformSupport: 0
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -883,6 +908,7 @@ ScriptedImporter:
     androidETC2FallbackOverride: 0
   - name: Server
     overridden: 0
+    ignorePlatformSupport: 0
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -894,6 +920,7 @@ ScriptedImporter:
     androidETC2FallbackOverride: 0
   - name: WebGL
     overridden: 0
+    ignorePlatformSupport: 0
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
