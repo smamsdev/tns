@@ -5,46 +5,28 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoaderScript : ToTrigger
 {
-    public int sceneNumber;
-    public bool rememberPosition;
-    public bool isFreshScene;
+    public string sceneName;
+    public Vector2 entryCoordinates;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isFreshScene)
-
-        { FieldEvents.freshScene = true; }
-
-        if (!isFreshScene)
-
-        { FieldEvents.freshScene = false; }
 
         if (collision.tag == "Player")
 
         {
-            if (rememberPosition) 
-            { 
-            var playerMovementScript = GameObject.Find("Player").GetComponent<PlayerMovementScript>();
-            FieldEvents.playerLastKnownPos = playerMovementScript.transform.position;
-            }
-
-            SceneManager.LoadScene(sceneNumber, LoadSceneMode.Single);
-            Debug.Log(this.gameObject);
+            StartCoroutine(DoAction());
         }
     }
 
     public override IEnumerator DoAction()
 
     {
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+        FieldEvents.entryCoordinates = entryCoordinates;
 
-        Debug.Log("changing");
-        SceneManager.LoadScene(sceneNumber, LoadSceneMode.Single);
-        Debug.Log("test");
+        Debug.Log(this.gameObject);
 
         yield return null;
     }
-
-
-
 
 }

@@ -17,10 +17,10 @@ public static class FieldEvents
     public static bool isDialogueActive;
 
     public static bool objectFetched;
-    public static Vector2 playerLastKnownPos;
     public static Vector2 lookDirection;
 
     public static bool freshScene;
+    public static Vector2 entryCoordinates;
 
 
 
