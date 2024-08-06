@@ -22,7 +22,9 @@ public static class FieldEvents
     public static bool freshScene;
     public static Vector2 entryCoordinates;
 
+    public static float specialMovementSpeed;
 
+    public static float horizontalInputToSave;
 
     public static bool isCooldown()
 
@@ -37,6 +39,5 @@ public static class FieldEvents
         isCoolDownBool = false;
         isCooldown();
     }
-
-        
+       
 }
