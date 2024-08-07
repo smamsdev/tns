@@ -15,12 +15,13 @@ public class DescendStairs : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collisionWith)
     {
+        this.GetComponent<Collider2D>().enabled = false;
         Debug.Log("descending");
         player = collisionWith.gameObject;
         player.GetComponent<PlayerMovementScript>().isAscending = new Vector2(-1, -1);
         player.GetComponent<LayerChanger>().ChangeLayer("SubGround");
-        this.GetComponent<Collider2D>().enabled = false;
-        StartCoroutine(EnterStairs(player.transform.position, new Vector2(player.transform.position.x, player.transform.position.y - 0.03f), 0.05f));
+
+        StartCoroutine(EnterStairs(player.transform.position, new Vector2(player.transform.position.x, player.transform.position.y - 0.04f), 0.04f));
     }
 
     private IEnumerator EnterStairs(Vector2 start, Vector2 end, float duration)

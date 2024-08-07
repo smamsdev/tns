@@ -20,7 +20,7 @@ public class AscendStairs : MonoBehaviour
 
         player = collisionWith.gameObject;
 
-        StartCoroutine(EscapeFromStairs(player.transform.position,new Vector2 (player.transform.position.x, player.transform.position.y-0.03f), 0.05f));
+        StartCoroutine(EscapeFromStairs(player.transform.position,new Vector2 (player.transform.position.x, player.transform.position.y-0.04f), 0.04f));
     }
 
     private IEnumerator EscapeFromStairs(Vector2 start, Vector2 end, float duration)
