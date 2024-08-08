@@ -2867,7 +2867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTriggerOnLoad: 0
-  triggerOnLoad: {fileID: 2014045863}
+  triggerOnLoad: {fileID: 7106120818228864780}
   trigger: []
 --- !u!114 &1458070175
 MonoBehaviour:
@@ -2914,7 +2914,7 @@ PrefabInstance:
       objectReference: {fileID: 4687676289750605907, guid: bea4ffbd7e04b194dbdccb50f877ae3a, type: 3}
     - target: {fileID: 3626916397498700004, guid: 85250310ae72d1344970b6d8565e8b98, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: 85250310ae72d1344970b6d8565e8b98, type: 3}
       propertyPath: m_SortingLayerID
@@ -5101,6 +5101,10 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 7106120817525349635}
+    - target: {fileID: 5009585112503694955, guid: 1043ae82aa594a04e89098cedb341589, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5274,17 +5278,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorShift:
-  - actorGO: {fileID: 4742328225593426535}
+  - actorRB: {fileID: 0}
     direction: 3
     distance: 1
     speed: 1
     optionalOverSeconds: 0
-  - actorGO: {fileID: 4742328225593426535}
+  - actorRB: {fileID: 0}
     direction: 2
     distance: 1
     speed: 1
     optionalOverSeconds: 0
-  - actorGO: {fileID: 4742328225593426535}
+  - actorRB: {fileID: 0}
     direction: 0
     distance: 1
     speed: 1
@@ -5556,7 +5560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorShift:
-  - actorGO: {fileID: 4742328225593426535}
+  - actorRB: {fileID: 0}
     direction: 1
     distance: 0
     speed: 0
@@ -5989,7 +5993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorShift:
-  - actorGO: {fileID: 4742328225593426535}
+  - actorRB: {fileID: 0}
     direction: 1
     distance: 0
     speed: 0
@@ -6108,7 +6112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorShift:
-  - actorGO: {fileID: 4742328225593426535}
+  - actorRB: {fileID: 0}
     direction: 3
     distance: 1
     speed: 1
@@ -6665,56 +6669,6 @@ MonoBehaviour:
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
   isLoopedDialogue: 0
---- !u!1 &7106120816386503445
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7106120816386503447}
-  - component: {fileID: 7106120816386503446}
-  m_Layer: 7
-  m_Name: PLeaveDoor (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &7106120816386503446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7106120816386503445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbb8b03dc9e7ade46bf62347297f7b9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actorShift:
-  - actorGO: {fileID: 0}
-    direction: 2
-    distance: 1
-    speed: 1.5
-    optionalOverSeconds: 1
---- !u!4 &7106120816386503447
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7106120816386503445}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.7229996, y: 0.03999996, z: -1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7106120816768920662}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &7106120816684251000
 Transform:
   m_ObjectHideFlags: 0
@@ -6792,8 +6746,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7106120818228864771}
-  - {fileID: 7106120816386503447}
-  - {fileID: 7106120817879072811}
   m_Father: {fileID: 7106120817525349635}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7106120817469461741
@@ -6840,6 +6792,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05aa340ea84df64ca944b259ad61c87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  horizontalInput: 0
+  verticalInput: 0
+  horizontalInputRaw: 0
+  verticalInputRaw: 0
   playerRigidBody2d: {fileID: 7106120817525349637}
   playerPosition: {x: 0, y: 0}
   isWalkwayBoost: 0
@@ -6849,11 +6805,9 @@ MonoBehaviour:
   movementLocked: 0
   isAscending: {x: 0, y: 0}
   animator: {fileID: 7106120817525349660}
-  horizontalInput: 0
-  verticalInput: 0
-  horizontalInputRaw: 0
-  verticalInputRaw: 0
-  movePosition: {x: 0, y: 0}
+  newPosition: {x: 0, y: 0}
+  previousPosition: {x: 0, y: 0}
+  movementDirection: {x: 0, y: 0}
 --- !u!4 &7106120817525349635
 Transform:
   m_ObjectHideFlags: 0
@@ -6863,7 +6817,7 @@ Transform:
   m_GameObject: {fileID: 7106120817525349659}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.06499998, y: 1.25, z: 0}
+  m_LocalPosition: {x: -0.145, y: 0.39999998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6970,6 +6924,7 @@ GameObject:
   - component: {fileID: 7106120817525349660}
   - component: {fileID: 7106120817525349661}
   - component: {fileID: 7106120817525349662}
+  - component: {fileID: 7106120817525349663}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -7047,6 +7002,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spritesLayersToChange:
   - {fileID: 7106120817525349645}
+--- !u!114 &7106120817525349663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7106120817525349659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66133870d80cf0446a1ebdc1bbef7b3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actorMove:
+    actorGO: {fileID: 7106120817525349659}
+    destination:
+    - {x: 1.5, y: 0.9, z: 0}
+    - {x: -2, y: 0.6, z: 0}
 --- !u!1 &7106120817625954073
 GameObject:
   m_ObjectHideFlags: 0
@@ -7080,56 +7052,6 @@ Transform:
   - {fileID: 7106120816181221086}
   m_Father: {fileID: 7106120817525349635}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7106120817879072810
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7106120817879072811}
-  - component: {fileID: 7106120817879072852}
-  m_Layer: 7
-  m_Name: PPause2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7106120817879072811
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7106120817879072810}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7106120816768920662}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7106120817879072852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7106120817879072810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbb8b03dc9e7ade46bf62347297f7b9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actorShift:
-  - actorGO: {fileID: 0}
-    direction: 1
-    distance: 0
-    speed: 0
-    optionalOverSeconds: 1
 --- !u!1 &7106120817919744041
 GameObject:
   m_ObjectHideFlags: 0
@@ -7195,7 +7117,7 @@ GameObject:
   - component: {fileID: 7106120818228864771}
   - component: {fileID: 7106120818228864780}
   m_Layer: 7
-  m_Name: PLeaveDoor
+  m_Name: test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7229,11 +7151,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorShift:
-  - actorGO: {fileID: 0}
+  - actorRB: {fileID: 0}
     direction: 3
     distance: 2.35
     speed: 1.5
-    optionalOverSeconds: 2.6
+    optionalOverSeconds: 0
 --- !u!61 &7553676554722561640
 BoxCollider2D:
   m_ObjectHideFlags: 0

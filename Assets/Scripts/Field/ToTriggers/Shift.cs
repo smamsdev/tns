@@ -15,25 +15,25 @@ public class Shift : ToTrigger
         for (i = 0; i < actorShift.Length;)
         {
             CombatEvents.LockPlayerMovement();
-            actorShift[i].actorGO = transform.parent.transform.parent.gameObject;
+            actorShift[i].actorRB = transform.parent.transform.parent.gameObject.GetComponent<Rigidbody2D>();
             CalculateDistance();
 
             float elapsedTime = 0;
-            startingPos = actorShift[i].actorGO.transform.localPosition;
+            startingPos = actorShift[i].actorRB.position;
 
             //if seconds value in inspector is above 0 use this method. Fixed Time method.
             if (actorShift[i].optionalOverSeconds > 0)
             {
                 while (elapsedTime < actorShift[i].optionalOverSeconds)
                 {
-                    actorShift[i].actorGO.transform.position = Vector2.Lerp(startingPos, endPos, (elapsedTime / actorShift[i].optionalOverSeconds));
+                    actorShift[i].actorRB.position = Vector2.Lerp(startingPos, endPos, (elapsedTime / actorShift[i].optionalOverSeconds));
                     elapsedTime += Time.deltaTime;
                     yield return new WaitForEndOfFrame();
                 }
 
                 CombatEvents.UnlockPlayerMovement();
 
-                actorShift[i].actorGO.transform.position = endPos;
+                actorShift[i].actorRB.position = endPos;
                 i++;
 
                 if (i == actorShift.Length)
@@ -46,13 +46,13 @@ public class Shift : ToTrigger
             // if seconds is null us this method. Fixed speed method, inifite time.
             else
             {
-                while (Vector3.Distance(actorShift[i].actorGO.transform.position, endPos) > 0)
+                while (Vector3.Distance(actorShift[i].actorRB.position, endPos) > 0)
                 {
-                    actorShift[i].actorGO.transform.position = Vector3.MoveTowards(actorShift[i].actorGO.transform.position, endPos, Time.deltaTime * actorShift[i].speed);
+                    actorShift[i].actorRB.position = Vector3.MoveTowards(actorShift[i].actorRB.position, endPos, Time.deltaTime * actorShift[i].speed);
                     elapsedTime += Time.deltaTime;
                     yield return new WaitForEndOfFrame();
                 }
-                actorShift[i].actorGO.transform.position = endPos;
+                actorShift[i].actorRB.position = endPos;
                 i++;
                 CombatEvents.UnlockPlayerMovement();
 
@@ -71,10 +71,10 @@ public class Shift : ToTrigger
     {
         switch (actorShift[i].direction)
         {
-            case Direction.Left: endPos = new Vector2((actorShift[i].actorGO.transform.position.x - actorShift[i].distance), actorShift[i].actorGO.transform.position.y); break;
-            case Direction.Up: endPos = new Vector2(actorShift[i].actorGO.transform.position.x, (actorShift[i].actorGO.transform.position.y + actorShift[i].distance)); break;
-            case Direction.Down: endPos = new Vector2(actorShift[i].actorGO.transform.position.x, (actorShift[i].actorGO.transform.position.y - actorShift[i].distance)); break;
-            case Direction.Right: endPos = new Vector2((actorShift[i].actorGO.transform.position.x + actorShift[i].distance), actorShift[i].actorGO.transform.position.y); break;
+            case Direction.Left: endPos = new Vector2((actorShift[i].actorRB.position.x - actorShift[i].distance), actorShift[i].actorRB.position.y); break;
+            case Direction.Up: endPos = new Vector2(actorShift[i].actorRB.position.x, (actorShift[i].actorRB.position.y + actorShift[i].distance)); break;
+            case Direction.Down: endPos = new Vector2(actorShift[i].actorRB.position.x, (actorShift[i].actorRB.position.y - actorShift[i].distance)); break;
+            case Direction.Right: endPos = new Vector2((actorShift[i].actorRB.position.x + actorShift[i].distance), actorShift[i].actorRB.position.y); break;
         }
     }
 }
@@ -84,7 +84,7 @@ public enum Direction { Left, Up, Down, Right };
 
 public class ActorShift
 {
-    [HideInInspector] public GameObject actorGO;
+    [HideInInspector] public Rigidbody2D actorRB;
     public Direction direction;
     public float distance;
     public float speed;

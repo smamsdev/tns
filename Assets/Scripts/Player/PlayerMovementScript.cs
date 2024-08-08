@@ -5,7 +5,7 @@ using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class PlayerMovementScript : MonoBehaviour
+public class PlayerMovementScript : MovementScript
 {
     public Rigidbody2D playerRigidBody2d;
 
@@ -23,12 +23,9 @@ public class PlayerMovementScript : MonoBehaviour
 
     public Animator animator;
 
-    public float horizontalInput;
-    public float verticalInput;
-    public float horizontalInputRaw;
-    public float verticalInputRaw;
-
-    public Vector2 movePosition;
+    public Vector2 newPosition;
+    public Vector2 previousPosition;
+    public Vector2 movementDirection;
 
     private void OnEnable()
     {
@@ -93,21 +90,24 @@ public class PlayerMovementScript : MonoBehaviour
         if (!movementLocked)
 
         {
-            movePosition = playerRigidBody2d.position;
-
             horizontalInput = Input.GetAxis("Horizontal");
             verticalInput = Input.GetAxis("Vertical") * isAscending.y;
-            horizontalInputRaw = Input.GetAxisRaw("Horizontal");
+            horizontalInputRaw = Input.GetAxisRaw("Horizontal"); //dont think i neeed the rarws anymawr
             verticalInputRaw = Input.GetAxisRaw("Vertical");
+        }
+            newPosition = playerRigidBody2d.position;
+            previousPosition = playerRigidBody2d.position;
 
-            movePosition.x += movementSpeed * horizontalInput * Time.deltaTime;
-            movePosition.y += movementSpeed * verticalInput * Time.deltaTime;
+            newPosition.x += movementSpeed * horizontalInput * Time.deltaTime;
+            newPosition.y += movementSpeed * verticalInput * Time.deltaTime;
 
-            playerRigidBody2d.MovePosition(movePosition);
+            playerRigidBody2d.MovePosition(newPosition);
+
+            movementDirection = (newPosition - previousPosition);
 
             animator.SetFloat("horizontalInput", horizontalInput);
             animator.SetFloat("verticalInput", verticalInput);
-            animator.SetFloat("horizontalInputRaw", horizontalInputRaw);
+            animator.SetFloat("horizontalInputRaw", movementDirection.x);
             animator.SetFloat("verticalInputRaw", verticalInputRaw);
 
             if (horizontalInputRaw > 0)
@@ -129,7 +129,6 @@ public class PlayerMovementScript : MonoBehaviour
             {
                 FieldEvents.lookDirection = Vector2.down;
             }
-        }
     }
 
     public void LockPlayerMovement()
