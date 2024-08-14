@@ -5,10 +5,12 @@ using UnityEngine;
 public class DoorScript : MonoBehaviour
 {
     public SpriteRenderer doorSprite;
+    public MovementScript movementScript;
 
-    void OnTriggerEnter2D()
+    void OnTriggerEnter2D(Collider2D collision)
 
     {
+        movementScript = collision.gameObject.GetComponent<MovementScript>();
         StartCoroutine(OpenDoor());
     }
 
@@ -20,11 +22,11 @@ public class DoorScript : MonoBehaviour
     IEnumerator OpenDoor()
 
     {
-        CombatEvents.LockPlayerMovement.Invoke();
+        movementScript.movementSpeed = 0;
         yield return new WaitForSeconds(0.1f);
         doorSprite.enabled = false;
         yield return new WaitForSeconds(0.1f);
-        CombatEvents.UnlockPlayerMovement.Invoke();
+        movementScript.movementSpeed = movementScript.defaultMovementspeed;
     }
 
     IEnumerator CloseDoor()

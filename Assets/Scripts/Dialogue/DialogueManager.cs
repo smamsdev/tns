@@ -33,7 +33,6 @@ public class DialogueManager : MonoBehaviour
         dialogueLength = dialogue.Length;
         SpawnDialogueBox();
         dialogueIsActive = true;
-        CombatEvents.LockPlayerMovement?.Invoke();
         dialogueBox.DisplayMessage(dialogue[dialogueElement]);
         StartCoroutine(FieldEvents.CoolDown(0.3f));
     }
@@ -41,7 +40,7 @@ public class DialogueManager : MonoBehaviour
     public void SpawnDialogueBox()
 
     {
-        dialogueBoxGameObject = Instantiate(dialogueBoxPrefab, dialogue[0].dialogueGameObject.transform);
+        dialogueBoxGameObject = Instantiate(dialogueBoxPrefab, this.transform);
         dialogueBoxGameObject.name = dialogue[0].dialogueGameObject.name + "Dialogue#" + dialogueElement;
         dialogueCurrentlyInPlay = dialogueBoxGameObject.name;
         dialogueBox = dialogueBoxGameObject.GetComponent<DialogueBox>();
@@ -61,6 +60,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (dialogueElement == (dialogue.Length-1))
         {
+            CombatEvents.UnlockPlayerMovement?.Invoke();
             dialogueElement++;
             StartCoroutine(FieldEvents.CoolDown(0.3f));
             dialogueBox.animator.SetTrigger("CloseDialogue");
@@ -72,7 +72,6 @@ public class DialogueManager : MonoBehaviour
             FieldEvents.isDialogueActive = false;
 
             FieldEvents.HasCompleted.Invoke(dialogue[0].dialogueGameObject);
-            CombatEvents.UnlockPlayerMovement?.Invoke();
         }
 
         if (dialogueElement < dialogue.Length && dialogueElement != -1)

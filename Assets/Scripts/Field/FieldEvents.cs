@@ -8,7 +8,6 @@ using UnityEngine;
 public static class FieldEvents
 {
     public static Action<GameObject> HasCompleted;
-    public static Action<bool, float> IsWalkwayBoost;
 
     public static Action<GameObject> UpdateXP;
     public static Action<RaycastHit2D> PlayerRayCastHit;
@@ -22,7 +21,7 @@ public static class FieldEvents
     public static bool freshScene;
     public static Vector2 entryCoordinates;
 
-    public static float specialMovementSpeed;
+    public static float movementSpeedMultiplier;
 
     public static float horizontalInputToSave;
 

@@ -244,11 +244,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorJump:
-  - actorGO: {fileID: 898760335}
+  - actorGO: {fileID: 0}
     locationToAppear: {x: 3.315, y: -7.17, z: 1}
-  - actorGO: {fileID: 898760335}
+  - actorGO: {fileID: 0}
     locationToAppear: {x: 4.85, y: -7.17, z: 1}
-  - actorGO: {fileID: 898760335}
+  - actorGO: {fileID: 0}
     locationToAppear: {x: 3.02, y: -5.35, z: 1}
   overTime: 1.26
 --- !u!1 &14246050
@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorShift:
-  - actorGO: {fileID: 163627786}
+  - actorRB: {fileID: 0}
     direction: 1
     distance: 0
     speed: 0
@@ -393,7 +393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorShift:
-  - actorGO: {fileID: 655372747}
+  - actorRB: {fileID: 0}
     direction: 1
     distance: 0
     speed: 0
@@ -547,7 +547,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!224 &62367046
@@ -731,7 +731,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 46cb98920a13c4e4ab1e52a2a4fb10e6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -962,7 +962,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &139490888
@@ -1065,7 +1065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f72560346504454186d582eaa56f7c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 898760343}
+  playerTransform: {fileID: 950585255}
   cameraSpeed: 2
   xOffset: 0
   yOffset: 0
@@ -1303,7 +1303,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &156982244
@@ -1502,7 +1502,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9199be59469b5414c87d98adcef5f1e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1512,7 +1512,7 @@ SpriteRenderer:
   m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
 --- !u!210 &163627796
@@ -1524,7 +1524,7 @@ SortingGroup:
   m_GameObject: {fileID: 163627786}
   m_Enabled: 1
   m_SortingLayerID: 627291665
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_SortAtRoot: 0
 --- !u!1 &174387026
@@ -1805,7 +1805,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &203340665
@@ -1905,17 +1905,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: -8435245712485981826, guid: 00c5208b557891742bf84e86feb4f3d0, type: 3}
---- !u!114 &219675583 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7106120817227768471, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-  m_PrefabInstance: {fileID: 7106120817410922792}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3074f9f12c26914d9fd823d3c034dfb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &223464610
 GameObject:
   m_ObjectHideFlags: 0
@@ -2107,7 +2096,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6ad270fa54fbef04bbe1e4359b0f9f11, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2304,7 +2293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorShift:
-  - actorGO: {fileID: 831149403}
+  - actorRB: {fileID: 0}
     direction: 1
     distance: 0
     speed: 0
@@ -2490,7 +2479,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 472431825
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: -8
   m_Sprite: {fileID: 21300000, guid: cb45d6017b7a9fc429f0de9dfd4158bb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2720,7 +2709,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &358878257
@@ -2883,7 +2872,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1904038271
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: bba70f31d5a69fc408a6e5ab789d1298, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3132,7 +3121,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &371997350
@@ -3228,7 +3217,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1904038271
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 0c5b51835d3ac8b47bad6464ce738537, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3711,20 +3700,9 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &461407384 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7106120817587117488, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-  m_PrefabInstance: {fileID: 7106120817410922792}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbb8b03dc9e7ade46bf62347297f7b9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &491942986
 GameObject:
   m_ObjectHideFlags: 0
@@ -3893,7 +3871,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &520939143
@@ -4320,7 +4298,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1904038271
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: b6eaf422b3ee95a47a64ecbdf7c655ca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4552,7 +4530,7 @@ SortingGroup:
   m_GameObject: {fileID: 655372747}
   m_Enabled: 1
   m_SortingLayerID: 627291665
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_SortAtRoot: 0
 --- !u!61 &655372749
@@ -4639,9 +4617,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5ee1181a52f84344cb332ec49067ed47, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3ce34ee99b8f83f4982b035684d9f34f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4721,7 +4699,6 @@ MonoBehaviour:
     actorName: 
     dialoguetext: OK. Enough pissing around
     optionalDialogueFinalPosition: {x: 0, y: 0}
-    actorPosition: {fileID: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
   isLoopedDialogue: 1
@@ -5005,7 +4982,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &699693543
@@ -5221,17 +5198,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorShift:
-  - actorGO: {fileID: 163627786}
+  - actorRB: {fileID: 0}
     direction: 3
     distance: 1
     speed: 1
     optionalOverSeconds: 0
-  - actorGO: {fileID: 163627786}
+  - actorRB: {fileID: 0}
     direction: 2
     distance: 1
     speed: 1
     optionalOverSeconds: 0
-  - actorGO: {fileID: 163627786}
+  - actorRB: {fileID: 0}
     direction: 0
     distance: 1
     speed: 1
@@ -5292,7 +5269,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 472431825
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ee1510fedff1b414ea6b47837b710c58, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5523,7 +5500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorShift:
-  - actorGO: {fileID: 831149403}
+  - actorRB: {fileID: 0}
     direction: 1
     distance: 0
     speed: 0
@@ -5679,7 +5656,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fa287154a3e44874aa560984784d95c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5735,7 +5712,7 @@ SortingGroup:
   m_GameObject: {fileID: 831149403}
   m_Enabled: 1
   m_SortingLayerID: 627291665
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_SortAtRoot: 0
 --- !u!212 &831149406
@@ -5777,7 +5754,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0c2aa444f94f31b4eb4b7da95d646e35, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5787,7 +5764,7 @@ SpriteRenderer:
   m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
 --- !u!4 &831149407
@@ -5854,7 +5831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorShift:
-  - actorGO: {fileID: 655372747}
+  - actorRB: {fileID: 0}
     direction: 1
     distance: 0
     speed: 0
@@ -6073,7 +6050,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &889436868
@@ -6202,7 +6179,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 472431825
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -1922102672798005772, guid: 688a5686928a7214b81b1baf8c1b60ca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6215,48 +6192,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &898760335 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7106120818158512039, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-  m_PrefabInstance: {fileID: 7106120817410922792}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &898760340 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7106120818158512060, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-  m_PrefabInstance: {fileID: 7106120817410922792}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 898760335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e05aa340ea84df64ca944b259ad61c87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &898760343 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7106120818158512063, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-  m_PrefabInstance: {fileID: 7106120817410922792}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &898760347
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 898760335}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &923276258
 GameObject:
   m_ObjectHideFlags: 0
@@ -6523,7 +6458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorJump:
-  - actorGO: {fileID: 898760335}
+  - actorGO: {fileID: 0}
     locationToAppear: {x: 0.37, y: -6.979, z: 1}
   overTime: 1.26
 --- !u!4 &942637168
@@ -6541,6 +6476,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1919230164}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &950585247 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6457784655243026927, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+  m_PrefabInstance: {fileID: 7106120817410922792}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &950585248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950585247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a53a53571dc374cb4a19209ecb69c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layer_mask:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!4 &950585255 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7291517550505530816, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+  m_PrefabInstance: {fileID: 7106120817410922792}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &991417712
 GameObject:
   m_ObjectHideFlags: 0
@@ -6613,7 +6573,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1904038271
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: edbd636f0748620498f01439322d1782, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7049,7 +7009,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1087347436
@@ -7225,7 +7185,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1112609449
@@ -7361,9 +7321,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toTrigger:
-  - {fileID: 461407384}
-  - {fileID: 219675583}
-  - {fileID: 1773359234}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1135794355
 GameObject:
   m_ObjectHideFlags: 0
@@ -7421,7 +7381,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8e7d099c2890af7459cdac4d4e0d7cbf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7615,7 +7575,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1904038271
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: f8acb3530073e8347ad1df0d75e3a1c6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -8373,7 +8333,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1300156087
@@ -8597,7 +8557,6 @@ MonoBehaviour:
     actorName: 
     dialoguetext: I'm a chop
     optionalDialogueFinalPosition: {x: 0, y: 0}
-    actorPosition: {fileID: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
   isLoopedDialogue: 1
@@ -8672,7 +8631,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 27fc98494f9e3014495e82a09f0f55dd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -8890,7 +8849,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1415468580
@@ -8978,7 +8937,6 @@ MonoBehaviour:
     actorName: 
     dialoguetext: Im a huge R app what do u think
     optionalDialogueFinalPosition: {x: 0, y: 0}
-    actorPosition: {fileID: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
   isLoopedDialogue: 1
@@ -9155,7 +9113,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1462949418
@@ -9229,7 +9187,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 46cb98920a13c4e4ab1e52a2a4fb10e6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -9462,7 +9420,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1515898203
@@ -9633,7 +9591,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1551381055
@@ -10192,7 +10150,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1640518678
@@ -10368,7 +10326,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1664583968
@@ -10539,7 +10497,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1664970770
@@ -10845,22 +10803,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03b8e4b35d8b9f408d0d6fb21fa265a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1702311241 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7106120816823004257, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-  m_PrefabInstance: {fileID: 7106120817410922792}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1702311243 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7106120816823004259, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-  m_PrefabInstance: {fileID: 7106120817410922792}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702311241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3074f9f12c26914d9fd823d3c034dfb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1750247628
 GameObject:
   m_ObjectHideFlags: 0
@@ -11032,7 +10974,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1754348261
@@ -11168,7 +11110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorShift:
-  - actorGO: {fileID: 655372747}
+  - actorRB: {fileID: 0}
     direction: 0
     distance: 1.5
     speed: 1.5
@@ -11312,7 +11254,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 898760343}
+  m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
@@ -11333,17 +11275,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 775059819}
---- !u!114 &1773359234 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7106120816751413674, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-  m_PrefabInstance: {fileID: 7106120817410922792}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbb8b03dc9e7ade46bf62347297f7b9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1776735311
 GameObject:
   m_ObjectHideFlags: 0
@@ -11394,7 +11325,6 @@ MonoBehaviour:
     actorName: 
     dialoguetext: u win ur a jenius
     optionalDialogueFinalPosition: {x: 0, y: 0}
-    actorPosition: {fileID: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
   isLoopedDialogue: 1
@@ -11603,7 +11533,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1790079087
@@ -11651,7 +11581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorShift:
-  - actorGO: {fileID: 163627786}
+  - actorRB: {fileID: 0}
     direction: 1
     distance: 0
     speed: 0
@@ -11829,7 +11759,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1835711717
@@ -12053,7 +11983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorShift:
-  - actorGO: {fileID: 831149403}
+  - actorRB: {fileID: 0}
     direction: 0
     distance: 1.5
     speed: 1.5
@@ -12224,7 +12154,6 @@ MonoBehaviour:
     actorName: 
     dialoguetext: Where do you think you are going bitch
     optionalDialogueFinalPosition: {x: 0, y: 0}
-    actorPosition: {fileID: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
   isLoopedDialogue: 1
@@ -12299,7 +12228,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5933e959f2179624cbd4a642b84e1532, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -12507,7 +12436,6 @@ MonoBehaviour:
     actorName: 
     dialoguetext: OK. Enough pissing around
     optionalDialogueFinalPosition: {x: 0, y: 0}
-    actorPosition: {fileID: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
   isLoopedDialogue: 1
@@ -12735,7 +12663,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &1951224229
@@ -13053,7 +12981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorShift:
-  - actorGO: {fileID: 163627786}
+  - actorRB: {fileID: 0}
     direction: 3
     distance: 1
     speed: 1
@@ -13151,7 +13079,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1904038271
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: aef81cfce194aa94fb99def6171ff42c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -13447,7 +13375,6 @@ MonoBehaviour:
     actorName: 
     dialoguetext: Im a house
     optionalDialogueFinalPosition: {x: 0, y: 0}
-    actorPosition: {fileID: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
   isLoopedDialogue: 1
@@ -13789,23 +13716,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueManager: {fileID: 1320853400642245271}
   dialogue:
-  - actorGameObject: {fileID: 898760335}
+  - actorGameObject: {fileID: 0}
     actorName: 
     dialoguetext: hey bro is this thing on?
     optionalDialogueFinalPosition: {x: 0, y: 0}
-    actorPosition: {fileID: 0}
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 163627786}
     actorName: 
     dialoguetext: ofc
     optionalDialogueFinalPosition: {x: 0, y: 0}
-    actorPosition: {fileID: 0}
     dialogueGameObject: {fileID: 0}
-  - actorGameObject: {fileID: 898760335}
+  - actorGameObject: {fileID: 0}
     actorName: 
     dialoguetext: nailed it first try, every time dude
     optionalDialogueFinalPosition: {x: 0, y: 0}
-    actorPosition: {fileID: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
   isLoopedDialogue: 1
@@ -13892,8 +13816,8 @@ MonoBehaviour:
   triggerOnLoad: {fileID: 0}
   trigger:
   - ifTriggered: {fileID: 1126496121}
-    toTrigger: {fileID: 1702311243}
-  - ifTriggered: {fileID: 1702311241}
+    toTrigger: {fileID: 0}
+  - ifTriggered: {fileID: 0}
     toTrigger: {fileID: 754358873}
 --- !u!114 &1320853400832983143
 MonoBehaviour:
@@ -14066,7 +13990,7 @@ PrefabInstance:
     - target: {fileID: 7763232257103224648, guid: f41d3472b06021041a578108d702d64a, type: 3}
       propertyPath: playerMovementScript
       value: 
-      objectReference: {fileID: 898760340}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14155,7 +14079,7 @@ PrefabInstance:
     - target: {fileID: 7106120818158512060, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: animator
       value: 
-      objectReference: {fileID: 898760347}
+      objectReference: {fileID: 0}
     - target: {fileID: 7106120818158512063, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -14200,16 +14124,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7291517550505530816, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.785
+      objectReference: {fileID: 0}
+    - target: {fileID: 7291517550505530816, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -6.76
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7106120818158512039, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 6457784655243026927, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 898760347}
-    - targetCorrespondingSourceObject: {fileID: 7106120816956570977, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+      addedObject: {fileID: 950585248}
   m_SourcePrefab: {fileID: 100100000, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
 --- !u!1001 &8380025656253421321
 PrefabInstance:

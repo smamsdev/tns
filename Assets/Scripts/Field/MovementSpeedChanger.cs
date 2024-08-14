@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Walkways : MonoBehaviour
+public class MovementSpeedChanger : MonoBehaviour
 {
     public float speedBonus;
 
@@ -12,7 +12,7 @@ public class Walkways : MonoBehaviour
         if (other.tag == "Player")
 
         {
-            FieldEvents.IsWalkwayBoost?.Invoke(true, speedBonus) ;
+            FieldEvents.movementSpeedMultiplier = speedBonus;
         }
     }
 
@@ -21,8 +21,7 @@ public class Walkways : MonoBehaviour
         if (other.tag == "Player")
 
         {
-            FieldEvents.IsWalkwayBoost?.Invoke(false, speedBonus);
+            FieldEvents.movementSpeedMultiplier = 1;
         }
-
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DialogueContainer : ToTrigger
 {
-    public DialogueManager dialogueManager;
+    DialogueManager dialogueManager;
 
     public Dialogue[] dialogue;
     public bool dialogueLaunched;
@@ -15,7 +15,7 @@ public class DialogueContainer : ToTrigger
     {
         for (int i = 0; i < dialogue.Length; i++)
         {
-            dialogue[i].dialogueGameObject = gameObject;
+            dialogue[i].dialogueGameObject = gameObject; //wtf is this
         }
 
         dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
@@ -54,7 +54,6 @@ public class Dialogue
     [HideInInspector] public string actorName;
     [TextArea(2, 5)] public string dialoguetext;
     public Vector2 optionalDialogueFinalPosition;
-    [HideInInspector] public Transform actorPosition; //do i need this?
     [HideInInspector] public GameObject dialogueGameObject;
 }
 

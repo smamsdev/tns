@@ -22,11 +22,9 @@ public class Sequence : ToTrigger
     public override IEnumerator DoAction()
 
     {
-        CombatEvents.LockPlayerMovement();
         isSequenceRunning = true;
         StartCoroutine(toTrigger[i].DoAction());
         i++;
-
 
         yield return null;
     }
@@ -38,7 +36,6 @@ public class Sequence : ToTrigger
             if (toTrigger[(i-1)].gameObject == gameObject && (i) < toTrigger.Length)
 
             {
-
                 toTrigger[i-1] = null;
 
                 StartCoroutine(toTrigger[i].DoAction());
@@ -48,7 +45,6 @@ public class Sequence : ToTrigger
                 { EndSequence(); }
             }
         }
-
     }
 
     void EndSequence()

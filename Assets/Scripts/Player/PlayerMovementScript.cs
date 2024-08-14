@@ -14,9 +14,6 @@ public class PlayerMovementScript : MovementScript
     public bool isWalkwayBoost;
     public bool isDescending = false;
 
-    public float movementSpeed = 1.75f;
-    public float defaultMovementspeed;
-
     public bool movementLocked = false;
 
     public Vector2 isAscending;
@@ -31,26 +28,24 @@ public class PlayerMovementScript : MovementScript
     {
         CombatEvents.LockPlayerMovement += LockPlayerMovement;
         CombatEvents.UnlockPlayerMovement += UnlockPlayerMovement;
-        FieldEvents.IsWalkwayBoost += IsWalkwayBoost;
     }
 
     private void OnDisable()
     {
         CombatEvents.LockPlayerMovement -= LockPlayerMovement;
         CombatEvents.UnlockPlayerMovement -= UnlockPlayerMovement;
-        FieldEvents.IsWalkwayBoost -= IsWalkwayBoost;
     }
 
     private void Awake()
     {
         playerRigidBody2d = GetComponent<Rigidbody2D>();
-        defaultMovementspeed = movementSpeed;
     }
 
     private void Start()
     {
-        defaultMovementspeed = movementSpeed;
-        Vector2 movePosition = playerRigidBody2d.position;
+        movementSpeed = defaultMovementspeed;
+        scriptedMovement = false;
+        FieldEvents.movementSpeedMultiplier = 1;
         animator.SetFloat("sceneEntryDirection", FieldEvents.lookDirection.x);
         isAscending = Vector2.one;
     }
@@ -58,18 +53,18 @@ public class PlayerMovementScript : MovementScript
     private void Update()
     {
 
+       // movementSpeed = defaultMovementspeed * FieldEvents.movementSpeedMultiplier;
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
 
         {
-            FieldEvents.specialMovementSpeed = defaultMovementspeed * 3;
-            movementSpeed = FieldEvents.specialMovementSpeed;
+            FieldEvents.movementSpeedMultiplier = 3;
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift))
 
         {
-            movementSpeed = defaultMovementspeed;
+            FieldEvents.movementSpeedMultiplier = 1;
         }
 
         if (Input.GetKeyDown(KeyCode.L))
@@ -92,9 +87,8 @@ public class PlayerMovementScript : MovementScript
         {
             horizontalInput = Input.GetAxis("Horizontal");
             verticalInput = Input.GetAxis("Vertical") * isAscending.y;
-            horizontalInputRaw = Input.GetAxisRaw("Horizontal"); //dont think i neeed the rarws anymawr
-            verticalInputRaw = Input.GetAxisRaw("Vertical");
         }
+
             newPosition = playerRigidBody2d.position;
             previousPosition = playerRigidBody2d.position;
 
@@ -105,27 +99,26 @@ public class PlayerMovementScript : MovementScript
 
             movementDirection = (newPosition - previousPosition);
 
-            animator.SetFloat("horizontalInput", horizontalInput);
-            animator.SetFloat("verticalInput", verticalInput);
-            animator.SetFloat("horizontalInputRaw", movementDirection.x);
-            animator.SetFloat("verticalInputRaw", verticalInputRaw);
+            animator.SetFloat("horizontalInput", movementDirection.x);
+            animator.SetFloat("verticalInput", movementDirection.y);
 
-            if (horizontalInputRaw > 0)
+
+            if (horizontalInput > 0)
             {
                 FieldEvents.lookDirection = Vector2.right;
             }
 
-            if (horizontalInputRaw < 0)
+            if (horizontalInput < 0)
             {
                 FieldEvents.lookDirection = Vector2.left;
             }
 
-            if (verticalInputRaw > 0)
+            if (verticalInput > 0)
             {
                 FieldEvents.lookDirection = Vector2.up;
             }
 
-            if (verticalInputRaw < 0)
+            if (verticalInput < 0)
             {
                 FieldEvents.lookDirection = Vector2.down;
             }
@@ -134,33 +127,14 @@ public class PlayerMovementScript : MovementScript
     public void LockPlayerMovement()
 
     {
-        // playerPosition = this.transform.position;  WHAT WERE THESE FOR?
         movementLocked = true;
+       // Debug.Log("locked");
     }
 
     public void UnlockPlayerMovement()
 
     {
-        //  playerPosition = this.transform.position;
         movementLocked = false;
-    }
-
-    void IsWalkwayBoost(bool _isWalkwayBoost, float _speedBonus)
-
-    {
-        isWalkwayBoost = _isWalkwayBoost;
-
-        if (isWalkwayBoost)
-        {
-            float SpeedBonus = _speedBonus;
-            float boostedMovementSpeed = defaultMovementspeed + (defaultMovementspeed * SpeedBonus);
-            movementSpeed = boostedMovementSpeed;
-        }
-
-        if (!isWalkwayBoost)
-        {
-            movementSpeed = defaultMovementspeed;
-        }
-
+       // Debug.Log("unlocked");
     }
 }

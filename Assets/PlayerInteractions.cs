@@ -7,10 +7,6 @@ public class PlayerInteractions : MonoBehaviour
     public RaycastHit2D raycastHit2D;
     public LayerMask layer_mask;
 
-    public Gear testGear;
-    public PlayerInventory inventory;
-    public InventorySO inventorySO;
-
     void Update()
     {
 
@@ -23,21 +19,6 @@ public class PlayerInteractions : MonoBehaviour
                 FieldEvents.PlayerRayCastHit?.Invoke(raycastHit2D);
             }
 
-        }
-
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            if (!inventorySO.inventoryString.Contains(testGear.gearID))
-
-            {
-                inventorySO.inventoryString.Add(testGear.gearID);
-            }
-
-            if (!inventory.inventory.Contains(testGear))
-
-            {
-                inventory.inventory.Add(testGear);
-            }
         }
     }
 }

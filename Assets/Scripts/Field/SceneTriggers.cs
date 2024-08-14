@@ -24,7 +24,6 @@ public class SceneTriggers : MonoBehaviour
     {
         if (isTriggerOnLoad) 
         {
-        CombatEvents.LockPlayerMovement();
         StartCoroutine(triggerOnLoad.DoAction());
         triggerOnLoad = null;
         }
@@ -34,11 +33,9 @@ public class SceneTriggers : MonoBehaviour
     {
        if (trigger != null)
        {
-           CombatEvents.LockPlayerMovement();
-
            for (int i = 0; i < trigger.Length; i++)
            {
-               if (trigger[i].ifTriggered == gameObject)
+                if (trigger[i].ifTriggered == gameObject)
 
                {
                    StartCoroutine(trigger[i].toTrigger.DoAction());

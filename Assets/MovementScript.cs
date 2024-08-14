@@ -6,6 +6,9 @@ public abstract class MovementScript : MonoBehaviour
 {
     public float horizontalInput;
     public float verticalInput;
-    public float horizontalInputRaw;
-    public float verticalInputRaw;
+    public float defaultMovementspeed;
+    public float movementSpeed;
+    public bool scriptedMovement;
+
+
 }

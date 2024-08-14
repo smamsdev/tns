@@ -21,21 +21,12 @@ public class DialogueTrigger : MonoBehaviour
         FieldEvents.HasCompleted -= ReloadDialogue;
     }
 
-
-    //auto load the first Dialogue Child
-    private void Start()
-    {
-        dialogueToPlay = this.transform.GetChild(0).gameObject.GetComponent<DialogueContainer>();
-    }
-
     void PlayerRayCastHit(RaycastHit2D raycastHit2D)
-
     {
-
-        if (raycastHit2D.collider.gameObject == this.transform.parent.gameObject && !dialogueToPlay.dialogueLaunched && !FieldEvents.isCooldown() && !FieldEvents.isDialogueActive)    
+        if (raycastHit2D.collider.gameObject == this.gameObject && !dialogueToPlay.dialogueLaunched && !FieldEvents.isCooldown() && !FieldEvents.isDialogueActive)    
         {
             StartCoroutine(FieldEvents.CoolDown(0.3f));
-            dialogueToPlay.OpenDialogue();
+            StartCoroutine(dialogueToPlay.DoAction());
         }
     }
 
