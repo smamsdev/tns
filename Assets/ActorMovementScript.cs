@@ -25,6 +25,56 @@ public class ActorMovementScript : MovementScript
         isAscending = Vector2.one;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+
+        {
+            verticalInput = 1;
+        }
+
+        if (Input.GetKeyUp(KeyCode.I))
+
+        {
+            verticalInput = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+
+        {
+            verticalInput = -1;
+        }
+
+        if (Input.GetKeyUp(KeyCode.K))
+
+        {
+            verticalInput = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.J))
+
+        {
+            horizontalInput = -1;
+        }
+
+        if (Input.GetKeyUp(KeyCode.J))
+
+        {
+            horizontalInput = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+
+        {
+            horizontalInput = 1;
+        }
+
+        if (Input.GetKeyUp(KeyCode.L))
+
+        {
+            horizontalInput = 0;
+        }
+    }
+
     void FixedUpdate()
     {
         {
@@ -37,6 +87,9 @@ public class ActorMovementScript : MovementScript
             actorRigidBody2d.MovePosition(newPosition);
 
             movementDirection = (newPosition - previousPosition);
+
+            actorAnimator.SetFloat("horizontalInput", movementDirection.x);
+            actorAnimator.SetFloat("verticalInput", movementDirection.y);
         }
     }
 }
