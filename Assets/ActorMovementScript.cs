@@ -10,6 +10,8 @@ public class ActorMovementScript : MovementScript
     public Vector2 previousPosition;
     public Vector2 movementDirection;
 
+    public Vector2 lookDirection;
+
     public Animator actorAnimator;
 
     private void Awake()
@@ -73,6 +75,12 @@ public class ActorMovementScript : MovementScript
         {
             horizontalInput = 0;
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+
+        {
+            actorAnimator.SetTrigger("customAnimation1");
+        }
     }
 
     void FixedUpdate()
@@ -88,8 +96,41 @@ public class ActorMovementScript : MovementScript
 
             movementDirection = (newPosition - previousPosition);
 
+            if (movementDirection.magnitude > 0)
+            {
+                actorRigidBody2d.bodyType = RigidbodyType2D.Dynamic;
+                actorAnimator.SetBool("isMoving", true);
+            }
+            else
+            {
+                actorRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
+                actorAnimator.SetBool("isMoving", false);
+            }
+
+            if (horizontalInput > 0)
+            {
+                lookDirection = Vector2.right;
+            }
+
+            if (horizontalInput < 0)
+            {
+                lookDirection = Vector2.left;
+            }
+
+            if (verticalInput > 0)
+            {
+                lookDirection = Vector2.up;
+            }
+
+            if (verticalInput < 0)
+            {
+                lookDirection = Vector2.down;
+            }
+
             actorAnimator.SetFloat("horizontalInput", movementDirection.x);
             actorAnimator.SetFloat("verticalInput", movementDirection.y);
+            actorAnimator.SetFloat("lookDirectionX", lookDirection.x);
+            actorAnimator.SetFloat("lookDirectionY", lookDirection.y);
         }
     }
 }
