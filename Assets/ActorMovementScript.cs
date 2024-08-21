@@ -75,12 +75,6 @@ public class ActorMovementScript : MovementScript
         {
             horizontalInput = 0;
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-
-        {
-            actorAnimator.SetTrigger("customAnimation1");
-        }
     }
 
     void FixedUpdate()

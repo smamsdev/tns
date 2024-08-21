@@ -128,6 +128,8 @@ public class PlayerMovementScript : MovementScript
 
     {
         movementLocked = true;
+        horizontalInput = 0;
+        verticalInput = 0;
        // Debug.Log("locked");
     }
 

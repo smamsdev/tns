@@ -24,7 +24,6 @@ public class Sequence : ToTrigger
     {
         isSequenceRunning = true;
         StartCoroutine(toTrigger[i].DoAction());
-        i++;
 
         yield return null;
     }
@@ -33,16 +32,22 @@ public class Sequence : ToTrigger
     {
         if (isSequenceRunning) 
         {
-            if (toTrigger[(i-1)].gameObject == gameObject && (i) < toTrigger.Length)
+            if (toTrigger[i].gameObject == gameObject)
 
             {
-                toTrigger[i-1] = null;
-
-                StartCoroutine(toTrigger[i].DoAction());
+                toTrigger[i] = null;
                 i++;
 
                 if (i == toTrigger.Length)
-                { EndSequence(); }
+                { 
+                    EndSequence();
+                    return;
+                }
+
+                if (i < toTrigger.Length)
+                {
+                    StartCoroutine(toTrigger[i].DoAction());
+                }
             }
         }
     }
@@ -50,9 +55,7 @@ public class Sequence : ToTrigger
     void EndSequence()
     {
         toTrigger[i - 1] = null;
-            
-        Debug.Log("ending");
-            
+                  
         isSequenceRunning = false;
         FieldEvents.HasCompleted.Invoke(this.gameObject);
     }

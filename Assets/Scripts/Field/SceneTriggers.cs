@@ -25,7 +25,7 @@ public class SceneTriggers : MonoBehaviour
         if (isTriggerOnLoad) 
         {
         StartCoroutine(triggerOnLoad.DoAction());
-        triggerOnLoad = null;
+        //triggerOnLoad = null;
         }
     }
 
@@ -39,8 +39,8 @@ public class SceneTriggers : MonoBehaviour
 
                {
                    StartCoroutine(trigger[i].toTrigger.DoAction());
-                   trigger[i].ifTriggered = null;
-                   trigger[i].toTrigger = null;
+                  //trigger[i].ifTriggered = null;
+                  //trigger[i].toTrigger = null;
 
                    return;
                }

@@ -12,6 +12,7 @@ public class DialogueBox : MonoBehaviour
     [SerializeField] TextMeshProUGUI nameFieldBackground;
     [SerializeField] TextMeshProUGUI dialogueFieldBackground;
     public Animator animator;
+    GameObject playerObj;
 
     Vector2 actorPos;
     public Vector2 dialogueFinalPosition;
@@ -21,6 +22,7 @@ public class DialogueBox : MonoBehaviour
     public void DisplayMessage(Dialogue _dialogueElement)
 
     {
+        playerObj = GameObject.Find("Player");
         dialogueElement = _dialogueElement;
        // this.transform.position = actorPos;
 
@@ -39,62 +41,8 @@ public class DialogueBox : MonoBehaviour
         if (dialogueElement.optionalDialogueFinalPosition.x == 0 && dialogueElement.optionalDialogueFinalPosition.y == 0)
 
         {
-            //tweak it a bit based on look direction
-            if (dialogueElement.actorGameObject != GameObject.Find("Player"))
-
-            {
-                if (FieldEvents.lookDirection == Vector2.right)
-                {
-                    dialogueFinalPosition.x = actorPos.x + 0.1f;
-                    dialogueFinalPosition.y = actorPos.y + 0.85f;
-                }
-
-                if (FieldEvents.lookDirection == Vector2.left)
-                {
-                    dialogueFinalPosition.x = actorPos.x - 0.4f;
-                    dialogueFinalPosition.y = actorPos.y + 0.85f;
-                }
-
-                if (FieldEvents.lookDirection == Vector2.up)
-                {
-                    dialogueFinalPosition.x = actorPos.x + 0.1f;
-                    dialogueFinalPosition.y = actorPos.y + 0.85f;
-                }
-
-                if (FieldEvents.lookDirection == Vector2.down)
-                {
-                    dialogueFinalPosition.x = actorPos.x + 0.1f;
-                    dialogueFinalPosition.y = actorPos.y - 0.1f;
-                }
-            }
-
-            if (dialogueElement.actorGameObject == GameObject.Find("Player"))
-
-            {
-                if (FieldEvents.lookDirection == Vector2.right)
-                {
-                    dialogueFinalPosition.x = actorPos.x - 0.5f;
-                    dialogueFinalPosition.y = actorPos.y + 0.85f;
-                }
-
-                if (FieldEvents.lookDirection == Vector2.left)
-                {
-                    dialogueFinalPosition.x = actorPos.x- 0.5f;
-                    dialogueFinalPosition.y = actorPos.y + 0.85f;
-                }
-
-                if (FieldEvents.lookDirection == Vector2.up)
-                {
-                    dialogueFinalPosition.x = actorPos.y - 0.5f;
-                    dialogueFinalPosition.y = actorPos.y - 0.2f;
-                }
-
-                if (FieldEvents.lookDirection == Vector2.down)
-                {
-                    dialogueFinalPosition.x = actorPos.x - 0.8f;
-                    dialogueFinalPosition.y = actorPos.y + 0.85f;
-                }
-            }
+            dialogueFinalPosition.x = actorPos.x - 0.00f;
+            dialogueFinalPosition.y = actorPos.y + 0.8f;
         }
 
         else
@@ -112,10 +60,18 @@ public class DialogueBox : MonoBehaviour
             nameText.text = "";
         }
 
-        nameText.text = dialogueElement.actorGameObject.name;
+        if (dialogueElement.actorGameObject == playerObj)
+        {
+            Debug.Log("ohn");
+            nameText.text = "Liam";
+        }
+
+        else 
+        {
+            nameText.text = dialogueElement.actorGameObject.name;
+        }
 
         // if the dialog is too short, throw in some extra spaces, so it doesn't look all jacked up.
-
         int minimumLength = 12;
 
         if (dialogueElement.dialoguetext.Length < minimumLength)

@@ -6,6 +6,17 @@ public class DoorScript : MonoBehaviour
 {
     public SpriteRenderer doorSprite;
     public MovementScript movementScript;
+    bool disablingDoor;
+
+    private void OnEnable()
+    {
+        disablingDoor = false;
+    }
+
+    private void OnDisable()
+    {
+        disablingDoor = true;
+    }
 
     void OnTriggerEnter2D(Collider2D collision)
 
@@ -16,7 +27,10 @@ public class DoorScript : MonoBehaviour
 
     void OnTriggerExit2D()
     {
-        StartCoroutine(CloseDoor());
+        if (!disablingDoor)
+        {
+            StartCoroutine(CloseDoor());
+        }
     }
 
     IEnumerator OpenDoor()

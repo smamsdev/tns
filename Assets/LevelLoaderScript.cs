@@ -9,10 +9,8 @@ public class LevelLoaderScript : ToTrigger
     public Vector2 entryCoordinates;
     static string PendingPreviousScene;
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.tag == "Player")
 
         {
@@ -23,7 +21,6 @@ public class LevelLoaderScript : ToTrigger
     public override IEnumerator DoAction()
 
     {
-        //SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         LoadScene(sceneName);
         FieldEvents.entryCoordinates = entryCoordinates;
 
@@ -45,5 +42,4 @@ public class LevelLoaderScript : ToTrigger
         SceneManager.SetActiveScene(scene);
         SceneManager.UnloadSceneAsync(PendingPreviousScene);
     }
-
 }
