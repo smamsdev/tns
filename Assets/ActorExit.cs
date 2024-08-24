@@ -22,8 +22,10 @@ public class ActorExit : ToTrigger
     {
         if (triggerToLeave.gameObject == gameObject)
 
-        { 
-        actorToLeave.position = new Vector3(1000, 1000, 0);
+        {
+            Debug.Log("putiton!!");
+            actorToLeave.position = new Vector3(1000, 1000, 0);
+            FieldEvents.HasCompleted.Invoke(this.gameObject);
         } 
     }
 }

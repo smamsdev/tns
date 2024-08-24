@@ -62,7 +62,6 @@ public class DialogueBox : MonoBehaviour
 
         if (dialogueElement.actorGameObject == playerObj)
         {
-            Debug.Log("ohn");
             nameText.text = "Liam";
         }
 

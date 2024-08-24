@@ -11,6 +11,7 @@ public class ActorMovementScript : MovementScript
     public Vector2 movementDirection;
 
     public Vector2 lookDirection;
+    public Vector2 forceLookDirectionOnLoad;
 
     public Animator actorAnimator;
 
@@ -25,6 +26,12 @@ public class ActorMovementScript : MovementScript
         movementSpeed = defaultMovementspeed;
         scriptedMovement = false;
         isAscending = Vector2.one;
+
+        if (forceLookDirectionOnLoad != Vector2.zero ) 
+        
+        { 
+            lookDirection = forceLookDirectionOnLoad;
+        }
     }
 
     private void Update()

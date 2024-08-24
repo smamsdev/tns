@@ -10,7 +10,7 @@ public class ColliderTrigger : MonoBehaviour
 
         {
             FieldEvents.HasCompleted.Invoke(this.gameObject);
-          //  GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 }

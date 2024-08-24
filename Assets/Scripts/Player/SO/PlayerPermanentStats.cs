@@ -19,6 +19,8 @@ public class PlayerPermanentStats : ScriptableObject
     public int maxPotential;
     public int maxHP;
 
+    public int smams;
+
 
     [Header("Exp")]
     public int level;

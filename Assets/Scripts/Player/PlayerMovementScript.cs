@@ -36,11 +36,6 @@ public class PlayerMovementScript : MovementScript
         CombatEvents.UnlockPlayerMovement -= UnlockPlayerMovement;
     }
 
-    private void Awake()
-    {
-        playerRigidBody2d = GetComponent<Rigidbody2D>();
-    }
-
     private void Start()
     {
         movementSpeed = defaultMovementspeed;
@@ -137,6 +132,6 @@ public class PlayerMovementScript : MovementScript
 
     {
         movementLocked = false;
-       // Debug.Log("unlocked");
+        //Debug.Log("unlocked");
     }
 }
