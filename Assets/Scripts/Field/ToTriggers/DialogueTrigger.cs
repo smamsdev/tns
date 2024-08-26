@@ -23,7 +23,7 @@ public class DialogueTrigger : MonoBehaviour
 
     void PlayerRayCastHit(RaycastHit2D raycastHit2D)
     {
-        if (raycastHit2D.collider.gameObject == this.gameObject && !dialogueToPlay.dialogueLaunched && !FieldEvents.isCooldown() && !FieldEvents.isDialogueActive)    
+        if (raycastHit2D.collider.gameObject == this.gameObject && !dialogueToPlay.dialogueLaunched && !FieldEvents.isCooldown() && !FieldEvents.isDialogueActive && !FieldEvents.isSequenceRunning)    
         {
             StartCoroutine(FieldEvents.CoolDown(0.3f));
             StartCoroutine(dialogueToPlay.DoAction());

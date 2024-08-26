@@ -62,16 +62,16 @@ public class PlayerMovementScript : MovementScript
             FieldEvents.movementSpeedMultiplier = 1;
         }
 
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.KeypadPlus))
 
         {
-            LockPlayerMovement();
+            Time.timeScale = 10;
         }
 
-        if (Input.GetKeyUp(KeyCode.L))
+        if (Input.GetKeyUp(KeyCode.KeypadPlus))
 
         {
-            UnlockPlayerMovement();
+            Time.timeScale = 1;
         }
     }
 
@@ -125,7 +125,7 @@ public class PlayerMovementScript : MovementScript
         movementLocked = true;
         horizontalInput = 0;
         verticalInput = 0;
-       // Debug.Log("locked");
+        //Debug.Log("locked");
     }
 
     public void UnlockPlayerMovement()

@@ -20,12 +20,20 @@ public class ActorExit : ToTrigger
     void TriggerAction(GameObject gameObject)
 
     {
-        if (triggerToLeave.gameObject == gameObject)
+        if (triggerToLeave != null && triggerToLeave.gameObject == gameObject)
 
         {
-            Debug.Log("putiton!!");
             actorToLeave.position = new Vector3(1000, 1000, 0);
             FieldEvents.HasCompleted.Invoke(this.gameObject);
         } 
+    }
+
+    public override IEnumerator DoAction()
+
+    {
+        actorToLeave.position = new Vector3(1000, 1000, 0);
+        FieldEvents.HasCompleted.Invoke(this.gameObject);
+
+        yield break;
     }
 }

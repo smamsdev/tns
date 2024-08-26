@@ -10,8 +10,10 @@ public class AnimationState : ToTrigger
     public bool revertstate;
 
     public override IEnumerator DoAction()
-
+        //
         {
+
+        Debug.Log("test");
             if (!revertstate)
             {
                 animator.SetBool("State" + customAnimationStateNumber, true);

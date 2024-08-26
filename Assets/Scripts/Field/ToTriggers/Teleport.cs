@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Jump : ToTrigger
+public class Teleport : ToTrigger
 {
 
     public ActorJump[] actorJump;

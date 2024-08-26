@@ -15,7 +15,8 @@ public static class FieldEvents
     static bool isCoolDownBool;
     public static bool isDialogueActive;
 
-    public static bool objectFetched;
+    public static bool isSequenceRunning;
+
     public static Vector2 lookDirection;
 
     public static bool freshScene;

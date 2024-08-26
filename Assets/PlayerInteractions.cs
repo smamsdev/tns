@@ -18,7 +18,6 @@ public class PlayerInteractions : MonoBehaviour
 
             if (hit.collider != null)
             {
-                Debug.Log("Hit: " + hit.collider);
                 FieldEvents.PlayerRayCastHit?.Invoke(hit);
             }
         }

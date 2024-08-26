@@ -60,7 +60,6 @@ public class DialogueManager : MonoBehaviour
     {
         if (dialogueElement == (dialogue.Length-1))
         {
-            CombatEvents.UnlockPlayerMovement?.Invoke();
             dialogueElement++;
             StartCoroutine(FieldEvents.CoolDown(0.3f));
             dialogueBox.animator.SetTrigger("CloseDialogue");
@@ -71,6 +70,7 @@ public class DialogueManager : MonoBehaviour
 
             FieldEvents.isDialogueActive = false;
 
+            CombatEvents.UnlockPlayerMovement?.Invoke();
             FieldEvents.HasCompleted.Invoke(dialogue[0].dialogueGameObject);
         }
 

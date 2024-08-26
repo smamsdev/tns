@@ -38,7 +38,7 @@ public class DialogueBox : MonoBehaviour
     {
         actorPos = dialogueElement.actorGameObject.transform.position;
         // if there is no Optional end position set in the inspector...
-        if (dialogueElement.optionalDialogueFinalPosition.x == 0 && dialogueElement.optionalDialogueFinalPosition.y == 0)
+        if (dialogueElement.optionalDialogueFinalPosition == Vector3.zero)
 
         {
             dialogueFinalPosition.x = actorPos.x - 0.00f;
@@ -48,6 +48,7 @@ public class DialogueBox : MonoBehaviour
         else
         {
             dialogueFinalPosition = dialogueElement.optionalDialogueFinalPosition;
+            Debug.Log(dialogueFinalPosition);
         }
     }
 
@@ -71,17 +72,16 @@ public class DialogueBox : MonoBehaviour
         }
 
         // if the dialog is too short, throw in some extra spaces, so it doesn't look all jacked up.
-        int minimumLength = 12;
+
+        int minimumLength = dialogueElement.actorGameObject.name.Length;
+        int paddingLength = 3;
+        string padding = new string(' ', paddingLength);
 
         if (dialogueElement.dialoguetext.Length < minimumLength)
 
         {
-            string extraspace = "";
-
-            extraspace.PadRight(minimumLength - dialogueElement.dialoguetext.Length);
-
-            nameFieldBackground.text = dialogueElement.dialoguetext + extraspace.PadRight(minimumLength - dialogueElement.dialoguetext.Length) + ".";
-            dialogueFieldBackground.text = dialogueElement.dialoguetext + extraspace.PadRight(minimumLength - dialogueElement.dialoguetext.Length) + ".";
+            nameFieldBackground.text = dialogueElement.actorGameObject.name + padding + ".";
+            dialogueFieldBackground.text = dialogueElement.actorGameObject.name + padding + ".";
         }
 
         else
