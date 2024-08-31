@@ -40,5 +40,11 @@ public class AttackTarget : State
     {
         CombatEvents.SendMove -= SelectBodyPart;
     }
+
+    public void SelectBody()
+    {
+        combatManager.enemy[combatManager.selectedEnemy].SetEnemyBodyPartTarget(1);
+        combatManager.SetState(combatManager.applyMove);
+    }
 }
 

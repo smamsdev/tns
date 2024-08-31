@@ -70,7 +70,6 @@ public class EquippedGearDisplayUI : MonoBehaviour
 
     }
 
-
     void ButtonHighlighted(GameObject gameObject)
 
     {

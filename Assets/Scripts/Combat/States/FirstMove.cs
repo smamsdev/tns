@@ -8,11 +8,23 @@ public class FirstMove : State
     [SerializeField] CombatManager combatManager;
     [SerializeField] GameObject firstMoveContainer;
 
-    public float testLerp = 0;
+    private void OnEnable()
+    {
+        CombatEvents.SendMove += SetFirstMove;
+    }
+
+    private void OnDisable()
+    {
+        CombatEvents.SendMove -= SetFirstMove;
+    }
 
     public override IEnumerator StartState()
     {
-        CombatEvents.SendMove += SetFirstMove;
+        if (combatManager == null)
+        {
+            Debug.LogError("CombatManager is null in StartState!");
+            yield break;
+        }
 
         combatManager.combatUIScript.playerFendScript.animator.SetBool("fendbreak", false);
 
@@ -21,51 +33,50 @@ public class FirstMove : State
         combatManager.combatUIScript.ShowFirstMoveMenu(true);
         combatManager.playerMoveManager.firstMoveIs = 0;
 
-        //   // Example: Lerp testLerp from 0 to 10 over 3 seconds
-        //   StartCoroutine(Lerper.LerpFloat(testLerp, 10f, 3f, (lerpedValue) =>
-        //   {
-        //       testLerp = lerpedValue; // Update testLerp each frame
-        //   }));
-
         yield break;
     }
 
     void SetFirstMove(int moveValue)
-
     {
+        if (combatManager == null)
+        {
+            Debug.LogError("CombatManager is null in SetFirstMove!");
+            return;
+        }
+
         combatManager.playerMoveManager.firstMoveIs = moveValue;
         string moveName = "";
 
         switch (moveValue)
-
-        { 
-            case 1: moveName = "Violent";
+        {
+            case 1:
+                moveName = "Violent";
                 break;
             case 2:
                 moveName = "Cautious";
                 break;
             case 3:
                 moveName = "Precise";
-                break; 
-        };
-
-        if (moveValue == 4)
-
-        {
-            combatManager.SetState(combatManager.gearSelect);
+                break;
         }
 
+        if (moveValue == 4)
+        {
+            Debug.Log(combatManager);
+            combatManager.SetState(combatManager.gearSelect);
+        }
         else
         {
             combatManager.SetState(combatManager.secondMove);
         }
 
         combatManager.combatUIScript.UpdateFirstMoveDisplay(moveName);
-        CombatEvents.SendMove -= SetFirstMove;
     }
 
-    private void OnDisable()
+    public void FirstMoveIsViolent()
     {
-        CombatEvents.SendMove -= SetFirstMove;
+        combatManager.playerMoveManager.firstMoveIs = 1;
+        combatManager.combatUIScript.UpdateFirstMoveDisplay("Violent");
+        combatManager.SetState(combatManager.secondMove);
     }
 }

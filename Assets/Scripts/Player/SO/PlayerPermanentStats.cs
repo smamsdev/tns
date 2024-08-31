@@ -17,7 +17,12 @@ public class PlayerPermanentStats : ScriptableObject
     public int attackPowerBase;
     public int playerFocusbase;
     public int maxPotential;
+    public int currentPotential;
     public int maxHP;
+    public int currentHP;
+
+
+
 
     public int smams;
 

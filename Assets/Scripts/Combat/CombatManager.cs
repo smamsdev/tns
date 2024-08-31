@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CombatManager : MonoBehaviour
@@ -22,7 +20,7 @@ public class CombatManager : MonoBehaviour
 
     public CombatUIScript combatUIScript;
     public AttackTargetMenuScript attackTargetMenuScript;
-    [HideInInspector] public PlayerMoveManager playerMoveManager;
+    public PlayerMoveManager playerMoveManager;
     public int roundCount;
     public bool enemyIsDead = false;
 
@@ -43,6 +41,8 @@ public class CombatManager : MonoBehaviour
     private void OnEnable()
     {
         CombatEvents.SendState += SetState;
+        FindObjectOfType<CombatManager>();
+        SetState(setup);
     }
 
     private void OnDisable()
@@ -52,34 +52,56 @@ public class CombatManager : MonoBehaviour
 
     public void StartBattle()
     {
-        playerMoveManager = player.GetComponentInChildren< PlayerMoveManager>();
+        playerMoveManager = player.GetComponentInChildren<PlayerMoveManager>();
+
+        if (playerMoveManager == null)
+        {
+            Debug.LogError("PlayerMoveManager is not found in StartBattle");
+            return;
+        }
 
         enemy = new Enemy[battleScheme.enemyGameObject.Length];
 
         for (int i = 0; i < battleScheme.enemyGameObject.Length; i++)
         {
             enemy[i] = battleScheme.enemyGameObject[i].GetComponent<Enemy>();
+            if (enemy[i] == null)
+            {
+                Debug.LogError("Enemy component not found on " + battleScheme.enemyGameObject[i].name);
+            }
         }
 
         SetState(setup);
     }
 
     public void SetState(State state)
-
     {
+        if (state == null)
+        {
+            Debug.LogError("State is null in SetState");
+            return;
+        }
+
         currentState = state;
         StartCoroutine(currentState.StartState());
     }
 
     private void Update()
-
     {
-        currentState.StateUpdate();
+        if (currentState != null)
+        {
+            currentState.StateUpdate();
+        }
     }
 
-    public void UpdateFighterPosition(GameObject fighterGameObject, Vector2 end, float seconds) //call the coroutine using a function because you can't call coroutines when invoking events
-
+    public void UpdateFighterPosition(GameObject fighterGameObject, Vector2 end, float seconds)
     {
+        if (fighterGameObject == null)
+        {
+            Debug.LogError("Fighter GameObject is null in UpdateFighterPosition");
+            return;
+        }
+
         StartCoroutine(UpdateEnemyPositionCoRoutine(fighterGameObject, end, seconds));
     }
 
@@ -87,12 +109,14 @@ public class CombatManager : MonoBehaviour
     {
         float elapsedTime = 0;
         Vector2 startingPos = fighterGameObject.transform.position;
-        while (elapsedTime < seconds)
-            {
-                fighterGameObject.transform.position = Vector2.Lerp(startingPos, end, (elapsedTime / seconds));
-                elapsedTime += Time.deltaTime;
-                yield return new WaitForEndOfFrame();
-            }
-    }
 
+        while (elapsedTime < seconds)
+        {
+            fighterGameObject.transform.position = Vector2.Lerp(startingPos, end, (elapsedTime / seconds));
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        fighterGameObject.transform.position = end; // Ensure final position is set
+    }
 }
