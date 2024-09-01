@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class Teleport : ToTrigger
 {
-
     public ActorJump[] actorJump;
     int i;
 
-
-    // Start is called before the first frame update
     public override IEnumerator DoAction()
     {
         for (i = 0; i < actorJump.Length;)
@@ -29,7 +26,6 @@ public class Teleport : ToTrigger
 
         if (i == actorJump.Length)
         {
-
             FieldEvents.HasCompleted.Invoke(this.gameObject);
             CombatEvents.UnlockPlayerMovement();
         }
@@ -42,6 +38,5 @@ public class ActorJump
 {
     public GameObject actorGO;
     public Vector3 locationToAppear;
-
 }
 

@@ -7,7 +7,9 @@ public class CombatManager : MonoBehaviour
     public State currentState;
 
     [Header("Settings")]
+
     public Battle battleScheme;
+
     public GameObject player;
     public Enemy[] enemy;
 
@@ -18,7 +20,7 @@ public class CombatManager : MonoBehaviour
     [Header("Debugging")]
     public PlayerCombatStats playerCombatStats;
 
-    public CombatUIScript combatUIScript;
+    public CombatUIManager CombatUIManager;
     public AttackTargetMenuScript attackTargetMenuScript;
     public PlayerMoveManager playerMoveManager;
     public int roundCount;
@@ -41,8 +43,6 @@ public class CombatManager : MonoBehaviour
     private void OnEnable()
     {
         CombatEvents.SendState += SetState;
-        FindObjectOfType<CombatManager>();
-        SetState(setup);
     }
 
     private void OnDisable()

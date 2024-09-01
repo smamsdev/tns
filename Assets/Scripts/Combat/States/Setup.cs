@@ -6,7 +6,7 @@ public class Setup : State
 {
     [SerializeField] CombatManager combatManager;
 
-    [SerializeField] GameObject combatMenuContainer;
+    [SerializeField] GameObject combatUIContainer;
     [SerializeField] GameObject playerStatsUIContainer;
 
     [SerializeField] GameObject EnemyUIPrefab;
@@ -25,15 +25,14 @@ public class Setup : State
         CombatEvents.BattleMode?.Invoke(true);
         CombatEvents.LockPlayerMovement.Invoke();
 
-        //player
-        combatManager.playerCombatStats.InitialiseStats();
-
-        combatManager.combatUIScript.playerFendScript.ShowFendDisplay(false);
+        combatManager.CombatUIManager.playerFendScript.InitialiseFendUIPosition();
+        combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(false);
         combatManager.UpdateFighterPosition(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 1f);
-        combatMenuContainer.SetActive(true);
+        combatUIContainer.SetActive(true);
+        combatManager.playerCombatStats.InitialiseStats();
         playerStatsUIContainer.SetActive(true);
 
-        combatManager.combatUIScript.selectEnemyMenuScript.InitializeButtonSlots();
+        combatManager.CombatUIManager.selectEnemyMenuScript.InitializeButtonSlots();
 
         //enemy
 

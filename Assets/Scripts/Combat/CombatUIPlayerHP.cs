@@ -8,7 +8,6 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class CombatUIPlayerHP : MonoBehaviour
 {
-
     TextMeshProUGUI textMeshProUGUI;
     [SerializeField] Animator animator;
     public int playerCurrentHP;
@@ -21,13 +20,13 @@ public class CombatUIPlayerHP : MonoBehaviour
     private void OnEnable()
     {
         CombatEvents.UpdatePlayerHPDisplay += UpdatePlayerHP;
-        CombatEvents.InitializePlayerHP += InitializePlayerHP;
+        CombatEvents.InitializePlayerHPUI += InitializePlayerHP;
     }
 
     private void OnDisable()
     {
         CombatEvents.UpdatePlayerHPDisplay -= UpdatePlayerHP;
-        CombatEvents.InitializePlayerHP -= InitializePlayerHP;
+        CombatEvents.InitializePlayerHPUI -= InitializePlayerHP;
     }
 
     void UpdatePlayerHP(int finalValue)

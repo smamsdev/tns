@@ -26,11 +26,11 @@ public class FirstMove : State
             yield break;
         }
 
-        combatManager.combatUIScript.playerFendScript.animator.SetBool("fendbreak", false);
+        combatManager.CombatUIManager.playerFendScript.animator.SetBool("fendbreak", false);
 
         yield return new WaitForSeconds(0.1f);
 
-        combatManager.combatUIScript.ShowFirstMoveMenu(true);
+        combatManager.CombatUIManager.ShowFirstMoveMenu(true);
         combatManager.playerMoveManager.firstMoveIs = 0;
 
         yield break;
@@ -70,13 +70,13 @@ public class FirstMove : State
             combatManager.SetState(combatManager.secondMove);
         }
 
-        combatManager.combatUIScript.UpdateFirstMoveDisplay(moveName);
+        combatManager.CombatUIManager.UpdateFirstMoveDisplay(moveName);
     }
 
     public void FirstMoveIsViolent()
     {
         combatManager.playerMoveManager.firstMoveIs = 1;
-        combatManager.combatUIScript.UpdateFirstMoveDisplay("Violent");
+        combatManager.CombatUIManager.UpdateFirstMoveDisplay("Violent");
         combatManager.SetState(combatManager.secondMove);
     }
 }

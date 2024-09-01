@@ -9,9 +9,9 @@ public class MoneyChanger : ToTrigger
 
     public override IEnumerator DoAction()
     {
-        PlayerPermanentStats playerPermanentStats = GameObject.Find("Player").GetComponent<PermanentStatsHolder>().playerPermanentStats;
-
-        playerPermanentStats.smams += moneyChange;
+        //PlayerPermanentStats playerPermanentStats = GameObject.Find("Player").GetComponent<PermanentStatsHolder>().playerPermanentStats;
+        //todo fix this
+        //playerPermanentStats.smams += moneyChange;
         FieldEvents.HasCompleted.Invoke(this.gameObject);
 
         yield return null;

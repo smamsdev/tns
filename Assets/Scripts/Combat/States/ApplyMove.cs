@@ -16,8 +16,8 @@ public class ApplyMove : State
     {
         CombatEvents.EnemyIsDead += IsEnemyDead;
 
-        combatManager.combatUIScript.ShowBodyPartTargetMenu(false);
-        combatManager.combatUIScript.ShowSecondMoveMenu(false);
+        combatManager.CombatUIManager.ShowBodyPartTargetMenu(false);
+        combatManager.CombatUIManager.ShowSecondMoveMenu(false);
 
         foreach (Enemy enemy in combatManager.enemy)
 
@@ -39,6 +39,7 @@ public class ApplyMove : State
 
         combatManager.playerCombatStats.TotalPlayerAttackPower(combatManager.selectedPlayerMove.attackMoveMultiplier);
         CombatEvents.UpdateNarrator.Invoke(combatManager.selectedPlayerMove.moveName);
+
         StartCoroutine(combatManager.selectedPlayerMove.OnApplyMove(combatManager, combatManager.enemy[combatManager.selectedEnemy]));
 
         yield return null;
@@ -72,11 +73,11 @@ public class ApplyMove : State
         {
             CombatEvents.UpdatePlayerPot.Invoke(combatManager.selectedPlayerMove.potentialChange);
             combatManager.playerCombatStats.TotalPlayerFendPower(combatManager.selectedPlayerMove.fendMoveMultiplier);
-            combatManager.combatUIScript.playerFendScript.UpdateFendText(combatManager.playerCombatStats.playerFend);
+            combatManager.CombatUIManager.playerFendScript.UpdateFendText(combatManager.playerCombatStats.playerFend);
 
             if (combatManager.playerCombatStats.playerFend >0)
             {
-                combatManager.combatUIScript.playerFendScript.ShowFendDisplay(true);
+                combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
                 yield return new WaitForSeconds(1f);
             }
 

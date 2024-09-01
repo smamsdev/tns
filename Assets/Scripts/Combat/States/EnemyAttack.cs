@@ -26,7 +26,7 @@ public class EnemyAttack : State
         {
             if (enemy.attackTotal == 0 && enemy.fendTotal > 0)
             {
-                combatManager.combatUIScript.playerFendScript.animator.SetTrigger("fendFade");
+                combatManager.CombatUIManager.playerFendScript.animator.SetTrigger("fendFade");
             }
 
             else if (enemy.attackTotal > 0)

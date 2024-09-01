@@ -57,9 +57,8 @@ public class PlayerCombatStats : MonoBehaviour
         maxPotential = playerPermanentStats.maxPotential;
         currentPotential = maxPotential / 2;
 
-        CombatEvents.InitializePlayerHP.Invoke(playerMaxHP);
+        CombatEvents.InitializePlayerHPUI.Invoke(playerMaxHP);
         CombatEvents.InitializePlayerPotUI.Invoke(currentPotential);
-
     }
 
     public void CalculatePotentialMod()

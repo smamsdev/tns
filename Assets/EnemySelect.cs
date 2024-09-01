@@ -20,8 +20,8 @@ public class EnemySelect : State
 
         CombatEvents.SendMove += SelectEnemyTarget;
 
-        combatManager.combatUIScript.ShowEnemySelectMenu(true);
-        combatManager.combatUIScript.ShowSecondMoveMenu(false);
+        combatManager.CombatUIManager.ShowEnemySelectMenu(true);
+        combatManager.CombatUIManager.ShowSecondMoveMenu(false);
         yield break;
     }
 

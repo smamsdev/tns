@@ -11,8 +11,8 @@ public class AttackTarget : State
         CombatEvents.SendMove += SelectBodyPart;
         yield return new WaitForSeconds(0.1f);
 
-        combatManager.combatUIScript.ShowBodyPartTargetMenu(true);
-        combatManager.combatUIScript.ShowEnemySelectMenu(false);
+        combatManager.CombatUIManager.ShowBodyPartTargetMenu(true);
+        combatManager.CombatUIManager.ShowEnemySelectMenu(false);
 
         yield break;
     }

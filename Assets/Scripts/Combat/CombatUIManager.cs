@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CombatUIScript : MonoBehaviour
+public class CombatUIManager : MonoBehaviour
 {
     [SerializeField] CombatManager combatManager;
     public FendScript playerFendScript;
@@ -17,6 +17,10 @@ public class CombatUIScript : MonoBehaviour
     [SerializeField] GameObject enemySelectMenu;
     [SerializeField] GameObject attackTargetMenu;
     [SerializeField] CombatInventoryMenu combatInventoryMenu;
+
+    public GameObject combatPlayerStatsContainerGO;
+    public GameObject moveMenuGO;
+    public GameObject narratorGO;
 
     [Header("Menu Scripts")]
     public AttackTargetMenuScript attackTargetMenuScript;

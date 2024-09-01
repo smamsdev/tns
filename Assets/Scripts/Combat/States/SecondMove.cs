@@ -18,9 +18,9 @@ public class SecondMove : State
             yield break;
         }
 
-        combatManager.combatUIScript.ShowSecondMoveMenu(true);
-        combatManager.combatUIScript.ShowFirstMoveMenu(false);
-        combatManager.combatUIScript.ShowEnemySelectMenu(false);
+        combatManager.CombatUIManager.ShowSecondMoveMenu(true);
+        combatManager.CombatUIManager.ShowFirstMoveMenu(false);
+        combatManager.CombatUIManager.ShowEnemySelectMenu(false);
         combatManager.playerMoveManager.secondMoveIs = 0;
 
         yield break;
@@ -77,7 +77,7 @@ public class SecondMove : State
             combatManager.SetState(combatManager.applyMove);
         }
 
-        combatManager.combatUIScript.UpdateSecondMoveDisplay(moveName);
+        combatManager.CombatUIManager.UpdateSecondMoveDisplay(moveName);
 
         CombatEvents.SendMove -= SetSecondMove;
     }
@@ -90,7 +90,7 @@ public class SecondMove : State
     public void SecondMoveIsAttack()
     {
         combatManager.playerMoveManager.secondMoveIs = 1;
-        combatManager.combatUIScript.UpdateFirstMoveDisplay("Attack");
+        combatManager.CombatUIManager.UpdateFirstMoveDisplay("Attack");
 
         combatManager.playerMoveManager.CombineStanceAndMove();
         combatManager.selectedPlayerMove = combatManager.playerMoveManager.GetSelectedPlayerMove();

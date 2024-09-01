@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class BattleUpdate : MonoBehaviour
+public class BattleUpdate : MonoBehaviour//delete dis?
 {
     [SerializeField] CombatManager CombatManager;
     public bool isCoolDown;

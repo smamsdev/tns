@@ -11,7 +11,7 @@ public class ViolentBasic : ViolentMove
         combatManager = _combatManager;
         enemy = _enemy;
 
-        combatManager.combatUIScript.playerFendScript.ShowFendDisplay(true);
+        combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
 
         if (isAttack)
         {

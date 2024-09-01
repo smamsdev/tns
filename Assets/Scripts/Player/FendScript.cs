@@ -26,16 +26,12 @@ public class FendScript : MonoBehaviour
         CombatEvents.ApplyEnemyAttackToFend -= ApplyEnemyAttackToFend;
     }
 
-    private void Start()
+    public void InitialiseFendUIPosition()
     {
-        ShowFendDisplay(false);
-        Debug.Log(combatManager.battleScheme.playerFightingPosition.transform.position);
-
         playerFendContainer.transform.position = new Vector2(combatManager.battleScheme.playerFightingPosition.transform.position.x + 0.02f, combatManager.battleScheme.playerFightingPosition.transform.position.y + 0.8f);
     }
 
     public void ShowFendDisplay(bool on)
-
     {
         if (on && combatManager.playerCombatStats.playerFend > 0)
 
@@ -111,7 +107,7 @@ public class FendScript : MonoBehaviour
         fendTextMeshProUGUI.text = "";
         if (attackRemainder > 0)
         {
-            combatManager.combatUIScript.playerDamageTakenDisplay.ShowPlayerDamageDisplay(attackRemainder);
+            combatManager.CombatUIManager.playerDamageTakenDisplay.ShowPlayerDamageDisplay(attackRemainder);
             CombatEvents.UpdatePlayerHP.Invoke(-attackRemainder);
         }
     }
