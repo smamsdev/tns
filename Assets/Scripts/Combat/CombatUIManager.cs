@@ -39,7 +39,6 @@ public class CombatUIManager : MonoBehaviour
     {
         if (on)
         {
-            CombatEvents.InputCoolDown?.Invoke(0.2f);
             firstMoveMenu.SetActive(true);
             firstMenuFirstButton.Select();
 
@@ -59,7 +58,6 @@ public class CombatUIManager : MonoBehaviour
         if (on)
         {
             secondMenuFirstButton.Select();
-            CombatEvents.InputCoolDown?.Invoke(0.1f);
 
             ShowFirstMoveMenu(false);
             ShowEnemySelectMenu(false);
@@ -93,8 +91,6 @@ public class CombatUIManager : MonoBehaviour
     public void ShowBodyPartTargetMenu(bool on)
 
     {
-        CombatEvents.InputCoolDown?.Invoke(0.1f);
-
         if (on)
         {
             attackTargetMenu.SetActive(true);

@@ -15,22 +15,18 @@ public class EnemySelect : State
         {
             combatManager.SetState(combatManager.attackTarget);
             yield break;
-
         }
-
-        CombatEvents.SendMove += SelectEnemyTarget;
 
         combatManager.CombatUIManager.ShowEnemySelectMenu(true);
         combatManager.CombatUIManager.ShowSecondMoveMenu(false);
         yield break;
     }
 
-    void SelectEnemyTarget(int moveValue)
+    public override void CombatOptionSelected(int moveValue)
 
     {
         combatManager.selectedEnemy = moveValue;
         combatManager.SetState(combatManager.attackTarget);
-        CombatEvents.SendMove -= SelectEnemyTarget;
     }
 
     public override void StateUpdate()
@@ -39,13 +35,6 @@ public class EnemySelect : State
 
         {
             combatManager.SetState(combatManager.secondMove);
-            CombatEvents.InputCoolDown?.Invoke(0.2f);
         }
     }
-
-    private void OnDisable()
-    {
-        CombatEvents.SendMove -= SelectEnemyTarget;
-    }
-
 }

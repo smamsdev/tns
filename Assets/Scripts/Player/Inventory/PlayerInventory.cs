@@ -27,7 +27,7 @@ public class PlayerInventory : MonoBehaviour
     {
         for (int i = 0; i < inventorySO.inventoryString.Count; i++)
         {
-            inventory.Add(GameObject.Find(inventorySO.inventoryString[i]).GetComponent<Gear>()); ;
+         //   inventory.Add(GameObject.Find(inventorySO.inventoryString[i]).GetComponent<Gear>()); ;
         }
     }
 

@@ -16,4 +16,9 @@ public abstract class State : MonoBehaviour
         
     }
 
+    public virtual void CombatOptionSelected(int Value)
+    { 
+    
+    }
+
 }

@@ -5,18 +5,12 @@ using UnityEngine;
 
 public class EnemyStatsDisplay : MonoBehaviour
 {
-    [SerializeField] CombatManager combatManager;
     [SerializeField] TextMeshProUGUI enemyNameTextMeshPro;
     [SerializeField] TextMeshProUGUI enemyHPTextMeshPro;
     [SerializeField] GameObject enemyStatsDisplayGameObject;
     [SerializeField] Animator animator;
     Enemy enemy;
     int enemyHP;
-
-    private void OnEnable()
-    {
-        combatManager = GetComponentInParent<CombatManager>();
-    }
 
     public void ShowEnemyStatsDisplay(bool on)
 

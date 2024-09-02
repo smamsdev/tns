@@ -8,42 +8,21 @@ public class FirstMove : State
     [SerializeField] CombatManager combatManager;
     [SerializeField] GameObject firstMoveContainer;
 
-    private void OnEnable()
-    {
-        CombatEvents.SendMove += SetFirstMove;
-    }
-
-    private void OnDisable()
-    {
-        CombatEvents.SendMove -= SetFirstMove;
-    }
-
     public override IEnumerator StartState()
     {
-        if (combatManager == null)
-        {
-            Debug.LogError("CombatManager is null in StartState!");
-            yield break;
-        }
-
         combatManager.CombatUIManager.playerFendScript.animator.SetBool("fendbreak", false);
 
         yield return new WaitForSeconds(0.1f);
 
         combatManager.CombatUIManager.ShowFirstMoveMenu(true);
+        combatManager.CombatUIManager.ShowSecondMoveMenu(false);
         combatManager.playerMoveManager.firstMoveIs = 0;
 
         yield break;
     }
 
-    void SetFirstMove(int moveValue)
+    public override void CombatOptionSelected (int moveValue)
     {
-        if (combatManager == null)
-        {
-            Debug.LogError("CombatManager is null in SetFirstMove!");
-            return;
-        }
-
         combatManager.playerMoveManager.firstMoveIs = moveValue;
         string moveName = "";
 
@@ -58,25 +37,20 @@ public class FirstMove : State
             case 3:
                 moveName = "Precise";
                 break;
+            case 4:
+                moveName = "Organised";
+                break;
         }
+
+        combatManager.CombatUIManager.UpdateFirstMoveDisplay(moveName);
 
         if (moveValue == 4)
         {
-            Debug.Log(combatManager);
             combatManager.SetState(combatManager.gearSelect);
         }
         else
         {
             combatManager.SetState(combatManager.secondMove);
         }
-
-        combatManager.CombatUIManager.UpdateFirstMoveDisplay(moveName);
-    }
-
-    public void FirstMoveIsViolent()
-    {
-        combatManager.playerMoveManager.firstMoveIs = 1;
-        combatManager.CombatUIManager.UpdateFirstMoveDisplay("Violent");
-        combatManager.SetState(combatManager.secondMove);
     }
 }

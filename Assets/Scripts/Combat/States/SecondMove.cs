@@ -8,8 +8,6 @@ public class SecondMove : State
 
     public override IEnumerator StartState()
     {
-        CombatEvents.SendMove += SetSecondMove;
-
         yield return new WaitForSeconds(0.1f);
 
         if (combatManager == null)
@@ -21,6 +19,7 @@ public class SecondMove : State
         combatManager.CombatUIManager.ShowSecondMoveMenu(true);
         combatManager.CombatUIManager.ShowFirstMoveMenu(false);
         combatManager.CombatUIManager.ShowEnemySelectMenu(false);
+        combatManager.CombatUIManager.ShowBodyPartTargetMenu(false);
         combatManager.playerMoveManager.secondMoveIs = 0;
 
         yield break;
@@ -30,25 +29,12 @@ public class SecondMove : State
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (combatManager == null)
-            {
-                Debug.LogError("CombatManager is null in StateUpdate!");
-                return;
-            }
-
             combatManager.SetState(combatManager.firstMove);
-            CombatEvents.InputCoolDown?.Invoke(0.1f);
         }
     }
 
-    void SetSecondMove(int moveValue)
+    public override void CombatOptionSelected(int moveValue)
     {
-        if (combatManager == null)
-        {
-            Debug.LogError("CombatManager is null in SetSecondMove!");
-            return;
-        }
-
         combatManager.playerMoveManager.secondMoveIs = moveValue;
         string moveName = "";
 
@@ -79,22 +65,10 @@ public class SecondMove : State
 
         combatManager.CombatUIManager.UpdateSecondMoveDisplay(moveName);
 
-        CombatEvents.SendMove -= SetSecondMove;
     }
 
     private void OnDisable()
     {
-        CombatEvents.SendMove -= SetSecondMove;
-    }
-
-    public void SecondMoveIsAttack()
-    {
-        combatManager.playerMoveManager.secondMoveIs = 1;
-        combatManager.CombatUIManager.UpdateFirstMoveDisplay("Attack");
-
-        combatManager.playerMoveManager.CombineStanceAndMove();
-        combatManager.selectedPlayerMove = combatManager.playerMoveManager.GetSelectedPlayerMove();
-        combatManager.SetState(combatManager.enemySelect);
-
+        combatManager = null;
     }
 }

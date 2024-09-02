@@ -28,7 +28,7 @@ public class FendScript : MonoBehaviour
 
     public void InitialiseFendUIPosition()
     {
-        playerFendContainer.transform.position = new Vector2(combatManager.battleScheme.playerFightingPosition.transform.position.x + 0.02f, combatManager.battleScheme.playerFightingPosition.transform.position.y + 0.8f);
+        playerFendContainer.transform.position = new Vector2(combatManager.battleScheme.playerFightingPosition.transform.position.x + 0.02f, combatManager.battleScheme.playerFightingPosition.transform.position.y + 0.69f);
     }
 
     public void ShowFendDisplay(bool on)

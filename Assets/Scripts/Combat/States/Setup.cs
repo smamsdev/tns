@@ -44,8 +44,6 @@ public class Setup : State
 
             enemy.enemyUI = newEnemyCombatUI.GetComponent<EnemyUI>();
             enemy.enemyUI.partsTargetDisplay.enemy = enemy;
-            enemy.enemyUI.combatManager = combatManager;
-
 
             enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
             enemy.enemyUI.enemyStatsDisplay.ShowEnemyStatsDisplay(false);

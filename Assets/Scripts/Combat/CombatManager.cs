@@ -40,16 +40,6 @@ public class CombatManager : MonoBehaviour
 
     [HideInInspector] public int enemyRawAttackPower;
 
-    private void OnEnable()
-    {
-        CombatEvents.SendState += SetState;
-    }
-
-    private void OnDisable()
-    {
-        CombatEvents.SendState -= SetState;
-    }
-
     public void StartBattle()
     {
         playerMoveManager = player.GetComponentInChildren<PlayerMoveManager>();
@@ -76,12 +66,6 @@ public class CombatManager : MonoBehaviour
 
     public void SetState(State state)
     {
-        if (state == null)
-        {
-            Debug.LogError("State is null in SetState");
-            return;
-        }
-
         currentState = state;
         StartCoroutine(currentState.StartState());
     }

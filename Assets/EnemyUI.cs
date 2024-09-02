@@ -11,8 +11,6 @@ public class EnemyUI : MonoBehaviour
     public BodyPartsDamageTakenDisplay bodyPartsDamageTakenDisplay;
     public TargetDisplay partsTargetDisplay;
 
-    public CombatManager combatManager;
-
     public void AnchorEnemyUIToEnemyGameObject(GameObject fightingPosition)
 
     {

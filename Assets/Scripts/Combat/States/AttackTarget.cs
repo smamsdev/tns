@@ -8,7 +8,6 @@ public class AttackTarget : State
 
     public override IEnumerator StartState()
     {
-        CombatEvents.SendMove += SelectBodyPart;
         yield return new WaitForSeconds(0.1f);
 
         combatManager.CombatUIManager.ShowBodyPartTargetMenu(true);
@@ -17,13 +16,11 @@ public class AttackTarget : State
         yield break;
     }
 
-    void SelectBodyPart(int moveValue)
+    public override void CombatOptionSelected(int moveValue)
 
     {
         combatManager.enemy[combatManager.selectedEnemy].SetEnemyBodyPartTarget(moveValue);
         combatManager.SetState(combatManager.applyMove);
-
-        CombatEvents.SendMove -= SelectBodyPart;
     }
 
     public override void StateUpdate()
@@ -32,19 +29,7 @@ public class AttackTarget : State
 
         {
             combatManager.SetState(combatManager.secondMove);
-            CombatEvents.InputCoolDown?.Invoke(0.2f);
         }
-    }
-
-    private void OnDisable()
-    {
-        CombatEvents.SendMove -= SelectBodyPart;
-    }
-
-    public void SelectBody()
-    {
-        combatManager.enemy[combatManager.selectedEnemy].SetEnemyBodyPartTarget(1);
-        combatManager.SetState(combatManager.applyMove);
     }
 }
 

@@ -1,22 +1,13 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class ButtonMoveHandler : MonoBehaviour
 {
-    [System.Serializable]
-
-    public class ButtonMoveEvent : UnityEvent<int> { }
-
-    public ButtonMoveEvent buttonClickEvent;
+    [SerializeField] private CombatManager combatManager;
 
     public void ButtonClickWithInt(int moveValue)
     {
-        if (CombatEvents.SendMove == null)
-        {
-            Debug.LogError("CombatEvents.SendMove is null!");
-            return;
-        }
-
-        CombatEvents.SendMove.Invoke(moveValue);
+        combatManager.currentState.CombatOptionSelected(moveValue);
     }
 }

@@ -49,13 +49,17 @@ public class Enemy : MonoBehaviour
     public int randomValue;
     public int rng;
 
-
-
     private void OnEnable()
     {
         CombatEvents.SetEnemyBodyPartTarget += SetEnemyBodyPartTarget;
 
-        if (enemyFightingPosition == null ) { enemyFightingPosition = this.gameObject; }
+        if (enemyFightingPosition == null ) 
+        
+        {
+            enemyFightingPosition = new GameObject(this.gameObject.name + "Enemy Fighting Position");
+            enemyFightingPosition.transform.position = this.transform.position;
+            enemyFightingPosition.transform.SetParent(this.transform);
+        }
     }
 
     private void OnDisable()
