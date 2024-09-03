@@ -12,10 +12,13 @@ public class FirstMove : State
     {
         combatManager.CombatUIManager.playerFendScript.animator.SetBool("fendbreak", false);
 
+        combatManager.CombatUIManager.UpdateFirstMoveDisplay("Style?");
+        combatManager.CombatUIManager.UpdateSecondMoveDisplay("Move?");
+
         yield return new WaitForSeconds(0.1f);
 
-        combatManager.CombatUIManager.ShowFirstMoveMenu(true);
-        combatManager.CombatUIManager.ShowSecondMoveMenu(false);
+        combatManager.CombatUIManager.ChangeMenuState(combatManager.CombatUIManager.firstMoveMenu);
+        combatManager.CombatUIManager.firstMenuFirstButton.Select();
         combatManager.playerMoveManager.firstMoveIs = 0;
 
         yield break;

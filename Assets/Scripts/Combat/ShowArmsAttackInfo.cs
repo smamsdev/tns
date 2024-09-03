@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;// Required when using Event data.
+using UnityEngine.EventSystems;
 
-public class ShowArmsAttackInfo : MonoBehaviour, ISelectHandler// required interface when using the OnSelect method.
+public class ShowArmsAttackInfo : MonoBehaviour, ISelectHandler
 {
     [SerializeField] CombatManager combatManager;
 

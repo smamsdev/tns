@@ -89,7 +89,11 @@ public class PlayerCombatStats : MonoBehaviour
     {
         CalculatePotentialMod();
 
-        attackPower = Mathf.RoundToInt((playerPermanentStats.attackPowerBase * moveMod) * potentialMod);
+        // Calculate the potential attack power based on various modifiers
+        int potentialAttackPower = Mathf.RoundToInt(playerPermanentStats.attackPowerBase * moveMod * potentialMod);
+
+        // Ensure the attack power is not less than zero
+        attackPower = Mathf.Max(0, potentialAttackPower);
     }
 
     public void TotalPlayerFendPower(float moveMod)

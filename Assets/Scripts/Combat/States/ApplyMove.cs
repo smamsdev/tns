@@ -16,8 +16,7 @@ public class ApplyMove : State
     {
         CombatEvents.EnemyIsDead += IsEnemyDead;
 
-        combatManager.CombatUIManager.ShowBodyPartTargetMenu(false);
-        combatManager.CombatUIManager.ShowSecondMoveMenu(false);
+        combatManager.CombatUIManager.ChangeMenuState(false);
 
         foreach (Enemy enemy in combatManager.enemy)
 

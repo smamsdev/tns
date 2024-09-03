@@ -9,25 +9,29 @@ public class CombatInventoryMenu : MonoBehaviour
     public CombatManager combatManager;
     public PlayerInventory playerInventory;
     [SerializeField] EquippedGear equippedGear;
-    [SerializeField] EquippedGearDisplayUI equippedGearDisplayUI;
+    public GearSelectUI gearSelectUI;
     public CombatInventorySlot[] inventorySlot;
     [SerializeField] GameObject inventoryMenu;
     [SerializeField] Button inventorySlotOne;
     public int combatGearSlotSelected;
     public int InventorySlotNumberSelected;
     public Gear geartoEquip;
+    [SerializeField] CautiousBasic equipGearMove;
 
     private void Start()
     {
         inventoryMenu.SetActive(false);
+        var player = GameObject.Find("Player");
+
+        playerInventory = player.GetComponentInChildren<PlayerInventory>();
+        equippedGear = player.GetComponentInChildren<EquippedGear>();
     }
 
-    public void ShowInventoryMenu()
+    public void GearSlotSelected(int gearSlot)
 
     {
-        combatGearSlotSelected = int.Parse(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
+        combatGearSlotSelected = gearSlot;
         StartCoroutine(ShowMenuCoroutine(0.1f));
-        equippedGearDisplayUI.enabled = false;
         CombatEvents.UpdateNarrator.Invoke("");
     }
 
@@ -51,22 +55,12 @@ public class CombatInventoryMenu : MonoBehaviour
     public void equipSelectedGear()
 
     {
-        equippedGearDisplayUI.enabled = true;
         InventorySlotNumberSelected = int.Parse(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
 
         equippedGear.equippedSlot[combatGearSlotSelected] = inventorySlot[InventorySlotNumberSelected].gear;
-        equippedGearDisplayUI.UpdateGearDisplay(combatGearSlotSelected, inventorySlot[InventorySlotNumberSelected].gear.name);
-        CombatEvents.UpdateNarrator.Invoke("");
-
-        HideInventoryMenu();
-
+        gearSelectUI.UpdateGearDisplay(combatGearSlotSelected, inventorySlot[InventorySlotNumberSelected].gear.name);
+        combatManager.selectedPlayerMove = equipGearMove;
 
         combatManager.SetState(combatManager.applyMove);
-    }
-
-    public void HideInventoryMenu()
-
-    {
-        inventoryMenu.SetActive(false);
     }
 }

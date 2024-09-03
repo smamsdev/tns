@@ -12,6 +12,7 @@ public static class CombatEvents
     public static Action<bool> BattleMode;
     public static Action LockPlayerMovement;
     public static Action UnlockPlayerMovement;
+    public static Action<State> SendState;
 
     //Combat UI
     public static Action<string> UpdateNarrator;
@@ -20,10 +21,12 @@ public static class CombatEvents
     public static Action<int> InitializePlayerHPUI;
 
     public static Action<int> UpdatePlayerHPDisplay;
-    public static Action <GameObject> ButtonHighlighted; //i forgot how this works
-
+    public static Action<float> InputCoolDown;
+    public static Action<int> InventoryButtonHighlighted;
+    public static Action<int> GearSlotButtonHighlighted;
+    
     //Enemy
-    public static Action <int> SetEnemyBodyPartTarget;
+    public static Action<int> SetEnemyBodyPartTarget;
     public static Action<int> UpdateEnemyAttackDisplay;
     public static Action<int> ApplyEnemyAttackToFend;
 
@@ -39,4 +42,6 @@ public static class CombatEvents
     public static Action<int> UpdatePlayerHP;
     public static Action<int> PlayerDamageDisplay;
     public static Action DisablePlayerDamageDisplay;
+    public static Action<int> SendMove;
+
 }

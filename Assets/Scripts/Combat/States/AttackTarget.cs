@@ -10,8 +10,11 @@ public class AttackTarget : State
     {
         yield return new WaitForSeconds(0.1f);
 
-        combatManager.CombatUIManager.ShowBodyPartTargetMenu(true);
-        combatManager.CombatUIManager.ShowEnemySelectMenu(false);
+        combatManager.CombatUIManager.ChangeMenuState(combatManager.CombatUIManager.attackTargetMenu);
+
+
+        combatManager.CombatUIManager.targetMenuFirstButton.Select();
+        combatManager.enemy[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(true, false, false);
 
         yield break;
     }
@@ -20,6 +23,7 @@ public class AttackTarget : State
 
     {
         combatManager.enemy[combatManager.selectedEnemy].SetEnemyBodyPartTarget(moveValue);
+        DisablePartsTargetDisplay();
         combatManager.SetState(combatManager.applyMove);
     }
 
@@ -29,7 +33,14 @@ public class AttackTarget : State
 
         {
             combatManager.SetState(combatManager.secondMove);
+            DisablePartsTargetDisplay();
         }
     }
+
+    void DisablePartsTargetDisplay()
+    {
+        combatManager.enemy[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(false, false, false);
+    }
+
 }
 

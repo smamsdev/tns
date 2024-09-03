@@ -5,28 +5,26 @@ using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EquippedGearDisplayUI : MonoBehaviour
+public class GearSelectUI : MonoBehaviour
 {
-    [SerializeField] Button gearSlot1Button;
+    public Button gearSlot1Button;
     [SerializeField] EquippedGear equippedGear;
 
     public Button[] buttonsToDisable;
     [SerializeField] GameObject firstMoveContainer;
 
     int gearToBeEquipped;
-
     public TextMeshProUGUI[] gearSlotDisplay;
 
     private void OnEnable()
     {
-        CombatEvents.ButtonHighlighted += ButtonHighlighted;
+        CombatEvents.GearSlotButtonHighlighted += ButtonHighlighted;
     }
 
     private void OnDisable()
     {
-        CombatEvents.ButtonHighlighted -= ButtonHighlighted;
+        CombatEvents.GearSlotButtonHighlighted -= ButtonHighlighted;
     }
-
 
     private void Start()
     {
@@ -37,7 +35,7 @@ public class EquippedGearDisplayUI : MonoBehaviour
                 gearSlotDisplay[i].text = equippedGear.equippedSlot[i].name;
             }
 
-            else gearSlotDisplay[i].text = "Empty";
+            else gearSlotDisplay[i].text = "Slot Free";
         }
     }
 
@@ -48,15 +46,13 @@ public class EquippedGearDisplayUI : MonoBehaviour
         {
             buttonsToDisable[i].interactable = false;
         }
-
-        gearSlot1Button.Select();
+        //wtf is this
     }
 
     public void UpdateGearDisplay(int gearSlotToUpdate, string newlyEquippedGear)
 
     {
         gearSlotDisplay[gearSlotToUpdate].text = newlyEquippedGear;
-        firstMoveContainer.SetActive(false);
         EnableFirstMoveButtons();
     }
 
@@ -70,17 +66,15 @@ public class EquippedGearDisplayUI : MonoBehaviour
 
     }
 
-    void ButtonHighlighted(GameObject gameObject)
+    void ButtonHighlighted(int gearSlot)
 
     {
-        int gearSlot = int.Parse(gameObject.name);
-
         if (equippedGear.equippedSlot[gearSlot] != null)
         {
             CombatEvents.UpdateNarrator(equippedGear.equippedSlot[gearSlot].GetComponent<Gear>().gearDescription);
         }
 
-        else CombatEvents.UpdateNarrator("");
+        else CombatEvents.UpdateNarrator("Select Item");
     }
 }
 

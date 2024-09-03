@@ -10,16 +10,10 @@ public class SecondMove : State
     {
         yield return new WaitForSeconds(0.1f);
 
-        if (combatManager == null)
-        {
-            Debug.LogError("CombatManager is null in StartState!");
-            yield break;
-        }
+        combatManager.CombatUIManager.ChangeMenuState(combatManager.CombatUIManager.secondMoveMenu);
 
-        combatManager.CombatUIManager.ShowSecondMoveMenu(true);
-        combatManager.CombatUIManager.ShowFirstMoveMenu(false);
-        combatManager.CombatUIManager.ShowEnemySelectMenu(false);
-        combatManager.CombatUIManager.ShowBodyPartTargetMenu(false);
+        combatManager.CombatUIManager.secondMenuFirstButton.Select();
+        combatManager.CombatUIManager.UpdateSecondMoveDisplay("Move?");
         combatManager.playerMoveManager.secondMoveIs = 0;
 
         yield break;

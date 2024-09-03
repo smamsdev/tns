@@ -17,8 +17,9 @@ public class EnemySelect : State
             yield break;
         }
 
-        combatManager.CombatUIManager.ShowEnemySelectMenu(true);
-        combatManager.CombatUIManager.ShowSecondMoveMenu(false);
+        combatManager.CombatUIManager.ChangeMenuState(combatManager.CombatUIManager.enemySelectMenu);
+        combatManager.CombatUIManager.thirdMenuFirstButton.Select();
+
         yield break;
     }
 

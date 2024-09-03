@@ -8,22 +8,20 @@ public class DisplayInventoryDescription : MonoBehaviour
 
     private void OnEnable()
     {
-        CombatEvents.ButtonHighlighted += ButtonHighlighted;
+        CombatEvents.InventoryButtonHighlighted += ButtonHighlighted;
     }
 
     private void OnDisable()
     {
-        CombatEvents.ButtonHighlighted -= ButtonHighlighted;
+        CombatEvents.InventoryButtonHighlighted -= ButtonHighlighted;
     }
 
-    void ButtonHighlighted(GameObject gameObject)
+    void ButtonHighlighted(int inventorySlotNumber)
 
     {
-        int inventorySlot = int.Parse(gameObject.name);
-
-        if (combatInventoryMenu.inventorySlot[inventorySlot].gear != null)
+        if (combatInventoryMenu.inventorySlot[inventorySlotNumber].gear != null)
         {
-            combatInventoryMenu.inventorySlot[inventorySlot].DisplayInventoryItemDescription();
+            combatInventoryMenu.inventorySlot[inventorySlotNumber].DisplayInventoryItemDescription();
         }
     }
 }

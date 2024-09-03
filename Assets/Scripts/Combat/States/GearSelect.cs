@@ -6,29 +6,22 @@ using UnityEngine.Rendering;
 public class GearSelect : State
 {
     [SerializeField] CombatManager combatManager;
-    [SerializeField] EquippedGearDisplayUI equippedGearDisplayUI;
-    [SerializeField] CombatInventoryMenu combatInventory;
+    [SerializeField] GearSelectUI gearSelectUI;
 
     bool inventoryMenuEnabled;
 
     public override IEnumerator StartState()
     {
-        equippedGearDisplayUI.ShowGearSelectionMenu();
-                        inventoryMenuEnabled = false;
+        combatManager.CombatUIManager.ChangeMenuState(combatManager.CombatUIManager.GearSelectMenu);
+        gearSelectUI.gearSlot1Button.Select();
 
         yield break;
     }
 
-    public void InventoryMenuEnabled()
+    public void InventoryMenuEnabled(bool toggle)  //used by button
 
     { 
-     inventoryMenuEnabled = true;
-    }
-
-    public void InventoryMenuDisabled()
-
-    {
-        inventoryMenuEnabled = false;
+        inventoryMenuEnabled = toggle;
     }
 
     public override void StateUpdate()
@@ -40,14 +33,14 @@ public class GearSelect : State
             {
                 StartCoroutine(FieldEvents.CoolDown(0.2f));
                 combatManager.SetState(combatManager.gearSelect);
-                combatInventory.HideInventoryMenu();
+                inventoryMenuEnabled = false;
             }
 
             if (!inventoryMenuEnabled && !FieldEvents.isCooldown())
             {
                 combatManager.SetState(combatManager.firstMove);
                 CombatEvents.UpdateNarrator("");
-                equippedGearDisplayUI.EnableFirstMoveButtons();
+                gearSelectUI.EnableFirstMoveButtons();
             }
         }
 

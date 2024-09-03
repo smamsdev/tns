@@ -8,102 +8,57 @@ using UnityEngine.UI;
 public class CombatUIManager : MonoBehaviour
 {
     [SerializeField] CombatManager combatManager;
+
+    [Header("Menu GameObjects")]
+    public GameObject firstMoveMenu;
+    public GameObject secondMoveMenu;
+    public GameObject enemySelectMenu;
+    public GameObject attackTargetMenu;
+    public GameObject GearSelectMenu;
+
+    [Header("Scripts")]
+    public SelectEnemyMenuScript selectEnemyMenuScript;
+    public CombatInventoryMenu combatInventoryMenuScript;
     public FendScript playerFendScript;
     public PlayerDamageTakenDisplay playerDamageTakenDisplay;
 
-    [Header("Menu GameObjects")]
-    [SerializeField] GameObject firstMoveMenu;
-    [SerializeField] GameObject secondMoveMenu;
-    [SerializeField] GameObject enemySelectMenu;
-    [SerializeField] GameObject attackTargetMenu;
-    [SerializeField] CombatInventoryMenu combatInventoryMenu;
-
-    public GameObject combatPlayerStatsContainerGO;
-    public GameObject moveMenuGO;
-    public GameObject narratorGO;
-
-    [Header("Menu Scripts")]
-    public AttackTargetMenuScript attackTargetMenuScript;
-    public SelectEnemyMenuScript selectEnemyMenuScript;
+    [Header("Shared UI elements")]
 
     [SerializeField] TextMeshProUGUI StyleDisplayText;
     [SerializeField] TextMeshProUGUI MoveDisplayText;
 
+    [Header("First Buttons to Highlight")]
+
     public Button firstMenuFirstButton; 
     public Button secondMenuFirstButton;
-    public Button thirdMMenuFirstButton;
+    public Button thirdMenuFirstButton;
     public Button targetMenuFirstButton;
 
-    public void ShowFirstMoveMenu(bool on)
-
+    private void Start()
     {
-        if (on)
-        {
-            firstMoveMenu.SetActive(true);
-            firstMenuFirstButton.Select();
-
-            UpdateFirstMoveDisplay("Style?");
-            UpdateSecondMoveDisplay("Move?");
-        }
-
-        if (!on)
-        {
-            firstMoveMenu.SetActive(false);
-        }
+        ChangeMenuState(false);
     }
 
-    public void ShowSecondMoveMenu(bool on)
+    public void ChangeMenuState(GameObject menuToEnable)
 
     {
-        if (on)
-        {
-            secondMenuFirstButton.Select();
+        firstMoveMenu.SetActive(false);
+        secondMoveMenu.SetActive(false);
+        enemySelectMenu.SetActive(false);
+        attackTargetMenu.SetActive(false);
+        GearSelectMenu.SetActive(false);
 
-            ShowFirstMoveMenu(false);
-            ShowEnemySelectMenu(false);
-            secondMoveMenu.SetActive(true);
-
-            UpdateSecondMoveDisplay("Move?");
-        }
-
-        if (!on)
-        {
-            secondMoveMenu.SetActive(false);
-        }
+        menuToEnable.SetActive(true);
     }
 
-    public void ShowEnemySelectMenu(bool on)
+    public void ChangeMenuState(bool off)
 
     {
-        if (on) 
-        {
-        enemySelectMenu.SetActive(true);
-            thirdMMenuFirstButton.Select();
-        }
-
-        if (!on) 
-        
-        {
-            enemySelectMenu.SetActive(false);
-        }
-    }
-
-    public void ShowBodyPartTargetMenu(bool on)
-
-    {
-        if (on)
-        {
-            attackTargetMenu.SetActive(true);
-            targetMenuFirstButton.Select();
-
-            combatManager.enemy[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(true, false, false);
-        }
-
-        if (!on)
-        {
-            attackTargetMenu.SetActive(false);
-            combatManager.enemy[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(false, false, false);
-        }
+        firstMoveMenu.SetActive(false);
+        secondMoveMenu.SetActive(false);
+        enemySelectMenu.SetActive(false);
+        attackTargetMenu.SetActive(false);
+        GearSelectMenu.SetActive(false);
     }
 
     public void UpdateFirstMoveDisplay(string value)
@@ -117,5 +72,4 @@ public class CombatUIManager : MonoBehaviour
     {
         MoveDisplayText.text = value;
     }
-
 }

@@ -32,7 +32,6 @@ public class CautiousBasic : CautiousMove
         {
             combatManager.applyMove.EndMove();
         }
-
     }
 
     public override IEnumerator OnEnemyAttack(CombatManager _combatManager, Enemy _enemy)

@@ -21,7 +21,6 @@ public class CombatManager : MonoBehaviour
     public PlayerCombatStats playerCombatStats;
 
     public CombatUIManager CombatUIManager;
-    public AttackTargetMenuScript attackTargetMenuScript;
     public PlayerMoveManager playerMoveManager;
     public int roundCount;
     public bool enemyIsDead = false;
