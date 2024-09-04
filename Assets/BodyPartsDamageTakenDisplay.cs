@@ -15,10 +15,7 @@ public class BodyPartsDamageTakenDisplay : MonoBehaviour
 
     private void Start()
     {
-        if (bodyPartDamageTakenTextMeshProUGUI.enabled)
-        {
             bodyPartDamageTakenTextMeshProUGUI.enabled = false;
-        }
     }
 
     IEnumerator BodyPartDamageTakenDisplayCoroutine(string partName, int startValue, int endValue, int maxHP)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UIStatsPage : MonoBehaviour
+public class MenuStats : Menu
 {
     [SerializeField] PlayerPermanentStats playerPermanentStats;
 
@@ -21,13 +21,17 @@ public class UIStatsPage : MonoBehaviour
 
     private void Start()
     {
-        DisplayStatsPage();
+        displayContainer.SetActive(false);
     }
 
-    public void DisplayStatsPage()
-    {
-        //kil other pages
+    public override void EnterMenu()
 
+    {
+
+    }
+
+    public void InitializeStats()
+    {
         hpValue.text = $"{playerPermanentStats.currentHP} / {playerPermanentStats.maxHP}";
         potentialValue.text = $"{playerPermanentStats.currentPotential} / {playerPermanentStats.maxPotential}";
         strengthValue.text = $"{playerPermanentStats.attackPowerBase}";
@@ -37,8 +41,5 @@ public class UIStatsPage : MonoBehaviour
         levelValue.text = $"{playerPermanentStats.level}";
         experienceValue.text = $"{playerPermanentStats.XP}";
         nextLevelValue.text = $"{playerPermanentStats.XPThreshold}";
-
     }
-
-
 }

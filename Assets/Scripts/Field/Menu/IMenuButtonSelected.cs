@@ -5,8 +5,10 @@ using UnityEngine.EventSystems;
 
 public class IMenuButtonSelected : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
-    [SerializeField] GameObject menuToDisplay;
+    [SerializeField] Menu menuToDisplay;
     [SerializeField] GameObject blueUnderLine;
+
+    [SerializeField] MenuManagerUI menuManager;
 
     private void OnEnable()
     {
@@ -16,6 +18,7 @@ public class IMenuButtonSelected : MonoBehaviour, ISelectHandler, IDeselectHandl
     public void OnSelect(BaseEventData eventData)
     {
         blueUnderLine.SetActive(true);
+        menuManager.DisplayMenu(menuToDisplay);
     }
 
     public void OnDeselect(BaseEventData eventData)

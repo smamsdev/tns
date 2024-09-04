@@ -24,10 +24,6 @@ public class EnemyFendScript : MonoBehaviour
         attackRemainder = attack - combatManager.enemy[combatManager.selectedEnemy].fendTotal;
         enemyFendAnimator.SetTrigger("fendDeflect");
 
-        Debug.Log("atack" + attack);
-
-        Debug.Log("remaineder" + attackRemainder);
-
         if (combatManager.enemy[combatManager.selectedEnemy].fendTotal == 0)
         {
             FendBreached();

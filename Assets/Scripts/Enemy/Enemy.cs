@@ -93,12 +93,12 @@ public class Enemy : MonoBehaviour
 
     public void DamageToParts(int attackRemainder)
     {
-
         if (targetIs == Target.body) 
         
         {
             if (enemyBodyHP > 0)
             {
+                Debug.Log("body");
                 enemyUI.bodyPartsDamageTakenDisplay.BodyPartDamageTakenDisplay("Body", enemyBodyHP, Mathf.Clamp(enemyBodyHP - attackRemainder, 0, 9999), enemyBodyMaxHP);
                 enemyBodyHP = Mathf.Clamp(enemyBodyHP - attackRemainder, 0, 9999);
             }

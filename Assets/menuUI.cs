@@ -10,20 +10,12 @@ public class menuUI : MonoBehaviour
     public GameObject menuGO;
     public bool isMenuOn;
     public Button firstMenuItem;
+
+    public MenuStats firstMenuStats;
     [SerializeField] private PlayerPermanentStats playerPermanentStats;
 
     [SerializeField] TextMeshProUGUI smamsValue;
     [SerializeField] TextMeshProUGUI timeValue;
-
-    private void OnEnable()
-    {
-        UIEvents.ButtonHighlighted += MenuSelected;
-    }
-
-    private void OnDisable()
-    {
-        UIEvents.ButtonHighlighted -= MenuSelected;
-    }
 
     private void Start()
     {
@@ -48,14 +40,11 @@ public class menuUI : MonoBehaviour
 
     {
         isMenuOn = !isMenuOn;
+        firstMenuStats.InitializeStats();
         menuGO.SetActive(!on);
         firstMenuItem.Select();
+        CombatEvents.LockPlayerMovement();
         smamsValue.text = $"{playerPermanentStats.smams}";
-    }
-
-    void MenuSelected(GameObject menuGO)
-    {
-
     }
 
     void UpdateTime()
