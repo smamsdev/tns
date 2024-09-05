@@ -74,10 +74,10 @@ RectTransform:
   - {fileID: 29794917210471811}
   m_Father: {fileID: 1017541672525228803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 481.54498, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1892804293573391401
 CanvasRenderer:
@@ -145,20 +145,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6516247710880047366}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
-        m_MethodName: InventoryMenuDisabled
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
-        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
-        m_MethodName: GearMove
-        m_Mode: 1
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -972,10 +960,10 @@ RectTransform:
   - {fileID: 1586997121792690578}
   m_Father: {fileID: 4059817065692013035}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -87.100006}
-  m_SizeDelta: {x: 173.6, y: 40.4}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3916772388209294948
 CanvasRenderer:
@@ -1074,10 +1062,10 @@ RectTransform:
   - {fileID: 7519412843864169550}
   m_Father: {fileID: 1638731323308613100}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -208.3}
+  m_SizeDelta: {x: 173.6, y: 40.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2430656105119906999
 CanvasRenderer:
@@ -1310,10 +1298,10 @@ RectTransform:
   - {fileID: 8672024532240816141}
   m_Father: {fileID: 1638731323308613100}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -167.90001}
+  m_SizeDelta: {x: 173.6, y: 40.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2349106629536172107
 CanvasRenderer:
@@ -1414,10 +1402,10 @@ RectTransform:
   - {fileID: 2114285249513523557}
   m_Father: {fileID: 8717930335125272665}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -87.100006}
+  m_SizeDelta: {x: 173.6, y: 40.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4474362233204770995
 CanvasRenderer:
@@ -1547,7 +1535,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7048686515036881492
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1632,7 +1620,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 1648342972664657309}
-  playerDamageTakenDisplay: {fileID: 6807237160453510545}
   firstMoveMenu: {fileID: 5331717517346282439}
   secondMoveMenu: {fileID: 2524469151484065958}
   enemySelectMenu: {fileID: 3028548696466131481}
@@ -1641,11 +1628,12 @@ MonoBehaviour:
   selectEnemyMenuScript: {fileID: 2549448963445284878}
   combatInventoryMenuScript: {fileID: 1432456957497284212}
   playerFendScript: {fileID: 5688014021108902730}
+  playerDamageTakenDisplay: {fileID: 6807237160453510545}
   StyleDisplayText: {fileID: 2117094757045835782}
   MoveDisplayText: {fileID: 9198225134495217082}
   firstMenuFirstButton: {fileID: 4797709987848784517}
   secondMenuFirstButton: {fileID: 5085693295873699208}
-  thirdMMenuFirstButton: {fileID: 3936299976759859095}
+  thirdMenuFirstButton: {fileID: 3936299976759859095}
   targetMenuFirstButton: {fileID: 4425806274218163475}
 --- !u!114 &5688014021108902730
 MonoBehaviour:
@@ -1701,6 +1689,64 @@ MonoBehaviour:
   - {fileID: 4535250214776683369}
   - {fileID: 9099843325177651030}
   - {fileID: 565188037030995092}
+--- !u!1 &658777500116077640
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3956658829412544921}
+  - component: {fileID: 5951442550444773729}
+  m_Layer: 0
+  m_Name: EquippingGearMove
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3956658829412544921
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658777500116077640}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8300871784515177962}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5951442550444773729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658777500116077640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad23615e1bdd8e44f802ca6eb6c23670, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveName: Equipping Gear
+  moveDescription: Equipping Gear
+  attackMoveMultiplier: 0
+  damageToPartsMultiplier: 0
+  fendMoveMultiplier: 0
+  potentialChange: 0
+  moveWeighting: 0
+  isAttack: 0
+  combatManager: {fileID: 1648342972664657309}
+  enemy: {fileID: 0}
 --- !u!1 &664828411631034549
 GameObject:
   m_ObjectHideFlags: 0
@@ -1736,10 +1782,10 @@ RectTransform:
   - {fileID: 762351721447173987}
   m_Father: {fileID: 1943539148759138295}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 481.54498, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4199435182709728441
 CanvasRenderer:
@@ -1807,20 +1853,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6516247710880047366}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
-        m_MethodName: InventoryMenuDisabled
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
-        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
-        m_MethodName: GearMove
-        m_Mode: 1
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1983,10 +2017,10 @@ RectTransform:
   - {fileID: 3063342710511666740}
   m_Father: {fileID: 1943539148759138295}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 180.515, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6544255455105648748
 CanvasRenderer:
@@ -2054,20 +2088,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6516247710880047366}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
-        m_MethodName: InventoryMenuDisabled
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
-        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
-        m_MethodName: GearMove
-        m_Mode: 1
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2405,10 +2427,10 @@ RectTransform:
   - {fileID: 6874831677035869433}
   m_Father: {fileID: 8023574837709104478}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 481.54498, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5968875940187467065
 CanvasRenderer:
@@ -2476,20 +2498,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6516247710880047366}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
-        m_MethodName: InventoryMenuDisabled
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
-        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
-        m_MethodName: GearMove
-        m_Mode: 1
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2536,7 +2546,6 @@ GameObject:
   - component: {fileID: 2507557741185108878}
   - component: {fileID: 7636911195539807979}
   - component: {fileID: 7512626540641096309}
-  - component: {fileID: 5353529231078714396}
   m_Layer: 0
   m_Name: EquippedGearDisplayContainer
   m_TagString: Untagged
@@ -2628,30 +2637,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5353529231078714396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867928330378257409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e43d134004a1c74aabb500080e79541, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gearSlot1Button: {fileID: 5253701907199540124}
-  equippedGear: {fileID: 0}
-  buttonsToDisable:
-  - {fileID: 4797709987848784517}
-  - {fileID: 1058790320840729352}
-  - {fileID: 5900992627095039859}
-  - {fileID: 8275694531823121507}
-  firstMoveContainer: {fileID: 5331717517346282439}
-  gearSlotDisplay:
-  - {fileID: 5706297243015627684}
-  - {fileID: 461331118002246511}
-  - {fileID: 7007549536407901159}
 --- !u!1 &872131978636161176
 GameObject:
   m_ObjectHideFlags: 0
@@ -2687,10 +2672,10 @@ RectTransform:
   - {fileID: 4866806907339818428}
   m_Father: {fileID: 8717930335125272665}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -127.5}
+  m_SizeDelta: {x: 173.6, y: 40.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8102295861203584142
 CanvasRenderer:
@@ -2834,10 +2819,10 @@ RectTransform:
   - {fileID: 4389975318436267470}
   m_Father: {fileID: 1017541672525228803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 180.515, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4150509619181100283
 CanvasRenderer:
@@ -2905,20 +2890,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6516247710880047366}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
-        m_MethodName: InventoryMenuDisabled
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
-        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
-        m_MethodName: GearMove
-        m_Mode: 1
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3122,10 +3095,10 @@ RectTransform:
   - {fileID: 8068870369209799140}
   m_Father: {fileID: 2407073331917889380}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 481.54498, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8196498581555323154
 CanvasRenderer:
@@ -3193,20 +3166,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6516247710880047366}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
-        m_MethodName: InventoryMenuDisabled
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
-        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
-        m_MethodName: GearMove
-        m_Mode: 1
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3858,10 +3819,10 @@ RectTransform:
   - {fileID: 4436492335501724556}
   m_Father: {fileID: 8717930335125272665}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -208.3}
+  m_SizeDelta: {x: 173.6, y: 40.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1977843991878995965
 CanvasRenderer:
@@ -3962,10 +3923,10 @@ RectTransform:
   - {fileID: 8867203421752501415}
   m_Father: {fileID: 2414159349924295257}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 782.575, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7713182006799776935
 CanvasRenderer:
@@ -4033,20 +3994,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6516247710880047366}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
-        m_MethodName: InventoryMenuDisabled
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
-        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
-        m_MethodName: GearMove
-        m_Mode: 1
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4384,10 +4333,10 @@ RectTransform:
   - {fileID: 8853393606404967806}
   m_Father: {fileID: 2414159349924295257}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 180.515, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7694879083456472333
 CanvasRenderer:
@@ -4455,20 +4404,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6516247710880047366}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
-        m_MethodName: InventoryMenuDisabled
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
-        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
-        m_MethodName: GearMove
-        m_Mode: 1
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4572,10 +4509,10 @@ RectTransform:
   - {fileID: 739760045592428913}
   m_Father: {fileID: 2603875050802402740}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -179.55}
+  m_SizeDelta: {x: 100, y: 39.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1654701212386857700
 MonoBehaviour:
@@ -4817,10 +4754,10 @@ RectTransform:
   - {fileID: 4032071726507357568}
   m_Father: {fileID: 7041521258211675603}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -87.100006}
+  m_SizeDelta: {x: 173.6, y: 40.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6274892826637520622
 CanvasRenderer:
@@ -4934,7 +4871,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7041521258211675603
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5206,10 +5143,10 @@ RectTransform:
   - {fileID: 713028206080294169}
   m_Father: {fileID: 1788876648724015082}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 782.575, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1794076915330619347
 CanvasRenderer:
@@ -5277,20 +5214,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6516247710880047366}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
-        m_MethodName: InventoryMenuDisabled
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
-        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
-        m_MethodName: GearMove
-        m_Mode: 1
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5359,10 +5284,10 @@ RectTransform:
   - {fileID: 1474061042081631353}
   m_Father: {fileID: 2603875050802402740}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -219.45}
+  m_SizeDelta: {x: 100, y: 39.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4338268997275638029
 MonoBehaviour:
@@ -5419,10 +5344,10 @@ RectTransform:
   - {fileID: 3239138385279673300}
   m_Father: {fileID: 8717930335125272665}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -167.90001}
+  m_SizeDelta: {x: 173.6, y: 40.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2974145166263193053
 GameObject:
@@ -5458,10 +5383,10 @@ RectTransform:
   - {fileID: 4432071626983435134}
   m_Father: {fileID: 7041521258211675603}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -167.90001}
+  m_SizeDelta: {x: 173.6, y: 40.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7962868832322641387
 CanvasRenderer:
@@ -5874,7 +5799,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1638731323308613100
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6627,10 +6552,10 @@ RectTransform:
   - {fileID: 325325748551826891}
   m_Father: {fileID: 2603875050802402740}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -99.75}
+  m_SizeDelta: {x: 100, y: 39.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6354578504335607325
 MonoBehaviour:
@@ -7152,10 +7077,10 @@ RectTransform:
   - {fileID: 6131203356582598234}
   m_Father: {fileID: 8717930335125272665}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -46.7}
+  m_SizeDelta: {x: 173.6, y: 40.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2410582041811474210
 CanvasRenderer:
@@ -7782,10 +7707,10 @@ RectTransform:
   - {fileID: 6898061249553437226}
   m_Father: {fileID: 2603875050802402740}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -139.65001}
+  m_SizeDelta: {x: 100, y: 39.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &671711783846751034
 MonoBehaviour:
@@ -7846,10 +7771,10 @@ RectTransform:
   - {fileID: 8498338404916762163}
   m_Father: {fileID: 1788876648724015082}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 481.54498, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &383389638771775359
 CanvasRenderer:
@@ -7917,20 +7842,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6516247710880047366}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
-        m_MethodName: InventoryMenuDisabled
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
-        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
-        m_MethodName: GearMove
-        m_Mode: 1
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8044,10 +7957,10 @@ RectTransform:
   - {fileID: 1269413266324347005}
   m_Father: {fileID: 4059817065692013035}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -208.3}
-  m_SizeDelta: {x: 173.6, y: 40.4}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4739077099424915443
 CanvasRenderer:
@@ -8134,10 +8047,10 @@ RectTransform:
   - {fileID: 6085932615551541314}
   m_Father: {fileID: 1638731323308613100}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -87.100006}
+  m_SizeDelta: {x: 173.6, y: 40.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &528755071422327839
 CanvasRenderer:
@@ -8236,10 +8149,10 @@ RectTransform:
   - {fileID: 8295448024167273079}
   m_Father: {fileID: 7041521258211675603}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -208.3}
+  m_SizeDelta: {x: 173.6, y: 40.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &753269076865567043
 CanvasRenderer:
@@ -8363,7 +8276,6 @@ MonoBehaviour:
   selectedEnemy: 0
   playerCombatStats: {fileID: 2635937811731092849}
   CombatUIManager: {fileID: 7605582599680692077}
-  attackTargetMenuScript: {fileID: 0}
   playerMoveManager: {fileID: 0}
   roundCount: 0
   enemyIsDead: 0
@@ -8454,10 +8366,10 @@ RectTransform:
   - {fileID: 7456045745308060241}
   m_Father: {fileID: 4059817065692013035}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -46.7}
-  m_SizeDelta: {x: 173.6, y: 40.4}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6217145613844400057
 CanvasRenderer:
@@ -8603,10 +8515,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2691356784460065352}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 137.5, y: -77.5}
+  m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &531748677940545960
 CanvasRenderer:
@@ -8752,7 +8664,7 @@ GameObject:
   - component: {fileID: 3908968629468181633}
   - component: {fileID: 461331118002246511}
   - component: {fileID: 7582751997146154462}
-  - component: {fileID: 1747719370143501581}
+  - component: {fileID: 1094189023316888155}
   m_Layer: 0
   m_Name: 1
   m_TagString: Untagged
@@ -8774,10 +8686,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6173230921804058151}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 269, y: -127.5}
+  m_SizeDelta: {x: 200, y: 71.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3908968629468181633
 CanvasRenderer:
@@ -8922,17 +8834,29 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1432456957497284212}
         m_TargetAssemblyTypeName: CombatInventoryMenu, Assembly-CSharp
-        m_MethodName: ShowInventoryMenu
-        m_Mode: 1
+        m_MethodName: GearSlotSelected
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6516247710880047366}
+        m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
---- !u!114 &1747719370143501581
+--- !u!114 &1094189023316888155
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8941,7 +8865,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5062662117932848208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ef53f274f6af74084f51ac5d33048a, type: 3}
+  m_Script: {fileID: 11500000, guid: dfca99dd2ff12e744be738dc0f222333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5072754590631904295
@@ -9269,7 +9193,7 @@ GameObject:
   - component: {fileID: 3085905697223569692}
   - component: {fileID: 5706297243015627684}
   - component: {fileID: 5253701907199540124}
-  - component: {fileID: 6316913404113418231}
+  - component: {fileID: 3181622367402739649}
   m_Layer: 0
   m_Name: 0
   m_TagString: Untagged
@@ -9291,10 +9215,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6173230921804058151}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 269, y: -56}
+  m_SizeDelta: {x: 200, y: 71.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3085905697223569692
 CanvasRenderer:
@@ -9439,8 +9363,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1432456957497284212}
         m_TargetAssemblyTypeName: CombatInventoryMenu, Assembly-CSharp
-        m_MethodName: ShowInventoryMenu
-        m_Mode: 1
+        m_MethodName: GearSlotSelected
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9452,16 +9376,16 @@ MonoBehaviour:
       - m_Target: {fileID: 6516247710880047366}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
         m_MethodName: InventoryMenuEnabled
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
---- !u!114 &6316913404113418231
+--- !u!114 &3181622367402739649
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9470,7 +9394,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5194478038288550668}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ef53f274f6af74084f51ac5d33048a, type: 3}
+  m_Script: {fileID: 11500000, guid: dfca99dd2ff12e744be738dc0f222333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5238232739656624270
@@ -9670,7 +9594,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4059817065692013035
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9792,10 +9716,10 @@ RectTransform:
   - {fileID: 3286495149808638326}
   m_Father: {fileID: 2407073331917889380}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 782.575, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2868017592812251736
 CanvasRenderer:
@@ -9863,20 +9787,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6516247710880047366}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
-        m_MethodName: InventoryMenuDisabled
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
-        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
-        m_MethodName: GearMove
-        m_Mode: 1
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10063,7 +9975,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8717930335125272665
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10184,10 +10096,10 @@ RectTransform:
   - {fileID: 8319602808511788786}
   m_Father: {fileID: 2603875050802402740}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -19.95}
+  m_SizeDelta: {x: 100, y: 39.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3797368438851994291
 MonoBehaviour:
@@ -10516,10 +10428,10 @@ RectTransform:
   - {fileID: 6502084564808043585}
   m_Father: {fileID: 1788876648724015082}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 180.515, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9131094316951840006
 CanvasRenderer:
@@ -10587,20 +10499,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6516247710880047366}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
-        m_MethodName: InventoryMenuDisabled
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
-        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
-        m_MethodName: GearMove
-        m_Mode: 1
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10831,7 +10731,7 @@ GameObject:
   - component: {fileID: 1328858427973668244}
   - component: {fileID: 7007549536407901159}
   - component: {fileID: 7317581045327871800}
-  - component: {fileID: 6543484079558022220}
+  - component: {fileID: 322647931159465364}
   m_Layer: 0
   m_Name: 2
   m_TagString: Untagged
@@ -10853,10 +10753,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6173230921804058151}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 269, y: -199}
+  m_SizeDelta: {x: 200, y: 71.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1328858427973668244
 CanvasRenderer:
@@ -11001,17 +10901,29 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1432456957497284212}
         m_TargetAssemblyTypeName: CombatInventoryMenu, Assembly-CSharp
-        m_MethodName: ShowInventoryMenu
-        m_Mode: 1
+        m_MethodName: GearSlotSelected
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6516247710880047366}
+        m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
---- !u!114 &6543484079558022220
+--- !u!114 &322647931159465364
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11020,7 +10932,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6032453772943905315}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ef53f274f6af74084f51ac5d33048a, type: 3}
+  m_Script: {fileID: 11500000, guid: dfca99dd2ff12e744be738dc0f222333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6041001721509410094
@@ -11058,10 +10970,10 @@ RectTransform:
   - {fileID: 6453312785886932883}
   m_Father: {fileID: 2407073331917889380}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 180.515, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6791320974606741149
 CanvasRenderer:
@@ -11129,32 +11041,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6516247710880047366}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
-        m_MethodName: InventoryMenuDisabled
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
-        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
-        m_MethodName: GearMove
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
-        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
-        m_MethodName: GearMove
-        m_Mode: 1
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11269,10 +11157,10 @@ RectTransform:
   - {fileID: 8269842493892289799}
   m_Father: {fileID: 8023574837709104478}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 782.575, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4044927325119321346
 CanvasRenderer:
@@ -11340,20 +11228,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6516247710880047366}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
-        m_MethodName: InventoryMenuDisabled
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
-        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
-        m_MethodName: GearMove
-        m_Mode: 1
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11607,6 +11483,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8300871784515177962}
   - component: {fileID: 1432456957497284212}
+  - component: {fileID: 6890329196894048368}
   m_Layer: 0
   m_Name: CombatInventoryMenuContainer
   m_TagString: Untagged
@@ -11628,11 +11505,12 @@ RectTransform:
   m_Children:
   - {fileID: 6173230921804058151}
   - {fileID: 2546349622425750511}
+  - {fileID: 3956658829412544921}
   m_Father: {fileID: 7048686515036881492}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 250, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 2565.7002, y: 1440}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1432456957497284212
@@ -11650,7 +11528,7 @@ MonoBehaviour:
   combatManager: {fileID: 1648342972664657309}
   playerInventory: {fileID: 0}
   equippedGear: {fileID: 0}
-  equippedGearDisplayUI: {fileID: 5353529231078714396}
+  gearSelectUI: {fileID: 6890329196894048368}
   inventorySlot:
   - {fileID: 2207366260005046884}
   - {fileID: 6571546665283090714}
@@ -11675,6 +11553,31 @@ MonoBehaviour:
   combatGearSlotSelected: 0
   InventorySlotNumberSelected: 0
   geartoEquip: {fileID: 0}
+  equipGearMove: {fileID: 5951442550444773729}
+--- !u!114 &6890329196894048368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6851893864919539891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e43d134004a1c74aabb500080e79541, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gearSlot1Button: {fileID: 5253701907199540124}
+  equippedGear: {fileID: 0}
+  buttonsToDisable:
+  - {fileID: 4797709987848784517}
+  - {fileID: 1058790320840729352}
+  - {fileID: 5900992627095039859}
+  - {fileID: 8275694531823121507}
+  firstMoveContainer: {fileID: 5331717517346282439}
+  gearSlotDisplay:
+  - {fileID: 5706297243015627684}
+  - {fileID: 461331118002246511}
+  - {fileID: 7007549536407901159}
 --- !u!1 &6875525060555737147
 GameObject:
   m_ObjectHideFlags: 0
@@ -11710,10 +11613,10 @@ RectTransform:
   - {fileID: 6954962328035299963}
   m_Father: {fileID: 8023574837709104478}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 180.515, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3388819651331108111
 CanvasRenderer:
@@ -11781,20 +11684,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6516247710880047366}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
-        m_MethodName: InventoryMenuDisabled
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
-        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
-        m_MethodName: GearMove
-        m_Mode: 1
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11996,10 +11887,10 @@ RectTransform:
   - {fileID: 2344102610766251763}
   m_Father: {fileID: 4059817065692013035}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -127.5}
-  m_SizeDelta: {x: 173.6, y: 40.4}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3694340139109368170
 CanvasRenderer:
@@ -12098,10 +11989,10 @@ RectTransform:
   - {fileID: 1040114581717081606}
   m_Father: {fileID: 1638731323308613100}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -46.7}
+  m_SizeDelta: {x: 173.6, y: 40.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5165092245850008613
 CanvasRenderer:
@@ -12468,10 +12359,10 @@ RectTransform:
   - {fileID: 8083562770434584904}
   m_Father: {fileID: 4059817065692013035}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -167.90001}
-  m_SizeDelta: {x: 173.6, y: 40.4}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8202029602171107950
 CanvasRenderer:
@@ -12571,10 +12462,10 @@ RectTransform:
   - {fileID: 9077699303349543540}
   m_Father: {fileID: 2603875050802402740}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -59.850002}
+  m_SizeDelta: {x: 100, y: 39.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2442736225806104215
 MonoBehaviour:
@@ -13264,10 +13155,10 @@ RectTransform:
   - {fileID: 8501456725636363037}
   m_Father: {fileID: 1017541672525228803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 782.575, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7782592220012263620
 CanvasRenderer:
@@ -13335,20 +13226,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6516247710880047366}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
-        m_MethodName: InventoryMenuDisabled
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
-        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
-        m_MethodName: GearMove
-        m_Mode: 1
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -13428,7 +13307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 1648342972664657309}
-  equippedGearDisplayUI: {fileID: 5353529231078714396}
+  gearSelectUI: {fileID: 6890329196894048368}
 --- !u!1 &8620599852875291934
 GameObject:
   m_ObjectHideFlags: 0
@@ -13463,10 +13342,10 @@ RectTransform:
   - {fileID: 1922733576988782394}
   m_Father: {fileID: 7041521258211675603}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -46.7}
+  m_SizeDelta: {x: 173.6, y: 40.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &282278471580857800
 CanvasRenderer:
@@ -13582,10 +13461,10 @@ RectTransform:
   - {fileID: 3689607098094016002}
   m_Father: {fileID: 1943539148759138295}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 782.575, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9083092326791687403
 CanvasRenderer:
@@ -13653,20 +13532,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6516247710880047366}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
-        m_MethodName: InventoryMenuDisabled
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
-        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
-        m_MethodName: GearMove
-        m_Mode: 1
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -13870,10 +13737,10 @@ RectTransform:
   - {fileID: 7851519857347325713}
   m_Father: {fileID: 2414159349924295257}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 481.54498, y: -28}
+  m_SizeDelta: {x: 301.03, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4681429743171927270
 CanvasRenderer:
@@ -13941,20 +13808,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6516247710880047366}
         m_TargetAssemblyTypeName: GearSelect, Assembly-CSharp
-        m_MethodName: InventoryMenuDisabled
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 28c2ce9ba7ebe2e41b996f02be2f78cd, type: 2}
-        m_TargetAssemblyTypeName: PlayerMoveManagerSO, Assembly-CSharp
-        m_MethodName: GearMove
-        m_Mode: 1
+        m_MethodName: InventoryMenuEnabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -14156,10 +14011,10 @@ RectTransform:
   - {fileID: 1306187391505546988}
   m_Father: {fileID: 1638731323308613100}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -127.5}
+  m_SizeDelta: {x: 173.6, y: 40.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2914175364236953530
 CanvasRenderer:
@@ -14259,10 +14114,10 @@ RectTransform:
   - {fileID: 5270531124942410084}
   m_Father: {fileID: 7041521258211675603}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -127.5}
+  m_SizeDelta: {x: 173.6, y: 40.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1334585653726237925
 CanvasRenderer:
@@ -14366,10 +14221,62 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 53390759449209990}
     m_Modifications:
+    - target: {fileID: 1868914647425807151, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3770574780666477823, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
       propertyPath: combatManager
       value: 
       objectReference: {fileID: 1648342972664657309}
+    - target: {fileID: 3804048655632969887, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3804048655632969887, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3804048655632969887, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3804048655632969887, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 3804048655632969887, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3804048655632969887, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2.605
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278354106135465295, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278354106135465295, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278354106135465295, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278354106135465295, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278354106135465295, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278354106135465295, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.395
+      objectReference: {fileID: 0}
     - target: {fileID: 8467866450475516578, guid: 1c8191e5202d0ed498fdd769ad202ce2, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1

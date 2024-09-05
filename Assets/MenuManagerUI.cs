@@ -1,11 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuManagerUI : MonoBehaviour
 {
-    public Menu statsPage, gearPage, movesPage, configPage, savePage, exitPage;
+    public Menu statsPage, gearPage, movesPage, configPage, savePage, exitPage, main;
+    public Button[] mainMenuButtonsToDisable;
+    public menuMain menuMain;
+    public Menu menuUpdateMethod;
+
+    private void Start()
+    {
+        menuUpdateMethod = main;
+    }
 
     public void SelectMenu(Menu menuScript)
     {
@@ -14,14 +23,29 @@ public class MenuManagerUI : MonoBehaviour
 
     public void DisplayMenu(Menu menuScript)
     {
-        statsPage.displayContainer.SetActive(false);
-        gearPage.displayContainer.SetActive(false);
-        //movesPage.displayContainer.SetActive(false);
-        //configPage.displayContainer.SetActive(false);
-        //savePage.displayContainer.SetActive(false);
-        //exitPage.displayContainer.SetActive(false);
+        statsPage.DisplayMenu(false);
+        gearPage.DisplayMenu(false);
+        //movesPage.DisplayMenu(false);
+        //configPage.DisplayMenu(false);
+        //savePage.DisplayMenu(false);
+        //exitPage.DisplayMenu(false);
 
-        menuScript.displayContainer.SetActive(true);
+        menuScript.DisplayMenu(true);
+        menuUpdateMethod = menuScript;
     }
 
+    public void EnterSubMenu(Menu menuScript)
+    {
+        menuScript.EnterMenu();
+    }
+
+    void Update()
+    {
+        StateUpdate(menuUpdateMethod);
+    }
+
+    void StateUpdate(Menu menuUpdateMethod)
+    {
+        menuUpdateMethod.StateUpdate();
+    }
 }

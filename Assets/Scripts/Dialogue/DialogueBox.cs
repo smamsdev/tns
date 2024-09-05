@@ -48,7 +48,6 @@ public class DialogueBox : MonoBehaviour
         else
         {
             dialogueFinalPosition = dialogueElement.optionalDialogueFinalPosition;
-            Debug.Log(dialogueFinalPosition);
         }
     }
 

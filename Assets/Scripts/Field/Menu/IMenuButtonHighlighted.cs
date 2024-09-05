@@ -3,10 +3,12 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class IMenuButtonSelected : MonoBehaviour, ISelectHandler, IDeselectHandler
+public class IMenuButtonHighlighted : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     [SerializeField] Menu menuToDisplay;
     [SerializeField] GameObject blueUnderLine;
+    public Color highlightedColor;
+    public Button button;
 
     [SerializeField] MenuManagerUI menuManager;
 
@@ -26,5 +28,10 @@ public class IMenuButtonSelected : MonoBehaviour, ISelectHandler, IDeselectHandl
         blueUnderLine.SetActive(false);
     }
 
-
+    public void SetButtonColor(Color color)
+    {
+        ColorBlock colors = button.colors;
+        colors.normalColor = color;
+        button.colors = colors;
+    }
 }

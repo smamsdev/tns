@@ -7,6 +7,7 @@ public class Gear : MonoBehaviour
 
     public string gearID;
     [TextArea(2, 5)] public string gearDescription;
+    public bool isEquipment;
 
     private void Awake()
     {

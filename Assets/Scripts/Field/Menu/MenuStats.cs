@@ -19,15 +19,28 @@ public class MenuStats : Menu
     [SerializeField] private TextMeshProUGUI experienceValue;
     [SerializeField] private TextMeshProUGUI nextLevelValue;
 
-    private void Start()
+    public override void DisplayMenu(bool on)
+
     {
-        displayContainer.SetActive(false);
+        InitializeStats();
+        displayContainer.SetActive(on);
     }
 
     public override void EnterMenu()
 
     {
 
+    }
+
+    public override void ExitMenu()
+
+    {
+
+    }
+
+    public override void StateUpdate()
+    {
+        //chill
     }
 
     public void InitializeStats()

@@ -5,17 +5,32 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class menuUI : MonoBehaviour
+public class menuMain : Menu
 {
     public GameObject menuGO;
     public bool isMenuOn;
-    public Button firstMenuItem;
 
-    public MenuStats firstMenuStats;
+    public Button firstMenuButton;
+
     [SerializeField] private PlayerPermanentStats playerPermanentStats;
 
     [SerializeField] TextMeshProUGUI smamsValue;
     [SerializeField] TextMeshProUGUI timeValue;
+
+    public override void DisplayMenu(bool on)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void EnterMenu()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void ExitMenu()
+    {
+        throw new NotImplementedException();
+    }
 
     private void Start()
     {
@@ -25,25 +40,20 @@ public class menuUI : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            ToggleMenu(isMenuOn);
-        }
-
         if (isMenuOn)
         {
             UpdateTime();
         }
     }
 
-    void ToggleMenu(bool on)
+    void ToggleMainMenu(bool on)
 
     {
         isMenuOn = !isMenuOn;
-        firstMenuStats.InitializeStats();
         menuGO.SetActive(!on);
-        firstMenuItem.Select();
+        firstMenuButton.Select();
         CombatEvents.LockPlayerMovement();
+
         smamsValue.text = $"{playerPermanentStats.smams}";
     }
 
@@ -59,5 +69,12 @@ public class menuUI : MonoBehaviour
         timeValue.text = formattedTime;
     }
 
-
+    public override void StateUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ToggleMainMenu(isMenuOn);
+            CombatEvents.UnlockPlayerMovement();
+        }
+    }
 }
