@@ -7,6 +7,7 @@ public abstract class PlayerMove : MonoBehaviour
     public string moveName;
     [TextArea(2, 5)]
     public string moveDescription;
+    public bool isEquipped;
 
     [Header("")]
     public float attackMoveMultiplier;

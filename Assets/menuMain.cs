@@ -24,12 +24,12 @@ public class menuMain : Menu
 
     public override void EnterMenu()
     {
-        throw new NotImplementedException();
+        CombatEvents.LockPlayerMovement();
     }
 
     public override void ExitMenu()
     {
-        throw new NotImplementedException();
+        CombatEvents.UnlockPlayerMovement();
     }
 
     private void Start()
@@ -49,12 +49,22 @@ public class menuMain : Menu
     void ToggleMainMenu(bool on)
 
     {
-        isMenuOn = !isMenuOn;
-        menuGO.SetActive(!on);
-        firstMenuButton.Select();
-        CombatEvents.LockPlayerMovement();
+        if (!isMenuOn)
+        {
+            isMenuOn = true;
+            menuGO.SetActive(true);
+            firstMenuButton.Select();
+            CombatEvents.LockPlayerMovement();
+            smamsValue.text = $"{playerPermanentStats.smams}";
+            return;
+        }
 
-        smamsValue.text = $"{playerPermanentStats.smams}";
+        if (isMenuOn) 
+        {
+            CombatEvents.UnlockPlayerMovement();
+            menuGO.SetActive(false);
+            isMenuOn = false;
+        }
     }
 
     void UpdateTime()
@@ -74,7 +84,6 @@ public class menuMain : Menu
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ToggleMainMenu(isMenuOn);
-            CombatEvents.UnlockPlayerMovement();
         }
     }
 }

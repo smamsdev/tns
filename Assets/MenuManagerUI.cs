@@ -7,8 +7,7 @@ using UnityEngine.UI;
 public class MenuManagerUI : MonoBehaviour
 {
     public Menu statsPage, gearPage, movesPage, configPage, savePage, exitPage, main;
-    public Button[] mainMenuButtonsToDisable;
-    public menuMain menuMain;
+    [Header("")]
     public Menu menuUpdateMethod;
 
     private void Start()
@@ -16,27 +15,22 @@ public class MenuManagerUI : MonoBehaviour
         menuUpdateMethod = main;
     }
 
-    public void SelectMenu(Menu menuScript)
-    {
-        menuScript.EnterMenu();
-    }
-
     public void DisplayMenu(Menu menuScript)
     {
         statsPage.DisplayMenu(false);
         gearPage.DisplayMenu(false);
-        //movesPage.DisplayMenu(false);
+        movesPage.DisplayMenu(false);
         //configPage.DisplayMenu(false);
         //savePage.DisplayMenu(false);
         //exitPage.DisplayMenu(false);
 
         menuScript.DisplayMenu(true);
-        menuUpdateMethod = menuScript;
     }
 
     public void EnterSubMenu(Menu menuScript)
     {
         menuScript.EnterMenu();
+        menuUpdateMethod = menuScript;
     }
 
     void Update()

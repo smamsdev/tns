@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class PlayerMoveListSO : ScriptableObject
+public class PlayerMoveInventorySO : ScriptableObject
 {
     public List<string> violentAttacksListString = new List<string>();
     public List<string> violentFendsListString = new List<string>();

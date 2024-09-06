@@ -8,8 +8,8 @@ public class PlayerMoveManager : MonoBehaviour
 {
     public int firstMoveIs;
     public int secondMoveIs;
-    public PlayerMoveListSO playerMoveListSO;
-    public PlayerEquippedMoves playerEquippedMoves;
+    //public PlayerMoveInventorySO playerMoveInventorySO;
+    [SerializeField] PlayerEquippedMovesSO playerEquippedMovesSO;
 
     public PlayerMove selectedPlayerMove;
 
@@ -41,28 +41,38 @@ public class PlayerMoveManager : MonoBehaviour
 
     public void LoadMoveListFromSO()
     {
-        LoadMovesOfType<ViolentMove>(playerMoveListSO.violentAttacksListString, violentAttacks);
-        LoadMovesOfType<ViolentMove>(playerMoveListSO.violentFendsListString, violentFends);
-        LoadMovesOfType<ViolentMove>(playerMoveListSO.violentFocusesListString, violentFocuses);
+        LoadMovesOfType<ViolentMove>(playerEquippedMovesSO.violentAttacksListString, violentAttacks);
+        LoadMovesOfType<ViolentMove>(playerEquippedMovesSO.violentFendsListString, violentFends);
+        LoadMovesOfType<ViolentMove>(playerEquippedMovesSO.violentFocusesListString, violentFocuses);
 
-        LoadMovesOfType<CautiousMove>(playerMoveListSO.cautiousAttackssListString, cautiousAttacks);
-        LoadMovesOfType<CautiousMove>(playerMoveListSO.cautiousFendsListString, cautiousFends);
-        LoadMovesOfType<CautiousMove>(playerMoveListSO.cautiousFocusesListString, cautiousFocuses);
+        LoadMovesOfType<CautiousMove>(playerEquippedMovesSO.cautiousAttackssListString, cautiousAttacks);
+        LoadMovesOfType<CautiousMove>(playerEquippedMovesSO.cautiousFendsListString, cautiousFends);
+        LoadMovesOfType<CautiousMove>(playerEquippedMovesSO.cautiousFocusesListString, cautiousFocuses);
 
-        LoadMovesOfType<PreciseMove>(playerMoveListSO.preciseAttacksListString, preciseAttacks);
-        LoadMovesOfType<PreciseMove>(playerMoveListSO.preciseFendsListString, preciseFends);
-        LoadMovesOfType<PreciseMove>(playerMoveListSO.preciseFocusesListString, preciseFocuses);
+        LoadMovesOfType<PreciseMove>(playerEquippedMovesSO.preciseAttacksListString, preciseAttacks);
+        LoadMovesOfType<PreciseMove>(playerEquippedMovesSO.preciseFendsListString, preciseFends);
+        LoadMovesOfType<PreciseMove>(playerEquippedMovesSO.preciseFocusesListString, preciseFocuses);
     }
 
-    private void LoadMovesOfType<T>(List<string> moveNames, List<T> moveList) where T : Component
+    private void LoadMovesOfType<T>(string[] moveNames, List<T> moveList) where T : Component
     {
         foreach (string moveName in moveNames)
         {
-            var moveGameObject = GameObject.Find(moveName);
-            var moveComponent = moveGameObject.GetComponent<T>();
-            if (moveComponent != null)
+            if (!string.IsNullOrEmpty(moveName))
+
             {
-                moveList.Add(moveComponent);
+                var moveGameObject = GameObject.Find(moveName);
+                var moveComponent = moveGameObject.GetComponent<T>();
+                
+                if (moveComponent != null)
+                {
+                    moveList.Add(moveComponent);
+                }
+
+                else
+                { 
+                    Debug.Log("no move of this name found in project" + " = " + moveName);
+                }
             }
         }
     }
@@ -70,7 +80,7 @@ public class PlayerMoveManager : MonoBehaviour
     public void CombineStanceAndMove()
 
     {
-        if (firstMoveIs == 0) {GearMove();}
+        if (firstMoveIs == 0) { Debug.Log("set gear as a move"); }
 
         if (firstMoveIs == 1 && secondMoveIs == 1) { SelectMoveFromEquippedMoves(violentAttacks); }
         if (firstMoveIs == 1 && secondMoveIs == 2) { SelectMoveFromEquippedMoves(violentFends); }
@@ -117,13 +127,4 @@ public class PlayerMoveManager : MonoBehaviour
     { 
         return selectedPlayerMove;
     }
-
-    public void GearMove()
-
-    {
-        {
-            CombatEvents.UpdateNarrator.Invoke("");
-        }
-    }
-
 }

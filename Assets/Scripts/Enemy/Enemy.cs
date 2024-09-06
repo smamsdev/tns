@@ -98,7 +98,6 @@ public class Enemy : MonoBehaviour
         {
             if (enemyBodyHP > 0)
             {
-                Debug.Log("body");
                 enemyUI.bodyPartsDamageTakenDisplay.BodyPartDamageTakenDisplay("Body", enemyBodyHP, Mathf.Clamp(enemyBodyHP - attackRemainder, 0, 9999), enemyBodyMaxHP);
                 enemyBodyHP = Mathf.Clamp(enemyBodyHP - attackRemainder, 0, 9999);
             }
