@@ -14,7 +14,7 @@ public class MenuGear : Menu
     public TextMeshProUGUI descriptionFieldTMP;
     public TextMeshProUGUI itemTypeTMP;
 
-    public CombatInventorySlot[] inventorySlot;
+    public InventorySlot[] inventorySlot;
 
     public override void DisplayMenu(bool on)
 

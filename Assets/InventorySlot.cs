@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class CombatInventorySlot : MonoBehaviour
+public class InventorySlot : MonoBehaviour
 {
     public Gear gear;
     public TextMeshProUGUI textMeshProUGUI;

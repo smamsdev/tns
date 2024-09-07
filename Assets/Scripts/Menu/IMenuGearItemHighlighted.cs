@@ -9,7 +9,7 @@ public class IMenuGearItemHighlighted : MonoBehaviour, ISelectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
-        CombatInventorySlot combatInventorySlot = GetComponent<CombatInventorySlot>();
+        InventorySlot combatInventorySlot = GetComponent<InventorySlot>();
         string descriptionText = combatInventorySlot.gear.gearDescription;
 
         menuGear.UpdateDescriptionField(descriptionText, combatInventorySlot.gear.isEquipment);

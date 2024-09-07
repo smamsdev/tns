@@ -10,13 +10,13 @@ public class CombatInventoryMenu : MonoBehaviour
     public PlayerInventory playerInventory;
     [SerializeField] EquippedGear equippedGear;
     public GearSelectUI gearSelectUI;
-    public CombatInventorySlot[] inventorySlot;
+    public InventorySlot[] inventorySlot;
     [SerializeField] GameObject inventoryMenu;
     [SerializeField] Button inventorySlotOne;
     public int combatGearSlotSelected;
     public int InventorySlotNumberSelected;
     public Gear geartoEquip;
-    [SerializeField] CautiousBasic equipGearMove;
+    [SerializeField] CautiousBasic equipGearMove; //just a generic move for the narrator and combat manager to process
 
     private void Start()
     {

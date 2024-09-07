@@ -12,25 +12,25 @@ public class MenuMoves : Menu
     public PlayerEquippedMovesSO playerEquippedMoves;
     public PlayerMoveInventorySO playerMoveInventory;
     public bool isSelectingMove;
-    Button buttonTypeToReturnTo;
-
+    IMenuMoveTypeHighlighted buttonTypeToReturnTo;
+    public MoveSlot[] moveSlotGOs = new MoveSlot[5];
 
     public override void DisplayMenu(bool on)
     {
         moveDescriptionGO.SetActive(false);
         displayContainer.SetActive(on);
+        LoadEquippedMovesFromSO();
     }
 
     public override void EnterMenu()
     {
         menuButtonHighlighted.SetButtonColor(menuButtonHighlighted.highlightedColor);
         menuButtonHighlighted.enabled = false;
-
         firstButtonToSelect.Select();
         moveDescriptionGO.SetActive(true);
     }
 
-    public override void ExitMenu() 
+    public override void ExitMenu()
     {
         menuButtonHighlighted.enabled = true;
         menuButtonHighlighted.SetButtonColor(Color.white);
@@ -39,29 +39,21 @@ public class MenuMoves : Menu
 
     public override void StateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !isSelectingMove)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             ExitMenu();
             menuManagerUI.menuUpdateMethod = menuManagerUI.main;
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && isSelectingMove)
+    void LoadEquippedMovesFromSO()
+    {
+        for (int i = 0; i < moveSlotGOs.Length; i++)
         {
-            buttonTypeToReturnTo.Select();
-            isSelectingMove = false;
+          //  GameObject.Find(playerEquippedMoves[i].move)
+          //  moveSlotGOs[i].move = playerEquippedMoves[i].move;
         }
+
+        //GameObject.Find("Player").GetComponent<EquippedGear>().playerPermanentStats.attackPowerGearMod
     }
-
-    public void EnterMoveList(Button buttonToHighlight)
-    {
-        buttonToHighlight.Select();
-        isSelectingMove = true;
-    }
-
-    public void AssignButtonToReturn(Button _buttonTypeToReturnTo)
-    {
-        buttonTypeToReturnTo = _buttonTypeToReturnTo;
-    }
-
-
 }

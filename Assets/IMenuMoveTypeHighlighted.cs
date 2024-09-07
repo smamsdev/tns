@@ -8,6 +8,7 @@ public class IMenuMoveTypeHighlighted : MonoBehaviour, ISelectHandler
 {
     public TextMeshProUGUI moveDescriptionFieldTMP;
     public string textToUpdate;
+    public Button button;
 
     public void OnSelect(BaseEventData eventData)
     {
