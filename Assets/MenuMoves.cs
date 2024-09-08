@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,32 +10,47 @@ public class MenuMoves : Menu
 {
     [SerializeField] Button firstButtonToSelect;
     public GameObject moveDescriptionGO;
-    public PlayerEquippedMovesSO playerEquippedMoves;
-    public PlayerMoveInventorySO playerMoveInventory;
     public bool isSelectingMove;
     IMenuMoveTypeHighlighted buttonTypeToReturnTo;
-    public MoveSlot[] moveSlotGOs = new MoveSlot[5];
+    public PlayerMoveManager playerMoveManager;
+
+    public MoveSlot[] violentAttackSlots = new MoveSlot[5];
+    public MoveSlot[] violentFendSlots =  new MoveSlot[5];
+    public MoveSlot[] violentFocusSlots = new MoveSlot[5];
+    public MoveSlot[] cautiousAttackSlots = new MoveSlot[5];
+    public MoveSlot[] cautiousFendSlots = new MoveSlot[5];
+    public MoveSlot[] cautiousFocuseSlots = new MoveSlot[5];
+    public MoveSlot[] preciseAttackSlots = new MoveSlot[5];
+    public MoveSlot[] preciseFendSlots = new MoveSlot[5];
+    public MoveSlot[] preciseFocuseSlots = new MoveSlot[5];
+
+    private void OnEnable()
+    {
+        playerMoveManager = GameObject.Find("Player").GetComponentInChildren<PlayerMoveManager>();
+    }
 
     public override void DisplayMenu(bool on)
     {
         moveDescriptionGO.SetActive(false);
         displayContainer.SetActive(on);
-        LoadEquippedMovesFromSO();
     }
 
     public override void EnterMenu()
     {
         menuButtonHighlighted.SetButtonColor(menuButtonHighlighted.highlightedColor);
-        menuButtonHighlighted.enabled = false;
+        menuButtonHighlighted.enabled = false; //this removes the blue underline
         firstButtonToSelect.Select();
         moveDescriptionGO.SetActive(true);
+
+        LoadAllMoveLists();
     }
 
     public override void ExitMenu()
     {
-        menuButtonHighlighted.enabled = true;
         menuButtonHighlighted.SetButtonColor(Color.white);
+        menuButtonHighlighted.enabled = true; //this keeps the blue underline
         mainButtonToRevert.Select();
+        menuManagerUI.menuUpdateMethod = menuManagerUI.main;
     }
 
     public override void StateUpdate()
@@ -42,18 +58,37 @@ public class MenuMoves : Menu
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ExitMenu();
-            menuManagerUI.menuUpdateMethod = menuManagerUI.main;
         }
     }
 
-    void LoadEquippedMovesFromSO()
+    private void LoadMoveList<T>(T[] moveArray, MoveSlot[] slots) where T : PlayerMove
     {
-        for (int i = 0; i < moveSlotGOs.Length; i++)
+        for (int i = 0; i < slots.Length; i++)
         {
-          //  GameObject.Find(playerEquippedMoves[i].move)
-          //  moveSlotGOs[i].move = playerEquippedMoves[i].move;
+            if (i < moveArray.Length && moveArray[i] != null)
+            {
+                slots[i].move = moveArray[i]; 
+                slots[i].textMeshProUGUI.text = "Slot " + (i + 1) + ": " + moveArray[i].moveName;
+            }
+            else
+            {
+                slots[i].textMeshProUGUI.text = "Slot " + (i + 1) + ": Empty";
+            }
         }
+    }
 
-        //GameObject.Find("Player").GetComponent<EquippedGear>().playerPermanentStats.attackPowerGearMod
+    void LoadAllMoveLists()
+    {
+        LoadMoveList(playerMoveManager.violentAttackSlots, violentAttackSlots);
+        LoadMoveList(playerMoveManager.violentFendSlots, violentFendSlots);
+        LoadMoveList(playerMoveManager.violentFocusSlots, violentFocusSlots);
+
+        LoadMoveList(playerMoveManager.cautiousAttackSlots, violentAttackSlots);
+        LoadMoveList(playerMoveManager.cautiousFendSlots, violentFendSlots);
+        LoadMoveList(playerMoveManager.cautiousFocusSlots, violentFocusSlots);
+
+        LoadMoveList(playerMoveManager.preciseAttackSlots, violentAttackSlots);
+        LoadMoveList(playerMoveManager.preciseFendSlots, violentFendSlots);
+        LoadMoveList(playerMoveManager.preciseFocusSlots, violentFocusSlots);
     }
 }

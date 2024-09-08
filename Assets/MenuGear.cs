@@ -76,6 +76,7 @@ public class MenuGear : Menu
         menuButtonHighlighted.enabled = true;
         menuButtonHighlighted.SetButtonColor(Color.white);
         mainButtonToRevert.Select();
+        menuManagerUI.menuUpdateMethod = menuManagerUI.main;
     }
 
     public override void StateUpdate()
@@ -83,7 +84,6 @@ public class MenuGear : Menu
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ExitMenu();
-            menuManagerUI.menuUpdateMethod = menuManagerUI.main;
         }
     }
 }

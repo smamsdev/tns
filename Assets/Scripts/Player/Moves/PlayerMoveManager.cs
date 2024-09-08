@@ -8,22 +8,21 @@ public class PlayerMoveManager : MonoBehaviour
 {
     public int firstMoveIs;
     public int secondMoveIs;
-    //public PlayerMoveInventorySO playerMoveInventorySO;
     [SerializeField] PlayerEquippedMovesSO playerEquippedMovesSO;
 
     public PlayerMove selectedPlayerMove;
 
-    public List<ViolentMove> violentAttacks = new List<ViolentMove>();
-    public List<ViolentMove> violentFends = new List<ViolentMove>();
-    public List<ViolentMove> violentFocuses = new List<ViolentMove>();
+    public ViolentMove[] violentAttackSlots = new ViolentMove[5];
+    public ViolentMove[] violentFendSlots =  new ViolentMove[5];
+    public ViolentMove[] violentFocusSlots = new ViolentMove[5];
 
-    public List<CautiousMove> cautiousAttacks = new List<CautiousMove>();
-    public List<CautiousMove> cautiousFends = new List<CautiousMove>();
-    public List<CautiousMove> cautiousFocuses = new List<CautiousMove>();
+    public CautiousMove[] cautiousAttackSlots = new CautiousMove[5];
+    public CautiousMove[] cautiousFendSlots = new CautiousMove[5];
+    public CautiousMove[] cautiousFocusSlots = new CautiousMove[5];
 
-    public List<PreciseMove> preciseAttacks = new List<PreciseMove>();
-    public List<PreciseMove> preciseFends = new List<PreciseMove>();
-    public List<PreciseMove> preciseFocuses = new List<PreciseMove>();
+    public PreciseMove[] preciseAttackSlots = new PreciseMove[5];
+    public PreciseMove[] preciseFendSlots = new PreciseMove[5];
+    public PreciseMove[] preciseFocusSlots = new PreciseMove[5];
 
     private void Start()
     {
@@ -41,32 +40,30 @@ public class PlayerMoveManager : MonoBehaviour
 
     public void LoadMoveListFromSO()
     {
-        LoadMovesOfType<ViolentMove>(playerEquippedMovesSO.violentAttacksListString, violentAttacks);
-        LoadMovesOfType<ViolentMove>(playerEquippedMovesSO.violentFendsListString, violentFends);
-        LoadMovesOfType<ViolentMove>(playerEquippedMovesSO.violentFocusesListString, violentFocuses);
-
-        LoadMovesOfType<CautiousMove>(playerEquippedMovesSO.cautiousAttackssListString, cautiousAttacks);
-        LoadMovesOfType<CautiousMove>(playerEquippedMovesSO.cautiousFendsListString, cautiousFends);
-        LoadMovesOfType<CautiousMove>(playerEquippedMovesSO.cautiousFocusesListString, cautiousFocuses);
-
-        LoadMovesOfType<PreciseMove>(playerEquippedMovesSO.preciseAttacksListString, preciseAttacks);
-        LoadMovesOfType<PreciseMove>(playerEquippedMovesSO.preciseFendsListString, preciseFends);
-        LoadMovesOfType<PreciseMove>(playerEquippedMovesSO.preciseFocusesListString, preciseFocuses);
+        LoadMovesOfType<ViolentMove>(playerEquippedMovesSO.violentAttacksListString, violentAttackSlots);
+        LoadMovesOfType<ViolentMove>(playerEquippedMovesSO.violentFendsListString, violentFendSlots);
+        LoadMovesOfType<ViolentMove>(playerEquippedMovesSO.violentFocusesListString, violentFocusSlots);
+        LoadMovesOfType<CautiousMove>(playerEquippedMovesSO.cautiousAttackssListString, cautiousAttackSlots);
+        LoadMovesOfType<CautiousMove>(playerEquippedMovesSO.cautiousFendsListString, cautiousFendSlots);
+        LoadMovesOfType<CautiousMove>(playerEquippedMovesSO.cautiousFocusesListString, cautiousFocusSlots);
+        LoadMovesOfType<PreciseMove>(playerEquippedMovesSO.preciseAttacksListString, preciseAttackSlots);
+        LoadMovesOfType<PreciseMove>(playerEquippedMovesSO.preciseFendsListString, preciseFendSlots);
+        LoadMovesOfType<PreciseMove>(playerEquippedMovesSO.preciseFocusesListString, preciseFocusSlots);
     }
 
-    private void LoadMovesOfType<T>(string[] moveNames, List<T> moveList) where T : Component
+    public void LoadMovesOfType<T>(string[] moveName, T[] moveSlot)
     {
-        foreach (string moveName in moveNames)
+        for (int i = 0; i < moveSlot.Length; i++)
         {
-            if (!string.IsNullOrEmpty(moveName))
+            if (!string.IsNullOrEmpty(moveName[i]))
 
             {
-                var moveGameObject = GameObject.Find(moveName);
+                var moveGameObject = GameObject.Find(moveName[i]);
                 var moveComponent = moveGameObject.GetComponent<T>();
                 
                 if (moveComponent != null)
                 {
-                    moveList.Add(moveComponent);
+                    moveSlot[i] = moveComponent;
                 }
 
                 else
@@ -80,19 +77,19 @@ public class PlayerMoveManager : MonoBehaviour
     public void CombineStanceAndMove()
 
     {
-        if (firstMoveIs == 0) { Debug.Log("set gear as a move"); }
-
-        if (firstMoveIs == 1 && secondMoveIs == 1) { SelectMoveFromEquippedMoves(violentAttacks); }
-        if (firstMoveIs == 1 && secondMoveIs == 2) { SelectMoveFromEquippedMoves(violentFends); }
-        if (firstMoveIs == 1 && secondMoveIs == 3) { SelectMoveFromEquippedMoves(violentFocuses); }
-
-        if (firstMoveIs == 2 && secondMoveIs == 1) { SelectMoveFromEquippedMoves(cautiousAttacks); }
-        if (firstMoveIs == 2 && secondMoveIs == 2) { SelectMoveFromEquippedMoves(cautiousFends); }
-        if (firstMoveIs == 2 && secondMoveIs == 3) { SelectMoveFromEquippedMoves(cautiousFocuses); }
-
-        if (firstMoveIs == 3 && secondMoveIs == 1) { SelectMoveFromEquippedMoves(preciseAttacks); }
-        if (firstMoveIs == 3 && secondMoveIs == 2) { SelectMoveFromEquippedMoves(preciseFends); }
-        if (firstMoveIs == 3 && secondMoveIs == 3) { SelectMoveFromEquippedMoves(preciseFocuses); }
+    // if (firstMoveIs == 0) { Debug.Log("set gear as a move"); }
+    //
+    // if (firstMoveIs == 1 && secondMoveIs == 1) { SelectMoveFromEquippedMoves(violentAttacks); }
+    // if (firstMoveIs == 1 && secondMoveIs == 2) { SelectMoveFromEquippedMoves(violentFends); }
+    // if (firstMoveIs == 1 && secondMoveIs == 3) { SelectMoveFromEquippedMoves(violentFocuses); }
+    //
+    // if (firstMoveIs == 2 && secondMoveIs == 1) { SelectMoveFromEquippedMoves(cautiousAttacks); }
+    // if (firstMoveIs == 2 && secondMoveIs == 2) { SelectMoveFromEquippedMoves(cautiousFends); }
+    // if (firstMoveIs == 2 && secondMoveIs == 3) { SelectMoveFromEquippedMoves(cautiousFocuses); }
+    //
+    // if (firstMoveIs == 3 && secondMoveIs == 1) { SelectMoveFromEquippedMoves(preciseAttacks); }
+    // if (firstMoveIs == 3 && secondMoveIs == 2) { SelectMoveFromEquippedMoves(preciseFends); }
+    // if (firstMoveIs == 3 && secondMoveIs == 3) { SelectMoveFromEquippedMoves(preciseFocuses); }
     }
 
     void SelectMoveFromEquippedMoves<T>(List<T> equippedMoveList) where T : PlayerMove
