@@ -24,6 +24,8 @@ public class MoveInventory : MonoBehaviour
 
     public void LoadAllInventoryMovesFromSO()
     {
+        moveInventorySO.SortAll();
+
         LoadMovesOfType(moveInventorySO.violentAttacksListString, violentAttacksInventory);
         LoadMovesOfType(moveInventorySO.violentAttacksListString, violentAttacksInventory);
         LoadMovesOfType(moveInventorySO.violentFendsListString, violentFendsInventory);

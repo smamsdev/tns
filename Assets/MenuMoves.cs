@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MenuMoves : Menu
 {
@@ -15,14 +11,14 @@ public class MenuMoves : Menu
     public PlayerMoveManager playerMoveManager;
 
     public MoveSlot[] violentAttackSlots = new MoveSlot[5];
-    public MoveSlot[] violentFendSlots =  new MoveSlot[5];
+    public MoveSlot[] violentFendSlots = new MoveSlot[5];
     public MoveSlot[] violentFocusSlots = new MoveSlot[5];
     public MoveSlot[] cautiousAttackSlots = new MoveSlot[5];
     public MoveSlot[] cautiousFendSlots = new MoveSlot[5];
-    public MoveSlot[] cautiousFocuseSlots = new MoveSlot[5];
+    public MoveSlot[] cautiousFocusSlots = new MoveSlot[5];
     public MoveSlot[] preciseAttackSlots = new MoveSlot[5];
     public MoveSlot[] preciseFendSlots = new MoveSlot[5];
-    public MoveSlot[] preciseFocuseSlots = new MoveSlot[5];
+    public MoveSlot[] preciseFocusSlots = new MoveSlot[5];
 
     private void OnEnable()
     {
@@ -61,34 +57,48 @@ public class MenuMoves : Menu
         }
     }
 
-    private void LoadMoveList<T>(T[] moveArray, MoveSlot[] slots) where T : PlayerMove
+    public void LoadMoveList<T>(T[] moveArray, MoveSlot[] slots) where T : PlayerMove
     {
         for (int i = 0; i < slots.Length; i++)
         {
             if (i < moveArray.Length && moveArray[i] != null)
             {
-                slots[i].move = moveArray[i]; 
-                slots[i].textMeshProUGUI.text = "Slot " + (i + 1) + ": " + moveArray[i].moveName;
+                slots[i].move = moveArray[i];
+                slots[i].move.isEquipped = true;
+                slots[i].textMeshProUGUI.text = $"Slot {i + 1}: {moveArray[i].moveName}";
+
+                // Set alpha of the TextMeshProUGUI element based on whether the move is a flaw
+                SetTextAlpha(slots[i].textMeshProUGUI, slots[i].move.isFlaw ? 0.7f : 1f);
             }
             else
             {
-                slots[i].textMeshProUGUI.text = "Slot " + (i + 1) + ": Empty";
+                slots[i].textMeshProUGUI.text = $"Slot {i + 1}: Empty";
+                SetTextAlpha(slots[i].textMeshProUGUI, 1f); // Default alpha for empty slots
             }
         }
     }
 
-    void LoadAllMoveLists()
+    private void SetTextAlpha(TextMeshProUGUI textMeshProUGUI, float alpha)
     {
+        Color color = textMeshProUGUI.color;
+        color.a = alpha;
+        textMeshProUGUI.color = color;
+    }
+
+    public void LoadAllMoveLists()
+    {
+        playerMoveManager.LoadEquippedMoveListFromSO();
+
         LoadMoveList(playerMoveManager.violentAttackSlots, violentAttackSlots);
         LoadMoveList(playerMoveManager.violentFendSlots, violentFendSlots);
         LoadMoveList(playerMoveManager.violentFocusSlots, violentFocusSlots);
 
-        LoadMoveList(playerMoveManager.cautiousAttackSlots, violentAttackSlots);
-        LoadMoveList(playerMoveManager.cautiousFendSlots, violentFendSlots);
-        LoadMoveList(playerMoveManager.cautiousFocusSlots, violentFocusSlots);
+        LoadMoveList(playerMoveManager.cautiousAttackSlots, cautiousAttackSlots);
+        LoadMoveList(playerMoveManager.cautiousFendSlots, cautiousFendSlots);
+        LoadMoveList(playerMoveManager.cautiousFocusSlots, cautiousFocusSlots);
 
-        LoadMoveList(playerMoveManager.preciseAttackSlots, violentAttackSlots);
-        LoadMoveList(playerMoveManager.preciseFendSlots, violentFendSlots);
-        LoadMoveList(playerMoveManager.preciseFocusSlots, violentFocusSlots);
+        LoadMoveList(playerMoveManager.preciseAttackSlots, preciseAttackSlots);
+        LoadMoveList(playerMoveManager.preciseFendSlots, preciseFendSlots);
+        LoadMoveList(playerMoveManager.preciseFocusSlots, preciseFocusSlots);
     }
 }

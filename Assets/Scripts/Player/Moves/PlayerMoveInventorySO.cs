@@ -14,4 +14,19 @@ public class PlayerMoveInventorySO : ScriptableObject
     public List<string> preciseAttacksListString = new List<string>();
     public List<string> preciseFendsListString = new List<string>();
     public List<string> preciseFocusesListString = new List<string>();
+
+    public void SortAll()
+    {
+        violentAttacksListString.Sort();
+        violentFendsListString.Sort();
+        violentFocusesListString.Sort();
+
+        cautiousAttacksListString.Sort();
+        cautiousFendsListString.Sort();
+        cautiousFocusesListString.Sort();
+
+        preciseAttacksListString.Sort();
+        preciseFendsListString.Sort();
+        preciseFocusesListString.Sort();
+    }
 }

@@ -8,7 +8,7 @@ public class PlayerMoveManager : MonoBehaviour
 {
     public int firstMoveIs;
     public int secondMoveIs;
-    [SerializeField] PlayerEquippedMovesSO playerEquippedMovesSO;
+    public PlayerEquippedMovesSO playerEquippedMovesSO;
 
     public PlayerMove selectedPlayerMove;
 
@@ -26,20 +26,13 @@ public class PlayerMoveManager : MonoBehaviour
 
     private void Start()
     {
-        LoadMoveListFromSO();
+        LoadEquippedMoveListFromSO();
     }
 
-    private void SaveMoveListToSO()
+    public void LoadEquippedMoveListFromSO()
     {
-     //   for (int i = 0; i < playerMoveInventory.Count; i++)
-     //   {
-     //       if (!playerMoveListSO.moveListString.Contains(playerMoveInventory[i].moveName))
-     //           playerMoveListSO.moveListString.Add(playerMoveInventory[i].moveName);
-     //   }
-    }
+        ClearAllMoveSlots();
 
-    public void LoadMoveListFromSO()
-    {
         LoadMovesOfType<ViolentMove>(playerEquippedMovesSO.violentAttacksListString, violentAttackSlots);
         LoadMovesOfType<ViolentMove>(playerEquippedMovesSO.violentFendsListString, violentFendSlots);
         LoadMovesOfType<ViolentMove>(playerEquippedMovesSO.violentFocusesListString, violentFocusSlots);
@@ -49,6 +42,21 @@ public class PlayerMoveManager : MonoBehaviour
         LoadMovesOfType<PreciseMove>(playerEquippedMovesSO.preciseAttacksListString, preciseAttackSlots);
         LoadMovesOfType<PreciseMove>(playerEquippedMovesSO.preciseFendsListString, preciseFendSlots);
         LoadMovesOfType<PreciseMove>(playerEquippedMovesSO.preciseFocusesListString, preciseFocusSlots);
+    }
+
+    private void ClearAllMoveSlots()
+    {
+        Array.Clear(violentAttackSlots, 0, violentAttackSlots.Length);
+        Array.Clear(violentFendSlots, 0, violentFendSlots.Length);
+        Array.Clear(violentFocusSlots, 0, violentFocusSlots.Length);
+
+        Array.Clear(cautiousAttackSlots, 0, cautiousAttackSlots.Length);
+        Array.Clear(cautiousFendSlots, 0, cautiousFendSlots.Length);
+        Array.Clear(cautiousFocusSlots, 0, cautiousFocusSlots.Length);
+
+        Array.Clear(preciseAttackSlots, 0, preciseAttackSlots.Length);
+        Array.Clear(preciseFendSlots, 0, preciseFendSlots.Length);
+        Array.Clear(preciseFocusSlots, 0, preciseFocusSlots.Length);
     }
 
     public void LoadMovesOfType<T>(string[] moveName, T[] moveSlot)

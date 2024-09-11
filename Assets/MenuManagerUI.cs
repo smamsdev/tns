@@ -23,7 +23,6 @@ public class MenuManagerUI : MonoBehaviour
         //configPage.DisplayMenu(false);
         //savePage.DisplayMenu(false);
         //exitPage.DisplayMenu(false);
-
         menuScript.DisplayMenu(true);
     }
 

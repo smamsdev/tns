@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu]
-
 public class PlayerEquippedMovesSO : ScriptableObject
 {
     public string[] violentAttacksListString = new string[5];
@@ -16,5 +14,4 @@ public class PlayerEquippedMovesSO : ScriptableObject
     public string[] preciseAttacksListString = new string[5];
     public string[] preciseFendsListString = new string[5];
     public string[] preciseFocusesListString = new string[5];
-
 }
