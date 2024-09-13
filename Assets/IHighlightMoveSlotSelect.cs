@@ -26,14 +26,23 @@ public class IHighlightMoveSlotSelect : MonoBehaviour, ISelectHandler
     {
         if (moveSlot.move != null)
         {
-            menuSlotSelect.DisplayFlawText(moveSlot.move.isFlaw);
-            moveDescriptions.text = moveSlot.move.moveDescription;
+            if (moveSlot.move.isFlaw)
+            {
+                menuSlotSelect.movePropertyTMP.text = "Flaw - Cannot unassign";
+                moveDescriptions.text = moveSlot.move.moveDescription;
+            }
+
+            else
+            {
+                menuSlotSelect.movePropertyTMP.text = "Press CTRL to unassign";
+                moveDescriptions.text = moveSlot.move.moveDescription;
+            }
         }
 
         if (moveSlot.move == null)
         {
-            moveDescriptions.text = "Assign a move";
-            menuSlotSelect.DisplayFlawText(false);
+            moveDescriptions.text = "";
+            menuSlotSelect.movePropertyTMP.text = "Select to assign a move";
         }
     }
 }

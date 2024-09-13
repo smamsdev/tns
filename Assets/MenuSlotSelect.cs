@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using TMPro;
 
 public class MenuSlotSelect : Menu
 {
@@ -12,13 +13,13 @@ public class MenuSlotSelect : Menu
     public GameObject moveSlotGOHighlighted;
     public MenuMoveInventory menuMoveInventory;
 
-    public GameObject flawText;
+    public TextMeshProUGUI movePropertyTMP;
 
     public IMenuMoveStyleHighlighted iMenuMoveStyleHighlighted;
 
     private void OnEnable()
     {
-        flawText.SetActive(false);
+        movePropertyTMP.text = "";
     }
 
     public void SlotSelected()
@@ -37,10 +38,6 @@ public class MenuSlotSelect : Menu
         throw new System.NotImplementedException();
     }
 
-    public void DisplayFlawText(bool isFlaw)
-    {
-        flawText.SetActive(isFlaw);
-    }
 
     public void ToggleHighlightMenu(bool isOn)
 

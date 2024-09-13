@@ -7,6 +7,7 @@ public class MenuMoveType : Menu
 {
     public Button firstButtonToHighlight;
     public Color colourForSelectedParent;
+    public GameObject parentSymbolImage;
 
     private void Start()
     {
@@ -26,6 +27,7 @@ public class MenuMoveType : Menu
         ColorBlock colors = mainButtonToRevert.colors;
         colors.normalColor = colourForSelectedParent;
         mainButtonToRevert.colors = colors;
+        parentSymbolImage.SetActive(true);
     }
 
     public override void ExitMenu()
