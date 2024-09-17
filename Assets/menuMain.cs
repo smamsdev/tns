@@ -83,6 +83,7 @@ public class menuMain : Menu
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            Debug.Log(this.gameObject.name);
             ToggleMainMenu(isMenuOn);
         }
     }

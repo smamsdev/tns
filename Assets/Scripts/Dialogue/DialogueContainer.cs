@@ -57,7 +57,3 @@ public class Dialogue
     [HideInInspector] public GameObject dialogueGameObject;
 }
 
-
-//if you leave gameobject null it will show no Actor name and default to GO localposition, useful for items, buildings
-//if you leave final position blank it will default to parent GO pos + a little bit, to appear above its pivot point
-
