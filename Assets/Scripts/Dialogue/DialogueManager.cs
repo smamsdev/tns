@@ -10,6 +10,9 @@ public class DialogueManager : MonoBehaviour
     public string dialogueCurrentlyInPlay;
 
     [SerializeField] GameObject dialogueBoxPrefab;
+    [SerializeField] GameObject alertBoxPrefab;
+
+    public GameObject prefabToUse;
 
     DialogueBox dialogueBox;
 
@@ -28,6 +31,22 @@ public class DialogueManager : MonoBehaviour
     public void OpenDialogue(Dialogue[] _dialogue)
 
     {
+        prefabToUse = dialogueBoxPrefab;
+
+        dialogue = _dialogue;
+        dialogueElement = 0;
+        dialogueLength = dialogue.Length;
+        SpawnDialogueBox();
+        dialogueIsActive = true;
+        dialogueBox.DisplayMessage(dialogue[dialogueElement]);
+        StartCoroutine(FieldEvents.CoolDown(0.3f));
+    }
+
+    public void OpenAlert(Dialogue[] _dialogue)
+
+    {
+        prefabToUse = alertBoxPrefab;
+
         dialogue = _dialogue;
         dialogueElement = 0;
         dialogueLength = dialogue.Length;
@@ -40,7 +59,7 @@ public class DialogueManager : MonoBehaviour
     public void SpawnDialogueBox()
 
     {
-        dialogueBoxGameObject = Instantiate(dialogueBoxPrefab, this.transform);
+        dialogueBoxGameObject = Instantiate(prefabToUse, this.transform);
         dialogueBoxGameObject.name = dialogue[0].dialogueGameObject.name + "Dialogue#" + dialogueElement;
         dialogueCurrentlyInPlay = dialogueBoxGameObject.name;
         dialogueBox = dialogueBoxGameObject.GetComponent<DialogueBox>();

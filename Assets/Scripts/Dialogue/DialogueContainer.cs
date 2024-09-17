@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class DialogueContainer : ToTrigger
 {
     DialogueManager dialogueManager;
@@ -27,6 +26,8 @@ public class DialogueContainer : ToTrigger
         FieldEvents.isDialogueActive = true;
         dialogueManager.OpenDialogue(dialogue);
         dialogueLaunched = true;
+
+        Debug.Log("is this one");
     }
 
 
@@ -43,17 +44,5 @@ public class DialogueContainer : ToTrigger
        dialogueLaunched = true;
    }
 
-}
-
-[System.Serializable]
-
-public class Dialogue
-
-{
-    public GameObject actorGameObject;
-    [HideInInspector] public string actorName;
-    [TextArea(2, 5)] public string dialoguetext;
-    public Vector3 optionalDialogueFinalPosition;
-    [HideInInspector] public GameObject dialogueGameObject;
 }
 

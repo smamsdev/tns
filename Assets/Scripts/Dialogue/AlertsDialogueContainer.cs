@@ -8,6 +8,11 @@ public class AlertsDialogueContainer : DialogueContainer
 
     private void Awake()
     {
+        for (int i = 0; i < dialogue.Length; i++)
+        {
+            dialogue[i].dialogueGameObject = gameObject; //wtf is this
+        }
+
         dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
     }
 
@@ -20,7 +25,7 @@ public class AlertsDialogueContainer : DialogueContainer
 
         yield return new WaitForSeconds(0.3f);
 
-        dialogueManager.OpenDialogue(dialogue);
+        dialogueManager.OpenAlert(dialogue);
         dialogueLaunched = true;
     }
 }

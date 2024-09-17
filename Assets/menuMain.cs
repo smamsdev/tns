@@ -12,7 +12,7 @@ public class menuMain : Menu
 
     public Button firstMenuButton;
 
-    [SerializeField] private PlayerPermanentStats playerPermanentStats;
+    public PlayerPermanentStats playerPermanentStats;
 
     [SerializeField] TextMeshProUGUI smamsValue;
     [SerializeField] TextMeshProUGUI timeValue;
@@ -83,7 +83,6 @@ public class menuMain : Menu
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log(this.gameObject.name);
             ToggleMainMenu(isMenuOn);
         }
     }
