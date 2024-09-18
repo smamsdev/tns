@@ -23,6 +23,7 @@ public class Setup : State
         //setup
         yield return new WaitForSeconds(0.01f);
         CombatEvents.BattleMode?.Invoke(true);
+        CombatEvents.isBattleMode = true;
         CombatEvents.LockPlayerMovement.Invoke();
 
         combatManager.CombatUIManager.playerFendScript.InitialiseFendUIPosition();

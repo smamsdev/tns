@@ -85,29 +85,33 @@ public class PlayerMoveManager : MonoBehaviour
     public void CombineStanceAndMove()
 
     {
-    // if (firstMoveIs == 0) { Debug.Log("set gear as a move"); }
-    //
-    // if (firstMoveIs == 1 && secondMoveIs == 1) { SelectMoveFromEquippedMoves(violentAttacks); }
-    // if (firstMoveIs == 1 && secondMoveIs == 2) { SelectMoveFromEquippedMoves(violentFends); }
-    // if (firstMoveIs == 1 && secondMoveIs == 3) { SelectMoveFromEquippedMoves(violentFocuses); }
-    //
-    // if (firstMoveIs == 2 && secondMoveIs == 1) { SelectMoveFromEquippedMoves(cautiousAttacks); }
-    // if (firstMoveIs == 2 && secondMoveIs == 2) { SelectMoveFromEquippedMoves(cautiousFends); }
-    // if (firstMoveIs == 2 && secondMoveIs == 3) { SelectMoveFromEquippedMoves(cautiousFocuses); }
-    //
-    // if (firstMoveIs == 3 && secondMoveIs == 1) { SelectMoveFromEquippedMoves(preciseAttacks); }
-    // if (firstMoveIs == 3 && secondMoveIs == 2) { SelectMoveFromEquippedMoves(preciseFends); }
-    // if (firstMoveIs == 3 && secondMoveIs == 3) { SelectMoveFromEquippedMoves(preciseFocuses); }
+    if (firstMoveIs == 0) { Debug.Log("set gear as a move"); }
+    
+    if (firstMoveIs == 1 && secondMoveIs == 1) { SelectMoveFromEquippedMoves(violentAttackSlots); }
+    if (firstMoveIs == 1 && secondMoveIs == 2) { SelectMoveFromEquippedMoves(violentFendSlots); }
+    if (firstMoveIs == 1 && secondMoveIs == 3) { SelectMoveFromEquippedMoves(violentFocusSlots); }
+    
+    if (firstMoveIs == 2 && secondMoveIs == 1) { SelectMoveFromEquippedMoves(cautiousAttackSlots); }
+    if (firstMoveIs == 2 && secondMoveIs == 2) { SelectMoveFromEquippedMoves(cautiousFendSlots); }
+    if (firstMoveIs == 2 && secondMoveIs == 3) { SelectMoveFromEquippedMoves(cautiousFocusSlots); }
+    
+    if (firstMoveIs == 3 && secondMoveIs == 1) { SelectMoveFromEquippedMoves(preciseAttackSlots); }
+    if (firstMoveIs == 3 && secondMoveIs == 2) { SelectMoveFromEquippedMoves(preciseFendSlots); }
+    if (firstMoveIs == 3 && secondMoveIs == 3) { SelectMoveFromEquippedMoves(preciseFocusSlots); }
     }
 
-    void SelectMoveFromEquippedMoves<T>(List<T> equippedMoveList) where T : PlayerMove
+    void SelectMoveFromEquippedMoves<T>(T[] equippedMoveList) where T : PlayerMove
+
     {
         int moveWeightingTotal = 0;
         int randomValue = 0;
 
         foreach (var playerMove in equippedMoveList)
         {
-            moveWeightingTotal += playerMove.moveWeighting;
+            if (playerMove != null) // Skip null slots
+            {
+                moveWeightingTotal += playerMove.moveWeighting;
+            }
         }
 
         randomValue = Mathf.RoundToInt(UnityEngine.Random.Range(0f, moveWeightingTotal));

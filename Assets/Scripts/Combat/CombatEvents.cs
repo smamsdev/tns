@@ -10,6 +10,8 @@ public static class CombatEvents
 {
     //Combat Setup
     public static Action<bool> BattleMode;
+
+    public static bool isBattleMode;
     public static Action LockPlayerMovement;
     public static Action UnlockPlayerMovement;
     public static Action<State> SendState;

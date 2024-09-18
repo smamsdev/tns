@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class AlertsDialogueContainer : DialogueContainer
 {
-    DialogueManager dialogueManager;
-
     private void Awake()
     {
         for (int i = 0; i < dialogue.Length; i++)

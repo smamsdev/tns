@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DialogueContainer : ToTrigger
 {
-    DialogueManager dialogueManager;
+    [HideInInspector] public DialogueManager dialogueManager;
 
     public Dialogue[] dialogue;
     public bool dialogueLaunched;

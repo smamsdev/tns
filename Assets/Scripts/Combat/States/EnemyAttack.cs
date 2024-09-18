@@ -8,6 +8,7 @@ public class EnemyAttack : State
     public Gear[] equippedGear;
     [SerializeField] FendScript fendScript;
     public int enemyIteration = 0;
+    public CameraFollow cameraFollow;
 
     public override IEnumerator StartState()
     {
@@ -24,6 +25,9 @@ public class EnemyAttack : State
         foreach (Enemy enemy in combatManager.enemy)
 
         {
+            cameraFollow.transformToFollow = enemy.transform;
+            yield return new WaitForSeconds(0.5f);
+
             if (enemy.attackTotal == 0 && enemy.fendTotal > 0)
             {
                 combatManager.CombatUIManager.playerFendScript.animator.SetTrigger("fendFade");
@@ -47,10 +51,13 @@ public class EnemyAttack : State
                 yield return new WaitForSeconds(0.5f);
             }
 
+            combatManager.UpdateFighterPosition(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 1f);
             yield return new WaitForSeconds(0.5f);
 
         }
-            combatManager.SetState(combatManager.roundReset);
+
+        cameraFollow.transformToFollow = combatManager.player.transform;
+        combatManager.SetState(combatManager.roundReset);
 
     }
 

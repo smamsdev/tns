@@ -81,7 +81,7 @@ public class menuMain : Menu
 
     public override void StateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !CombatEvents.isBattleMode)
         {
             ToggleMainMenu(isMenuOn);
         }
