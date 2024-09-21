@@ -102,9 +102,10 @@ public class ActorMovementScript : MovementScript
                 actorRigidBody2d.bodyType = RigidbodyType2D.Dynamic;
                 actorAnimator.SetBool("isMoving", true);
             }
+
             else
             {
-                actorRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
+                //actorRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
                 actorAnimator.SetBool("isMoving", false);
             }
 

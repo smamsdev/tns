@@ -9,8 +9,6 @@ public class PlayerMovementScript : MovementScript
 {
     public Rigidbody2D playerRigidBody2d;
 
-    public Vector2 playerPosition; //WHAT WERE THESE FOR?
-
     public bool isWalkwayBoost;
     public bool isDescending = false;
 
@@ -94,11 +92,17 @@ public class PlayerMovementScript : MovementScript
 
             movementDirection = (newPosition - previousPosition);
 
-            animator.SetFloat("horizontalInput", movementDirection.x);
-            animator.SetFloat("verticalInput", movementDirection.y);
+        if (movementDirection.magnitude > 0)
+        {
+            animator.SetBool("isMoving", true);
+        }
 
+        else
+        {
+            animator.SetBool("isMoving", false);
+        }
 
-            if (horizontalInput > 0)
+        if (horizontalInput > 0)
             {
                 FieldEvents.lookDirection = Vector2.right;
             }
@@ -117,6 +121,11 @@ public class PlayerMovementScript : MovementScript
             {
                 FieldEvents.lookDirection = Vector2.down;
             }
+
+        animator.SetFloat("horizontalInput", movementDirection.x);
+        animator.SetFloat("verticalInput", movementDirection.y);
+        animator.SetFloat("lookDirectionX", FieldEvents.lookDirection.x);
+        animator.SetFloat("lookDirectionY", FieldEvents.lookDirection.y);
     }
 
     public void LockPlayerMovement()

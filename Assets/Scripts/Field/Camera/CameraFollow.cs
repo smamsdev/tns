@@ -28,13 +28,16 @@ public class CameraFollow : MonoBehaviour
     private void Start()
     {
         transform.position = new Vector3(transformToFollow.position.x, transformToFollow.position.y, (transformToFollow.position.z - 10));
-
+        FieldEvents.isCameraFollow = true;
     }
 
     private void FixedUpdate()
     {
-        newPos = new Vector3(transformToFollow.position.x + xOffset, transformToFollow.position.y + yOffset, -10f);
-        transform.position = Vector3.Slerp(transform.position, newPos, cameraSpeed*Time.deltaTime);
+        if (FieldEvents.isCameraFollow)
+        {
+            newPos = new Vector3(transformToFollow.position.x + xOffset, transformToFollow.position.y + yOffset, -10f);
+            transform.position = Vector3.Slerp(transform.position, newPos, cameraSpeed * Time.deltaTime);
+        }
     }
 
 

@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
     public GameObject enemyFightingPosition;
     public EnemyUI enemyUI;
 
+    public Vector2 forceLookDirection;
+
     [Header("")]
     public string enemyName;
     [Header("")]

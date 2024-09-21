@@ -37,6 +37,10 @@ public class CombatManager : MonoBehaviour
     public Victory victory;
     public GearSelect gearSelect;
 
+    [Header("Movement")]
+
+    public MoveTo moveTo;
+
     [HideInInspector] public int enemyRawAttackPower;
 
     public void StartBattle()

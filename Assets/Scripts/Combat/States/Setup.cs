@@ -14,12 +14,6 @@ public class Setup : State
     public override IEnumerator StartState()
 
     {
-
-       // for (int i = 0; i < combatManager.enemy.Length; i++)
-       // {
-       //     Instantiate(EnemyUIPrefab, combatManager.gameObject.transform);
-       // }
-
         //setup
         yield return new WaitForSeconds(0.01f);
         CombatEvents.BattleMode?.Invoke(true);
@@ -28,18 +22,18 @@ public class Setup : State
 
         combatManager.CombatUIManager.playerFendScript.InitialiseFendUIPosition();
         combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(false);
-        combatManager.UpdateFighterPosition(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 1f);
-        combatUIContainer.SetActive(true);
-        combatManager.playerCombatStats.InitialiseStats();
-        playerStatsUIContainer.SetActive(true);
 
-        combatManager.CombatUIManager.selectEnemyMenuScript.InitializeButtonSlots();
+        //position player
+        FieldEvents.isCameraFollow = false;
+        yield return combatManager.moveTo.CombatMoveTo(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
 
         //enemy
 
         foreach (Enemy enemy in combatManager.enemy)
 
         {
+            var enemyMovementScript = enemy.GetComponent<ActorMovementScript>();
+
             GameObject newEnemyCombatUI = Instantiate(EnemyUIPrefab, combatManager.gameObject.transform);
             newEnemyCombatUI.name = "EnemyUI For " + enemy.name;
 
@@ -50,9 +44,10 @@ public class Setup : State
             enemy.enemyUI.enemyStatsDisplay.ShowEnemyStatsDisplay(false);
 
             enemy.enemyUI.AnchorEnemyUIToEnemyGameObject(enemy.enemyFightingPosition);
-            combatManager.UpdateFighterPosition(enemy.gameObject, enemy.enemyFightingPosition.transform.position, 1f);
+            //combatManager.UpdateFighterPosition(enemy.gameObject, enemy.enemyFightingPosition.transform.position, 1f);
 
-            yield return new WaitForSeconds(1);
+            yield return combatManager.moveTo.CombatMoveTo(enemy.gameObject, enemy.enemyFightingPosition.transform.position);
+            enemyMovementScript.lookDirection = enemy.forceLookDirection;
 
             enemy.enemyUI.enemyFendScript.UpdateFendDisplay(enemy.fendTotal);
             enemy.enemyUI.enemyStatsDisplay.InitializeEnemyStatsUI(enemy);
@@ -71,11 +66,28 @@ public class Setup : State
                 enemy.enemyUI.enemyFendScript.UpdateFendDisplay(enemy.fendTotal);
             }
 
+            if (enemy.forceLookDirection == Vector2.right)
+            {
+                var pos = enemy.enemyUI.enemyAttackDisplay.transform.localPosition;
+                pos.x = Mathf.Abs(pos.x);
+                enemy.enemyUI.enemyAttackDisplay.transform.localPosition = pos;
+            }
+
+            yield return new WaitForSeconds(1);
         }
+
+        //set ui elements
+        combatUIContainer.SetActive(true);
+        combatManager.player.GetComponent<PlayerCombatAnimations>().SetCombatMode();
+        combatManager.playerCombatStats.InitialiseStats();
+        playerStatsUIContainer.SetActive(true);
+
+        combatManager.CombatUIManager.selectEnemyMenuScript.InitializeButtonSlots();
+
+        FieldEvents.isCameraFollow = true;
         combatManager.SetState(combatManager.firstMove);
 
         yield break;
     }
-
 }
 

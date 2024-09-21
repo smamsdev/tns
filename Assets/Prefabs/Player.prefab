@@ -78,7 +78,65 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySO: {fileID: 11400000, guid: 75a32f9470620854d86fdadedb6906f6, type: 2}
-  inventory: []
+  inventory:
+  - {fileID: 5257418808613476754}
+  - {fileID: 5257418808613476754}
+  - {fileID: 5257418808613476754}
+  - {fileID: 260766609239570057}
+  - {fileID: 3546912776975255785}
+  - {fileID: 9146828657653126306}
+  - {fileID: 5285056450717656221}
+  - {fileID: 5285056450717656221}
+  - {fileID: 5285056450717656221}
+  - {fileID: 5285056450717656221}
+  - {fileID: 5285056450717656221}
+--- !u!1 &329472053275683757
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7100177844668707185}
+  - component: {fileID: 3546912776975255785}
+  m_Layer: 0
+  m_Name: yeas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7100177844668707185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 329472053275683757}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1450789300124605240}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3546912776975255785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 329472053275683757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b7d873576be86d4bbb095bee1f85b4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gearID: 
+  gearDescription: yes
+  isEquipment: 0
 --- !u!1 &539720073523974976
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,7 +148,7 @@ GameObject:
   - component: {fileID: 8213709444715032268}
   - component: {fileID: 2366385179175440577}
   m_Layer: 7
-  m_Name: PreciseFend
+  m_Name: Precise Fend
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,6 +183,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveName: Precise Fend
   moveDescription: 
+  isEquipped: 0
+  isFlaw: 0
   attackMoveMultiplier: 0
   damageToPartsMultiplier: 0
   fendMoveMultiplier: 0.7
@@ -144,7 +204,7 @@ GameObject:
   - component: {fileID: 128249470098662302}
   - component: {fileID: 2055817929403727569}
   m_Layer: 7
-  m_Name: PreciseBotch
+  m_Name: Option Paralysis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,8 +237,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7701ca0ed09c60749b6769d27a67ca57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveName: 
-  moveDescription: 
+  moveName: Option Paralysis
+  moveDescription: When one lacks action or certainty, indecision and doubt arise.
+  isEquipped: 0
+  isFlaw: 1
   attackMoveMultiplier: 0
   damageToPartsMultiplier: 0
   fendMoveMultiplier: 0.3
@@ -187,6 +249,38 @@ MonoBehaviour:
   isAttack: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
+--- !u!1 &710185640659821120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7435000722401256818}
+  m_Layer: 7
+  m_Name: Alerts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7435000722401256818
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710185640659821120}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.112, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3976265001098194961}
+  m_Father: {fileID: 7291517550505530816}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1187770666283039894
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +339,7 @@ GameObject:
   - component: {fileID: 364376691937175062}
   - component: {fileID: 3144260444219595121}
   m_Layer: 7
-  m_Name: CounterAttack
+  m_Name: Counter Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -278,8 +372,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b1093f0dc782649afc7a39e0a86db8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveName: 
+  moveName: Counter Attack
   moveDescription: 
+  isEquipped: 0
+  isFlaw: 0
   attackMoveMultiplier: 1.4
   damageToPartsMultiplier: 0
   fendMoveMultiplier: 0.3
@@ -288,6 +384,59 @@ MonoBehaviour:
   isAttack: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
+--- !u!1 &1316485406853342762
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3976265001098194961}
+  - component: {fileID: 3566069020161508114}
+  m_Layer: 7
+  m_Name: YouGot500
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3976265001098194961
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316485406853342762}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7435000722401256818}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3566069020161508114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316485406853342762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e0e1a1cc4e5ef24196fe7ab4f4621ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueManager: {fileID: 0}
+  dialogue:
+  - actorGameObject: {fileID: 710185640659821120}
+    actorName: 
+    dialoguetext: You recieved 500 $MAMS!
+    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
+    dialogueGameObject: {fileID: 0}
+  dialogueLaunched: 0
+  isLoopedDialogue: 1
 --- !u!1 &1352870325393854133
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,7 +448,7 @@ GameObject:
   - component: {fileID: 4853084088316933622}
   - component: {fileID: 6718934453022850941}
   m_Layer: 7
-  m_Name: RecklessFocus
+  m_Name: Reckless Focus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -334,6 +483,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveName: Reckless Focus
   moveDescription: 
+  isEquipped: 0
+  isFlaw: 0
   attackMoveMultiplier: 0
   damageToPartsMultiplier: 0
   fendMoveMultiplier: 1
@@ -342,6 +493,55 @@ MonoBehaviour:
   isAttack: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
+--- !u!1 &1462427722939401668
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8787504255870764296}
+  - component: {fileID: 5285056450717656221}
+  m_Layer: 0
+  m_Name: same
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8787504255870764296
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462427722939401668}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1450789300124605240}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5285056450717656221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462427722939401668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b7d873576be86d4bbb095bee1f85b4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gearID: 
+  gearDescription: 'THIS IS MY EXTREMELY LONG TEXT THIS IS MY EXTREMELY LONG TEXT
+    THIS IS MY EXTREMELY LONG TEXT THIS IS MY EXTREMELY LONG TEXT THIS IS MY EXTREMELY
+    LONG TEXT '
+  isEquipment: 1
 --- !u!1 &1534626795260286935
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,7 +553,7 @@ GameObject:
   - component: {fileID: 8712293475103656911}
   - component: {fileID: 8579276996753944672}
   m_Layer: 7
-  m_Name: PreciseAttack
+  m_Name: Precise Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -388,8 +588,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveName: Precise Attack
   moveDescription: Deals 3x damage to body parts
+  isEquipped: 0
+  isFlaw: 0
   attackMoveMultiplier: 0.4
-  damageToPartsMultiplier: 0
+  damageToPartsMultiplier: 3
   fendMoveMultiplier: 0
   potentialChange: -10
   moveWeighting: 55
@@ -441,7 +643,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   equippedSlot:
-  - {fileID: 8181005910903853435}
+  - {fileID: 260766609239570057}
   - {fileID: 0}
   - {fileID: 0}
 --- !u!1 &2169447423222127668
@@ -570,7 +772,7 @@ GameObject:
   - component: {fileID: 823243170297164299}
   - component: {fileID: 5690664268955463731}
   m_Layer: 7
-  m_Name: RecklessAttack
+  m_Name: Reckless Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -605,6 +807,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveName: Reckless Attack
   moveDescription: Deals heavy damage
+  isEquipped: 0
+  isFlaw: 0
   attackMoveMultiplier: 1.5
   damageToPartsMultiplier: 0
   fendMoveMultiplier: 0
@@ -728,7 +932,7 @@ MonoBehaviour:
   - actorGameObject: {fileID: 6457784655243026927}
     actorName: 
     dialoguetext: I done it!
-    optionalDialogueFinalPosition: {x: 0, y: 0}
+    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
   isLoopedDialogue: 0
@@ -762,7 +966,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8181005910662489453}
+  m_Father: {fileID: 1450789300124605240}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5257418808613476754
 MonoBehaviour:
@@ -778,6 +982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gearID: 
   gearDescription: its just a test knife
+  isEquipment: 1
 --- !u!1 &4249036023532707788
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,10 +992,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4385107063098349603}
-  - component: {fileID: 8693976675263085150}
-  - component: {fileID: 5950527450628216513}
+  - component: {fileID: 5232138969718999026}
+  - component: {fileID: 761596406056827750}
   m_Layer: 7
-  m_Name: Moves
+  m_Name: MoveManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -814,7 +1019,7 @@ Transform:
   - {fileID: 6053984093416605366}
   m_Father: {fileID: 7291517550505530816}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8693976675263085150
+--- !u!114 &5232138969718999026
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -823,24 +1028,68 @@ MonoBehaviour:
   m_GameObject: {fileID: 4249036023532707788}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 532be7238edb9a245ae4b8b63c1f82ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 09795f0564bcb7347a45454697604cc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   firstMoveIs: 0
   secondMoveIs: 0
-  playerMoveListSO: {fileID: 11400000, guid: 4658aa4d7d4f0c24fb16a242861b273c, type: 2}
-  playerEquippedMoves: {fileID: 5950527450628216513}
+  playerEquippedMovesSO: {fileID: 11400000, guid: df34d5de6f4dd2c4d94126931bcdd52e, type: 2}
   selectedPlayerMove: {fileID: 0}
-  violentAttacks: []
-  violentFends: []
-  violentFocuses: []
-  cautiousAttacks: []
-  cautiousFends: []
-  cautiousFocuses: []
-  preciseAttacks: []
-  preciseFends: []
-  preciseFocuses: []
---- !u!114 &5950527450628216513
+  violentAttackSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  violentFendSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  violentFocusSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  cautiousAttackSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  cautiousFendSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  cautiousFocusSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  preciseAttackSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  preciseFendSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  preciseFocusSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &761596406056827750
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -849,10 +1098,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 4249036023532707788}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55ca37dcb6857a54cb3381caccdb967d, type: 3}
+  m_Script: {fileID: 11500000, guid: 9eea9a8272e8a1144aa7ab5d294383eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equippedMoves: []
+  moveInventorySO: {fileID: 11400000, guid: 4658aa4d7d4f0c24fb16a242861b273c, type: 2}
+  violentAttacksInventory:
+  - {fileID: 0}
+  violentFendsInventory: []
+  violentFocusesInventory: []
+  cautiousAttacksInventory: []
+  cautiousFendsInventory: []
+  cautiousFocusesInventory: []
+  preciseAttacksInventory: []
+  preciseFendsInventory: []
+  preciseFocusesInventory: []
 --- !u!1 &4377225542144362073
 GameObject:
   m_ObjectHideFlags: 0
@@ -864,7 +1123,7 @@ GameObject:
   - component: {fileID: 7891091972437913851}
   - component: {fileID: 6294116311098629907}
   m_Layer: 7
-  m_Name: PreciseFocus
+  m_Name: Precise Focus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -899,6 +1158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveName: Precise Focus
   moveDescription: 
+  isEquipped: 0
+  isFlaw: 0
   attackMoveMultiplier: 0
   damageToPartsMultiplier: 0
   fendMoveMultiplier: 0
@@ -956,7 +1217,7 @@ MonoBehaviour:
   - actorGameObject: {fileID: 6457784655243026927}
     actorName: 
     dialoguetext: im dialogue
-    optionalDialogueFinalPosition: {x: 0, y: 0}
+    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
   isLoopedDialogue: 0
@@ -990,9 +1251,66 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 823243170297164299}
+  - {fileID: 7176873538292127595}
   - {fileID: 9054488621636529731}
   m_Father: {fileID: 6531990500401077899}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5141093477245825417
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7176873538292127595}
+  - component: {fileID: 6214547715918114191}
+  m_Layer: 7
+  m_Name: Reckless Test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7176873538292127595
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5141093477245825417}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8046860258707766845}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6214547715918114191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5141093477245825417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b78f78e03a63b6d4db83620e9fe383c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveName: Reckless Test
+  moveDescription: Deals heavy damage
+  isEquipped: 0
+  isFlaw: 0
+  attackMoveMultiplier: 1.5
+  damageToPartsMultiplier: 0
+  fendMoveMultiplier: 0
+  potentialChange: -15
+  moveWeighting: 25
+  isAttack: 1
+  combatManager: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!1 &5375799984386380507
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,11 +1446,12 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1376193321183321827}
+  - {fileID: 7435000722401256818}
   - {fileID: 1015281105997097713}
   - {fileID: 2337599494827004129}
   - {fileID: 6720233661347898246}
   - {fileID: 4603510060094619080}
-  - {fileID: 8181005910662489453}
+  - {fileID: 1450789300124605240}
   - {fileID: 4385107063098349603}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1203,7 +1522,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.001
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1233,7 +1552,6 @@ MonoBehaviour:
   movementSpeed: 0
   scriptedMovement: 0
   playerRigidBody2d: {fileID: 4400780416818078350}
-  playerPosition: {x: 0, y: 0}
   isWalkwayBoost: 0
   isDescending: 0
   movementLocked: 0
@@ -1252,7 +1570,7 @@ Animator:
   m_GameObject: {fileID: 6457784655243026927}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bc20cecce44adeb45983e4e6901315aa, type: 2}
+  m_Controller: {fileID: 9100000, guid: 368cb62c559537a4fbc5682682e940d7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1324,9 +1642,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a53a53571dc374cb4a19209ecb69c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layer_mask:
+  layerMask:
     serializedVersion: 2
     m_Bits: 256
+  rayDistance: 0.22
 --- !u!1 &6562236617326698140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,7 +1657,7 @@ GameObject:
   - component: {fileID: 809216785636615941}
   - component: {fileID: 6384779814281747352}
   m_Layer: 7
-  m_Name: SlipFocus
+  m_Name: Slip Focus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1373,6 +1692,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveName: Slip Focus
   moveDescription: 
+  isEquipped: 0
+  isFlaw: 0
   attackMoveMultiplier: 0
   damageToPartsMultiplier: 0
   fendMoveMultiplier: 0.5
@@ -1392,7 +1713,7 @@ GameObject:
   - component: {fileID: 5798399696130040072}
   - component: {fileID: 846492063073543673}
   m_Layer: 7
-  m_Name: SlipAttack
+  m_Name: Slip Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1427,6 +1748,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveName: Slip Attack
   moveDescription: 
+  isEquipped: 0
+  isFlaw: 0
   attackMoveMultiplier: 0.4
   damageToPartsMultiplier: 0
   fendMoveMultiplier: 0.5
@@ -1446,7 +1769,7 @@ GameObject:
   - component: {fileID: 9054488621636529731}
   - component: {fileID: 5872529364335568773}
   m_Layer: 7
-  m_Name: ViolentBotch
+  m_Name: Violent Botch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1479,13 +1802,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ddd4a3c74ff1514583ae198b7bb6b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveName: Botched Move
-  moveDescription: 
+  moveName: Violent Botch
+  moveDescription: Too aggressive
+  isEquipped: 0
+  isFlaw: 1
   attackMoveMultiplier: 0
   damageToPartsMultiplier: 0
   fendMoveMultiplier: 0
   potentialChange: -10
-  moveWeighting: 55
+  moveWeighting: 0
   isAttack: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
@@ -1534,7 +1859,7 @@ GameObject:
   - component: {fileID: 2136383264205976726}
   - component: {fileID: 5853114165235238953}
   m_Layer: 7
-  m_Name: CautiousFend
+  m_Name: Cautious Fend
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1569,6 +1894,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveName: Cautious Fend
   moveDescription: 
+  isEquipped: 0
+  isFlaw: 0
   attackMoveMultiplier: 0
   damageToPartsMultiplier: 0
   fendMoveMultiplier: 2
@@ -1640,7 +1967,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8181005910662489453}
+  m_Father: {fileID: 1450789300124605240}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &260766609239570057
 MonoBehaviour:
@@ -1655,7 +1982,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gearID: 
-  gearDescription: 
+  gearDescription: im a vegeta
+  isEquipment: 0
 --- !u!1 &8089375447339374614
 GameObject:
   m_ObjectHideFlags: 0
@@ -1699,7 +2027,7 @@ GameObject:
   - component: {fileID: 8058366525642174918}
   - component: {fileID: 5515073571870535413}
   m_Layer: 7
-  m_Name: CautiousBotch
+  m_Name: Cautious Botch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1732,8 +2060,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb2d360e6c4d6e74ea9818fd24289065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveName: Botch
+  moveName: Cautious Botch
   moveDescription: 
+  isEquipped: 0
+  isFlaw: 1
   attackMoveMultiplier: 0
   damageToPartsMultiplier: 0
   fendMoveMultiplier: 0.2
@@ -1923,6 +2253,53 @@ Transform:
   - {fileID: 364376691937175062}
   m_Father: {fileID: 6531990500401077899}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9078065228387707597
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4165164162441921964}
+  - component: {fileID: 9146828657653126306}
+  m_Layer: 0
+  m_Name: honerstly
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4165164162441921964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9078065228387707597}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1450789300124605240}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9146828657653126306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9078065228387707597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b7d873576be86d4bbb095bee1f85b4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gearID: 
+  gearDescription: honestly
+  isEquipment: 0
 --- !u!1001 &697252508433204304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2014,27 +2391,25 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 8657579784563450173, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 2129954515803447144, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 60828842767391131}
-    - targetCorrespondingSourceObject: {fileID: 8657579784563450173, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 2129954515803447144, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2942853544167080857}
+    - targetCorrespondingSourceObject: {fileID: 2129954515803447144, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7100177844668707185}
+    - targetCorrespondingSourceObject: {fileID: 2129954515803447144, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4165164162441921964}
+    - targetCorrespondingSourceObject: {fileID: 2129954515803447144, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8787504255870764296}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
---- !u!4 &8181005910662489453 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8657579784563450173, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
+--- !u!224 &1450789300124605240 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2129954515803447144, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
   m_PrefabInstance: {fileID: 697252508433204304}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8181005910903853435 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8657579784322340139, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-  m_PrefabInstance: {fileID: 697252508433204304}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c64073f215766f4fb9ec769675894ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

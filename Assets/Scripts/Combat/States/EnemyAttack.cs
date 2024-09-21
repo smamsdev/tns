@@ -41,6 +41,7 @@ public class EnemyAttack : State
 
                 yield return new WaitForSeconds(0.5f);
 
+                cameraFollow.transformToFollow = combatManager.player.transform;
                 enemy.moveSelected.OnEnemyAttack();
                 StartCoroutine(combatManager.selectedPlayerMove.OnEnemyAttack(combatManager, enemy));
 
@@ -55,8 +56,6 @@ public class EnemyAttack : State
             yield return new WaitForSeconds(0.5f);
 
         }
-
-        cameraFollow.transformToFollow = combatManager.player.transform;
         combatManager.SetState(combatManager.roundReset);
 
     }

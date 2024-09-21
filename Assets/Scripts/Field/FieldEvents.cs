@@ -12,7 +12,8 @@ public static class FieldEvents
     public static Action<GameObject> UpdateXP;
     public static Action<RaycastHit2D> PlayerRayCastHit;
 
-    static bool isCoolDownBool;
+    public static bool isCameraFollow = true;
+    public static bool isCoolDownBool;
     public static bool isDialogueActive;
 
     public static bool isSequenceRunning;
