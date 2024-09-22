@@ -37,9 +37,9 @@ public class EnemyAttack : State
 
             {
                 enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
-                combatManager.UpdateFighterPosition(enemy.gameObject, new Vector2(combatManager.battleScheme.playerFightingPosition.transform.position.x + 0.3f, combatManager.battleScheme.playerFightingPosition.transform.position.y), 0.5f);
+                yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, combatManager.player.transform.position, 50f);
+                yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, combatManager.player.transform.position);
 
-                yield return new WaitForSeconds(0.5f);
 
                 cameraFollow.transformToFollow = combatManager.player.transform;
                 enemy.moveSelected.OnEnemyAttack();
@@ -47,17 +47,15 @@ public class EnemyAttack : State
 
                 yield return new WaitForSeconds(0.5f);
 
-                combatManager.UpdateFighterPosition(enemy.gameObject, enemy.enemyFightingPosition.transform.position, 0.5f);
+                yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position);
 
                 yield return new WaitForSeconds(0.5f);
             }
 
-            combatManager.UpdateFighterPosition(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 1f);
             yield return new WaitForSeconds(0.5f);
 
         }
         combatManager.SetState(combatManager.roundReset);
-
     }
 
 }

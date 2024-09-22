@@ -8,17 +8,14 @@ public class ActorMovementScript : MovementScript
     Vector2 isAscending;
     public Vector2 newPosition;
     public Vector2 previousPosition;
-    public Vector2 movementDirection;
 
     public Vector2 lookDirection;
     public Vector2 forceLookDirectionOnLoad;
 
-    public Animator actorAnimator;
-
     private void Awake()
     {
         actorRigidBody2d = GetComponent<Rigidbody2D>();
-        actorAnimator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -100,13 +97,13 @@ public class ActorMovementScript : MovementScript
             if (movementDirection.magnitude > 0)
             {
                 actorRigidBody2d.bodyType = RigidbodyType2D.Dynamic;
-                actorAnimator.SetBool("isMoving", true);
+                animator.SetBool("isMoving", true);
             }
 
             else
             {
                 //actorRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
-                actorAnimator.SetBool("isMoving", false);
+                animator.SetBool("isMoving", false);
             }
 
             if (horizontalInput > 0)
@@ -129,10 +126,10 @@ public class ActorMovementScript : MovementScript
                 lookDirection = Vector2.down;
             }
 
-            actorAnimator.SetFloat("horizontalInput", movementDirection.x);
-            actorAnimator.SetFloat("verticalInput", movementDirection.y);
-            actorAnimator.SetFloat("lookDirectionX", lookDirection.x);
-            actorAnimator.SetFloat("lookDirectionY", lookDirection.y);
+            animator.SetFloat("horizontalInput", movementDirection.x);
+            animator.SetFloat("verticalInput", movementDirection.y);
+            animator.SetFloat("lookDirectionX", lookDirection.x);
+            animator.SetFloat("lookDirectionY", lookDirection.y);
         }
     }
 }

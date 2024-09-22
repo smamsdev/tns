@@ -16,11 +16,8 @@ public class PlayerMovementScript : MovementScript
 
     public Vector2 isAscending;
 
-    public Animator animator;
-
     public Vector2 newPosition;
     public Vector2 previousPosition;
-    public Vector2 movementDirection;
 
     private void OnEnable()
     {
@@ -46,7 +43,7 @@ public class PlayerMovementScript : MovementScript
     private void Update()
     {
 
-       // movementSpeed = defaultMovementspeed * FieldEvents.movementSpeedMultiplier;
+        movementSpeed = defaultMovementspeed * FieldEvents.movementSpeedMultiplier;
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
 

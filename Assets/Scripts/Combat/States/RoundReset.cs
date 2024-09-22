@@ -9,6 +9,8 @@ public class RoundReset : State
     public override IEnumerator StartState()
     {
         combatManager.CombatUIManager.playerFendScript.animator.SetTrigger("fendFade");
+        yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
+
 
         //combatManager.player.GetComponent<EquippedGear>().equippedGear[0].ResetAttackGear();
         //combatManager.player.GetComponent<EquippedGear>().equippedGear[0].ResetFendGear();

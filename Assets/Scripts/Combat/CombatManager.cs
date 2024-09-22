@@ -39,7 +39,7 @@ public class CombatManager : MonoBehaviour
 
     [Header("Movement")]
 
-    public MoveTo moveTo;
+    public CombatMovement combatMovement;
 
     [HideInInspector] public int enemyRawAttackPower;
 
@@ -79,31 +79,5 @@ public class CombatManager : MonoBehaviour
         {
             currentState.StateUpdate();
         }
-    }
-
-    public void UpdateFighterPosition(GameObject fighterGameObject, Vector2 end, float seconds)
-    {
-        if (fighterGameObject == null)
-        {
-            Debug.LogError("Fighter GameObject is null in UpdateFighterPosition");
-            return;
-        }
-
-        StartCoroutine(UpdateEnemyPositionCoRoutine(fighterGameObject, end, seconds));
-    }
-
-    public IEnumerator UpdateEnemyPositionCoRoutine(GameObject fighterGameObject, Vector2 end, float seconds)
-    {
-        float elapsedTime = 0;
-        Vector2 startingPos = fighterGameObject.transform.position;
-
-        while (elapsedTime < seconds)
-        {
-            fighterGameObject.transform.position = Vector2.Lerp(startingPos, end, (elapsedTime / seconds));
-            elapsedTime += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
-        }
-
-        fighterGameObject.transform.position = end; // Ensure final position is set
     }
 }

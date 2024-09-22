@@ -3518,15 +3518,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalInput: 0
   verticalInput: 0
-  defaultMovementspeed: 1.75
+  defaultMovementspeed: 2.5
   movementSpeed: 1.75
   scriptedMovement: 0
+  animator: {fileID: 0}
+  movementDirection: {x: 0, y: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
   forceLookDirectionOnLoad: {x: 1, y: 0}
-  actorAnimator: {fileID: 238834023}
 --- !u!50 &186410310
 Rigidbody2D:
   serializedVersion: 4
@@ -3690,7 +3690,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4690103382356121549, guid: eed42936844dcb44e941b9818a0100a0, type: 3}
   m_PrefabInstance: {fileID: 1410401372}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &196191532
+--- !u!114 &196191528
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3699,7 +3699,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 196191527}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66133870d80cf0446a1ebdc1bbef7b3d, type: 3}
+  m_Script: {fileID: 11500000, guid: 31fa1858952ab684d84ad852375fcbb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   actorMove:
@@ -3898,12 +3898,12 @@ MonoBehaviour:
   defaultMovementspeed: 0.6
   movementSpeed: 0
   scriptedMovement: 0
+  animator: {fileID: 0}
+  movementDirection: {x: 0, y: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
   forceLookDirectionOnLoad: {x: 1, y: 0}
-  actorAnimator: {fileID: 238834023}
 --- !u!212 &238834026
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15358,12 +15358,12 @@ MonoBehaviour:
   defaultMovementspeed: 0.8
   movementSpeed: 0
   scriptedMovement: 0
+  animator: {fileID: 0}
+  movementDirection: {x: 0, y: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
   forceLookDirectionOnLoad: {x: -1, y: 0}
-  actorAnimator: {fileID: 865984148}
 --- !u!212 &865984151
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -23557,15 +23557,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalInput: 0
   verticalInput: 0
-  defaultMovementspeed: 1.75
+  defaultMovementspeed: 2.5
   movementSpeed: 1.75
   scriptedMovement: 0
+  animator: {fileID: 0}
+  movementDirection: {x: 0, y: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
   forceLookDirectionOnLoad: {x: 1, y: 0}
-  actorAnimator: {fileID: 238834023}
 --- !u!50 &1300675770
 Rigidbody2D:
   serializedVersion: 4
@@ -23731,12 +23731,12 @@ MonoBehaviour:
   defaultMovementspeed: 0.7
   movementSpeed: 0
   scriptedMovement: 0
+  animator: {fileID: 0}
+  movementDirection: {x: 0, y: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
   forceLookDirectionOnLoad: {x: 1, y: 0}
-  actorAnimator: {fileID: 1301987135}
 --- !u!212 &1301987138
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -25085,11 +25085,15 @@ PrefabInstance:
     - target: {fileID: 1648342972664657309, guid: eed42936844dcb44e941b9818a0100a0, type: 3}
       propertyPath: moveTo
       value: 
-      objectReference: {fileID: 196191532}
+      objectReference: {fileID: 0}
     - target: {fileID: 1648342972664657309, guid: eed42936844dcb44e941b9818a0100a0, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1712549886}
+    - target: {fileID: 1648342972664657309, guid: eed42936844dcb44e941b9818a0100a0, type: 3}
+      propertyPath: combatMovement
+      value: 
+      objectReference: {fileID: 196191528}
     - target: {fileID: 1648342972664657309, guid: eed42936844dcb44e941b9818a0100a0, type: 3}
       propertyPath: playerMoveManager
       value: 
@@ -25113,7 +25117,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4690103382356121549, guid: eed42936844dcb44e941b9818a0100a0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 196191532}
+      addedObject: {fileID: 196191528}
   m_SourcePrefab: {fileID: 100100000, guid: eed42936844dcb44e941b9818a0100a0, type: 3}
 --- !u!1 &1418052840
 GameObject:
@@ -25435,7 +25439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7291517550505530816, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.716
+      value: -0.905
       objectReference: {fileID: 0}
     - target: {fileID: 7291517550505530816, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -25898,7 +25902,6 @@ GameObject:
   - component: {fileID: 1458070173}
   - component: {fileID: 1458070174}
   - component: {fileID: 1458070175}
-  - component: {fileID: 1458070176}
   m_Layer: 0
   m_Name: Scene
   m_TagString: Untagged
@@ -25957,22 +25960,6 @@ MonoBehaviour:
   mainCamera: {fileID: 3203464327039275316}
   rememberEntryCoordinates: 0
   forceLookRight: 0
---- !u!114 &1458070176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458070172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66133870d80cf0446a1ebdc1bbef7b3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actorMove:
-    actorGO: {fileID: 1712549886}
-    destination:
-    - {x: 2.177, y: 0.603, z: 0}
 --- !u!1 &1459671288
 GameObject:
   m_ObjectHideFlags: 0
@@ -29026,7 +29013,7 @@ GameObject:
   m_Layer: 0
   m_Name: playerfighting position
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -29039,7 +29026,7 @@ Transform:
   m_GameObject: {fileID: 1660769390}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.55, y: 0.385, z: 0}
+  m_LocalPosition: {x: -1.354, y: 0.385, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -41157,12 +41144,12 @@ MonoBehaviour:
   defaultMovementspeed: 0.8
   movementSpeed: 0
   scriptedMovement: 0
+  animator: {fileID: 0}
+  movementDirection: {x: 0, y: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
   forceLookDirectionOnLoad: {x: -1, y: 0}
-  actorAnimator: {fileID: 2031286556955926554}
 --- !u!222 &7708416976909762842
 CanvasRenderer:
   m_ObjectHideFlags: 0

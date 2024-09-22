@@ -25,12 +25,10 @@ public class Setup : State
 
         //position player
         FieldEvents.isCameraFollow = false;
-        yield return combatManager.moveTo.CombatMoveTo(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
+        yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
 
         //enemy
-
         foreach (Enemy enemy in combatManager.enemy)
-
         {
             var enemyMovementScript = enemy.GetComponent<ActorMovementScript>();
 
@@ -44,9 +42,8 @@ public class Setup : State
             enemy.enemyUI.enemyStatsDisplay.ShowEnemyStatsDisplay(false);
 
             enemy.enemyUI.AnchorEnemyUIToEnemyGameObject(enemy.enemyFightingPosition);
-            //combatManager.UpdateFighterPosition(enemy.gameObject, enemy.enemyFightingPosition.transform.position, 1f);
 
-            yield return combatManager.moveTo.CombatMoveTo(enemy.gameObject, enemy.enemyFightingPosition.transform.position);
+            yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position);
             enemyMovementScript.lookDirection = enemy.forceLookDirection;
 
             enemy.enemyUI.enemyFendScript.UpdateFendDisplay(enemy.fendTotal);
@@ -81,10 +78,10 @@ public class Setup : State
         combatManager.player.GetComponent<PlayerCombatAnimations>().SetCombatMode();
         combatManager.playerCombatStats.InitialiseStats();
         playerStatsUIContainer.SetActive(true);
-
         combatManager.CombatUIManager.selectEnemyMenuScript.InitializeButtonSlots();
-
         FieldEvents.isCameraFollow = true;
+
+
         combatManager.SetState(combatManager.firstMove);
 
         yield break;

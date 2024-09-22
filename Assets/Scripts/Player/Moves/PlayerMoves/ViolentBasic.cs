@@ -9,27 +9,17 @@ public class ViolentBasic : ViolentMove
 
     {
         combatManager = _combatManager;
-        enemy = _enemy;
+
+        var enemyPosition = combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.position;
+
 
         combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
 
         if (isAttack)
         {
-            //combatManager.UpdateFighterPosition(combatManager.player, new Vector2(combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.position.x - 0.3f, combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.position.y), 0.5f);
-            yield return combatManager.moveTo.CombatMoveTo(combatManager.player.gameObject, combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.position);
-
-
-            yield return new WaitForSeconds(0.5f);
+            yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, enemyPosition);
             combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombatStats.attackPower);
-
-            yield return new WaitForSeconds(0.3f);
-            //combatManager.UpdateFighterPosition(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 0.5f);
-            yield return combatManager.moveTo.CombatMoveTo(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
-
-
-
-            yield return new WaitForSeconds(0.5f);
-
+            yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
             combatManager.applyMove.EndMove();
         }
 
