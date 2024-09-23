@@ -21,8 +21,6 @@ public class EnemyStatsDisplay : MonoBehaviour
 
     public void InitializeEnemyStatsUI(Enemy _enemy)
     {
-        enemyStatsDisplayGameObject.SetActive(true);
-
         enemy = _enemy;
         enemyNameTextMeshPro.text = enemy.name;
         enemyHP = enemy.enemyHP;

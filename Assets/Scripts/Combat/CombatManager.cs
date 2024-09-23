@@ -13,7 +13,7 @@ public class CombatManager : MonoBehaviour
     public GameObject player;
     public Enemy[] enemy;
 
-    [Header("PlayerMove")]
+    [Header("PlayerMoves")]
     public PlayerMove selectedPlayerMove;
     public int selectedEnemy = 0;
 
@@ -40,6 +40,7 @@ public class CombatManager : MonoBehaviour
     [Header("Movement")]
 
     public CombatMovement combatMovement;
+    public Animator playerAnimator;
 
     [HideInInspector] public int enemyRawAttackPower;
 

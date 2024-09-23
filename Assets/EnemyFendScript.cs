@@ -68,11 +68,16 @@ public class EnemyFendScript : MonoBehaviour
     void FendBreached()
 
     {
+        var enemy = combatManager.enemy[combatManager.selectedEnemy];
+        var enemyMovementScript = enemy.GetComponent<ActorMovementScript>();
+
+        enemyMovementScript.actorRigidBody2d.bodyType = RigidbodyType2D.Dynamic;
+
         enemyFendAnimator.SetTrigger("fendBreak");
         fendTextMeshProUGUI.text = "";
         if (attackRemainder > 0)
         {
-            combatManager.enemy[combatManager.selectedEnemy].DamageTaken(attackRemainder, combatManager.selectedPlayerMove.damageToPartsMultiplier);
+            enemy.DamageTaken(attackRemainder, combatManager.selectedPlayerMove.damageToPartsMultiplier);
         }
     }
 

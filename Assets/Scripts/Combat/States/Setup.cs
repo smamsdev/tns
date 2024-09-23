@@ -16,6 +16,7 @@ public class Setup : State
     {
         //setup
         yield return new WaitForSeconds(0.01f);
+        combatManager.playerAnimator = combatManager.player.GetComponent<Animator>();
         CombatEvents.BattleMode?.Invoke(true);
         CombatEvents.isBattleMode = true;
         CombatEvents.LockPlayerMovement.Invoke();
@@ -24,8 +25,10 @@ public class Setup : State
         combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(false);
 
         //position player
+
         FieldEvents.isCameraFollow = false;
         yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
+        combatManager.playerAnimator.SetBool("isCombat", true);
 
         //enemy
         foreach (Enemy enemy in combatManager.enemy)
@@ -33,20 +36,24 @@ public class Setup : State
             var enemyMovementScript = enemy.GetComponent<ActorMovementScript>();
 
             GameObject newEnemyCombatUI = Instantiate(EnemyUIPrefab, combatManager.gameObject.transform);
+
             newEnemyCombatUI.name = "EnemyUI For " + enemy.name;
 
             enemy.enemyUI = newEnemyCombatUI.GetComponent<EnemyUI>();
             enemy.enemyUI.partsTargetDisplay.enemy = enemy;
+            enemy.enemyUI.enemyStatsDisplay.ShowEnemyStatsDisplay(false);
 
             enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
-            enemy.enemyUI.enemyStatsDisplay.ShowEnemyStatsDisplay(false);
+
 
             enemy.enemyUI.AnchorEnemyUIToEnemyGameObject(enemy.enemyFightingPosition);
 
             yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position);
             enemyMovementScript.lookDirection = enemy.forceLookDirection;
+            enemyMovementScript.actorRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
 
             enemy.enemyUI.enemyFendScript.UpdateFendDisplay(enemy.fendTotal);
+
             enemy.enemyUI.enemyStatsDisplay.InitializeEnemyStatsUI(enemy);
             enemy.enemyUI.partsTargetDisplay.InitializeEnemyPartsHP();
 
@@ -75,7 +82,6 @@ public class Setup : State
 
         //set ui elements
         combatUIContainer.SetActive(true);
-        combatManager.player.GetComponent<PlayerCombatAnimations>().SetCombatMode();
         combatManager.playerCombatStats.InitialiseStats();
         playerStatsUIContainer.SetActive(true);
         combatManager.CombatUIManager.selectEnemyMenuScript.InitializeButtonSlots();

@@ -9,8 +9,9 @@ public class RoundReset : State
     public override IEnumerator StartState()
     {
         combatManager.CombatUIManager.playerFendScript.animator.SetTrigger("fendFade");
+        Vector2 rememberLookDirection = FieldEvents.lookDirection;
         yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
-
+        FieldEvents.lookDirection = rememberLookDirection;
 
         //combatManager.player.GetComponent<EquippedGear>().equippedGear[0].ResetAttackGear();
         //combatManager.player.GetComponent<EquippedGear>().equippedGear[0].ResetFendGear();
@@ -25,6 +26,9 @@ public class RoundReset : State
         foreach (Enemy enemy in combatManager.enemy)
         {
             enemy.enemyUI.enemyFendScript.ResetAllAnimationTriggers(); //its just easier this way 
+
+            var enemyMovementScript = enemy.GetComponent<ActorMovementScript>();
+            enemyMovementScript.actorRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
 
             enemy.SelectEnemyMove();
 

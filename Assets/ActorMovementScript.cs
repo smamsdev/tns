@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ActorMovementScript : MovementScript
 {
-    Rigidbody2D actorRigidBody2d;
+    public Rigidbody2D actorRigidBody2d;
     Vector2 isAscending;
     public Vector2 newPosition;
     public Vector2 previousPosition;

@@ -3523,6 +3523,7 @@ MonoBehaviour:
   scriptedMovement: 0
   animator: {fileID: 0}
   movementDirection: {x: 0, y: 0}
+  actorRigidBody2d: {fileID: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
@@ -3900,6 +3901,7 @@ MonoBehaviour:
   scriptedMovement: 0
   animator: {fileID: 0}
   movementDirection: {x: 0, y: 0}
+  actorRigidBody2d: {fileID: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
@@ -8350,7 +8352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 838642103140043353, guid: d9bac702195a22145ad819806784f993, type: 3}
       propertyPath: fendMoveModPercent
-      value: 0
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1700575891297859897, guid: d9bac702195a22145ad819806784f993, type: 3}
       propertyPath: m_Size.x
@@ -15360,6 +15362,7 @@ MonoBehaviour:
   scriptedMovement: 0
   animator: {fileID: 0}
   movementDirection: {x: 0, y: 0}
+  actorRigidBody2d: {fileID: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
@@ -23562,6 +23565,7 @@ MonoBehaviour:
   scriptedMovement: 0
   animator: {fileID: 0}
   movementDirection: {x: 0, y: 0}
+  actorRigidBody2d: {fileID: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
@@ -23733,6 +23737,7 @@ MonoBehaviour:
   scriptedMovement: 0
   animator: {fileID: 0}
   movementDirection: {x: 0, y: 0}
+  actorRigidBody2d: {fileID: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
@@ -25433,6 +25438,14 @@ PrefabInstance:
       propertyPath: defaultMovementspeed
       value: 1.75
       objectReference: {fileID: 0}
+    - target: {fileID: 5690664268955463731, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: damageToPartsMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6214547715918114191, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: damageToPartsMultiplier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6457784655243026927, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: m_Name
       value: Player
@@ -25484,10 +25497,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6457784655243026927, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1712549912}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
 --- !u!1 &1451053041
 GameObject:
@@ -29026,7 +29036,7 @@ Transform:
   m_GameObject: {fileID: 1660769390}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.354, y: 0.385, z: 0}
+  m_LocalPosition: {x: -1.184, y: 0.385, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -29896,19 +29906,6 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 8879681757372781048, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
   m_PrefabInstance: {fileID: 1449703555}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1712549912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1712549886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af0a87c16375aa34db9ea54d0fbb8ca5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 1712549905}
 --- !u!1 &1713039394
 GameObject:
   m_ObjectHideFlags: 0
@@ -41146,6 +41143,7 @@ MonoBehaviour:
   scriptedMovement: 0
   animator: {fileID: 0}
   movementDirection: {x: 0, y: 0}
+  actorRigidBody2d: {fileID: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}

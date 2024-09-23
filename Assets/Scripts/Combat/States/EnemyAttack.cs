@@ -25,7 +25,9 @@ public class EnemyAttack : State
         foreach (Enemy enemy in combatManager.enemy)
 
         {
+            yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position);
             cameraFollow.transformToFollow = enemy.transform;
+
             yield return new WaitForSeconds(0.5f);
 
             if (enemy.attackTotal == 0 && enemy.fendTotal > 0)
@@ -48,6 +50,9 @@ public class EnemyAttack : State
                 yield return new WaitForSeconds(0.5f);
 
                 yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position);
+
+                var enemyMovementScript = enemy.GetComponent<ActorMovementScript>();
+                enemyMovementScript.lookDirection = enemy.forceLookDirection;
 
                 yield return new WaitForSeconds(0.5f);
             }
