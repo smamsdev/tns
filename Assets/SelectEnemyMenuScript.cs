@@ -8,6 +8,7 @@ public class SelectEnemyMenuScript : MonoBehaviour
 {
     [SerializeField] CombatManager combatManager;
     public GameObject[] buttonSlot;
+    public CameraFollow cameraFollow;
 
     public void InitializeButtonSlots()
     {
@@ -19,6 +20,23 @@ public class SelectEnemyMenuScript : MonoBehaviour
             TextMeshProUGUI text = buttonSlot[i].GetComponentInChildren<TextMeshProUGUI>();
             text.text = combatManager.enemy[i].name;
         }
+    }
 
+    public void HighlightEnemy(int enemyHighlighted)
+    {
+        var enemy = combatManager.enemy[enemyHighlighted];
+        enemy.enemyUI.enemyStatsDisplay.enemyStatsDisplayGameObject.SetActive(true);
+        cameraFollow.transformToFollow = enemy.transform;
+    }
+
+    public void DeselectEnemy(int enemyHighlighted)
+    {
+        var enemy = combatManager.enemy[enemyHighlighted];
+        enemy.enemyUI.enemyStatsDisplay.enemyStatsDisplayGameObject.SetActive(false);
+    }
+
+    public void SelectedEnemyToRevertToOnBack(Button button)
+    { 
+        combatManager.CombatUIManager.thirdMenuFirstButton = button;
     }
 }

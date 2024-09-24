@@ -8,7 +8,7 @@ using UnityEngine;
 public class TargetDisplay : MonoBehaviour
 {
     public Enemy enemy;
-    [SerializeField] CombatManager combatManager; 
+    public CombatManager combatManager; 
 
     [SerializeField] GameObject bodyTargetDisplay;
     [SerializeField] GameObject armsTargetDisplay;
@@ -24,7 +24,9 @@ public class TargetDisplay : MonoBehaviour
 
     private void OnEnable()
     {
-        combatManager = GetComponentInParent<CombatManager>();
+        bodyTargetDisplay.SetActive(false);
+        armsTargetDisplay.SetActive(false);
+        headTargetDisplay.SetActive(false);
     }
 
     public void UpdateTargetDisplay(bool showBody, bool showArms, bool showHead) 
@@ -38,9 +40,9 @@ public class TargetDisplay : MonoBehaviour
         armsTargetDisplay.SetActive(showArms);
         headTargetDisplay.SetActive(showHead);
 
-        bodyDescriptionTextMeshPro.text = bodyHeader+ "<br>" + defaultBodyDescription + "<br>" + bodyHP;
-        armsDescriptionTextMeshPro.text = armsHeader + "<br>" + defaultArmsDescription + "<br>" + armsHP;
-        headDescriptionTextMeshPro.text = headHeader + "<br>" + defaultHeadDescription + "<br>" + headHP;
+        bodyDescriptionTextMeshPro.text = bodyHeader + "<br>" + bodyHP + "<br>" + defaultBodyDescription;
+        armsDescriptionTextMeshPro.text = armsHeader + "<br>" + armsHP + "<br>" + defaultArmsDescription;
+        headDescriptionTextMeshPro.text = headHeader + "<br>" + headHP + "<br>" + defaultHeadDescription;
 
         if (enemy.enemyBodyHP == 0)
         {
@@ -77,5 +79,23 @@ public class TargetDisplay : MonoBehaviour
 
     void UpdateHeadDescription(string description)
     { headDescriptionTextMeshPro.text = description; }
+
+    public void FlipTargetDisplay()
+    {
+        var flippedPos = bodyDescriptionTextMeshPro.rectTransform.localPosition;
+        bodyDescriptionTextMeshPro.rectTransform.pivot = new Vector2(1f, 0.5f);
+        flippedPos.x = -flippedPos.x;
+        bodyDescriptionTextMeshPro.rectTransform.localPosition = flippedPos;
+
+        flippedPos = armsDescriptionTextMeshPro.rectTransform.localPosition;
+        armsDescriptionTextMeshPro.rectTransform.pivot = new Vector2(1f, 0.5f);
+        flippedPos.x = -flippedPos.x;
+        armsDescriptionTextMeshPro.rectTransform.localPosition = flippedPos;
+
+        flippedPos = headDescriptionTextMeshPro.rectTransform.localPosition;
+        headDescriptionTextMeshPro.rectTransform.pivot = new Vector2(1f, 0.5f);
+        flippedPos.x = -flippedPos.x;
+        headDescriptionTextMeshPro.rectTransform.localPosition = flippedPos;
+    }
 
 }

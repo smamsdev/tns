@@ -7,7 +7,7 @@ public class EnemyStatsDisplay : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI enemyNameTextMeshPro;
     [SerializeField] TextMeshProUGUI enemyHPTextMeshPro;
-    [SerializeField] GameObject enemyStatsDisplayGameObject;
+    public GameObject enemyStatsDisplayGameObject;
     [SerializeField] Animator animator;
     Enemy enemy;
     int enemyHP;

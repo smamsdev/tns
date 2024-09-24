@@ -35,18 +35,19 @@ public class Setup : State
         {
             var enemyMovementScript = enemy.GetComponent<ActorMovementScript>();
 
-            GameObject newEnemyCombatUI = Instantiate(EnemyUIPrefab, combatManager.gameObject.transform);
+            GameObject newEnemyCombatUI = Instantiate(EnemyUIPrefab, enemy.gameObject.transform);
+            newEnemyCombatUI.transform.localPosition = Vector3.zero;
 
             newEnemyCombatUI.name = "EnemyUI For " + enemy.name;
 
             enemy.enemyUI = newEnemyCombatUI.GetComponent<EnemyUI>();
             enemy.enemyUI.partsTargetDisplay.enemy = enemy;
+            enemy.enemyUI.partsTargetDisplay.combatManager = combatManager;
+            enemy.enemyUI.enemyFendScript.combatManager = combatManager;
+
             enemy.enemyUI.enemyStatsDisplay.ShowEnemyStatsDisplay(false);
 
             enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
-
-
-            enemy.enemyUI.AnchorEnemyUIToEnemyGameObject(enemy.enemyFightingPosition);
 
             yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position);
             enemyMovementScript.lookDirection = enemy.forceLookDirection;
@@ -70,11 +71,14 @@ public class Setup : State
                 enemy.enemyUI.enemyFendScript.UpdateFendDisplay(enemy.fendTotal);
             }
 
+            //flip UI elements based on look direction
             if (enemy.forceLookDirection == Vector2.right)
             {
-                var pos = enemy.enemyUI.enemyAttackDisplay.transform.localPosition;
-                pos.x = Mathf.Abs(pos.x);
-                enemy.enemyUI.enemyAttackDisplay.transform.localPosition = pos;
+                var flippedPos = enemy.enemyUI.enemyAttackDisplay.transform.localPosition;
+                flippedPos.x = -flippedPos.x;
+                enemy.enemyUI.enemyAttackDisplay.transform.localPosition = flippedPos;
+
+                enemy.enemyUI.partsTargetDisplay.FlipTargetDisplay();
             }
 
             yield return new WaitForSeconds(1);

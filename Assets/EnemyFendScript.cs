@@ -6,17 +6,12 @@ using UnityEngine;
 public class EnemyFendScript : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI fendTextMeshProUGUI;
-    [SerializeField] CombatManager combatManager;
+    public CombatManager combatManager;
     [SerializeField] GameObject fendGameObject;
     [SerializeField] GameObject fendTextGameObject;
     public Animator enemyFendAnimator;
 
     int attackRemainder;
-
-    private void OnEnable()
-    {
-        combatManager = GetComponentInParent<CombatManager>();
-    }
 
     public void ApplyPlayerAttackToFend(int attack)
 

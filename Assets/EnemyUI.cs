@@ -11,11 +11,7 @@ public class EnemyUI : MonoBehaviour
     public BodyPartsDamageTakenDisplay bodyPartsDamageTakenDisplay;
     public TargetDisplay partsTargetDisplay;
 
+    //GOs to flip based on look direction
     public GameObject attackDisplayContainer;
-
-    public void AnchorEnemyUIToEnemyGameObject(GameObject fightingPosition)
-
-    {
-        this.transform.position = fightingPosition.transform.position;
-    }
+    public GameObject partsDisplayContainer;
 }

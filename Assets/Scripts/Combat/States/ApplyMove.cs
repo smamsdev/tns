@@ -53,12 +53,13 @@ public class ApplyMove : State
     IEnumerator EndMoveCoro()
 
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
 
         foreach (Enemy enemy in combatManager.enemy)
 
         {
             enemy.enemyUI.enemyFendScript.enemyFendAnimator.SetTrigger("fendFade");
+            enemy.enemyUI.enemyStatsDisplay.enemyStatsDisplayGameObject.SetActive(false);
         }
 
         if (combatManager.enemyIsDead)

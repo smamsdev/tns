@@ -32,8 +32,18 @@ public class AttackTarget : State
         if (Input.GetKeyDown(KeyCode.Escape))
 
         {
-            combatManager.SetState(combatManager.secondMove);
             DisablePartsTargetDisplay();
+
+            if (combatManager.battleScheme.enemyGameObject.Length == 1)
+
+            {
+                combatManager.SetState(combatManager.secondMove);
+            }
+
+            else
+            {
+                combatManager.SetState(combatManager.enemySelect);
+            }
         }
     }
 
@@ -41,6 +51,5 @@ public class AttackTarget : State
     {
         combatManager.enemy[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(false, false, false);
     }
-
 }
 
