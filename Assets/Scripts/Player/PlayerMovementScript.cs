@@ -42,19 +42,23 @@ public class PlayerMovementScript : MovementScript
 
     private void Update()
     {
-
-        movementSpeed = defaultMovementspeed * FieldEvents.movementSpeedMultiplier;
+        if (FieldEvents.isMovementSpeedMultiplier)
+        {
+            movementSpeed = defaultMovementspeed * FieldEvents.movementSpeedMultiplier;
+        }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
 
         {
             FieldEvents.movementSpeedMultiplier = 3;
+            FieldEvents.isMovementSpeedMultiplier = true;
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift))
 
         {
             FieldEvents.movementSpeedMultiplier = 1;
+            FieldEvents.isMovementSpeedMultiplier = false;
         }
 
         if (Input.GetKeyDown(KeyCode.KeypadPlus))

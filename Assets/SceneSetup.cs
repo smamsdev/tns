@@ -2,16 +2,19 @@ using UnityEngine;
 
 public class SceneSetup : MonoBehaviour
 {
-    public GameObject player;
+    public Transform transformToFollow;
     public GameObject mainCamera;
     public bool rememberEntryCoordinates;
     public bool forceLookRight;
 
     private void Awake()
+
     {
+        transformToFollow = mainCamera.GetComponent<CameraFollow>().transformToFollow.transform;
+
         if (rememberEntryCoordinates)
         {
-            player.transform.position = FieldEvents.entryCoordinates;
+            transformToFollow.transform.position = FieldEvents.entryCoordinates;
         }
 
         if (forceLookRight) 
@@ -19,6 +22,6 @@ public class SceneSetup : MonoBehaviour
             FieldEvents.lookDirection = Vector2.right;
         }
 
-        mainCamera.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z - 10);
+        mainCamera.transform.position = new Vector3(transformToFollow.position.x, transformToFollow.transform.position.y, transformToFollow.transform.position.z - 10);
     }
 }

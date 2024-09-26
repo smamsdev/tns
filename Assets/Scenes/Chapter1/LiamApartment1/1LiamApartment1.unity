@@ -346,6 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3074f9f12c26914d9fd823d3c034dfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueManager: {fileID: 0}
   dialogue:
   - actorGameObject: {fileID: 413688478}
     actorName: 
@@ -528,6 +529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3074f9f12c26914d9fd823d3c034dfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueManager: {fileID: 0}
   dialogue:
   - actorGameObject: {fileID: 708503469362685830}
     actorName: 
@@ -568,8 +570,8 @@ Transform:
   - {fileID: 1114633399}
   - {fileID: 1273708901}
   - {fileID: 234316328}
-  - {fileID: 1397776023}
   - {fileID: 1216563090}
+  - {fileID: 1397776023}
   m_Father: {fileID: 709083563}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &337093868
@@ -1045,11 +1047,13 @@ MonoBehaviour:
   defaultMovementspeed: 1.2
   movementSpeed: 0
   scriptedMovement: 0
+  animator: {fileID: 0}
+  movementDirection: {x: 0, y: 0}
+  actorRigidBody2d: {fileID: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
-  actorAnimator: {fileID: 0}
+  forceLookDirectionOnLoad: {x: 0, y: 0}
 --- !u!212 &413688485
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1913,7 +1917,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0043893754, y: 0.058306277}
+  m_Offset: {x: 0.0043893754, y: 0.021616518}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -1924,7 +1928,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.84896284, y: 0.12831795}
+  m_Size: {x: 0.84896284, y: 0.054938436}
   m_EdgeRadius: 0
 --- !u!1 &774639962
 GameObject:
@@ -2886,6 +2890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3074f9f12c26914d9fd823d3c034dfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueManager: {fileID: 0}
   dialogue:
   - actorGameObject: {fileID: 413688478}
     actorName: 
@@ -3242,6 +3247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3074f9f12c26914d9fd823d3c034dfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueManager: {fileID: 0}
   dialogue:
   - actorGameObject: {fileID: 708503469362685830}
     actorName: 
@@ -3462,10 +3468,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3074f9f12c26914d9fd823d3c034dfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueManager: {fileID: 0}
   dialogue:
   - actorGameObject: {fileID: 413688478}
     actorName: 
-    dialoguetext: Buba- bye! Love youooo!
+    dialoguetext: Buba- bye! Love youooo guys!
     optionalDialogueFinalPosition: {x: 0.1, y: 0.8, z: 0}
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 420972605}
@@ -3524,6 +3531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3074f9f12c26914d9fd823d3c034dfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueManager: {fileID: 0}
   dialogue:
   - actorGameObject: {fileID: 420972605}
     actorName: 
@@ -3686,7 +3694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 806b17df2356a89469dc3531a6e7e402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 420972605}
+  transformToFollow: {fileID: 0}
   mainCamera: {fileID: 1298093475}
   rememberEntryCoordinates: 0
   forceLookRight: 1
@@ -4900,6 +4908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3074f9f12c26914d9fd823d3c034dfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueManager: {fileID: 0}
   dialogue:
   - actorGameObject: {fileID: 708503469362685830}
     actorName: 
@@ -5044,10 +5053,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d9e51491ec6de74fb661a6f08e2a4e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyGameObject:
-  - {fileID: 0}
-  - {fileID: 0}
-  playerFightingPosition: {fileID: 0}
 --- !u!114 &2014045863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5060,9 +5065,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b67369182688b42855f6f2c04fe9ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleToTrigger: {fileID: 2014045862}
+  enemyGameObject: []
+  playerFightingPosition: {fileID: 0}
   combatManager: {fileID: 0}
-  combatManagerGO: {fileID: 0}
 --- !u!1 &2053153693
 GameObject:
   m_ObjectHideFlags: 0
@@ -5222,6 +5227,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3203464326901901182, guid: 1043ae82aa594a04e89098cedb341589, type: 3}
       propertyPath: playerTransform
+      value: 
+      objectReference: {fileID: 420972612}
+    - target: {fileID: 3203464326901901182, guid: 1043ae82aa594a04e89098cedb341589, type: 3}
+      propertyPath: transformToFollow
       value: 
       objectReference: {fileID: 420972612}
     m_RemovedComponents: []

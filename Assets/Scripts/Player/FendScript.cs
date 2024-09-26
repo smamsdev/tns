@@ -26,11 +26,6 @@ public class FendScript : MonoBehaviour
         CombatEvents.ApplyEnemyAttackToFend -= ApplyEnemyAttackToFend;
     }
 
-    public void InitialiseFendUIPosition()
-    {
-        playerFendContainer.transform.position = new Vector2(combatManager.battleScheme.playerFightingPosition.transform.position.x + 0.02f, combatManager.battleScheme.playerFightingPosition.transform.position.y + 0.69f);
-    }
-
     public void ShowFendDisplay(bool on)
     {
         if (on && combatManager.playerCombatStats.playerFend > 0)
@@ -53,6 +48,7 @@ public class FendScript : MonoBehaviour
     {
         attackRemainder = attack - fend;
         animator.SetTrigger("fendDeflect");
+        combatManager.playerAnimator.SetTrigger("Pain");
 
         StartCoroutine(ApplyEnemyAttackToFendCoRo(attack));
     }

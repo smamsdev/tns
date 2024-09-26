@@ -29,6 +29,8 @@ public class Sequence : ToTrigger
 
     void TriggerAction(GameObject gameObject) 
     {
+        Debug.Log(gameObject.name);
+
         if (FieldEvents.isSequenceRunning) 
         {
             if (toTrigger[i].gameObject == gameObject)
@@ -58,5 +60,4 @@ public class Sequence : ToTrigger
         FieldEvents.isSequenceRunning = false;
         FieldEvents.HasCompleted.Invoke(this.gameObject);
     }
-
 }

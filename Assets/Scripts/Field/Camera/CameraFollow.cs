@@ -40,7 +40,6 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
-
     public void CameraBattleMode(bool on)
     {
 
@@ -71,8 +70,6 @@ public class CameraFollow : MonoBehaviour
             yield return null;
         }
         { cameraSpeed = finalCameraSpeed; }
-
-
     }
     
     public IEnumerator UpdateCameraXOffsetOverTimeCoRoutine(float currentXOffset, float finalXOffset, float time)
@@ -86,8 +83,5 @@ public class CameraFollow : MonoBehaviour
             yield return null;
         }
     }
-
-
-
 
 }

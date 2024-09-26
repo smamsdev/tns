@@ -20,8 +20,6 @@ public class Setup : State
         CombatEvents.BattleMode?.Invoke(true);
         CombatEvents.isBattleMode = true;
         CombatEvents.LockPlayerMovement.Invoke();
-
-        combatManager.CombatUIManager.playerFendScript.InitialiseFendUIPosition();
         combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(false);
 
         //position player

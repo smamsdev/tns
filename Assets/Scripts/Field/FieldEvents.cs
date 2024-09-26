@@ -24,6 +24,7 @@ public static class FieldEvents
     public static Vector2 entryCoordinates;
 
     public static float movementSpeedMultiplier;
+    public static bool isMovementSpeedMultiplier;
 
     public static float horizontalInputToSave;
 
