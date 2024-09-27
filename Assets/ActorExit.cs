@@ -24,15 +24,22 @@ public class ActorExit : ToTrigger
 
         {
             actorToLeave.position = new Vector3(1000, 1000, 0);
-            FieldEvents.HasCompleted.Invoke(this.gameObject);
+            TriggerComplete();
         } 
+    }
+
+    void TriggerComplete()
+
+    {
+        triggerToLeave = null;
+        FieldEvents.HasCompleted.Invoke(this.gameObject);
     }
 
     public override IEnumerator DoAction()
 
     {
         actorToLeave.position = new Vector3(1000, 1000, 0);
-        FieldEvents.HasCompleted.Invoke(this.gameObject);
+        TriggerComplete();
 
         yield break;
     }

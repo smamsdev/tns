@@ -21,7 +21,7 @@ public static class FieldEvents
     public static Vector2 lookDirection;
 
     public static bool freshScene;
-    public static Vector2 entryCoordinates;
+    public static Vector3 entryCoordinates;
 
     public static float movementSpeedMultiplier;
     public static bool isMovementSpeedMultiplier;

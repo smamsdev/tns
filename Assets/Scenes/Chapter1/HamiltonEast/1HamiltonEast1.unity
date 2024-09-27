@@ -4083,7 +4083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Alley
-  entryCoordinates: {x: 4.4, y: 1.2}
+  entryCoordinates: {x: 4.4, y: 1.2, z: 0}
 --- !u!61 &631596321
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4392,8 +4392,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d593160d2ff05647bae10e390d7b9c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Bank
-  entryCoordinates: {x: 0, y: 0.1}
+  sceneName: 1Bank1
+  entryCoordinates: {x: 0, y: 0.07, z: 0}
 --- !u!61 &704820803
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8021,11 +8021,6 @@ MonoBehaviour:
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
   isLoopedDialogue: 1
---- !u!1 &1191451234 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6457784655243026927, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-  m_PrefabInstance: {fileID: 1492801525}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1191451242 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7291517550505530816, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
@@ -8474,8 +8469,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d593160d2ff05647bae10e390d7b9c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: LAppEntrance
-  entryCoordinates: {x: -2.05, y: 0.18}
+  sceneName: 1LAppEntrance1
+  entryCoordinates: {x: -2.05, y: 0.3, z: 0}
 --- !u!61 &1238181753
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9570,10 +9565,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 806b17df2356a89469dc3531a6e7e402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1191451234}
+  transformToFollow: {fileID: 0}
   mainCamera: {fileID: 1001414412}
-  rememberEntryCoordinates: 1
+  useEntryCoordinates: 1
   forceLookRight: 0
+  forcedEntryCoordinates: {x: 0, y: 0, z: 0}
+  forceEntryCoorinates: 0
 --- !u!1001 &1465253707
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10005,11 +10002,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7291517550505530816, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.999967
+      value: -7.629999
       objectReference: {fileID: 0}
     - target: {fileID: 7291517550505530816, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.193583
+      value: 7.7350006
       objectReference: {fileID: 0}
     - target: {fileID: 7291517550505530816, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -15858,5 +15855,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 3203464327039275315}
   - {fileID: 337093868}
-  - {fileID: 1458070173}
   - {fileID: 1492801525}
+  - {fileID: 1458070173}

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelLoaderScript : ToTrigger
 {
     public string sceneName;
-    public Vector2 entryCoordinates;
+    public Vector3 entryCoordinates;
     static string PendingPreviousScene;
 
     private void OnTriggerEnter2D(Collider2D collision)

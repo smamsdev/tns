@@ -58,6 +58,7 @@ public class PlayerMovementScript : MovementScript
 
         {
             FieldEvents.movementSpeedMultiplier = 1;
+            movementSpeed = defaultMovementspeed;
             FieldEvents.isMovementSpeedMultiplier = false;
         }
 
@@ -76,6 +77,8 @@ public class PlayerMovementScript : MovementScript
 
     void FixedUpdate()
     {
+
+        Debug.Log(movementDirection.magnitude);
         if (!movementLocked)
 
         {
@@ -98,7 +101,7 @@ public class PlayerMovementScript : MovementScript
             animator.SetBool("isMoving", true);
         }
 
-        else
+        else if (movementDirection.magnitude < 0.015f)
         {
             animator.SetBool("isMoving", false);
         }
@@ -113,7 +116,7 @@ public class PlayerMovementScript : MovementScript
                 FieldEvents.lookDirection = Vector2.left;
             }
 
-            if (verticalInput > 0)
+            if (verticalInput > 0 && horizontalInput == 0)
             {
                 FieldEvents.lookDirection = Vector2.up;
             }

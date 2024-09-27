@@ -19,28 +19,27 @@ public class Sequence : ToTrigger
     }
 
     public override IEnumerator DoAction()
-
     {
         FieldEvents.isSequenceRunning = true;
-        StartCoroutine(toTrigger[i].DoAction());
+        if (i < toTrigger.Length)
+        {
+            StartCoroutine(toTrigger[i].DoAction());
+        }
 
         yield return null;
     }
 
-    void TriggerAction(GameObject gameObject) 
+    void TriggerAction(GameObject gameObject)
     {
-        Debug.Log(gameObject.name);
-
-        if (FieldEvents.isSequenceRunning) 
+        if (FieldEvents.isSequenceRunning)
         {
-            if (toTrigger[i].gameObject == gameObject)
-
+            if (i < toTrigger.Length && toTrigger[i].gameObject == gameObject)
             {
                 toTrigger[i] = null;
                 i++;
 
                 if (i == toTrigger.Length)
-                { 
+                {
                     EndSequence();
                     return;
                 }
@@ -55,8 +54,11 @@ public class Sequence : ToTrigger
 
     void EndSequence()
     {
-        toTrigger[i - 1] = null;
-                  
+        if (i > 0)
+        {
+            toTrigger[i - 1] = null;
+        }
+
         FieldEvents.isSequenceRunning = false;
         FieldEvents.HasCompleted.Invoke(this.gameObject);
     }

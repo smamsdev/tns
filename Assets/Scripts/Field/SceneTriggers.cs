@@ -25,7 +25,6 @@ public class SceneTriggers : MonoBehaviour
         if (isTriggerOnLoad) 
         {
         StartCoroutine(triggerOnLoad.DoAction());
-        //triggerOnLoad = null;
         }
     }
 
