@@ -1,47 +1,44 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MultiTrigger : ToTrigger
 {
     public ToTrigger[] toMultiTrigger;
-    int multiCompleted = 0;
+    private int completedCount = 0;
 
-    private void OnEnable()
-    {
-        FieldEvents.HasCompleted += TriggerAction;
-    }
-
-    private void OnDisable()
-    {
-        FieldEvents.HasCompleted -= TriggerAction;
-    }
 
     public override IEnumerator DoAction()
     {
+        List<Coroutine> activeCoroutines = new List<Coroutine>();
+
         foreach (var trigger in toMultiTrigger)
         {
-            StartCoroutine(trigger.DoAction());
+            activeCoroutines.Add(StartCoroutine(TriggerAndCount(trigger)));
         }
 
-        yield return null;
+        // Optionally wait for all to finish
+        foreach (var coroutine in activeCoroutines)
+        {
+            yield return coroutine;
+        }
+
+        // All triggers completed
+        FieldEvents.HasCompleted.Invoke(this.gameObject);
     }
 
-    void TriggerAction(GameObject gameObject)
-
+    private IEnumerator TriggerAndCount(ToTrigger trigger)
     {
-        foreach (var trigger in toMultiTrigger)
-        {
-            if (trigger.gameObject == gameObject)
-            {
-                multiCompleted++;
-            }
-        }
+        Debug.Log($"Starting DoAction for {trigger.name}");
 
-        if (multiCompleted == toMultiTrigger.Length)
+        yield return StartCoroutine(trigger.DoAction());
 
+        Debug.Log($"Completed DoAction for {trigger.name}");
+        completedCount++;
+
+        if (completedCount == toMultiTrigger.Length)
         {
-            multiCompleted = 0;
-            FieldEvents.HasCompleted.Invoke(this.gameObject);
+            Debug.Log("All triggers completed.");
         }
     }
 }

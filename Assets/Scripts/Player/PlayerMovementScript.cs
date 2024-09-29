@@ -136,11 +136,15 @@ public class PlayerMovementScript : MovementScript
         movementLocked = true;
         horizontalInput = 0;
         verticalInput = 0;
+
+        //Debug.Log("locked");
     }
 
     public void UnlockPlayerMovement()
 
     {
         movementLocked = false;
+
+        //Debug.Log("unlocked");
     }
 }

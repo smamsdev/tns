@@ -6,10 +6,20 @@ public class MoveTo : ToTrigger
 {
     public ActorMove actorMove;
 
+    // Static counter to track active MoveTo instances
+    private static int activeMoveToCount = 0;
+
+    public static int ActiveMoveToCount => activeMoveToCount; // Property to access the count
+
     public override IEnumerator DoAction()
     {
+        // Increment the counter when starting a MoveTo
+        activeMoveToCount++;
+
         var movementScript = actorMove.actorGO.GetComponent<MovementScript>();
         int i;
+
+        // Lock player movement
         CombatEvents.LockPlayerMovement();
 
         for (i = 0; i < actorMove.destination.Length;)
@@ -18,14 +28,22 @@ public class MoveTo : ToTrigger
             i++;
         }
 
-        CombatEvents.UnlockPlayerMovement();
+        // Decrement the counter when finished
+        activeMoveToCount--;
+
+        // Only unlock if there are no more MoveTo instances active
+        if (activeMoveToCount == 0)
+        {
+            CombatEvents.UnlockPlayerMovement();
+        }
+
         FieldEvents.HasCompleted.Invoke(this.gameObject);
     }
 
     private IEnumerator MoveToPosition(MovementScript movementScript, Vector3 targetPosition)
     {
         float startTime = Time.time;
-        float timeoutDuration = 10f; // Timeout duration in seconds
+        float timeoutDuration = 5f; // Timeout duration in seconds
 
         float endPointDeltaX = Mathf.Abs(movementScript.transform.position.x - targetPosition.x);
         float endPointDeltaY = Mathf.Abs(movementScript.transform.position.y - targetPosition.y);
@@ -35,7 +53,7 @@ public class MoveTo : ToTrigger
             if (Time.time - startTime > timeoutDuration)
             {
                 Debug.LogError("actor stuck.");
-                //yield break;
+                yield break; // Optionally handle stuck condition
             }
 
             movementScript.scriptedMovement = true;
@@ -57,7 +75,7 @@ public class MoveTo : ToTrigger
             if (Time.time - startTime > timeoutDuration)
             {
                 Debug.LogError("actor stuck.");
-                //yield break;
+                yield break; // Optionally handle stuck condition
             }
 
             float directionY = targetPosition.y - movementScript.transform.position.y;

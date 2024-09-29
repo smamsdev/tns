@@ -96,7 +96,7 @@ public class ActorMovementScript : MovementScript
 
             if (movementDirection.magnitude > 0)
             {
-                actorRigidBody2d.bodyType = RigidbodyType2D.Dynamic;
+                //actorRigidBody2d.bodyType = RigidbodyType2D.Dynamic;
                 animator.SetBool("isMoving", true);
             }
 
