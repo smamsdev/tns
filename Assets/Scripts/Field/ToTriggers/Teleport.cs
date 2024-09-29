@@ -11,7 +11,6 @@ public class Teleport : ToTrigger
     {
         for (i = 0; i < actorJump.Length;)
         {
-            CombatEvents.LockPlayerMovement();
 
             if (actorJump[i].actorGO == null)
             { actorJump[i].actorGO = transform.parent.transform.parent.gameObject; }
@@ -27,7 +26,6 @@ public class Teleport : ToTrigger
         if (i == actorJump.Length)
         {
             FieldEvents.HasCompleted.Invoke(this.gameObject);
-            CombatEvents.UnlockPlayerMovement();
         }
     }
 }

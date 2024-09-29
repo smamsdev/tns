@@ -25,7 +25,7 @@ public class MoveTo : ToTrigger
     private IEnumerator MoveToPosition(MovementScript movementScript, Vector3 targetPosition)
     {
         float startTime = Time.time;
-        float timeoutDuration = 4f; // Timeout duration in seconds
+        float timeoutDuration = 10f; // Timeout duration in seconds
 
         float endPointDeltaX = Mathf.Abs(movementScript.transform.position.x - targetPosition.x);
         float endPointDeltaY = Mathf.Abs(movementScript.transform.position.y - targetPosition.y);
@@ -35,7 +35,7 @@ public class MoveTo : ToTrigger
             if (Time.time - startTime > timeoutDuration)
             {
                 Debug.LogError("actor stuck.");
-                yield break;
+                //yield break;
             }
 
             movementScript.scriptedMovement = true;
@@ -57,7 +57,7 @@ public class MoveTo : ToTrigger
             if (Time.time - startTime > timeoutDuration)
             {
                 Debug.LogError("actor stuck.");
-                yield break;
+                //yield break;
             }
 
             float directionY = targetPosition.y - movementScript.transform.position.y;
