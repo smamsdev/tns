@@ -21,9 +21,8 @@ public class LevelLoaderScript : ToTrigger
     public override IEnumerator DoAction()
 
     {
-        LoadScene(sceneName);
         FieldEvents.entryCoordinates = entryCoordinates;
-
+        LoadScene(sceneName);
         yield return null;
     }
 

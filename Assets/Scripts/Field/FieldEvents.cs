@@ -18,8 +18,6 @@ public static class FieldEvents
 
     public static bool isSequenceRunning;
 
-    public static Vector2 lookDirection;
-
     public static bool freshScene;
     public static Vector3 entryCoordinates;
 

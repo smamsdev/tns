@@ -287,7 +287,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.75}
+  m_AnchoredPosition: {x: -0.031, y: 0.765}
   m_SizeDelta: {x: 75, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5757668597319129962
@@ -2093,11 +2093,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalInput: 0
   verticalInput: 0
-  defaultMovementspeed: 1.75
+  defaultMovementspeed: 1.2
   movementSpeed: 0
   scriptedMovement: 0
   animator: {fileID: 8879681757372781048}
   movementDirection: {x: 0, y: 0}
+  lookDirection: {x: 0, y: 0}
   playerRigidBody2d: {fileID: 4400780416818078350}
   isWalkwayBoost: 0
   isDescending: 0
@@ -2191,6 +2192,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   rayDistance: 0.22
+  playerMovementScript: {fileID: 4167347878260585186}
 --- !u!1 &6562236617326698140
 GameObject:
   m_ObjectHideFlags: 0
@@ -2853,6 +2855,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7291517550505530816}
     m_Modifications:
+    - target: {fileID: 2129954515803447144, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 2129954515803447144, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.026
+      objectReference: {fileID: 0}
     - target: {fileID: 8657579784322340138, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
       propertyPath: m_Name
       value: BrassKnuckles

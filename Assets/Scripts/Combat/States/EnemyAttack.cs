@@ -62,6 +62,5 @@ public class EnemyAttack : State
         }
         combatManager.SetState(combatManager.roundReset);
     }
-
 }
 

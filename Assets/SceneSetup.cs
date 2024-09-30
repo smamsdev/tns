@@ -5,13 +5,13 @@ public class SceneSetup : MonoBehaviour
     public Transform transformToFollow;
     public GameObject mainCamera;
     public bool useEntryCoordinates;
-    public bool forceLookRight;
+    public Vector2 forceLook;
     public Vector3 forcedEntryCoordinates;
     public bool forceEntryCoorinates;
 
-    private void Awake()
+    private void OnEnable()
     {
-        transformToFollow = mainCamera.GetComponent<CameraFollow>().transformToFollow.transform;
+        var playerGO = GameObject.Find("Player");
 
         if (useEntryCoordinates)
         {
@@ -21,11 +21,14 @@ public class SceneSetup : MonoBehaviour
             }
 
             transformToFollow.transform.position = FieldEvents.entryCoordinates;
+            Debug.Log(FieldEvents.entryCoordinates);
         }
 
-        if (forceLookRight) 
+        if (forceLook != Vector2.zero) 
         {
-            FieldEvents.lookDirection = Vector2.right;
+
+            var playerMovementScript = playerGO.GetComponent<PlayerMovementScript>();
+            playerMovementScript.lookDirection = forceLook;
         }
 
         mainCamera.transform.position = new Vector3(transformToFollow.position.x, transformToFollow.transform.position.y, transformToFollow.transform.position.z - 10);

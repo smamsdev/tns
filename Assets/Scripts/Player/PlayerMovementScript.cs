@@ -36,7 +36,7 @@ public class PlayerMovementScript : MovementScript
         movementSpeed = defaultMovementspeed;
         scriptedMovement = false;
         FieldEvents.movementSpeedMultiplier = 1;
-        animator.SetFloat("sceneEntryDirection", FieldEvents.lookDirection.x);
+        animator.SetFloat("sceneEntryDirection", lookDirection.x);
         isAscending = Vector2.one;
     }
 
@@ -106,28 +106,28 @@ public class PlayerMovementScript : MovementScript
 
         if (horizontalInput > 0)
             {
-                FieldEvents.lookDirection = Vector2.right;
+                lookDirection = Vector2.right;
             }
 
             if (horizontalInput < 0)
             {
-                FieldEvents.lookDirection = Vector2.left;
+                lookDirection = Vector2.left;
             }
 
             if (verticalInput > 0 && horizontalInput == 0)
             {
-                FieldEvents.lookDirection = Vector2.up;
+                lookDirection = Vector2.up;
             }
 
             if (verticalInput < 0)
             {
-                FieldEvents.lookDirection = Vector2.down;
+                lookDirection = Vector2.down;
             }
 
         animator.SetFloat("horizontalInput", movementDirection.x);
         animator.SetFloat("verticalInput", movementDirection.y);
-        animator.SetFloat("lookDirectionX", FieldEvents.lookDirection.x);
-        animator.SetFloat("lookDirectionY", FieldEvents.lookDirection.y);
+        animator.SetFloat("lookDirectionX", lookDirection.x);
+        animator.SetFloat("lookDirectionY", lookDirection.y);
     }
 
     public void LockPlayerMovement()

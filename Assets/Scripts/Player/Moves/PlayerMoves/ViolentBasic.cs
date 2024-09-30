@@ -8,6 +8,7 @@ public class ViolentBasic : ViolentMove
 
     {
         combatManager = _combatManager;
+        var playerMovementScript = combatManager.player.GetComponent<PlayerMovementScript>();
         var enemyPosition = combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.position;
         combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
 
@@ -27,8 +28,8 @@ public class ViolentBasic : ViolentMove
             yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
 
             //tidy up and end move
-            Vector2 reverseLookDirection = FieldEvents.lookDirection;
-            FieldEvents.lookDirection = -reverseLookDirection;
+            Vector2 reverseLookDirection = playerMovementScript.lookDirection;
+            playerMovementScript.lookDirection = -reverseLookDirection;
             combatManager.playerAnimator.SetTrigger("CombatIdle");
             combatManager.applyMove.EndMove();
         }

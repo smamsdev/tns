@@ -11,5 +11,5 @@ public abstract class MovementScript : MonoBehaviour
     public bool scriptedMovement;
     public Animator animator;
     public Vector2 movementDirection;
-
+    public Vector2 lookDirection;
 }

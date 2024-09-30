@@ -4,12 +4,13 @@ public class PlayerInteractions : MonoBehaviour
 {
     public LayerMask layerMask;  
     public float rayDistance = 0.10f;  
+    public PlayerMovementScript playerMovementScript;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Vector2 direction = FieldEvents.lookDirection;
+            Vector2 direction = playerMovementScript.lookDirection;
             Vector2 startPosition = new Vector2(transform.position.x, transform.position.y);
 
             RaycastHit2D hit = Physics2D.Raycast(startPosition, direction, rayDistance, layerMask);

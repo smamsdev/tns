@@ -8,8 +8,6 @@ public class ActorMovementScript : MovementScript
     Vector2 isAscending;
     public Vector2 newPosition;
     public Vector2 previousPosition;
-
-    public Vector2 lookDirection;
     public Vector2 forceLookDirectionOnLoad;
 
     private void Awake()
@@ -102,7 +100,7 @@ public class ActorMovementScript : MovementScript
 
             else
             {
-                actorRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
+                //actorRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
                 animator.SetBool("isMoving", false);
             }
 
