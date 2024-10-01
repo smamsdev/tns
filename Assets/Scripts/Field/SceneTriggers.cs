@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
-
 public class SceneTriggers : MonoBehaviour
 {
     public bool isTriggerOnLoad;

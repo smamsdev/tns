@@ -5,7 +5,6 @@ using UnityEngine;
 public class ActorMovementScript : MovementScript
 {
     public Rigidbody2D actorRigidBody2d;
-    Vector2 isAscending;
     public Vector2 newPosition;
     public Vector2 previousPosition;
     public Vector2 forceLookDirectionOnLoad;
@@ -34,7 +33,7 @@ public class ActorMovementScript : MovementScript
         if (Input.GetKeyDown(KeyCode.I))
 
         {
-            verticalInput = 1;
+            verticalInput = 1 * isAscending.y;
         }
 
         if (Input.GetKeyUp(KeyCode.I))
@@ -46,7 +45,7 @@ public class ActorMovementScript : MovementScript
         if (Input.GetKeyDown(KeyCode.K))
 
         {
-            verticalInput = -1;
+            verticalInput = -1 * isAscending.y;
         }
 
         if (Input.GetKeyUp(KeyCode.K))

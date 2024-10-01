@@ -13,9 +13,6 @@ public class PlayerMovementScript : MovementScript
     public bool isDescending = false;
 
     public bool movementLocked = false;
-
-    public Vector2 isAscending;
-
     public Vector2 newPosition;
     public Vector2 previousPosition;
 
@@ -125,9 +122,9 @@ public class PlayerMovementScript : MovementScript
             }
 
         animator.SetFloat("horizontalInput", movementDirection.x);
-        animator.SetFloat("verticalInput", movementDirection.y);
+        animator.SetFloat("verticalInput", movementDirection.y * isAscending.y);
         animator.SetFloat("lookDirectionX", lookDirection.x);
-        animator.SetFloat("lookDirectionY", lookDirection.y);
+        animator.SetFloat("lookDirectionY", lookDirection.y * isAscending.y);
     }
 
     public void LockPlayerMovement()
