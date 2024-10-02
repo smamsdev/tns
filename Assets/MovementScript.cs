@@ -9,6 +9,8 @@ public abstract class MovementScript : MonoBehaviour
     public float defaultMovementspeed;
     public float movementSpeed;
     public bool scriptedMovement;
+    public float sloping;
+
     public Animator animator;
     public Vector2 movementDirection;
     public Vector2 lookDirection;

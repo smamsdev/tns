@@ -78,7 +78,7 @@ public class PlayerMovementScript : MovementScript
 
         {
             horizontalInput = Input.GetAxis("Horizontal");
-            verticalInput = Input.GetAxis("Vertical") * isAscending.y;
+            verticalInput = Input.GetAxis("Vertical") * isAscending.y + sloping;
         }
 
             newPosition = playerRigidBody2d.position;
@@ -101,25 +101,25 @@ public class PlayerMovementScript : MovementScript
             animator.SetBool("isMoving", false);
         }
 
+        if (verticalInput > 0 && horizontalInput == 0)
+        {
+            lookDirection = Vector2.up;
+        }
+
+        if (verticalInput < 0)
+        {
+            lookDirection = Vector2.down;
+        }
+
         if (horizontalInput > 0)
-            {
-                lookDirection = Vector2.right;
-            }
+        {
+            lookDirection = Vector2.right;
+        }
 
-            if (horizontalInput < 0)
-            {
-                lookDirection = Vector2.left;
-            }
-
-            if (verticalInput > 0 && horizontalInput == 0)
-            {
-                lookDirection = Vector2.up;
-            }
-
-            if (verticalInput < 0)
-            {
-                lookDirection = Vector2.down;
-            }
+        if (horizontalInput < 0)
+        {
+            lookDirection = Vector2.left;
+        }
 
         animator.SetFloat("horizontalInput", movementDirection.x);
         animator.SetFloat("verticalInput", movementDirection.y * isAscending.y);

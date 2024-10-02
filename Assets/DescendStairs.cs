@@ -8,17 +8,14 @@ public class DescendStairs : MonoBehaviour
     public GameObject ascendStairs;
     GameObject actor;
 
-    private void Start()
-    {
-        bottomOfStairs.SetActive(false);
-    }
-
     private void OnTriggerEnter2D(Collider2D collisionWith)
     {
-        this.GetComponent<Collider2D>().enabled = false;
+        //this.GetComponent<Collider2D>().enabled = false;
         actor = collisionWith.gameObject;
+
+        actor.layer = LayerMask.NameToLayer("OnStairs");
         actor.GetComponent<MovementScript>().isAscending = new Vector2(-1, -1);
-        actor.GetComponent<LayerChanger>().ChangeLayer("SubGround");
+        actor.GetComponent<LayerChanger>().ChangeLayer("OnStairs");
 
         StartCoroutine(EnterStairs(actor.transform.position, new Vector2(actor.transform.position.x, actor.transform.position.y - 0.04f), 0.04f));
     }
@@ -29,7 +26,6 @@ public class DescendStairs : MonoBehaviour
 
         while (elapsedTime < duration)
         {
-            //CombatEvents.LockPlayerMovement();
 
             float t = elapsedTime / duration;
             actor.transform.position = Vector2.Lerp(start, end, t);
@@ -37,9 +33,7 @@ public class DescendStairs : MonoBehaviour
             yield return null;
         }
 
-        actor.transform.position = end;
-        ascendStairs.GetComponent<BoxCollider2D>().enabled = true;
-        bottomOfStairs.SetActive(true);
-        //CombatEvents.UnlockPlayerMovement();
+         actor.transform.position = end;
+         ascendStairs.GetComponent<BoxCollider2D>().enabled = true;
     }
 }
