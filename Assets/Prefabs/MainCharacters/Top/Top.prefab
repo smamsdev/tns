@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 536518373796724789}
   - component: {fileID: 5252768952380855185}
   - component: {fileID: 3674314268008786270}
+  - component: {fileID: 4107063146567792656}
   m_Layer: 8
   m_Name: Top
   m_TagString: NPC
@@ -107,13 +108,15 @@ MonoBehaviour:
   defaultMovementspeed: 1.2
   movementSpeed: 0
   scriptedMovement: 0
+  sloping: 0
   animator: {fileID: 0}
   movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
+  isAscending: {x: 0, y: 0}
   actorRigidBody2d: {fileID: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  forceLookDirectionOnLoad: {x: -1, y: 0}
+  forceLookDirectionOnLoad: {x: 1, y: 0}
 --- !u!95 &1414917179925248974
 Animator:
   serializedVersion: 5
@@ -181,7 +184,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.013143063, y: 0.017619103}
+  m_Offset: {x: -0.013143063, y: 0.01833272}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -192,7 +195,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16742992, y: 0.09476179}
+  m_Size: {x: 0.16742992, y: 0.064790964}
   m_EdgeRadius: 0
 --- !u!50 &3674314268008786270
 Rigidbody2D:
@@ -202,7 +205,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3094668877101487324}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -221,6 +224,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &4107063146567792656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3094668877101487324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fef5538bad7fc247ae76602a14b4a19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spritesLayersToChange:
+  - {fileID: 9118200791651078646}
 --- !u!1 &7313200626957873692
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +286,7 @@ MonoBehaviour:
   dialogue:
   - actorGameObject: {fileID: 3094668877101487324}
     actorName: 
-    dialoguetext: Yea...na, sorry I was here first...
+    dialoguetext: 'I heard you guys '
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0

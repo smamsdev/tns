@@ -3845,9 +3845,11 @@ MonoBehaviour:
   defaultMovementspeed: 0.6
   movementSpeed: 0
   scriptedMovement: 0
+  sloping: 0
   animator: {fileID: 0}
   movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
+  isAscending: {x: 0, y: 0}
   actorRigidBody2d: {fileID: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
@@ -7494,6 +7496,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &430487697 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4793460563472296897, guid: eed42936844dcb44e941b9818a0100a0, type: 3}
+  m_PrefabInstance: {fileID: 5442133062602332443}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &440277881
 GameObject:
   m_ObjectHideFlags: 0
@@ -11749,6 +11756,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
+--- !u!1 &666081837
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 666081838}
+  m_Layer: 0
+  m_Name: pfp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &666081838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666081837}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.39, y: 0.14999999, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 964750703}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &673672871
 GameObject:
   m_ObjectHideFlags: 0
@@ -14327,6 +14365,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 831176184}
   m_CullTransparentMesh: 1
+--- !u!1 &837746655
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 837746656}
+  m_Layer: 0
+  m_Name: Battles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &837746656
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837746655}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 964750703}
+  m_Father: {fileID: 1458070173}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &840127596
 GameObject:
   m_ObjectHideFlags: 0
@@ -15026,9 +15096,11 @@ MonoBehaviour:
   defaultMovementspeed: 0.8
   movementSpeed: 0
   scriptedMovement: 0
+  sloping: 0
   animator: {fileID: 0}
   movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
+  isAscending: {x: 0, y: 0}
   actorRigidBody2d: {fileID: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
@@ -16586,6 +16658,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 959160228}
   m_CullTransparentMesh: 1
+--- !u!1 &964750701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 964750703}
+  - component: {fileID: 964750702}
+  m_Layer: 0
+  m_Name: '!Battle'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &964750702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964750701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b67369182688b42855f6f2c04fe9ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyGameObject:
+  - {fileID: 0}
+  playerFightingPosition: {fileID: 666081837}
+  combatManager: {fileID: 430487697}
+--- !u!4 &964750703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964750701}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 666081838}
+  m_Father: {fileID: 837746656}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &983045707
 GameObject:
   m_ObjectHideFlags: 0
@@ -23384,9 +23505,11 @@ MonoBehaviour:
   defaultMovementspeed: 0.7
   movementSpeed: 0
   scriptedMovement: 0
+  sloping: 0
   animator: {fileID: 0}
   movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
+  isAscending: {x: 0, y: 0}
   actorRigidBody2d: {fileID: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
@@ -25525,6 +25648,7 @@ Transform:
   - {fileID: 2065829146}
   - {fileID: 2044413486}
   - {fileID: 281734677}
+  - {fileID: 837746656}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1458070174
@@ -40605,9 +40729,11 @@ MonoBehaviour:
   defaultMovementspeed: 0.8
   movementSpeed: 0
   scriptedMovement: 0
+  sloping: 0
   animator: {fileID: 0}
   movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
+  isAscending: {x: 0, y: 0}
   actorRigidBody2d: {fileID: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}

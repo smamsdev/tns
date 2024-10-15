@@ -36,6 +36,7 @@ public class menuMain : Menu
     {
         menuGO.SetActive(false);
         isMenuOn = false;
+        CombatEvents.isBattleMode = false;
     }
 
     void Update()

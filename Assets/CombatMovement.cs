@@ -5,7 +5,7 @@ using UnityEngine;
 public class CombatMovement : MonoBehaviour
 {
     public ActorMove actorMove;
-    private MovementScript movementScript;
+    public MovementScript movementScript;
 
     public IEnumerator MoveCombatant(GameObject gameObject, Vector3 targetPosition, float stoppingPercentage = 100f, bool useTimeout = false)
     {
