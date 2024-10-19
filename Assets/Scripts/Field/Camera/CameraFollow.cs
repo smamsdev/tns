@@ -25,6 +25,9 @@ public class CameraFollow : MonoBehaviour
         CombatEvents.BattleMode -= CameraBattleMode;
     }
 
+
+    //dont forget about z -10, it's important!
+
     private void Start()
     {
         transform.position = new Vector3(transformToFollow.position.x, transformToFollow.position.y, (transformToFollow.position.z - 10));
