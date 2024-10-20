@@ -85,7 +85,7 @@ public class ActorMovementScript : MovementScript
             previousPosition = actorRigidBody2d.position;
 
             newPosition.x += movementSpeed * horizontalInput * Time.deltaTime;
-            newPosition.y += movementSpeed * verticalInput * Time.deltaTime;
+            newPosition.y += movementSpeed * (verticalInput + sloping) * Time.deltaTime;
 
             actorRigidBody2d.MovePosition(newPosition);
 
