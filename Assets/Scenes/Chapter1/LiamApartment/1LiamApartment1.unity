@@ -193,7 +193,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -5799008513349937226, guid: d92ae8128ed066a4fabcd977c8b13dba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorMove:
-    actorGO: {fileID: 708503469362685830}
+    actorGO: {fileID: 0}
     destination:
     - {x: 0.21164873, y: 0.14000002, z: 0}
 --- !u!1 &118874367
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorMove:
-    actorGO: {fileID: 708503469362685830}
+    actorGO: {fileID: 0}
     destination:
     - {x: -0.13, y: 0.6, z: 0}
 --- !u!1 &149626280
@@ -427,7 +427,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -8622076205586660582, guid: b0adedb2606f74144b7fb194375e71a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -531,7 +531,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueManager: {fileID: 0}
   dialogue:
-  - actorGameObject: {fileID: 708503469362685830}
+  - actorGameObject: {fileID: 0}
     actorName: 
     dialoguetext: You'll be fine. Good luck
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
@@ -766,7 +766,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 5479855944719525135, guid: b0adedb2606f74144b7fb194375e71a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -882,7 +882,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 4126822801974436527, guid: b0adedb2606f74144b7fb194375e71a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1047,12 +1047,14 @@ MonoBehaviour:
   defaultMovementspeed: 1.2
   movementSpeed: 0
   scriptedMovement: 0
+  sloping: 0
   animator: {fileID: 0}
   movementDirection: {x: 0, y: 0}
+  lookDirection: {x: 0, y: 0}
+  isAscending: {x: 0, y: 0}
   actorRigidBody2d: {fileID: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  lookDirection: {x: 0, y: 0}
   forceLookDirectionOnLoad: {x: 0, y: 0}
 --- !u!212 &413688485
 SpriteRenderer:
@@ -1093,7 +1095,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 8836683949167387250, guid: eb38f8dc6acbd8a4791ed280944e9f3e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1187,7 +1189,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 4927426993815930511, guid: b0adedb2606f74144b7fb194375e71a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1304,7 +1306,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -4923846214875929005, guid: d92ae8128ed066a4fabcd977c8b13dba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1433,7 +1435,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 1177515752238761964, guid: b0adedb2606f74144b7fb194375e71a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1540,8 +1542,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d593160d2ff05647bae10e390d7b9c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneID: 
   sceneName: 1LAppEntrance1
-  entryCoordinates: {x: -0.38, y: 0.9}
+  entryCoordinates: {x: -0.38, y: 0.9, z: 0}
+  animator: {fileID: 0}
+  textMeshProUGUI: {fileID: 0}
 --- !u!1 &605120157
 GameObject:
   m_ObjectHideFlags: 0
@@ -1614,7 +1619,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: -1
   m_Sprite: {fileID: 4639811305103803378, guid: d92ae8128ed066a4fabcd977c8b13dba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1716,7 +1721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b15f866d829ad03448eee675529cae58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 6057954161308233380}
+  animator: {fileID: 0}
   customAnimationStateNumber: 1
   revertstate: 1
 --- !u!1 &709083562
@@ -1872,7 +1877,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -1166586183017005827, guid: b0adedb2606f74144b7fb194375e71a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1974,7 +1979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b15f866d829ad03448eee675529cae58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 6057954161308233380}
+  animator: {fileID: 0}
   customAnimationStateNumber: 1
   revertstate: 0
 --- !u!1 &789685094
@@ -2101,7 +2106,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: -632441408636251006, guid: d92ae8128ed066a4fabcd977c8b13dba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2326,7 +2331,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: -6419312802220965527, guid: b0adedb2606f74144b7fb194375e71a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2411,7 +2416,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -5741646740125692787, guid: b0adedb2606f74144b7fb194375e71a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2593,7 +2598,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 27902362160878240, guid: d92ae8128ed066a4fabcd977c8b13dba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2697,7 +2702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorMove:
-    actorGO: {fileID: 708503469362685830}
+    actorGO: {fileID: 0}
     destination:
     - {x: 0.20664872, y: 0.03, z: 0}
 --- !u!114 &960468685
@@ -2713,7 +2718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerToLeave: {fileID: 960468684}
-  actorToLeave: {fileID: 7288578850715084165}
+  actorToLeave: {fileID: 0}
 --- !u!1 &970900248
 GameObject:
   m_ObjectHideFlags: 0
@@ -2759,7 +2764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorMove:
-    actorGO: {fileID: 708503469362685830}
+    actorGO: {fileID: 0}
     destination:
     - {x: -0.655, y: 0.8, z: 0}
     - {x: -0.665, y: 1.23, z: 0}
@@ -2975,7 +2980,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 5620956841071959480, guid: b0adedb2606f74144b7fb194375e71a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3106,7 +3111,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 5698515944682101088, guid: b0adedb2606f74144b7fb194375e71a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3119,6 +3124,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!4 &1152148523 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 380027881010905534, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+  m_PrefabInstance: {fileID: 4048151908663211344}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1202210526
 GameObject:
   m_ObjectHideFlags: 0
@@ -3190,7 +3200,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: -6518517811400162729, guid: b0adedb2606f74144b7fb194375e71a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3249,12 +3259,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueManager: {fileID: 0}
   dialogue:
-  - actorGameObject: {fileID: 708503469362685830}
+  - actorGameObject: {fileID: 0}
     actorName: 
     dialoguetext: "Okay, so I need to get to work.\n The agent left a message. "
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
-  - actorGameObject: {fileID: 708503469362685830}
+  - actorGameObject: {fileID: 0}
     actorName: 
     dialoguetext: "The last payment didn't process, \nso can you go to the bank and
       talk to them?"
@@ -3266,7 +3276,7 @@ MonoBehaviour:
       stuff..."
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
-  - actorGameObject: {fileID: 708503469362685830}
+  - actorGameObject: {fileID: 0}
     actorName: 
     dialoguetext: He said this was our second warning.
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
@@ -3276,7 +3286,7 @@ MonoBehaviour:
     dialoguetext: C'mon! What a dick.
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
-  - actorGameObject: {fileID: 708503469362685830}
+  - actorGameObject: {fileID: 0}
     actorName: 
     dialoguetext: Totally...can you take care of it?
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
@@ -3287,7 +3297,7 @@ MonoBehaviour:
       right?"
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
-  - actorGameObject: {fileID: 708503469362685830}
+  - actorGameObject: {fileID: 0}
     actorName: 
     dialoguetext: You've got this...but we need to go.
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
@@ -3366,7 +3376,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 1161623038609158140, guid: b0adedb2606f74144b7fb194375e71a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3622,7 +3632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorMove:
-    actorGO: {fileID: 708503469362685830}
+    actorGO: {fileID: 0}
     destination:
     - {x: -0.96999997, y: 1.38, z: 0}
     - {x: -0.63, y: 1.385, z: 0}
@@ -3696,8 +3706,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transformToFollow: {fileID: 0}
   mainCamera: {fileID: 1298093475}
-  rememberEntryCoordinates: 0
-  forceLookRight: 1
+  useEntryCoordinates: 0
+  forceLook: {x: 0, y: 0}
+  forcedEntryCoordinates: {x: 0, y: 0, z: 0}
+  forceEntryCoorinates: 0
 --- !u!1001 &1465253707
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3922,7 +3934,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -3640018661516381423, guid: b0adedb2606f74144b7fb194375e71a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4052,7 +4064,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: -1
   m_Sprite: {fileID: -4347827887542666854, guid: b0adedb2606f74144b7fb194375e71a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4218,7 +4230,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -760431423074060974, guid: b0adedb2606f74144b7fb194375e71a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4338,7 +4350,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: -2868068189274964842, guid: b0adedb2606f74144b7fb194375e71a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4422,7 +4434,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 1742703114695555950, guid: b0adedb2606f74144b7fb194375e71a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4555,7 +4567,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: -1950869519772308752, guid: b0adedb2606f74144b7fb194375e71a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4698,7 +4710,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 6452921185138105830, guid: b0adedb2606f74144b7fb194375e71a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4819,6 +4831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0611d9e1c7a377444b9784b90ea97e9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableColliderOnEnter: 0
 --- !u!61 &1777195922
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4910,7 +4923,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueManager: {fileID: 0}
   dialogue:
-  - actorGameObject: {fileID: 708503469362685830}
+  - actorGameObject: {fileID: 0}
     actorName: 
     dialoguetext: ...Hey...
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
@@ -4925,7 +4938,7 @@ MonoBehaviour:
     dialoguetext: ...What did you wake me for?
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
-  - actorGameObject: {fileID: 708503469362685830}
+  - actorGameObject: {fileID: 0}
     actorName: 
     dialoguetext: There is not enough time, I need help...
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
@@ -4940,7 +4953,7 @@ MonoBehaviour:
     dialoguetext: Help with?
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
-  - actorGameObject: {fileID: 708503469362685830}
+  - actorGameObject: {fileID: 0}
     actorName: 
     dialoguetext: Please get up...and I'll explain...
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
@@ -5126,10 +5139,77 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7288578850715084165}
   - {fileID: 413688479}
+  - {fileID: 1152148523}
+  - {fileID: 2095834848}
   m_Father: {fileID: 1458070173}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2095834847
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2065829146}
+    m_Modifications:
+    - target: {fileID: 1834222677042120547, guid: 66838300f45dc314680f9e23b4556f9f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.07164872
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834222677042120547, guid: 66838300f45dc314680f9e23b4556f9f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.81499994
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834222677042120547, guid: 66838300f45dc314680f9e23b4556f9f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834222677042120547, guid: 66838300f45dc314680f9e23b4556f9f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834222677042120547, guid: 66838300f45dc314680f9e23b4556f9f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834222677042120547, guid: 66838300f45dc314680f9e23b4556f9f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834222677042120547, guid: 66838300f45dc314680f9e23b4556f9f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834222677042120547, guid: 66838300f45dc314680f9e23b4556f9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834222677042120547, guid: 66838300f45dc314680f9e23b4556f9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834222677042120547, guid: 66838300f45dc314680f9e23b4556f9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2459638364048996729, guid: 66838300f45dc314680f9e23b4556f9f, type: 3}
+      propertyPath: m_Name
+      value: Joyexport
+      objectReference: {fileID: 0}
+    - target: {fileID: 7705148076694913038, guid: 66838300f45dc314680f9e23b4556f9f, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 5722775257425419465, guid: 7dfb6c28a356ebb439aec41856d154c4, type: 3}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 66838300f45dc314680f9e23b4556f9f, type: 3}
+--- !u!4 &2095834848 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1834222677042120547, guid: 66838300f45dc314680f9e23b4556f9f, type: 3}
+  m_PrefabInstance: {fileID: 2095834847}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2127232336
 GameObject:
   m_ObjectHideFlags: 0
@@ -5164,11 +5244,6 @@ Transform:
   - {fileID: 1138871170}
   m_Father: {fileID: 709083563}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &708503469362685830 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7538167253183439829, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
-  m_PrefabInstance: {fileID: 4048151908663211344}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3203464327039275315
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5291,16 +5366,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
---- !u!95 &6057954161308233380 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 70555817613570070, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
-  m_PrefabInstance: {fileID: 4048151908663211344}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &7288578850715084165 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5792798798593594041, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
-  m_PrefabInstance: {fileID: 4048151908663211344}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
