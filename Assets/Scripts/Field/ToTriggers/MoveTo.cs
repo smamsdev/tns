@@ -6,7 +6,6 @@ public class MoveTo : ToTrigger
 {
     public ActorMove actorMove;
 
-    // Static counter to track active MoveTo instances
     private static int activeMoveToCount = 0;
 
     public static int ActiveMoveToCount => activeMoveToCount; // Property to access the count
@@ -35,6 +34,7 @@ public class MoveTo : ToTrigger
         if (activeMoveToCount == 0)
         {
             CombatEvents.UnlockPlayerMovement();
+            Debug.Log("complete");
         }
 
         FieldEvents.HasCompleted.Invoke(this.gameObject);

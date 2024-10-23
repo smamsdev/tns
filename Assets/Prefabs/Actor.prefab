@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8630372658958366465}
-  - component: {fileID: 891388842656052516}
+  - component: {fileID: 558678394563526800}
   m_Layer: 10
   m_Name: Collider
   m_TagString: Untagged
@@ -32,8 +32,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 380027881010905534}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &891388842656052516
-BoxCollider2D:
+--- !u!70 &558678394563526800
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -64,19 +64,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.01290226, y: 0.0246872}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.6111111, y: 0}
-    oldSize: {x: 0.18, y: 0.54}
-    newSize: {x: 0.18, y: 0.54}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.1438613, y: 0.08062559}
-  m_EdgeRadius: 0
+  m_Offset: {x: -0.01, y: 0.04}
+  m_Size: {x: 0.22, y: 0.1}
+  m_Direction: 1
 --- !u!1 &618816556150282568
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,12 +200,12 @@ SpriteRenderer:
   m_SortingLayerID: 627291665
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 916146438343407890, guid: ca192700266054f4e860b2d1e25a8aff, type: 3}
+  m_Sprite: {fileID: 831682094325166290, guid: 0c9433385ac3baf4a837e7ae7b6b9abd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.18, y: 0.54}
+  m_Size: {x: 0.21, y: 0.54}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -314,18 +304,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.015453942, y: 0.0057249367}
+  m_Offset: {x: -0.010620169, y: 0.017735332}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.52380955, y: 0}
     oldSize: {x: 0.21, y: 0.54}
-    newSize: {x: 0.18, y: 0.54}
+    newSize: {x: 0.21, y: 0.54}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.18559004, y: 0.14883322}
+  m_Size: {x: 0.21734823, y: 0.124812424}
   m_EdgeRadius: 0
 --- !u!50 &3875260186346835048
 Rigidbody2D:

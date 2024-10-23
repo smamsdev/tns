@@ -21,7 +21,6 @@ public class SceneSetup : MonoBehaviour
             }
 
             transformToFollow.transform.position = FieldEvents.entryCoordinates;
-            Debug.Log(FieldEvents.entryCoordinates);
         }
 
         if (forceLook != Vector2.zero) 

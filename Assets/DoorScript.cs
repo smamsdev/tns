@@ -7,6 +7,7 @@ public class DoorScript : MonoBehaviour
     public SpriteRenderer doorSprite;
     public MovementScript movementScript;
     bool disablingDoor;
+    int ignoreLayer = 10;
 
     private void OnEnable()
     {
@@ -18,16 +19,19 @@ public class DoorScript : MonoBehaviour
         disablingDoor = true;
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collisionWith)
 
     {
-        movementScript = collision.gameObject.GetComponent<MovementScript>();
-        StartCoroutine(OpenDoor());
+        if (collisionWith.gameObject.layer != ignoreLayer)
+        { 
+            movementScript = collisionWith.gameObject.GetComponent<MovementScript>();
+            StartCoroutine(OpenDoor());
+        }
     }
 
-    void OnTriggerExit2D()
+    void OnTriggerExit2D(Collider2D collisionWith)
     {
-        if (!disablingDoor)
+        if (!disablingDoor & collisionWith.gameObject.layer != ignoreLayer)
         {
             StartCoroutine(CloseDoor());
         }

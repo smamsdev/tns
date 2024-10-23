@@ -10,7 +10,6 @@ public class DescendStairs : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collisionWith)
     {
-        //this.GetComponent<Collider2D>().enabled = false;
         actor = collisionWith.gameObject;
 
         actor.layer = LayerMask.NameToLayer("OnStairs");
