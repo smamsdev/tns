@@ -46,6 +46,7 @@ public class LevelLoaderScript : ToTrigger
     {
         FieldEvents.entryCoordinates = entryCoordinates;
         LoadScene(sceneID);
+        FieldEvents.HasCompleted.Invoke(this.gameObject);
         yield return null;
     }
 
