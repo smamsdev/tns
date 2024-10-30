@@ -26,8 +26,6 @@ public class DialogueContainer : ToTrigger
         FieldEvents.isDialogueActive = true;
         dialogueManager.OpenDialogue(dialogue);
         dialogueLaunched = true;
-
-        Debug.Log("is this one");
     }
 
 

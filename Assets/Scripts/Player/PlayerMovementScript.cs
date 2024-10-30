@@ -33,7 +33,6 @@ public class PlayerMovementScript : MovementScript
         movementSpeed = defaultMovementspeed;
         scriptedMovement = false;
         FieldEvents.movementSpeedMultiplier = 1;
-        animator.SetFloat("sceneEntryDirection", lookDirection.x);
         isAscending = Vector2.one;
     }
 

@@ -20,7 +20,6 @@ public class EnableObject : ToTrigger
     public override IEnumerator DoAction()
 
     {
-        CombatEvents.LockPlayerMovement();
         GameObjectToEnable.SetActive(true);
 
         FieldEvents.HasCompleted.Invoke(this.gameObject);
@@ -36,5 +35,4 @@ public class EnableObject : ToTrigger
            StartCoroutine(DoAction());
         }
     }
-
 }

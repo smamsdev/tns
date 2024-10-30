@@ -6,7 +6,7 @@ using static Cinemachine.DocumentationSortingAttribute;
 public class PlayerCombatStats : MonoBehaviour
 {
 
-    [SerializeField] PlayerPermanentStats playerPermanentStats;
+    public PlayerPermanentStats playerPermanentStats;
 
     [Header("HP")]
     public int playerCurrentHP;
