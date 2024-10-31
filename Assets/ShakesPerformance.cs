@@ -6,9 +6,9 @@ public class ShakesPerformance : MonoBehaviour
     [SerializeField] PlayerMovementScript playerMovementScript;
     [SerializeField] GameObject stageExploredGO;
 
-    public bool focusComplete;
-    public bool jumpsComplete = false;
-    public BooleanCheckTrigger stageAreaExplored;
+    public BooleanCheckTrigger stageAreaExploredCheck;
+    public BooleanCheckTrigger jumpsCompleteCheck;
+    public BooleanCheckTrigger focusTimerCompleteCheck;
 
     public Animator playerAnimator;
     public float timer = 0f;
@@ -17,16 +17,6 @@ public class ShakesPerformance : MonoBehaviour
     private float idleTimer = 0f;
     private float idleThreshold = 7f;
     public bool isPerformance = true;
-
-    private void OnEnable()
-    {
-        FieldEvents.HasCompleted += TriggerAction;
-    }
-
-    private void OnDisable()
-    {
-        FieldEvents.HasCompleted -= TriggerAction;
-    }
 
     private void Start()
     {
@@ -51,14 +41,17 @@ public class ShakesPerformance : MonoBehaviour
 
                 if (idleTimer >= idleThreshold)
                 {
-                    focusComplete = true;
+                    focusTimerCompleteCheck.conditionMet = true;
                 }
+
+
             }
 
             if (Input.GetKeyDown(KeyCode.Space) && jumpCooldown < 0.1f)
             {
                 CombatEvents.LockPlayerMovement();
                 playerAnimator.SetBool("isMoving", false);
+                idleTimer = 0f;
 
                 if (playerMovementScript.lookDirection.x < 0)
                 {
@@ -75,7 +68,7 @@ public class ShakesPerformance : MonoBehaviour
 
                 if (jumpCounter == 10)
                 {
-                    jumpsComplete = true;
+                    jumpsCompleteCheck.conditionMet = true;
                     jumpCounter = 11;
                 }
 
@@ -84,13 +77,14 @@ public class ShakesPerformance : MonoBehaviour
         }
     }
 
-    void TriggerAction(GameObject gameObject)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (stageExploredGO == gameObject)
+        if (collision.tag == "Player")
 
         {
-            stageAreaExplored.conditionMet = true;
+            stageAreaExploredCheck.conditionMet = true;
         }
+
     }
 
     void EndPerformance()
@@ -98,4 +92,5 @@ public class ShakesPerformance : MonoBehaviour
         isPerformance = false;
         FieldEvents.HasCompleted.Invoke(this.gameObject);
     }
+
 }

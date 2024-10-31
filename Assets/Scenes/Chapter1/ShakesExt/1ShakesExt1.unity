@@ -194,7 +194,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -5117612342548484596, guid: 3a37fc4946ba71840ae0660b1750cee6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -309,6 +309,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -4734747444515914592, guid: 3b1a239f51315fa45a9fdf37f996e2cd, type: 3}
+    - target: {fileID: 4772101394034471210, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogueToPlay
+      value: 
+      objectReference: {fileID: 1227543311}
     - target: {fileID: 5217880113082645730, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: m_Name
       value: Musician
@@ -319,9 +323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[0].dialoguetext
-      value: 'Yooo Liam, aren''t TNS going
-
-        on stage soon?'
+      value: Yooo guys, are TNS going on stage soon?
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[1].dialoguetext
@@ -346,7 +348,8 @@ PrefabInstance:
       value: 0.54
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 618816556150282568, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
@@ -519,7 +522,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 8759162161959705409, guid: 5ac1cdf7572661f44b2e082d56869dfd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -684,7 +687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[0].dialoguetext
-      value: Liam, your on next.
+      value: Liam, you're on next.
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[1].dialoguetext
@@ -692,12 +695,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[2].dialoguetext
-      value: 'That''s Kristian Fiktion, just wrapping up.
+      value: 'That''s Kristian Fiktion wrapping up.
 
-        He started 90
-        minutes late so everyone
-
-        got bumped'
+        They started late so
+        everyone''s set got pushed back.'
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[1].actorGameObject
@@ -754,38 +755,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1465253708}
-  m_Father: {fileID: 1458070173}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &534649801
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 534649802}
-  m_Layer: 0
-  m_Name: Exits
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &534649802
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 534649801}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 586108309}
   m_Father: {fileID: 1458070173}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &566027238
@@ -860,7 +829,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 6372619870075926151, guid: 3a37fc4946ba71840ae0660b1750cee6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -923,102 +892,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 380027881010905534, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
   m_PrefabInstance: {fileID: 1354089389}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &586108308
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 586108309}
-  - component: {fileID: 586108311}
-  - component: {fileID: 586108310}
-  m_Layer: 0
-  m_Name: ToHamiltonEast
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &586108309
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 586108308}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.16, y: 0.72, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 534649802}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.6, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.33, y: 1.7}
-  m_SizeDelta: {x: 1, y: 1}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!61 &586108310
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 586108308}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.32}
-    newSize: {x: 64, y: 64}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
---- !u!114 &586108311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 586108308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d593160d2ff05647bae10e390d7b9c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneName: Alley
-  entryCoordinates: {x: -4.4, y: 1.15, z: 0}
 --- !u!1001 &620559940
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1067,6 +940,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2384678310500337188, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -313733938862752672, guid: 47cf3488112fd8b44be055c3df4830e5, type: 3}
     - target: {fileID: 5217880113082645730, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: m_Name
       value: Bored Musician
@@ -1177,7 +1054,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -4474993817726463418, guid: 3a37fc4946ba71840ae0660b1750cee6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1307,7 +1184,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 8284705676650364051, guid: 36ab2aadd5ac28343a34953833b4a950, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1544,7 +1421,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 5150041049819578883, guid: 87a360739e50e5949bd6abb9e1614a0b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1627,17 +1504,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[0].dialoguetext
-      value: That's a fine van...
+      value: 'Hey Ducky, I see you''ve met
+
+        our tanned chariot.
+
+        Will
+        you gaurd it for us?'
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[1].dialoguetext
-      value: 'It''s our tanned chariot.
-
-        Will you gaurd it for us?'
+      value: I'll defend it with this guy's life...
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[2].dialoguetext
@@ -1648,9 +1528,13 @@ PrefabInstance:
       value: I'll defend it with this guy's life...
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
-      propertyPath: dialogue.Array.data[1].actorGameObject
+      propertyPath: dialogue.Array.data[0].actorGameObject
       value: 
       objectReference: {fileID: 34373817}
+    - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogue.Array.data[1].actorGameObject
+      value: 
+      objectReference: {fileID: 1097558109}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[2].actorGameObject
       value: 
@@ -1757,7 +1641,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 8773131280481808023, guid: 5ac1cdf7572661f44b2e082d56869dfd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1961,6 +1845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SlopePercentage: 0.2
+  movementScript: {fileID: 0}
 --- !u!1 &1097558109 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5217880113082645730, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
@@ -2039,7 +1924,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -5008333527736427311, guid: 3a37fc4946ba71840ae0660b1750cee6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2265,7 +2150,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -4599022041838907287, guid: 5ac1cdf7572661f44b2e082d56869dfd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2323,6 +2208,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.29, y: 0.44}
   m_EdgeRadius: 0
+--- !u!114 &1227543311 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8129439563870302754, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
+  m_PrefabInstance: {fileID: 1409311245}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3074f9f12c26914d9fd823d3c034dfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1248376036
 GameObject:
   m_ObjectHideFlags: 0
@@ -2395,7 +2291,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 3255603899896981038, guid: 3a37fc4946ba71840ae0660b1750cee6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2511,21 +2407,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[0].dialoguetext
-      value: 'Jon Wexler and The Circadians
-
-        are meant to be playing here
-        in the Summer'
+      value: This is a nice van...
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[1].dialoguetext
-      value: What kind of van does he have?
+      value: 'Jon Wexler and The Circadians
+
+        are playing here in the Summer.
+
+        Their
+        tour bus is huge!'
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogue.Array.data[2].dialoguetext
+      value: Bus locks are really hard to open...
+      objectReference: {fileID: 0}
+    - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogue.Array.data[0].actorGameObject
+      value: 
+      objectReference: {fileID: 1097558109}
+    - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[1].actorGameObject
+      value: 
+      objectReference: {fileID: 1835837348}
+    - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogue.Array.data[2].actorGameObject
       value: 
       objectReference: {fileID: 1097558109}
     - target: {fileID: 8952867116239051250, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
@@ -2867,9 +2777,23 @@ PrefabInstance:
       value: Attendee
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
-      propertyPath: dialogue.Array.data[0].dialoguetext
-      value: This must be another one...
+      propertyPath: dialogue.Array.size
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogue.Array.data[0].dialoguetext
+      value: 'You must be the next one on...
+
+        Fresh meat!'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogue.Array.data[1].dialoguetext
+      value: ...
+      objectReference: {fileID: 0}
+    - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogue.Array.data[1].actorGameObject
+      value: 
+      objectReference: {fileID: 34373817}
     - target: {fileID: 8952867116239051250, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.x
       value: 0.42105263
@@ -2956,9 +2880,33 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8129439563870302754, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
-      propertyPath: dialogue.Array.data[0].dialoguetext
-      value: 'I heard you guys '
+      propertyPath: dialogue.Array.size
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8129439563870302754, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
+      propertyPath: dialogue.Array.data[0].dialoguetext
+      value: Yooo guys, are TNS going on stage soon?
+      objectReference: {fileID: 0}
+    - target: {fileID: 8129439563870302754, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
+      propertyPath: dialogue.Array.data[1].dialoguetext
+      value: "Liam refuses to go on until all \nthe ladies chant his name 100 times!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8129439563870302754, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
+      propertyPath: dialogue.Array.data[2].dialoguetext
+      value: "Liam refuses to go on until all \nthe ladies chant his name 100 times!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8129439563870302754, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
+      propertyPath: dialogue.Array.data[0].actorGameObject
+      value: 
+      objectReference: {fileID: 1873297809}
+    - target: {fileID: 8129439563870302754, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
+      propertyPath: dialogue.Array.data[1].actorGameObject
+      value: 
+      objectReference: {fileID: 845774667}
+    - target: {fileID: 8129439563870302754, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
+      propertyPath: dialogue.Array.data[2].actorGameObject
+      value: 
+      objectReference: {fileID: 1873297809}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3039,7 +2987,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 1926315191567865379, guid: 5ac1cdf7572661f44b2e082d56869dfd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3143,7 +3091,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 402875641}
-  - {fileID: 534649802}
   - {fileID: 1598610230}
   - {fileID: 476719679}
   m_Father: {fileID: 0}
@@ -3414,7 +3361,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -4828397708793138047, guid: 5ac1cdf7572661f44b2e082d56869dfd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3721,7 +3668,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -1074271643222481947, guid: 5ac1cdf7572661f44b2e082d56869dfd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3807,7 +3754,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 6055338226423697017, guid: 5ac1cdf7572661f44b2e082d56869dfd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4001,6 +3948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SlopePercentage: -0.2
+  movementScript: {fileID: 0}
 --- !u!1 &1796408615
 GameObject:
   m_ObjectHideFlags: 0
@@ -4085,6 +4033,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1835837348 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5217880113082645730, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+  m_PrefabInstance: {fileID: 1248989133}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1873297809 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5217880113082645730, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+  m_PrefabInstance: {fileID: 310939291}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1894229752
 GameObject:
   m_ObjectHideFlags: 0
@@ -4280,7 +4238,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 2824115100779342891, guid: 5ac1cdf7572661f44b2e082d56869dfd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4461,14 +4419,47 @@ MonoBehaviour:
   dialogue:
   - actorGameObject: {fileID: 845774667}
     actorName: 
-    dialoguetext: 'I''ll meet you down there...
-
-      Look at all these people!'
+    dialoguetext: Look at all this crowd...
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 845774667}
     actorName: 
     dialoguetext: There must be at least 10 of um!!
+    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
+    dialogueGameObject: {fileID: 0}
+  - actorGameObject: {fileID: 34373817}
+    actorName: 
+    dialoguetext: 10!? That's too many.
+    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
+    dialogueGameObject: {fileID: 0}
+  - actorGameObject: {fileID: 845774667}
+    actorName: 
+    dialoguetext: 'Only one of them matters.
+
+      Just focus on impressing the
+      A&R guy.'
+    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
+    dialogueGameObject: {fileID: 0}
+  - actorGameObject: {fileID: 34373817}
+    actorName: 
+    dialoguetext: I don't think I'm ready for this...
+    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
+    dialogueGameObject: {fileID: 0}
+  - actorGameObject: {fileID: 845774667}
+    actorName: 
+    dialoguetext: 'We got your back up there bro.
+
+      We need this to work out.'
+    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
+    dialogueGameObject: {fileID: 0}
+  - actorGameObject: {fileID: 845774667}
+    actorName: 
+    dialoguetext: I know there is a predator inside you.
+    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
+    dialogueGameObject: {fileID: 0}
+  - actorGameObject: {fileID: 845774667}
+    actorName: 
+    dialoguetext: I'll meet you downstairs...
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
@@ -4545,7 +4536,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -2728635591101284755, guid: 3a37fc4946ba71840ae0660b1750cee6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4726,7 +4717,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 5774231545497413148, guid: 5ac1cdf7572661f44b2e082d56869dfd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -6,11 +6,12 @@ public class Sequence : ToTrigger
 {
     public ToTrigger[] toTrigger;
     int i = 0;
+    bool isSequenceRunning;
 
     private void OnEnable()
     {
         FieldEvents.HasCompleted += TriggerAction;
-        FieldEvents.isSequenceRunning = false;
+        isSequenceRunning = false;
     }
 
     private void OnDisable()
@@ -20,7 +21,7 @@ public class Sequence : ToTrigger
 
     public override IEnumerator DoAction()
     {
-        FieldEvents.isSequenceRunning = true;
+        isSequenceRunning = true;
         if (i < toTrigger.Length)
         {
             StartCoroutine(toTrigger[i].DoAction());
@@ -31,7 +32,7 @@ public class Sequence : ToTrigger
 
     void TriggerAction(GameObject gameObject)
     {
-        if (FieldEvents.isSequenceRunning)
+        if (isSequenceRunning)
         {
             if (i < toTrigger.Length && toTrigger[i].gameObject == gameObject)
             {
@@ -58,8 +59,7 @@ public class Sequence : ToTrigger
         {
             toTrigger[i - 1] = null;
         }
-
-        FieldEvents.isSequenceRunning = false;
+        isSequenceRunning = false;
         FieldEvents.HasCompleted.Invoke(this.gameObject);
     }
 }

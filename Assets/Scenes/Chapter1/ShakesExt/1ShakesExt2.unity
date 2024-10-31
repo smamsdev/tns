@@ -370,6 +370,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86554a70ea8c83b42a0eadbecd42b8c1, type: 3}
+--- !u!114 &241644479 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+  m_PrefabInstance: {fileID: 310939291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3074f9f12c26914d9fd823d3c034dfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &310939291
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -418,6 +429,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1890650882134013526, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.00999999
+      objectReference: {fileID: 0}
     - target: {fileID: 2384678310500337188, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: m_FlipX
       value: 1
@@ -432,7 +447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.size
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[0].dialoguetext
@@ -440,14 +455,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[1].dialoguetext
-      value: 'We''re gonna wait for the crowd
+      value: 'I''m so nervous...
 
-        to get hyped first.'
+        I don''t know what to do up there!'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogue.Array.data[2].dialoguetext
+      value: "When you get on stage, just relax. \nPlant your feet on the ground.\nFocus
+        completely on the music."
+      objectReference: {fileID: 0}
+    - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogue.Array.data[3].dialoguetext
+      value: "No, you should jump around like\ncrazy to show everyone how \npowerful
+        you are."
+      objectReference: {fileID: 0}
+    - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogue.Array.data[4].dialoguetext
+      value: 'So stand still '
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[1].actorGameObject
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 34373817}
+    - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogue.Array.data[2].actorGameObject
+      value: 
+      objectReference: {fileID: 956365658}
+    - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogue.Array.data[3].actorGameObject
+      value: 
+      objectReference: {fileID: 1570504135}
+    - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogue.Array.data[4].actorGameObject
+      value: 
+      objectReference: {fileID: 34373817}
     - target: {fileID: 8952867116239051250, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.x
       value: 0.3529412
@@ -1114,6 +1155,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4772101394034471210, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogueToPlay
+      value: 
+      objectReference: {fileID: 241644479}
     - target: {fileID: 5217880113082645730, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: m_Name
       value: Bored Musician
@@ -1148,7 +1193,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 34373817}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 618816556150282568, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
@@ -1412,6 +1458,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 10.59, y: 1.83}
   m_EdgeRadius: 0
+--- !u!1 &657397576 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5217880113082645730, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+  m_PrefabInstance: {fileID: 1354089389}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &733765969 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1890650882134013526, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
@@ -1727,7 +1778,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[0].dialoguetext
-      value: I didn't steal nothing.
+      value: 'Your guitar is still there.
+
+        I didn''t steal nothing.'
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[1].dialoguetext
@@ -2808,7 +2861,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.size
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[0].dialoguetext
@@ -2816,12 +2869,41 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[1].dialoguetext
-      value: Me too, guy, me too...
+      value: I'm scared I'm going to be lame hell...
+      objectReference: {fileID: 0}
+    - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogue.Array.data[2].dialoguetext
+      value: 'The key to dominating a stage
+
+        is to prowl every corner of
+        it.
+
+        It''s your territory. Own it.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogue.Array.data[3].dialoguetext
+      value: I don't know how to do that.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogue.Array.data[4].dialoguetext
+      value: "If you don't believe in yourself, \nwho will?"
       objectReference: {fileID: 0}
     - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: dialogue.Array.data[1].actorGameObject
       value: 
       objectReference: {fileID: 34373817}
+    - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogue.Array.data[2].actorGameObject
+      value: 
+      objectReference: {fileID: 657397576}
+    - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogue.Array.data[3].actorGameObject
+      value: 
+      objectReference: {fileID: 34373817}
+    - target: {fileID: 8403251507797910267, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+      propertyPath: dialogue.Array.data[4].actorGameObject
+      value: 
+      objectReference: {fileID: 657397576}
     - target: {fileID: 8952867116239051250, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
       propertyPath: m_Size.x
       value: 0.188277
@@ -3672,7 +3754,7 @@ MonoBehaviour:
   dialogue:
   - actorGameObject: {fileID: 34373817}
     actorName: 
-    dialoguetext: Let's do this thing.
+    dialoguetext: Everyone is counting on me.
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
@@ -3762,6 +3844,11 @@ Transform:
   - {fileID: 640212669}
   m_Father: {fileID: 1465253708}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1570504135 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5217880113082645730, guid: b568d631010a3b840b9b3a0d48fb7c29, type: 3}
+  m_PrefabInstance: {fileID: 310939291}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1598610229
 GameObject:
   m_ObjectHideFlags: 0

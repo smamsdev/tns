@@ -8,7 +8,7 @@ public class PlayerInteractions : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !playerMovementScript.movementLocked)
         {
             Vector2 direction = playerMovementScript.lookDirection;
             Vector2 startPosition = new Vector2(transform.position.x, transform.position.y);
