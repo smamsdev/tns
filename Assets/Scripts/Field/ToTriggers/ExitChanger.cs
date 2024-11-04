@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ExitChanger : ToTrigger
 {
-    public string newExitString;
+    public string newExitIDString;
     public LevelLoaderScript exitToChange; 
 
     public override IEnumerator DoAction()
     {
-        exitToChange.sceneName = newExitString;
+        exitToChange.sceneID = newExitIDString;
 
         FieldEvents.HasCompleted.Invoke(this.gameObject);
         yield return null;

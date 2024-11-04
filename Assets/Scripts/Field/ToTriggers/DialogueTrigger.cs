@@ -33,7 +33,7 @@ public class DialogueTrigger : MonoBehaviour
     public void ReloadDialogue(GameObject gameObject)
 
     {
-        if (gameObject == dialogueToPlay.dialogue[0].dialogueGameObject)
+            if (dialogueToPlay.dialogue[0].dialogueGameObject != null && gameObject == dialogueToPlay.dialogue[0].dialogueGameObject)
      
            if (dialogueToPlay.isLoopedDialogue)
            {

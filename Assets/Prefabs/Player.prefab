@@ -313,8 +313,7 @@ Transform:
   m_LocalPosition: {x: 0, y: -0.112, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3976265001098194961}
+  m_Children: []
   m_Father: {fileID: 7291517550505530816}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1187770666283039894
@@ -420,59 +419,6 @@ MonoBehaviour:
   isAttack: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
---- !u!1 &1316485406853342762
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3976265001098194961}
-  - component: {fileID: 3566069020161508114}
-  m_Layer: 7
-  m_Name: YouGot500
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3976265001098194961
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1316485406853342762}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7435000722401256818}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3566069020161508114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1316485406853342762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e0e1a1cc4e5ef24196fe7ab4f4621ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueManager: {fileID: 0}
-  dialogue:
-  - actorGameObject: {fileID: 710185640659821120}
-    actorName: 
-    dialoguetext: You recieved 500 $MAMS!
-    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
-    dialogueGameObject: {fileID: 0}
-  dialogueLaunched: 0
-  isLoopedDialogue: 1
 --- !u!1 &1352870325393854133
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,7 +934,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 8
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!95 &1581588334341944753
@@ -1141,59 +1087,6 @@ Transform:
   - {fileID: 1776963636473302063}
   m_Father: {fileID: 7291517550505530816}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3632292428576394177
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1941618250129559560}
-  - component: {fileID: 1841811729978196977}
-  m_Layer: 7
-  m_Name: IDoneIt
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1941618250129559560
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3632292428576394177}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1376193321183321827}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1841811729978196977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3632292428576394177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3074f9f12c26914d9fd823d3c034dfb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueManager: {fileID: 0}
-  dialogue:
-  - actorGameObject: {fileID: 6457784655243026927}
-    actorName: 
-    dialoguetext: I done it!
-    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
-    dialogueGameObject: {fileID: 0}
-  dialogueLaunched: 0
-  isLoopedDialogue: 0
 --- !u!1 &4249036023532707788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1379,59 +1272,6 @@ MonoBehaviour:
   isAttack: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
---- !u!1 &4780527275725254014
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5092686190508885931}
-  - component: {fileID: 6141586780119108583}
-  m_Layer: 7
-  m_Name: TestDialogue
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5092686190508885931
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4780527275725254014}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1376193321183321827}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6141586780119108583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4780527275725254014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3074f9f12c26914d9fd823d3c034dfb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueManager: {fileID: 0}
-  dialogue:
-  - actorGameObject: {fileID: 6457784655243026927}
-    actorName: 
-    dialoguetext: im dialogue
-    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
-    dialogueGameObject: {fileID: 0}
-  dialogueLaunched: 0
-  isLoopedDialogue: 0
 --- !u!1 &4909455078986123961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1697,7 +1537,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 474900407
-  m_SortingLayer: 8
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!222 &2176407186501694727
@@ -1833,7 +1673,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1376193321183321827}
   - {fileID: 7435000722401256818}
   - {fileID: 1015281105997097713}
   - {fileID: 2337599494827004129}
@@ -1882,7 +1721,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 627291665
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -3990043726132597592, guid: 13c6eb5774d73bf42ae3b3d8b94f927b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2295,39 +2134,6 @@ MonoBehaviour:
   isAttack: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
---- !u!1 &7808588474547308289
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1376193321183321827}
-  m_Layer: 7
-  m_Name: Dialogue
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1376193321183321827
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7808588474547308289}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5092686190508885931}
-  - {fileID: 1941618250129559560}
-  m_Father: {fileID: 7291517550505530816}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8089375447339374614
 GameObject:
   m_ObjectHideFlags: 0

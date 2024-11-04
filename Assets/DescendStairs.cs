@@ -7,16 +7,21 @@ public class DescendStairs : MonoBehaviour
     public GameObject bottomOfStairs;
     public GameObject ascendStairs;
     GameObject actor;
+    int ignoreLayer = 10;
 
     private void OnTriggerEnter2D(Collider2D collisionWith)
     {
-        actor = collisionWith.gameObject;
+        if (collisionWith.gameObject.layer != ignoreLayer)
+        {
 
-        actor.layer = LayerMask.NameToLayer("OnStairs");
-        actor.GetComponent<MovementScript>().isAscending = new Vector2(-1, -1);
-        actor.GetComponent<LayerChanger>().ChangeLayer("OnStairs");
+            actor = collisionWith.gameObject;
 
-        StartCoroutine(EnterStairs(actor.transform.position, new Vector2(actor.transform.position.x, actor.transform.position.y - 0.04f), 0.04f));
+            actor.layer = LayerMask.NameToLayer("OnStairs");
+            actor.GetComponent<MovementScript>().isAscending = new Vector2(-1, -1);
+            actor.GetComponent<LayerChanger>().ChangeLayer("OnStairs");
+
+            StartCoroutine(EnterStairs(actor.transform.position, new Vector2(actor.transform.position.x, actor.transform.position.y - 0.04f), 0.04f));
+        }
     }
 
     private IEnumerator EnterStairs(Vector2 start, Vector2 end, float duration)

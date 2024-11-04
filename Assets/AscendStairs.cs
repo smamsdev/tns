@@ -7,15 +7,20 @@ public class AscendStairs : MonoBehaviour
     public DescendStairs descendStairs;
     GameObject actor;
 
+    int ignoreLayer = 10;
+
     private void OnTriggerEnter2D(Collider2D collisionWith)
     {
-        collisionWith.GetComponent<LayerChanger>().ChangeLayer("Actors");
-        collisionWith.GetComponent<MovementScript>().isAscending = new Vector2(1, 1);
+        if (collisionWith.gameObject.layer != ignoreLayer)
+        { 
+            collisionWith.GetComponent<LayerChanger>().ChangeLayer("Actors");
+            collisionWith.GetComponent<MovementScript>().isAscending = new Vector2(1, 1);
 
-        actor = collisionWith.gameObject;
-        actor.layer = LayerMask.NameToLayer("Actors");
+            actor = collisionWith.gameObject;
+            actor.layer = LayerMask.NameToLayer("Actors");
 
-        StartCoroutine(EscapeFromStairs(actor.transform.position,new Vector2 (actor.transform.position.x, actor.transform.position.y-0.04f), 0.04f));
+            StartCoroutine(EscapeFromStairs(actor.transform.position, new Vector2(actor.transform.position.x, actor.transform.position.y - 0.04f), 0.04f));
+        }
     }
 
     private IEnumerator EscapeFromStairs(Vector2 start, Vector2 end, float duration)

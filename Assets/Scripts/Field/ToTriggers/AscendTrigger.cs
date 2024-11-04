@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AscendTrigger : ToTrigger
 {
-    public GameObject GOToDescend;
+    public GameObject GOToAscend;
     public float stairLength;
     public float duration;
     MovementScript movementScript;
@@ -13,10 +13,10 @@ public class AscendTrigger : ToTrigger
         {
             CombatEvents.LockPlayerMovement();
 
-            movementScript = GOToDescend.GetComponent<MovementScript>();
+            movementScript = GOToAscend.GetComponent<MovementScript>();
             movementScript.lookDirection = Vector2.down;
 
-            var GOTransform = GOToDescend.transform.position;
+            var GOTransform = GOToAscend.transform.position;
 
             StartCoroutine(ExitStairs(GOTransform, new Vector2(GOTransform.x, GOTransform.y + stairLength), duration));
             yield return null;
@@ -31,13 +31,13 @@ public class AscendTrigger : ToTrigger
             movementScript.animator.SetFloat("verticalInput", -1);
             movementScript.animator.SetBool("isMoving", true);
             float t = elapsedTime / duration;
-            GOToDescend.transform.position = Vector2.Lerp(start, end, t);
+            GOToAscend.transform.position = Vector2.Lerp(start, end, t);
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
-            GOToDescend.transform.position = end;
-            GOToDescend.GetComponent<LayerChanger>().ChangeLayer("Actors");
+            GOToAscend.transform.position = end;
+            GOToAscend.GetComponent<LayerChanger>().ChangeLayer("Actors");
             CombatEvents.UnlockPlayerMovement();
             FieldEvents.HasCompleted.Invoke(this.gameObject);
         }

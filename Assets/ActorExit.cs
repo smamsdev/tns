@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ActorExit : ToTrigger
 {
-    public ToTrigger triggerToLeave;
+    public ToTrigger optionalTriggerToLeave;
     public Transform actorToLeave;
     
     private void OnEnable()
@@ -20,27 +20,19 @@ public class ActorExit : ToTrigger
     void TriggerAction(GameObject gameObject)
 
     {
-        if (triggerToLeave != null && triggerToLeave.gameObject == gameObject)
+        if (optionalTriggerToLeave != null && optionalTriggerToLeave.gameObject == gameObject)
 
         {
-            actorToLeave.position = new Vector3(1000, 1000, 0);
-            TriggerComplete();
+            StartCoroutine(DoAction());
         } 
-    }
-
-    void TriggerComplete()
-
-    {
-        triggerToLeave = null;
-        FieldEvents.HasCompleted.Invoke(this.gameObject);
     }
 
     public override IEnumerator DoAction()
 
     {
         actorToLeave.position = new Vector3(1000, 1000, 0);
-        TriggerComplete();
+        FieldEvents.HasCompleted.Invoke(this.gameObject);
 
-        yield break;
+        yield return null;
     }
 }

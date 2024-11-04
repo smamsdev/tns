@@ -10,7 +10,7 @@ public class DialogueContainer : ToTrigger
     public bool dialogueLaunched;
     public bool isLoopedDialogue;
 
-    private void Awake()
+    private void Start()
     {
         for (int i = 0; i < dialogue.Length; i++)
         {
