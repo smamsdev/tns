@@ -46,6 +46,7 @@ public class CombatManager : MonoBehaviour
 
     public void StartBattle()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         playerMoveManager = player.GetComponentInChildren<PlayerMoveManager>();
 
         if (playerMoveManager == null)

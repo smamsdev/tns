@@ -133,7 +133,7 @@ public class PlayerMovementScript : MovementScript
         horizontalInput = 0;
         verticalInput = 0;
 
-        //Debug.Log("locked");
+        Debug.Log("locked");
     }
 
     public void UnlockPlayerMovement()
@@ -143,7 +143,7 @@ public class PlayerMovementScript : MovementScript
         {
             movementLocked = false;
 
-            //Debug.Log("unlocked");
+            Debug.Log("unlocked");
         }
     }
 }

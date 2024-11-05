@@ -10,9 +10,13 @@ public class Battle : ToTrigger
 
     public GameObject combatManager;
 
+    private void Start()
+    {
+        combatManager = GameObject.FindGameObjectWithTag("CombatManager");
+    }
+
     public override IEnumerator DoAction()
     {
-        combatManager = GameObject.Find("CombatManager");
         var combatManagerscript = combatManager.GetComponent<CombatManager>();
 
         combatManagerscript.battleScheme = this;
