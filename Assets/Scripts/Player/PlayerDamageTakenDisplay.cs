@@ -5,11 +5,8 @@ using UnityEngine;
 
 public class PlayerDamageTakenDisplay : MonoBehaviour
 {
-
     [SerializeField] Animator animator;
     [SerializeField] TextMeshProUGUI textMeshProUGUI;
-    [SerializeField] CombatManager combatManager;
-    [SerializeField] GameObject playerDamageTakenDisplayGO;
 
     private void OnEnable()
     {
@@ -24,7 +21,7 @@ public class PlayerDamageTakenDisplay : MonoBehaviour
     public void ShowPlayerDamageDisplay(int value)
 
     {
-        animator.SetInteger("animState", 1);
+        animator.SetBool("damageTaken", true);
         textMeshProUGUI.enabled = true;
         StartCoroutine(ShowPlayerDamageDisplayCoRo(value));
     }
@@ -53,8 +50,7 @@ public class PlayerDamageTakenDisplay : MonoBehaviour
             yield return null;
         }
 
-       animator.SetInteger("animState", 2);
-
+        animator.SetBool("damageTaken", false);
     }
 
 }

@@ -9,8 +9,9 @@ public abstract class EnemyMove : MonoBehaviour
     public int moveWeighting;
 
     public string moveName;
+    public CombatManager combatManager;
 
-    public abstract void OnEnemyAttack();
+    public abstract IEnumerator OnEnemyAttack();
 
     public abstract void LoadMove(Enemy enemy);
 

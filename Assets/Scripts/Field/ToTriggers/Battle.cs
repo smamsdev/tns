@@ -9,6 +9,7 @@ public class Battle : ToTrigger
     public GameObject playerFightingPosition;
 
     public GameObject combatManager;
+    public Vector2 playerDefaultLookDirection;
 
     private void Start()
     {

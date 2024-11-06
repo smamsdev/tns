@@ -75,21 +75,16 @@ public class ApplyMove : State
             combatManager.playerCombatStats.TotalPlayerFendPower(combatManager.selectedPlayerMove.fendMoveMultiplier);
             combatManager.CombatUIManager.playerFendScript.UpdateFendText(combatManager.playerCombatStats.playerFend);
 
-            if (combatManager.playerCombatStats.playerFend >0)
-            {
-                combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
-                yield return new WaitForSeconds(1f);
-            }
+        if (combatManager.playerCombatStats.playerFend >0)
+        {
+            combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
+            yield return new WaitForSeconds(1f);
+        }
 
             combatManager.SetState(combatManager.enemyAttack);
 
             CombatEvents.EnemyIsDead -= IsEnemyDead;
-
-
-            yield return new WaitForSeconds(.5f);
-            CombatEvents.UpdateNarrator.Invoke("");
         }
-
     }
 
     private void OnDisable()

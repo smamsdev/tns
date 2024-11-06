@@ -19,7 +19,7 @@ public class ActorMovementScript : MovementScript
     {
         movementSpeed = defaultMovementspeed;
         scriptedMovement = false;
-        isAscending = Vector2.one;
+        isReversing = Vector2.one;
 
         if (forceLookDirectionOnLoad != Vector2.zero ) 
         
@@ -33,7 +33,7 @@ public class ActorMovementScript : MovementScript
         if (Input.GetKeyDown(KeyCode.I))
 
         {
-            verticalInput = 1 * isAscending.y;
+            verticalInput = 1 * isReversing.y;
         }
 
         if (Input.GetKeyUp(KeyCode.I))
@@ -45,7 +45,7 @@ public class ActorMovementScript : MovementScript
         if (Input.GetKeyDown(KeyCode.K))
 
         {
-            verticalInput = -1 * isAscending.y;
+            verticalInput = -1 * isReversing.y;
         }
 
         if (Input.GetKeyUp(KeyCode.K))

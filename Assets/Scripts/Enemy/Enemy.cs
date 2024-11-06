@@ -55,12 +55,11 @@ public class Enemy : MonoBehaviour
     {
         CombatEvents.SetEnemyBodyPartTarget += SetEnemyBodyPartTarget;
 
-        if (enemyFightingPosition == null ) 
-        
+        if (enemyFightingPosition == null)
         {
-            enemyFightingPosition = new GameObject(this.gameObject.name + "Enemy Fighting Position");
+            enemyFightingPosition = new GameObject(this.gameObject.name + " Enemy Fighting Position");
             enemyFightingPosition.transform.position = this.transform.position;
-            enemyFightingPosition.transform.SetParent(this.transform);
+            enemyFightingPosition.transform.SetParent(null); 
         }
     }
 

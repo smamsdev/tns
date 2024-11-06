@@ -17,7 +17,7 @@ public class DescendStairs : MonoBehaviour
             actor = collisionWith.gameObject;
 
             actor.layer = LayerMask.NameToLayer("OnStairs");
-            actor.GetComponent<MovementScript>().isAscending = new Vector2(-1, -1);
+            actor.GetComponent<MovementScript>().isReversing = new Vector2(-1, -1);
             actor.GetComponent<LayerChanger>().ChangeLayer("OnStairs");
 
             StartCoroutine(EnterStairs(actor.transform.position, new Vector2(actor.transform.position.x, actor.transform.position.y - 0.04f), 0.04f));

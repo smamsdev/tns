@@ -8,8 +8,8 @@ public class Setup : State
 
     [SerializeField] GameObject combatUIContainer;
     [SerializeField] GameObject playerStatsUIContainer;
-
     [SerializeField] GameObject EnemyUIPrefab;
+    [SerializeField] GameObject playerFendContainerPrefab;
 
     public override IEnumerator StartState()
 
@@ -20,13 +20,23 @@ public class Setup : State
         CombatEvents.BattleMode?.Invoke(true);
         CombatEvents.isBattleMode = true;
         CombatEvents.LockPlayerMovement.Invoke();
+
+        GameObject newFendContainer = Instantiate(playerFendContainerPrefab, combatManager.player.gameObject.transform);
+        newFendContainer.name = "Player Fend Container";
+        combatManager.CombatUIManager.playerFendScript = newFendContainer.GetComponent<FendScript>();
+        combatManager.CombatUIManager.playerDamageTakenDisplay = newFendContainer.GetComponent<PlayerDamageTakenDisplay>();
+
+        combatManager.CombatUIManager.playerFendScript.combatManager = combatManager;
+
         combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(false);
+
 
         //position player
 
         FieldEvents.isCameraFollow = false;
         yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
         combatManager.playerAnimator.SetBool("isCombat", true);
+        combatManager.player.GetComponent<PlayerMovementScript>().lookDirection = combatManager.battleScheme.playerDefaultLookDirection;
 
         //enemy
         foreach (Enemy enemy in combatManager.enemy)
@@ -35,7 +45,6 @@ public class Setup : State
 
             GameObject newEnemyCombatUI = Instantiate(EnemyUIPrefab, enemy.gameObject.transform);
             newEnemyCombatUI.transform.localPosition = Vector3.zero;
-
             newEnemyCombatUI.name = "EnemyUI For " + enemy.name;
 
             enemy.enemyUI = newEnemyCombatUI.GetComponent<EnemyUI>();
@@ -80,6 +89,8 @@ public class Setup : State
             }
 
             yield return new WaitForSeconds(1);
+
+            enemy.enemyUI.enemyStatsDisplay.ShowEnemyStatsDisplay(true);
         }
 
         //set ui elements

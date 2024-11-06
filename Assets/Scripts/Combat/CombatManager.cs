@@ -40,6 +40,7 @@ public class CombatManager : MonoBehaviour
     [Header("Movement")]
 
     public CombatMovement combatMovement;
+    public CameraFollow cameraFollow;
     public Animator playerAnimator;
 
     [HideInInspector] public int enemyRawAttackPower;

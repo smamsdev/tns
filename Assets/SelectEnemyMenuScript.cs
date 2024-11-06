@@ -8,7 +8,6 @@ public class SelectEnemyMenuScript : MonoBehaviour
 {
     [SerializeField] CombatManager combatManager;
     public GameObject[] buttonSlot;
-    public CameraFollow cameraFollow;
 
     public void InitializeButtonSlots()
     {
@@ -26,7 +25,7 @@ public class SelectEnemyMenuScript : MonoBehaviour
     {
         var enemy = combatManager.enemy[enemyHighlighted];
         enemy.enemyUI.enemyStatsDisplay.enemyStatsDisplayGameObject.SetActive(true);
-        cameraFollow.transformToFollow = enemy.transform;
+        combatManager.cameraFollow.transformToFollow = enemy.transform;
     }
 
     public void DeselectEnemy(int enemyHighlighted)

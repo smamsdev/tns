@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class FendScript : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI fendTextMeshProUGUI;
-    [SerializeField] CombatManager combatManager;
+    public CombatManager combatManager;
     [SerializeField] GameObject playerFendContainer;
     [SerializeField] GameObject playerFendIcon, playerFendText;
     public Animator animator;

@@ -35,7 +35,7 @@ public class EnemySelect : State
         if (Input.GetKeyDown(KeyCode.Escape))
 
         {
-            selectEnemyMenuScript.cameraFollow.transformToFollow = combatManager.player.transform;
+            combatManager.cameraFollow.transformToFollow = combatManager.player.transform;
             combatManager.SetState(combatManager.secondMove);
         }
     }

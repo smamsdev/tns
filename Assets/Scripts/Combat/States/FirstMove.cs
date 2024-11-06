@@ -10,7 +10,7 @@ public class FirstMove : State
 
     public override IEnumerator StartState()
     {
-        combatManager.CombatUIManager.playerFendScript.animator.SetBool("fendbreak", false);
+        combatManager.CombatUIManager.playerFendScript.animator.SetBool("fendBreak", false);
 
         combatManager.CombatUIManager.UpdateFirstMoveDisplay("Style?");
         combatManager.CombatUIManager.UpdateSecondMoveDisplay("Move?");

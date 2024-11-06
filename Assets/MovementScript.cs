@@ -14,5 +14,5 @@ public abstract class MovementScript : MonoBehaviour
     public Animator animator;
     public Vector2 movementDirection;
     public Vector2 lookDirection;
-    public Vector2 isAscending;
+    public Vector2 isReversing;
 }

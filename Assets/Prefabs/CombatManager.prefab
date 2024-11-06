@@ -2780,7 +2780,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combatManager: {fileID: 557912631979010944}
   equippedGear: []
-  fendScript: {fileID: 5735758002088043287}
+  fendScript: {fileID: 0}
   enemyIteration: 0
   cameraFollow: {fileID: 0}
 --- !u!1 &2389228253929840307
@@ -3930,6 +3930,7 @@ MonoBehaviour:
   combatUIContainer: {fileID: 5886398260685097591}
   playerStatsUIContainer: {fileID: 3719579973523643388}
   EnemyUIPrefab: {fileID: 2384728010077165602, guid: b568c7c4f68c7d648879eda64001151a, type: 3}
+  playerFendContainerPrefab: {fileID: 7704240787450309330, guid: 7a190591dc32ae54e9c21bc40bb947f4, type: 3}
 --- !u!1 &3180159031904611593
 GameObject:
   m_ObjectHideFlags: 0
@@ -7584,8 +7585,6 @@ GameObject:
   - component: {fileID: 8967276764062386239}
   - component: {fileID: 3351759609264124477}
   - component: {fileID: 6915868034931797733}
-  - component: {fileID: 5735758002088043287}
-  - component: {fileID: 8624514175736681575}
   - component: {fileID: 4507276251338986563}
   m_Layer: 0
   m_Name: CombatUI
@@ -7685,50 +7684,14 @@ MonoBehaviour:
   GearSelectMenu: {fileID: 9044878727158746303}
   selectEnemyMenuScript: {fileID: 4507276251338986563}
   combatInventoryMenuScript: {fileID: 154709028044159685}
-  playerFendScript: {fileID: 5735758002088043287}
-  playerDamageTakenDisplay: {fileID: 8624514175736681575}
+  playerFendScript: {fileID: 0}
+  playerDamageTakenDisplay: {fileID: 0}
   StyleDisplayText: {fileID: 4844692895166332272}
   MoveDisplayText: {fileID: 7788971433035104938}
   firstMenuFirstButton: {fileID: 1786555751212486597}
   secondMenuFirstButton: {fileID: 3574914080087943382}
   thirdMenuFirstButton: {fileID: 2912522914467602735}
   targetMenuFirstButton: {fileID: 8317132985722494590}
---- !u!114 &5735758002088043287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5886398260685097591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c621a47bbf023b74298b71351d94431b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fendTextMeshProUGUI: {fileID: 0}
-  combatManager: {fileID: 557912631979010944}
-  playerFendContainer: {fileID: 0}
-  playerFendIcon: {fileID: 0}
-  playerFendText: {fileID: 0}
-  animator: {fileID: 0}
-  attackRemainder: 0
-  fend: 175
---- !u!114 &8624514175736681575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5886398260685097591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c12b2b4dc20275647a11fad849e0896f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  textMeshProUGUI: {fileID: 0}
-  combatManager: {fileID: 557912631979010944}
-  playerDamageTakenDisplayGO: {fileID: 0}
 --- !u!114 &4507276251338986563
 MonoBehaviour:
   m_ObjectHideFlags: 0

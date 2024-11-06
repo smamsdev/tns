@@ -25,11 +25,9 @@ public class ViolentBasic : ViolentMove
 
             //fall back
 
-            yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
+            yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position, isReversing: true);
 
             //tidy up and end move
-            Vector2 reverseLookDirection = playerMovementScript.lookDirection;
-            playerMovementScript.lookDirection = -reverseLookDirection;
             combatManager.playerAnimator.SetTrigger("CombatIdle");
             combatManager.applyMove.EndMove();
         }

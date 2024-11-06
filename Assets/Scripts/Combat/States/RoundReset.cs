@@ -22,8 +22,6 @@ public class RoundReset : State
         combatManager.playerMoveManager.firstMoveIs = 0;
         combatManager.playerMoveManager.secondMoveIs = 0;
 
-        yield return new WaitForSeconds(0.5f);
-
         combatManager.roundCount++;
 
         foreach (Enemy enemy in combatManager.enemy)

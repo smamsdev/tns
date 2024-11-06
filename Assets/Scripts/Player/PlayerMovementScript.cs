@@ -10,7 +10,6 @@ public class PlayerMovementScript : MovementScript
     public Rigidbody2D playerRigidBody2d;
 
     public bool isWalkwayBoost;
-    public bool isDescending = false;
 
     public bool movementLocked = false;
     public Vector2 newPosition;
@@ -33,7 +32,7 @@ public class PlayerMovementScript : MovementScript
         movementSpeed = defaultMovementspeed;
         scriptedMovement = false;
         FieldEvents.movementSpeedMultiplier = 1;
-        isAscending = Vector2.one;
+        isReversing = Vector2.one;
     }
 
     private void Update()
@@ -77,7 +76,7 @@ public class PlayerMovementScript : MovementScript
 
         {
             horizontalInput = Input.GetAxis("Horizontal");
-            verticalInput = Input.GetAxis("Vertical") * isAscending.y + sloping;
+            verticalInput = Input.GetAxis("Vertical") * isReversing.y + sloping;
         }
 
             newPosition = playerRigidBody2d.position;
@@ -120,10 +119,10 @@ public class PlayerMovementScript : MovementScript
             lookDirection = Vector2.left;
         }
 
-        animator.SetFloat("horizontalInput", movementDirection.x);
-        animator.SetFloat("verticalInput", movementDirection.y * isAscending.y);
-        animator.SetFloat("lookDirectionX", lookDirection.x);
-        animator.SetFloat("lookDirectionY", lookDirection.y * isAscending.y);
+        animator.SetFloat("horizontalInput", movementDirection.x * isReversing.x);
+        animator.SetFloat("verticalInput", movementDirection.y * isReversing.y);
+        animator.SetFloat("lookDirectionX", lookDirection.x * isReversing.x);
+        animator.SetFloat("lookDirectionY", lookDirection.y * isReversing.y);
     }
 
     public void LockPlayerMovement()
@@ -133,7 +132,7 @@ public class PlayerMovementScript : MovementScript
         horizontalInput = 0;
         verticalInput = 0;
 
-        Debug.Log("locked");
+        //Debug.Log("locked");
     }
 
     public void UnlockPlayerMovement()
@@ -143,7 +142,7 @@ public class PlayerMovementScript : MovementScript
         {
             movementLocked = false;
 
-            Debug.Log("unlocked");
+            //Debug.Log("unlocked");
         }
     }
 }

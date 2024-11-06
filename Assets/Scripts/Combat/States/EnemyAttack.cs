@@ -8,7 +8,6 @@ public class EnemyAttack : State
     public Gear[] equippedGear;
     [SerializeField] FendScript fendScript;
     public int enemyIteration = 0;
-    public CameraFollow cameraFollow;
 
     public override IEnumerator StartState()
     {
@@ -25,41 +24,21 @@ public class EnemyAttack : State
         foreach (Enemy enemy in combatManager.enemy)
 
         {
-            yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position);
-            cameraFollow.transformToFollow = enemy.transform;
+            CombatEvents.UpdateNarrator.Invoke("");
+            enemy.moveSelected.combatManager = combatManager;
 
+            combatManager.cameraFollow.transformToFollow = enemy.transform;
             yield return new WaitForSeconds(0.5f);
+            CombatEvents.UpdateNarrator.Invoke(enemy.moveSelected.moveName);
 
-            if (enemy.attackTotal == 0 && enemy.fendTotal > 0)
-            {
-                combatManager.CombatUIManager.playerFendScript.animator.SetTrigger("fendFade");
-            }
+            Debug.Log(enemy.moveSelected.moveName);
 
-            else if (enemy.attackTotal > 0)
+            yield return enemy.moveSelected.OnEnemyAttack();
 
-            {
-                enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
-                yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, combatManager.player.transform.position, 50f);
-                yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, combatManager.player.transform.position);
-
-
-                cameraFollow.transformToFollow = combatManager.player.transform;
-                enemy.moveSelected.OnEnemyAttack();
-                StartCoroutine(combatManager.selectedPlayerMove.OnEnemyAttack(combatManager, enemy));
-
-                yield return new WaitForSeconds(0.5f);
-
-                yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position);
-
-                var enemyMovementScript = enemy.GetComponent<ActorMovementScript>();
-                enemyMovementScript.lookDirection = enemy.forceLookDirection;
-
-                yield return new WaitForSeconds(0.5f);
-            }
-
-            yield return new WaitForSeconds(0.5f);
+            CombatEvents.UpdateNarrator.Invoke("");
 
         }
+
         combatManager.SetState(combatManager.roundReset);
     }
 }
