@@ -25,6 +25,9 @@ public class PlayerMovementScript : MovementScript
     {
         CombatEvents.LockPlayerMovement -= LockPlayerMovement;
         CombatEvents.UnlockPlayerMovement -= UnlockPlayerMovement;
+
+        animator.SetFloat("lookDirectionX", 0);
+        animator.SetFloat("verticalInput", 0);
     }
 
     private void Start()
@@ -101,28 +104,30 @@ public class PlayerMovementScript : MovementScript
 
         if (verticalInput > 0 && horizontalInput == 0)
         {
-            lookDirection = Vector2.up;
+            lookDirection.y = 1 * isReversing.y;
         }
 
         if (verticalInput < 0)
         {
-            lookDirection = Vector2.down;
+            lookDirection.y = -1 * isReversing.y;
         }
 
         if (horizontalInput > 0)
         {
-            lookDirection = Vector2.right;
+            lookDirection.x = 1 * isReversing.x;
+
         }
 
         if (horizontalInput < 0)
         {
-            lookDirection = Vector2.left;
+            lookDirection.x = -1 * isReversing.x;
+
         }
 
-        animator.SetFloat("horizontalInput", movementDirection.x * isReversing.x);
-        animator.SetFloat("verticalInput", movementDirection.y * isReversing.y);
-        animator.SetFloat("lookDirectionX", lookDirection.x * isReversing.x);
-        animator.SetFloat("lookDirectionY", lookDirection.y * isReversing.y);
+        animator.SetFloat("horizontalInput", movementDirection.x);
+        animator.SetFloat("verticalInput", movementDirection.y);
+        animator.SetFloat("lookDirectionX", lookDirection.x);
+        animator.SetFloat("lookDirectionY", lookDirection.y);
     }
 
     public void LockPlayerMovement()

@@ -39,7 +39,10 @@ public class ApplyMove : State
         combatManager.playerCombatStats.TotalPlayerAttackPower(combatManager.selectedPlayerMove.attackMoveMultiplier);
         CombatEvents.UpdateNarrator.Invoke(combatManager.selectedPlayerMove.moveName);
 
-        StartCoroutine(combatManager.selectedPlayerMove.OnApplyMove(combatManager, combatManager.enemy[combatManager.selectedEnemy]));
+        yield return combatManager.selectedPlayerMove.OnApplyMove(combatManager, combatManager.enemy[combatManager.selectedEnemy]);
+
+        yield return new WaitForSeconds(.2f);
+        combatManager.playerAnimator.SetTrigger("CombatIdle");
 
         yield return null;
     }

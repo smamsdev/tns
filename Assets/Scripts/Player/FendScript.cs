@@ -49,6 +49,8 @@ public class FendScript : MonoBehaviour
         attackRemainder = attack - fend;
         animator.SetTrigger("fendDeflect");
         combatManager.playerAnimator.SetTrigger("Pain");
+        var stepBackPos = new Vector2(combatManager.battleScheme.playerFightingPosition.transform.position.x - 0.5f, combatManager.battleScheme.playerFightingPosition.transform.position.y);
+        StartCoroutine(combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, stepBackPos, isReversing: true));
 
         StartCoroutine(ApplyEnemyAttackToFendCoRo(attack));
     }

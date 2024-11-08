@@ -14,6 +14,11 @@ public class ActorMovementScript : MovementScript
         actorRigidBody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
+    private void OnDisable()
+    {
+        animator.SetFloat("lookDirectionX", 0);
+        animator.SetFloat("verticalInput", 0);
+    }
 
     private void Start()
     {
@@ -123,10 +128,10 @@ public class ActorMovementScript : MovementScript
                 lookDirection = Vector2.down;
             }
 
-            animator.SetFloat("horizontalInput", movementDirection.x);
-            animator.SetFloat("verticalInput", movementDirection.y);
-            animator.SetFloat("lookDirectionX", lookDirection.x);
-            animator.SetFloat("lookDirectionY", lookDirection.y);
+            animator.SetFloat("horizontalInput", movementDirection.x * isReversing.x);
+            animator.SetFloat("verticalInput", movementDirection.y * isReversing.y);
+            animator.SetFloat("lookDirectionX", lookDirection.x * isReversing.x);
+            animator.SetFloat("lookDirectionY", lookDirection.y * isReversing.y);
         }
     }
 }

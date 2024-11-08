@@ -11,10 +11,7 @@ public class RoundReset : State
         combatManager.CombatUIManager.playerFendScript.animator.SetTrigger("fendFade");
         var playerMovementScript = combatManager.player.GetComponent<PlayerMovementScript>();
         
-        Vector2 rememberLookDirection = playerMovementScript.lookDirection;
         yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
-        
-        playerMovementScript.lookDirection = rememberLookDirection;
 
         //combatManager.player.GetComponent<EquippedGear>().equippedGear[0].ResetAttackGear();
         //combatManager.player.GetComponent<EquippedGear>().equippedGear[0].ResetFendGear();

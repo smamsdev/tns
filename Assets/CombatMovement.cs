@@ -16,7 +16,7 @@ public class CombatMovement : MonoBehaviour
 
         if (isReversing == true)
         {
-            movementScript.isReversing = new Vector2(-1, -1);
+            movementScript.isReversing = -Vector2.one;
         }
 
         else
@@ -83,5 +83,8 @@ public class CombatMovement : MonoBehaviour
 
         movementScript.horizontalInput = 0;
         movementScript.transform.position = new Vector3(stoppingPosition.x, stoppingPosition.y, movementScript.transform.position.z);
+            
+        movementScript.isReversing = Vector2.one;
+
     }
 }

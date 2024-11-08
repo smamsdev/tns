@@ -15,10 +15,7 @@ public class ViolentBasic : ViolentMove
         if (isAttack)
         {
             //move to attack position
-            yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, enemyPosition, 80f);
-
-            //carry out attack
-            StartCoroutine(combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, enemyPosition, 100, true));
+            yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, enemyPosition, 90f);
             combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombatStats.attackPower);
             combatManager.playerAnimator.SetTrigger("Attack");
             yield return new WaitForSeconds(0.5f);
@@ -28,7 +25,6 @@ public class ViolentBasic : ViolentMove
             yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position, isReversing: true);
 
             //tidy up and end move
-            combatManager.playerAnimator.SetTrigger("CombatIdle");
             combatManager.applyMove.EndMove();
         }
 

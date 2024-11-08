@@ -25,18 +25,21 @@ public class EnemyAttack : State
 
         {
             CombatEvents.UpdateNarrator.Invoke("");
-            enemy.moveSelected.combatManager = combatManager;
 
-            combatManager.cameraFollow.transformToFollow = enemy.transform;
             yield return new WaitForSeconds(0.5f);
             CombatEvents.UpdateNarrator.Invoke(enemy.moveSelected.moveName);
 
-            Debug.Log(enemy.moveSelected.moveName);
+            yield return enemy.moveSelected.EnemyAttack(combatManager);
 
-            yield return enemy.moveSelected.OnEnemyAttack();
+            var enemyAnimator = enemy.gameObject.GetComponent<Animator>();
+
+            enemyAnimator.SetFloat("attackAnimationToUse", enemy.moveSelected.animtionIntTriggerToUse);
+            enemyAnimator.SetTrigger("Attack");
+
+            yield return enemy.moveSelected.EnemyReverse();
+            enemyAnimator.SetTrigger("combatIdle");
 
             CombatEvents.UpdateNarrator.Invoke("");
-
         }
 
         combatManager.SetState(combatManager.roundReset);

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyBasicMove : EnemyMove
 {
-    Enemy enemy;
     public int rng;
 
     public override void LoadMove(Enemy _enemy)
@@ -20,30 +19,20 @@ public class EnemyBasicMove : EnemyMove
         enemy.attackTotal = Mathf.RoundToInt(enemy.attackTotal - enemy.injuryPenalty) + rng;
     }
 
-
-    public override IEnumerator OnEnemyAttack()
+    public override IEnumerator EnemyAttack(CombatManager _combatManager)
 
     {
+        combatManager = _combatManager;
+        var distance = enemy.moveSelected.distanceToCoverPercent;
+
         enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
 
-        yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, combatManager.player.transform.position);
+        yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, combatManager.player.transform.position, stoppingPercentage: distance);
 
         combatManager.cameraFollow.transformToFollow = combatManager.player.transform;
         CombatEvents.ApplyEnemyAttackToFend(enemy.EnemyAttackTotal());
 
         StartCoroutine(combatManager.selectedPlayerMove.OnEnemyAttack(combatManager, enemy));
 
-        yield return new WaitForSeconds(0.5f);
-
-        yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position);
-
-        var enemyMovementScript = enemy.GetComponent<ActorMovementScript>();
-        enemyMovementScript.lookDirection = enemy.forceLookDirection;
-  
-
-        yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
-
-        yield return new WaitForSeconds(0.5f);
     }
-
 }
