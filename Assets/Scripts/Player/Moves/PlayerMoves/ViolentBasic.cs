@@ -15,7 +15,8 @@ public class ViolentBasic : ViolentMove
         if (isAttack)
         {
             //move to attack position
-            yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, enemyPosition, 90f);
+            yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, enemyPosition, 85f);
+
             combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombatStats.attackPower);
             combatManager.playerAnimator.SetTrigger("Attack");
             yield return new WaitForSeconds(0.5f);

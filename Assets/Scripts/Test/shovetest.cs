@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class shovetest : MonoBehaviour
 {
+    //delete thisu trash
     void FixedUpdate()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();

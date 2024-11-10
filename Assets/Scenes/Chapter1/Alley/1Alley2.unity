@@ -753,6 +753,10 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 4400780416818078350, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5989087119214572885, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: m_SortingOrder
       value: 0
@@ -804,10 +808,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6457784655243026927, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8879681757801360450}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
 --- !u!1001 &537570119
 PrefabInstance:
@@ -1055,6 +1056,11 @@ MonoBehaviour:
 --- !u!1 &697269788 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3094668877101487324, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
+  m_PrefabInstance: {fileID: 1372534125}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &697269796 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4393019654655090357, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
   m_PrefabInstance: {fileID: 1372534125}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &789685094
@@ -1626,7 +1632,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 4035522452125266551}
     m_Modifications:
     - target: {fileID: 3094668877101487324, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
       propertyPath: m_Name
@@ -1638,11 +1644,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4393019654655090357, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.44500017
+      value: -0.3696468
       objectReference: {fileID: 0}
     - target: {fileID: 4393019654655090357, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.1915671
+      value: -0.14343297
       objectReference: {fileID: 0}
     - target: {fileID: 4393019654655090357, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1654,15 +1660,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4393019654655090357, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4393019654655090357, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4393019654655090357, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4393019654655090357, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2433,6 +2439,7 @@ MonoBehaviour:
   animtionIntTriggerToUse: 0
   distanceToCoverPercent: 80
   enemy: {fileID: 0}
+  attackPushStrength: 0.2
   moveName: 
   combatManager: {fileID: 0}
   rng: 0
@@ -2462,13 +2469,14 @@ Transform:
   m_GameObject: {fileID: 8443841670716444459}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.71464705, y: 1.335, z: 0}
+  m_LocalPosition: {x: 0.60464704, y: 1.335, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2845113776763307423}
   - {fileID: 5368872565216937160}
   - {fileID: 1898593951389029705}
+  - {fileID: 697269796}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4153218622501016973
@@ -2541,6 +2549,7 @@ MonoBehaviour:
   animtionIntTriggerToUse: 0
   distanceToCoverPercent: 80
   enemy: {fileID: 0}
+  attackPushStrength: 0.2
   moveName: 
   combatManager: {fileID: 0}
   rng: 0
@@ -2620,8 +2629,9 @@ MonoBehaviour:
   fendMoveModPercent: 0.8
   moveWeighting: 100
   animtionIntTriggerToUse: 0
-  distanceToCoverPercent: 95
+  distanceToCoverPercent: 75
   enemy: {fileID: 0}
+  attackPushStrength: 0.3
   moveName: Fist to the face!
   combatManager: {fileID: 0}
   rng: 0
@@ -2866,6 +2876,7 @@ MonoBehaviour:
   animtionIntTriggerToUse: 0
   distanceToCoverPercent: 80
   enemy: {fileID: 0}
+  attackPushStrength: 0.2
   moveName: 
   combatManager: {fileID: 0}
   rng: 0
@@ -2923,18 +2934,6 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 8879681757372781048, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
   m_PrefabInstance: {fileID: 519880131}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8879681757801360450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6457784654866291756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4746b3e1634c8d443bb77ab642fc3791, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8930669616136816765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2953,6 +2952,7 @@ MonoBehaviour:
   animtionIntTriggerToUse: 0
   distanceToCoverPercent: 80
   enemy: {fileID: 0}
+  attackPushStrength: 0.2
   moveName: 
   combatManager: {fileID: 0}
   rng: 0
@@ -2984,7 +2984,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyFightingPosition: {fileID: 0}
   enemyUI: {fileID: 0}
-  forceLookDirection: {x: 0, y: 0}
+  forceLookDirection: {x: -1, y: 0}
   enemyName: Hef
   enemyHP: 60
   attackBase: 12
@@ -3013,7 +3013,6 @@ SceneRoots:
   - {fileID: 5900814956677899848}
   - {fileID: 519880131}
   - {fileID: 1458070173}
-  - {fileID: 1372534125}
   - {fileID: 4035522452125266551}
   - {fileID: 537570119}
   - {fileID: 1024215743}

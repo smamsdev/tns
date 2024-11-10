@@ -11,6 +11,8 @@ public class FendScript : MonoBehaviour
     [SerializeField] GameObject playerFendContainer;
     [SerializeField] GameObject playerFendIcon, playerFendText;
     public Animator animator;
+    Vector2 enemyLookDir;
+    float attackPushStrength;
 
     public int attackRemainder;
 
@@ -43,14 +45,14 @@ public class FendScript : MonoBehaviour
         }
     }
 
-    public void ApplyEnemyAttackToFend(int attack)
+    public void ApplyEnemyAttackToFend(int attack, Vector2 enemyLookDirection, float _attackPushStrength)
 
     {
         attackRemainder = attack - fend;
         animator.SetTrigger("fendDeflect");
         combatManager.playerAnimator.SetTrigger("Pain");
-        var stepBackPos = new Vector2(combatManager.battleScheme.playerFightingPosition.transform.position.x - 0.5f, combatManager.battleScheme.playerFightingPosition.transform.position.y);
-        StartCoroutine(combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, stepBackPos, isReversing: true));
+        enemyLookDir = enemyLookDirection;
+        attackPushStrength = _attackPushStrength;
 
         StartCoroutine(ApplyEnemyAttackToFendCoRo(attack));
     }
@@ -58,11 +60,16 @@ public class FendScript : MonoBehaviour
     IEnumerator ApplyEnemyAttackToFendCoRo(int attack)
 
     {
+        var stepBackPos = new Vector2((combatManager.battleScheme.playerFightingPosition.transform.position.x * -enemyLookDir.x) - attackPushStrength, combatManager.battleScheme.playerFightingPosition.transform.position.y);
+
         if (fend == 0)
         {
             FendBreached();
-            yield return null;
+            yield return new WaitForSeconds(0.2f);
+            yield return (combatManager.combatMovement.MoveCombatantFixedTime(combatManager.player.gameObject, stepBackPos, isReversing: true));
+
         }
+
         float elapsedTime = 0f;
         float lerpDuration = 0.5f;
 
@@ -85,7 +92,8 @@ public class FendScript : MonoBehaviour
             if (fend == 0)
             {
                 FendBreached();
-                yield return null;
+                yield return new WaitForSeconds(0.2f);
+                yield return (combatManager.combatMovement.MoveCombatantFixedTime(combatManager.player.gameObject, stepBackPos, isReversing: true));
             }
 
             yield return null;

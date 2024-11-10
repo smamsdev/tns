@@ -27,12 +27,16 @@ public class EnemyBasicMove : EnemyMove
 
         enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
 
-        yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, combatManager.player.transform.position, stoppingPercentage: distance);
+        yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position, stoppingPercentage: distance);
 
         combatManager.cameraFollow.transformToFollow = combatManager.player.transform;
-        CombatEvents.ApplyEnemyAttackToFend(enemy.EnemyAttackTotal());
+
+        var enemyLookDirection = enemy.GetComponent<MovementScript>().lookDirection;
+
+        CombatEvents.ApplyEnemyAttackToFend(enemy.EnemyAttackTotal(), enemyLookDirection, enemy.moveSelected.attackPushStrength);
 
         StartCoroutine(combatManager.selectedPlayerMove.OnEnemyAttack(combatManager, enemy));
+        yield return null;
 
     }
 }

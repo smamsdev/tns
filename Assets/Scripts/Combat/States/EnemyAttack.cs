@@ -24,6 +24,9 @@ public class EnemyAttack : State
         foreach (Enemy enemy in combatManager.enemy)
 
         {
+            var playerMovementScript = combatManager.player.GetComponent<MovementScript>();
+            var storedLookDirection = playerMovementScript.lookDirection;
+
             CombatEvents.UpdateNarrator.Invoke("");
 
             yield return new WaitForSeconds(0.5f);
@@ -33,13 +36,23 @@ public class EnemyAttack : State
 
             var enemyAnimator = enemy.gameObject.GetComponent<Animator>();
 
+
             enemyAnimator.SetFloat("attackAnimationToUse", enemy.moveSelected.animtionIntTriggerToUse);
             enemyAnimator.SetTrigger("Attack");
+            yield return new WaitForSeconds(0.5f);
+            //allow half a sec for anim to complete.
 
-            yield return enemy.moveSelected.EnemyReverse();
             enemyAnimator.SetTrigger("combatIdle");
+            yield return enemy.moveSelected.EnemyReverse();
+            enemy.GetComponent<MovementScript>().lookDirection = enemy.forceLookDirection;
+
 
             CombatEvents.UpdateNarrator.Invoke("");
+
+            yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
+
+            playerMovementScript.lookDirection = storedLookDirection;
+
         }
 
         combatManager.SetState(combatManager.roundReset);

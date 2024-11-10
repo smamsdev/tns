@@ -66,8 +66,6 @@ public class EnemyFendScript : MonoBehaviour
         var enemy = combatManager.enemy[combatManager.selectedEnemy];
         var enemyMovementScript = enemy.GetComponent<ActorMovementScript>();
 
-        enemyMovementScript.actorRigidBody2d.bodyType = RigidbodyType2D.Dynamic;
-
         enemyFendAnimator.SetTrigger("fendBreak");
         fendTextMeshProUGUI.text = "";
         if (attackRemainder > 0)

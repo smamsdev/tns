@@ -30,7 +30,7 @@ public static class CombatEvents
     //Enemy
     public static Action<int> SetEnemyBodyPartTarget;
     public static Action<int> UpdateEnemyAttackDisplay;
-    public static Action<int> ApplyEnemyAttackToFend;
+    public static Action<int, Vector2, float> ApplyEnemyAttackToFend;
 
     public static Action<bool> EnemyIsDead;
 

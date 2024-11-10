@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CombatMovement : MonoBehaviour
@@ -14,33 +13,21 @@ public class CombatMovement : MonoBehaviour
 
         movementScript = actorMove.actorGO.GetComponent<MovementScript>();
 
-        if (isReversing == true)
-        {
-            movementScript.isReversing = -Vector2.one;
-        }
+        // Set reversing direction
+        movementScript.isReversing = isReversing ? -Vector2.one : Vector2.one;
 
-        else
-        {
-            movementScript.isReversing = Vector2.one;
-        }
-
-        // Calculate stopping distances
+        // Calculate stopping distance based on the stopping percentage
         Vector3 stoppingPosition = Vector3.Lerp(movementScript.transform.position, targetPosition, stoppingPercentage / 100f);
 
         float startTime = Time.time;
-        float timeoutDuration = 4f; // Overall timeout duration
-        float moveTimeoutDuration = 0.5f; // Duration for the timeout if enabled
-
+        float timeoutDuration = 4f; // Timeout if actor is stuck
+        float moveTimeoutDuration = 0.5f; // Timeout duration if enabled
         float endPointDeltaY = Mathf.Abs(movementScript.transform.position.y - stoppingPosition.y);
 
-        // Handle vertical movement
+        // Vertical movement
         while (endPointDeltaY > 0.03f)
         {
-            if (useTimeout && Time.time - startTime > moveTimeoutDuration)
-            {
-                yield break;
-            }
-
+            if (useTimeout && Time.time - startTime > moveTimeoutDuration) yield break;
             if (Time.time - startTime > timeoutDuration)
             {
                 Debug.LogError("Actor stuck.");
@@ -57,17 +44,13 @@ public class CombatMovement : MonoBehaviour
         movementScript.verticalInput = 0;
         movementScript.transform.position = new Vector3(movementScript.transform.position.x, stoppingPosition.y, movementScript.transform.position.z);
 
-        // Handle horizontal movement
-        startTime = Time.time; // Reset the start time for horizontal movement
+        // Horizontal movement
+        startTime = Time.time;
         float endPointDeltaX = Mathf.Abs(movementScript.transform.position.x - stoppingPosition.x);
 
         while (endPointDeltaX > 0.03f)
         {
-            if (useTimeout && Time.time - startTime > moveTimeoutDuration)
-            {
-                yield break;
-            }
-
+            if (useTimeout && Time.time - startTime > moveTimeoutDuration) yield break;
             if (Time.time - startTime > timeoutDuration)
             {
                 Debug.LogError("Actor stuck.");
@@ -83,8 +66,33 @@ public class CombatMovement : MonoBehaviour
 
         movementScript.horizontalInput = 0;
         movementScript.transform.position = new Vector3(stoppingPosition.x, stoppingPosition.y, movementScript.transform.position.z);
-            
-        movementScript.isReversing = Vector2.one;
 
+        movementScript.isReversing = Vector2.one;
+    }
+
+    public IEnumerator MoveCombatantFixedTime(GameObject gameObject, Vector3 targetPosition, bool isReversing = false)
+    {
+        actorMove.actorGO = gameObject;
+        actorMove.destination[0] = targetPosition;
+
+        movementScript = actorMove.actorGO.GetComponent<MovementScript>();
+
+        movementScript.isReversing = isReversing ? -Vector2.one : Vector2.one;
+
+        float fixedDuration = 0.5f; // Fixed duration for the movement
+        Vector3 startPosition = movementScript.transform.position;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < fixedDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / fixedDuration;
+
+            movementScript.transform.position = Vector3.Lerp(startPosition, targetPosition, t);
+            yield return null;
+        }
+
+        movementScript.transform.position = targetPosition;
+        movementScript.isReversing = Vector2.one;
     }
 }

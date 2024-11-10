@@ -10,6 +10,7 @@ public abstract class EnemyMove : MonoBehaviour
     public float animtionIntTriggerToUse = 0;
     public float distanceToCoverPercent = 80f;
     public Enemy enemy;
+    public float attackPushStrength = 0.2f;
 
 
     public string moveName;
@@ -21,11 +22,9 @@ public abstract class EnemyMove : MonoBehaviour
 
     {
         yield return new WaitForSeconds(0.5f);
-        yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position);
+        yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position, isReversing: true);
 
         var enemyMovementScript = enemy.GetComponent<ActorMovementScript>();
-
-        yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
 
         yield return new WaitForSeconds(0.5f);
     }
