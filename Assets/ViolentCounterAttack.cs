@@ -11,7 +11,6 @@ public class ViolentCounterAttack : ViolentMove
         enemy = _enemy;
 
 
-        combatManager.applyMove.EndMove();
         yield break;
     }
 
@@ -24,5 +23,11 @@ public class ViolentCounterAttack : ViolentMove
         yield return new WaitForSeconds(1.0f);
         enemy.DamageTaken(combatManager.playerCombatStats.attackPower, combatManager.selectedPlayerMove.damageToPartsMultiplier);
         yield break;
+    }
+
+    public override IEnumerator Return()
+    {
+        Debug.Log("todo");
+        yield return null;
     }
 }

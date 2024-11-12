@@ -8,7 +8,9 @@ public class CautiousBasic : CautiousMove
 
     {
         combatManager = _combatManager;
-        enemy = _enemy;
+        var playerMovementScript = combatManager.player.GetComponent<PlayerMovementScript>();
+        var enemyPosition = combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.position;
+        var moveSelected = combatManager.selectedPlayerMove;
 
         combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
 
@@ -17,20 +19,13 @@ public class CautiousBasic : CautiousMove
 
             //combatManager.UpdateFighterPosition(combatManager.player, new Vector2(combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.position.x - 0.3f, combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.position.y), 0.5f);
             yield return new WaitForSeconds(0.5f);
-            combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombatStats.attackPower);
+            combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombatStats.attackPower, playerMovementScript.lookDirection, moveSelected.attackPushStrength);
 
             yield return new WaitForSeconds(0.3f);
             //combatManager.UpdateFighterPosition(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 0.5f);
 
             yield return new WaitForSeconds(1);
 
-            combatManager.applyMove.EndMove();
-        }
-
-        if (!isAttack)
-
-        {
-            combatManager.applyMove.EndMove();
         }
     }
 
@@ -39,4 +34,11 @@ public class CautiousBasic : CautiousMove
     {
         yield break;
     }
+
+    public override IEnumerator Return()
+    {
+        Debug.Log("todo");
+        yield return null;
+    }
+
 }

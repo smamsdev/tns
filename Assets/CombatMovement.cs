@@ -6,15 +6,12 @@ public class CombatMovement : MonoBehaviour
     public ActorMove actorMove;
     public MovementScript movementScript;
 
-    public IEnumerator MoveCombatant(GameObject gameObject, Vector3 targetPosition, float stoppingPercentage = 100f, bool useTimeout = false, bool isReversing = false)
+    public IEnumerator MoveCombatant(GameObject gameObject, Vector3 targetPosition, float stoppingPercentage = 100f, bool useTimeout = false)
     {
         actorMove.actorGO = gameObject;
         actorMove.destination[0] = targetPosition;
 
         movementScript = actorMove.actorGO.GetComponent<MovementScript>();
-
-        // Set reversing direction
-        movementScript.isReversing = isReversing ? -Vector2.one : Vector2.one;
 
         // Calculate stopping distance based on the stopping percentage
         Vector3 stoppingPosition = Vector3.Lerp(movementScript.transform.position, targetPosition, stoppingPercentage / 100f);

@@ -9,12 +9,17 @@ public class CautiousBotch : CautiousMove
         combatManager = _combatManager;
 
         yield return new WaitForSeconds(1.0f);
-        combatManager.applyMove.EndMove();
     }
 
     public override IEnumerator OnEnemyAttack(CombatManager _combatManager, Enemy _enemy)
 
     {
         yield break;
+    }
+
+    public override IEnumerator Return()
+    {
+        Debug.Log("todo");
+        yield return null;
     }
 }

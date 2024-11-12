@@ -6,17 +6,22 @@ public class ApplyMove : State
 {
     [SerializeField] CombatManager combatManager;
 
-    void IsEnemyDead(bool _enemyIsDead)
-
+    private void OnEnable()
     {
-        combatManager.enemyIsDead = _enemyIsDead;
+        CombatEvents.EnemyIsDead += IsEnemyDead;
+    }
+
+    private void OnDisable()
+    {
+        CombatEvents.EnemyIsDead -= IsEnemyDead;
     }
 
     public override IEnumerator StartState()
     {
-        CombatEvents.EnemyIsDead += IsEnemyDead;
-
         combatManager.CombatUIManager.ChangeMenuState(false);
+        var playerMovementScript = combatManager.player.GetComponent<PlayerMovementScript>();
+        var playerLookDirection = playerMovementScript.lookDirection;
+        var moveSelected = combatManager.selectedPlayerMove;
 
         foreach (Enemy enemy in combatManager.enemy)
 
@@ -24,7 +29,6 @@ public class ApplyMove : State
             enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
             enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(false);
         }
-
 
         //   var equippedGear = combatManager.player.GetComponent<EquippedGear>().equippedGear;
         //  int i;
@@ -36,10 +40,16 @@ public class ApplyMove : State
         //      i++;
         //  }
 
-        combatManager.playerCombatStats.TotalPlayerAttackPower(combatManager.selectedPlayerMove.attackMoveMultiplier);
+        combatManager.playerCombatStats.TotalPlayerAttackPower(moveSelected.attackMoveMultiplier);
         CombatEvents.UpdateNarrator.Invoke(combatManager.selectedPlayerMove.moveName);
 
         yield return combatManager.selectedPlayerMove.OnApplyMove(combatManager, combatManager.enemy[combatManager.selectedEnemy]);
+        var storedLookDir = playerLookDirection; //this needs to happen here to remember direction of last enemy attacked
+
+        yield return combatManager.selectedPlayerMove.Return();
+        combatManager.player.GetComponent<PlayerMovementScript>().lookDirection = storedLookDir;
+
+        EndMove();
 
         yield return new WaitForSeconds(.2f);
         combatManager.playerAnimator.SetTrigger("CombatIdle");
@@ -56,7 +66,7 @@ public class ApplyMove : State
     IEnumerator EndMoveCoro()
 
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0f);
 
         foreach (Enemy enemy in combatManager.enemy)
 
@@ -83,15 +93,14 @@ public class ApplyMove : State
             combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
             yield return new WaitForSeconds(1f);
         }
-
             combatManager.SetState(combatManager.enemyAttack);
-
             CombatEvents.EnemyIsDead -= IsEnemyDead;
         }
     }
 
-    private void OnDisable()
+    void IsEnemyDead(bool _enemyIsDead)
+
     {
-        CombatEvents.EnemyIsDead -= IsEnemyDead;
+        combatManager.enemyIsDead = _enemyIsDead;
     }
 }

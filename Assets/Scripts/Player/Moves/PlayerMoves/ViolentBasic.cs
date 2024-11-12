@@ -10,6 +10,7 @@ public class ViolentBasic : ViolentMove
         combatManager = _combatManager;
         var playerMovementScript = combatManager.player.GetComponent<PlayerMovementScript>();
         var enemyPosition = combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.position;
+        var moveSelected = combatManager.selectedPlayerMove;
         combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
 
         if (isAttack)
@@ -17,16 +18,9 @@ public class ViolentBasic : ViolentMove
             //move to attack position
             yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, enemyPosition, 85f);
 
-            combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombatStats.attackPower);
+            combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombatStats.attackPower, playerMovementScript.lookDirection, moveSelected.attackPushStrength);
             combatManager.playerAnimator.SetTrigger("Attack");
             yield return new WaitForSeconds(0.5f);
-
-            //fall back
-
-            yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position, isReversing: true);
-
-            //tidy up and end move
-            combatManager.applyMove.EndMove();
         }
 
         //if we just want to use this as a basic fend
@@ -34,7 +28,6 @@ public class ViolentBasic : ViolentMove
 
         {
             yield return new WaitForSeconds(0.5f);
-            combatManager.applyMove.EndMove();
         }
     }
 
@@ -42,5 +35,10 @@ public class ViolentBasic : ViolentMove
 
     {
         yield break;
+    }
+
+    public override IEnumerator Return()
+    {
+        yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
     }
 }

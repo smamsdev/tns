@@ -18,7 +18,7 @@ public abstract class EnemyMove : MonoBehaviour
 
     public abstract IEnumerator EnemyAttack(CombatManager _combatManager);
 
-    public virtual IEnumerator EnemyReverse()
+    public virtual IEnumerator EnemyReturn()
 
     {
         yield return new WaitForSeconds(0.5f);

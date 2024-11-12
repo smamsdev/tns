@@ -44,7 +44,9 @@ public class CombatUIPlayerHP : MonoBehaviour
     IEnumerator UpdatePlayerHPDisplayCoroutine(int currentHP, int finalValue)
 
     {
-      //  yield return new WaitForSeconds(0.5f); //give a little break for the move to finish
+        //Debug.Log(currentHP);
+        //Debug.Log(finalValue);
+
         animator.SetTrigger("bump");
 
         float elapsedTime = 0f;

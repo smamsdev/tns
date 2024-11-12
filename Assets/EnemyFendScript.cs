@@ -13,7 +13,7 @@ public class EnemyFendScript : MonoBehaviour
 
     int attackRemainder;
 
-    public void ApplyPlayerAttackToFend(int attack)
+    public void ApplyPlayerAttackToFend(int attack, Vector2 playerLookDirection, float _attackPushStrength)
 
     {
         attackRemainder = attack - combatManager.enemy[combatManager.selectedEnemy].fendTotal;
@@ -34,6 +34,11 @@ public class EnemyFendScript : MonoBehaviour
     IEnumerator ApplyPlayerAttackToFendCoroutine(int attack)
 
     {
+       // var stepBackPos = new Vector2
+           //(combatManager.battleScheme.playerFightingPosition.transform.position.x + (attackPushStrength * enemyLookDir.x),
+           //combatManager.battleScheme.playerFightingPosition.transform.position.y);
+
+
         float elapsedTime = 0f;
         float lerpDuration = 0.5f;
 

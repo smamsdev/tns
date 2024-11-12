@@ -16,6 +16,7 @@ public abstract class PlayerMove : MonoBehaviour
     public float fendMoveMultiplier;
     public int potentialChange;
     public int moveWeighting;
+    public float attackPushStrength;
 
     [Header("")]
     public bool isAttack;
@@ -24,6 +25,8 @@ public abstract class PlayerMove : MonoBehaviour
     public Enemy enemy;
 
     public abstract IEnumerator OnApplyMove(CombatManager _combatManager, Enemy _enemy);
+
+    public abstract IEnumerator Return();
 
     public abstract IEnumerator OnEnemyAttack(CombatManager _combatManager, Enemy _enemy);
 

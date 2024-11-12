@@ -16,12 +16,17 @@ public class RecklessFocus : ViolentMove
         CombatEvents.UpdatePlayerHP.Invoke(damageToPlayer);
         CombatEvents.PlayerDamageDisplay.Invoke(damageToPlayer);
         yield return new WaitForSeconds(1);
-        combatManager.applyMove.EndMove();
     }
 
     public override IEnumerator OnEnemyAttack(CombatManager _combatManager, Enemy _enemy)
 
     {
         yield break;
+    }
+
+    public override IEnumerator Return()
+    {
+        Debug.Log("todo");
+        yield return null;
     }
 }

@@ -24,39 +24,35 @@ public class EnemyAttack : State
         foreach (Enemy enemy in combatManager.enemy)
 
         {
+            //init
             var playerMovementScript = combatManager.player.GetComponent<MovementScript>();
             var storedLookDirection = playerMovementScript.lookDirection;
+            var enemyLastLookDirection = enemy.GetComponent<MovementScript>().lookDirection;
+            var enemyAnimator = enemy.gameObject.GetComponent<Animator>();
 
+            //reset narrator
             CombatEvents.UpdateNarrator.Invoke("");
-
             yield return new WaitForSeconds(0.5f);
             CombatEvents.UpdateNarrator.Invoke(enemy.moveSelected.moveName);
 
+            //begin move
             yield return enemy.moveSelected.EnemyAttack(combatManager);
 
-            var enemyLastLookDirection = enemy.GetComponent<MovementScript>().lookDirection;
-
-
-            var enemyAnimator = enemy.gameObject.GetComponent<Animator>();
-
-
+            //move animation
             enemyAnimator.SetFloat("attackAnimationToUse", enemy.moveSelected.animtionIntTriggerToUse);
             enemyAnimator.SetTrigger("Attack");
             yield return new WaitForSeconds(0.2f);
             //allow half a sec for anim to complete.
 
-            yield return enemy.moveSelected.EnemyReverse();
+            //return to fightingpos, and return look direct
+            yield return enemy.moveSelected.EnemyReturn();
             enemyAnimator.SetTrigger("combatIdle");
-
             enemy.GetComponent<MovementScript>().lookDirection = enemyLastLookDirection;
 
-
+            //tidy up
             CombatEvents.UpdateNarrator.Invoke("");
-
             yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
-
             playerMovementScript.lookDirection = storedLookDirection;
-
         }
 
         combatManager.SetState(combatManager.roundReset);
