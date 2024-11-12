@@ -22,11 +22,7 @@ public abstract class EnemyMove : MonoBehaviour
 
     {
         yield return new WaitForSeconds(0.5f);
-        yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position, isReversing: true);
-
-        var enemyMovementScript = enemy.GetComponent<ActorMovementScript>();
-
-        yield return new WaitForSeconds(0.5f);
+        yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position);
     }
 
     public abstract void LoadMove(Enemy enemy);

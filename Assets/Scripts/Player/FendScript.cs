@@ -60,7 +60,9 @@ public class FendScript : MonoBehaviour
     IEnumerator ApplyEnemyAttackToFendCoRo(int attack)
 
     {
-        var stepBackPos = new Vector2((combatManager.battleScheme.playerFightingPosition.transform.position.x * -enemyLookDir.x) - attackPushStrength, combatManager.battleScheme.playerFightingPosition.transform.position.y);
+        var stepBackPos = new Vector2
+            (combatManager.battleScheme.playerFightingPosition.transform.position.x + (attackPushStrength * enemyLookDir.x),
+            combatManager.battleScheme.playerFightingPosition.transform.position.y);
 
         if (fend == 0)
         {

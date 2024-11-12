@@ -1,19 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine;
+using System.Collections;
 
 public class LevelLoaderScript : ToTrigger
 {
     public string sceneID;
     public string sceneName;
-
     public Vector3 entryCoordinates;
-    static string PendingPreviousScene;
+    private string pendingPreviousScene;
     public Animator animator;
     bool isCollision;
-
     public TextMeshProUGUI textMeshProUGUI;
 
     private void Start()
@@ -23,8 +20,7 @@ public class LevelLoaderScript : ToTrigger
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
-
+        if (collision.CompareTag("Player"))
         {
             isCollision = true;
             animator.SetTrigger("OpenDestination");
@@ -33,8 +29,7 @@ public class LevelLoaderScript : ToTrigger
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
-
+        if (collision.CompareTag("Player"))
         {
             isCollision = false;
             animator.SetTrigger("CloseDestination");
@@ -42,38 +37,41 @@ public class LevelLoaderScript : ToTrigger
     }
 
     public override IEnumerator DoAction()
-
     {
         FieldEvents.entryCoordinates = entryCoordinates;
+        FieldEvents.SceneChanging.Invoke();
+        yield return new WaitForSeconds(1f);
         LoadScene(sceneID);
         FieldEvents.HasCompleted.Invoke(this.gameObject);
         yield return null;
     }
 
-    public static void LoadScene(string SceneNameToLoad)
+    public void LoadScene(string SceneNameToLoad)
     {
-        PendingPreviousScene = SceneManager.GetActiveScene().name;
+        pendingPreviousScene = SceneManager.GetActiveScene().name;
         SceneManager.sceneLoaded += ActivatorAndUnloader;
         SceneManager.LoadScene(SceneNameToLoad, LoadSceneMode.Additive);
     }
 
-    static void ActivatorAndUnloader(Scene scene, LoadSceneMode mode)
+    private void ActivatorAndUnloader(Scene scene, LoadSceneMode mode)
     {
         SceneManager.sceneLoaded -= ActivatorAndUnloader;
         SceneManager.SetActiveScene(scene);
-        SceneManager.UnloadSceneAsync(PendingPreviousScene);
+
+        SceneManager.UnloadSceneAsync(pendingPreviousScene);
+        FadeOut();
+    }
+
+    private void FadeOut()
+    {
+        FieldEvents.SceneChanging();
     }
 
     private void Update()
     {
-        if (isCollision)
-
+        if (isCollision && Input.GetKeyDown(KeyCode.Space))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-
-            {
-                StartCoroutine(DoAction());
-            }
+            StartCoroutine(DoAction());
         }
     }
 }

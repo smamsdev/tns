@@ -34,17 +34,21 @@ public class EnemyAttack : State
 
             yield return enemy.moveSelected.EnemyAttack(combatManager);
 
+            var enemyLastLookDirection = enemy.GetComponent<MovementScript>().lookDirection;
+
+
             var enemyAnimator = enemy.gameObject.GetComponent<Animator>();
 
 
             enemyAnimator.SetFloat("attackAnimationToUse", enemy.moveSelected.animtionIntTriggerToUse);
             enemyAnimator.SetTrigger("Attack");
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.2f);
             //allow half a sec for anim to complete.
 
-            enemyAnimator.SetTrigger("combatIdle");
             yield return enemy.moveSelected.EnemyReverse();
-            enemy.GetComponent<MovementScript>().lookDirection = enemy.forceLookDirection;
+            enemyAnimator.SetTrigger("combatIdle");
+
+            enemy.GetComponent<MovementScript>().lookDirection = enemyLastLookDirection;
 
 
             CombatEvents.UpdateNarrator.Invoke("");

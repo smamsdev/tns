@@ -9,6 +9,8 @@ public static class FieldEvents
 {
     public static Action<GameObject> HasCompleted;
 
+    public static Action SceneChanging;
+
     public static Action<GameObject> UpdateXP;
     public static Action<RaycastHit2D> PlayerRayCastHit;
 
