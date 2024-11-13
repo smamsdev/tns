@@ -18,7 +18,6 @@ public class PreciseBasic : PreciseMove
 
         if (isAttack)
         {
-
             //combatManager.UpdateFighterPosition(combatManager.player, new Vector2(combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.position.x - 0.3f, combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.position.y), 0.5f);
             yield return new WaitForSeconds(0.5f);
             combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombatStats.attackPower, playerMovementScript.lookDirection, moveSelected.attackPushStrength);

@@ -69,7 +69,6 @@ public class FendScript : MonoBehaviour
             FendBreached();
             yield return new WaitForSeconds(0.2f);
             yield return (combatManager.combatMovement.MoveCombatantFixedTime(combatManager.player.gameObject, stepBackPos, isReversing: true));
-
         }
 
         float elapsedTime = 0f;

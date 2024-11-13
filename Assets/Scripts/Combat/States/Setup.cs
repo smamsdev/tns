@@ -91,6 +91,7 @@ public class Setup : State
             yield return new WaitForSeconds(1);
 
             enemy.enemyUI.enemyStatsDisplay.ShowEnemyStatsDisplay(true);
+            enemy.GetComponent<Animator>().SetBool("isCombat", true);
         }
 
         //set ui elements

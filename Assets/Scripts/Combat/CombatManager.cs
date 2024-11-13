@@ -40,6 +40,7 @@ public class CombatManager : MonoBehaviour
     [Header("Movement")]
 
     public CombatMovement combatMovement;
+    public GameObject combatMovementPrefab;
     public CameraFollow cameraFollow;
     public Animator playerAnimator;
 

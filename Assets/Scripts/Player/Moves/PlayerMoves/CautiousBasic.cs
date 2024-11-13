@@ -37,8 +37,6 @@ public class CautiousBasic : CautiousMove
 
     public override IEnumerator Return()
     {
-        Debug.Log("todo");
         yield return null;
     }
-
 }

@@ -46,6 +46,8 @@ public class ApplyMove : State
         yield return combatManager.selectedPlayerMove.OnApplyMove(combatManager, combatManager.enemy[combatManager.selectedEnemy]);
         var storedLookDir = playerLookDirection; //this needs to happen here to remember direction of last enemy attacked
 
+        //yield break;
+
         yield return combatManager.selectedPlayerMove.Return();
         combatManager.player.GetComponent<PlayerMovementScript>().lookDirection = storedLookDir;
 

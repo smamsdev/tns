@@ -11,6 +11,7 @@ public class ViolentBasic : ViolentMove
         var playerMovementScript = combatManager.player.GetComponent<PlayerMovementScript>();
         var enemyPosition = combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.position;
         var moveSelected = combatManager.selectedPlayerMove;
+
         combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
 
         if (isAttack)
@@ -19,6 +20,7 @@ public class ViolentBasic : ViolentMove
             yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, enemyPosition, 85f);
 
             combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombatStats.attackPower, playerMovementScript.lookDirection, moveSelected.attackPushStrength);
+
             combatManager.playerAnimator.SetTrigger("Attack");
             yield return new WaitForSeconds(0.5f);
         }
@@ -34,7 +36,7 @@ public class ViolentBasic : ViolentMove
     public override IEnumerator OnEnemyAttack(CombatManager _combatManager, Enemy _enemy)
 
     {
-        yield break;
+        yield break; //null as it's a basic move only
     }
 
     public override IEnumerator Return()

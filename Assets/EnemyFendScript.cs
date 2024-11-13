@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyFendScript : MonoBehaviour
@@ -10,34 +11,37 @@ public class EnemyFendScript : MonoBehaviour
     [SerializeField] GameObject fendGameObject;
     [SerializeField] GameObject fendTextGameObject;
     public Animator enemyFendAnimator;
+    Enemy enemy;
 
     int attackRemainder;
 
-    public void ApplyPlayerAttackToFend(int attack, Vector2 playerLookDirection, float _attackPushStrength)
+    public void ApplyPlayerAttackToFend(int attack, Vector2 playerLookDirection, float attackPushStrength)
 
     {
+        enemy = combatManager.enemy[combatManager.selectedEnemy];
+        var enemyAnimator = enemy.GetComponent<Animator>();
+
         attackRemainder = attack - combatManager.enemy[combatManager.selectedEnemy].fendTotal;
         enemyFendAnimator.SetTrigger("fendDeflect");
+
+        enemyAnimator.SetTrigger("Pain");
+
+        StartCoroutine(ApplyPlayerAttackToFendCoroutine(attack, playerLookDirection, attackPushStrength));    
+    }
+
+    IEnumerator ApplyPlayerAttackToFendCoroutine(int attack, Vector2 playerLookDirection, float attackPushStrength)
+
+    {
+        var stepBackPos = new Vector3 (enemy.enemyFightingPosition.transform.position.x + (attackPushStrength * playerLookDirection.x),enemy.enemyFightingPosition.transform.position.y);
 
         if (combatManager.enemy[combatManager.selectedEnemy].fendTotal == 0)
         {
             FendBreached();
-            return;
+            yield return new WaitForSeconds(0.2f);
+            yield return (combatManager.combatMovement.MoveCombatantFixedTime(enemy.gameObject, stepBackPos, isReversing: true));
+
+            yield return null;
         }
-
-        else
-        {
-            StartCoroutine(ApplyPlayerAttackToFendCoroutine(attack));
-        }   
-    }
-
-    IEnumerator ApplyPlayerAttackToFendCoroutine(int attack)
-
-    {
-       // var stepBackPos = new Vector2
-           //(combatManager.battleScheme.playerFightingPosition.transform.position.x + (attackPushStrength * enemyLookDir.x),
-           //combatManager.battleScheme.playerFightingPosition.transform.position.y);
-
 
         float elapsedTime = 0f;
         float lerpDuration = 0.5f;
@@ -58,6 +62,13 @@ public class EnemyFendScript : MonoBehaviour
             if (combatManager.enemy[combatManager.selectedEnemy].fendTotal == 0)
             {
                FendBreached();
+               yield return new WaitForSeconds(0.2f);
+
+                var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
+                var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>(); 
+                yield return (combatMovementInstance.MoveCombatantFixedTime(enemy.gameObject, stepBackPos));
+                Destroy(combatMovementInstanceGO);
+
                yield return null;
             }
 
@@ -68,9 +79,6 @@ public class EnemyFendScript : MonoBehaviour
     void FendBreached()
 
     {
-        var enemy = combatManager.enemy[combatManager.selectedEnemy];
-        var enemyMovementScript = enemy.GetComponent<ActorMovementScript>();
-
         enemyFendAnimator.SetTrigger("fendBreak");
         fendTextMeshProUGUI.text = "";
         if (attackRemainder > 0)
