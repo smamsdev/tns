@@ -68,7 +68,12 @@ public class FendScript : MonoBehaviour
         {
             FendBreached();
             yield return new WaitForSeconds(0.2f);
-            yield return (combatManager.combatMovement.MoveCombatantFixedTime(combatManager.player.gameObject, stepBackPos, isReversing: true));
+
+            var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
+            var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
+            yield return (combatMovementInstance.MoveCombatantFixedTime(combatManager.player.gameObject, stepBackPos, isReversing: true));
+            Destroy(combatMovementInstanceGO);
+
         }
 
         float elapsedTime = 0f;
@@ -94,7 +99,11 @@ public class FendScript : MonoBehaviour
             {
                 FendBreached();
                 yield return new WaitForSeconds(0.2f);
-                yield return (combatManager.combatMovement.MoveCombatantFixedTime(combatManager.player.gameObject, stepBackPos, isReversing: true));
+
+                var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
+                var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
+                yield return (combatMovementInstance.MoveCombatantFixedTime(combatManager.player.gameObject, stepBackPos, isReversing: true));
+                Destroy(combatMovementInstanceGO);
             }
 
             yield return null;

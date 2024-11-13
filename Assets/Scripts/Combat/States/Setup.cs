@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -34,7 +35,12 @@ public class Setup : State
         //position player
 
         FieldEvents.isCameraFollow = false;
-        yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
+
+        var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
+        var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
+        yield return (combatMovementInstance.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position));
+        Destroy(combatMovementInstanceGO);
+
         combatManager.playerAnimator.SetBool("isCombat", true);
         combatManager.player.GetComponent<PlayerMovementScript>().lookDirection = combatManager.battleScheme.playerDefaultLookDirection;
 
@@ -56,7 +62,11 @@ public class Setup : State
 
             enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
 
-            yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position);
+            var combatMovementEnemySetupGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
+            var combatMovementEnemySetup = combatMovementInstanceGO.GetComponent<CombatMovement>();
+            yield return (combatMovementInstance.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position));
+            Destroy(combatMovementInstanceGO);
+
             enemyMovementScript.lookDirection = enemy.forceLookDirection;
             enemyMovementScript.actorRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
 

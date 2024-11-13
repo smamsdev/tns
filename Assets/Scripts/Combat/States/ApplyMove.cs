@@ -30,6 +30,8 @@ public class ApplyMove : State
             enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(false);
         }
 
+        var enemySelected = combatManager.enemy[combatManager.selectedEnemy];
+
         //   var equippedGear = combatManager.player.GetComponent<EquippedGear>().equippedGear;
         //  int i;
         //
@@ -43,13 +45,21 @@ public class ApplyMove : State
         combatManager.playerCombatStats.TotalPlayerAttackPower(moveSelected.attackMoveMultiplier);
         CombatEvents.UpdateNarrator.Invoke(combatManager.selectedPlayerMove.moveName);
 
-        yield return combatManager.selectedPlayerMove.OnApplyMove(combatManager, combatManager.enemy[combatManager.selectedEnemy]);
+        yield return combatManager.selectedPlayerMove.OnApplyMove(combatManager, enemySelected);
         var storedLookDir = playerLookDirection; //this needs to happen here to remember direction of last enemy attacked
 
         //yield break;
 
         yield return combatManager.selectedPlayerMove.Return();
         combatManager.player.GetComponent<PlayerMovementScript>().lookDirection = storedLookDir;
+
+
+        //return enemy
+
+        var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
+        var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
+        yield return (combatMovementInstance.MoveCombatant(enemySelected.gameObject, enemySelected.enemyFightingPosition.transform.position));
+        Destroy(combatMovementInstanceGO);
 
         EndMove();
 

@@ -51,7 +51,12 @@ public class EnemyAttack : State
 
             //tidy up
             CombatEvents.UpdateNarrator.Invoke("");
-            yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
+
+            var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
+            var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
+            yield return (combatMovementInstance.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position));
+            Destroy(combatMovementInstanceGO);
+
             playerMovementScript.lookDirection = storedLookDirection;
         }
 

@@ -17,7 +17,11 @@ public class ViolentBasic : ViolentMove
         if (isAttack)
         {
             //move to attack position
-            yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, enemyPosition, 85f);
+
+            var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
+            var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
+            yield return (combatMovementInstance.MoveCombatant(combatManager.player.gameObject, enemyPosition, 85f));
+            Destroy(combatMovementInstanceGO);
 
             combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombatStats.attackPower, playerMovementScript.lookDirection, moveSelected.attackPushStrength);
 
@@ -41,6 +45,9 @@ public class ViolentBasic : ViolentMove
 
     public override IEnumerator Return()
     {
-        yield return combatManager.combatMovement.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
+        var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
+        var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
+        yield return (combatMovementInstance.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position));
+        Destroy(combatMovementInstanceGO);
     }
 }

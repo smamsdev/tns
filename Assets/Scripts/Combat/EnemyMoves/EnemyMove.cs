@@ -22,7 +22,11 @@ public abstract class EnemyMove : MonoBehaviour
 
     {
         yield return new WaitForSeconds(0.5f);
-        yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position);
+
+        var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
+        var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
+        yield return (combatMovementInstance.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position));
+        Destroy(combatMovementInstanceGO);
     }
 
     public abstract void LoadMove(Enemy enemy);

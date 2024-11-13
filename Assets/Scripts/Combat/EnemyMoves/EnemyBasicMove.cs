@@ -27,7 +27,10 @@ public class EnemyBasicMove : EnemyMove
 
         enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
 
-        yield return combatManager.combatMovement.MoveCombatant(enemy.gameObject, combatManager.player.transform.position, stoppingPercentage: distance);
+        var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
+        var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
+        yield return (combatMovementInstance.MoveCombatant(enemy.gameObject, combatManager.player.transform.position, stoppingPercentage: distance));
+        Destroy(combatMovementInstanceGO);
 
         combatManager.cameraFollow.transformToFollow = combatManager.player.transform;
 
@@ -37,6 +40,5 @@ public class EnemyBasicMove : EnemyMove
 
         StartCoroutine(combatManager.selectedPlayerMove.OnEnemyAttack(combatManager, enemy));
         yield return null;
-
     }
 }
