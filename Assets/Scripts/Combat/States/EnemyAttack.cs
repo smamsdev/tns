@@ -29,6 +29,7 @@ public class EnemyAttack : State
             var storedLookDirection = playerMovementScript.lookDirection;
             var enemyLastLookDirection = enemy.GetComponent<MovementScript>().lookDirection;
             var enemyAnimator = enemy.gameObject.GetComponent<Animator>();
+            enemyAnimator.ResetTrigger("combatIdle");
 
             //reset narrator
             CombatEvents.UpdateNarrator.Invoke("");
@@ -49,8 +50,16 @@ public class EnemyAttack : State
             enemyAnimator.SetTrigger("combatIdle");
             enemy.GetComponent<MovementScript>().lookDirection = enemyLastLookDirection;
 
-            //tidy up
+            
             CombatEvents.UpdateNarrator.Invoke("");
+
+            //check for death and return player pos
+
+            if (combatManager.defeat.playerDefeated)
+
+            {
+                yield break;
+            }
 
             var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
             var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();

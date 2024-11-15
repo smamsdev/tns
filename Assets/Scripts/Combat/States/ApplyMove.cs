@@ -6,16 +6,6 @@ public class ApplyMove : State
 {
     [SerializeField] CombatManager combatManager;
 
-    private void OnEnable()
-    {
-        CombatEvents.EnemyIsDead += IsEnemyDead;
-    }
-
-    private void OnDisable()
-    {
-        CombatEvents.EnemyIsDead -= IsEnemyDead;
-    }
-
     public override IEnumerator StartState()
     {
         combatManager.CombatUIManager.ChangeMenuState(false);
@@ -44,6 +34,7 @@ public class ApplyMove : State
 
         combatManager.playerCombatStats.TotalPlayerAttackPower(moveSelected.attackMoveMultiplier);
         CombatEvents.UpdateNarrator.Invoke(combatManager.selectedPlayerMove.moveName);
+        CombatEvents.UpdatePlayerPot.Invoke(combatManager.selectedPlayerMove.potentialChange);
 
         yield return combatManager.selectedPlayerMove.OnApplyMove(combatManager, enemySelected);
         var storedLookDir = playerLookDirection; //this needs to happen here to remember direction of last enemy attacked
@@ -52,34 +43,22 @@ public class ApplyMove : State
 
         yield return combatManager.selectedPlayerMove.Return();
         combatManager.player.GetComponent<PlayerMovementScript>().lookDirection = storedLookDir;
+        combatManager.playerAnimator.SetTrigger("CombatIdle");
 
 
         //return enemy
-
         var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
         var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
         yield return (combatMovementInstance.MoveCombatant(enemySelected.gameObject, enemySelected.enemyFightingPosition.transform.position));
         Destroy(combatMovementInstanceGO);
 
-        EndMove();
-
-        yield return new WaitForSeconds(.2f);
-        combatManager.playerAnimator.SetTrigger("CombatIdle");
-
+        StartCoroutine(EndMove());
         yield return null;
     }
 
-    public void EndMove()
+    IEnumerator EndMove()
 
     {
-        StartCoroutine(EndMoveCoro());
-    }
-
-    IEnumerator EndMoveCoro()
-
-    {
-        yield return new WaitForSeconds(0f);
-
         foreach (Enemy enemy in combatManager.enemy)
 
         {
@@ -87,18 +66,8 @@ public class ApplyMove : State
             enemy.enemyUI.enemyStatsDisplay.enemyStatsDisplayGameObject.SetActive(false);
         }
 
-        if (combatManager.enemyIsDead)
-
-        {
-            combatManager.SetState(combatManager.victory);
-            CombatEvents.EnemyIsDead -= IsEnemyDead;
-        }
-
-        else
-        {
-            CombatEvents.UpdatePlayerPot.Invoke(combatManager.selectedPlayerMove.potentialChange);
-            combatManager.playerCombatStats.TotalPlayerFendPower(combatManager.selectedPlayerMove.fendMoveMultiplier);
-            combatManager.CombatUIManager.playerFendScript.UpdateFendText(combatManager.playerCombatStats.playerFend);
+        combatManager.playerCombatStats.TotalPlayerFendPower(combatManager.selectedPlayerMove.fendMoveMultiplier);
+        combatManager.CombatUIManager.playerFendScript.UpdateFendText(combatManager.playerCombatStats.playerFend);
 
         if (combatManager.playerCombatStats.playerFend >0)
         {
@@ -106,13 +75,5 @@ public class ApplyMove : State
             yield return new WaitForSeconds(1f);
         }
             combatManager.SetState(combatManager.enemyAttack);
-            CombatEvents.EnemyIsDead -= IsEnemyDead;
-        }
-    }
-
-    void IsEnemyDead(bool _enemyIsDead)
-
-    {
-        combatManager.enemyIsDead = _enemyIsDead;
     }
 }

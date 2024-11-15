@@ -23,7 +23,6 @@ public class CombatManager : MonoBehaviour
     public CombatUIManager CombatUIManager;
     public PlayerMoveManager playerMoveManager;
     public int roundCount;
-    public bool enemyIsDead = false;
 
     [Header("States")]
     public Setup setup;
@@ -35,6 +34,7 @@ public class CombatManager : MonoBehaviour
     public EnemyAttack enemyAttack;
     public RoundReset roundReset;
     public Victory victory;
+    public Defeat defeat;
     public GearSelect gearSelect;
 
     [Header("Movement")]
@@ -44,6 +44,16 @@ public class CombatManager : MonoBehaviour
     public Animator playerAnimator;
 
     [HideInInspector] public int enemyRawAttackPower;
+
+    private void OnEnable()
+    {
+        CombatEvents.PlayerDefeated += PlayerDefeated;
+    }
+
+    private void OnDisable()
+    {
+        CombatEvents.PlayerDefeated -= PlayerDefeated;
+    }
 
     public void StartBattle()
     {
@@ -82,5 +92,11 @@ public class CombatManager : MonoBehaviour
         {
             currentState.StateUpdate();
         }
+    }
+
+    void PlayerDefeated()
+    {
+        defeat.playerDefeated = true;
+        SetState(defeat);
     }
 }

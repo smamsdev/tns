@@ -71,7 +71,7 @@ public class FendScript : MonoBehaviour
 
             var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
             var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-            yield return (combatMovementInstance.MoveCombatantFixedTime(combatManager.player.gameObject, stepBackPos, isReversing: true));
+            yield return (combatMovementInstance.MoveCombatantFixedTime(combatManager.player.gameObject, stepBackPos, attackPushStrength, isReversing: true));
             Destroy(combatMovementInstanceGO);
 
         }
@@ -102,7 +102,7 @@ public class FendScript : MonoBehaviour
 
                 var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
                 var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-                yield return (combatMovementInstance.MoveCombatantFixedTime(combatManager.player.gameObject, stepBackPos, isReversing: true));
+                yield return (combatMovementInstance.MoveCombatantFixedTime(combatManager.player.gameObject, stepBackPos, attackPushStrength, isReversing: true));
                 Destroy(combatMovementInstanceGO);
             }
 

@@ -63,6 +63,12 @@ public class CombatUIPlayerHP : MonoBehaviour
 
             elapsedTime += Time.deltaTime;
 
+            if (valueToOutput == 0) 
+            
+            {
+                CombatEvents.PlayerDefeated();
+            }
+
             yield return null;
         }
     }

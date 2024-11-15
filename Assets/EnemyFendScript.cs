@@ -12,6 +12,7 @@ public class EnemyFendScript : MonoBehaviour
     [SerializeField] GameObject fendTextGameObject;
     public Animator enemyFendAnimator;
     Enemy enemy;
+    Animator enemyAnimator;
 
     int attackRemainder;
 
@@ -19,7 +20,7 @@ public class EnemyFendScript : MonoBehaviour
 
     {
         enemy = combatManager.enemy[combatManager.selectedEnemy];
-        var enemyAnimator = enemy.GetComponent<Animator>();
+        enemyAnimator = enemy.GetComponent<Animator>();
 
         attackRemainder = attack - combatManager.enemy[combatManager.selectedEnemy].fendTotal;
         enemyFendAnimator.SetTrigger("fendDeflect");
@@ -41,8 +42,11 @@ public class EnemyFendScript : MonoBehaviour
 
             var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
             var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-            yield return (combatMovementInstance.MoveCombatantFixedTime(enemy.gameObject, stepBackPos, isReversing: true));
+            yield return (combatMovementInstance.MoveCombatantFixedTime(enemy.gameObject, stepBackPos, attackPushStrength, isReversing: true));
             Destroy(combatMovementInstanceGO);
+
+            enemyAnimator.SetTrigger("combatIdle");
+
 
             yield return null;
         }
@@ -66,16 +70,18 @@ public class EnemyFendScript : MonoBehaviour
             if (combatManager.enemy[combatManager.selectedEnemy].fendTotal == 0)
             {
                FendBreached();
-               yield return new WaitForSeconds(0.2f);
 
                 var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
-                var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>(); 
-                yield return (combatMovementInstance.MoveCombatantFixedTime(enemy.gameObject, stepBackPos));
+                var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
+                yield return (combatMovementInstance.MoveCombatantFixedTime(enemy.gameObject, stepBackPos, attackPushStrength));
                 Destroy(combatMovementInstanceGO);
 
-               yield return null;
+                enemyAnimator.SetTrigger("combatIdle");
+
+                yield return null;
             }
 
+            enemyAnimator.SetTrigger("combatIdle");
             yield return null;
         }
     }

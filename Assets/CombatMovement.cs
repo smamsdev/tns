@@ -67,7 +67,7 @@ public class CombatMovement : MonoBehaviour
         movementScript.isReversing = Vector2.one;
     }
 
-    public IEnumerator MoveCombatantFixedTime(GameObject gameObject, Vector3 targetPosition, bool isReversing = false)
+    public IEnumerator MoveCombatantFixedTime(GameObject gameObject, Vector3 targetPosition, float _fixedDuration, bool isReversing = false)
     {
         actorMove.actorGO = gameObject;
         actorMove.destination[0] = targetPosition;
@@ -76,7 +76,7 @@ public class CombatMovement : MonoBehaviour
 
         movementScript.isReversing = isReversing ? -Vector2.one : Vector2.one;
 
-        float fixedDuration = 0.5f; // Fixed duration for the movement
+        float fixedDuration = _fixedDuration / 2;
         Vector3 startPosition = movementScript.transform.position;
         float elapsedTime = 0f;
 

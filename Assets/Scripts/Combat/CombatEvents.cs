@@ -44,6 +44,7 @@ public static class CombatEvents
     public static Action<int> UpdatePlayerHP;
     public static Action<int> PlayerDamageDisplay;
     public static Action DisablePlayerDamageDisplay;
+    public static Action PlayerDefeated;
     public static Action<int> SendMove;
 
 }

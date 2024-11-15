@@ -5,6 +5,7 @@ using UnityEngine;
 public class SceneFader : MonoBehaviour
 {
     [SerializeField] Animator faderAnimator;
+    public bool remainFadedDownOnSceneLoad;
 
     private void OnEnable()
     {
@@ -20,7 +21,17 @@ public class SceneFader : MonoBehaviour
 
     private void Start()
     {
-        faderAnimator.ResetTrigger("Trigger2");
+        if (!remainFadedDownOnSceneLoad)
+
+        {
+            faderAnimator.SetBool("start", true);
+        }
+        
+
+       // faderAnimator.ResetTrigger("Trigger2");
+
+
+
     }
 
     void FadeDown()
