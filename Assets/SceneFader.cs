@@ -16,7 +16,6 @@ public class SceneFader : MonoBehaviour
     private void OnDisable()
     {
         FieldEvents.SceneChanging -= FadeDown;
-
     }
 
     private void Start()
@@ -26,17 +25,10 @@ public class SceneFader : MonoBehaviour
         {
             faderAnimator.SetBool("start", true);
         }
-        
-
-       // faderAnimator.ResetTrigger("Trigger2");
-
-
-
     }
 
     void FadeDown()
     {
         faderAnimator.SetTrigger("Trigger2");
-
     }
 }
