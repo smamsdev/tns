@@ -48,6 +48,7 @@ public class LevelLoaderScript : ToTrigger
 
     public void LoadScene(string SceneNameToLoad)
     {
+        FadeOut();
         pendingPreviousScene = SceneManager.GetActiveScene().name;
         SceneManager.sceneLoaded += ActivatorAndUnloader;
         SceneManager.LoadScene(SceneNameToLoad, LoadSceneMode.Additive);
@@ -59,7 +60,7 @@ public class LevelLoaderScript : ToTrigger
         SceneManager.SetActiveScene(scene);
 
         SceneManager.UnloadSceneAsync(pendingPreviousScene);
-        FadeOut();
+
     }
 
     private void FadeOut()

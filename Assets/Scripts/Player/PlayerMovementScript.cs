@@ -116,13 +116,14 @@ public class PlayerMovementScript : MovementScript
         if (horizontalInput > 0)
         {
             lookDirection.x = 1 * isReversing.x;
+            lookDirection.y = 0;
 
         }
 
         if (horizontalInput < 0)
         {
             lookDirection.x = -1 * isReversing.x;
-
+            lookDirection.y = 0;
         }
 
         animator.SetFloat("horizontalInput", movementDirection.x);

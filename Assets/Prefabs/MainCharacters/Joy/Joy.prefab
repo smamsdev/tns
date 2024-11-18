@@ -112,11 +112,11 @@ MonoBehaviour:
   animator: {fileID: 0}
   movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
-  isAscending: {x: 0, y: 0}
+  isReversing: {x: 0, y: 0}
   actorRigidBody2d: {fileID: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  forceLookDirectionOnLoad: {x: 0, y: 0}
+  forceLookDirectionOnLoad: {x: -1, y: 0}
 --- !u!50 &6235782205322182890
 Rigidbody2D:
   serializedVersion: 4
@@ -125,7 +125,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2459638364048996729}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -234,7 +234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7926173728495188542}
   - component: {fileID: 6818076369851559220}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +339,7 @@ MonoBehaviour:
   dialogue:
   - actorGameObject: {fileID: 2459638364048996729}
     actorName: 
-    dialoguetext: All OK?
+    dialoguetext: Be careful out there...
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
