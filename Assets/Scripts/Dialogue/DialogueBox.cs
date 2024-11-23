@@ -70,17 +70,20 @@ public class DialogueBox : MonoBehaviour
             nameText.text = dialogueElement.actorGameObject.name;
         }
 
-        // if the dialog is too short, throw in some extra spaces, so it doesn't look all jacked up.
+        // pray that this works
 
-        int minimumLength = dialogueElement.actorGameObject.name.Length;
         int paddingLength = 3;
         string padding = new string(' ', paddingLength);
 
-        if (dialogueElement.dialoguetext.Length < minimumLength)
+        if (dialogueElement.dialoguetext.Length < (dialogueElement.actorGameObject.name.Length + 8))
 
         {
-            nameFieldBackground.text = dialogueElement.actorGameObject.name + padding + ".";
-            dialogueFieldBackground.text = dialogueElement.actorGameObject.name + padding + ".";
+            string actorname = dialogueElement.actorGameObject.name;
+
+            if (actorname == "Player") { actorname = "Liam";}
+
+            nameFieldBackground.text = actorname + "X";
+            dialogueFieldBackground.text = actorname + "X";
         }
 
         else

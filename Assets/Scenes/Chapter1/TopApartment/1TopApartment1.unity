@@ -724,6 +724,58 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3094668877101487324, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
   m_PrefabInstance: {fileID: 1163757870}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &230199585 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1414917179925248974, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
+  m_PrefabInstance: {fileID: 1163757870}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &248393603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 248393604}
+  - component: {fileID: 248393605}
+  m_Layer: 0
+  m_Name: TopAnimationTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &248393604
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248393603}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1487797380}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &248393605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248393603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b15f866d829ad03448eee675529cae58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 230199585}
+  customAnimationStateNumber: 1
+  revertstate: 0
 --- !u!1 &249319815
 GameObject:
   m_ObjectHideFlags: 0
@@ -1312,12 +1364,17 @@ MonoBehaviour:
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 230199580}
     actorName: 
-    dialoguetext: "What are you \nREWIRED FOR SOUND again?\nHa! Ha!"
+    dialoguetext: 'How do I know this snitch ain''t
+
+      ''WIRED FOR SOUND''?
+
+      Ha!
+      Ha!'
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 881080666}
     actorName: 
-    dialoguetext: Glad you think it's funny...
+    dialoguetext: Glad you think that was funny...
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 881080666}
@@ -1333,7 +1390,9 @@ MonoBehaviour:
     dialoguetext: 'Banks and hospitals ripping me off.
 
       Goddam cops and drug
-      dealers trying to kill me.'
+      dealers
+
+      trying to kill me.'
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 230199580}
@@ -1343,12 +1402,22 @@ MonoBehaviour:
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 230199580}
     actorName: 
-    dialoguetext: And we're here for you no matter what...
+    dialoguetext: 'The band is here for you too
+
+      no matter what happens.'
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 881080666}
     actorName: 
-    dialoguetext: ...Maybe Sudo can get us another gig...
+    dialoguetext: What's music done for me lately?
+    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
+    dialogueGameObject: {fileID: 0}
+  - actorGameObject: {fileID: 230199580}
+    actorName: 
+    dialoguetext: 'It''ll all work out somehow.
+
+      Sudo will line us up another
+      gig...'
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
@@ -1978,6 +2047,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7313200626957873692, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
   m_PrefabInstance: {fileID: 1163757870}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &824064784 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8653500618948551795, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
+  m_PrefabInstance: {fileID: 1163757870}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &881080666 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6457784655243026927, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
@@ -2366,6 +2440,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 536518373796724789, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
+      propertyPath: dialogueReloads.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 536518373796724789, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
+      propertyPath: dialogueReloads.Array.data[0].GOToTrigger
+      value: 
+      objectReference: {fileID: 1487797379}
+    - target: {fileID: 536518373796724789, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
+      propertyPath: dialogueReloads.Array.data[0].dialogueToReplace
+      value: 
+      objectReference: {fileID: 1451017108}
     - target: {fileID: 1414917179925248974, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
       propertyPath: m_Controller
       value: 
@@ -2414,6 +2500,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5252768952380855185, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
+      propertyPath: m_Size.x
+      value: 0.48048797
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252768952380855185, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
+      propertyPath: m_Size.y
+      value: 0.15806639
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252768952380855185, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.016260847
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252768952380855185, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.025899231
+      objectReference: {fileID: 0}
+    - target: {fileID: 8129439563870302754, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
+      propertyPath: isLoopedDialogue
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8129439563870302754, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
       propertyPath: dialogue.Array.data[0].dialoguetext
       value: Yo, Top Kick!
@@ -2424,7 +2530,10 @@ PrefabInstance:
       objectReference: {fileID: 881080666}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8653500618948551795, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1451017109}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cfa25d6cb8803740bfff9b48b997ee3, type: 3}
 --- !u!4 &1244793780 stripped
@@ -2494,6 +2603,59 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+--- !u!1 &1451017107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1451017109}
+  - component: {fileID: 1451017108}
+  m_Layer: 8
+  m_Name: YouFeelinThis
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1451017108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1451017107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3074f9f12c26914d9fd823d3c034dfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueManager: {fileID: 0}
+  dialogue:
+  - actorGameObject: {fileID: 230199580}
+    actorName: 
+    dialoguetext: Are you feeling this groove?
+    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
+    dialogueGameObject: {fileID: 0}
+  dialogueLaunched: 0
+  isLoopedDialogue: 0
+--- !u!4 &1451017109
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1451017107}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 824064784}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1458070172
 GameObject:
   m_ObjectHideFlags: 0
@@ -2955,6 +3117,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 398995815}
+  - {fileID: 248393604}
+  - {fileID: 1830209281}
   m_Father: {fileID: 1458070173}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1487797381
@@ -2970,7 +3134,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toTrigger:
+  - {fileID: 248393605}
   - {fileID: 398995816}
+  - {fileID: 1830209282}
 --- !u!114 &1487797382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3375,6 +3541,53 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!1 &1830209280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1830209281}
+  - component: {fileID: 1830209282}
+  m_Layer: 0
+  m_Name: TopAnimationTriggerRevert
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1830209281
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830209280}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1487797380}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1830209282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830209280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b15f866d829ad03448eee675529cae58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 230199585}
+  customAnimationStateNumber: 1
+  revertstate: 1
 --- !u!1 &1961251866
 GameObject:
   m_ObjectHideFlags: 0
