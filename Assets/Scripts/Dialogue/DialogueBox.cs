@@ -54,20 +54,22 @@ public class DialogueBox : MonoBehaviour
     void SetTextBackgroundAndName()
     //set the name instantly, and instantiate the background of the dialog box to be the correct size BEFORE the text appears
     {
+        string actorname = dialogueElement.actorGameObject.name;
+
+        if (actorname == "Player") 
+        { 
+            actorname = "Liam"; 
+        }
+
         //if there is no Gameobject set in inspector, then hide the name
         if (dialogueElement.actorGameObject == null)
         {
             nameText.text = "";
         }
 
-        if (dialogueElement.actorGameObject == playerObj)
-        {
-            nameText.text = "Liam";
-        }
-
         else 
         {
-            nameText.text = dialogueElement.actorGameObject.name;
+            nameText.text = actorname;
         }
 
         // pray that this works
@@ -75,13 +77,9 @@ public class DialogueBox : MonoBehaviour
         int paddingLength = 3;
         string padding = new string(' ', paddingLength);
 
-        if (dialogueElement.dialoguetext.Length < (dialogueElement.actorGameObject.name.Length + 8))
+        if (dialogueElement.dialoguetext.Length < (dialogueElement.actorGameObject.name.Length))
 
         {
-            string actorname = dialogueElement.actorGameObject.name;
-
-            if (actorname == "Player") { actorname = "Liam";}
-
             nameFieldBackground.text = actorname + "X";
             dialogueFieldBackground.text = actorname + "X";
         }
