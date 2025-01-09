@@ -109,7 +109,7 @@ public class DialogueBox : MonoBehaviour
     {
         float elapsedTime = 0;
         float seconds = 0.4f;
-        Vector2 startingPos = new Vector2 (actorPos.x, actorPos.y + 0.5f);
+        Vector2 startingPos = new Vector2 (actorPos.x, actorPos.y + 0.35f);
         while (elapsedTime < seconds)
         {
             this.transform.position = Vector2.Lerp(startingPos, finalPosition, (elapsedTime / seconds));
