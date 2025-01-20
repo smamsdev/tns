@@ -38,7 +38,7 @@ public class MoveTo : ToTrigger
     private IEnumerator MoveToPosition(MovementScript movementScript, Vector3 targetPosition)
     {
         float startTime = Time.time;
-        float timeoutDuration = 5f;
+        float timeoutDuration = 12f;
 
         float endPointDeltaX = Mathf.Abs(movementScript.transform.position.x - targetPosition.x);
         float endPointDeltaY = Mathf.Abs(movementScript.transform.position.y - targetPosition.y);
