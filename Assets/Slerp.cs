@@ -32,8 +32,9 @@ public class Slerp : ToTrigger
 
         if (i == actorJump.Length)
         {
-            FieldEvents.HasCompleted.Invoke(this.gameObject);
             CombatEvents.UnlockPlayerMovement();
+            FieldEvents.HasCompleted.Invoke(this.gameObject);
+
         }
 
         yield return null;
