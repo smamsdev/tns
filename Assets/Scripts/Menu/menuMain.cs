@@ -54,7 +54,7 @@ public class menuMain : Menu
         {
             isMenuOn = true;
             menuGO.SetActive(true);
-            firstMenuButton.Select();
+            firstMenuButton.Select(); //Ihandler uses this to trigger DisplayMenu method 
             CombatEvents.LockPlayerMovement();
             smamsValue.text = $"{playerPermanentStats.smams}";
             return;

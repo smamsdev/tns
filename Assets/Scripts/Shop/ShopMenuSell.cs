@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class ShopBuy : Menu
+public class ShopMenuSell : ShopMenu
 {
+    public InventorySlot inventorySlot1;
+
+
     public override void DisplayMenu(bool on)
     {
-        //show shop inventory
+        InitializeInventory();
+        displayContainer.SetActive(on);
     }
 
     public override void EnterMenu()
@@ -22,5 +27,10 @@ public class ShopBuy : Menu
     public override void StateUpdate()
     {
         throw new System.NotImplementedException();
+    }
+
+    void InitializeInventory()
+    {
+        inventorySlot1.GetComponentInChildren<TextMeshProUGUI>().text = "smamstosell";
     }
 }

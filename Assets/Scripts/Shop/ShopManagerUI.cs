@@ -6,27 +6,33 @@ using UnityEngine.UI;
 
 public class ShopManagerUI : MonoBehaviour
 {
-    public Menu buy, sell, exit;
+    [Header("MENUS")]
+    public ShopMenu buy;
+    public ShopMenu sell;
+    public ShopMenu exit;
+    public ShopMenu main;
     [Header("")]
-    public Menu menuUpdateMethod;
+    public ShopMenu menuUpdateMethod;
+    public ShopMenu menuToDisplay;
 
     private void Start()
     {
-        menuUpdateMethod = buy;
+        menuUpdateMethod = main;
     }
 
-    public void DisplayMenu(Menu menuScript)
+    public void DisplayMenu(ShopMenu shopMenu)
     {
         buy.DisplayMenu(false);
         sell.DisplayMenu(false);
-        exit.DisplayMenu(false);
-        menuScript.DisplayMenu(true);
+        //exit.DisplayMenu(false);
+        shopMenu.DisplayMenu(true);
+        menuToDisplay = shopMenu;
     }
 
-    public void EnterSubMenu(Menu menuScript)
+    public void EnterSubMenu(ShopMenu shopMenu)
     {
-        menuScript.EnterMenu();
-        menuUpdateMethod = menuScript;
+        shopMenu.EnterMenu();
+        menuUpdateMethod = shopMenu;
     }
 
     void Update()
@@ -34,7 +40,7 @@ public class ShopManagerUI : MonoBehaviour
         StateUpdate(menuUpdateMethod);
     }
 
-    void StateUpdate(Menu menuUpdateMethod)
+    void StateUpdate(ShopMenu menuUpdateMethod)
     {
         menuUpdateMethod.StateUpdate();
     }

@@ -22,6 +22,7 @@ public class MenuStats : Menu
     public override void DisplayMenu(bool on)
 
     {
+        Debug.Log("broke");
         InitializeStats();
         displayContainer.SetActive(on);
     }
