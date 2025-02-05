@@ -1,17 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
 public class ShopBuyMenu : ShopMenu
 {
-    public InventorySlot inventorySlot1;
-
+    [SerializeField] GameObject descriptionGO;
+    [SerializeField] InventorySO shopInventorySO;
+    public InventorySlot[] inventorySlot;
+    public List<Gear> shopInventory = new List<Gear>();
 
     public override void DisplayMenu(bool on)
     {
         InitializeInventory();
         displayContainer.SetActive(on);
+
+        descriptionGO.SetActive(false);
+
+        DisableAllSlots();
+        LoadInventoryStringFromSO();
+
+            for (int i = 0; i < shopInventory.Count; i++)
+
+            {
+                Gear gearToLoad = shopInventory[i].GetComponent<Gear>();    
+                inventorySlot[i].gear = gearToLoad;
+                inventorySlot[i].textMeshProUGUI.text = gearToLoad.name;
+                inventorySlot[i].gameObject.SetActive(true);
+            }
+
+            displayContainer.SetActive(on);
+    }
+
+    public void LoadInventoryStringFromSO()
+
+    {
+        shopInventory.Clear();
+
+        for (int i = 0; i < shopInventorySO.inventoryString.Count; i++)
+        {
+            shopInventory.Add(GameObject.Find(shopInventorySO.inventoryString[i]).GetComponent<Gear>()); ;
+        }
+    }
+
+    void DisableAllSlots()
+    {
+        //todo
+       // for (int i = 0; i < inventorySlot.Length; i++)
+       // {
+       //     inventorySlot[i].gameObject.SetActive(false);
+       // }
     }
 
     public override void EnterMenu()
@@ -31,6 +70,6 @@ public class ShopBuyMenu : ShopMenu
 
     void InitializeInventory()
     {
-        inventorySlot1.GetComponentInChildren<TextMeshProUGUI>().text = "smams";
+        //
     }
 }
