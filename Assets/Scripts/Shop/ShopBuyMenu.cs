@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopBuyMenu : ShopMenu
 {
     [SerializeField] GameObject descriptionGO;
     [SerializeField] InventorySO shopInventorySO;
     public InventorySlot[] inventorySlot;
+    [SerializeField] Button firstButtonToSelect;
     public List<Gear> shopInventory = new List<Gear>();
 
     public override void DisplayMenu(bool on)
@@ -55,7 +57,10 @@ public class ShopBuyMenu : ShopMenu
 
     public override void EnterMenu()
     {
-        throw new System.NotImplementedException();
+        shopButtonHighlighted.SetButtonColor(shopButtonHighlighted.highlightedColor);
+        shopButtonHighlighted.enabled = false;
+        firstButtonToSelect.Select();
+        //itemDescriptionGO.SetActive(true);
     }
 
     public override void ExitMenu()
@@ -65,11 +70,19 @@ public class ShopBuyMenu : ShopMenu
 
     public override void StateUpdate()
     {
-        throw new System.NotImplementedException();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ExitMenu();
+        }
     }
 
     void InitializeInventory()
     {
         //
+    }
+
+    public void ONtest()
+    {
+        Debug.Log("isthison");
     }
 }

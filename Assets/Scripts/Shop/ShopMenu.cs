@@ -9,7 +9,7 @@ public abstract class ShopMenu : MonoBehaviour
 {
     public GameObject displayContainer;
     public Button mainButtonToRevert;
-    //public IMenuButtonHighlighted menuButtonHighlighted;
+    public IShopButtonHighlighted shopButtonHighlighted;
     public ShopManagerUI menuManagerUI;
 
     public abstract void EnterMenu();
