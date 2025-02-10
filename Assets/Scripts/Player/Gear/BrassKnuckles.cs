@@ -8,10 +8,6 @@ public class BrassKnuckles : Gear
 
   //  [SerializeField] combatManager.playerMoveManager moveManager;
 
-    private void Awake()
-    {
-        gearID = this.name;
-    }
 
     public override void ApplyAttackGear()
 

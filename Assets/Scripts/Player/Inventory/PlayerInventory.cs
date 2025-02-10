@@ -5,8 +5,10 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     public InventorySO inventorySO;
+    [SerializeField] Transform GearParent;
 
     public List<Gear> inventory = new List<Gear>();
+
 
     private void Start()
     {
@@ -27,7 +29,22 @@ public class PlayerInventory : MonoBehaviour
     {
         for (int i = 0; i < inventorySO.inventoryString.Count; i++)
         {
-            inventory.Add(GameObject.Find(inventorySO.inventoryString[i]).GetComponent<Gear>()); ;
+            Transform gearTransform = GearParent.Find(inventorySO.inventoryString[i]);
+
+            if (gearTransform != null)
+            {
+                Gear gearToLoad = gearTransform.GetComponent<Gear>();
+                gearToLoad.quantityInInventory++;
+
+                if (!inventory.Contains(gearToLoad))
+                {
+                    inventory.Add(gearToLoad);
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Gear not found in scene: " + inventorySO.inventoryString[i]);
+            }
         }
     }
 }

@@ -2,19 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gear : MonoBehaviour
+public abstract class Gear : MonoBehaviour
 {
 
     public string gearID;
     [TextArea(2, 5)] public string gearDescription;
     public bool isEquipment;
-
-    private void Awake()
-    {
-        gearID = this.name;
-    }
-
-
+    public int quantityInInventory;
 
     public virtual void ApplyAttackGear()
 

@@ -11,28 +11,31 @@ public class ShopBuyMenu : ShopMenu
     [SerializeField] InventorySO shopInventorySO;
     public InventorySlot[] inventorySlot;
     [SerializeField] Button firstButtonToSelect;
+
+    public Dictionary<string, int> shopDictionary;
     public List<Gear> shopInventory = new List<Gear>();
 
     public override void DisplayMenu(bool on)
     {
         InitializeInventory();
         displayContainer.SetActive(on);
-
         descriptionGO.SetActive(false);
-
         DisableAllSlots();
         LoadInventoryStringFromSO();
+        DisplayInventoryToSlot();
+        displayContainer.SetActive(on);
+    }
 
-            for (int i = 0; i < shopInventory.Count; i++)
+    void DisplayInventoryToSlot()
+    {
+        for (int i = 0; i < shopInventory.Count; i++)
 
-            {
-                Gear gearToLoad = shopInventory[i].GetComponent<Gear>();    
-                inventorySlot[i].gear = gearToLoad;
-                inventorySlot[i].textMeshProUGUI.text = gearToLoad.name;
-                inventorySlot[i].gameObject.SetActive(true);
-            }
-
-            displayContainer.SetActive(on);
+        {
+            Gear gearToLoad = shopInventory[i].GetComponent<Gear>();
+            inventorySlot[i].gear = gearToLoad;
+            inventorySlot[i].textMeshProUGUI.text = gearToLoad.name;
+            inventorySlot[i].gameObject.SetActive(true);
+        }
     }
 
     public void LoadInventoryStringFromSO()
@@ -48,11 +51,10 @@ public class ShopBuyMenu : ShopMenu
 
     void DisableAllSlots()
     {
-        //todo
-       // for (int i = 0; i < inventorySlot.Length; i++)
-       // {
-       //     inventorySlot[i].gameObject.SetActive(false);
-       // }
+       for (int i = 0; i < inventorySlot.Length; i++)
+       {
+           inventorySlot[i].gameObject.SetActive(false);
+       }
     }
 
     public override void EnterMenu()
@@ -61,6 +63,7 @@ public class ShopBuyMenu : ShopMenu
         shopButtonHighlighted.enabled = false;
         firstButtonToSelect.Select();
         //itemDescriptionGO.SetActive(true);
+
     }
 
     public override void ExitMenu()

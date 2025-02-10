@@ -31,7 +31,7 @@ public class MenuGear : Menu
         {
             Gear gearToLoad = playerInventory.inventory[i].GetComponent<Gear>();
             inventorySlot[i].gear = gearToLoad;
-            inventorySlot[i].textMeshProUGUI.text = gearToLoad.name;
+            inventorySlot[i].textMeshProUGUI.text = gearToLoad.gearID + " x " + gearToLoad.quantityInInventory;
             inventorySlot[i].gameObject.SetActive(true);
         }
 
