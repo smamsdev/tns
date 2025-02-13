@@ -6,7 +6,8 @@ using UnityEngine;
 public class InventorySlot : MonoBehaviour
 {
     public Gear gear;
-    public TextMeshProUGUI textMeshProUGUI;
+    public TextMeshProUGUI itemName;
+    public TextMeshProUGUI itemQuantity;
 
     public void DisplayInventoryItemDescription()
 

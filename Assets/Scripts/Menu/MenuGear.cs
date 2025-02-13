@@ -11,9 +11,6 @@ public class MenuGear : Menu
     public PlayerInventory playerInventory;
     [SerializeField] EquippedGear equippedGear;
     public GameObject itemDescriptionGO;
-    public TextMeshProUGUI descriptionFieldTMP;
-    public TextMeshProUGUI itemTypeTMP;
-
     public InventorySlot[] inventorySlot;
 
     public override void DisplayMenu(bool on)
@@ -31,7 +28,8 @@ public class MenuGear : Menu
         {
             Gear gearToLoad = playerInventory.inventory[i].GetComponent<Gear>();
             inventorySlot[i].gear = gearToLoad;
-            inventorySlot[i].textMeshProUGUI.text = gearToLoad.gearID + " x " + gearToLoad.quantityInInventory;
+            inventorySlot[i].itemName.text = gearToLoad.gearID;
+            inventorySlot[i].itemQuantity.text = " x " + gearToLoad.quantityInInventory;
             inventorySlot[i].gameObject.SetActive(true);
         }
 
@@ -44,22 +42,6 @@ public class MenuGear : Menu
         {
             inventorySlot[i].gameObject.SetActive(false);
         }
-    }
-
-    public void UpdateDescriptionField(string text, bool isEquipment)
-    {
-        descriptionFieldTMP.text = text;
-
-        if (!isEquipment)
-        {
-            itemTypeTMP.text = "Equipment";
-        }
-
-        else 
-        {
-            itemTypeTMP.text = "Consumable";
-        }
-
     }
 
     public override void EnterMenu()

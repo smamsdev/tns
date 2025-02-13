@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,9 @@ public class ShopManagerUI : MonoBehaviour
     [Header("")]
     public ShopMenu menuUpdateMethod;
     public ShopMenu menuToDisplay;
+
+    public TextMeshProUGUI descriptionFieldTMP;
+    public TextMeshProUGUI itemTypeTMP;
 
     private void Start()
     {
@@ -43,5 +47,20 @@ public class ShopManagerUI : MonoBehaviour
     void StateUpdate(ShopMenu menuUpdateMethod)
     {
         menuUpdateMethod.StateUpdate();
+    }
+
+    public void UpdateDescriptionField(string text, bool isEquipment)
+    {
+        descriptionFieldTMP.text = text;
+
+        if (isEquipment)
+        {
+            itemTypeTMP.text = "Equipment";
+        }
+
+        else
+        {
+            itemTypeTMP.text = "Consumable";
+        }
     }
 }

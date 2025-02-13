@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,8 @@ public class MenuManagerUI : MonoBehaviour
     public Menu statsPage, gearPage, movesPage, configPage, savePage, exitPage, main;
     [Header("")]
     public Menu menuUpdateMethod;
+    public TextMeshProUGUI descriptionFieldTMP;
+    public TextMeshProUGUI itemTypeTMP;
 
     private void Start()
     {
@@ -40,5 +43,21 @@ public class MenuManagerUI : MonoBehaviour
     void StateUpdate(Menu menuUpdateMethod)
     {
         menuUpdateMethod.StateUpdate();
+    }
+
+    public void UpdateDescriptionField(string text, bool isEquipment)
+    {
+        descriptionFieldTMP.text = text;
+
+        if (!isEquipment)
+        {
+            itemTypeTMP.text = "Equipment";
+        }
+
+        else
+        {
+            itemTypeTMP.text = "Consumable";
+        }
+
     }
 }

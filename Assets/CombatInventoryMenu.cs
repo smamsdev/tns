@@ -46,7 +46,7 @@ public class CombatInventoryMenu : MonoBehaviour
         {
             Gear gearToLoad = playerInventory.inventory[i].GetComponent<Gear>();
             inventorySlot[i].gear = gearToLoad;
-            inventorySlot[i].textMeshProUGUI.text = gearToLoad.name;
+            inventorySlot[i].itemName.text = gearToLoad.name;
         }
 
         inventorySlotOne.Select();

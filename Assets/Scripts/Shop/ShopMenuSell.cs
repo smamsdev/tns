@@ -1,36 +1,69 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopMenuSell : ShopMenu
 {
-    public InventorySlot inventorySlot1;
-
+    [SerializeField] Button firstButtonToSelect;
+    public PlayerInventory playerInventory;
+    public GameObject itemDescriptionGO;
+    public InventorySlot[] inventorySlot;
 
     public override void DisplayMenu(bool on)
+
     {
-        InitializeInventory();
+        itemDescriptionGO.SetActive(false);
+        var player = GameObject.FindGameObjectWithTag("Player");
+        playerInventory = player.GetComponentInChildren<PlayerInventory>();
+
+        DisableAllSlots();
+
+        for (int i = 0; i < playerInventory.inventory.Count; i++)
+
+        {
+            Gear gearToLoad = playerInventory.inventory[i].GetComponent<Gear>();
+            inventorySlot[i].gear = gearToLoad;
+            inventorySlot[i].itemName.text = gearToLoad.gearID;
+            inventorySlot[i].itemQuantity.text = " x " + gearToLoad.quantityInInventory;
+            inventorySlot[i].gameObject.SetActive(true);
+        }
+
         displayContainer.SetActive(on);
+    }
+
+    void DisableAllSlots()
+    {
+        for (int i = 0; i < inventorySlot.Length; i++)
+        {
+            inventorySlot[i].gameObject.SetActive(false);
+        }
     }
 
     public override void EnterMenu()
     {
-        throw new System.NotImplementedException();
+        shopButtonHighlighted.SetButtonColor(shopButtonHighlighted.highlightedColor);
+        shopButtonHighlighted.enabled = false;
+        itemDescriptionGO.SetActive(true);
+        firstButtonToSelect.Select();
     }
 
     public override void ExitMenu()
+
     {
-        throw new System.NotImplementedException();
+        shopButtonHighlighted.enabled = true;
+        shopButtonHighlighted.SetButtonColor(Color.white);
+        mainButtonToRevert.Select();
+        menuManagerUI.menuUpdateMethod = menuManagerUI.main;
     }
 
     public override void StateUpdate()
     {
-        throw new System.NotImplementedException();
-    }
-
-    void InitializeInventory()
-    {
-        inventorySlot1.GetComponentInChildren<TextMeshProUGUI>().text = "smamstosell";
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ExitMenu();
+        }
     }
 }

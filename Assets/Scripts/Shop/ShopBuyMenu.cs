@@ -17,13 +17,11 @@ public class ShopBuyMenu : ShopMenu
 
     public override void DisplayMenu(bool on)
     {
-        InitializeInventory();
         displayContainer.SetActive(on);
         descriptionGO.SetActive(false);
         DisableAllSlots();
         LoadInventoryStringFromSO();
         DisplayInventoryToSlot();
-        displayContainer.SetActive(on);
     }
 
     void DisplayInventoryToSlot()
@@ -33,7 +31,8 @@ public class ShopBuyMenu : ShopMenu
         {
             Gear gearToLoad = shopInventory[i].GetComponent<Gear>();
             inventorySlot[i].gear = gearToLoad;
-            inventorySlot[i].textMeshProUGUI.text = gearToLoad.name;
+            inventorySlot[i].itemName.text = gearToLoad.gearID;
+            inventorySlot[i].itemQuantity.text = " x " + gearToLoad.quantityInInventory;
             inventorySlot[i].gameObject.SetActive(true);
         }
     }
@@ -61,14 +60,17 @@ public class ShopBuyMenu : ShopMenu
     {
         shopButtonHighlighted.SetButtonColor(shopButtonHighlighted.highlightedColor);
         shopButtonHighlighted.enabled = false;
+        descriptionGO.SetActive(true);
         firstButtonToSelect.Select();
-        //itemDescriptionGO.SetActive(true);
-
     }
 
     public override void ExitMenu()
+
     {
-        throw new System.NotImplementedException();
+        shopButtonHighlighted.enabled = true;
+        shopButtonHighlighted.SetButtonColor(Color.white);
+        mainButtonToRevert.Select();
+        menuManagerUI.menuUpdateMethod = menuManagerUI.main;
     }
 
     public override void StateUpdate()
@@ -77,11 +79,6 @@ public class ShopBuyMenu : ShopMenu
         {
             ExitMenu();
         }
-    }
-
-    void InitializeInventory()
-    {
-        //
     }
 
     public void ONtest()

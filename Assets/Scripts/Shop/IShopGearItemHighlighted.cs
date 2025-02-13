@@ -4,9 +4,9 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class IMenuGearItemHighlighted : MonoBehaviour, ISelectHandler, IDeselectHandler
+public class IShopGearItemHighlighted : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
-    public MenuManagerUI menuManagerUI;
+    [SerializeField] ShopManagerUI shopManagerUI;
     public TextMeshProUGUI inventorySlotQuantityTMP;
 
     public void OnSelect(BaseEventData eventData)
@@ -14,7 +14,7 @@ public class IMenuGearItemHighlighted : MonoBehaviour, ISelectHandler, IDeselect
         InventorySlot combatInventorySlot = GetComponent<InventorySlot>();
         string descriptionText = combatInventorySlot.gear.gearDescription;
 
-        menuManagerUI.UpdateDescriptionField(descriptionText, combatInventorySlot.gear.isEquipment);
+        shopManagerUI.UpdateDescriptionField(descriptionText, combatInventorySlot.gear.isEquipment);
         inventorySlotQuantityTMP.color = Color.yellow;
     }
 
