@@ -27,6 +27,13 @@ public class PlayerInventory : MonoBehaviour
     public void LoadInventoryFromSO()
 
     {
+        foreach (Gear gear in inventory) 
+        {
+            gear.quantityInInventory = 0; 
+        }
+        
+        inventory.Clear();
+
         for (int i = 0; i < inventorySO.inventoryString.Count; i++)
         {
             Transform gearTransform = GearParent.Find(inventorySO.inventoryString[i]);

@@ -16,6 +16,13 @@ public class ShopMenuSell : ShopMenu
 
     {
         itemDescriptionGO.SetActive(false);
+        LoadInventory();
+        displayContainer.SetActive(on);
+    }
+
+    void LoadInventory()
+
+    {
         var player = GameObject.FindGameObjectWithTag("Player");
         playerInventory = player.GetComponentInChildren<PlayerInventory>();
 
@@ -30,8 +37,6 @@ public class ShopMenuSell : ShopMenu
             inventorySlot[i].itemQuantity.text = " x " + gearToLoad.quantityInInventory;
             inventorySlot[i].gameObject.SetActive(true);
         }
-
-        displayContainer.SetActive(on);
     }
 
     void DisableAllSlots()
@@ -57,6 +62,15 @@ public class ShopMenuSell : ShopMenu
         shopButtonHighlighted.SetButtonColor(Color.white);
         mainButtonToRevert.Select();
         menuManagerUI.menuUpdateMethod = menuManagerUI.main;
+    }
+
+    public void SellGearInSlot(InventorySlot inventorySlot)
+
+    { 
+        Gear gearToSell = inventorySlot.gear;
+        playerInventory.inventorySO.inventoryString.Remove(gearToSell.name);
+        playerInventory.LoadInventoryFromSO();
+        LoadInventory();
     }
 
     public override void StateUpdate()

@@ -19,7 +19,7 @@ public class menuMain : Menu
 
     public override void DisplayMenu(bool on)
     {
-        throw new NotImplementedException();
+        Debug.Log("testss");
     }
 
     public override void EnterMenu()

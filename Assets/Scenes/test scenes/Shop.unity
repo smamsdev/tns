@@ -250,7 +250,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &35426467
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2239,7 +2239,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 443021413}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 348244846}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &348244845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11078,10 +11090,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7be09e7fed1f2a4a81628c8a971bb21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayContainer: {fileID: 0}
+  displayContainer: {fileID: 93893828}
   mainButtonToRevert: {fileID: 0}
   shopButtonHighlighted: {fileID: 0}
   menuManagerUI: {fileID: 1201474645}
+  playerPermanentStats: {fileID: 11400000, guid: 891a8d8bd88cd9a45acd6a5ac406be03, type: 2}
+  smamsValue: {fileID: 1385460050}
+  firstMenuButton: {fileID: 821209403}
+  isMenuOn: 0
 --- !u!1 &1219389272
 GameObject:
   m_ObjectHideFlags: 0
@@ -13392,7 +13408,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 462.74072, y: 0}
+  m_AnchoredPosition: {x: 462.74072, y: 3}
   m_SizeDelta: {x: 667.4326, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1412114595

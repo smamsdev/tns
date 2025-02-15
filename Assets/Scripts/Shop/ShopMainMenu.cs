@@ -1,12 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class ShopMainMenu : ShopMenu
 {
+    public PlayerPermanentStats playerPermanentStats;
+    [SerializeField] TextMeshProUGUI smamsValue;
+
+    public Button firstMenuButton;
+
+    public bool isMenuOn;
+
     public override void DisplayMenu(bool on)
     {
-        throw new System.NotImplementedException();
+        if (!isMenuOn)
+        {
+            isMenuOn = true;
+            displayContainer.SetActive(true);
+            smamsValue.text = $"{playerPermanentStats.smams}";
+            firstMenuButton.Select(); //Ihandler uses this to trigger DisplayMenu method 
+            menuManagerUI.DisplayMenu(menuManagerUI.buy);
+
+            CombatEvents.LockPlayerMovement();
+            return;
+        }
+
+        if (isMenuOn)
+        {
+            CombatEvents.UnlockPlayerMovement();
+            displayContainer.SetActive(false);
+            isMenuOn = false;
+        }
     }
 
     public override void EnterMenu()
@@ -23,7 +50,8 @@ public class ShopMainMenu : ShopMenu
     {
         if (Input.GetKeyDown(KeyCode.Tab))
 
-            Debug.Log("open shop");
-
+        {
+            DisplayMenu(true);
+        }
     }
 }
