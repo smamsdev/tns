@@ -724,9 +724,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4236748915162255035, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-      propertyPath: gearID
-      value: Bras Knux
+    - target: {fileID: 4236748913608316867, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: quantityInInventory
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 6457784655243026927, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: m_Name
@@ -772,10 +772,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8524157694805311256, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-      propertyPath: GearParent
-      value: 
-      objectReference: {fileID: 450138235}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2364,7 +2360,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1947899181}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 355368154}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &355368153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3487,11 +3495,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 447927006}
   m_CullTransparentMesh: 1
---- !u!4 &450138235 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4236748915391052461, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-  m_PrefabInstance: {fileID: 184455334}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &451727783
 GameObject:
   m_ObjectHideFlags: 0
@@ -4532,54 +4535,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 522319831}
   m_CullTransparentMesh: 1
---- !u!1 &522551017
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 522551018}
-  - component: {fileID: 522551019}
-  m_Layer: 0
-  m_Name: Daphne2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &522551018
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 522551017}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1478965443}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &522551019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 522551017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b7d873576be86d4bbb095bee1f85b4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gearID: 
-  gearDescription: 
-  isEquipment: 0
-  quantityInInventory: 0
 --- !u!1 &524313624
 GameObject:
   m_ObjectHideFlags: 0
@@ -5023,7 +4978,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1000574411}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 542186309}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &542186308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5136,7 +5103,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1735288676}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 560144425}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &560144424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5651,7 +5630,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 847612703}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 582909631}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &582909630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6549,7 +6540,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 976331179}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 732089860}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &732089859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7557,54 +7560,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shopManagerUI: {fileID: 1201474645}
   inventorySlotQuantityTMP: {fileID: 1155081471}
---- !u!1 &891736430
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 891736431}
-  - component: {fileID: 891736432}
-  m_Layer: 0
-  m_Name: Vegeta
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &891736431
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 891736430}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1478965443}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &891736432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 891736430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b7d873576be86d4bbb095bee1f85b4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gearID: 
-  gearDescription: 
-  isEquipment: 0
-  quantityInInventory: 0
 --- !u!1 &893637647
 GameObject:
   m_ObjectHideFlags: 0
@@ -7780,7 +7735,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1246151485}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 894473371}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &894473370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8027,7 +7994,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1317661895}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 915095554}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &915095553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8789,7 +8768,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 206585487}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1004266082}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1004266081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9225,7 +9216,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 473855318}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1051917565}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1051917564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9948,7 +9951,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1347814253}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6773534668229072050}
+        m_TargetAssemblyTypeName: ShopBuyMenu, Assembly-CSharp
+        m_MethodName: BuyGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1098879498}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1098879500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10921,7 +10936,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1665743503}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1179142750}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1179142749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11078,6 +11105,7 @@ MonoBehaviour:
   menuToDisplay: {fileID: 0}
   descriptionFieldTMP: {fileID: 665890605}
   itemTypeTMP: {fileID: 481387809}
+  playerInventory: {fileID: 0}
 --- !u!114 &1201474646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11095,6 +11123,7 @@ MonoBehaviour:
   shopButtonHighlighted: {fileID: 0}
   menuManagerUI: {fileID: 1201474645}
   playerPermanentStats: {fileID: 11400000, guid: 891a8d8bd88cd9a45acd6a5ac406be03, type: 2}
+  playerInventory: {fileID: 0}
   smamsValue: {fileID: 1385460050}
   firstMenuButton: {fileID: 821209403}
   isMenuOn: 0
@@ -11789,7 +11818,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1991759356}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1276630215}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1276630215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12330,7 +12371,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 464362442}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1342490073}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1342490072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12577,7 +12630,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 429786342}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1343816858}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1343816857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13473,7 +13538,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1885394092}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1412114598}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1412114597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14239,11 +14316,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1474770107}
   m_CullTransparentMesh: 1
---- !u!4 &1478965443 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8657579784563450173, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-  m_PrefabInstance: {fileID: 1997703030}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1486208767
 GameObject:
   m_ObjectHideFlags: 0
@@ -15100,7 +15172,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1283645726}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1557441707}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1557441706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15347,7 +15431,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2116919182}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1621104684}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1621104683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15789,7 +15885,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1953346268}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1714330159}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1714330158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16947,7 +17055,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1929067633}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1796842401}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1796842400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17060,7 +17180,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 965559566}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1819712945}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1819712944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17307,7 +17439,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 597054088}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1828855800}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1828855799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17742,7 +17886,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 524313625}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1876243011}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1876243010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19777,97 +19933,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1991759354}
   m_CullTransparentMesh: 1
---- !u!1001 &1997703030
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 8657579784322340138, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      propertyPath: m_Name
-      value: Smams
-      objectReference: {fileID: 0}
-    - target: {fileID: 8657579784322340139, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      propertyPath: gearID
-      value: aaaaa
-      objectReference: {fileID: 0}
-    - target: {fileID: 8657579784322340139, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      propertyPath: gearDescription
-      value: my description
-      objectReference: {fileID: 0}
-    - target: {fileID: 8657579784322340139, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      propertyPath: quantityInInventory
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8657579784563450172, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      propertyPath: m_Name
-      value: Gear
-      objectReference: {fileID: 0}
-    - target: {fileID: 8657579784563450173, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8657579784563450173, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8657579784563450173, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8657579784563450173, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8657579784563450173, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8657579784563450173, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8657579784563450173, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8657579784563450173, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8657579784563450173, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8657579784563450173, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8657579784936819795, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      propertyPath: quantityInInventory
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8657579784936819805, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      propertyPath: m_Name
-      value: Larmy
-      objectReference: {fileID: 0}
-    - target: {fileID: 8657579785401703179, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      propertyPath: m_Name
-      value: Daphne
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 8657579784563450173, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 522551018}
-    - targetCorrespondingSourceObject: {fileID: 8657579784563450173, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 891736431}
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
 --- !u!1 &2003873425
 GameObject:
   m_ObjectHideFlags: 0
@@ -20579,7 +20644,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1905191297}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2024825364}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2024825363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21244,7 +21321,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1019905617}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7031852090907888138}
+        m_TargetAssemblyTypeName: ShopMenuSell, Assembly-CSharp
+        m_MethodName: SellGearInSlot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2107945070}
+          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2107945069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21753,7 +21842,7 @@ MonoBehaviour:
   - {fileID: 857973496}
   - {fileID: 1872471589}
   firstButtonToSelect: {fileID: 1098879499}
-  shopInventory: []
+  shopDynamicInventory: []
 --- !u!1 &7031852090907888137
 GameObject:
   m_ObjectHideFlags: 0
@@ -21788,7 +21877,6 @@ MonoBehaviour:
   shopButtonHighlighted: {fileID: 1235285059}
   menuManagerUI: {fileID: 1201474645}
   firstButtonToSelect: {fileID: 348244844}
-  playerInventory: {fileID: 0}
   itemDescriptionGO: {fileID: 2051363455}
   inventorySlot:
   - {fileID: 348244846}
@@ -21843,6 +21931,5 @@ SceneRoots:
   - {fileID: 1147690911}
   - {fileID: 1338997588}
   - {fileID: 1201474642}
-  - {fileID: 1997703030}
   - {fileID: 1646668725}
   - {fileID: 184455334}

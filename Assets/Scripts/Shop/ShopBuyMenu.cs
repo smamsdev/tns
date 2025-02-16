@@ -13,7 +13,7 @@ public class ShopBuyMenu : ShopMenu
     [SerializeField] Button firstButtonToSelect;
 
     public Dictionary<string, int> shopDictionary;
-    public List<Gear> shopInventory = new List<Gear>();
+    public List<Gear> shopDynamicInventory = new List<Gear>();
 
     public override void DisplayMenu(bool on)
     {
@@ -26,10 +26,10 @@ public class ShopBuyMenu : ShopMenu
 
     void DisplayInventoryToSlot()
     {
-        for (int i = 0; i < shopInventory.Count; i++)
+        for (int i = 0; i < shopDynamicInventory.Count; i++)
 
         {
-            Gear gearToLoad = shopInventory[i].GetComponent<Gear>();
+            Gear gearToLoad = shopDynamicInventory[i].GetComponent<Gear>();
             inventorySlot[i].gear = gearToLoad;
             inventorySlot[i].itemName.text = gearToLoad.gearID;
             inventorySlot[i].itemQuantity.text = " x " + gearToLoad.quantityInInventory;
@@ -40,11 +40,12 @@ public class ShopBuyMenu : ShopMenu
     public void LoadInventoryStringFromSO()
 
     {
-        shopInventory.Clear();
+        var gearParent = menuManagerUI.playerInventory.GearParent;
+        shopDynamicInventory.Clear();
 
         for (int i = 0; i < shopInventorySO.inventoryString.Count; i++)
         {
-            shopInventory.Add(GameObject.Find(shopInventorySO.inventoryString[i]).GetComponent<Gear>()); ;
+            shopDynamicInventory.Add(gearParent.Find(shopInventorySO.inventoryString[i]).GetComponent<Gear>()); ;
         }
     }
 
@@ -73,16 +74,17 @@ public class ShopBuyMenu : ShopMenu
         menuManagerUI.menuUpdateMethod = menuManagerUI.main;
     }
 
+    public void BuyGearInSlot(InventorySlot inventorySlot)
+
+    {
+        Debug.Log("test");
+    }
+
     public override void StateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ExitMenu();
         }
-    }
-
-    public void ONtest()
-    {
-        Debug.Log("isthison");
     }
 }

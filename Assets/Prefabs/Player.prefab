@@ -79,6 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySO: {fileID: 11400000, guid: 75a32f9470620854d86fdadedb6906f6, type: 2}
+  GearParent: {fileID: 4236748915391052461}
   inventory: []
 --- !u!1 &539720073523974976
 GameObject:
@@ -133,6 +134,7 @@ MonoBehaviour:
   fendMoveMultiplier: 0.7
   potentialChange: 12
   moveWeighting: 55
+  attackPushStrength: 0
   isAttack: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
@@ -189,6 +191,7 @@ MonoBehaviour:
   fendMoveMultiplier: 0.3
   potentialChange: 5
   moveWeighting: 0
+  attackPushStrength: 0
   isAttack: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
@@ -323,6 +326,7 @@ MonoBehaviour:
   fendMoveMultiplier: 0.3
   potentialChange: -15
   moveWeighting: 25
+  attackPushStrength: 0
   isAttack: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
@@ -379,6 +383,7 @@ MonoBehaviour:
   fendMoveMultiplier: 1
   potentialChange: 15
   moveWeighting: 25
+  attackPushStrength: 0
   isAttack: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
@@ -435,6 +440,7 @@ MonoBehaviour:
   fendMoveMultiplier: 0
   potentialChange: -10
   moveWeighting: 55
+  attackPushStrength: 0
   isAttack: 1
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
@@ -651,6 +657,7 @@ MonoBehaviour:
   fendMoveMultiplier: 0
   potentialChange: -15
   moveWeighting: 25
+  attackPushStrength: 0
   isAttack: 1
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
@@ -902,6 +909,7 @@ MonoBehaviour:
   fendMoveMultiplier: 0
   potentialChange: 14
   moveWeighting: 55
+  attackPushStrength: 0
   isAttack: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
@@ -992,6 +1000,7 @@ MonoBehaviour:
   fendMoveMultiplier: 0
   potentialChange: -15
   moveWeighting: 25
+  attackPushStrength: 0
   isAttack: 1
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
@@ -1237,10 +1246,9 @@ MonoBehaviour:
   animator: {fileID: 8879681757372781048}
   movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
-  isAscending: {x: 0, y: 0}
+  isReversing: {x: 0, y: 0}
   playerRigidBody2d: {fileID: 4400780416818078350}
   isWalkwayBoost: 0
-  isDescending: 0
   movementLocked: 0
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
@@ -1384,6 +1392,7 @@ MonoBehaviour:
   fendMoveMultiplier: 0.5
   potentialChange: 10
   moveWeighting: 55
+  attackPushStrength: 0
   isAttack: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
@@ -1440,6 +1449,7 @@ MonoBehaviour:
   fendMoveMultiplier: 0.5
   potentialChange: -15
   moveWeighting: 55
+  attackPushStrength: 0
   isAttack: 1
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
@@ -1496,6 +1506,7 @@ MonoBehaviour:
   fendMoveMultiplier: 0
   potentialChange: -10
   moveWeighting: 0
+  attackPushStrength: 0
   isAttack: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
@@ -1586,6 +1597,7 @@ MonoBehaviour:
   fendMoveMultiplier: 2
   potentialChange: -20
   moveWeighting: 25
+  attackPushStrength: 0
   isAttack: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
@@ -1674,6 +1686,7 @@ MonoBehaviour:
   fendMoveMultiplier: 0.2
   potentialChange: -5
   moveWeighting: 25
+  attackPushStrength: 0
   isAttack: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
@@ -1866,9 +1879,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4603510060094619080}
     m_Modifications:
+    - target: {fileID: 8657579784322340139, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
+      propertyPath: gearID
+      value: Bras Knux
+      objectReference: {fileID: 0}
     - target: {fileID: 8657579784563450172, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
       propertyPath: m_Name
       value: Gear
+      objectReference: {fileID: 0}
+    - target: {fileID: 8657579784563450172, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
+      propertyPath: m_TagString
+      value: GearFolder
       objectReference: {fileID: 0}
     - target: {fileID: 8657579784563450173, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1909,6 +1930,10 @@ PrefabInstance:
     - target: {fileID: 8657579784563450173, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8657579784936819795, guid: f2c153a6f42c69e4089fac61d54233bd, type: 3}
+      propertyPath: isEquipment
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

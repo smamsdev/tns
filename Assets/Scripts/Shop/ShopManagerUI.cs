@@ -18,10 +18,14 @@ public class ShopManagerUI : MonoBehaviour
 
     public TextMeshProUGUI descriptionFieldTMP;
     public TextMeshProUGUI itemTypeTMP;
+    public PlayerInventory playerInventory;
 
     private void Start()
     {
         menuUpdateMethod = main;
+
+        var player = GameObject.FindGameObjectWithTag("Player");
+        playerInventory = player.GetComponentInChildren<PlayerInventory>();
     }
 
     public void DisplayMenu(ShopMenu shopMenu)

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     public InventorySO inventorySO;
-    [SerializeField] Transform GearParent;
+    public Transform GearParent;
 
     public List<Gear> inventory = new List<Gear>();
 

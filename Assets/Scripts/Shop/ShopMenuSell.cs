@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class ShopMenuSell : ShopMenu
 {
     [SerializeField] Button firstButtonToSelect;
-    public PlayerInventory playerInventory;
     public GameObject itemDescriptionGO;
     public InventorySlot[] inventorySlot;
 
@@ -23,19 +22,24 @@ public class ShopMenuSell : ShopMenu
     void LoadInventory()
 
     {
-        var player = GameObject.FindGameObjectWithTag("Player");
-        playerInventory = player.GetComponentInChildren<PlayerInventory>();
-
         DisableAllSlots();
 
-        for (int i = 0; i < playerInventory.inventory.Count; i++)
+        for (int i = 0; i < menuManagerUI.playerInventory.inventory.Count; i++)
 
         {
-            Gear gearToLoad = playerInventory.inventory[i].GetComponent<Gear>();
+            Gear gearToLoad = menuManagerUI.playerInventory.inventory[i].GetComponent<Gear>();
             inventorySlot[i].gear = gearToLoad;
             inventorySlot[i].itemName.text = gearToLoad.gearID;
             inventorySlot[i].itemQuantity.text = " x " + gearToLoad.quantityInInventory;
             inventorySlot[i].gameObject.SetActive(true);
+        }
+
+        if (menuManagerUI.playerInventory.inventory.Count == 0)
+
+        {
+            inventorySlot[0].gameObject.SetActive(true);
+            inventorySlot[0].itemName.text = "No items to sell";
+            inventorySlot[0].itemQuantity.text = "";
         }
     }
 
@@ -49,10 +53,20 @@ public class ShopMenuSell : ShopMenu
 
     public override void EnterMenu()
     {
-        shopButtonHighlighted.SetButtonColor(shopButtonHighlighted.highlightedColor);
-        shopButtonHighlighted.enabled = false;
-        itemDescriptionGO.SetActive(true);
-        firstButtonToSelect.Select();
+        if (menuManagerUI.playerInventory.inventory.Count != 0)
+
+        {
+            shopButtonHighlighted.SetButtonColor(shopButtonHighlighted.highlightedColor);
+            shopButtonHighlighted.enabled = false;
+            itemDescriptionGO.SetActive(true);
+            firstButtonToSelect.Select();
+        }
+
+        if (menuManagerUI.playerInventory.inventory.Count == 0) 
+        
+        {
+            return;
+        }
     }
 
     public override void ExitMenu()
@@ -68,8 +82,8 @@ public class ShopMenuSell : ShopMenu
 
     { 
         Gear gearToSell = inventorySlot.gear;
-        playerInventory.inventorySO.inventoryString.Remove(gearToSell.name);
-        playerInventory.LoadInventoryFromSO();
+        menuManagerUI.playerInventory.inventorySO.inventoryString.Remove(gearToSell.name);
+        menuManagerUI.playerInventory.LoadInventoryFromSO();
         LoadInventory();
     }
 
