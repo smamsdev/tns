@@ -83,6 +83,7 @@ public class ShopBuyMenu : ShopMenu
         var main = menuManagerUI.mainMenu;
         main.playerPermanentStats.smams -= gearToBuy.value;
         main.smamsValue.text = $"{main.playerPermanentStats.smams}";
+        menuManagerUI.smamsColorAnimator.SetTrigger("minus");
 
         DisableAllSlots();
         LoadInventoryStringFromSO();

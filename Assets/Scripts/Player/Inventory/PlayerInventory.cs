@@ -27,6 +27,7 @@ public class PlayerInventory : MonoBehaviour
     public void LoadInventoryFromSO()
 
     {
+        inventorySO.inventoryString.Sort();
         inventory.Clear();
 
         for (int i = 0; i < inventorySO.inventoryString.Count; i++)

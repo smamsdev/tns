@@ -20,6 +20,7 @@ public class ShopManagerUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI descriptionFieldTMP;
     [SerializeField] TextMeshProUGUI itemTypeTMP;
     [SerializeField] TextMeshProUGUI itemValueTMP;
+    public Animator smamsColorAnimator;
 
     public PlayerInventory playerInventory;
 

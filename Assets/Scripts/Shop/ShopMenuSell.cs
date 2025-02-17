@@ -10,6 +10,7 @@ public class ShopMenuSell : ShopMenu
     [SerializeField] Button firstButtonToSelect;
     public GameObject itemDescriptionGO;
     public InventorySlot[] inventorySlot;
+    public GameObject noItemsDisplay;
 
     public override void DisplayMenu(bool on)
 
@@ -37,9 +38,8 @@ public class ShopMenuSell : ShopMenu
         if (menuManagerUI.playerInventory.inventory.Count == 0)
 
         {
-            inventorySlot[0].gameObject.SetActive(true);
-            inventorySlot[0].itemName.text = "No items to sell";
-            inventorySlot[0].itemQuantity.text = "";
+            ExitMenu();
+            noItemsDisplay.SetActive(true);
         }
     }
 
@@ -49,6 +49,7 @@ public class ShopMenuSell : ShopMenu
         {
             inventorySlot[i].gameObject.SetActive(false);
         }
+        noItemsDisplay.SetActive(false);
     }
 
     public override void EnterMenu()
@@ -78,10 +79,10 @@ public class ShopMenuSell : ShopMenu
         menuManagerUI.menuUpdateMethod = menuManagerUI.main;
     }
 
-    public void SellGearInSlot(InventorySlot inventorySlot)
+    public void SellGearInSlot(InventorySlot slotPressed)
 
     { 
-        Gear gearToSell = inventorySlot.gear;
+        Gear gearToSell = slotPressed.gear;
         gearToSell.quantityInInventory--;
         menuManagerUI.playerInventory.inventorySO.inventoryString.Remove(gearToSell.name);
         menuManagerUI.playerInventory.LoadInventoryFromSO();
@@ -90,6 +91,21 @@ public class ShopMenuSell : ShopMenu
         var main = menuManagerUI.mainMenu;
         main.playerPermanentStats.smams += gearToSell.value / 2;
         main.smamsValue.text = $"{main.playerPermanentStats.smams}";
+        menuManagerUI.smamsColorAnimator.SetTrigger("plus");
+
+        if (gearToSell.quantityInInventory == 0)
+
+        {
+            if (slotPressed == inventorySlot[0])
+            {
+                return;
+            }
+
+            else 
+            {
+                inventorySlot[(int.Parse(slotPressed.name) - 1)].GetComponent<Button>().Select();
+            }
+        }
     }
 
     public override void StateUpdate()
