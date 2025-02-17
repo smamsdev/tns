@@ -12,9 +12,7 @@ public class IShopGearItemHighlighted : MonoBehaviour, ISelectHandler, IDeselect
     public void OnSelect(BaseEventData eventData)
     {
         InventorySlot combatInventorySlot = GetComponent<InventorySlot>();
-        string descriptionText = combatInventorySlot.gear.gearDescription;
-
-        shopManagerUI.UpdateDescriptionField(descriptionText, combatInventorySlot.gear.isEquipment);
+        shopManagerUI.UpdateDescriptionField(combatInventorySlot.gear);
         inventorySlotQuantityTMP.color = Color.yellow;
     }
 

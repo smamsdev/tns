@@ -8,11 +8,8 @@ using UnityEngine.UI;
 public class ShopBuyMenu : ShopMenu
 {
     [SerializeField] GameObject descriptionGO;
-    [SerializeField] InventorySO shopInventorySO;
     public InventorySlot[] inventorySlot;
     [SerializeField] Button firstButtonToSelect;
-
-    public Dictionary<string, int> shopDictionary;
     public List<Gear> shopDynamicInventory = new List<Gear>();
 
     public override void DisplayMenu(bool on)
@@ -41,11 +38,13 @@ public class ShopBuyMenu : ShopMenu
 
     {
         var gearParent = menuManagerUI.playerInventory.GearParent;
+        ShopMainMenu main = menuManagerUI.mainMenu;
+
         shopDynamicInventory.Clear();
 
-        for (int i = 0; i < shopInventorySO.inventoryString.Count; i++)
+        for (int i = 0; i < main.shopInventorySO.inventoryString.Count; i++)
         {
-            shopDynamicInventory.Add(gearParent.Find(shopInventorySO.inventoryString[i]).GetComponent<Gear>()); ;
+            shopDynamicInventory.Add(gearParent.Find(main.shopInventorySO.inventoryString[i]).GetComponent<Gear>()); ;
         }
     }
 
@@ -77,7 +76,17 @@ public class ShopBuyMenu : ShopMenu
     public void BuyGearInSlot(InventorySlot inventorySlot)
 
     {
-        Debug.Log("test");
+        Gear gearToBuy = inventorySlot.gear;
+        menuManagerUI.playerInventory.inventorySO.inventoryString.Add(gearToBuy.name);
+        menuManagerUI.playerInventory.LoadInventoryFromSO();
+
+        var main = menuManagerUI.mainMenu;
+        main.playerPermanentStats.smams -= gearToBuy.value;
+        main.smamsValue.text = $"{main.playerPermanentStats.smams}";
+
+        DisableAllSlots();
+        LoadInventoryStringFromSO();
+        DisplayInventoryToSlot();
     }
 
     public override void StateUpdate()

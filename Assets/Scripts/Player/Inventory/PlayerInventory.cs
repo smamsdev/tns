@@ -27,11 +27,6 @@ public class PlayerInventory : MonoBehaviour
     public void LoadInventoryFromSO()
 
     {
-        foreach (Gear gear in inventory) 
-        {
-            gear.quantityInInventory = 0; 
-        }
-        
         inventory.Clear();
 
         for (int i = 0; i < inventorySO.inventoryString.Count; i++)
@@ -45,6 +40,7 @@ public class PlayerInventory : MonoBehaviour
 
                 if (!inventory.Contains(gearToLoad))
                 {
+                    gearToLoad.quantityInInventory = 1;
                     inventory.Add(gearToLoad);
                 }
             }

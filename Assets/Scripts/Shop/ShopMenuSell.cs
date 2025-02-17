@@ -82,9 +82,14 @@ public class ShopMenuSell : ShopMenu
 
     { 
         Gear gearToSell = inventorySlot.gear;
+        gearToSell.quantityInInventory--;
         menuManagerUI.playerInventory.inventorySO.inventoryString.Remove(gearToSell.name);
         menuManagerUI.playerInventory.LoadInventoryFromSO();
         LoadInventory();
+
+        var main = menuManagerUI.mainMenu;
+        main.playerPermanentStats.smams += gearToSell.value / 2;
+        main.smamsValue.text = $"{main.playerPermanentStats.smams}";
     }
 
     public override void StateUpdate()

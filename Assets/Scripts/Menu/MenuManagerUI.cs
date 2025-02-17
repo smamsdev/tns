@@ -12,6 +12,7 @@ public class MenuManagerUI : MonoBehaviour
     public Menu menuUpdateMethod;
     public TextMeshProUGUI descriptionFieldTMP;
     public TextMeshProUGUI itemTypeTMP;
+    public TextMeshProUGUI itemvalue;
 
     private void Start()
     {

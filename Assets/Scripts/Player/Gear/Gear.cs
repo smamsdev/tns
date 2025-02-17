@@ -9,6 +9,7 @@ public abstract class Gear : MonoBehaviour
     [TextArea(2, 5)] public string gearDescription;
     public bool isEquipment;
     public int quantityInInventory;
+    public int value;
 
     public virtual void ApplyAttackGear()
 

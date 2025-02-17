@@ -15,9 +15,12 @@ public class ShopManagerUI : MonoBehaviour
     [Header("")]
     public ShopMenu menuUpdateMethod;
     public ShopMenu menuToDisplay;
+    public ShopMainMenu mainMenu;
 
-    public TextMeshProUGUI descriptionFieldTMP;
-    public TextMeshProUGUI itemTypeTMP;
+    [SerializeField] TextMeshProUGUI descriptionFieldTMP;
+    [SerializeField] TextMeshProUGUI itemTypeTMP;
+    [SerializeField] TextMeshProUGUI itemValueTMP;
+
     public PlayerInventory playerInventory;
 
     private void Start()
@@ -53,11 +56,11 @@ public class ShopManagerUI : MonoBehaviour
         menuUpdateMethod.StateUpdate();
     }
 
-    public void UpdateDescriptionField(string text, bool isEquipment)
+    public void UpdateDescriptionField(Gear gear)
     {
-        descriptionFieldTMP.text = text;
+        descriptionFieldTMP.text = gear.gearDescription;
 
-        if (isEquipment)
+        if (gear.isEquipment)
         {
             itemTypeTMP.text = "Equipment";
         }
@@ -65,6 +68,18 @@ public class ShopManagerUI : MonoBehaviour
         else
         {
             itemTypeTMP.text = "Consumable";
+        }
+
+        if (menuToDisplay == buy)
+
+        {
+            itemValueTMP.text = "Price to buy: " + gear.value;
+        }
+
+        if (menuToDisplay == sell)
+
+        {
+            itemValueTMP.text = "Price to sell: " + gear.value / 2;
         }
     }
 }
