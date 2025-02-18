@@ -8,9 +8,6 @@ using UnityEngine.UIElements;
 public class PlayerMovementScript : MovementScript
 {
     public Rigidbody2D playerRigidBody2d;
-
-    public bool isWalkwayBoost;
-
     public bool movementLocked = false;
     public Vector2 newPosition;
     public Vector2 previousPosition;
