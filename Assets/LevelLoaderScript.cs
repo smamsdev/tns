@@ -15,7 +15,10 @@ public class LevelLoaderScript : ToTrigger
 
     private void Start()
     {
-        textMeshProUGUI.text = sceneName;
+        if (textMeshProUGUI != null)
+        { 
+            textMeshProUGUI.text = sceneName;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
