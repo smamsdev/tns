@@ -8,7 +8,6 @@ using UnityEngine.UIElements;
 public class PlayerMovementScript : MovementScript
 {
     public Rigidbody2D playerRigidBody2d;
-    public bool movementLocked = false;
     public Vector2 newPosition;
     public Vector2 previousPosition;
 
@@ -16,6 +15,7 @@ public class PlayerMovementScript : MovementScript
     {
         CombatEvents.LockPlayerMovement += LockPlayerMovement;
         CombatEvents.UnlockPlayerMovement += UnlockPlayerMovement;
+        FieldEvents.movementLocked = false;
     }
 
     private void OnDisable()
@@ -73,7 +73,7 @@ public class PlayerMovementScript : MovementScript
 
     void FixedUpdate()
     {
-        if (!movementLocked)
+        if (!FieldEvents.movementLocked)
 
         {
             horizontalInput = Input.GetAxis("Horizontal");
@@ -132,7 +132,7 @@ public class PlayerMovementScript : MovementScript
     public void LockPlayerMovement()
 
     {
-        movementLocked = true;
+        FieldEvents.movementLocked = true;
         horizontalInput = 0;
         verticalInput = 0;
 
@@ -144,7 +144,7 @@ public class PlayerMovementScript : MovementScript
     {
         if (!FieldEvents.isDialogueActive)
         {
-            movementLocked = false;
+            FieldEvents.movementLocked = false;
 
             //Debug.Log("unlocked");
         }

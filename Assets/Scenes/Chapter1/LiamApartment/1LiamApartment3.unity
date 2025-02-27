@@ -1511,6 +1511,52 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.07551932, y: 0.84399533}
   m_EdgeRadius: 0
+--- !u!1 &722813203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 722813204}
+  - component: {fileID: 722813205}
+  m_Layer: 0
+  m_Name: GroceriesQuestEnable
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &722813204
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722813203}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1458070173}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &722813205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722813203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61299b66a6ed8084da4b4c36f1aae318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questNameChange: VisitSam
+  QuestStatus: {fileID: 11400000, guid: 781d187c7fb3bf441b798fd5548c79b5, type: 2}
 --- !u!1 &749571017
 GameObject:
   m_ObjectHideFlags: 0
@@ -3202,6 +3248,7 @@ Transform:
   - {fileID: 476719679}
   - {fileID: 1490129021}
   - {fileID: 1572777304}
+  - {fileID: 722813204}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1458070174
@@ -3218,7 +3265,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTriggerOnLoad: 1
   triggerOnLoad: {fileID: 558558975}
-  trigger: []
+  trigger:
+  - ifTriggered: {fileID: 1891649749}
+    toTrigger: {fileID: 722813205}
 --- !u!114 &1458070175
 MonoBehaviour:
   m_ObjectHideFlags: 0

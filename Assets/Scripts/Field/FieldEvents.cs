@@ -19,6 +19,7 @@ public static class FieldEvents
     public static bool isDialogueActive;
 
     public static bool isSequenceRunning;
+    public static bool movementLocked;
 
     public static bool freshScene;
     public static Vector3 entryCoordinates;

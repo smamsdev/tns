@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuestStatusChanger : ToTrigger
+public class QuestDisable : ToTrigger
 {
     public string questNameChange;
     public QuestStatusSO QuestStatus;
@@ -13,7 +13,7 @@ public class QuestStatusChanger : ToTrigger
         {
             if (quest.questName == questNameChange)
             {
-                quest.completed = true;
+                quest.completed = false;
                 FieldEvents.HasCompleted.Invoke(this.gameObject);
                 yield return null;
             }

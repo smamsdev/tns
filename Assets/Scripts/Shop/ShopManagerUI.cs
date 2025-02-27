@@ -24,12 +24,13 @@ public class ShopManagerUI : MonoBehaviour
 
     public PlayerInventory playerInventory;
 
-    private void Start()
+    private void OnEnable()
     {
         menuUpdateMethod = main;
 
         var player = GameObject.FindGameObjectWithTag("Player");
         playerInventory = player.GetComponentInChildren<PlayerInventory>();
+        DisplayMenu(main);
     }
 
     public void DisplayMenu(ShopMenu shopMenu)

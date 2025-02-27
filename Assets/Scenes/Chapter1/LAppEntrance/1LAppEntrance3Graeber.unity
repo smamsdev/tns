@@ -1107,6 +1107,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!1 &1120339122
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1120339124}
+  - component: {fileID: 1120339123}
+  m_Layer: 0
+  m_Name: SceneChange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1120339123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120339122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d593160d2ff05647bae10e390d7b9c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneID: 1LiamApartment5
+  sceneName: 
+  entryCoordinates: {x: 0, y: 0, z: 0}
+  animator: {fileID: 0}
+  textMeshProUGUI: {fileID: 0}
+--- !u!4 &1120339124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120339122}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1609190792}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1133998864
 GameObject:
   m_ObjectHideFlags: 0
@@ -1281,8 +1330,7 @@ MonoBehaviour:
 
       Let me see my family.
 
-      Are they
-      OK? Please...'
+      Please...'
     optionalDialogueFinalPosition: {x: -2.55, y: 0.926, z: 0}
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 1931441326}
@@ -1296,8 +1344,8 @@ MonoBehaviour:
 
       and like every family, it can
 
-      go
-      quickly disappear forever.'
+      quickly
+      disappear forever.'
     optionalDialogueFinalPosition: {x: -1.4, y: 0.808, z: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
@@ -2316,6 +2364,8 @@ MonoBehaviour:
   - {fileID: 1295352955}
   - {fileID: 1711362941}
   - {fileID: 1390839411}
+  - {fileID: 1275192791}
+  - {fileID: 1120339123}
 --- !u!4 &1609190792
 Transform:
   m_ObjectHideFlags: 0
@@ -2342,6 +2392,7 @@ Transform:
   - {fileID: 340582420}
   - {fileID: 1295352954}
   - {fileID: 1390839410}
+  - {fileID: 1120339124}
   m_Father: {fileID: 1458070173}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1711362939
@@ -2910,7 +2961,7 @@ MonoBehaviour:
   - actorGameObject: {fileID: 1781568825}
     actorName: 
     dialoguetext: Grrrrrr....
-    optionalDialogueFinalPosition: {x: -1.4, y: 0.808, z: 0}
+    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 1931441326}
     actorName: 
