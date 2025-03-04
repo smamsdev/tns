@@ -10,7 +10,8 @@ public class menuMain : Menu
     public PlayerPermanentStats playerPermanentStats;
 
     [SerializeField] TextMeshProUGUI smamsValue;
-    [SerializeField] TextMeshProUGUI timeValue;
+    [SerializeField] TextMeshProUGUI durationDisplay;
+    public MenuSave menuSave;
 
     private bool isMenuOn = false;
 
@@ -25,6 +26,7 @@ public class menuMain : Menu
         menuGO.SetActive(true);
         firstMenuButton.Select(); // Ihandler uses this to trigger DisplayMenu method
         CombatEvents.LockPlayerMovement();
+        menuSave.UpdateSaveSlotUI();
         smamsValue.text = $"{playerPermanentStats.smams}";
     }
 
@@ -44,7 +46,8 @@ public class menuMain : Menu
     {
         if (isMenuOn)
         {
-            UpdateTime();
+            FieldEvents.UpdateTime();
+            durationDisplay.text = FieldEvents.duration;
         }
     }
 
@@ -52,15 +55,6 @@ public class menuMain : Menu
     {
         if (on == isMenuOn) return;
         if (on) EnterMenu(); else ExitMenu();
-    }
-
-    void UpdateTime()
-    {
-        TimeSpan timeSpan = TimeSpan.FromSeconds(Time.time);
-        timeValue.text = string.Format("{0:D2}:{1:D2}:{2:D2}",
-                                       timeSpan.Hours,
-                                       timeSpan.Minutes,
-                                       timeSpan.Seconds);
     }
 
     public override void StateUpdate()

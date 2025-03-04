@@ -8,9 +8,18 @@ public class SceneSetup : MonoBehaviour
     public Vector2 forceLook;
     public Vector3 forcedEntryCoordinates;
     public bool forceEntryCoorinates;
+    public string sceneName;
 
     private void OnEnable()
     {
+        if (sceneName == "")
+
+        {
+            Debug.Log("scene name is blank!");
+        }
+
+        FieldEvents.sceneName = sceneName;
+
         var playerGO = GameObject.Find("Player");
 
         if (useEntryCoordinates)

@@ -3,131 +3,131 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
+using System;
 
 public class SaveManager : MonoBehaviour
 {
     public PlayerPermanentStats permanentStatsSO;
-    public RawImage saveSlotOneImage;
+    public SaveData[] saveDataSlots;
+    public MenuSave menuSave;
+
+    private void OnEnable()
+    {
+        saveDataSlots = new SaveData[]
+        {
+            new SaveData { slotNumber = 0 }, new SaveData { slotNumber = 1 }, new SaveData { slotNumber = 2 }
+        };
+    }
 
     private void Start()
     {
         permanentStatsSO = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<PlayerCombatStats>().playerPermanentStats;
     }
 
-    private void Update()
+    IEnumerator SelectSlotToSaveCoRo(int slotNumber)
     {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            SaveData loadedData = LoadGame(1);
-
-            if (loadedData != null)
-            {
-                Debug.Log("Game Loaded!");
-            }
-            else
-            {
-                Debug.Log("No save file found.");
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.I))
-
-        { 
-            SaveGame(1);
-        }
+        SaveGame(saveDataSlots[slotNumber]);
+        yield return new WaitForSeconds(.1f);
+        menuSave.UpdateSaveSlotUI();
     }
 
-    public void SaveGame(int slot)
+    public void SaveGame(SaveData saveDataSlot)
     {
-        SaveData saveData = new SaveData();
+        FieldEvents.UpdateTime();
 
-        saveData.fendBase = permanentStatsSO.fendBase;
-        saveData.attackPowerBase = permanentStatsSO.attackPowerBase;
-        saveData.playerFocusbase = permanentStatsSO.playerFocusbase;
-        saveData.maxPotential = permanentStatsSO.maxPotential;
-        saveData.currentPotential = permanentStatsSO.currentPotential;
-        saveData.maxHP = permanentStatsSO.maxHP;
-        saveData.currentHP = permanentStatsSO.currentHP;
-        saveData.level = permanentStatsSO.level;
-        saveData.XP = permanentStatsSO.XP;
-        saveData.XPThreshold = permanentStatsSO.XPThreshold;
-        saveData.XPremainder = permanentStatsSO.XPremainder;
-        saveData.defaultXPThreshold = permanentStatsSO.defaultXPThreshold;
+        saveDataSlot.sceneName = FieldEvents.sceneName;
+        saveDataSlot.fendBase = permanentStatsSO.fendBase;
+        saveDataSlot.attackPowerBase = permanentStatsSO.attackPowerBase;
+        saveDataSlot.playerFocusbase = permanentStatsSO.playerFocusbase;
+        saveDataSlot.maxPotential = permanentStatsSO.maxPotential;
+        saveDataSlot.currentPotential = permanentStatsSO.currentPotential;
+        saveDataSlot.maxHP = permanentStatsSO.maxHP;
+        saveDataSlot.currentHP = permanentStatsSO.currentHP;
+        saveDataSlot.level = permanentStatsSO.level;
+        saveDataSlot.XP = permanentStatsSO.XP;
+        saveDataSlot.XPThreshold = permanentStatsSO.XPThreshold;
+        saveDataSlot.XPremainder = permanentStatsSO.XPremainder;
+        saveDataSlot.defaultXPThreshold = permanentStatsSO.defaultXPThreshold;
+        saveDataSlot.smams = permanentStatsSO.smams;
+        saveDataSlot.duration = FieldEvents.duration;
+        saveDataSlot.date = System.DateTime.Now.ToString("yyyy/MM/dd");
+        saveDataSlot.time = System.DateTime.Now.ToString("HH:mm:ss");
+        saveDataSlot.screenshotPath = Path.Combine(Application.persistentDataPath, $"save-data-slot-{saveDataSlot.slotNumber}-screenshot.png");
 
-        // Convert to JSON
-        string json = JsonUtility.ToJson(saveData, true);  // `true` makes it pretty-print for easier reading
+        string json = JsonUtility.ToJson(saveDataSlot, true);  // `true` makes it pretty-print for easier reading
 
-        // Get save path for JSON
-        string path = Path.Combine(Application.persistentDataPath, $"saveSlot{slot}.json");
+        string path = Path.Combine(Application.persistentDataPath, $"save-data-slot-{saveDataSlot.slotNumber}.json");
 
-        // Write to file
         File.WriteAllText(path, json);
         Debug.Log($"Game saved to: {path}");
 
-        // Define screenshot path
-        string screenshotPath = Path.Combine(Application.persistentDataPath, $"saveSlot{slot}_screenshot.png");
-
-        // Take a screenshot
-        StartCoroutine(CaptureAndSaveScreenshot(screenshotPath));
+        StartCoroutine(CaptureAndSaveScreenshot(saveDataSlot));
     }
 
-    private IEnumerator CaptureAndSaveScreenshot(string screenshotPath)
+    private IEnumerator CaptureAndSaveScreenshot(SaveData saveDataSlot)
     {
-        // Wait for 1 second before capturing the screenshot
-        yield return new WaitForSeconds(.1f);
-
-        // Capture the screenshot
-        ScreenCapture.CaptureScreenshot(screenshotPath);
-        Debug.Log($"Screenshot requested, saving to: {screenshotPath}");
-
-        // Optional: Wait until the screenshot file is written to disk (this may take some time)
-        yield return new WaitUntil(() => File.Exists(screenshotPath));
-
-        // Check if the file exists
-        if (File.Exists(screenshotPath))
-        {
-            Debug.Log("Screenshot successfully saved.");
-            byte[] imageBytes = File.ReadAllBytes(screenshotPath);
-            Texture2D texture = new Texture2D(2, 2);
-            texture.LoadImage(imageBytes);  // Load the image into the texture
-
-            // Optionally, display the texture (for example, with a RawImage in the UI)
-            // screenshotDisplay.texture = texture;
-        }
-        else
-        {
-            Debug.LogWarning("Screenshot file not found after capture.");
-        }
-
-        LoadScreenshot(screenshotPath);
+        ScreenCapture.CaptureScreenshot(saveDataSlot.screenshotPath);
+        Debug.Log($"Screenshot requested, saving to: {saveDataSlot.screenshotPath}");
+        yield return new WaitUntil(() => File.Exists(saveDataSlot.screenshotPath));
     }
 
-    public SaveData LoadGame(int slot)
+    public bool ReadFromJson(SaveData saveData)
     {
-        string path = Path.Combine(Application.persistentDataPath, $"saveSlot{slot}.json");
+        string path = Path.Combine(Application.persistentDataPath, $"save-data-slot-{saveData.slotNumber}.json");
 
         if (File.Exists(path))
         {
-            // Read the saved JSON string from the file
             string json = File.ReadAllText(path);
+            SaveData loadedData = JsonUtility.FromJson<SaveData>(json);
 
-            // Convert the JSON string back into a SaveData object
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
+            saveData.sceneName = loadedData.sceneName;
+            saveData.fendBase = loadedData.fendBase;
+            saveData.attackPowerBase = loadedData.attackPowerBase;
+            saveData.playerFocusbase = loadedData.playerFocusbase;
+            saveData.maxPotential = loadedData.maxPotential;
+            saveData.currentPotential = loadedData.currentPotential;
+            saveData.maxHP = loadedData.maxHP;
+            saveData.currentHP = loadedData.currentHP;
+            saveData.level = loadedData.level;
+            saveData.XP = loadedData.XP;
+            saveData.XPThreshold = loadedData.XPThreshold;
+            saveData.XPremainder = loadedData.XPremainder;
+            saveData.defaultXPThreshold = loadedData.defaultXPThreshold;
+            saveData.smams = loadedData.smams;
+            saveData.duration = loadedData.duration;
+            saveData.date = loadedData.date;
+            saveData.time = loadedData.time;
+            saveData.screenshotPath = loadedData.screenshotPath;
+            saveData.screenshot = loadedData.screenshot;
+            LoadScreenshot(saveData);
 
-            // Apply the data to your game (e.g., player stats, inventory, etc.)
-            ApplyLoadedData(data);
-
-            Debug.Log($"Game loaded from: {path}");
-            return data;
+            //Debug.Log($"Game loaded from: {path}");
+            return true;
         }
         else
         {
-            Debug.LogWarning($"No save file found at: {path}");
-            return null;
+            //Debug.LogWarning($"No save file found at: {path}");
+            return false;
         }
     }
 
-    // Apply the loaded data to your game objects (example for player stats)
+    public void LoadScreenshot(SaveData saveDataSlot)
+    {
+        if (File.Exists(saveDataSlot.screenshotPath))
+        {
+            byte[] imageBytes = File.ReadAllBytes(saveDataSlot.screenshotPath);
+            Texture2D texture = new Texture2D(2, 2);
+            texture.LoadImage(imageBytes);
+            saveDataSlot.screenshot = texture;
+
+            //Debug.Log("Screenshot loaded");
+        }
+        else
+        {
+            //Debug.LogWarning("Screenshot file not found.");
+        }
+    }
+
     private void ApplyLoadedData(SaveData saveData)
     {
         if (saveData != null)
@@ -145,35 +145,13 @@ public class SaveManager : MonoBehaviour
             permanentStatsSO.defaultXPThreshold = saveData.defaultXPThreshold;
         }
     }
-
-    public void LoadScreenshot(string screenshotPath)
-    {
-        if (File.Exists(screenshotPath))
-        {
-            // Read the image file into a byte array
-            byte[] imageBytes = File.ReadAllBytes(screenshotPath);
-
-            // Create a new texture and load the image data into it
-            Texture2D texture = new Texture2D(2, 2);  // Temporary 2x2 texture, will be resized when loading
-            texture.LoadImage(imageBytes);  // Load the image data
-
-            // Assign the texture to the RawImage UI element to display it
-            saveSlotOneImage.texture = texture;
-
-            Debug.Log("Screenshot successfully loaded and displayed.");
-        }
-        else
-        {
-            Debug.LogWarning("Screenshot file not found.");
-        }
-    }
-
-
 }
 
 [System.Serializable]
 public class SaveData
 {
+    public string sceneName;
+    public int slotNumber;
     public int fendBase;
     public int attackPowerBase;
     public int playerFocusbase;
@@ -186,4 +164,17 @@ public class SaveData
     public int XPThreshold;
     public int XPremainder;
     public int defaultXPThreshold;
+    public int smams;
+    public string duration;
+    public string date;
+    public string time;
+    public string screenshotPath;
+    public Texture screenshot;
+
+
+    //saveLevel.text =  saveData.level.ToString();
+    //    saveDate.text = saveData.saveDate
+    //    saveTime.text = 
+    //    saveDuration.text =
+    //    saveSmams.text =
 }
