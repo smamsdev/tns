@@ -16,13 +16,14 @@ public class MenuSave : Menu
     public TextMeshProUGUI[] saveSmamsTMPs;
     public RawImage[] screenshotDisplays;
     [SerializeField] IMenuSaveSlotHighlighted[] menuSaveSlotHighlighteds;
+    public Texture2D tempScreenshot;
 
-    [SerializeField] SaveManager saveManager;
+    public SaveManager saveManager;
 
     [SerializeField] GameObject areYouSureGO;
+
     public Button yes, no;
     int slotNumberToSave;
-
 
     public override void DisplayMenu(bool on)
 
@@ -48,7 +49,6 @@ public class MenuSave : Menu
         areYouSureGO.SetActive(false);
         menuSaveSlotHighlighteds[slotNumberToSave].GetComponent<Button>().Select();
     }
-
 
     public void DeclineSave()
 
@@ -98,14 +98,26 @@ public class MenuSave : Menu
 
     public override void ExitMenu()
     {
-        throw new System.NotImplementedException();
+        menuButtonHighlighted.SetButtonColor(Color.white);
+        menuButtonHighlighted.enabled = true; //this keeps the blue underline
+        mainButtonToRevert.Select();
+        menuManagerUI.menuUpdateMethod = menuManagerUI.main;
     }
 
     public override void StateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ExitMenu();
+            if (areYouSureGO.activeSelf)
+
+            {
+                DeclineSave();
+            }
+
+            else
+            {
+                ExitMenu();
+            }
         }
     }
 }

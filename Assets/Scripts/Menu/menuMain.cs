@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,14 @@ public class menuMain : Menu
     public MenuSave menuSave;
 
     private bool isMenuOn = false;
+
+    private IEnumerator CaptureScreenshotAndEnter()
+    {
+        yield return new WaitForEndOfFrame();
+        menuSave.tempScreenshot = ScreenCapture.CaptureScreenshotAsTexture();
+
+        EnterMenu();
+    }
 
     public override void DisplayMenu(bool on)
     {
@@ -54,7 +63,7 @@ public class menuMain : Menu
     void ToggleMainMenu(bool on)
     {
         if (on == isMenuOn) return;
-        if (on) EnterMenu(); else ExitMenu();
+        if (on) StartCoroutine(CaptureScreenshotAndEnter()) ; else ExitMenu();
     }
 
     public override void StateUpdate()

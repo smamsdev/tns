@@ -61,14 +61,21 @@ public class SaveManager : MonoBehaviour
         File.WriteAllText(path, json);
         Debug.Log($"Game saved to: {path}");
 
-        StartCoroutine(CaptureAndSaveScreenshot(saveDataSlot));
+        //StartCoroutine(CaptureAndSaveScreenshot(saveDataSlot));
+        SaveTempScreenShotToDisk(saveDataSlot);
     }
 
-    private IEnumerator CaptureAndSaveScreenshot(SaveData saveDataSlot)
+    public void SaveTempScreenShotToDisk(SaveData saveDataSlot)
     {
-        ScreenCapture.CaptureScreenshot(saveDataSlot.screenshotPath);
-        Debug.Log($"Screenshot requested, saving to: {saveDataSlot.screenshotPath}");
-        yield return new WaitUntil(() => File.Exists(saveDataSlot.screenshotPath));
+        if (menuSave.tempScreenshot == null)
+        {
+            Debug.LogError("Temp Screenshot not captured");
+            return;
+        }
+
+        byte[] pngData = menuSave.tempScreenshot.EncodeToPNG();
+        string filePath = Path.Combine(Application.persistentDataPath, saveDataSlot.screenshotPath);
+        File.WriteAllBytes(filePath, pngData);
     }
 
     public bool ReadFromJson(SaveData saveData)
