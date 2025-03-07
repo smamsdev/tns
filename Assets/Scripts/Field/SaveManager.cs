@@ -59,9 +59,8 @@ public class SaveManager : MonoBehaviour
         string path = Path.Combine(Application.persistentDataPath, $"save-data-slot-{saveDataSlot.slotNumber}.json");
 
         File.WriteAllText(path, json);
-        Debug.Log($"Game saved to: {path}");
+        //Debug.Log($"Game saved to: {path}");
 
-        //StartCoroutine(CaptureAndSaveScreenshot(saveDataSlot));
         SaveTempScreenShotToDisk(saveDataSlot);
     }
 

@@ -26,7 +26,7 @@ public class MenuManagerUI : MonoBehaviour
         movesPage.DisplayMenu(false);
         //configPage.DisplayMenu(false);
         savePage.DisplayMenu(false);
-        //exitPage.DisplayMenu(false);
+        exitPage.DisplayMenu(false);
         menuScript.DisplayMenu(true);
     }
 

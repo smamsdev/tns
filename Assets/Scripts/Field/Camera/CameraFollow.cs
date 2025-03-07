@@ -11,7 +11,6 @@ public class CameraFollow : MonoBehaviour
     public bool battleModeOn;
     public Vector3 newPos;
 
-
     float floatValueFromCoRoutine;
     float testFloat;
 
@@ -24,7 +23,6 @@ public class CameraFollow : MonoBehaviour
     {
         CombatEvents.BattleMode -= CameraBattleMode;
     }
-
 
     //dont forget about z -10, it's important!
 

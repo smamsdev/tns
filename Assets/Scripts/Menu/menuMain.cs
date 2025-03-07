@@ -9,9 +9,11 @@ public class menuMain : Menu
     public GameObject menuGO;
     public Button firstMenuButton;
     public PlayerPermanentStats playerPermanentStats;
+    public Animator animator;
 
     [SerializeField] TextMeshProUGUI smamsValue;
     [SerializeField] TextMeshProUGUI durationDisplay;
+    
     public MenuSave menuSave;
 
     private bool isMenuOn = false;
@@ -33,17 +35,25 @@ public class menuMain : Menu
     {
         isMenuOn = true;
         menuGO.SetActive(true);
+        animator.SetBool("Open", true);
         firstMenuButton.Select(); // Ihandler uses this to trigger DisplayMenu method
         CombatEvents.LockPlayerMovement();
         menuSave.UpdateSaveSlotUI();
         smamsValue.text = $"{playerPermanentStats.smams}";
     }
 
+    IEnumerator CloseMenuAnimation()
+    {
+        animator.SetBool("Open", false);
+        yield return new WaitForSeconds(0.25f);
+        menuGO.SetActive(false);
+        CombatEvents.UnlockPlayerMovement();
+    }
+
     public override void ExitMenu()
     {
         isMenuOn = false;
-        menuGO.SetActive(false);
-        CombatEvents.UnlockPlayerMovement();
+        StartCoroutine(CloseMenuAnimation());
     }
 
     private void Start()

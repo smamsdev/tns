@@ -66,26 +66,19 @@ public class MenuSave : Menu
     }
 
     public void UpdateSaveSlotUI()
-
     {
         foreach (SaveData saveData in saveManager.saveDataSlots)
-
         {
-            saveManager.ReadFromJson(saveData);
-
-            if (saveManager.ReadFromJson(saveData) == true)
-
+            if (saveManager.ReadFromJson(saveData))
             {
                 saveSceneNameTMPs[saveData.slotNumber].text = saveData.sceneName;
-                saveLevelTMPs[saveData.slotNumber].text = $"LEVEL: {saveData.level.ToString()}";
+                saveLevelTMPs[saveData.slotNumber].text = $"LEVEL: {saveData.level}";
                 saveDurationTMPs[saveData.slotNumber].text = $"DURATION: {saveData.duration}";
                 saveDateTMPs[saveData.slotNumber].text = $"DATE: {saveData.date}";
-                saveTimeTMPs[saveData.slotNumber].text = $"TIME:{saveData.time}";
-                saveSmamsTMPs[saveData.slotNumber].text = $"$MAMS {saveData.smams.ToString()}";
+                saveTimeTMPs[saveData.slotNumber].text = $"TIME: {saveData.time}";
+                saveSmamsTMPs[saveData.slotNumber].text = $"$MAMS {saveData.smams}";
                 screenshotDisplays[saveData.slotNumber].texture = saveData.screenshot;
             }
-
-            else { return; }
         }
     }
 

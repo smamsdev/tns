@@ -20,6 +20,8 @@ public class SceneFader : MonoBehaviour
 
     private void Start()
     {
+        CombatEvents.LockPlayerMovement();
+
         if (!remainFadedDownOnSceneLoad)
 
         {
@@ -30,5 +32,17 @@ public class SceneFader : MonoBehaviour
     void FadeDown()
     {
         faderAnimator.SetTrigger("Trigger2");
+    }
+
+    public void LockMovement()
+
+    {
+        CombatEvents.LockPlayerMovement();
+    }
+
+    public void UnlockMovement()
+
+    { 
+    CombatEvents.UnlockPlayerMovement();
     }
 }
