@@ -10,6 +10,7 @@ public class Setup : State
     [SerializeField] GameObject combatUIContainer;
     [SerializeField] GameObject playerStatsUIContainer;
     [SerializeField] GameObject EnemyUIPrefab;
+    [SerializeField] GameObject allyUI;
     [SerializeField] GameObject playerFendContainerPrefab;
 
     public override IEnumerator StartState()
@@ -33,40 +34,83 @@ public class Setup : State
 
 
         //position player
-
         FieldEvents.isCameraFollow = false;
 
-        var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
-        var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-        yield return (combatMovementInstance.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position));
-        Destroy(combatMovementInstanceGO);
+        var combatMovementPlayerSetupGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
+        combatMovementPlayerSetupGO.name = "MovePlayerToPosition";
+        var combatMovementPlayerSetup = combatMovementPlayerSetupGO.GetComponent<CombatMovement>();
+        yield return (combatMovementPlayerSetup.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position));
+        
+        Destroy(combatMovementPlayerSetup);
 
         combatManager.playerAnimator.SetBool("isCombat", true);
         combatManager.player.GetComponent<PlayerMovementScript>().lookDirection = combatManager.battleScheme.playerDefaultLookDirection;
 
-        //enemy
+        //ally setup
+        foreach (Ally ally in combatManager.ally)
+
+        {
+            allyUI.name = "AllyUI For " + ally.allyName;
+            ally.allyUI = allyUI.GetComponent<AllyUI>();
+            ally.allyUI.allyFendScript.combatManager = combatManager;
+            ally.allyUI.allyFendScript.UpdateFendDisplay(ally.fendTotal);
+            ally.allyUI.allyStatsDisplay.InitializeAllyStatsUI(ally);
+            ally.allyUI.allyStatsDisplay.ShowAllyStatsDisplay(false);
+            ally.allyUI.allyDamageTakenDisplay.DisableEnemyDamageDisplay();
+
+
+            var combatMovementAllySetupGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
+            combatMovementAllySetupGO.name = "MoveAllyToPosition";
+            var combatMovementAllySetup = combatMovementAllySetupGO.GetComponent<CombatMovement>();
+            yield return (combatMovementAllySetup.MoveCombatant(ally.gameObject, ally.allyFightingPosition.transform.position));
+
+            Destroy(combatMovementAllySetupGO);
+
+            var allyMovementScript = ally.GetComponent<ActorMovementScript>();
+            allyMovementScript.lookDirection = ally.forceLookDirection;
+            allyMovementScript.actorRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
+            ally.GetComponent<Animator>().SetBool("isCombat", true);
+
+            ally.allyUI.allyStatsDisplay.ShowAllyStatsDisplay(true);
+
+            ally.SelectAllyMove();
+            //
+            //if (enemy.attackTotal > 0)
+            //{
+            //    enemy.enemyUI.enemyAttackDisplay.UpdateEnemyAttackDisplay(enemy.EnemyAttackTotal());
+            //    enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(true);
+            //}
+            //
+            //if (enemy.fendTotal > 0)
+            //{
+            //    enemy.enemyUI.enemyFendScript.UpdateFendDisplay(enemy.fendTotal);
+            //}
+
+
+        }
+
+        //enemy setup
         foreach (Enemy enemy in combatManager.enemy)
         {
-            var enemyMovementScript = enemy.GetComponent<ActorMovementScript>();
-
             GameObject newEnemyCombatUI = Instantiate(EnemyUIPrefab, enemy.gameObject.transform);
             newEnemyCombatUI.transform.localPosition = Vector3.zero;
-            newEnemyCombatUI.name = "EnemyUI For " + enemy.name;
+            newEnemyCombatUI.name = "EnemyUI For " + enemy.enemyName;
 
             enemy.enemyUI = newEnemyCombatUI.GetComponent<EnemyUI>();
             enemy.enemyUI.partsTargetDisplay.enemy = enemy;
             enemy.enemyUI.partsTargetDisplay.combatManager = combatManager;
             enemy.enemyUI.enemyFendScript.combatManager = combatManager;
-
             enemy.enemyUI.enemyStatsDisplay.ShowEnemyStatsDisplay(false);
-
             enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
 
             var combatMovementEnemySetupGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
-            var combatMovementEnemySetup = combatMovementInstanceGO.GetComponent<CombatMovement>();
-            yield return (combatMovementInstance.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position));
-            Destroy(combatMovementInstanceGO);
+            combatMovementEnemySetupGO.name = "MoveEnemy" + enemy.enemyName + "ToPosition";
+            var combatMovementEnemySetup = combatMovementEnemySetupGO.GetComponent<CombatMovement>();
+            yield return (combatMovementEnemySetup.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position));
+            
+            Destroy(combatMovementEnemySetupGO);
 
+            var enemyMovementScript = enemy.GetComponent<ActorMovementScript>();
             enemyMovementScript.lookDirection = enemy.forceLookDirection;
             enemyMovementScript.actorRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
 
@@ -94,7 +138,6 @@ public class Setup : State
                 var flippedPos = enemy.enemyUI.enemyAttackDisplay.transform.localPosition;
                 flippedPos.x = -flippedPos.x;
                 enemy.enemyUI.enemyAttackDisplay.transform.localPosition = flippedPos;
-
                 enemy.enemyUI.partsTargetDisplay.FlipTargetDisplay();
             }
 

@@ -6,8 +6,9 @@ using UnityEngine;
 public class Battle : ToTrigger
 {
     public GameObject[] enemyGameObject;
-    public GameObject playerFightingPosition;
+    public GameObject[] allyGameObject;
 
+    public GameObject playerFightingPosition;
     public GameObject combatManager;
     public Vector2 playerDefaultLookDirection;
 

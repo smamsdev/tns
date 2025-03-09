@@ -22,7 +22,7 @@ public class EnemyStatsDisplay : MonoBehaviour
     public void InitializeEnemyStatsUI(Enemy _enemy)
     {
         enemy = _enemy;
-        enemyNameTextMeshPro.text = enemy.name;
+        enemyNameTextMeshPro.text = enemy.enemyName;
         enemyHP = enemy.enemyHP;
         enemyHPTextMeshPro.text = "HP: " + enemyHP;
     }

@@ -12,6 +12,7 @@ public class CombatManager : MonoBehaviour
 
     public GameObject player;
     public Enemy[] enemy;
+    public Ally[] ally;
 
     [Header("PlayerMoves")]
     public PlayerMove selectedPlayerMove;
@@ -77,7 +78,24 @@ public class CombatManager : MonoBehaviour
             }
         }
 
-        SetState(setup);
+        if (battleScheme.allyGameObject != null)
+
+        {
+            ally = new Ally[battleScheme.allyGameObject.Length];
+
+            for (int i = 0; i < battleScheme.allyGameObject.Length; i++)
+            {
+                ally[i] = battleScheme.allyGameObject[i].GetComponent<Ally>();
+            }
+        }
+
+        if (battleScheme.allyGameObject == null)
+
+        {
+            Debug.Log("no mates");
+        }
+
+            SetState(setup);
     }
 
     public void SetState(State state)
