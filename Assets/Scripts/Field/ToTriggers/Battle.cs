@@ -6,7 +6,7 @@ using UnityEngine;
 public class Battle : ToTrigger
 {
     public GameObject[] enemyGameObject;
-    public GameObject[] allyGameObject;
+    public List<Ally> allies = new List<Ally>();
 
     public GameObject playerFightingPosition;
     public GameObject combatManager;

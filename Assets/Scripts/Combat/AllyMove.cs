@@ -24,7 +24,7 @@ public abstract class AllyMove : MonoBehaviour
         var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
         var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
         Debug.Log(combatMovementInstance);
-        yield return (combatMovementInstance.MoveCombatant(ally.gameObject, ally.allyFightingPosition.transform.position));
+        yield return (combatMovementInstance.MoveCombatant(ally.gameObject, ally.fightingPosition.transform.position));
         Destroy(combatMovementInstanceGO);
     }
 

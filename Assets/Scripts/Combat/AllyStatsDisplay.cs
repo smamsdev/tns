@@ -22,7 +22,7 @@ public class AllyStatsDisplay : MonoBehaviour
     public void InitializeAllyStatsUI(Ally _ally)
     {
         ally = _ally;
-        allyNameTextMeshPro.text = ally.allyName;
+        allyNameTextMeshPro.text = ally.combatantName;
         allyHP = ally.currentHP;
         allyHPTextMeshPro.text = "HP: " + allyHP;
     }

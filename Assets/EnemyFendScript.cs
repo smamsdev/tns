@@ -33,7 +33,7 @@ public class EnemyFendScript : MonoBehaviour
     IEnumerator ApplyPlayerAttackToFendCoroutine(int attack, Vector2 playerLookDirection, float attackPushStrength)
 
     {
-        var stepBackPos = new Vector3 (enemy.enemyFightingPosition.transform.position.x + (attackPushStrength * playerLookDirection.x),enemy.enemyFightingPosition.transform.position.y);
+        var stepBackPos = new Vector3 (enemy.fightingPosition.transform.position.x + (attackPushStrength * playerLookDirection.x),enemy.fightingPosition.transform.position.y);
 
         if (combatManager.enemy[combatManager.selectedEnemy].fendTotal == 0)
         {

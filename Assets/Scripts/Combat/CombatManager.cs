@@ -12,7 +12,7 @@ public class CombatManager : MonoBehaviour
 
     public GameObject player;
     public Enemy[] enemy;
-    public Ally[] ally;
+    public List<Ally> allies;
 
     [Header("PlayerMoves")]
     public PlayerMove selectedPlayerMove;
@@ -78,21 +78,10 @@ public class CombatManager : MonoBehaviour
             }
         }
 
-        if (battleScheme.allyGameObject != null)
-
+        if (battleScheme.allies != null)
+        
         {
-            ally = new Ally[battleScheme.allyGameObject.Length];
-
-            for (int i = 0; i < battleScheme.allyGameObject.Length; i++)
-            {
-                ally[i] = battleScheme.allyGameObject[i].GetComponent<Ally>();
-            }
-        }
-
-        if (battleScheme.allyGameObject == null)
-
-        {
-            Debug.Log("no mates");
+            allies = new List<Ally>(battleScheme.allies);
         }
 
             SetState(setup);
@@ -110,6 +99,16 @@ public class CombatManager : MonoBehaviour
         {
             currentState.StateUpdate();
         }
+    }
+
+    public IEnumerator PositionCombatant(GameObject goToMove, Transform positionToMove)
+    {
+        var combatantMoveMentInstanceGO = Instantiate(combatMovementPrefab, this.transform);
+        var combatantMoveMentInstance = combatantMoveMentInstanceGO.GetComponent<CombatMovement>();
+
+        combatantMoveMentInstanceGO.name = "MoveCombatant" + goToMove.gameObject.name;
+        yield return (combatantMoveMentInstance.MoveCombatant(goToMove, positionToMove.position));
+        Destroy(combatantMoveMentInstanceGO);
     }
 
     void PlayerDefeated()

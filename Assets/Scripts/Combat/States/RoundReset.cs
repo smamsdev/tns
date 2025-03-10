@@ -26,7 +26,7 @@ public class RoundReset : State
             var enemyMovementScript = enemy.GetComponent<ActorMovementScript>();
             enemyMovementScript.actorRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
 
-            enemy.SelectEnemyMove();
+            enemy.SelectMove();
 
             if (enemy.attackTotal > 0)
             {

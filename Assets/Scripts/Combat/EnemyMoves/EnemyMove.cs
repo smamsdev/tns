@@ -23,7 +23,7 @@ public abstract class EnemyMove : MonoBehaviour
 
         var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
         var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-        yield return (combatMovementInstance.MoveCombatant(enemy.gameObject, enemy.enemyFightingPosition.transform.position));
+        yield return (combatMovementInstance.MoveCombatant(enemy.gameObject, enemy.fightingPosition.transform.position));
         Destroy(combatMovementInstanceGO);
     }
 

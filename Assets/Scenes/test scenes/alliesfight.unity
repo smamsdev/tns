@@ -1949,17 +1949,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228763fc52a29aa44ad7d54fd63d9511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allyFightingPosition: {fileID: 2013520277}
-  allyUI: {fileID: 0}
-  forceLookDirection: {x: 1, y: 0}
-  allyName: Graeber
+  combatantName: Graeber
   attackBase: 12
   fendBase: 4
-  attackPowerBase: 0
+  attackPowerBase: 5
   maxHP: 100
   currentHP: 100
   attackTotal: 0
   fendTotal: 0
+  forceLookDirection: {x: 1, y: 0}
+  fightingPosition: {fileID: 2013520277}
+  allyUI: {fileID: 1108316055}
   moveSelected: {fileID: 0}
   moves:
   - {fileID: 192401776}
@@ -2590,8 +2590,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyGameObject:
   - {fileID: 8443841670716444459}
-  allyGameObject:
-  - {fileID: 776682653}
+  allies:
+  - {fileID: 776682662}
   playerFightingPosition: {fileID: 836338419}
   combatManager: {fileID: 0}
   playerDefaultLookDirection: {x: 1, y: 0}
@@ -5284,15 +5284,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d7e7d453d431143ab5807ed0947b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyFightingPosition: {fileID: 1242662118}
-  enemyUI: {fileID: 0}
-  forceLookDirection: {x: -1, y: 0}
-  enemyName: Hef
-  enemyHP: 100
+  combatantName: Hef
   attackBase: 23
   fendBase: 5
+  attackPowerBase: 3
+  maxHP: 100
+  currentHP: 100
   attackTotal: 0
   fendTotal: 0
+  forceLookDirection: {x: -1, y: 0}
+  fightingPosition: {fileID: 1242662118}
+  enemyUI: {fileID: 0}
   enemyXP: 23
   enemyBodyHP: 34
   enemyArmsHP: 53

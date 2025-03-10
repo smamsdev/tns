@@ -24,7 +24,7 @@ public class AllyBasicMove : AllyMove
         combatManager = _combatManager;
         var distance = ally.moveSelected.distanceToCoverPercent;
 
-        ally.allyUI.allyDamageTakenDisplay.DisableEnemyDamageDisplay();
+        ally.allyUI.allyDamageTakenDisplay.DisableAllyDamageDisplay();
 
         var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
         var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();

@@ -4,23 +4,9 @@ using static UnityEngine.Rendering.DebugUI;
 
 public enum Target {body, arms, head};
 
-public class Enemy : MonoBehaviour
+public class Enemy : Combatant
 {
-    public GameObject enemyFightingPosition;
     public EnemyUI enemyUI;
-
-    public Vector2 forceLookDirection;
-
-    [Header("")]
-    public string enemyName;
-    [Header("")]
-    public int enemyHP;
-
-    [Header("")]
-    public int attackBase;
-    public int fendBase;
-    public int attackTotal;
-    public int fendTotal;
 
     [Header("")]
     public int enemyXP;
@@ -29,7 +15,6 @@ public class Enemy : MonoBehaviour
     public int enemyBodyHP;
     public int enemyArmsHP;
     public int enemyHeadHP;
-
 
     [HideInInspector] int enemyBodyMaxHP;
     [HideInInspector] int enemyArmsMaxHP;
@@ -55,11 +40,11 @@ public class Enemy : MonoBehaviour
     {
         CombatEvents.SetEnemyBodyPartTarget += SetEnemyBodyPartTarget;
 
-        if (enemyFightingPosition == null)
+        if (fightingPosition == null)
         {
-            enemyFightingPosition = new GameObject(this.gameObject.name + " Enemy Fighting Position");
-            enemyFightingPosition.transform.position = this.transform.position;
-            enemyFightingPosition.transform.SetParent(null); 
+            fightingPosition = new GameObject(this.gameObject.name + " Enemy Fighting Position");
+            fightingPosition.transform.position = this.transform.position;
+            fightingPosition.transform.SetParent(null); 
         }
     }
 
@@ -142,12 +127,12 @@ public class Enemy : MonoBehaviour
 
     void DamageToHP(int damageTotal)
     {
-        enemyHP = enemyHP - damageTotal;
+        currentHP = currentHP - damageTotal;
 
-        enemyUI.enemyStatsDisplay.UpdateEnemyHPDisplay(enemyHP);
+        enemyUI.enemyStatsDisplay.UpdateEnemyHPDisplay(currentHP);
         enemyUI.enemyDamageTakenDisplay.ShowEnemyDamageDisplay(damageTotal);
 
-        if (enemyHP <= 0)
+        if (currentHP <= 0)
         {
            // CombatEvents.EnemyIsDead.Invoke(true); fix this
         }
@@ -175,7 +160,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void SelectEnemyMove()
+    public override void SelectMove()
 
     {
         randomValue = Mathf.RoundToInt(Random.Range(0f, moveWeightingTotal));

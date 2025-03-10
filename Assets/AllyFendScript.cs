@@ -19,7 +19,7 @@ public class AllyFendScript : MonoBehaviour
     public void ApplyPlayerAttackToFend(int attack, Vector2 playerLookDirection, float attackPushStrength)
 
     {
-        ally = combatManager.ally[combatManager.selectedEnemy];
+       // ally = combatManager.ally[combatManager.selectedEnemy];
         enemyAnimator = ally.GetComponent<Animator>();
 
         attackRemainder = attack - combatManager.enemy[combatManager.selectedEnemy].fendTotal;
@@ -33,7 +33,7 @@ public class AllyFendScript : MonoBehaviour
     IEnumerator ApplyPlayerAttackToFendCoroutine(int attack, Vector2 playerLookDirection, float attackPushStrength)
 
     {
-        var stepBackPos = new Vector3(ally.allyFightingPosition.transform.position.x + (attackPushStrength * playerLookDirection.x), ally.allyFightingPosition.transform.position.y);
+        var stepBackPos = new Vector3(ally.fightingPosition.transform.position.x + (attackPushStrength * playerLookDirection.x), ally.fightingPosition.transform.position.y);
 
         if (combatManager.enemy[combatManager.selectedEnemy].fendTotal == 0)
         {

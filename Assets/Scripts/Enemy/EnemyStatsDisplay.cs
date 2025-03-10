@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyStatsDisplay : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI enemyNameTextMeshPro;
+    [SerializeField] TextMeshProUGUI combatantNameTextMeshPro;
     [SerializeField] TextMeshProUGUI enemyHPTextMeshPro;
     public GameObject enemyStatsDisplayGameObject;
     [SerializeField] Animator animator;
@@ -22,14 +22,14 @@ public class EnemyStatsDisplay : MonoBehaviour
     public void InitializeEnemyStatsUI(Enemy _enemy)
     {
         enemy = _enemy;
-        enemyNameTextMeshPro.text = enemy.enemyName;
-        enemyHP = enemy.enemyHP;
+        combatantNameTextMeshPro.text = enemy.combatantName;
+        enemyHP = enemy.currentHP;
         enemyHPTextMeshPro.text = "HP: " + enemyHP;
     }
 
     public void UpdateEnemyHPDisplay(int newHPValue)
     {
-        if (enemy.enemyHP <= 0) 
+        if (enemy.currentHP <= 0) 
         {
             enemyHPTextMeshPro.text = "DEAD";
         }

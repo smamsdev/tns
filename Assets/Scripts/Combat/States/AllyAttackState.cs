@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ApplyMove : State
+public class AllyAttackState : State
 {
     [SerializeField] CombatManager combatManager;
 
@@ -21,16 +21,6 @@ public class ApplyMove : State
         }
 
         var enemySelected = combatManager.enemy[combatManager.selectedEnemy];
-
-        //   var equippedGear = combatManager.player.GetComponent<EquippedGear>().equippedGear;
-        //  int i;
-        //
-        //  for (i = 0; i < equippedGear.Length;)
-        //
-        //  {
-        //      equippedGear[i].ApplyAttackGear();
-        //      i++;
-        //  }
 
         combatManager.playerCombatStats.TotalPlayerAttackPower(moveSelected.attackMoveMultiplier);
         CombatEvents.UpdateNarrator.Invoke(combatManager.selectedPlayerMove.moveName);
@@ -69,11 +59,11 @@ public class ApplyMove : State
         combatManager.playerCombatStats.TotalPlayerFendPower(combatManager.selectedPlayerMove.fendMoveMultiplier);
         combatManager.CombatUIManager.playerFendScript.UpdateFendText(combatManager.playerCombatStats.playerFend);
 
-        if (combatManager.playerCombatStats.playerFend >0)
+        if (combatManager.playerCombatStats.playerFend > 0)
         {
             combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
             yield return new WaitForSeconds(1f);
         }
-            combatManager.SetState(combatManager.enemyAttack);
+        combatManager.SetState(combatManager.enemyAttack);
     }
 }

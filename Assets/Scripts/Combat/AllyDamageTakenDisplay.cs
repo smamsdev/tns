@@ -44,7 +44,7 @@ public class AllyDamageTakenDisplay : MonoBehaviour
 
     }
 
-    public void DisableEnemyDamageDisplay()
+    public void DisableAllyDamageDisplay()
 
     {
         animator.SetInteger("animState", 0);

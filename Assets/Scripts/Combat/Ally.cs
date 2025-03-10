@@ -2,23 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ally : MonoBehaviour
+public class Ally : Combatant
 {
-    public GameObject allyFightingPosition;
+
     public AllyUI allyUI;
 
-    public Vector2 forceLookDirection;
 
-    public string allyName;
-
-    public int attackBase;
-    public int fendBase;
-    public int attackPowerBase;
-    public int maxHP;
-    public int currentHP;
-
-    public int attackTotal;
-    public int fendTotal;
 
     public AllyMove moveSelected;
     int moveWeightingTotal = 0;
@@ -27,12 +16,12 @@ public class Ally : MonoBehaviour
 
     private void Start()
     {
-        if (allyFightingPosition == null)
+        if (fightingPosition == null)
         {
             Debug.Log("no ally fighting position set" + this.gameObject.name);
-            allyFightingPosition = new GameObject(this.gameObject.name + " Ally Fighting Position");
-            allyFightingPosition.transform.position = this.transform.position;
-            allyFightingPosition.transform.SetParent(null);
+            fightingPosition = new GameObject(this.gameObject.name + " Ally Fighting Position");
+            fightingPosition.transform.position = this.transform.position;
+            fightingPosition.transform.SetParent(null);
 
         }
         foreach (AllyMove moves in moves)
@@ -62,7 +51,7 @@ public class Ally : MonoBehaviour
         }
     }
 
-    public void SelectAllyMove()
+    public override void SelectMove()
     {
         var randomValue = Mathf.RoundToInt(Random.Range(0f, moveWeightingTotal));
 
