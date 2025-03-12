@@ -14,17 +14,26 @@ public class AttackTarget : State
 
 
         combatManager.CombatUIManager.targetMenuFirstButton.Select();
-        combatManager.enemy[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(true, false, false);
+        combatManager.enemies[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(true, false, false);
 
         yield break;
     }
 
-    public override void CombatOptionSelected(int moveValue)
+    public override void CombatOptionSelected(int moveValue) //triggered via Button
 
     {
-        combatManager.enemy[combatManager.selectedEnemy].SetEnemyBodyPartTarget(moveValue);
+        combatManager.enemies[combatManager.selectedEnemy].SetEnemyBodyPartTarget(moveValue);
         DisablePartsTargetDisplay();
-        combatManager.SetState(combatManager.applyMove);
+
+        if (combatManager.allies.Count > 0)
+        {
+            combatManager.SetState(combatManager.allyMoveState);
+        }
+
+        else
+        {
+            combatManager.SetState(combatManager.applyMove); 
+        }
     }
 
     public override void StateUpdate()
@@ -34,7 +43,7 @@ public class AttackTarget : State
         {
             DisablePartsTargetDisplay();
 
-            if (combatManager.battleScheme.enemyGameObject.Length == 1)
+            if (combatManager.battleScheme.enemies.Count == 1)
 
             {
                 combatManager.SetState(combatManager.secondMove);
@@ -49,7 +58,7 @@ public class AttackTarget : State
 
     void DisablePartsTargetDisplay()
     {
-        combatManager.enemy[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(false, false, false);
+        combatManager.enemies[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(false, false, false);
     }
 }
 

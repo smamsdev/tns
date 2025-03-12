@@ -19,10 +19,10 @@ public class EnemyFendScript : MonoBehaviour
     public void ApplyPlayerAttackToFend(int attack, Vector2 playerLookDirection, float attackPushStrength)
 
     {
-        enemy = combatManager.enemy[combatManager.selectedEnemy];
+        enemy = combatManager.enemies[combatManager.selectedEnemy];
         enemyAnimator = enemy.GetComponent<Animator>();
 
-        attackRemainder = attack - combatManager.enemy[combatManager.selectedEnemy].fendTotal;
+        attackRemainder = attack - combatManager.enemies[combatManager.selectedEnemy].fendTotal;
         enemyFendAnimator.SetTrigger("fendDeflect");
 
         enemyAnimator.SetTrigger("Pain");
@@ -35,7 +35,7 @@ public class EnemyFendScript : MonoBehaviour
     {
         var stepBackPos = new Vector3 (enemy.fightingPosition.transform.position.x + (attackPushStrength * playerLookDirection.x),enemy.fightingPosition.transform.position.y);
 
-        if (combatManager.enemy[combatManager.selectedEnemy].fendTotal == 0)
+        if (combatManager.enemies[combatManager.selectedEnemy].fendTotal == 0)
         {
             FendBreached();
             yield return new WaitForSeconds(0.2f);
@@ -45,7 +45,7 @@ public class EnemyFendScript : MonoBehaviour
             yield return (combatMovementInstance.MoveCombatantFixedTime(enemy.gameObject, stepBackPos, attackPushStrength, isReversing: true));
             Destroy(combatMovementInstanceGO);
 
-            enemyAnimator.SetTrigger("combatIdle");
+            enemyAnimator.SetTrigger("CombatIdle");
 
 
             yield return null;
@@ -54,20 +54,20 @@ public class EnemyFendScript : MonoBehaviour
         float elapsedTime = 0f;
         float lerpDuration = 0.5f;
 
-        int startNumber = combatManager.enemy[combatManager.selectedEnemy].fendTotal;
+        int startNumber = combatManager.enemies[combatManager.selectedEnemy].fendTotal;
 
-        int endValue = combatManager.enemy[combatManager.selectedEnemy].fendTotal - attack;
+        int endValue = combatManager.enemies[combatManager.selectedEnemy].fendTotal - attack;
 
-        while (elapsedTime < lerpDuration && combatManager.enemy[combatManager.selectedEnemy].fendTotal > 0)
+        while (elapsedTime < lerpDuration && combatManager.enemies[combatManager.selectedEnemy].fendTotal > 0)
         {
             float t = Mathf.Clamp01(elapsedTime / lerpDuration);
 
-            combatManager.enemy[combatManager.selectedEnemy].fendTotal = Mathf.RoundToInt(Mathf.Lerp(startNumber, endValue, t));
-            fendTextMeshProUGUI.text = combatManager.enemy[combatManager.selectedEnemy].fendTotal.ToString();
+            combatManager.enemies[combatManager.selectedEnemy].fendTotal = Mathf.RoundToInt(Mathf.Lerp(startNumber, endValue, t));
+            fendTextMeshProUGUI.text = combatManager.enemies[combatManager.selectedEnemy].fendTotal.ToString();
 
             elapsedTime += Time.deltaTime;
 
-            if (combatManager.enemy[combatManager.selectedEnemy].fendTotal == 0)
+            if (combatManager.enemies[combatManager.selectedEnemy].fendTotal == 0)
             {
                FendBreached();
 
@@ -76,12 +76,12 @@ public class EnemyFendScript : MonoBehaviour
                 yield return (combatMovementInstance.MoveCombatantFixedTime(enemy.gameObject, stepBackPos, attackPushStrength));
                 Destroy(combatMovementInstanceGO);
 
-                enemyAnimator.SetTrigger("combatIdle");
+                enemyAnimator.SetTrigger("CombatIdle");
 
                 yield return null;
             }
 
-            enemyAnimator.SetTrigger("combatIdle");
+            enemyAnimator.SetTrigger("CombatIdle");
             yield return null;
         }
     }

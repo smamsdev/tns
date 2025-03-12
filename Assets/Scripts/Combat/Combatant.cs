@@ -14,6 +14,7 @@ public abstract class Combatant : MonoBehaviour
 
     public int attackTotal;
     public int fendTotal;
+    public int injuryPenalty;
 
     public Vector2 forceLookDirection;
     public GameObject fightingPosition;

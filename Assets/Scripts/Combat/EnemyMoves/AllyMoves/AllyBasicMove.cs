@@ -22,20 +22,20 @@ public class AllyBasicMove : AllyMove
 
     {
         combatManager = _combatManager;
-        var distance = ally.moveSelected.distanceToCoverPercent;
-
+        var animator = ally.GetComponent<Animator>();
         ally.allyUI.allyDamageTakenDisplay.DisableAllyDamageDisplay();
 
-        var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
-        var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-        yield return (combatMovementInstance.MoveCombatant(ally.gameObject, combatManager.player.transform.position, stoppingPercentage: distance));
-        Destroy(combatMovementInstanceGO);
+        yield return AllyMoveToAttackPos(combatManager);
 
-        combatManager.cameraFollow.transformToFollow = combatManager.player.transform;
+        combatManager.cameraFollow.transformToFollow = ally.enemyToAttack.gameObject.transform;
 
         var allyLookDirection = ally.GetComponent<MovementScript>().lookDirection;
+        //CombatEvents.ApplyEnemyAttackToFend(ally.AllyAttackTotal(), allyLookDirection, ally.moveSelected.attackPushStrength);
+        animator.SetTrigger("Attack");
 
-        CombatEvents.ApplyEnemyAttackToFend(ally.AllyAttackTotal(), allyLookDirection, ally.moveSelected.attackPushStrength);
+        yield return AllyReturn();
+
+        animator.SetTrigger("CombatIdle");
         yield return null;
     }
 }

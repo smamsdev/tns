@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack : State
+public class EnemyAttackState : State
 {
     [SerializeField] CombatManager combatManager;
-    public Gear[] equippedGear;
-    [SerializeField] FendScript fendScript;
-    public int enemyIteration = 0;
 
     public override IEnumerator StartState()
     {
@@ -21,7 +18,7 @@ public class EnemyAttack : State
         //       i++;
         //   }
 
-        foreach (Enemy enemy in combatManager.enemy)
+        foreach (Enemy enemy in combatManager.enemies)
 
         {
             //init
@@ -29,15 +26,17 @@ public class EnemyAttack : State
             var storedLookDirection = playerMovementScript.lookDirection;
             var enemyLastLookDirection = enemy.GetComponent<MovementScript>().lookDirection;
             var enemyAnimator = enemy.gameObject.GetComponent<Animator>();
-            enemyAnimator.ResetTrigger("combatIdle");
+            enemyAnimator.ResetTrigger("CombatIdle");
 
             //reset narrator
             CombatEvents.UpdateNarrator.Invoke("");
-            yield return new WaitForSeconds(0.5f);
-            CombatEvents.UpdateNarrator.Invoke(enemy.moveSelected.moveName);
+
 
             //begin move
-            yield return enemy.moveSelected.EnemyAttack(combatManager);
+            combatManager.cameraFollow.transformToFollow = enemy.transform;
+            yield return new WaitForSeconds(0.5f);
+            CombatEvents.UpdateNarrator.Invoke(enemy.moveSelected.moveName);
+            yield return enemy.moveSelected.MoveToPosition(enemy.gameObject, enemy.fightingPosition.transform.position);
 
             //move animation
             enemyAnimator.SetFloat("attackAnimationToUse", enemy.moveSelected.animtionIntTriggerToUse);
@@ -46,8 +45,8 @@ public class EnemyAttack : State
             //allow half a sec for anim to complete.
 
             //return to fightingpos, and return look direct
-            yield return enemy.moveSelected.EnemyReturn();
-            enemyAnimator.SetTrigger("combatIdle");
+            yield return enemy.moveSelected.ReturnFromPosition(enemy.gameObject, enemy.fightingPosition.transform.position);
+            enemyAnimator.SetTrigger("CombatIdle");
             enemy.GetComponent<MovementScript>().lookDirection = enemyLastLookDirection;
 
             
@@ -61,11 +60,7 @@ public class EnemyAttack : State
                 yield break;
             }
 
-            var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
-            var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-            yield return (combatMovementInstance.MoveCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position));
-            Destroy(combatMovementInstanceGO);
-
+            yield return combatManager.PositionCombatant(combatManager.player.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
             playerMovementScript.lookDirection = storedLookDirection;
         }
 

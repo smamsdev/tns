@@ -11,26 +11,26 @@ public class SelectEnemyMenuScript : MonoBehaviour
 
     public void InitializeButtonSlots()
     {
-        for (int i = 0; i < combatManager.enemy.Length; i++)
+        for (int i = 0; i < combatManager.enemies.Count; i++)
 
         {
             Button button = buttonSlot[i].GetComponent<Button>();
             button.interactable = true;
             TextMeshProUGUI text = buttonSlot[i].GetComponentInChildren<TextMeshProUGUI>();
-            text.text = combatManager.enemy[i].name;
+            text.text = combatManager.enemies[i].name;
         }
     }
 
     public void HighlightEnemy(int enemyHighlighted)
     {
-        var enemy = combatManager.enemy[enemyHighlighted];
+        var enemy = combatManager.enemies[enemyHighlighted];
         enemy.enemyUI.enemyStatsDisplay.enemyStatsDisplayGameObject.SetActive(true);
         combatManager.cameraFollow.transformToFollow = enemy.transform;
     }
 
     public void DeselectEnemy(int enemyHighlighted)
     {
-        var enemy = combatManager.enemy[enemyHighlighted];
+        var enemy = combatManager.enemies[enemyHighlighted];
         enemy.enemyUI.enemyStatsDisplay.enemyStatsDisplayGameObject.SetActive(false);
     }
 

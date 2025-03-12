@@ -11,7 +11,7 @@ public static class FieldEvents
 
     public static Action SceneChanging;
 
-    public static Action<GameObject> UpdateXP;
+    public static Action<Enemy> UpdateXP;
     public static Action<RaycastHit2D> PlayerRayCastHit;
 
     public static bool isCameraFollow = true;

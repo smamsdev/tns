@@ -6,8 +6,7 @@ public class Ally : Combatant
 {
 
     public AllyUI allyUI;
-
-
+    public Enemy enemyToAttack;
 
     public AllyMove moveSelected;
     int moveWeightingTotal = 0;

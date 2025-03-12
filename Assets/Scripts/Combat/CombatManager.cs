@@ -11,8 +11,8 @@ public class CombatManager : MonoBehaviour
     public Battle battleScheme;
 
     public GameObject player;
-    public Enemy[] enemy;
     public List<Ally> allies;
+    public List<Enemy> enemies;
 
     [Header("PlayerMoves")]
     public PlayerMove selectedPlayerMove;
@@ -31,8 +31,9 @@ public class CombatManager : MonoBehaviour
     public SecondMove secondMove;
     public EnemySelect enemySelect;
     public AttackTarget attackTarget;
+    public AllyMoveState allyMoveState;
     public ApplyMove applyMove;
-    public EnemyAttack enemyAttack;
+    public EnemyAttackState enemyAttackState;
     public RoundReset roundReset;
     public Victory victory;
     public Defeat defeat;
@@ -67,24 +68,21 @@ public class CombatManager : MonoBehaviour
             return;
         }
 
-        enemy = new Enemy[battleScheme.enemyGameObject.Length];
-
-        for (int i = 0; i < battleScheme.enemyGameObject.Length; i++)
-        {
-            enemy[i] = battleScheme.enemyGameObject[i].GetComponent<Enemy>();
-            if (enemy[i] == null)
-            {
-                Debug.LogError("Enemy component not found on " + battleScheme.enemyGameObject[i].name);
-            }
-        }
-
         if (battleScheme.allies != null)
         
         {
             allies = new List<Ally>(battleScheme.allies);
         }
 
-            SetState(setup);
+        if (battleScheme.enemies != null)
+
+        {
+            enemies = new List<Enemy>(battleScheme.enemies);
+        }
+
+        else { Debug.Log("enemy not set in Battle"); }
+
+        SetState(setup);
     }
 
     public void SetState(State state)
@@ -101,13 +99,13 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public IEnumerator PositionCombatant(GameObject goToMove, Transform positionToMove)
+    public IEnumerator PositionCombatant(GameObject goToMove, Vector3 targetPosition, float stoppingPercentage = 100f, bool useTimeout = false)
     {
         var combatantMoveMentInstanceGO = Instantiate(combatMovementPrefab, this.transform);
         var combatantMoveMentInstance = combatantMoveMentInstanceGO.GetComponent<CombatMovement>();
-
         combatantMoveMentInstanceGO.name = "MoveCombatant" + goToMove.gameObject.name;
-        yield return (combatantMoveMentInstance.MoveCombatant(goToMove, positionToMove.position));
+
+        yield return (combatantMoveMentInstance.MoveCombatant(goToMove, targetPosition, stoppingPercentage = 100f, useTimeout = false));
         Destroy(combatantMoveMentInstanceGO);
     }
 

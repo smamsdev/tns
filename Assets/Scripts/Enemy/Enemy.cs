@@ -30,7 +30,6 @@ public class Enemy : Combatant
     public int damageReceivedInjuryBonus;
     public int totalDamage;
     public Target targetIs;
-    public int injuryPenalty;
 
     int moveWeightingTotal = 0;
     public int randomValue;

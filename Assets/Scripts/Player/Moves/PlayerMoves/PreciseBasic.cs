@@ -9,7 +9,7 @@ public class PreciseBasic : PreciseMove
     {
         combatManager = _combatManager;
         var playerMovementScript = combatManager.player.GetComponent<PlayerMovementScript>();
-        var enemyPosition = combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.position;
+        var enemyPosition = combatManager.battleScheme.enemies[combatManager.selectedEnemy].transform.position;
         var moveSelected = combatManager.selectedPlayerMove;
 
         enemy = _enemy;
@@ -20,7 +20,7 @@ public class PreciseBasic : PreciseMove
         {
             //combatManager.UpdateFighterPosition(combatManager.player, new Vector2(combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.position.x - 0.3f, combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.position.y), 0.5f);
             yield return new WaitForSeconds(0.5f);
-            combatManager.enemy[combatManager.selectedEnemy].enemyUI.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombatStats.attackPower, playerMovementScript.lookDirection, moveSelected.attackPushStrength);
+            combatManager.enemies[combatManager.selectedEnemy].enemyUI.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombatStats.attackPower, playerMovementScript.lookDirection, moveSelected.attackPushStrength);
 
             yield return new WaitForSeconds(0.3f);
             //combatManager.UpdateFighterPosition(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position, 0.5f);

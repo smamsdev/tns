@@ -10,7 +10,7 @@ public class EnemySelect : State
 
     public override IEnumerator StartState()
     {
-        if (combatManager.battleScheme.enemyGameObject.Length == 1)
+        if (combatManager.battleScheme.enemies.Count == 1)
 
         {
             combatManager.SetState(combatManager.attackTarget);

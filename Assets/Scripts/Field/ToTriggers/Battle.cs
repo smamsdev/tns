@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Battle : ToTrigger
 {
-    public GameObject[] enemyGameObject;
-    public List<Ally> allies = new List<Ally>();
+    public List<Ally> allies;
+    public List<Enemy> enemies;
 
     public GameObject playerFightingPosition;
     public GameObject combatManager;

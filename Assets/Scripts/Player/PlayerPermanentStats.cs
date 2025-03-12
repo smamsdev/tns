@@ -57,9 +57,8 @@ public class PlayerPermanentStats : ScriptableObject
         // Debug.Log("LEVELUP");
     }
 
-    public void UpdateXP(GameObject gameObject)
+    public void UpdateXP(Enemy enemy)
     {
-        var enemy = gameObject.transform.GetChild(0).GetComponent<Enemy>();
         XP += enemy.enemyXP;
         XPremainder = XP - XPThreshold;
 

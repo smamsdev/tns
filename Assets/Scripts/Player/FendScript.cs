@@ -73,7 +73,6 @@ public class FendScript : MonoBehaviour
             var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
             yield return (combatMovementInstance.MoveCombatantFixedTime(combatManager.player.gameObject, stepBackPos, attackPushStrength, isReversing: true));
             Destroy(combatMovementInstanceGO);
-
         }
 
         float elapsedTime = 0f;

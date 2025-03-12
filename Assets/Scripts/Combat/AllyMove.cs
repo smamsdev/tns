@@ -16,16 +16,31 @@ public abstract class AllyMove : MonoBehaviour
 
     public abstract IEnumerator AllyAttack(CombatManager _combatManager);
 
+    public virtual IEnumerator AllyMoveToAttackPos(CombatManager _combatManager)
+
+    {
+        var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
+        var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
+        yield return (combatMovementInstance.MoveCombatant(ally.gameObject, ally.enemyToAttack.fightingPosition.transform.position, stoppingPercentage: distanceToCoverPercent));
+        Destroy(combatMovementInstanceGO);
+    }
+        
     public virtual IEnumerator AllyReturn()
 
     {
         yield return new WaitForSeconds(0.5f);
+
+        var movementScript = ally.GetComponent<MovementScript>();
+        var lastLookDirection = movementScript.lookDirection;
+
 
         var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
         var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
         Debug.Log(combatMovementInstance);
         yield return (combatMovementInstance.MoveCombatant(ally.gameObject, ally.fightingPosition.transform.position));
         Destroy(combatMovementInstanceGO);
+
+        movementScript.lookDirection = lastLookDirection;
     }
 
     public abstract void LoadMove(Ally ally);

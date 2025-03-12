@@ -13,14 +13,21 @@ public class ApplyMove : State
         var playerLookDirection = playerMovementScript.lookDirection;
         var moveSelected = combatManager.selectedPlayerMove;
 
-        foreach (Enemy enemy in combatManager.enemy)
+        foreach (Enemy enemy in combatManager.enemies)
 
         {
             enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
             enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(false);
         }
 
-        var enemySelected = combatManager.enemy[combatManager.selectedEnemy];
+        foreach (Ally ally in combatManager.allies)
+
+        { 
+            ally.allyUI.allyDamageTakenDisplay.DisableAllyDamageDisplay();
+            ally.allyUI.allyAttackDisplay.ShowAttackDisplay(false);
+        }
+
+        var enemySelected = combatManager.enemies[combatManager.selectedEnemy];
 
         //   var equippedGear = combatManager.player.GetComponent<EquippedGear>().equippedGear;
         //  int i;
@@ -59,7 +66,7 @@ public class ApplyMove : State
     IEnumerator EndMove()
 
     {
-        foreach (Enemy enemy in combatManager.enemy)
+        foreach (Enemy enemy in combatManager.enemies)
 
         {
             enemy.enemyUI.enemyFendScript.enemyFendAnimator.SetTrigger("fendFade");
@@ -74,6 +81,6 @@ public class ApplyMove : State
             combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
             yield return new WaitForSeconds(1f);
         }
-            combatManager.SetState(combatManager.enemyAttack);
+            combatManager.SetState(combatManager.enemyAttackState);
     }
 }

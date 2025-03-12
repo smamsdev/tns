@@ -19,7 +19,7 @@ public class RoundReset : State
 
         combatManager.roundCount++;
 
-        foreach (Enemy enemy in combatManager.enemy)
+        foreach (Enemy enemy in combatManager.enemies)
         {
             enemy.enemyUI.enemyFendScript.ResetAllAnimationTriggers(); //its just easier this way 
 

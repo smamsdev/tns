@@ -16,20 +16,20 @@ public class Setup : State
 
     {
         yield return HouseKeeping();
-        yield return combatManager.PositionCombatant(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform);
+        yield return combatManager.PositionCombatant(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position);
         combatManager.playerAnimator.SetBool("isCombat", true);
         combatManager.player.GetComponent<PlayerMovementScript>().lookDirection = combatManager.battleScheme.playerDefaultLookDirection;
 
-        foreach (Enemy enemy in combatManager.enemy)
+        foreach (Enemy enemy in combatManager.enemies)
         {
-            yield return combatManager.PositionCombatant(enemy.gameObject, enemy.fightingPosition.transform);
+            yield return combatManager.PositionCombatant(enemy.gameObject, enemy.fightingPosition.transform.position);
             SetDefaultLookDirectionAndType(enemy);
             SetEnemyUI(enemy);
         }
 
         foreach (Ally ally in combatManager.allies)
         {
-            yield return combatManager.PositionCombatant(ally.gameObject, ally.fightingPosition.transform);
+            yield return combatManager.PositionCombatant(ally.gameObject, ally.fightingPosition.transform.position);
             SetDefaultLookDirectionAndType(ally);
             SetAllyUI(ally);
         }
@@ -39,9 +39,10 @@ public class Setup : State
         foreach (Ally ally in combatManager.allies)
         {
             SelectAndDisplayAllyMove(ally);
+            ally.enemyToAttack = combatManager.enemies[Random.Range(0, combatManager.enemies.Count)];
         }
 
-        foreach (Enemy enemy in combatManager.enemy)
+        foreach (Enemy enemy in combatManager.enemies)
         {
             SelectAndDisplayEnemyMove(enemy);
         }

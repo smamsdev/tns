@@ -11,16 +11,16 @@ public class Victory : State
 
     public override IEnumerator StartState()
     {
-        combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
-        combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
-        combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy].GetComponent<SortingGroup>().enabled = true;
+        combatManager.battleScheme.enemies[combatManager.selectedEnemy].transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+        combatManager.battleScheme.enemies[combatManager.selectedEnemy].transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+        combatManager.battleScheme.enemies[combatManager.selectedEnemy].GetComponent<SortingGroup>().enabled = true;
 
         combatManager.transform.GetChild(0).GetChild(0).gameObject.SetActive(false); //combat menu container
         combatManager.transform.GetChild(0).GetChild(1).gameObject.SetActive(false); //player stats container
 
         yield return new WaitForSeconds(0);
 
-        FieldEvents.UpdateXP(combatManager.battleScheme.enemyGameObject[combatManager.selectedEnemy]);
+        FieldEvents.UpdateXP(combatManager.battleScheme.enemies[combatManager.selectedEnemy]);
         CombatEvents.BattleMode?.Invoke(false);
         CombatEvents.UnlockPlayerMovement?.Invoke();
         FieldEvents.HasCompleted(combatManager.gameObject);
