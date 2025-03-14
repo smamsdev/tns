@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Cinemachine.DocumentationSortingAttribute;
 
-public class PlayerCombatStats : MonoBehaviour
+public class PlayerCombat : Combatant
 {
 
     public PlayerPermanentStats playerPermanentStats;
@@ -113,6 +113,11 @@ public class PlayerCombatStats : MonoBehaviour
     {
         PlayerCurrentHP += value;
         CombatEvents.UpdatePlayerHPDisplay?.Invoke(playerCurrentHP);
+    }
+
+    public override void SelectMove()
+    {
+        throw new System.NotImplementedException();
     }
 
     public int PlayerCurrentHP

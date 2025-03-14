@@ -11,7 +11,7 @@ public class RecklessFocus : ViolentMove
 
         yield return new WaitForSeconds(0.5f);
 
-        int damageToPlayer = Mathf.RoundToInt(-combatManager.playerCombatStats.playerMaxHP / 10);
+        int damageToPlayer = Mathf.RoundToInt(-combatManager.playerCombat.playerMaxHP / 10);
 
         CombatEvents.UpdatePlayerHP.Invoke(damageToPlayer);
         CombatEvents.PlayerDamageDisplay.Invoke(damageToPlayer);

@@ -14,7 +14,7 @@ public class StatChange : ToTrigger
 
     public override IEnumerator DoAction()
     {
-        permanentStatsSO = GameObject.FindWithTag("CombatManager").GetComponent<PlayerCombatStats>().playerPermanentStats;
+        permanentStatsSO = GameObject.FindWithTag("CombatManager").GetComponent<PlayerCombat>().playerPermanentStats;
 
         permanentStatsSO.fendBase += fendBaseStatChange;
         permanentStatsSO.attackPowerBase += attackBaseStatChange;

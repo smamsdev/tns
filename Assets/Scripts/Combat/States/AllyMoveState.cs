@@ -33,7 +33,7 @@ public override IEnumerator StartState()
     //
     //var enemySelected = combatManager.enemies[combatManager.selectedEnemy];
     //
-    //combatManager.playerCombatStats.TotalPlayerAttackPower(moveSelected.attackMoveMultiplier);
+    //combatManager.playerCombat.TotalPlayerAttackPower(moveSelected.attackMoveMultiplier);
     //CombatEvents.UpdateNarrator.Invoke(combatManager.selectedPlayerMove.moveName);
     //CombatEvents.UpdatePlayerPot.Invoke(combatManager.selectedPlayerMove.potentialChange);
     //
@@ -64,15 +64,15 @@ public override IEnumerator StartState()
            enemy.enemyUI.enemyStatsDisplay.enemyStatsDisplayGameObject.SetActive(false);
        }
 
-       combatManager.playerCombatStats.TotalPlayerFendPower(combatManager.selectedPlayerMove.fendMoveMultiplier);
-       combatManager.CombatUIManager.playerFendScript.UpdateFendText(combatManager.playerCombatStats.playerFend);
+       combatManager.playerCombat.TotalPlayerFendPower(combatManager.selectedPlayerMove.fendMoveModPercent);
+       combatManager.CombatUIManager.playerFendScript.UpdateFendText(combatManager.playerCombat.playerFend);
 
-       if (combatManager.playerCombatStats.playerFend > 0)
+       if (combatManager.playerCombat.playerFend > 0)
        {
            combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
            yield return new WaitForSeconds(1f);
        }
-       combatManager.SetState(combatManager.enemyAttackState);
+       combatManager.SetState(combatManager.enemyMoveState);
    }
 
 }

@@ -8,13 +8,8 @@ public abstract class Move : MonoBehaviour
     [TextArea(2, 5)]
     public string moveDescription;
     public bool isEquipped;
-    public bool isFlaw;
 
     [Header("")]
-    public float attackMoveMultiplier;
-    public float damageToPartsMultiplier;
-    public float fendMoveMultiplier;
-    public int potentialChange;
     public int moveWeighting;
     public float attackPushStrength;
 
@@ -25,7 +20,7 @@ public abstract class Move : MonoBehaviour
     public float animtionIntTriggerToUse = 0;
     public float distanceToCover;
 
-    public CombatManager combatManager;
+    [HideInInspector] public CombatManager combatManager;
 
     public virtual IEnumerator MoveToPosition(GameObject objectToMove, Vector3 targetPosition)
     {
@@ -44,15 +39,5 @@ public abstract class Move : MonoBehaviour
         var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
         yield return (combatMovementInstance.MoveCombatant(objectToMove, targetPosition));
         Destroy(combatMovementInstanceGO);
-    }
-
-    public virtual void LoadMove(Combatant combatant)
-
-    {
-        combatant.attackTotal = Mathf.RoundToInt(combatant.attackBase * attackMoveModPercent);
-        combatant.fendTotal = Mathf.RoundToInt(combatant.fendBase * fendMoveModPercent);
-
-        var rng = Mathf.RoundToInt(combatant.attackTotal * Random.Range(-0.3f, 0.3f));
-        combatant.attackTotal = Mathf.RoundToInt(combatant.attackTotal - combatant.injuryPenalty) + rng;
     }
 }

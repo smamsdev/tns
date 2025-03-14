@@ -23,7 +23,7 @@ public class ViolentBasic : ViolentMove
             yield return (combatMovementInstance.MoveCombatant(combatManager.player.gameObject, enemyPosition, 85f));
             Destroy(combatMovementInstanceGO);
 
-            combatManager.enemies[combatManager.selectedEnemy].enemyUI.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombatStats.attackPower, playerMovementScript.lookDirection, moveSelected.attackPushStrength);
+            combatManager.enemies[combatManager.selectedEnemy].enemyUI.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombat.attackPower, playerMovementScript.lookDirection, moveSelected.attackPushStrength);
 
             combatManager.playerAnimator.SetTrigger("Attack");
             yield return new WaitForSeconds(0.5f);

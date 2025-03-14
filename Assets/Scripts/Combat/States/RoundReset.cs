@@ -40,8 +40,8 @@ public class RoundReset : State
             }
         }
 
-        combatManager.playerCombatStats.attackPower = 0;
-        combatManager.playerCombatStats.playerFend = 0;
+        combatManager.playerCombat.attackPower = 0;
+        combatManager.playerCombat.playerFend = 0;
 
         combatManager.CombatUIManager.playerFendScript.UpdateFendText(0);
 

@@ -30,7 +30,7 @@ public class FendScript : MonoBehaviour
 
     public void ShowFendDisplay(bool on)
     {
-        if (on && combatManager.playerCombatStats.playerFend > 0)
+        if (on && combatManager.playerCombat.playerFend > 0)
 
         {
             playerFendIcon.SetActive(true);

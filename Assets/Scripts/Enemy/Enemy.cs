@@ -23,6 +23,7 @@ public class Enemy : Combatant
     [Header("Moves")]
 
     public EnemyMove moveSelected;
+    public Combatant targetToAttack;
 
     [SerializeField] EnemyMove[] enemyMoves;
 
@@ -174,7 +175,6 @@ public class Enemy : Combatant
             else 
             {
                 moveSelected = enemyMove;
-                moveSelected.LoadMove(this);
                 return;
             }
         }

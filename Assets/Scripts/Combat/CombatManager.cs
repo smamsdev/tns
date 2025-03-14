@@ -10,16 +10,19 @@ public class CombatManager : MonoBehaviour
 
     public Battle battleScheme;
 
-    public GameObject player;
+    public PlayerCombat playerCombat;
     public List<Ally> allies;
     public List<Enemy> enemies;
+
+    public List<Combatant> allAllies;
 
     [Header("PlayerMoves")]
     public PlayerMove selectedPlayerMove;
     public int selectedEnemy = 0;
 
     [Header("Debugging")]
-    public PlayerCombatStats playerCombatStats;
+
+    public GameObject player;
 
     public CombatUIManager CombatUIManager;
     public PlayerMoveManager playerMoveManager;
@@ -33,7 +36,7 @@ public class CombatManager : MonoBehaviour
     public AttackTarget attackTarget;
     public AllyMoveState allyMoveState;
     public ApplyMove applyMove;
-    public EnemyAttackState enemyAttackState;
+    public EnemyMoveState enemyMoveState;
     public RoundReset roundReset;
     public Victory victory;
     public Defeat defeat;
@@ -61,6 +64,7 @@ public class CombatManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerMoveManager = player.GetComponentInChildren<PlayerMoveManager>();
+        playerCombat = player.GetComponentInChildren<PlayerCombat>();
 
         if (playerMoveManager == null)
         {
@@ -81,6 +85,9 @@ public class CombatManager : MonoBehaviour
         }
 
         else { Debug.Log("enemy not set in Battle"); }
+
+        allAllies = new List<Combatant> { playerCombat };
+        allAllies.AddRange(allies);
 
         SetState(setup);
     }

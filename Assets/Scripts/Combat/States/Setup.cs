@@ -23,6 +23,7 @@ public class Setup : State
         foreach (Enemy enemy in combatManager.enemies)
         {
             yield return combatManager.PositionCombatant(enemy.gameObject, enemy.fightingPosition.transform.position);
+            enemy.targetToAttack = combatManager.allAllies[Random.Range(0, combatManager.allAllies.Count)];
             SetDefaultLookDirectionAndType(enemy);
             SetEnemyUI(enemy);
         }
@@ -30,6 +31,7 @@ public class Setup : State
         foreach (Ally ally in combatManager.allies)
         {
             yield return combatManager.PositionCombatant(ally.gameObject, ally.fightingPosition.transform.position);
+            ally.enemyToAttack = combatManager.enemies[Random.Range(0, combatManager.enemies.Count)];
             SetDefaultLookDirectionAndType(ally);
             SetAllyUI(ally);
         }
@@ -72,6 +74,7 @@ public class Setup : State
     void SelectAndDisplayEnemyMove(Enemy enemy)
     {
         enemy.SelectMove();
+        enemy.moveSelected.LoadMoveStats(enemy, combatManager);
 
         if (enemy.attackTotal > 0)
         {
@@ -162,7 +165,7 @@ public class Setup : State
     IEnumerator SetPlayerUI()
     {        
         combatUIContainer.SetActive(true);
-        combatManager.playerCombatStats.InitialiseStats();
+        combatManager.playerCombat.InitialiseStats();
         playerStatsUIContainer.SetActive(true);
         combatManager.CombatUIManager.selectEnemyMenuScript.InitializeButtonSlots();
 
