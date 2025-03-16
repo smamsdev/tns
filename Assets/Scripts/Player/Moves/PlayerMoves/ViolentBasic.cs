@@ -12,25 +12,25 @@ public class ViolentBasic : ViolentMove
         var enemyPosition = combatManager.battleScheme.enemies[combatManager.selectedEnemy].transform.position;
         var moveSelected = combatManager.selectedPlayerMove;
 
-        combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
+        //combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
 
-        if (isAttack)
+
         {
             //move to attack position
 
-            var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
-            var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-            yield return (combatMovementInstance.MoveCombatant(combatManager.player.gameObject, enemyPosition, 85f));
-            Destroy(combatMovementInstanceGO);
-
-            combatManager.enemies[combatManager.selectedEnemy].enemyUI.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombat.attackPower, playerMovementScript.lookDirection, moveSelected.attackPushStrength);
-
-            combatManager.playerAnimator.SetTrigger("Attack");
+            //var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
+            //var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
+            //yield return (combatMovementInstance.MoveCombatant(combatManager.player.gameObject, enemyPosition, 85f));
+            //Destroy(combatMovementInstanceGO);
+            //
+            //combatManager.enemies[combatManager.selectedEnemy].enemyUI.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombat.attackPower, playerMovementScript.lookDirection, moveSelected.attackPushStrength);
+            //
+            //combatManager.playerAnimator.SetTrigger("Attack");
             yield return new WaitForSeconds(0.5f);
         }
 
         //if we just want to use this as a basic fend
-        if (!isAttack)
+
 
         {
             yield return new WaitForSeconds(0.5f);

@@ -204,14 +204,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 656255723495005569}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97d4449874fa108488599ad0ad86cd47, type: 3}
+  m_Script: {fileID: 11500000, guid: c621a47bbf023b74298b71351d94431b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fendTextMeshProUGUI: {fileID: 5809314380240552448}
   combatManager: {fileID: 0}
-  fendGameObject: {fileID: 1526187794497419763}
-  fendTextGameObject: {fileID: 4982799706101020034}
-  enemyFendAnimator: {fileID: 5587460601638698975}
+  fendTextGO: {fileID: 4982799706101020034}
+  fendIconGO: {fileID: 1526187794497419763}
+  animator: {fileID: 5587460601638698975}
+  attackRemainder: 0
+  fend: 0
 --- !u!95 &5587460601638698975
 Animator:
   serializedVersion: 5
@@ -548,7 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36e729d3d340b8849bf9498c1b933896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyFendScript: {fileID: 8797034428005192290}
+  fendScript: {fileID: 8797034428005192290}
   enemyDamageTakenDisplay: {fileID: 3690331198534291270}
   enemyStatsDisplay: {fileID: 463835664591968621}
   enemyAttackDisplay: {fileID: 8201623601841247083}

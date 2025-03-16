@@ -35,7 +35,7 @@ public class CombatManager : MonoBehaviour
     public EnemySelect enemySelect;
     public AttackTarget attackTarget;
     public AllyMoveState allyMoveState;
-    public ApplyMove applyMove;
+    public ApplyPlayerMove applyMove;
     public EnemyMoveState enemyMoveState;
     public RoundReset roundReset;
     public Victory victory;

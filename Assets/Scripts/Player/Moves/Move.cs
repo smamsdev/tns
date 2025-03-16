@@ -14,11 +14,12 @@ public abstract class Move : MonoBehaviour
     public float attackPushStrength;
 
     [Header("")]
-    public bool isAttack;
     public float attackMoveModPercent;
     public float fendMoveModPercent;
     public float animtionIntTriggerToUse = 0;
-    public float distanceToCover;
+
+    public float targetPositionHorizontalOffset;
+    public bool targetIsSelf;
 
     [HideInInspector] public CombatManager combatManager;
 
@@ -39,5 +40,37 @@ public abstract class Move : MonoBehaviour
         var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
         yield return (combatMovementInstance.MoveCombatant(objectToMove, targetPosition));
         Destroy(combatMovementInstanceGO);
+    }
+
+
+    public virtual Vector3 AttackPositionLocation(Combatant combatant)
+    {
+        Vector3 targetPosition;
+        float lookDirX = combatant.GetComponent<MovementScript>().lookDirection.x;
+
+        if (targetIsSelf)
+        {
+            targetPosition = new Vector3(combatant.transform.position.x + (targetPositionHorizontalOffset * lookDirX), combatant.transform.position.y);
+        }
+
+        else
+        {
+            targetPosition = new Vector3(combatant.targetToAttack.transform.position.x - (targetPositionHorizontalOffset * lookDirX), combatant.targetToAttack.transform.position.y);
+        }
+
+        return targetPosition;
+    }
+
+    public void LoadMoveStats(Combatant combatant, CombatManager combatManager)
+    {
+        this.combatManager = combatManager;
+
+        combatant.attackTotal = Mathf.RoundToInt(combatant.attackBase * attackMoveModPercent);
+        combatant.fendTotal = Mathf.RoundToInt(combatant.fendBase * fendMoveModPercent);
+
+        var rng = Mathf.RoundToInt(combatant.attackTotal * Random.Range(-0.3f, 0.3f));
+
+        combatant.attackTotal -= combatant.injuryPenalty;
+        combatant.attackTotal = Mathf.RoundToInt(combatant.attackTotal + rng);
     }
 }

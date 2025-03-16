@@ -14,14 +14,14 @@ public class AllyDamageTakenDisplay : MonoBehaviour
         allyDamageTakenTextMeshProUGUI.enabled = false;
     }
 
-    public void ShowEnemyDamageDisplay(int remainder)
+    public void ShowAllyDamageDisplay(int remainder)
     {
         animator.SetInteger("animState", 1);
         allyDamageTakenTextMeshProUGUI.enabled = true;
-        StartCoroutine(ShoweEnemyDamageDisplayCoroutine(remainder));
+        StartCoroutine(ShoweAllyDamageDisplayCoroutine(remainder));
     }
 
-    IEnumerator ShoweEnemyDamageDisplayCoroutine(int damage)
+    IEnumerator ShoweAllyDamageDisplayCoroutine(int damage)
 
     {
         float elapsedTime = 0f;
@@ -41,14 +41,11 @@ public class AllyDamageTakenDisplay : MonoBehaviour
 
             yield return null;
         }
-
     }
 
     public void DisableAllyDamageDisplay()
-
     {
         animator.SetInteger("animState", 0);
         //EnemyDamageTakenTextMeshProUGUI.enabled = false;
     }
-
 }

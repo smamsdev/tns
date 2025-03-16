@@ -19,20 +19,19 @@ public class CombatUIPlayerHP : MonoBehaviour
 
     private void OnEnable()
     {
-        CombatEvents.UpdatePlayerHPDisplay += UpdatePlayerHP;
+        CombatEvents.UpdatePlayerHP += UpdatePlayerHP;
         CombatEvents.InitializePlayerHPUI += InitializePlayerHP;
     }
 
     private void OnDisable()
     {
-        CombatEvents.UpdatePlayerHPDisplay -= UpdatePlayerHP;
+        CombatEvents.UpdatePlayerHP -= UpdatePlayerHP;
         CombatEvents.InitializePlayerHPUI -= InitializePlayerHP;
     }
 
     void UpdatePlayerHP(int finalValue)
     {
-
-        StartCoroutine(UpdatePlayerHPDisplayCoroutine(playerCurrentHP,finalValue));
+        StartCoroutine(UpdatePlayerHPDisplayCoroutine(playerCurrentHP, playerCurrentHP+finalValue));
     }
 
     void InitializePlayerHP(int value)
@@ -44,9 +43,6 @@ public class CombatUIPlayerHP : MonoBehaviour
     IEnumerator UpdatePlayerHPDisplayCoroutine(int currentHP, int finalValue)
 
     {
-        //Debug.Log(currentHP);
-        //Debug.Log(finalValue);
-
         animator.SetTrigger("bump");
 
         float elapsedTime = 0f;

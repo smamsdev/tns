@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyUI : MonoBehaviour
 {
-    public EnemyFendScript enemyFendScript;
+    public FendScript fendScript;
     public EnemyDamageTakenDisplay enemyDamageTakenDisplay;
     public EnemyStatsDisplay enemyStatsDisplay;
     public EnemyAttackDisplay enemyAttackDisplay;

@@ -25,6 +25,19 @@ public class AttackTarget : State
         combatManager.enemies[combatManager.selectedEnemy].SetEnemyBodyPartTarget(moveValue);
         DisablePartsTargetDisplay();
 
+        //Disable other combatant UI elements
+        foreach (Enemy enemy in combatManager.enemies)
+        {
+            enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
+            enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(false);
+        }
+
+        foreach (Ally ally in combatManager.allies)
+        {
+            ally.allyUI.allyDamageTakenDisplay.DisableAllyDamageDisplay();
+            ally.allyUI.allyAttackDisplay.ShowAttackDisplay(false);
+        }
+
         if (combatManager.allies.Count > 0)
         {
             combatManager.SetState(combatManager.allyMoveState);

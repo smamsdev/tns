@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class Ally : Combatant
 {
-
     public AllyUI allyUI;
-    public Enemy enemyToAttack;
-
-    public AllyMove moveSelected;
     int moveWeightingTotal = 0;
 
     [SerializeField] AllyMove[] moves;
@@ -64,7 +60,6 @@ public class Ally : Combatant
             else
             {
                 moveSelected = move;
-                moveSelected.LoadMove(this);
                 return;
             }
         }

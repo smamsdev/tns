@@ -7,62 +7,52 @@ using UnityEngine.UI;
 public class FendScript : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI fendTextMeshProUGUI;
-    public CombatManager combatManager;
-    [SerializeField] GameObject playerFendContainer;
-    [SerializeField] GameObject playerFendIcon, playerFendText;
+    [HideInInspector] public CombatManager combatManager;
+    [SerializeField] GameObject fendTextGO, fendIconGO;
     public Animator animator;
-    Vector2 enemyLookDir;
-    float attackPushStrength;
+    Combatant combatantAttacking;
+    Combatant target;
 
     public int attackRemainder;
 
     public int fend = 0;
 
-    private void OnEnable()
-    {
-        CombatEvents.ApplyEnemyAttackToFend += ApplyEnemyAttackToFend;
-    }
-
-    private void OnDisable()
-    {
-        CombatEvents.ApplyEnemyAttackToFend -= ApplyEnemyAttackToFend;
-    }
-
     public void ShowFendDisplay(bool on)
     {
-        if (on && combatManager.playerCombat.playerFend > 0)
+        if (on)
 
         {
-            playerFendIcon.SetActive(true);
-            playerFendText.SetActive(true);
+            fendTextGO.SetActive(true);
+            fendIconGO.SetActive(true);
             animator.SetTrigger("fendAppear");
         }
 
         if (!on)
         {
-            playerFendIcon.SetActive(false);
-            playerFendText.SetActive(false);
+            fendTextGO.SetActive(false);
+            fendIconGO.SetActive(false);
         }
     }
 
-    public void ApplyEnemyAttackToFend(int attack, Vector2 enemyLookDirection, float _attackPushStrength)
+    public void ApplyAttackToFend(Combatant combatant, Combatant target)
 
     {
-        attackRemainder = attack - fend;
+        combatantAttacking = combatant;
+        this.target = target;
+        attackRemainder = combatantAttacking.attackTotal - fend;
         animator.SetTrigger("fendDeflect");
         combatManager.playerAnimator.SetTrigger("Pain");
-        enemyLookDir = enemyLookDirection;
-        attackPushStrength = _attackPushStrength;
 
-        StartCoroutine(ApplyEnemyAttackToFendCoRo(attack));
+        StartCoroutine(ApplyAttackToFendCoRo(combatantAttacking.attackTotal));
     }
 
-    IEnumerator ApplyEnemyAttackToFendCoRo(int attack)
+    IEnumerator ApplyAttackToFendCoRo(int attack)
 
     {
+        float combatantAttackingLookDirX = combatantAttacking.GetComponent<MovementScript>().lookDirection.x;
         var stepBackPos = new Vector2
-            (combatManager.battleScheme.playerFightingPosition.transform.position.x + (attackPushStrength * enemyLookDir.x),
-            combatManager.battleScheme.playerFightingPosition.transform.position.y);
+            (target.transform.position.x + (combatantAttacking.moveSelected.attackPushStrength * combatantAttackingLookDirX),
+            target.transform.position.y);
 
         if (fend == 0)
         {
@@ -71,7 +61,7 @@ public class FendScript : MonoBehaviour
 
             var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
             var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-            yield return (combatMovementInstance.MoveCombatantFixedTime(combatManager.player.gameObject, stepBackPos, attackPushStrength, isReversing: true));
+            yield return (combatMovementInstance.MoveCombatantFixedTime(target.gameObject, stepBackPos, combatantAttacking.moveSelected.attackPushStrength, isReversing: true));
             Destroy(combatMovementInstanceGO);
         }
 
@@ -101,10 +91,9 @@ public class FendScript : MonoBehaviour
 
                 var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
                 var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-                yield return (combatMovementInstance.MoveCombatantFixedTime(combatManager.player.gameObject, stepBackPos, attackPushStrength, isReversing: true));
+                yield return (combatMovementInstance.MoveCombatantFixedTime(combatManager.player.gameObject, stepBackPos, combatantAttacking.moveSelected.attackPushStrength, isReversing: true));
                 Destroy(combatMovementInstanceGO);
             }
-
             yield return null;
         }
     }
@@ -116,19 +105,33 @@ public class FendScript : MonoBehaviour
     }
 
     void FendBreached()
-
     {
         animator.SetTrigger("fendBreak");
         fendTextMeshProUGUI.text = "";
         if (attackRemainder > 0)
         {
-            combatManager.CombatUIManager.playerDamageTakenDisplay.ShowPlayerDamageDisplay(attackRemainder);
-            CombatEvents.UpdatePlayerHP.Invoke(-attackRemainder);
+            if (target is PlayerCombat)
+
+            {
+                combatManager.CombatUIManager.playerDamageTakenDisplay.ShowPlayerDamageDisplay(attackRemainder);
+                CombatEvents.UpdatePlayerHP.Invoke(-attackRemainder);
+            }
+
+            if (target is Enemy)
+            { 
+                var targetUI = target.GetComponentInChildren<EnemyUI>();
+                targetUI.enemyDamageTakenDisplay.ShowEnemyDamageDisplay(attackRemainder);
+            }
+
+            if (target is Ally)
+            {
+                var targetUI = target.GetComponentInChildren<AllyUI>();
+                targetUI.allyDamageTakenDisplay.ShowAllyDamageDisplay(attackRemainder);
+            }
         }
     }
 
     public void ResetAllAnimationTriggers()
-
     {
         animator.ResetTrigger("fendAppear");
         animator.ResetTrigger("fendDeflect");

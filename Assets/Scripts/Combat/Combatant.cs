@@ -18,6 +18,8 @@ public abstract class Combatant : MonoBehaviour
 
     public Vector2 forceLookDirection;
     public GameObject fightingPosition;
+    public Combatant targetToAttack;
+    public Move moveSelected;
 
     public abstract void SelectMove();
 }

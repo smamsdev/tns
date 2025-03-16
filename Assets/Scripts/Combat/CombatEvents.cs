@@ -21,8 +21,6 @@ public static class CombatEvents
     public static Action<int> UpdateFendDisplay;
 
     public static Action<int> InitializePlayerHPUI;
-
-    public static Action<int> UpdatePlayerHPDisplay;
     public static Action<float> InputCoolDown;
     public static Action<int> InventoryButtonHighlighted;
     public static Action<int> GearSlotButtonHighlighted;
@@ -30,7 +28,6 @@ public static class CombatEvents
     //Enemy
     public static Action<int> SetEnemyBodyPartTarget;
     public static Action<int> UpdateEnemyAttackDisplay;
-    public static Action<int, Vector2, float> ApplyEnemyAttackToFend;
 
     public static Action<bool> EnemyIsDead;
 

@@ -48,7 +48,7 @@ public class SecondMove : State
         combatManager.playerMoveManager.CombineStanceAndMove();
         combatManager.selectedPlayerMove = combatManager.playerMoveManager.GetSelectedPlayerMove();
 
-        if (combatManager.selectedPlayerMove.isAttack)
+        if (combatManager.selectedPlayerMove.attackMoveModPercent > 0)
         {
             combatManager.SetState(combatManager.enemySelect);
         }

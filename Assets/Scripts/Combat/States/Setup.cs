@@ -31,7 +31,7 @@ public class Setup : State
         foreach (Ally ally in combatManager.allies)
         {
             yield return combatManager.PositionCombatant(ally.gameObject, ally.fightingPosition.transform.position);
-            ally.enemyToAttack = combatManager.enemies[Random.Range(0, combatManager.enemies.Count)];
+            ally.targetToAttack = combatManager.enemies[Random.Range(0, combatManager.enemies.Count)];
             SetDefaultLookDirectionAndType(ally);
             SetAllyUI(ally);
         }
@@ -41,7 +41,7 @@ public class Setup : State
         foreach (Ally ally in combatManager.allies)
         {
             SelectAndDisplayAllyMove(ally);
-            ally.enemyToAttack = combatManager.enemies[Random.Range(0, combatManager.enemies.Count)];
+            ally.targetToAttack = combatManager.enemies[Random.Range(0, combatManager.enemies.Count)];
         }
 
         foreach (Enemy enemy in combatManager.enemies)
@@ -62,10 +62,9 @@ public class Setup : State
             enemy.enemyUI = newEnemyCombatUI.GetComponent<EnemyUI>();
             enemy.enemyUI.partsTargetDisplay.enemy = enemy;
             enemy.enemyUI.partsTargetDisplay.combatManager = combatManager;
-            enemy.enemyUI.enemyFendScript.combatManager = combatManager;
+            enemy.enemyUI.fendScript.combatManager = combatManager;
             enemy.enemyUI.enemyStatsDisplay.ShowEnemyStatsDisplay(false);
             enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
-            enemy.enemyUI.enemyFendScript.UpdateFendDisplay(enemy.fendTotal);
             enemy.enemyUI.enemyStatsDisplay.InitializeEnemyStatsUI(enemy);
             enemy.enemyUI.partsTargetDisplay.InitializeEnemyPartsHP();
             enemy.enemyUI.enemyStatsDisplay.ShowEnemyStatsDisplay(true);
@@ -78,13 +77,14 @@ public class Setup : State
 
         if (enemy.attackTotal > 0)
         {
-            enemy.enemyUI.enemyAttackDisplay.UpdateEnemyAttackDisplay(enemy.EnemyAttackTotal());
+            enemy.enemyUI.enemyAttackDisplay.UpdateEnemyAttackDisplay(enemy.attackTotal);
             enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(true);
         }
 
         if (enemy.fendTotal > 0)
         {
-            enemy.enemyUI.enemyFendScript.UpdateFendDisplay(enemy.fendTotal);
+            enemy.enemyUI.fendScript.ShowFendDisplay(true);
+            enemy.enemyUI.fendScript.UpdateFendText(enemy.fendTotal);
         }
 
         //flip UI elements based on look direction
@@ -111,8 +111,8 @@ public class Setup : State
     {
             allyUI.name = "AllyUI For " + ally.combatantName;
             ally.allyUI = allyUI.GetComponent<AllyUI>();
-            ally.allyUI.allyFendScript.combatManager = combatManager;
-            ally.allyUI.allyFendScript.UpdateFendDisplay(ally.fendTotal);
+            ally.allyUI.fendScript.combatManager = combatManager;
+            ally.allyUI.fendScript.UpdateFendText(ally.fendTotal);
             ally.allyUI.allyStatsDisplay.InitializeAllyStatsUI(ally);
             ally.allyUI.allyStatsDisplay.ShowAllyStatsDisplay(false);
             ally.allyUI.allyDamageTakenDisplay.DisableAllyDamageDisplay();
@@ -124,6 +124,7 @@ public class Setup : State
 
     {
         ally.SelectMove();
+        ally.moveSelected.LoadMoveStats(ally, combatManager);
 
         if (ally.attackTotal > 0)
         {
@@ -133,7 +134,7 @@ public class Setup : State
 
         if (ally.fendTotal > 0)
         {
-            ally.allyUI.allyFendScript.UpdateFendDisplay(ally.fendTotal);
+            ally.allyUI.fendScript.UpdateFendText(ally.fendTotal);
         }
 
         //flip UI elements based on look direction

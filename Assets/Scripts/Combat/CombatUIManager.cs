@@ -36,11 +36,10 @@ public class CombatUIManager : MonoBehaviour
 
     private void Start()
     {
-        ChangeMenuState(false);
+        DisableMenuState();
     }
 
     public void ChangeMenuState(GameObject menuToEnable)
-
     {
         firstMoveMenu.SetActive(false);
         secondMoveMenu.SetActive(false);
@@ -51,8 +50,7 @@ public class CombatUIManager : MonoBehaviour
         menuToEnable.SetActive(true);
     }
 
-    public void ChangeMenuState(bool off)
-
+    public void DisableMenuState()
     {
         firstMoveMenu.SetActive(false);
         secondMoveMenu.SetActive(false);
@@ -62,13 +60,11 @@ public class CombatUIManager : MonoBehaviour
     }
 
     public void UpdateFirstMoveDisplay(string value)
-
     {
         StyleDisplayText.text = value;
     }
 
     public void UpdateSecondMoveDisplay(string value)
-
     {
         MoveDisplayText.text = value;
     }

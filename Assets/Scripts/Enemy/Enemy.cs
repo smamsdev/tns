@@ -22,9 +22,6 @@ public class Enemy : Combatant
 
     [Header("Moves")]
 
-    public EnemyMove moveSelected;
-    public Combatant targetToAttack;
-
     [SerializeField] EnemyMove[] enemyMoves;
 
     [Header("Misc")]
@@ -136,12 +133,6 @@ public class Enemy : Combatant
         {
            // CombatEvents.EnemyIsDead.Invoke(true); fix this
         }
-    }
-
-    public int EnemyAttackTotal() 
-    
-    {
-        return attackTotal;
     }
 
     public void SetEnemyBodyPartTarget(int value)

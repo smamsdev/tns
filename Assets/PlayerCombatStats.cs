@@ -96,11 +96,12 @@ public class PlayerCombat : Combatant
         attackPower = Mathf.Max(0, potentialAttackPower);
     }
 
-    public void TotalPlayerFendPower(float moveMod)
+    public int TotalPlayerFendPower(float moveMod)
     {
         CalculatePotentialMod();
 
         playerFend = Mathf.Clamp(Mathf.RoundToInt(playerPermanentStats.fendBase * moveMod), 0, 9999);
+        return playerFend;
     }
 
     public void UpdatePlayerPot(int value)
@@ -112,7 +113,6 @@ public class PlayerCombat : Combatant
     void UpdatePlayerHP(int value)
     {
         PlayerCurrentHP += value;
-        CombatEvents.UpdatePlayerHPDisplay?.Invoke(playerCurrentHP);
     }
 
     public override void SelectMove()

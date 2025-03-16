@@ -6,7 +6,7 @@ public class AllyUI : MonoBehaviour
 {
     public AllyStatsDisplay allyStatsDisplay;
     public AllyAttackDisplay allyAttackDisplay;
-    public AllyFendScript allyFendScript;
+    public FendScript fendScript;
     public AllyDamageTakenDisplay allyDamageTakenDisplay;
 
     // Start is called before the first frame update
