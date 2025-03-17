@@ -67,6 +67,13 @@ public class Enemy : Combatant
         }
     }
 
+    public override void UpdateHP(int value)
+    {
+        currentHP += value;
+        enemyUI.enemyDamageTakenDisplay.ShowEnemyDamageDisplay(value);
+        enemyUI.enemyStatsDisplay.UpdateEnemyHPDisplay(value);
+    }
+
     public void DamageTaken(int attackRemainder, float damageToBodyMod)
 
     {

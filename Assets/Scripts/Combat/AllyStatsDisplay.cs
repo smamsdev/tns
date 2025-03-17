@@ -27,7 +27,7 @@ public class AllyStatsDisplay : MonoBehaviour
         allyHPTextMeshPro.text = "HP: " + allyHP;
     }
 
-    public void UpdateAllyHPDisplay(int newHPValue)
+    public void UpdateAllyHPDisplay(int value)
     {
         if (ally.currentHP <= 0)
         {
@@ -36,14 +36,15 @@ public class AllyStatsDisplay : MonoBehaviour
 
         else
         {
-            StartCoroutine(UpdateEnemyHPDisplayCoroutine(allyHP, newHPValue));
+            StartCoroutine(UpdateAllyHPDisplayCoroutine(allyHP, value));
         }
     }
 
-    IEnumerator UpdateEnemyHPDisplayCoroutine(int _allyHP, int newHPValue)
+    IEnumerator UpdateAllyHPDisplayCoroutine(int enemyHP, int value)
 
     {
         animator.SetTrigger("bump");
+        var newHPValue = enemyHP + value;
 
         float elapsedTime = 0f;
         float lerpDuration = 1f;
@@ -53,9 +54,9 @@ public class AllyStatsDisplay : MonoBehaviour
         {
             float t = Mathf.Clamp01(elapsedTime / lerpDuration);
 
-            valueToOutput = Mathf.RoundToInt(Mathf.Lerp(_allyHP, newHPValue, t));
+            valueToOutput = Mathf.RoundToInt(Mathf.Lerp(enemyHP, newHPValue, t));
             allyHPTextMeshPro.text = "HP: " + valueToOutput.ToString();
-            allyHP = valueToOutput;
+            enemyHP = valueToOutput;
 
             elapsedTime += Time.deltaTime;
 

@@ -12,8 +12,8 @@ public class ViolentBotch : ViolentMove
 
         int damageToPlayer = Mathf.RoundToInt(-combatManager.playerCombat.playerMaxHP * 0.11f);
 
-        CombatEvents.UpdatePlayerHP.Invoke(damageToPlayer);
-        CombatEvents.PlayerDamageDisplay.Invoke(damageToPlayer);
+        //CombatEvents.UpdatePlayerHP.Invoke(damageToPlayer);
+        //CombatEvents.PlayerDamageDisplay.Invoke(damageToPlayer);
 
         yield return new WaitForSeconds(1.0f);
 

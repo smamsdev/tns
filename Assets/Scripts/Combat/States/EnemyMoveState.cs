@@ -30,10 +30,8 @@ public class EnemyMoveState : State
             //apply move effects to allied target
             var targetToAttackUI = enemyToAct.targetToAttack.GetComponentInChildren<FendScript>();
             targetToAttackUI.ApplyAttackToFend(enemyToAct, enemyToAct.targetToAttack);
-            Debug.Log(targetToAttackUI);
 
             combatManager.cameraFollow.transformToFollow = enemyToAct.targetToAttack.transform;
-            
             
             //StartCoroutine(combatManager.selectedPlayerMove.OnEnemyAttack(combatManager, enemyToAct));
 
@@ -59,7 +57,7 @@ public class EnemyMoveState : State
 
             //return allied target to original pos and look dir
             yield return new WaitForSeconds(0.5f);
-            yield return combatManager.PositionCombatant(enemyToAct.targetToAttack.gameObject, combatManager.battleScheme.playerFightingPosition.transform.position);
+            yield return combatManager.PositionCombatant(enemyToAct.targetToAttack.gameObject, enemyToAct.targetToAttack.fightingPosition.transform.position);
             alliedTargetMovementScript.lookDirection = alliedTargetStoredLookDir;
         }
         combatManager.SetState(combatManager.roundReset);

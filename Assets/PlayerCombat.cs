@@ -39,13 +39,11 @@ public class PlayerCombat : Combatant
 
     private void OnEnable()
     {
-        CombatEvents.UpdatePlayerHP += UpdatePlayerHP;
         CombatEvents.UpdatePlayerPot += UpdatePlayerPot;
     }
 
     private void OnDisable()
     {
-        CombatEvents.UpdatePlayerHP -= UpdatePlayerHP;
         CombatEvents.UpdatePlayerPot -= UpdatePlayerPot;
     }
 
@@ -110,7 +108,7 @@ public class PlayerCombat : Combatant
         CombatEvents.UpdatePlayerPotOnUI(currentPotential);
     }
 
-    void UpdatePlayerHP(int value)
+    public override void UpdateHP(int value)
     {
         PlayerCurrentHP += value;
     }

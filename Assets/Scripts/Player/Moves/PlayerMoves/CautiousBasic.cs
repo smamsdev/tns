@@ -10,7 +10,7 @@ public class CautiousBasic : CautiousMove
         combatManager = _combatManager;
         var playerMovementScript = combatManager.player.GetComponent<PlayerMovementScript>();
         var enemyPosition = combatManager.battleScheme.enemies[combatManager.selectedEnemy].transform.position;
-        var moveSelected = combatManager.selectedPlayerMove;
+       // var moveSelected = combatManager.;
 
         combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
 

@@ -10,7 +10,7 @@ public class ViolentBasic : ViolentMove
         combatManager = _combatManager;
         var playerMovementScript = combatManager.player.GetComponent<PlayerMovementScript>();
         var enemyPosition = combatManager.battleScheme.enemies[combatManager.selectedEnemy].transform.position;
-        var moveSelected = combatManager.selectedPlayerMove;
+        var moveSelected = combatManager.playerCombat.moveSelected;
 
         //combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
 

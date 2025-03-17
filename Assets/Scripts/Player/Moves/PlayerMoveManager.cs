@@ -10,7 +10,8 @@ public class PlayerMoveManager : MonoBehaviour
     public int secondMoveIs;
     public PlayerEquippedMovesSO playerEquippedMovesSO;
 
-    public PlayerMove selectedPlayerMove;
+
+    public PlayerCombat playerCombat;
 
     public ViolentMove[] violentAttackSlots = new ViolentMove[5];
     public ViolentMove[] violentFendSlots =  new ViolentMove[5];
@@ -101,39 +102,42 @@ public class PlayerMoveManager : MonoBehaviour
     }
 
     void SelectMoveFromEquippedMoves<T>(T[] equippedMoveList) where T : PlayerMove
-
     {
         int moveWeightingTotal = 0;
-        int randomValue = 0;
 
+        // First loop: Calculate the total weighting, skipping nulls
         foreach (var playerMove in equippedMoveList)
         {
-            if (playerMove != null) // Skip null slots
+            if (playerMove != null)
             {
                 moveWeightingTotal += playerMove.moveWeighting;
             }
         }
 
-        randomValue = Mathf.RoundToInt(UnityEngine.Random.Range(0f, moveWeightingTotal));
+        if (moveWeightingTotal == 0)
+        {
+            Debug.LogError("No valid moves available to select!");
+            return;
+        }
 
+        int randomValue = Mathf.RoundToInt(UnityEngine.Random.Range(0f, moveWeightingTotal));
+
+        // Second loop: Select a move based on weighting, ensuring we skip nulls
         foreach (var playerMove in equippedMoveList)
         {
+            if (playerMove == null) continue; // Skip null values
+
             if (randomValue >= playerMove.moveWeighting)
             {
                 randomValue -= playerMove.moveWeighting;
             }
             else
             {
-                selectedPlayerMove = playerMove;
+                playerCombat.moveSelected = playerMove;
                 return;
             }
         }
-        Debug.LogError("Failed to select a move!");
-    }
 
-    public PlayerMove GetSelectedPlayerMove() 
-    
-    { 
-        return selectedPlayerMove;
+        Debug.LogError("Failed to select a move! This should never happen.");
     }
 }

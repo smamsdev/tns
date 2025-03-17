@@ -38,7 +38,6 @@ public static class CombatEvents
 
     public static Action<int> UpdatePlayerPotOnUI;
     public static Action<int> InitializePlayerPotUI;
-    public static Action<int> UpdatePlayerHP;
     public static Action<int> PlayerDamageDisplay;
     public static Action DisablePlayerDamageDisplay;
     public static Action PlayerDefeated;

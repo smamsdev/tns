@@ -19,13 +19,11 @@ public class CombatUIPlayerHP : MonoBehaviour
 
     private void OnEnable()
     {
-        CombatEvents.UpdatePlayerHP += UpdatePlayerHP;
         CombatEvents.InitializePlayerHPUI += InitializePlayerHP;
     }
 
     private void OnDisable()
     {
-        CombatEvents.UpdatePlayerHP -= UpdatePlayerHP;
         CombatEvents.InitializePlayerHPUI -= InitializePlayerHP;
     }
 

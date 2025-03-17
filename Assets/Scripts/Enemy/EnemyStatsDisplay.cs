@@ -27,7 +27,7 @@ public class EnemyStatsDisplay : MonoBehaviour
         enemyHPTextMeshPro.text = "HP: " + enemyHP;
     }
 
-    public void UpdateEnemyHPDisplay(int newHPValue)
+    public void UpdateEnemyHPDisplay(int value)
     {
         if (enemy.currentHP <= 0) 
         {
@@ -36,14 +36,15 @@ public class EnemyStatsDisplay : MonoBehaviour
 
         else
         {
-            StartCoroutine(UpdateEnemyHPDisplayCoroutine(enemyHP, newHPValue));
+            StartCoroutine(UpdateEnemyHPDisplayCoroutine(enemyHP, value));
         }
     }
 
-    IEnumerator UpdateEnemyHPDisplayCoroutine(int _enemyHP, int newHPValue)
+    IEnumerator UpdateEnemyHPDisplayCoroutine(int enemyHP, int value)
 
     {
         animator.SetTrigger("bump");
+        var newHPValue = enemyHP + value;
 
         float elapsedTime = 0f;
         float lerpDuration = 1f;
@@ -53,7 +54,7 @@ public class EnemyStatsDisplay : MonoBehaviour
         {
             float t = Mathf.Clamp01(elapsedTime / lerpDuration);
 
-            valueToOutput = Mathf.RoundToInt(Mathf.Lerp(_enemyHP, newHPValue, t));
+            valueToOutput = Mathf.RoundToInt(Mathf.Lerp(enemyHP, newHPValue, t));
             enemyHPTextMeshPro.text = "HP: " + valueToOutput.ToString();
             enemyHP = valueToOutput;
 

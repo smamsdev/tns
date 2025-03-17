@@ -91,7 +91,7 @@ public class FendScript : MonoBehaviour
 
                 var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
                 var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-                yield return (combatMovementInstance.MoveCombatantFixedTime(combatManager.player.gameObject, stepBackPos, combatantAttacking.moveSelected.attackPushStrength, isReversing: true));
+                yield return (combatMovementInstance.MoveCombatantFixedTime(target.gameObject, stepBackPos, combatantAttacking.moveSelected.attackPushStrength, isReversing: true));
                 Destroy(combatMovementInstanceGO);
             }
             yield return null;
@@ -114,19 +114,21 @@ public class FendScript : MonoBehaviour
 
             {
                 combatManager.CombatUIManager.playerDamageTakenDisplay.ShowPlayerDamageDisplay(attackRemainder);
-                CombatEvents.UpdatePlayerHP.Invoke(-attackRemainder);
+                target.UpdateHP(-attackRemainder);
             }
 
             if (target is Enemy)
             { 
                 var targetUI = target.GetComponentInChildren<EnemyUI>();
-                targetUI.enemyDamageTakenDisplay.ShowEnemyDamageDisplay(attackRemainder);
+                target.UpdateHP(-attackRemainder);
+                //targetUI.enemyDamageTakenDisplay.ShowEnemyDamageDisplay(attackRemainder);
             }
 
             if (target is Ally)
             {
                 var targetUI = target.GetComponentInChildren<AllyUI>();
-                targetUI.allyDamageTakenDisplay.ShowAllyDamageDisplay(attackRemainder);
+                target.UpdateHP(-attackRemainder);
+               // targetUI.allyDamageTakenDisplay.ShowAllyDamageDisplay(attackRemainder);
             }
         }
     }

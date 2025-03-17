@@ -59,7 +59,7 @@ public class CombatInventoryMenu : MonoBehaviour
 
         equippedGear.equippedSlot[combatGearSlotSelected] = inventorySlot[InventorySlotNumberSelected].gear;
         gearSelectUI.UpdateGearDisplay(combatGearSlotSelected, inventorySlot[InventorySlotNumberSelected].gear.name);
-        combatManager.selectedPlayerMove = equipGearMove;
+        combatManager.playerCombat.moveSelected = equipGearMove;
 
         combatManager.SetState(combatManager.applyMove);
     }

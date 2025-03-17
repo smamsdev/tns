@@ -23,6 +23,8 @@ public class Ally : Combatant
         {
             moveWeightingTotal += moves.moveWeighting;
         }
+        if (moves.Length <= 1)
+        { Debug.Log("assign more moves for " + this.gameObject.name); }
     }
 
     public void DamageTaken(int attackRemainder)
@@ -44,6 +46,13 @@ public class Ally : Combatant
         {
             // CombatEvents.EnemyIsDead.Invoke(true); fix this
         }
+    }
+
+    public override void UpdateHP(int value)
+    {
+        currentHP += value;
+        allyUI.allyDamageTakenDisplay.ShowAllyDamageDisplay(value);
+        allyUI.allyStatsDisplay.UpdateAllyHPDisplay(value);
     }
 
     public override void SelectMove()

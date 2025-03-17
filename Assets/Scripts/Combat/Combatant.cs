@@ -22,4 +22,7 @@ public abstract class Combatant : MonoBehaviour
     public Move moveSelected;
 
     public abstract void SelectMove();
+
+    public abstract void UpdateHP(int value);
+
 }

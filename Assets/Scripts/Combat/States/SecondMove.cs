@@ -46,23 +46,20 @@ public class SecondMove : State
         }
 
         combatManager.playerMoveManager.CombineStanceAndMove();
-        combatManager.selectedPlayerMove = combatManager.playerMoveManager.GetSelectedPlayerMove();
+        combatManager.CombatUIManager.UpdateSecondMoveDisplay(moveName);
 
-        if (combatManager.selectedPlayerMove.attackMoveModPercent > 0)
+        if (combatManager.playerCombat.moveSelected.attackMoveModPercent > 0)
         {
             combatManager.SetState(combatManager.enemySelect);
         }
         else
         {
-            combatManager.SetState(combatManager.applyMove);
+            combatManager.SetState(combatManager.allyMoveState);
         }
-
-        combatManager.CombatUIManager.UpdateSecondMoveDisplay(moveName);
-
     }
 
-    private void OnDisable()
-    {
-        combatManager = null;
-    }
+    //private void OnDisable()
+    //{
+    //    combatManager = null;
+    //}
 }

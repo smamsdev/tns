@@ -24,6 +24,7 @@ public class AttackTarget : State
     {
         combatManager.enemies[combatManager.selectedEnemy].SetEnemyBodyPartTarget(moveValue);
         DisablePartsTargetDisplay();
+        combatManager.CombatUIManager.DisableMenuState();
 
         //Disable other combatant UI elements
         foreach (Enemy enemy in combatManager.enemies)

@@ -16,9 +16,11 @@ public class Setup : State
 
     {
         yield return HouseKeeping();
-        yield return combatManager.PositionCombatant(combatManager.player, combatManager.battleScheme.playerFightingPosition.transform.position);
+        yield return combatManager.PositionCombatant(combatManager.player, combatManager.playerCombat.fightingPosition.transform.position);
         combatManager.playerAnimator.SetBool("isCombat", true);
         combatManager.player.GetComponent<PlayerMovementScript>().lookDirection = combatManager.battleScheme.playerDefaultLookDirection;
+        yield return SetPlayerUI();
+        yield return new WaitForSeconds(0.5f);
 
         foreach (Enemy enemy in combatManager.enemies)
         {
@@ -26,6 +28,7 @@ public class Setup : State
             enemy.targetToAttack = combatManager.allAllies[Random.Range(0, combatManager.allAllies.Count)];
             SetDefaultLookDirectionAndType(enemy);
             SetEnemyUI(enemy);
+            yield return new WaitForSeconds(0.5f);
         }
 
         foreach (Ally ally in combatManager.allies)
@@ -34,6 +37,7 @@ public class Setup : State
             ally.targetToAttack = combatManager.enemies[Random.Range(0, combatManager.enemies.Count)];
             SetDefaultLookDirectionAndType(ally);
             SetAllyUI(ally);
+            yield return new WaitForSeconds(0.5f);
         }
 
         FieldEvents.isCameraFollow = true;
@@ -50,7 +54,7 @@ public class Setup : State
         }
 
         yield return new WaitForSeconds(1);
-        yield return SetPlayerUI();
+
         combatManager.SetState(combatManager.firstMove);
     }
 
@@ -151,6 +155,7 @@ public class Setup : State
     {
         yield return new WaitForSeconds(0.01f);
         combatManager.playerAnimator = combatManager.player.GetComponent<Animator>();
+        combatManager.playerCombat.fightingPosition = combatManager.battleScheme.playerFightingPosition;
         CombatEvents.BattleMode?.Invoke(true);
         CombatEvents.isBattleMode = true;
         CombatEvents.LockPlayerMovement.Invoke();

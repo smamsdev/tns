@@ -8,6 +8,7 @@ public class AllyMoveState : State
 
 public override IEnumerator StartState()
 {
+
     foreach (Ally allyToAct in combatManager.allies)
     {
         //store enemy target look dir
@@ -58,6 +59,6 @@ public override IEnumerator StartState()
         enemyTargetMovementScript.lookDirection = enemyTargetStoredLookDir;
     }
     
-        combatManager.SetState(combatManager.enemyMoveState);
+        combatManager.SetState(combatManager.applyMove);
    }
 }
