@@ -128,16 +128,18 @@ MonoBehaviour:
   moveName: Precise Fend
   moveDescription: 
   isEquipped: 0
-  isFlaw: 0
-  attackMoveMultiplier: 0
-  damageToPartsMultiplier: 0
-  fendMoveMultiplier: 0.7
-  potentialChange: 12
   moveWeighting: 55
   attackPushStrength: 0
-  isAttack: 0
+  attackMoveModPercent: 0
+  fendMoveModPercent: 2
+  animtionIntTriggerToUse: 0
+  targetPositionHorizontalOffset: 0
+  targetIsSelf: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
+  damageToPartsMultiplier: 0
+  potentialChange: 12
+  isFlaw: 0
 --- !u!1 &551155799480956367
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,16 +187,18 @@ MonoBehaviour:
   moveName: Option Paralysis
   moveDescription: When one lacks action or certainty, indecision and doubt arise.
   isEquipped: 0
-  isFlaw: 1
-  attackMoveMultiplier: 0
-  damageToPartsMultiplier: 0
-  fendMoveMultiplier: 0.3
-  potentialChange: 5
   moveWeighting: 0
   attackPushStrength: 0
-  isAttack: 0
+  attackMoveModPercent: 1
+  fendMoveModPercent: 0
+  animtionIntTriggerToUse: 0
+  targetPositionHorizontalOffset: 0
+  targetIsSelf: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
+  damageToPartsMultiplier: 0
+  potentialChange: 5
+  isFlaw: 1
 --- !u!1 &710185640659821120
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,16 +324,18 @@ MonoBehaviour:
   moveName: Counter Attack
   moveDescription: 
   isEquipped: 0
-  isFlaw: 0
-  attackMoveMultiplier: 1.4
-  damageToPartsMultiplier: 0
-  fendMoveMultiplier: 0.3
-  potentialChange: -15
   moveWeighting: 25
   attackPushStrength: 0
-  isAttack: 0
+  attackMoveModPercent: 0
+  fendMoveModPercent: 1
+  animtionIntTriggerToUse: 0
+  targetPositionHorizontalOffset: 0
+  targetIsSelf: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
+  damageToPartsMultiplier: 0
+  potentialChange: -15
+  isFlaw: 0
 --- !u!1 &1352870325393854133
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,16 +383,18 @@ MonoBehaviour:
   moveName: Reckless Focus
   moveDescription: 
   isEquipped: 0
-  isFlaw: 0
-  attackMoveMultiplier: 0
-  damageToPartsMultiplier: 0
-  fendMoveMultiplier: 1
-  potentialChange: 15
   moveWeighting: 25
   attackPushStrength: 0
-  isAttack: 0
+  attackMoveModPercent: 0
+  fendMoveModPercent: 0.5
+  animtionIntTriggerToUse: 0
+  targetPositionHorizontalOffset: 0
+  targetIsSelf: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
+  damageToPartsMultiplier: 0
+  potentialChange: 15
+  isFlaw: 0
 --- !u!1 &1534626795260286935
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,16 +442,18 @@ MonoBehaviour:
   moveName: Precise Attack
   moveDescription: Deals 3x damage to body parts
   isEquipped: 0
-  isFlaw: 0
-  attackMoveMultiplier: 0.4
-  damageToPartsMultiplier: 3
-  fendMoveMultiplier: 0
-  potentialChange: -10
   moveWeighting: 55
   attackPushStrength: 0
-  isAttack: 1
+  attackMoveModPercent: 1
+  fendMoveModPercent: 0
+  animtionIntTriggerToUse: 0
+  targetPositionHorizontalOffset: 0
+  targetIsSelf: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
+  damageToPartsMultiplier: 3
+  potentialChange: -10
+  isFlaw: 0
 --- !u!1 &1775209863991066390
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,16 +661,18 @@ MonoBehaviour:
   moveName: Reckless Attack
   moveDescription: Deals heavy damage
   isEquipped: 0
-  isFlaw: 0
-  attackMoveMultiplier: 1.5
-  damageToPartsMultiplier: 1
-  fendMoveMultiplier: 0
-  potentialChange: -15
   moveWeighting: 25
-  attackPushStrength: 0
-  isAttack: 1
+  attackPushStrength: 0.3
+  attackMoveModPercent: 1
+  fendMoveModPercent: 0
+  animtionIntTriggerToUse: 0
+  targetPositionHorizontalOffset: 0
+  targetIsSelf: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
+  damageToPartsMultiplier: 1
+  potentialChange: -15
+  isFlaw: 0
 --- !u!1 &3002824090083780472
 GameObject:
   m_ObjectHideFlags: 0
@@ -778,7 +790,7 @@ MonoBehaviour:
   firstMoveIs: 0
   secondMoveIs: 0
   playerEquippedMovesSO: {fileID: 11400000, guid: df34d5de6f4dd2c4d94126931bcdd52e, type: 2}
-  selectedPlayerMove: {fileID: 0}
+  playerCombat: {fileID: 8916189207439800493}
   violentAttackSlots:
   - {fileID: 0}
   - {fileID: 0}
@@ -903,16 +915,18 @@ MonoBehaviour:
   moveName: Precise Focus
   moveDescription: 
   isEquipped: 0
-  isFlaw: 0
-  attackMoveMultiplier: 0
-  damageToPartsMultiplier: 0
-  fendMoveMultiplier: 0
-  potentialChange: 14
   moveWeighting: 55
   attackPushStrength: 0
-  isAttack: 0
+  attackMoveModPercent: 0
+  fendMoveModPercent: 0
+  animtionIntTriggerToUse: 0
+  targetPositionHorizontalOffset: 0
+  targetIsSelf: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
+  damageToPartsMultiplier: 0
+  potentialChange: 14
+  isFlaw: 0
 --- !u!1 &4909455078986123961
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,67 +957,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 823243170297164299}
-  - {fileID: 7176873538292127595}
   - {fileID: 9054488621636529731}
   m_Father: {fileID: 6531990500401077899}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5141093477245825417
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7176873538292127595}
-  - component: {fileID: 6214547715918114191}
-  m_Layer: 7
-  m_Name: Reckless Test
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7176873538292127595
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5141093477245825417}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8046860258707766845}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6214547715918114191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5141093477245825417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b78f78e03a63b6d4db83620e9fe383c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Reckless Test
-  moveDescription: Deals heavy damage
-  isEquipped: 0
-  isFlaw: 0
-  attackMoveMultiplier: 1.5
-  damageToPartsMultiplier: 1
-  fendMoveMultiplier: 0
-  potentialChange: -15
-  moveWeighting: 25
-  attackPushStrength: 0
-  isAttack: 1
-  combatManager: {fileID: 0}
-  enemy: {fileID: 0}
 --- !u!1 &5375799984386380507
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,6 +1074,7 @@ GameObject:
   - component: {fileID: 1214149578492154432}
   - component: {fileID: 8511064882151163904}
   - component: {fileID: 8310068901081978549}
+  - component: {fileID: 8916189207439800493}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -1206,11 +1163,11 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6457784655243026927}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.1
   m_LinearDrag: 0
   m_AngularDrag: 0.001
   m_GravityScale: 1
@@ -1248,8 +1205,6 @@ MonoBehaviour:
   lookDirection: {x: 0, y: 0}
   isReversing: {x: 0, y: 0}
   playerRigidBody2d: {fileID: 4400780416818078350}
-  isWalkwayBoost: 0
-  movementLocked: 0
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
 --- !u!95 &8879681757372781048
@@ -1339,6 +1294,49 @@ MonoBehaviour:
     m_Bits: 256
   rayDistance: 0.22
   playerMovementScript: {fileID: 4167347878260585186}
+--- !u!114 &8916189207439800493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6457784655243026927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69585983eb1cf6f4bab827c80845cbe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combatantName: 
+  attackBase: 0
+  fendBase: 0
+  attackPowerBase: 0
+  maxHP: 0
+  currentHP: 0
+  attackTotal: 0
+  fendTotal: 0
+  injuryPenalty: 0
+  forceLookDirection: {x: 0, y: 0}
+  fightingPosition: {fileID: 0}
+  targetToAttack: {fileID: 0}
+  moveSelected: {fileID: 0}
+  playerPermanentStats: {fileID: 11400000, guid: 891a8d8bd88cd9a45acd6a5ac406be03, type: 2}
+  playerCurrentHP: 0
+  playerMaxHP: 0
+  playerFend: 0
+  fendPotMod: 0
+  attackPower: 0
+  attackPowerPotMod: 0
+  currentPotential: 0
+  maxPotential: 0
+  potentialMod: 0
+  attackPowerBaseMod: 0
+  fendBaseMod: 0
+  playerFocusbaseMod: 0
+  attackPowerGearMod: 0
+  fendPowerGearMod: 0
+  playerFocusbaseChange: 0
+  attackPowerBaseChange: 0
+  fendBaseChange: 0
 --- !u!1 &6562236617326698140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1386,16 +1384,18 @@ MonoBehaviour:
   moveName: Slip Focus
   moveDescription: 
   isEquipped: 0
-  isFlaw: 0
-  attackMoveMultiplier: 0
-  damageToPartsMultiplier: 0
-  fendMoveMultiplier: 0.5
-  potentialChange: 10
   moveWeighting: 55
   attackPushStrength: 0
-  isAttack: 0
+  attackMoveModPercent: 0
+  fendMoveModPercent: 2
+  animtionIntTriggerToUse: 0
+  targetPositionHorizontalOffset: 0
+  targetIsSelf: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
+  damageToPartsMultiplier: 0
+  potentialChange: 10
+  isFlaw: 0
 --- !u!1 &6595303164841505670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1443,16 +1443,18 @@ MonoBehaviour:
   moveName: Slip Attack
   moveDescription: 
   isEquipped: 0
-  isFlaw: 0
-  attackMoveMultiplier: 0.4
-  damageToPartsMultiplier: 0
-  fendMoveMultiplier: 0.5
-  potentialChange: -15
   moveWeighting: 55
   attackPushStrength: 0
-  isAttack: 1
+  attackMoveModPercent: 0.7
+  fendMoveModPercent: 0.5
+  animtionIntTriggerToUse: 0
+  targetPositionHorizontalOffset: 0
+  targetIsSelf: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
+  damageToPartsMultiplier: 0
+  potentialChange: -15
+  isFlaw: 0
 --- !u!1 &7016995569545363975
 GameObject:
   m_ObjectHideFlags: 0
@@ -1500,16 +1502,18 @@ MonoBehaviour:
   moveName: Violent Botch
   moveDescription: Too aggressive
   isEquipped: 0
-  isFlaw: 1
-  attackMoveMultiplier: 0
-  damageToPartsMultiplier: 0
-  fendMoveMultiplier: 0
-  potentialChange: -10
   moveWeighting: 0
   attackPushStrength: 0
-  isAttack: 0
+  attackMoveModPercent: 0
+  fendMoveModPercent: 0
+  animtionIntTriggerToUse: 0
+  targetPositionHorizontalOffset: 0
+  targetIsSelf: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
+  damageToPartsMultiplier: 0
+  potentialChange: -10
+  isFlaw: 1
 --- !u!1 &7164250575696481239
 GameObject:
   m_ObjectHideFlags: 0
@@ -1591,16 +1595,18 @@ MonoBehaviour:
   moveName: Cautious Fend
   moveDescription: 
   isEquipped: 0
-  isFlaw: 0
-  attackMoveMultiplier: 0
-  damageToPartsMultiplier: 0
-  fendMoveMultiplier: 2
-  potentialChange: -20
   moveWeighting: 25
   attackPushStrength: 0
-  isAttack: 0
+  attackMoveModPercent: 0
+  fendMoveModPercent: 2
+  animtionIntTriggerToUse: 0
+  targetPositionHorizontalOffset: 0
+  targetIsSelf: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
+  damageToPartsMultiplier: 0
+  potentialChange: -20
+  isFlaw: 0
 --- !u!1 &8089375447339374614
 GameObject:
   m_ObjectHideFlags: 0
@@ -1680,16 +1686,18 @@ MonoBehaviour:
   moveName: Cautious Botch
   moveDescription: 
   isEquipped: 0
-  isFlaw: 1
-  attackMoveMultiplier: 0
-  damageToPartsMultiplier: 0
-  fendMoveMultiplier: 0.2
-  potentialChange: -5
   moveWeighting: 25
   attackPushStrength: 0
-  isAttack: 0
+  attackMoveModPercent: 1
+  fendMoveModPercent: 0.2
+  animtionIntTriggerToUse: 0
+  targetPositionHorizontalOffset: 0
+  targetIsSelf: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
+  damageToPartsMultiplier: 0
+  potentialChange: -5
+  isFlaw: 1
 --- !u!1 &8463103151050209164
 GameObject:
   m_ObjectHideFlags: 0

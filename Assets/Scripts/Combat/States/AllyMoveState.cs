@@ -15,7 +15,9 @@ public override IEnumerator StartState()
         var enemyTargetMovementScript = allyToAct.targetToAttack.GetComponent<MovementScript>();
         var enemyTargetStoredLookDir = enemyTargetMovementScript.lookDirection;
 
-        var allyToActLastLookDirection = allyToAct.GetComponent<MovementScript>().lookDirection;
+        var allyToActMovementScript = allyToAct.GetComponent<MovementScript>();
+        var allyToActLastLookDirection = allyToActMovementScript.lookDirection;
+
         var allyToActAnimator = allyToAct.gameObject.GetComponent<Animator>();
         allyToActAnimator.ResetTrigger("CombatIdle");
 
@@ -37,11 +39,11 @@ public override IEnumerator StartState()
         allyToActAnimator.SetTrigger("Attack");
         yield return new WaitForSeconds(0.2f);
 
-        //return enemy to fightingpos, and return look direct
+        //return allyToAct to fightingpos, and return look direct
         yield return allyToAct.moveSelected.ReturnFromPosition(allyToAct.gameObject, allyToAct.fightingPosition.transform.position);
-        allyToActAnimator.SetTrigger("CombatIdle");
+        allyToActMovementScript.movementDirection = Vector2.zero;
         allyToAct.GetComponent<MovementScript>().lookDirection = allyToActLastLookDirection;
-
+        allyToActAnimator.SetTrigger("CombatIdle"); //remember to blend the transition in animator settings or it will wiggle
 
         //reset narrator
         CombatEvents.UpdateNarrator.Invoke("");
