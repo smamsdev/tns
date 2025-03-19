@@ -57,17 +57,17 @@ public class SecondMove : State
             //Disable other combatant UI elements
             foreach (Enemy enemy in combatManager.enemies)
             {
-                enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
-                enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(false);
-                enemy.enemyUI.enemyStatsDisplay.enemyStatsDisplayGameObject.SetActive(false);
+                enemy.combatantUI.damageTakenDisplay.DisableDamageDisplay();
+                enemy.combatantUI.attackDisplay.ShowAttackDisplay(false);
+                enemy.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(false);
 
             }
 
             foreach (Ally ally in combatManager.allies)
             {
-                ally.allyUI.allyDamageTakenDisplay.DisableAllyDamageDisplay();
-                ally.allyUI.allyAttackDisplay.ShowAttackDisplay(false);
-                ally.allyUI.allyStatsDisplay.allyStatsDisplayGameObject.SetActive(false);
+                ally.combatantUI.damageTakenDisplay.DisableDamageDisplay();
+                ally.combatantUI.attackDisplay.ShowAttackDisplay(false);
+                ally.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(false);
             }
 
             combatManager.SetState(combatManager.allyMoveState);

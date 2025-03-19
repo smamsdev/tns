@@ -10,6 +10,7 @@ public class ShowBodyAttackInfo : MonoBehaviour, ISelectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
-        combatManager.enemies[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(true, false, false);
+        var targetUI = combatManager.playerCombat.targetToAttack.combatantUI as EnemyUI;
+        targetUI.partsTargetDisplay.UpdateTargetDisplay(true, false, false);
     }
 }

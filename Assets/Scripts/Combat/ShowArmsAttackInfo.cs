@@ -9,7 +9,8 @@ public class ShowArmsAttackInfo : MonoBehaviour, ISelectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
-        combatManager.enemies[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(false, true, false);
+        var targetUI = combatManager.playerCombat.targetToAttack.combatantUI as EnemyUI;
+        targetUI.partsTargetDisplay.UpdateTargetDisplay(false, true, false);
     }
 }
 

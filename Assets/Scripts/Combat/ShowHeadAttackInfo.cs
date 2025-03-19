@@ -9,6 +9,7 @@ public class ShowHeadAttackInfo : MonoBehaviour, ISelectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
-        combatManager.enemies[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(false, false, true);
+        var targetUI = combatManager.playerCombat.targetToAttack.combatantUI as EnemyUI;
+        targetUI.partsTargetDisplay.UpdateTargetDisplay(false, false, true);
     }
 }

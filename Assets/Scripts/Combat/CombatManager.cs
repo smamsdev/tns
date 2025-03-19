@@ -16,9 +16,6 @@ public class CombatManager : MonoBehaviour
 
     public List<Combatant> allAllies;
 
-    [Header("PlayerMoves")]
-    public int selectedEnemy = 0;
-
     [Header("Debugging")]
 
     public GameObject player;

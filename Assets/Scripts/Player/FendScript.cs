@@ -20,7 +20,6 @@ public class FendScript : MonoBehaviour
     public void ShowFendDisplay(bool on)
     {
         if (on)
-
         {
             fendTextGO.SetActive(true);
             fendIconGO.SetActive(true);
@@ -111,26 +110,8 @@ public class FendScript : MonoBehaviour
         fendTextMeshProUGUI.text = "";
         if (attackRemainder > 0)
         {
-            if (target is PlayerCombat)
-
-            {
-                combatManager.CombatUIManager.playerDamageTakenDisplay.ShowPlayerDamageDisplay(attackRemainder);
-                target.UpdateHP(-attackRemainder);
-            }
-
-            if (target is Enemy)
-            { 
-                var targetUI = target.GetComponentInChildren<EnemyUI>();
-                target.UpdateHP(-attackRemainder);
-                //targetUI.enemyDamageTakenDisplay.ShowEnemyDamageDisplay(attackRemainder);
-            }
-
-            if (target is Ally)
-            {
-                var targetUI = target.GetComponentInChildren<AllyUI>();
-                target.UpdateHP(-attackRemainder);
-               // targetUI.allyDamageTakenDisplay.ShowAllyDamageDisplay(attackRemainder);
-            }
+            combatManager.CombatUIManager.playerDamageTakenDisplay.ShowPlayerDamageDisplay(attackRemainder);
+            target.UpdateHP(-attackRemainder);
         }
     }
 

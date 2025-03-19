@@ -27,7 +27,6 @@ public static class CombatEvents
     
     //Enemy
     public static Action<int> SetEnemyBodyPartTarget;
-    public static Action<int> UpdateEnemyAttackDisplay;
 
     public static Action<bool> EnemyIsDead;
 

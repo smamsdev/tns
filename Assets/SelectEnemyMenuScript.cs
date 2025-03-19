@@ -25,13 +25,13 @@ public class SelectEnemyMenuScript : MonoBehaviour
 
     public void HighlightEnemy(Enemy enemy)
     {
-        enemy.enemyUI.enemyStatsDisplay.enemyStatsDisplayGameObject.SetActive(true);
+        enemy.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(true);
         combatManager.cameraFollow.transformToFollow = enemy.transform;
     }
 
     public void DeselectEnemy(Enemy enemy)
     {
-        enemy.enemyUI.enemyStatsDisplay.enemyStatsDisplayGameObject.SetActive(false);
+        enemy.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(false);
     }
 
     public void SelectedEnemyToRevertToOnBack(Button button)

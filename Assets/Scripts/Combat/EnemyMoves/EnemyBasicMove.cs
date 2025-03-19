@@ -11,7 +11,7 @@ public class EnemyBasicMove : EnemyMove
    //
    //{
    //    combatManager = _combatManager;
-   //    enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
+   //    enemy.combatantUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
    //    yield return MoveToAttackPosition();
    //    combatManager.cameraFollow.transformToFollow = combatManager.player.transform;
    //    var enemyLookDirection = enemy.GetComponent<MovementScript>().lookDirection;

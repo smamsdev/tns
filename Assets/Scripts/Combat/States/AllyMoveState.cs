@@ -21,7 +21,7 @@ public override IEnumerator StartState()
         var allyToActAnimator = allyToAct.gameObject.GetComponent<Animator>();
         allyToActAnimator.ResetTrigger("CombatIdle");
 
-        var targetToAttackUI = allyToAct.targetToAttack.GetComponentInChildren<EnemyUI>();
+        var targetToAttackUI = allyToAct.targetToAttack.GetComponentInChildren<CombatantUI>();
 
         //reset narrator focus camera on allyToAct and wait
         CombatEvents.UpdateNarrator.Invoke("");
@@ -29,7 +29,7 @@ public override IEnumerator StartState()
         yield return new WaitForSeconds(0.5f);
 
         //display move name and move to position
-        targetToAttackUI.enemyStatsDisplay.ShowEnemyStatsDisplay(true);
+        targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
         CombatEvents.UpdateNarrator.Invoke(allyToAct.moveSelected.moveName);
         yield return allyToAct.moveSelected.MoveToPosition(allyToAct.gameObject, allyToAct.moveSelected.AttackPositionLocation(allyToAct));
 

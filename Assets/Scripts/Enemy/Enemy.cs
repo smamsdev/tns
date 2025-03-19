@@ -6,8 +6,6 @@ public enum Target {body, arms, head};
 
 public class Enemy : Combatant
 {
-    public EnemyUI enemyUI;
-
     [Header("")]
     public int enemyXP;
 
@@ -59,8 +57,6 @@ public class Enemy : Combatant
         enemyArmsMaxHP = enemyArmsHP; 
         enemyHeadMaxHP = enemyHeadHP;
 
-
-
         foreach (var enemyMoves in enemyMoves)
         {
             moveWeightingTotal += enemyMoves.moveWeighting;
@@ -70,8 +66,8 @@ public class Enemy : Combatant
     public override void UpdateHP(int value)
     {
         currentHP += value;
-        enemyUI.enemyDamageTakenDisplay.ShowEnemyDamageDisplay(value);
-        enemyUI.enemyStatsDisplay.UpdateEnemyHPDisplay(value);
+        combatantUI.damageTakenDisplay.ShowDamageDisplay(value);
+        combatantUI.statsDisplay.UpdateHPDisplay(value);
     }
 
     public void DamageTaken(int attackRemainder, float damageToBodyMod)
@@ -83,8 +79,10 @@ public class Enemy : Combatant
 
     public void DamageToParts(int attackRemainder)
     {
-        if (targetIs == Target.body) 
-        
+        EnemyUI enemyUI = combatantUI as EnemyUI;
+
+        if (targetIs == Target.body)
+
         {
             if (enemyBodyHP > 0)
             {
@@ -133,8 +131,8 @@ public class Enemy : Combatant
     {
         currentHP = currentHP - damageTotal;
 
-        enemyUI.enemyStatsDisplay.UpdateEnemyHPDisplay(currentHP);
-        enemyUI.enemyDamageTakenDisplay.ShowEnemyDamageDisplay(damageTotal);
+        combatantUI.statsDisplay.UpdateHPDisplay(currentHP);
+        combatantUI.damageTakenDisplay.ShowDamageDisplay(damageTotal);
 
         if (currentHP <= 0)
         {

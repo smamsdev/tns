@@ -8,8 +8,8 @@ public class Setup : State
     [SerializeField] CombatManager combatManager;
     [SerializeField] GameObject combatUIContainer;
     [SerializeField] GameObject playerStatsUIContainer;
-    [SerializeField] GameObject EnemyUIPrefab;
-    [SerializeField] GameObject allyUI;
+    [SerializeField] GameObject combatantUIPrefab;
+    [SerializeField] GameObject combatantUI;
     [SerializeField] GameObject playerFendContainerPrefab;
 
     public override IEnumerator StartState()
@@ -31,7 +31,7 @@ public class Setup : State
             yield return combatManager.PositionCombatant(enemy.gameObject, enemy.fightingPosition.transform.position);
             enemy.targetToAttack = combatManager.allAllies[Random.Range(0, combatManager.allAllies.Count)];
             SetDefaultLookDirectionAndType(enemy);
-            SetEnemyUI(enemy);
+            SetcombatantUI(enemy);
             yield return new WaitForSeconds(0.1f);
         }
 
@@ -40,7 +40,7 @@ public class Setup : State
             yield return combatManager.PositionCombatant(ally.gameObject, ally.fightingPosition.transform.position);
             ally.targetToAttack = combatManager.enemies[Random.Range(0, combatManager.enemies.Count)];
             SetDefaultLookDirectionAndType(ally);
-            SetAllyUI(ally);
+            SetcombatantUI(ally);
             yield return new WaitForSeconds(0.1f);
         }
 
@@ -62,20 +62,29 @@ public class Setup : State
         combatManager.SetState(combatManager.firstMove);
     }
 
-    void SetEnemyUI(Enemy enemy)
+    void SetcombatantUI(Enemy enemy)
     {
-            GameObject newEnemyCombatUI = Instantiate(EnemyUIPrefab, enemy.gameObject.transform);
+            GameObject newEnemyCombatUI = Instantiate(combatantUIPrefab, enemy.gameObject.transform);
             newEnemyCombatUI.transform.localPosition = Vector3.zero;
-            newEnemyCombatUI.name = "EnemyUI For " + enemy.combatantName;
-            enemy.enemyUI = newEnemyCombatUI.GetComponent<EnemyUI>();
-            enemy.enemyUI.partsTargetDisplay.enemy = enemy;
-            enemy.enemyUI.partsTargetDisplay.combatManager = combatManager;
-            enemy.enemyUI.fendScript.combatManager = combatManager;
-            enemy.enemyUI.enemyStatsDisplay.ShowEnemyStatsDisplay(false);
-            enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
-            enemy.enemyUI.enemyStatsDisplay.InitializeEnemyStatsUI(enemy);
-            enemy.enemyUI.partsTargetDisplay.InitializeEnemyPartsHP();
-            enemy.enemyUI.enemyStatsDisplay.ShowEnemyStatsDisplay(true);
+            newEnemyCombatUI.name = "combatantUI For " + enemy.combatantName;
+            var enemycombatantUI = newEnemyCombatUI.GetComponent<EnemyUI>();
+
+            enemycombatantUI.partsTargetDisplay.enemy = enemy;
+            enemycombatantUI.partsTargetDisplay.combatManager = combatManager;
+            enemycombatantUI.fendScript.combatManager = combatManager;
+            enemycombatantUI.damageTakenDisplay.DisableDamageDisplay();
+            enemycombatantUI.statsDisplay.InitializeStatsUI(enemy);
+            enemycombatantUI.partsTargetDisplay.InitializeEnemyPartsHP();
+            enemycombatantUI.statsDisplay.ShowStatsDisplay(true);
+
+        //flip UI elements based on look direction
+        if (enemy.forceLookDirection == Vector2.right)
+        {
+            var flippedPos = enemy.combatantUI.attackDisplay.transform.localPosition;
+            flippedPos.x = -flippedPos.x;
+            enemycombatantUI.attackDisplay.transform.localPosition = flippedPos;
+            enemycombatantUI.partsTargetDisplay.FlipTargetDisplay();
+        }
     }
 
     void SelectAndDisplayEnemyMove(Enemy enemy)
@@ -85,23 +94,14 @@ public class Setup : State
 
         if (enemy.attackTotal > 0)
         {
-            enemy.enemyUI.enemyAttackDisplay.UpdateEnemyAttackDisplay(enemy.attackTotal);
-            enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(true);
+            enemy.combatantUI.attackDisplay.UpdateAttackDisplay(enemy.attackTotal);
+            enemy.combatantUI.attackDisplay.ShowAttackDisplay(true);
         }
 
         if (enemy.fendTotal > 0)
         {
-            enemy.enemyUI.fendScript.ShowFendDisplay(true);
-            enemy.enemyUI.fendScript.UpdateFendText(enemy.fendTotal);
-        }
-
-        //flip UI elements based on look direction
-        if (enemy.forceLookDirection == Vector2.right)
-        {
-            var flippedPos = enemy.enemyUI.enemyAttackDisplay.transform.localPosition;
-            flippedPos.x = -flippedPos.x;
-            enemy.enemyUI.enemyAttackDisplay.transform.localPosition = flippedPos;
-            enemy.enemyUI.partsTargetDisplay.FlipTargetDisplay();
+            enemy.combatantUI.fendScript.ShowFendDisplay(true);
+            enemy.combatantUI.fendScript.UpdateFendText(enemy.fendTotal);
         }
     }
 
@@ -115,17 +115,17 @@ public class Setup : State
         _combatant.GetComponent<Animator>().SetBool("isCombat", true);
     }
 
-    void SetAllyUI(Ally ally)
+    void SetcombatantUI(Ally ally)
     {
-            allyUI.name = "AllyUI For " + ally.combatantName;
-            ally.allyUI = allyUI.GetComponent<AllyUI>();
-            ally.allyUI.fendScript.combatManager = combatManager;
-            ally.allyUI.fendScript.UpdateFendText(ally.fendTotal);
-            ally.allyUI.allyStatsDisplay.InitializeAllyStatsUI(ally);
-            ally.allyUI.allyStatsDisplay.ShowAllyStatsDisplay(false);
-            ally.allyUI.allyDamageTakenDisplay.DisableAllyDamageDisplay();
+            combatantUI.name = "combatantUI For " + ally.combatantName;
+            ally.combatantUI = combatantUI.GetComponent<CombatantUI>();
+            ally.combatantUI.fendScript.combatManager = combatManager;
+            ally.combatantUI.fendScript.UpdateFendText(ally.fendTotal);
+            ally.combatantUI.statsDisplay.InitializeStatsUI(ally);
+            ally.combatantUI.statsDisplay.ShowStatsDisplay(false);
+            ally.combatantUI.damageTakenDisplay.DisableDamageDisplay();
 
-            ally.allyUI.allyStatsDisplay.ShowAllyStatsDisplay(true);
+            ally.combatantUI.statsDisplay.ShowStatsDisplay(true);
     }
 
     void SelectAndDisplayAllyMove(Ally ally)
@@ -136,22 +136,21 @@ public class Setup : State
 
         if (ally.attackTotal > 0)
         {
-            ally.allyUI.allyAttackDisplay.UpdateAllyAttackDisplay(ally.AllyAttackTotal());
-            ally.allyUI.allyAttackDisplay.ShowAttackDisplay(true);
+            ally.combatantUI.attackDisplay.UpdateAttackDisplay(ally.AllyAttackTotal());
+            ally.combatantUI.attackDisplay.ShowAttackDisplay(true);
         }
 
         if (ally.fendTotal > 0)
         {
-            ally.allyUI.fendScript.UpdateFendText(ally.fendTotal);
+            ally.combatantUI.fendScript.UpdateFendText(ally.fendTotal);
         }
 
         //flip UI elements based on look direction
         if (ally.forceLookDirection == Vector2.right)
         {
-            var flippedPos = ally.allyUI.allyAttackDisplay.transform.localPosition;
+            var flippedPos = ally.combatantUI.attackDisplay.transform.localPosition;
             flippedPos.x = -flippedPos.x;
-            ally.allyUI.allyAttackDisplay.transform.localPosition = flippedPos;
-
+            ally.combatantUI.attackDisplay.transform.localPosition = flippedPos;
         }
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class AllyAttackDisplay : MonoBehaviour
+public class AttackDisplay : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI allyAttackDamageTextMeshProUI;
     [SerializeField] GameObject attackDisplayTextGO;
@@ -13,7 +13,7 @@ public class AllyAttackDisplay : MonoBehaviour
         attackDisplayTextGO.SetActive(false);
     }
 
-    public void UpdateAllyAttackDisplay(int value)
+    public void UpdateAttackDisplay(int value)
 
     {
         if (value >= 0)

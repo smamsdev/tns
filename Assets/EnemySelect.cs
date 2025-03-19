@@ -16,7 +16,7 @@ public class EnemySelect : State
             combatManager.SetState(combatManager.attackTarget);
             var enemy = combatManager.enemies[0];
             combatManager.playerCombat.targetToAttack = enemy;
-            enemy.enemyUI.enemyStatsDisplay.enemyStatsDisplayGameObject.SetActive(true);
+            enemy.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(true);
             combatManager.cameraFollow.transformToFollow = enemy.transform;
             yield break;
         }
@@ -31,7 +31,6 @@ public class EnemySelect : State
     public override void CombatOptionSelected(int moveValue)
 
     {
-        combatManager.selectedEnemy = moveValue;
         combatManager.SetState(combatManager.attackTarget);
     }
 

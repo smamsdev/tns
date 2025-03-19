@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class AllyDamageTakenDisplay : MonoBehaviour
+public class DamageTakenDisplay : MonoBehaviour
 {
-
     [SerializeField] Animator animator;
     public TextMeshProUGUI allyDamageTakenTextMeshProUGUI;
 
@@ -14,15 +13,14 @@ public class AllyDamageTakenDisplay : MonoBehaviour
         allyDamageTakenTextMeshProUGUI.enabled = false;
     }
 
-    public void ShowAllyDamageDisplay(int remainder)
+    public void ShowDamageDisplay(int remainder)
     {
         animator.SetInteger("animState", 1);
         allyDamageTakenTextMeshProUGUI.enabled = true;
-        StartCoroutine(ShoweAllyDamageDisplayCoroutine(remainder));
+        StartCoroutine(ShowDamageDisplayCoroutine(remainder));
     }
 
-    IEnumerator ShoweAllyDamageDisplayCoroutine(int damage)
-
+    IEnumerator ShowDamageDisplayCoroutine(int damage)
     {
         float elapsedTime = 0f;
         float lerpDuration = 0.5f;
@@ -43,9 +41,8 @@ public class AllyDamageTakenDisplay : MonoBehaviour
         }
     }
 
-    public void DisableAllyDamageDisplay()
+    public void DisableDamageDisplay()
     {
         animator.SetInteger("animState", 0);
-        //EnemyDamageTakenTextMeshProUGUI.enabled = false;
     }
 }

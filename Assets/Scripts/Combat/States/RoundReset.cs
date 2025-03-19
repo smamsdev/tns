@@ -21,7 +21,7 @@ public class RoundReset : State
 
         foreach (Enemy enemy in combatManager.enemies)
         {
-            enemy.enemyUI.fendScript.ResetAllAnimationTriggers(); //its just easier this way 
+            enemy.combatantUI.fendScript.ResetAllAnimationTriggers(); //its just easier this way 
 
             var enemyMovementScript = enemy.GetComponent<ActorMovementScript>();
             enemyMovementScript.actorRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
@@ -30,13 +30,13 @@ public class RoundReset : State
 
             if (enemy.attackTotal > 0)
             {
-                enemy.enemyUI.enemyAttackDisplay.UpdateEnemyAttackDisplay(enemy.attackTotal);
-                enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(true);
+                enemy.combatantUI.attackDisplay.UpdateAttackDisplay(enemy.attackTotal);
+                enemy.combatantUI.attackDisplay.ShowAttackDisplay(true);
             }
 
             if (enemy.fendTotal > 0)
             {
-                enemy.enemyUI.fendScript.UpdateFendText(enemy.fendTotal);
+                enemy.combatantUI.fendScript.UpdateFendText(enemy.fendTotal);
             }
         }
 

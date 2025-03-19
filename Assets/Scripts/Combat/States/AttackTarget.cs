@@ -11,10 +11,10 @@ public class AttackTarget : State
         yield return new WaitForSeconds(0.1f);
 
         combatManager.CombatUIManager.ChangeMenuState(combatManager.CombatUIManager.attackTargetMenu);
-
-
         combatManager.CombatUIManager.targetMenuFirstButton.Select();
-        combatManager.enemies[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(true, false, false);
+
+        var targetUI = combatManager.playerCombat.targetToAttack.combatantUI as EnemyUI;
+        targetUI.partsTargetDisplay.UpdateTargetDisplay(true, false, false);
 
         yield break;
     }
@@ -22,23 +22,24 @@ public class AttackTarget : State
     public override void CombatOptionSelected(int moveValue) //triggered via Button
 
     {
-        combatManager.enemies[combatManager.selectedEnemy].SetEnemyBodyPartTarget(moveValue);
+        var enemyToAttack = combatManager.playerCombat.targetToAttack as Enemy;
+        enemyToAttack.SetEnemyBodyPartTarget(moveValue);
         DisablePartsTargetDisplay();
         combatManager.CombatUIManager.DisableMenuState();
 
         //Disable other combatant UI elements
         foreach (Enemy enemy in combatManager.enemies)
         {
-            enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
-            enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(false);
-            enemy.enemyUI.enemyStatsDisplay.enemyStatsDisplayGameObject.SetActive(false);
+            enemy.combatantUI.damageTakenDisplay.DisableDamageDisplay();
+            enemy.combatantUI.attackDisplay.ShowAttackDisplay(false);
+            enemy.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(false);
         }
 
         foreach (Ally ally in combatManager.allies)
         {
-            ally.allyUI.allyDamageTakenDisplay.DisableAllyDamageDisplay();
-            ally.allyUI.allyAttackDisplay.ShowAttackDisplay(false);
-            ally.allyUI.allyStatsDisplay.allyStatsDisplayGameObject.SetActive(false);
+            ally.combatantUI.damageTakenDisplay.DisableDamageDisplay();
+            ally.combatantUI.attackDisplay.ShowAttackDisplay(false);
+            ally.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(false);
         }
 
         if (combatManager.allies.Count > 0)
@@ -75,7 +76,8 @@ public class AttackTarget : State
 
     void DisablePartsTargetDisplay()
     {
-        combatManager.enemies[combatManager.selectedEnemy].enemyUI.partsTargetDisplay.UpdateTargetDisplay(false, false, false);
+        var targetToAttackUI = combatManager.playerCombat.targetToAttack.GetComponent<EnemyUI>();
+        targetToAttackUI.partsTargetDisplay.UpdateTargetDisplay(false, false, false);
     }
 }
 

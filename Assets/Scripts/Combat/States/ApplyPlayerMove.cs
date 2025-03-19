@@ -79,7 +79,7 @@ public class ApplyPlayerMove : State
         foreach (Enemy enemy in combatManager.enemies)
 
         {
-            enemy.enemyUI.fendScript.animator.SetTrigger("fendFade");
+            enemy.combatantUI.fendScript.animator.SetTrigger("fendFade");
         }
     }
 

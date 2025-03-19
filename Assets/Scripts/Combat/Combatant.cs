@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Combatant : MonoBehaviour
 {
     public string combatantName;
+    public CombatantUI combatantUI;
 
     public int attackBase;
     public int fendBase;

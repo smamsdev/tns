@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Ally : Combatant
 {
-    public AllyUI allyUI;
     int moveWeightingTotal = 0;
 
     [SerializeField] AllyMove[] moves;
@@ -37,8 +36,8 @@ public class Ally : Combatant
     {
         currentHP = currentHP - damageTotal;
 
-        //allyUI.allyStatsDisplay.UpdateAllyHPDisplay(currentHP);
-        //allyUI.ally.ShowEnemyDamageDisplay(damageTotal);
+        //combatantUI.statsDisplay.UpdateAllyHPDisplay(currentHP);
+        //combatantUI.ally.ShowEnemyDamageDisplay(damageTotal);
 
         //fix!!
 
@@ -51,8 +50,8 @@ public class Ally : Combatant
     public override void UpdateHP(int value)
     {
         currentHP += value;
-        allyUI.allyDamageTakenDisplay.ShowAllyDamageDisplay(value);
-        allyUI.allyStatsDisplay.UpdateAllyHPDisplay(value);
+        combatantUI.damageTakenDisplay.ShowDamageDisplay(value);
+        combatantUI.statsDisplay.UpdateHPDisplay(value);
     }
 
     public override void SelectMove()
