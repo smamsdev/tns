@@ -41,7 +41,8 @@ public class FendScript : MonoBehaviour
         this.target = target;
         attackRemainder = combatantAttacking.attackTotal - fend;
         animator.SetTrigger("fendDeflect");
-        combatManager.playerAnimator.SetTrigger("Pain");
+        var combatantAnimator = target.GetComponent<Animator>();
+        combatantAnimator.SetTrigger("Pain");
 
         StartCoroutine(ApplyAttackToFendCoRo(combatantAttacking.attackTotal));
     }

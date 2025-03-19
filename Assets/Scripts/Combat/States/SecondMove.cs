@@ -27,7 +27,7 @@ public class SecondMove : State
         }
     }
 
-    public override void CombatOptionSelected(int moveValue)
+    public override void CombatOptionSelected(int moveValue) //triggered via Button
     {
         combatManager.playerMoveManager.secondMoveIs = moveValue;
         string moveName = "";
@@ -54,12 +54,23 @@ public class SecondMove : State
         }
         else
         {
+            //Disable other combatant UI elements
+            foreach (Enemy enemy in combatManager.enemies)
+            {
+                enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
+                enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(false);
+                enemy.enemyUI.enemyStatsDisplay.enemyStatsDisplayGameObject.SetActive(false);
+
+            }
+
+            foreach (Ally ally in combatManager.allies)
+            {
+                ally.allyUI.allyDamageTakenDisplay.DisableAllyDamageDisplay();
+                ally.allyUI.allyAttackDisplay.ShowAttackDisplay(false);
+                ally.allyUI.allyStatsDisplay.allyStatsDisplayGameObject.SetActive(false);
+            }
+
             combatManager.SetState(combatManager.allyMoveState);
         }
     }
-
-    //private void OnDisable()
-    //{
-    //    combatManager = null;
-    //}
 }

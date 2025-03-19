@@ -29,6 +29,8 @@ public class AllyStatsDisplay : MonoBehaviour
 
     public void UpdateAllyHPDisplay(int value)
     {
+        ShowAllyStatsDisplay(true);
+
         if (ally.currentHP <= 0)
         {
             allyHPTextMeshPro.text = "DEAD";
@@ -62,5 +64,8 @@ public class AllyStatsDisplay : MonoBehaviour
 
             yield return null;
         }
+
+        yield return new WaitForSeconds(0.5f);
+        ShowAllyStatsDisplay(false);
     }
 }

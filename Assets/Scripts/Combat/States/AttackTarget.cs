@@ -31,12 +31,14 @@ public class AttackTarget : State
         {
             enemy.enemyUI.enemyDamageTakenDisplay.DisableEnemyDamageDisplay();
             enemy.enemyUI.enemyAttackDisplay.ShowAttackDisplay(false);
+            enemy.enemyUI.enemyStatsDisplay.enemyStatsDisplayGameObject.SetActive(false);
         }
 
         foreach (Ally ally in combatManager.allies)
         {
             ally.allyUI.allyDamageTakenDisplay.DisableAllyDamageDisplay();
             ally.allyUI.allyAttackDisplay.ShowAttackDisplay(false);
+            ally.allyUI.allyStatsDisplay.allyStatsDisplayGameObject.SetActive(false);
         }
 
         if (combatManager.allies.Count > 0)
@@ -61,6 +63,7 @@ public class AttackTarget : State
 
             {
                 combatManager.SetState(combatManager.secondMove);
+                combatManager.cameraFollow.transformToFollow = combatManager.player.transform;
             }
 
             else

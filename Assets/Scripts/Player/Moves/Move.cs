@@ -42,7 +42,6 @@ public abstract class Move : MonoBehaviour
         Destroy(combatMovementInstanceGO);
     }
 
-
     public virtual Vector3 AttackPositionLocation(Combatant combatant)
     {
         Vector3 targetPosition;
@@ -61,7 +60,7 @@ public abstract class Move : MonoBehaviour
         return targetPosition;
     }
 
-    public void LoadMoveStats(Combatant combatant, CombatManager combatManager)
+    public void LoadMoveStats(Combatant combatant, CombatManager combatManager) //default used for NPCs, handled manually by playerApplyMove state
     {
         this.combatManager = combatManager;
 

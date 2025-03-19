@@ -45,9 +45,6 @@ public class CombatManager : MonoBehaviour
 
     public GameObject combatMovementPrefab;
     public CameraFollow cameraFollow;
-    public Animator playerAnimator;
-
-    [HideInInspector] public int enemyRawAttackPower;
 
     private void OnEnable()
     {

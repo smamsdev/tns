@@ -21,18 +21,21 @@ public override IEnumerator StartState()
         var allyToActAnimator = allyToAct.gameObject.GetComponent<Animator>();
         allyToActAnimator.ResetTrigger("CombatIdle");
 
-        //reset narrator focus camera on enemy to act and wait
+        var targetToAttackUI = allyToAct.targetToAttack.GetComponentInChildren<EnemyUI>();
+
+        //reset narrator focus camera on allyToAct and wait
         CombatEvents.UpdateNarrator.Invoke("");
         combatManager.cameraFollow.transformToFollow = allyToAct.transform;
         yield return new WaitForSeconds(0.5f);
 
         //display move name and move to position
+        targetToAttackUI.enemyStatsDisplay.ShowEnemyStatsDisplay(true);
         CombatEvents.UpdateNarrator.Invoke(allyToAct.moveSelected.moveName);
         yield return allyToAct.moveSelected.MoveToPosition(allyToAct.gameObject, allyToAct.moveSelected.AttackPositionLocation(allyToAct));
 
         //apply move effects to allied target
-        var targetToAttackUI = allyToAct.targetToAttack.GetComponentInChildren<FendScript>();
-        targetToAttackUI.ApplyAttackToFend(allyToAct, allyToAct.targetToAttack);
+
+        targetToAttackUI.fendScript.ApplyAttackToFend(allyToAct, allyToAct.targetToAttack);
 
         //start animation
         allyToActAnimator.SetFloat("attackAnimationToUse", allyToAct.moveSelected.animtionIntTriggerToUse);
@@ -41,7 +44,6 @@ public override IEnumerator StartState()
 
         //return allyToAct to fightingpos, and return look direct
         yield return allyToAct.moveSelected.ReturnFromPosition(allyToAct.gameObject, allyToAct.fightingPosition.transform.position);
-        allyToActMovementScript.movementDirection = Vector2.zero;
         allyToAct.GetComponent<MovementScript>().lookDirection = allyToActLastLookDirection;
         allyToActAnimator.SetTrigger("CombatIdle"); //remember to blend the transition in animator settings or it will wiggle
 

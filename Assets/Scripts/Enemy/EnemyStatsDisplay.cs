@@ -62,6 +62,9 @@ public class EnemyStatsDisplay : MonoBehaviour
 
             yield return null;
         }
+
+        yield return new WaitForSeconds(0.5f);
+        ShowEnemyStatsDisplay(false);
     }
 
 }

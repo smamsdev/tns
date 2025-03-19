@@ -10,61 +10,81 @@ public class ApplyPlayerMove : State
     {
         combatManager.CombatUIManager.DisableMenuState();
 
-        //store player look dir and camera focus
-        var playerMovementScript = combatManager.player.GetComponent<PlayerMovementScript>();
+        //get a bunch of refs...
+        var player = combatManager.playerCombat;
+        var playerMovementScript = player.GetComponent<PlayerMovementScript>();
+        var playerAnimator = playerMovementScript.animator;
         var playerLookDirection = playerMovementScript.lookDirection;
-        combatManager.cameraFollow.transformToFollow = combatManager.player.transform;
 
-        var enemySelected = combatManager.enemies[combatManager.selectedEnemy];
+        //store enemy target look dir
+        var enemyTargetMovementScript = player.targetToAttack.GetComponent<MovementScript>();
+        var enemyTargetStoredLookDir = enemyTargetMovementScript.lookDirection;
 
-        //   var equippedGear = combatManager.player.GetComponent<EquippedGear>().equippedGear;
-        //  int i;
-        //
-        //  for (i = 0; i < equippedGear.Length;)
-        //
-        //  {
-        //      equippedGear[i].ApplyAttackGear();
-        //      i++;
-        //  }
+        //store player look dir and camera focus
+        var storedLookDir = playerLookDirection; //this needs to happen here to remember direction of last enemy attacked
+        combatManager.cameraFollow.transformToFollow = player.transform;
 
-        //update narrator and change potential
- 
-        PlayerMove moveSelected = combatManager.playerCombat.moveSelected as PlayerMove; 
+        //reset narrator focus camera on allyToAct and wait
+        CombatEvents.UpdateNarrator.Invoke("");
+        combatManager.cameraFollow.transformToFollow = player.transform;
+        yield return new WaitForSeconds(0.5f);
 
+        //update potential
+        PlayerMove moveSelected = combatManager.playerCombat.moveSelected as PlayerMove;
+        moveSelected.combatManager = combatManager;
         combatManager.playerCombat.TotalPlayerAttackPower(moveSelected.attackMoveModPercent);
-        CombatEvents.UpdateNarrator.Invoke(moveSelected.moveName);
         CombatEvents.UpdatePlayerPot.Invoke(moveSelected.potentialChange);
 
+        //display move name and move to position
+        CombatEvents.UpdateNarrator.Invoke(player.moveSelected.moveName);
+        yield return player.moveSelected.MoveToPosition(player.gameObject, player.moveSelected.AttackPositionLocation(player));
 
-        //yield return moveSelected.OnApplyMove(combatManager, enemySelected);
-        var storedLookDir = playerLookDirection; //this needs to happen here to remember direction of last enemy attacked
+        //apply move effects to target
+        var targetToAttackUI = player.targetToAttack.GetComponentInChildren<FendScript>();
+        targetToAttackUI.ApplyAttackToFend(player, player.targetToAttack);
 
-        //yield break;
+        //start animation
+        playerAnimator.SetFloat("attackAnimationToUse", player.moveSelected.animtionIntTriggerToUse);
+        playerAnimator.SetTrigger("Attack");
+        yield return new WaitForSeconds(0.2f);
 
-       // yield return moveSelected.Return();
-        combatManager.player.GetComponent<PlayerMovementScript>().lookDirection = storedLookDir;
-        combatManager.playerAnimator.SetTrigger("CombatIdle");
+        //return player to fightingpos, and return look direct
+        yield return player.moveSelected.ReturnFromPosition(player.gameObject, player.fightingPosition.transform.position);
+        playerMovementScript.lookDirection = storedLookDir;
+        playerAnimator.SetTrigger("CombatIdle"); //remember to blend the transition in animator settings or it will wiggle
 
+        //reset narrator
+        CombatEvents.UpdateNarrator.Invoke("");
 
-        //return enemy
-        var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
-        var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-        yield return (combatMovementInstance.MoveCombatant(enemySelected.gameObject, enemySelected.fightingPosition.transform.position));
-        Destroy(combatMovementInstanceGO);
+        //check for player defeat
+        if (combatManager.defeat.playerDefeated)
+        {
+            Debug.Log("player defeated");
+            yield break;
+        }
 
-        StartCoroutine(EndMove());
+        //return enemy target to original pos and look dir
+        yield return new WaitForSeconds(0.5f);
+        yield return combatManager.PositionCombatant(player.targetToAttack.gameObject, player.targetToAttack.fightingPosition.transform.position);
+        enemyTargetMovementScript.lookDirection = enemyTargetStoredLookDir;
+
+        HideEnemyFends();
+        yield return UpdateFendDisplay();
+        combatManager.SetState(combatManager.enemyMoveState);
         yield return null;
     }
 
-    IEnumerator EndMove()
-
+    void HideEnemyFends()
     {
         foreach (Enemy enemy in combatManager.enemies)
 
         {
             enemy.enemyUI.fendScript.animator.SetTrigger("fendFade");
-            enemy.enemyUI.enemyStatsDisplay.enemyStatsDisplayGameObject.SetActive(false);
         }
+    }
+
+    IEnumerator UpdateFendDisplay()
+    {
         combatManager.CombatUIManager.playerFendScript.UpdateFendText(combatManager.playerCombat.TotalPlayerFendPower(combatManager.playerCombat.moveSelected.fendMoveModPercent));
 
         if (combatManager.playerCombat.fendTotal > 0)
@@ -77,7 +97,5 @@ public class ApplyPlayerMove : State
         {
             combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(false);
         }
-
-            combatManager.SetState(combatManager.enemyMoveState);
     }
 }

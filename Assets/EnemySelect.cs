@@ -10,13 +10,18 @@ public class EnemySelect : State
 
     public override IEnumerator StartState()
     {
-        if (combatManager.battleScheme.enemies.Count == 1)
+        if (combatManager.enemies.Count == 1)
 
         {
             combatManager.SetState(combatManager.attackTarget);
+            var enemy = combatManager.enemies[0];
+            combatManager.playerCombat.targetToAttack = enemy;
+            enemy.enemyUI.enemyStatsDisplay.enemyStatsDisplayGameObject.SetActive(true);
+            combatManager.cameraFollow.transformToFollow = enemy.transform;
             yield break;
         }
 
+        combatManager.CombatUIManager.selectEnemyMenuScript.InitializeButtonSlots();
         combatManager.CombatUIManager.ChangeMenuState(combatManager.CombatUIManager.enemySelectMenu);
         combatManager.CombatUIManager.thirdMenuFirstButton.Select();
 

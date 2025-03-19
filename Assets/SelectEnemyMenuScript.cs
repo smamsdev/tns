@@ -16,21 +16,21 @@ public class SelectEnemyMenuScript : MonoBehaviour
         {
             Button button = buttonSlot[i].GetComponent<Button>();
             button.interactable = true;
-            TextMeshProUGUI text = buttonSlot[i].GetComponentInChildren<TextMeshProUGUI>();
-            text.text = combatManager.enemies[i].name;
+
+            var enemySelectButtonScript = button.GetComponent<EnemySelectButtonScript>();
+            enemySelectButtonScript.enemy = combatManager.enemies[i];
+            enemySelectButtonScript.buttonText.text = enemySelectButtonScript.enemy.name;
         }
     }
 
-    public void HighlightEnemy(int enemyHighlighted)
+    public void HighlightEnemy(Enemy enemy)
     {
-        var enemy = combatManager.enemies[enemyHighlighted];
         enemy.enemyUI.enemyStatsDisplay.enemyStatsDisplayGameObject.SetActive(true);
         combatManager.cameraFollow.transformToFollow = enemy.transform;
     }
 
-    public void DeselectEnemy(int enemyHighlighted)
+    public void DeselectEnemy(Enemy enemy)
     {
-        var enemy = combatManager.enemies[enemyHighlighted];
         enemy.enemyUI.enemyStatsDisplay.enemyStatsDisplayGameObject.SetActive(false);
     }
 

@@ -24,7 +24,6 @@ public class PlayerCombat : Combatant
     [Header("Potential")]
     public int currentPotential;
     public int maxPotential;
-    [SerializeField] float potentialMod;
 
     [Header("Base Mods")]  
     [SerializeField] int attackPowerBaseMod;
@@ -59,8 +58,9 @@ public class PlayerCombat : Combatant
         CombatEvents.InitializePlayerPotUI.Invoke(currentPotential);
     }
 
-    public void CalculatePotentialMod()
+    public float CalculatePotentialMod()
     {
+        float potentialMod = 0;
 
         if (currentPotential <= 0)
         {
@@ -81,14 +81,16 @@ public class PlayerCombat : Combatant
         {
             potentialMod = 1;
         }
+
+        return potentialMod;
     }
 
     public void TotalPlayerAttackPower(float moveMod)
     {
-        CalculatePotentialMod();
+
 
         // Calculate the potential attack power based on various modifiers
-        int potentialAttackPower = Mathf.RoundToInt(playerPermanentStats.attackPowerBase * moveMod * potentialMod);
+        int potentialAttackPower = Mathf.RoundToInt(playerPermanentStats.attackPowerBase * moveMod * CalculatePotentialMod());
 
         // Ensure the attack power is not less than zero
         attackPower = Mathf.Max(0, potentialAttackPower);
