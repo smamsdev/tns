@@ -10,15 +10,12 @@ public class FirstMove : State
 
     public override IEnumerator StartState()
     {
-        combatManager.CombatUIManager.playerFendScript.animator.SetBool("fendBreak", false);
-
-        combatManager.CombatUIManager.UpdateFirstMoveDisplay("Style?");
-        combatManager.CombatUIManager.UpdateSecondMoveDisplay("Move?");
+        combatManager.playerCombat.combatantUI.fendScript.animator.SetBool("fendBreak", false);
 
         yield return new WaitForSeconds(0.1f);
 
-        combatManager.CombatUIManager.ChangeMenuState(combatManager.CombatUIManager.firstMoveMenu);
-        combatManager.CombatUIManager.firstMenuFirstButton.Select();
+        combatManager.combatMenuManager.ChangeMenuState(combatManager.combatMenuManager.firstMoveMenu);
+        combatManager.combatMenuManager.firstMenuFirstButton.Select();
         combatManager.playerMoveManager.firstMoveIs = 0;
 
         yield break;
@@ -44,8 +41,6 @@ public class FirstMove : State
                 moveName = "Organised";
                 break;
         }
-
-        combatManager.CombatUIManager.UpdateFirstMoveDisplay(moveName);
 
         if (moveValue == 4)
         {

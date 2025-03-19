@@ -429,9 +429,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 256561924464534037}
-  - component: {fileID: 463835664591968621}
+  - component: {fileID: 6224102298531383070}
   m_Layer: 0
-  m_Name: EnemyStatsDIsplayContainer
+  m_Name: StatsDisplayContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -457,7 +457,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &463835664591968621
+--- !u!114 &6224102298531383070
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -466,12 +466,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2302289534260246299}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c465c48642547842a80b462b2464596, type: 3}
+  m_Script: {fileID: 11500000, guid: b564612862107b5469355935d42baf09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   combatantNameTextMeshPro: {fileID: 1091702466883058612}
-  enemyHPTextMeshPro: {fileID: 1092966303211495939}
-  enemyStatsDisplayGameObject: {fileID: 3365311331488213722}
+  combatantHPTextMeshPro: {fileID: 1092966303211495939}
+  statsDisplayGameObject: {fileID: 3365311331488213722}
   animator: {fileID: 3238889342694107120}
 --- !u!1 &2384728010077165602
 GameObject:
@@ -483,7 +483,7 @@ GameObject:
   m_Component:
   - component: {fileID: 545124879360055410}
   - component: {fileID: 7713385960704636194}
-  - component: {fileID: 8735636749819430986}
+  - component: {fileID: 8944595125116388495}
   m_Layer: 0
   m_Name: EnemyUI
   m_TagString: Untagged
@@ -505,9 +505,9 @@ RectTransform:
   m_Children:
   - {fileID: 256561924464534037}
   - {fileID: 8907082161483436972}
-  - {fileID: 7192423606228450285}
   - {fileID: 4259592410573837189}
   - {fileID: 6970286117799542494}
+  - {fileID: 7192423606228450285}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -538,7 +538,7 @@ Canvas:
   m_SortingLayerID: 474900407
   m_SortingOrder: -1
   m_TargetDisplay: 0
---- !u!114 &8735636749819430986
+--- !u!114 &8944595125116388495
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -547,17 +547,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2384728010077165602}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36e729d3d340b8849bf9498c1b933896, type: 3}
+  m_Script: {fileID: 11500000, guid: d333ff8a164769e44a16e2ed318970ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statsDisplay: {fileID: 6224102298531383070}
+  attackDisplay: {fileID: 5697311084793068753}
   fendScript: {fileID: 8797034428005192290}
-  enemyDamageTakenDisplay: {fileID: 3690331198534291270}
-  enemyStatsDisplay: {fileID: 463835664591968621}
-  enemyAttackDisplay: {fileID: 8201623601841247083}
-  bodyPartsDamageTakenDisplay: {fileID: 8889956399293208645}
+  damageTakenDisplay: {fileID: 2479608498810120878}
+  bodyPartsDamageTakenDisplay: {fileID: 4203323711133456496}
   partsTargetDisplay: {fileID: 4603095829868846388}
-  attackDisplayContainer: {fileID: 4224093028820793296}
-  partsDisplayContainer: {fileID: 4979329465067123591}
 --- !u!1 &3288114129161187490
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,7 +754,7 @@ GameObject:
   - component: {fileID: 2226336704969267696}
   - component: {fileID: 3710798987740099019}
   m_Layer: 8
-  m_Name: EnemyStatsDIsplay
+  m_Name: StatsDIsplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -819,6 +817,7 @@ GameObject:
   - component: {fileID: 597416246874201383}
   - component: {fileID: 1116922680084556652}
   - component: {fileID: 6882234976180858893}
+  - component: {fileID: 4203323711133456496}
   m_Layer: 8
   m_Name: EnemyPartsHPDamageTaken
   m_TagString: Untagged
@@ -963,6 +962,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4203323711133456496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3618729717760562841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30b4220fd5c062140a91d9751a2d3fc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyPartDamageTakenTextMeshProUGUI: {fileID: 1116922680084556652}
 --- !u!1 &3945083243593729404
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,8 +1117,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8907082161483436972}
-  - component: {fileID: 8201623601841247083}
   - component: {fileID: 2355409361123398364}
+  - component: {fileID: 5697311084793068753}
   m_Layer: 8
   m_Name: AttackDisplayContainer
   m_TagString: Untagged
@@ -1134,20 +1146,6 @@ RectTransform:
   m_AnchoredPosition: {x: -2.1799994, y: 3.1699991}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8201623601841247083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4224093028820793296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d2fa7b20e305a74ebaeeadcefb93432, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemyAttackDamageTextMeshProUI: {fileID: 5234668801472879313}
-  attackDisplayTextGO: {fileID: 9185530780519392604}
 --- !u!114 &2355409361123398364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1162,6 +1160,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!114 &5697311084793068753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4224093028820793296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0408d6abd73886a48b59c3afd0d94d16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allyAttackDamageTextMeshProUI: {fileID: 5234668801472879313}
+  attackDisplayTextGO: {fileID: 9185530780519392604}
 --- !u!1 &4450306756029299493
 GameObject:
   m_ObjectHideFlags: 0
@@ -1401,7 +1413,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 0}
-  combatManager: {fileID: 0}
   bodyTargetDisplay: {fileID: 4153717467870024397}
   armsTargetDisplay: {fileID: 5447326754111866048}
   headTargetDisplay: {fileID: 7848507577390885557}
@@ -1437,7 +1448,7 @@ GameObject:
   - component: {fileID: 5744475448374504428}
   - component: {fileID: 5809314380240552448}
   m_Layer: 7
-  m_Name: EnemyFendText
+  m_Name: FendText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1684,7 +1695,7 @@ GameObject:
   - component: {fileID: 1092966303211495939}
   - component: {fileID: 3238889342694107120}
   m_Layer: 8
-  m_Name: EnemyHP
+  m_Name: CombatantHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1878,8 +1889,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6970286117799542494}
-  - component: {fileID: 3690331198534291270}
   - component: {fileID: 8889956399293208645}
+  - component: {fileID: 2479608498810120878}
   m_Layer: 0
   m_Name: DamageTakenContainer
   m_TagString: Untagged
@@ -1908,20 +1919,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 6.81}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3690331198534291270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6500214596004395485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aea8b5e0d5a4fb6489735df0ed2487d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 560197368775133380}
-  EnemyDamageTakenTextMeshProUGUI: {fileID: 1475731639557686584}
 --- !u!114 &8889956399293208645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1935,6 +1932,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bodyPartDamageTakenTextMeshProUGUI: {fileID: 1116922680084556652}
+--- !u!114 &2479608498810120878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6500214596004395485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf867752622774e41a355a1f5707ef29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 560197368775133380}
+  damageTakenTextMeshProUGUI: {fileID: 1475731639557686584}
 --- !u!1 &6746210889109398456
 GameObject:
   m_ObjectHideFlags: 0
@@ -2268,7 +2279,7 @@ GameObject:
   - component: {fileID: 5756610307911707427}
   - component: {fileID: 1091702466883058612}
   m_Layer: 8
-  m_Name: EnemyName
+  m_Name: CombatantName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2451,7 +2462,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5626326830301668445
 RectTransform:
   m_ObjectHideFlags: 0

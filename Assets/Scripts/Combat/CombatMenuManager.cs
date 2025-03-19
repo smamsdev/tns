@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CombatUIManager : MonoBehaviour
+public class CombatMenuManager : MonoBehaviour
 {
     [SerializeField] CombatManager combatManager;
 
@@ -19,13 +19,6 @@ public class CombatUIManager : MonoBehaviour
     [Header("Scripts")]
     public SelectEnemyMenuScript selectEnemyMenuScript;
     public CombatInventoryMenu combatInventoryMenuScript;
-    public FendScript playerFendScript;
-    public PlayerDamageTakenDisplay playerDamageTakenDisplay;
-
-    [Header("Shared UI elements")]
-
-    [SerializeField] TextMeshProUGUI StyleDisplayText;
-    [SerializeField] TextMeshProUGUI MoveDisplayText;
 
     [Header("First Buttons to Highlight")]
 
@@ -57,15 +50,5 @@ public class CombatUIManager : MonoBehaviour
         enemySelectMenu.SetActive(false);
         attackTargetMenu.SetActive(false);
         GearSelectMenu.SetActive(false);
-    }
-
-    public void UpdateFirstMoveDisplay(string value)
-    {
-        StyleDisplayText.text = value;
-    }
-
-    public void UpdateSecondMoveDisplay(string value)
-    {
-        MoveDisplayText.text = value;
     }
 }

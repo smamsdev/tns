@@ -21,9 +21,9 @@ public class EnemySelect : State
             yield break;
         }
 
-        combatManager.CombatUIManager.selectEnemyMenuScript.InitializeButtonSlots();
-        combatManager.CombatUIManager.ChangeMenuState(combatManager.CombatUIManager.enemySelectMenu);
-        combatManager.CombatUIManager.thirdMenuFirstButton.Select();
+        combatManager.combatMenuManager.selectEnemyMenuScript.InitializeButtonSlots();
+        combatManager.combatMenuManager.ChangeMenuState(combatManager.combatMenuManager.enemySelectMenu);
+        combatManager.combatMenuManager.thirdMenuFirstButton.Select();
 
         yield break;
     }

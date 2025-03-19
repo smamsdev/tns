@@ -110,7 +110,7 @@ public class FendScript : MonoBehaviour
         fendTextMeshProUGUI.text = "";
         if (attackRemainder > 0)
         {
-            combatManager.CombatUIManager.playerDamageTakenDisplay.ShowPlayerDamageDisplay(attackRemainder);
+            combatManager.playerCombat.combatantUI.damageTakenDisplay.ShowDamageDisplay(attackRemainder);
             target.UpdateHP(-attackRemainder);
         }
     }

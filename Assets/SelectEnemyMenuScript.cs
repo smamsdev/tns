@@ -36,6 +36,6 @@ public class SelectEnemyMenuScript : MonoBehaviour
 
     public void SelectedEnemyToRevertToOnBack(Button button)
     { 
-        combatManager.CombatUIManager.thirdMenuFirstButton = button;
+        combatManager.combatMenuManager.thirdMenuFirstButton = button;
     }
 }

@@ -12,7 +12,7 @@ public class GearSelect : State
 
     public override IEnumerator StartState()
     {
-        combatManager.CombatUIManager.ChangeMenuState(combatManager.CombatUIManager.GearSelectMenu);
+        combatManager.combatMenuManager.ChangeMenuState(combatManager.combatMenuManager.GearSelectMenu);
         gearSelectUI.gearSlot1Button.Select();
 
         yield break;

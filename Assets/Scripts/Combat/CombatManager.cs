@@ -20,7 +20,7 @@ public class CombatManager : MonoBehaviour
 
     public GameObject player;
 
-    public CombatUIManager CombatUIManager;
+    public CombatMenuManager combatMenuManager;
     public PlayerMoveManager playerMoveManager;
     public int roundCount;
 

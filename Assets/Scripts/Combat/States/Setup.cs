@@ -6,11 +6,8 @@ using UnityEngine.Rendering;
 public class Setup : State
 {
     [SerializeField] CombatManager combatManager;
-    [SerializeField] GameObject combatUIContainer;
-    [SerializeField] GameObject playerStatsUIContainer;
     [SerializeField] GameObject combatantUIPrefab;
-    [SerializeField] GameObject combatantUI;
-    [SerializeField] GameObject playerFendContainerPrefab;
+    [SerializeField] GameObject CombatMenuGO;
 
     public override IEnumerator StartState()
 
@@ -64,18 +61,18 @@ public class Setup : State
 
     void SetcombatantUI(Enemy enemy)
     {
-            GameObject newEnemyCombatUI = Instantiate(combatantUIPrefab, enemy.gameObject.transform);
-            newEnemyCombatUI.transform.localPosition = Vector3.zero;
-            newEnemyCombatUI.name = "combatantUI For " + enemy.combatantName;
-            var enemycombatantUI = newEnemyCombatUI.GetComponent<EnemyUI>();
+        GameObject newEnemyCombatUI = Instantiate(combatantUIPrefab, enemy.gameObject.transform);
+        newEnemyCombatUI.transform.localPosition = Vector3.zero;
+        newEnemyCombatUI.name = "combatantUI For " + enemy.combatantName;
+        var enemycombatantUI = newEnemyCombatUI.GetComponent<EnemyUI>();
+        enemy.combatantUI = enemycombatantUI;
 
-            enemycombatantUI.partsTargetDisplay.enemy = enemy;
-            enemycombatantUI.partsTargetDisplay.combatManager = combatManager;
-            enemycombatantUI.fendScript.combatManager = combatManager;
-            enemycombatantUI.damageTakenDisplay.DisableDamageDisplay();
-            enemycombatantUI.statsDisplay.InitializeStatsUI(enemy);
-            enemycombatantUI.partsTargetDisplay.InitializeEnemyPartsHP();
-            enemycombatantUI.statsDisplay.ShowStatsDisplay(true);
+        enemycombatantUI.partsTargetDisplay.enemy = enemy;
+        enemycombatantUI.fendScript.combatManager = combatManager;
+        enemycombatantUI.damageTakenDisplay.DisableDamageDisplay();
+        enemycombatantUI.statsDisplay.InitializeStatsUI(enemy);
+        enemycombatantUI.partsTargetDisplay.InitializeEnemyPartsHP();
+        enemycombatantUI.statsDisplay.ShowStatsDisplay(true);
 
         //flip UI elements based on look direction
         if (enemy.forceLookDirection == Vector2.right)
@@ -117,19 +114,18 @@ public class Setup : State
 
     void SetcombatantUI(Ally ally)
     {
-            combatantUI.name = "combatantUI For " + ally.combatantName;
-            ally.combatantUI = combatantUI.GetComponent<CombatantUI>();
-            ally.combatantUI.fendScript.combatManager = combatManager;
-            ally.combatantUI.fendScript.UpdateFendText(ally.fendTotal);
-            ally.combatantUI.statsDisplay.InitializeStatsUI(ally);
-            ally.combatantUI.statsDisplay.ShowStatsDisplay(false);
-            ally.combatantUI.damageTakenDisplay.DisableDamageDisplay();
+        ally.combatantUI.name = "combatantUI For " + ally.combatantName;
+        ally.combatantUI = ally.combatantUI.GetComponent<CombatantUI>();
+        ally.combatantUI.fendScript.combatManager = combatManager;
+        ally.combatantUI.fendScript.UpdateFendText(ally.fendTotal);
+        ally.combatantUI.statsDisplay.InitializeStatsUI(ally);
+        ally.combatantUI.statsDisplay.ShowStatsDisplay(false);
+        ally.combatantUI.damageTakenDisplay.DisableDamageDisplay();
 
-            ally.combatantUI.statsDisplay.ShowStatsDisplay(true);
+        ally.combatantUI.statsDisplay.ShowStatsDisplay(true);
     }
 
     void SelectAndDisplayAllyMove(Ally ally)
-
     {
         ally.SelectMove();
         ally.moveSelected.LoadMoveStats(ally, combatManager);
@@ -162,19 +158,14 @@ public class Setup : State
         CombatEvents.isBattleMode = true;
         CombatEvents.LockPlayerMovement.Invoke();
         FieldEvents.isCameraFollow = false;
-        GameObject newFendContainer = Instantiate(playerFendContainerPrefab, combatManager.player.gameObject.transform);
-        newFendContainer.name = "Player Fend Container";
-        combatManager.CombatUIManager.playerFendScript = newFendContainer.GetComponent<FendScript>();
-        combatManager.CombatUIManager.playerDamageTakenDisplay = newFendContainer.GetComponent<PlayerDamageTakenDisplay>();
-        combatManager.CombatUIManager.playerFendScript.combatManager = combatManager;
-        combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(false);
     }
 
     IEnumerator SetPlayerUI()
-    {        
-        combatUIContainer.SetActive(true);
+    {
+        combatManager.playerCombat.combatantUI.fendScript.combatManager = combatManager;
+        combatManager.playerCombat.combatantUI.fendScript.ShowFendDisplay(false);
+        CombatMenuGO.SetActive(true);
         combatManager.playerCombat.InitialiseStats();
-        playerStatsUIContainer.SetActive(true);
         yield break;
     }
 }

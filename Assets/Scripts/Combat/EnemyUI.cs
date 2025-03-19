@@ -5,5 +5,5 @@ using UnityEngine;
 public class EnemyUI : CombatantUI
 {
     public BodyPartsDamageTakenDisplay bodyPartsDamageTakenDisplay;
-    public TargetDisplay partsTargetDisplay;
+    public PartsTargetDisplay partsTargetDisplay;
 }

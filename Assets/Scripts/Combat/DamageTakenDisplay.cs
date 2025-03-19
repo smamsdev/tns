@@ -6,17 +6,17 @@ using UnityEngine;
 public class DamageTakenDisplay : MonoBehaviour
 {
     [SerializeField] Animator animator;
-    public TextMeshProUGUI allyDamageTakenTextMeshProUGUI;
+    public TextMeshProUGUI damageTakenTextMeshProUGUI;
 
     void Start()
     {
-        allyDamageTakenTextMeshProUGUI.enabled = false;
+        damageTakenTextMeshProUGUI.enabled = false;
     }
 
     public void ShowDamageDisplay(int remainder)
     {
         animator.SetInteger("animState", 1);
-        allyDamageTakenTextMeshProUGUI.enabled = true;
+        damageTakenTextMeshProUGUI.enabled = true;
         StartCoroutine(ShowDamageDisplayCoroutine(remainder));
     }
 
@@ -33,7 +33,7 @@ public class DamageTakenDisplay : MonoBehaviour
             float t = Mathf.Clamp01(elapsedTime / lerpDuration);
 
             valueToDisplay = Mathf.RoundToInt(Mathf.Lerp(startNumber, endValue, t));
-            allyDamageTakenTextMeshProUGUI.text = valueToDisplay.ToString();
+            damageTakenTextMeshProUGUI.text = valueToDisplay.ToString();
 
             elapsedTime += Time.deltaTime;
 

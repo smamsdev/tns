@@ -5,10 +5,9 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class TargetDisplay : MonoBehaviour
+public class PartsTargetDisplay : MonoBehaviour
 {
     public Enemy enemy;
-    public CombatManager combatManager; 
 
     [SerializeField] GameObject bodyTargetDisplay;
     [SerializeField] GameObject armsTargetDisplay;

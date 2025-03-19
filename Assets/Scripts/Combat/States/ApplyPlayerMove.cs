@@ -8,7 +8,7 @@ public class ApplyPlayerMove : State
 
     public override IEnumerator StartState()
     {
-        combatManager.CombatUIManager.DisableMenuState();
+        combatManager.combatMenuManager.DisableMenuState();
 
         //get a bunch of refs...
         var player = combatManager.playerCombat;
@@ -85,17 +85,17 @@ public class ApplyPlayerMove : State
 
     IEnumerator UpdateFendDisplay()
     {
-        combatManager.CombatUIManager.playerFendScript.UpdateFendText(combatManager.playerCombat.TotalPlayerFendPower(combatManager.playerCombat.moveSelected.fendMoveModPercent));
+        combatManager.playerCombat.combatantUI.fendScript.UpdateFendText(combatManager.playerCombat.TotalPlayerFendPower(combatManager.playerCombat.moveSelected.fendMoveModPercent));
 
         if (combatManager.playerCombat.fendTotal > 0)
         {
-            combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
+            combatManager.playerCombat.combatantUI.fendScript.ShowFendDisplay(true);
             yield return new WaitForSeconds(1f);
         }
-
+        
         else
         {
-            combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(false);
+            combatManager.playerCombat.combatantUI.fendScript.ShowFendDisplay(false);
         }
     }
 }

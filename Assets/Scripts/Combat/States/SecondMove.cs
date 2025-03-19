@@ -10,10 +10,9 @@ public class SecondMove : State
     {
         yield return new WaitForSeconds(0.1f);
 
-        combatManager.CombatUIManager.ChangeMenuState(combatManager.CombatUIManager.secondMoveMenu);
+        combatManager.combatMenuManager.ChangeMenuState(combatManager.combatMenuManager.secondMoveMenu);
 
-        combatManager.CombatUIManager.secondMenuFirstButton.Select();
-        combatManager.CombatUIManager.UpdateSecondMoveDisplay("Move?");
+        combatManager.combatMenuManager.secondMenuFirstButton.Select();
         combatManager.playerMoveManager.secondMoveIs = 0;
 
         yield break;
@@ -46,7 +45,6 @@ public class SecondMove : State
         }
 
         combatManager.playerMoveManager.CombineStanceAndMove();
-        combatManager.CombatUIManager.UpdateSecondMoveDisplay(moveName);
 
         if (combatManager.playerCombat.moveSelected.attackMoveModPercent > 0)
         {

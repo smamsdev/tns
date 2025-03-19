@@ -10,8 +10,8 @@ public class AttackTarget : State
     {
         yield return new WaitForSeconds(0.1f);
 
-        combatManager.CombatUIManager.ChangeMenuState(combatManager.CombatUIManager.attackTargetMenu);
-        combatManager.CombatUIManager.targetMenuFirstButton.Select();
+        combatManager.combatMenuManager.ChangeMenuState(combatManager.combatMenuManager.attackTargetMenu);
+        combatManager.combatMenuManager.targetMenuFirstButton.Select();
 
         var targetUI = combatManager.playerCombat.targetToAttack.combatantUI as EnemyUI;
         targetUI.partsTargetDisplay.UpdateTargetDisplay(true, false, false);
@@ -20,12 +20,11 @@ public class AttackTarget : State
     }
 
     public override void CombatOptionSelected(int moveValue) //triggered via Button
-
     {
         var enemyToAttack = combatManager.playerCombat.targetToAttack as Enemy;
         enemyToAttack.SetEnemyBodyPartTarget(moveValue);
         DisablePartsTargetDisplay();
-        combatManager.CombatUIManager.DisableMenuState();
+        combatManager.combatMenuManager.DisableMenuState();
 
         //Disable other combatant UI elements
         foreach (Enemy enemy in combatManager.enemies)
@@ -76,8 +75,8 @@ public class AttackTarget : State
 
     void DisablePartsTargetDisplay()
     {
-        var targetToAttackUI = combatManager.playerCombat.targetToAttack.GetComponent<EnemyUI>();
-        targetToAttackUI.partsTargetDisplay.UpdateTargetDisplay(false, false, false);
+        var targetUI = combatManager.playerCombat.targetToAttack.combatantUI as EnemyUI;
+        targetUI.partsTargetDisplay.UpdateTargetDisplay(false, false, false);
     }
 }
 

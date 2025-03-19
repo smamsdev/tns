@@ -10,7 +10,7 @@ public class AttackDisplay : MonoBehaviour
 
     private void Start()
     {
-        attackDisplayTextGO.SetActive(false);
+        ShowAttackDisplay(false);
     }
 
     public void UpdateAttackDisplay(int value)
@@ -28,7 +28,6 @@ public class AttackDisplay : MonoBehaviour
     public void ShowAttackDisplay(bool on)
 
     {
-        if (on) { attackDisplayTextGO.SetActive(true); }
-        if (!on) { attackDisplayTextGO.SetActive(false); }
+        attackDisplayTextGO.SetActive(on);
     }
 }

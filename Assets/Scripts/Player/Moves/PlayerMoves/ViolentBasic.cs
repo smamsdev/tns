@@ -12,7 +12,7 @@ public class ViolentBasic : ViolentMove
         //var enemyPosition = combatManager.battleScheme.enemies[combatManager.selectedEnemy].transform.position;
         var moveSelected = combatManager.playerCombat.moveSelected;
 
-        //combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
+        //combatManager.combatMenuManager.playerFendScript.ShowFendDisplay(true);
 
 
         {

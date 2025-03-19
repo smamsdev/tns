@@ -14,7 +14,7 @@ public class PreciseBasic : PreciseMove
 
         enemy = _enemy;
 
-        combatManager.CombatUIManager.playerFendScript.ShowFendDisplay(true);
+        //combatManager.combatMenuManager.playerFendScript.ShowFendDisplay(true);
 
 
         {
