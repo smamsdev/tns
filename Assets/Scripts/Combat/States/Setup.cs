@@ -7,20 +7,20 @@ public class Setup : State
 {
     [SerializeField] CombatManager combatManager;
     [SerializeField] GameObject combatantUIPrefab;
-    [SerializeField] GameObject CombatMenuGO;
+    [SerializeField] CombatMenuManager combatMenuManager;
+    PlayerCombat playerCombat;
 
     public override IEnumerator StartState()
-
     {
         yield return HouseKeeping();
 
-        PlayerCombat player = combatManager.playerCombat;
-        yield return combatManager.PositionCombatant(player.gameObject, player.fightingPosition.transform.position);
-        player.GetComponent<PlayerMovementScript>().lookDirection = combatManager.battleScheme.playerDefaultLookDirection;
-        var playerAnimator = player.GetComponent<Animator>();
+        playerCombat = combatManager.playerCombat;
+        yield return combatManager.PositionCombatant(playerCombat.gameObject, playerCombat.fightingPosition.transform.position);
+        playerCombat.GetComponent<PlayerMovementScript>().lookDirection = combatManager.battleScheme.playerDefaultLookDirection;
+        var playerAnimator = playerCombat.GetComponent<Animator>();
         playerAnimator.SetBool("isCombat", true);
 
-        yield return SetPlayerUI();
+        SetPlayerUI();
         yield return new WaitForSeconds(0.1f);
 
         foreach (Enemy enemy in combatManager.enemies)
@@ -70,9 +70,7 @@ public class Setup : State
         enemycombatantUI.partsTargetDisplay.enemy = enemy;
         enemycombatantUI.fendScript.combatManager = combatManager;
         enemycombatantUI.damageTakenDisplay.DisableDamageDisplay();
-        enemycombatantUI.statsDisplay.InitializeStatsUI(enemy);
         enemycombatantUI.partsTargetDisplay.InitializeEnemyPartsHP();
-        enemycombatantUI.statsDisplay.ShowStatsDisplay(true);
 
         //flip UI elements based on look direction
         if (enemy.forceLookDirection == Vector2.right)
@@ -82,6 +80,9 @@ public class Setup : State
             enemycombatantUI.attackDisplay.transform.localPosition = flippedPos;
             enemycombatantUI.partsTargetDisplay.FlipTargetDisplay();
         }
+
+        enemy.InitialiseCombatantStats();
+        enemycombatantUI.statsDisplay.ShowStatsDisplay(true);
     }
 
     void SelectAndDisplayEnemyMove(Enemy enemy)
@@ -118,10 +119,8 @@ public class Setup : State
         ally.combatantUI = ally.combatantUI.GetComponent<CombatantUI>();
         ally.combatantUI.fendScript.combatManager = combatManager;
         ally.combatantUI.fendScript.UpdateFendText(ally.fendTotal);
-        ally.combatantUI.statsDisplay.InitializeStatsUI(ally);
-        ally.combatantUI.statsDisplay.ShowStatsDisplay(false);
         ally.combatantUI.damageTakenDisplay.DisableDamageDisplay();
-
+        ally.InitialiseCombatantStats();
         ally.combatantUI.statsDisplay.ShowStatsDisplay(true);
     }
 
@@ -160,12 +159,10 @@ public class Setup : State
         FieldEvents.isCameraFollow = false;
     }
 
-    IEnumerator SetPlayerUI()
+    void SetPlayerUI()
     {
-        combatManager.playerCombat.combatantUI.fendScript.combatManager = combatManager;
-        combatManager.playerCombat.combatantUI.fendScript.ShowFendDisplay(false);
-        CombatMenuGO.SetActive(true);
-        combatManager.playerCombat.InitialiseStats();
-        yield break;
+        playerCombat.combatantUI.fendScript.combatManager = combatManager;
+        playerCombat.combatantUI.fendScript.ShowFendDisplay(false);
+        playerCombat.InitialiseCombatantStats();
     }
 }

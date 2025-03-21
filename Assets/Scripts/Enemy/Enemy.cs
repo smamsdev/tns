@@ -65,8 +65,7 @@ public class Enemy : Combatant
 
     public override void UpdateHP(int value)
     {
-        currentHP += value;
-        combatantUI.damageTakenDisplay.ShowDamageDisplay(value);
+        CurrentHP += value;
         combatantUI.statsDisplay.UpdateHPDisplay(value);
     }
 
@@ -129,12 +128,12 @@ public class Enemy : Combatant
 
     void DamageToHP(int damageTotal)
     {
-        currentHP = currentHP - damageTotal;
+        CurrentHP = CurrentHP - damageTotal;
 
-        combatantUI.statsDisplay.UpdateHPDisplay(currentHP);
+        combatantUI.statsDisplay.UpdateHPDisplay(CurrentHP);
         combatantUI.damageTakenDisplay.ShowDamageDisplay(damageTotal);
 
-        if (currentHP <= 0)
+        if (CurrentHP <= 0)
         {
            // CombatEvents.EnemyIsDead.Invoke(true); fix this
         }

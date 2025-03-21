@@ -23,18 +23,15 @@ public class DamageTakenDisplay : MonoBehaviour
     IEnumerator ShowDamageDisplayCoroutine(int damage)
     {
         float elapsedTime = 0f;
-        float lerpDuration = 0.5f;
+        float lerpDuration = .75f;
         int startNumber = 1;
-        int endValue = damage;
         int valueToDisplay;
 
         while (elapsedTime < lerpDuration)
         {
             float t = Mathf.Clamp01(elapsedTime / lerpDuration);
-
-            valueToDisplay = Mathf.RoundToInt(Mathf.Lerp(startNumber, endValue, t));
+            valueToDisplay = Mathf.RoundToInt(Mathf.Lerp(startNumber, damage, t));
             damageTakenTextMeshProUGUI.text = valueToDisplay.ToString();
-
             elapsedTime += Time.deltaTime;
 
             yield return null;

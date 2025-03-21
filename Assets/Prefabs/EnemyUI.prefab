@@ -362,7 +362,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2248044945169623049
 RectTransform:
   m_ObjectHideFlags: 0
@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 256561924464534037}
   - component: {fileID: 6224102298531383070}
   m_Layer: 0
-  m_Name: StatsDisplayContainer
+  m_Name: StatsDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -472,7 +472,9 @@ MonoBehaviour:
   combatantNameTextMeshPro: {fileID: 1091702466883058612}
   combatantHPTextMeshPro: {fileID: 1092966303211495939}
   statsDisplayGameObject: {fileID: 3365311331488213722}
-  animator: {fileID: 3238889342694107120}
+  HPTMPanimator: {fileID: 3238889342694107120}
+  combatant: {fileID: 0}
+  combatantHP: 0
 --- !u!1 &2384728010077165602
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,7 +756,7 @@ GameObject:
   - component: {fileID: 2226336704969267696}
   - component: {fileID: 3710798987740099019}
   m_Layer: 8
-  m_Name: StatsDIsplay
+  m_Name: StatsDisplayContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1453,7 +1455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3755899953726612015
 RectTransform:
   m_ObjectHideFlags: 0

@@ -34,14 +34,14 @@ public class Ally : Combatant
 
     void DamageToHP(int damageTotal)
     {
-        currentHP = currentHP - damageTotal;
+        CurrentHP = CurrentHP - damageTotal;
 
         //combatantUI.statsDisplay.UpdateAllyHPDisplay(currentHP);
         //combatantUI.ally.ShowEnemyDamageDisplay(damageTotal);
 
         //fix!!
 
-        if (currentHP <= 0)
+        if (CurrentHP <= 0)
         {
             // CombatEvents.EnemyIsDead.Invoke(true); fix this
         }
@@ -49,7 +49,7 @@ public class Ally : Combatant
 
     public override void UpdateHP(int value)
     {
-        currentHP += value;
+        CurrentHP += value;
         combatantUI.damageTakenDisplay.ShowDamageDisplay(value);
         combatantUI.statsDisplay.UpdateHPDisplay(value);
     }

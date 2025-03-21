@@ -14,6 +14,7 @@ public class FirstMove : State
 
         yield return new WaitForSeconds(0.1f);
 
+        combatManager.playerCombat.combatantUI.statsDisplay.ShowStatsDisplay(true);
         combatManager.combatMenuManager.ChangeMenuState(combatManager.combatMenuManager.firstMoveMenu);
         combatManager.combatMenuManager.firstMenuFirstButton.Select();
         combatManager.playerMoveManager.firstMoveIs = 0;

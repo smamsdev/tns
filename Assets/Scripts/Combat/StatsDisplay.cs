@@ -5,47 +5,42 @@ using UnityEngine;
 
 public class StatsDisplay : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI combatantNameTextMeshPro;
-    [SerializeField] TextMeshProUGUI combatantHPTextMeshPro;
+    public TextMeshProUGUI combatantNameTextMeshPro;
+    public TextMeshProUGUI combatantHPTextMeshPro;
     public GameObject statsDisplayGameObject;
-    [SerializeField] Animator animator;
-    Combatant combatant;
-    int combatantHP;
+    [SerializeField] Animator HPTMPanimator;
+    public Combatant combatant;
+    public int combatantHP;
+
+    private void OnDisable()
+    {
+        ShowStatsDisplay(false);
+    }
 
     public void ShowStatsDisplay(bool on)
 
     {
-        if (on) {statsDisplayGameObject.SetActive(true); }
-        if (!on) {statsDisplayGameObject.SetActive(false); }
-    }
-
-    public void InitializeStatsUI(Combatant combatant)
-    {
-        this.combatant = combatant;
-        combatantNameTextMeshPro.text = combatant.combatantName;
-        combatantHP = combatant.currentHP;
-        combatantHPTextMeshPro.text = "HP: " + combatantHP;
+        statsDisplayGameObject.SetActive(on);
     }
 
     public void UpdateHPDisplay(int value)
     {
-        ShowStatsDisplay(true);
-
-        if (combatant.currentHP <= 0)
+        if (!statsDisplayGameObject.activeSelf)
         {
-            combatantHPTextMeshPro.text = "DEAD";
+            ShowStatsDisplay(true);
         }
 
-        else
+        StartCoroutine(UpdateHPDisplayCoroutine(combatantHP, value));
+
+        if (combatant.CurrentHP <= 0)
         {
-            StartCoroutine(UpdateHPDisplayCoroutine(combatantHP, value));
+            combatantHPTextMeshPro.text = "DEFEATED";
         }
     }
 
     IEnumerator UpdateHPDisplayCoroutine(int enemyHP, int value)
-
     {
-        animator.SetTrigger("bump");
+        HPTMPanimator.SetTrigger("bump");
         var newHPValue = enemyHP + value;
 
         float elapsedTime = 0f;
@@ -66,6 +61,5 @@ public class StatsDisplay : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
-        ShowStatsDisplay(false);
     }
 }

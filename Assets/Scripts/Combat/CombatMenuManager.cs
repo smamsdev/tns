@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class CombatMenuManager : MonoBehaviour
 {
     [SerializeField] CombatManager combatManager;
+    [SerializeField] TextMeshProUGUI narratorTMP;
 
     [Header("Menu GameObjects")]
     public GameObject firstMoveMenu;
@@ -26,6 +27,16 @@ public class CombatMenuManager : MonoBehaviour
     public Button secondMenuFirstButton;
     public Button thirdMenuFirstButton;
     public Button targetMenuFirstButton;
+
+    private void OnEnable()
+    {
+        CombatEvents.UpdateNarrator += UpdateNarrator;
+    }
+
+    private void OnDisable()
+    {
+        CombatEvents.UpdateNarrator -= UpdateNarrator;
+    }
 
     private void Start()
     {
@@ -50,5 +61,16 @@ public class CombatMenuManager : MonoBehaviour
         enemySelectMenu.SetActive(false);
         attackTargetMenu.SetActive(false);
         GearSelectMenu.SetActive(false);
+        narratorTMP.gameObject.SetActive(false);
+    }
+
+    public void UpdateNarrator(string narratorText)
+    {
+        if (!narratorTMP.gameObject.activeSelf)
+        {
+            narratorTMP.gameObject.SetActive(true);
+        }
+
+        narratorTMP.text = narratorText;
     }
 }

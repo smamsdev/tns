@@ -32,7 +32,6 @@ public abstract class Move : MonoBehaviour
     }
 
     public virtual IEnumerator ReturnFromPosition(GameObject objectToMove, Vector3 targetPosition)
-
     {
         yield return new WaitForSeconds(0.5f);
 
@@ -60,7 +59,7 @@ public abstract class Move : MonoBehaviour
         return targetPosition;
     }
 
-    public void LoadMoveStats(Combatant combatant, CombatManager combatManager) //default used for NPCs, handled manually by playerApplyMove state
+    public virtual void LoadMoveStats(Combatant combatant, CombatManager combatManager) //default used for NPCs, handled manually by playerApplyMove state
     {
         this.combatManager = combatManager;
 
@@ -71,5 +70,26 @@ public abstract class Move : MonoBehaviour
 
         combatant.attackTotal -= combatant.injuryPenalty;
         combatant.attackTotal = Mathf.RoundToInt(combatant.attackTotal + rng);
+    }
+
+    public virtual IEnumerator ApplyMove(Combatant combatantToAct, Combatant targetCombatant)
+    {
+        CombatEvents.UpdateNarrator(moveName);
+        yield return MoveToPosition(combatantToAct.gameObject, combatantToAct.moveSelected.AttackPositionLocation(combatantToAct));
+
+        targetCombatant.combatantUI.fendScript.ApplyAttackToFend(combatantToAct, combatantToAct.targetToAttack);
+
+        //start animation
+        Animator combatantToActAnimator = combatantToAct.GetComponent<Animator>();
+        combatantToActAnimator.SetFloat("MoveAnimationToUse", animtionIntTriggerToUse);
+        combatantToActAnimator.SetTrigger("Attack");
+        yield return new WaitForSeconds(0.2f);
+
+        //return combatantToAct to fightingpos, and return look direct
+        yield return ReturnFromPosition(combatantToAct.gameObject, combatantToAct.fightingPosition.transform.position);
+        combatantToActAnimator.SetTrigger("CombatIdle"); //remember to blend the transition in animator settings or it will wiggle
+
+        //reset narrator
+        CombatEvents.UpdateNarrator("");
     }
 }

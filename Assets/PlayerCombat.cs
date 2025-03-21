@@ -5,12 +5,16 @@ using static Cinemachine.DocumentationSortingAttribute;
 
 public class PlayerCombat : Combatant
 {
-
     public PlayerPermanentStats playerPermanentStats;
 
-    [Header("HP")]
-    public int playerCurrentHP;
-    public int playerMaxHP;
+    public int CurrentPotential
+    {
+        get { return currentPotential; }
+        set
+        {
+            currentPotential = Mathf.Clamp(value, 0, 9999);
+        }
+    }
 
     [Header("Fend")]
     public int playerFend;
@@ -23,7 +27,6 @@ public class PlayerCombat : Combatant
 
     [Header("Potential")]
     public int currentPotential;
-    public int maxPotential;
 
     [Header("Base Mods")]  
     [SerializeField] int attackPowerBaseMod;
@@ -46,16 +49,17 @@ public class PlayerCombat : Combatant
         CombatEvents.UpdatePlayerPot -= UpdatePlayerPot;
     }
 
-    public void InitialiseStats()
+    public override void InitialiseCombatantStats()
     {
-        playerCurrentHP = playerPermanentStats.maxHP;
-        playerMaxHP = playerPermanentStats.maxHP;
+        PlayerStatsDisplay playerStatsDisplay = combatantUI.statsDisplay as PlayerStatsDisplay;
 
-        maxPotential = playerPermanentStats.maxPotential;
-        currentPotential = maxPotential / 2;
+        CurrentHP = playerPermanentStats.currentHP;
+        playerStatsDisplay.combatantHP = CurrentHP;
+        playerStatsDisplay.combatantHPTextMeshPro.text = "HP: " + CurrentHP.ToString();
 
-        CombatEvents.InitializePlayerHPUI.Invoke(playerMaxHP);
-        CombatEvents.InitializePlayerPotUI.Invoke(currentPotential);
+        CurrentPotential = (playerPermanentStats.maxPotential / 2);
+        playerStatsDisplay.currentPotential = CurrentPotential;
+        playerStatsDisplay.potentialTMP.text = "Potential: " + CurrentPotential.ToString();
     }
 
     public float CalculatePotentialMod()
@@ -67,17 +71,17 @@ public class PlayerCombat : Combatant
             potentialMod = -0.1f;
         }
 
-        if (currentPotential == maxPotential)
+        if (currentPotential == playerPermanentStats.maxPotential)
         {
             potentialMod = 2;
         }
 
-        if (currentPotential > 0 && currentPotential < ( (float) (maxPotential/2) ))
+        if (currentPotential > 0 && currentPotential < ( (float) (playerPermanentStats.maxPotential /2) ))
         {   
-            potentialMod = ((float)currentPotential / maxPotential) * 2.5f;
+            potentialMod = ((float)currentPotential / playerPermanentStats.maxPotential) * 2.5f;
         }
 
-        if (currentPotential< maxPotential && currentPotential >= ((float)(maxPotential / 2)))
+        if (currentPotential< playerPermanentStats.maxPotential && currentPotential >= ((float)(playerPermanentStats.maxPotential / 2)))
         {
             potentialMod = 1;
         }
@@ -87,8 +91,6 @@ public class PlayerCombat : Combatant
 
     public void TotalPlayerAttackPower(float moveMod)
     {
-
-
         // Calculate the potential attack power based on various modifiers
         int potentialAttackPower = Mathf.RoundToInt(playerPermanentStats.attackPowerBase * moveMod * CalculatePotentialMod());
 
@@ -106,35 +108,20 @@ public class PlayerCombat : Combatant
 
     public void UpdatePlayerPot(int value)
     {
-        CurrentPotential += value;
-        CombatEvents.UpdatePlayerPotOnUI(currentPotential);
+        currentPotential += value;
+        PlayerStatsDisplay playerStatsDisplay = combatantUI.statsDisplay as PlayerStatsDisplay;
+        StartCoroutine(playerStatsDisplay.UpdatePlayerPotentialUI(currentPotential));
     }
 
     public override void UpdateHP(int value)
     {
-        PlayerCurrentHP += value;
+        CurrentHP += value;
+        PlayerStatsDisplay playerStatsDisplay = combatantUI.statsDisplay as PlayerStatsDisplay;
+        playerStatsDisplay.UpdateHPDisplay(CurrentHP);
     }
 
     public override void SelectMove()
     {
         throw new System.NotImplementedException();
-    }
-
-    public int PlayerCurrentHP
-    {
-        get { return playerCurrentHP; }
-        set
-        {
-            playerCurrentHP = Mathf.Clamp(value, 0, 9999);
-        }
-    }
-
-    public int CurrentPotential
-    {
-        get { return currentPotential; }
-        set
-        {
-            currentPotential = Mathf.Clamp(value, 0, 9999);
-        }
     }
 }

@@ -40,7 +40,6 @@ public class GearSelectUI : MonoBehaviour
     }
 
     public void ShowGearSelectionMenu()
-
     {
         for (int i = 0; i < buttonsToDisable.Length; i++)
         {
@@ -50,14 +49,12 @@ public class GearSelectUI : MonoBehaviour
     }
 
     public void UpdateGearDisplay(int gearSlotToUpdate, string newlyEquippedGear)
-
     {
         gearSlotDisplay[gearSlotToUpdate].text = newlyEquippedGear;
         EnableFirstMoveButtons();
     }
 
     public void EnableFirstMoveButtons()
-
     {
         for (int i = 0; i < buttonsToDisable.Length; i++)
         {
@@ -67,14 +64,13 @@ public class GearSelectUI : MonoBehaviour
     }
 
     void ButtonHighlighted(int gearSlot)
-
     {
         if (equippedGear.equippedSlot[gearSlot] != null)
         {
             CombatEvents.UpdateNarrator(equippedGear.equippedSlot[gearSlot].GetComponent<Gear>().gearDescription);
         }
 
-        else CombatEvents.UpdateNarrator("Select Item");
+        CombatEvents.UpdateNarrator("Select Item");
     }
 }
 

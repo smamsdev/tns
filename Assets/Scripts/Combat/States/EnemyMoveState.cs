@@ -23,30 +23,10 @@ public class EnemyMoveState : State
             combatManager.cameraFollow.transformToFollow = enemyToAct.transform;
             yield return new WaitForSeconds(0.5f);
 
-            //display move name and move to position
-            CombatEvents.UpdateNarrator.Invoke(enemyToAct.moveSelected.moveName);
-            yield return enemyToAct.moveSelected.MoveToPosition(enemyToAct.gameObject, enemyToAct.moveSelected.AttackPositionLocation(enemyToAct));
-
-            //apply move effects to allied target
-            var targetToAttackUI = enemyToAct.targetToAttack.GetComponentInChildren<FendScript>();
-            targetToAttackUI.ApplyAttackToFend(enemyToAct, enemyToAct.targetToAttack);
-
-            combatManager.cameraFollow.transformToFollow = enemyToAct.targetToAttack.transform;
-            
-            //StartCoroutine(combatManager.selectedPlayerMove.OnEnemyAttack(combatManager, enemyToAct));
-
-            //start animation
-            enemyAnimator.SetFloat("attackAnimationToUse", enemyToAct.moveSelected.animtionIntTriggerToUse);
-            enemyAnimator.SetTrigger("Attack");
-            yield return new WaitForSeconds(0.2f);
-
-            //return enemy to fightingpos, and return look direct
-            yield return enemyToAct.moveSelected.ReturnFromPosition(enemyToAct.gameObject, enemyToAct.fightingPosition.transform.position);
-            enemyAnimator.SetTrigger("CombatIdle");
+            var targetToAttackUI = enemyToAct.targetToAttack.GetComponentInChildren<CombatantUI>();
+            targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
+            yield return enemyToAct.moveSelected.ApplyMove(enemyToAct, enemyToAct.targetToAttack);
             enemyToAct.GetComponent<MovementScript>().lookDirection = enemyLastLookDirection;
-
-            //reset narrator
-            CombatEvents.UpdateNarrator.Invoke("");
 
             //check for player defeat
             if (combatManager.defeat.playerDefeated)
@@ -55,7 +35,9 @@ public class EnemyMoveState : State
                 yield break;
             }
 
-            //return allied target to original pos and look dir
+            //return target to original pos and look dir
+            Animator targetToAttackAnimator = enemyToAct.targetToAttack.GetComponent<Animator>();
+            targetToAttackAnimator.SetTrigger("CombatIdle");
             yield return new WaitForSeconds(0.5f);
             yield return combatManager.PositionCombatant(enemyToAct.targetToAttack.gameObject, enemyToAct.targetToAttack.fightingPosition.transform.position);
             alliedTargetMovementScript.lookDirection = alliedTargetStoredLookDir;

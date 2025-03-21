@@ -20,7 +20,6 @@ public static class CombatEvents
     public static Action<string> UpdateNarrator;
     public static Action<int> UpdateFendDisplay;
 
-    public static Action<int> InitializePlayerHPUI;
     public static Action<float> InputCoolDown;
     public static Action<int> InventoryButtonHighlighted;
     public static Action<int> GearSlotButtonHighlighted;
@@ -34,9 +33,6 @@ public static class CombatEvents
     public static Action<float, bool> UpdatePlayerAttackMoveMod;
     public static Action<float, bool> UpdatePlayerFendMoveMod;
     public static Action<int> UpdatePlayerPot;
-
-    public static Action<int> UpdatePlayerPotOnUI;
-    public static Action<int> InitializePlayerPotUI;
     public static Action<int> PlayerDamageDisplay;
     public static Action DisablePlayerDamageDisplay;
     public static Action PlayerDefeated;
