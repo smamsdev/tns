@@ -11,7 +11,17 @@ public abstract class Combatant : MonoBehaviour
     public int fendBase;
     public int attackPowerBase;
     public int maxHP;
-    private int currentHP;
+
+    public int CurrentHP
+    {
+        get { return currentHP; }
+        set
+        {
+            currentHP = Mathf.Clamp(value, 0, 9999);
+        }
+    }
+
+    [SerializeField] int currentHP;
 
     public int attackTotal;
     public int fendTotal;
@@ -24,15 +34,10 @@ public abstract class Combatant : MonoBehaviour
 
     public abstract void SelectMove();
 
-    public abstract void UpdateHP(int value);
-
-    public int CurrentHP
+    public virtual void UpdateHP(int value)
     {
-        get { return currentHP; }
-        set
-        {
-            currentHP = Mathf.Clamp(value, 0, 9999);
-        }
+        CurrentHP += value;
+        combatantUI.statsDisplay.UpdateHPDisplay(value);
     }
 
     public virtual void InitialiseCombatantStats()

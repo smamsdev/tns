@@ -38,6 +38,15 @@ public class Setup : State
             ally.targetToAttack = combatManager.enemies[Random.Range(0, combatManager.enemies.Count)];
             SetDefaultLookDirectionAndType(ally);
             SetcombatantUI(ally);
+
+            //flip UI elements based on look direction
+            if (ally.forceLookDirection == Vector2.right)
+            {
+                var flippedPos = ally.combatantUI.attackDisplay.transform.localPosition;
+                flippedPos.x = -flippedPos.x;
+                ally.combatantUI.attackDisplay.transform.localPosition = flippedPos;
+            }
+
             yield return new WaitForSeconds(0.1f);
         }
 
@@ -45,13 +54,13 @@ public class Setup : State
 
         foreach (Ally ally in combatManager.allies)
         {
-            SelectAndDisplayAllyMove(ally);
+            combatManager.SelectAndDisplayCombatantMove(ally);
             ally.targetToAttack = combatManager.enemies[Random.Range(0, combatManager.enemies.Count)];
         }
 
         foreach (Enemy enemy in combatManager.enemies)
         {
-            SelectAndDisplayEnemyMove(enemy);
+            combatManager.SelectAndDisplayCombatantMove(enemy);
         }
 
         yield return new WaitForSeconds(1);
@@ -69,7 +78,6 @@ public class Setup : State
 
         enemycombatantUI.partsTargetDisplay.enemy = enemy;
         enemycombatantUI.fendScript.combatManager = combatManager;
-        enemycombatantUI.damageTakenDisplay.DisableDamageDisplay();
         enemycombatantUI.partsTargetDisplay.InitializeEnemyPartsHP();
 
         //flip UI elements based on look direction
@@ -83,24 +91,6 @@ public class Setup : State
 
         enemy.InitialiseCombatantStats();
         enemycombatantUI.statsDisplay.ShowStatsDisplay(true);
-    }
-
-    void SelectAndDisplayEnemyMove(Enemy enemy)
-    {
-        enemy.SelectMove();
-        enemy.moveSelected.LoadMoveStats(enemy, combatManager);
-
-        if (enemy.attackTotal > 0)
-        {
-            enemy.combatantUI.attackDisplay.UpdateAttackDisplay(enemy.attackTotal);
-            enemy.combatantUI.attackDisplay.ShowAttackDisplay(true);
-        }
-
-        if (enemy.fendTotal > 0)
-        {
-            enemy.combatantUI.fendScript.ShowFendDisplay(true);
-            enemy.combatantUI.fendScript.UpdateFendText(enemy.fendTotal);
-        }
     }
 
     void SetDefaultLookDirectionAndType(Combatant _combatant)
@@ -118,35 +108,9 @@ public class Setup : State
         ally.combatantUI.name = "combatantUI For " + ally.combatantName;
         ally.combatantUI = ally.combatantUI.GetComponent<CombatantUI>();
         ally.combatantUI.fendScript.combatManager = combatManager;
-        ally.combatantUI.fendScript.UpdateFendText(ally.fendTotal);
-        ally.combatantUI.damageTakenDisplay.DisableDamageDisplay();
+        ally.combatantUI.fendScript.fendTextMeshProUGUI.text = ally.fendTotal.ToString();
         ally.InitialiseCombatantStats();
         ally.combatantUI.statsDisplay.ShowStatsDisplay(true);
-    }
-
-    void SelectAndDisplayAllyMove(Ally ally)
-    {
-        ally.SelectMove();
-        ally.moveSelected.LoadMoveStats(ally, combatManager);
-
-        if (ally.attackTotal > 0)
-        {
-            ally.combatantUI.attackDisplay.UpdateAttackDisplay(ally.AllyAttackTotal());
-            ally.combatantUI.attackDisplay.ShowAttackDisplay(true);
-        }
-
-        if (ally.fendTotal > 0)
-        {
-            ally.combatantUI.fendScript.UpdateFendText(ally.fendTotal);
-        }
-
-        //flip UI elements based on look direction
-        if (ally.forceLookDirection == Vector2.right)
-        {
-            var flippedPos = ally.combatantUI.attackDisplay.transform.localPosition;
-            flippedPos.x = -flippedPos.x;
-            ally.combatantUI.attackDisplay.transform.localPosition = flippedPos;
-        }
     }
 
     IEnumerator HouseKeeping()

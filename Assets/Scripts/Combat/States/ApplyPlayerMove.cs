@@ -37,20 +37,31 @@ public class ApplyPlayerMove : State
 
         player.moveSelected.LoadMoveStats(player, combatManager);
 
+        player.combatantUI.fendScript.fendTextMeshProUGUI.text = player.TotalPlayerFendPower(combatManager.playerCombat.moveSelected.fendMoveModPercent).ToString();
+
+        if (combatManager.playerCombat.fendTotal > 0)
+        {
+            combatManager.playerCombat.combatantUI.fendScript.ShowFendDisplay(true);
+            yield return new WaitForSeconds(1.5f);
+        }
+
+        else
+        {
+            combatManager.playerCombat.combatantUI.fendScript.ShowFendDisplay(false);
+        }
+
         var targetToAttackUI = player.targetToAttack.GetComponentInChildren<CombatantUI>();
         targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
         yield return player.moveSelected.ApplyMove(player, player.targetToAttack);
         player.GetComponent<MovementScript>().lookDirection = playerLastLookDir;
 
         //return enemy target to original pos and look dir
-        Animator targetToAttackAnimator = player.targetToAttack.GetComponent<Animator>();
-        targetToAttackAnimator.SetTrigger("CombatIdle");
         yield return new WaitForSeconds(0.5f);
         yield return combatManager.PositionCombatant(player.targetToAttack.gameObject, player.targetToAttack.fightingPosition.transform.position);
         enemyTargetMovementScript.lookDirection = enemyTargetStoredLookDir;
 
         HideEnemyFends();
-        yield return UpdateFendDisplay();
+
 
         //check for player defeat
         if (combatManager.defeat.playerDefeated)
@@ -69,22 +80,6 @@ public class ApplyPlayerMove : State
 
         {
             enemy.combatantUI.fendScript.animator.SetTrigger("fendFade");
-        }
-    }
-
-    IEnumerator UpdateFendDisplay()
-    {
-        combatManager.playerCombat.combatantUI.fendScript.UpdateFendText(combatManager.playerCombat.TotalPlayerFendPower(combatManager.playerCombat.moveSelected.fendMoveModPercent));
-
-        if (combatManager.playerCombat.fendTotal > 0)
-        {
-            combatManager.playerCombat.combatantUI.fendScript.ShowFendDisplay(true);
-            yield return new WaitForSeconds(1f);
-        }
-        
-        else
-        {
-            combatManager.playerCombat.combatantUI.fendScript.ShowFendDisplay(false);
         }
     }
 }

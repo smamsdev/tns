@@ -16,21 +16,12 @@ public class PlayerCombat : Combatant
         }
     }
 
-    [Header("Fend")]
-    public int playerFend;
-    [SerializeField] float fendPotMod;
-
-    [Header("Power")]
-    public int attackPower;
-
-    [SerializeField] float attackPowerPotMod;
-
     [Header("Potential")]
     public int currentPotential;
+    [SerializeField] float fendPotMod;
+    [SerializeField] float attackPowerPotMod;
 
     [Header("Base Mods")]  
-    [SerializeField] int attackPowerBaseMod;
-    [SerializeField] int fendBaseMod;
     [SerializeField] int playerFocusbaseMod;
     [SerializeField] int attackPowerGearMod;
     [SerializeField] int fendPowerGearMod;
@@ -95,15 +86,15 @@ public class PlayerCombat : Combatant
         int potentialAttackPower = Mathf.RoundToInt(playerPermanentStats.attackPowerBase * moveMod * CalculatePotentialMod());
 
         // Ensure the attack power is not less than zero
-        attackPower = Mathf.Max(0, potentialAttackPower);
+        attackTotal = Mathf.Max(0, potentialAttackPower);
     }
 
     public int TotalPlayerFendPower(float moveMod)
     {
         CalculatePotentialMod();
 
-        playerFend = Mathf.Clamp(Mathf.RoundToInt(playerPermanentStats.fendBase * moveMod), 0, 9999);
-        return playerFend;
+        fendTotal = Mathf.Clamp(Mathf.RoundToInt(playerPermanentStats.fendBase * moveMod), 0, 9999);
+        return fendTotal;
     }
 
     public void UpdatePlayerPot(int value)

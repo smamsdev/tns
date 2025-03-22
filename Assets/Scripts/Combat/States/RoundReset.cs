@@ -8,48 +8,29 @@ public class RoundReset : State
 
     public override IEnumerator StartState()
     {
-        combatManager.playerCombat.combatantUI.fendScript.animator.SetTrigger("fendFade");
-        var playerMovementScript = combatManager.player.GetComponent<PlayerMovementScript>();
-        
-        //combatManager.player.GetComponent<EquippedGear>().equippedGear[0].ResetAttackGear();
-        //combatManager.player.GetComponent<EquippedGear>().equippedGear[0].ResetFendGear();
+        combatManager.roundCount++;
 
+        combatManager.playerCombat.combatantUI.fendScript.animator.SetTrigger("fendFade");
         combatManager.playerMoveManager.firstMoveIs = 0;
         combatManager.playerMoveManager.secondMoveIs = 0;
-
-        combatManager.roundCount++;
+        combatManager.playerCombat.attackTotal = 0;
+        combatManager.playerCombat.fendTotal = 0;
+        combatManager.playerCombat.combatantUI.fendScript.fendTextMeshProUGUI.text = "0";
+        combatManager.playerCombat.combatantUI.fendScript.ResetAllFendAnimationTriggers(); //its just easier this way 
 
         foreach (Enemy enemy in combatManager.enemies)
         {
-            enemy.combatantUI.fendScript.ResetAllAnimationTriggers(); //its just easier this way 
-
-            var enemyMovementScript = enemy.GetComponent<ActorMovementScript>();
-            enemyMovementScript.actorRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
-
-            enemy.SelectMove();
-
-            if (enemy.attackTotal > 0)
-            {
-                enemy.combatantUI.attackDisplay.UpdateAttackDisplay(enemy.attackTotal);
-                enemy.combatantUI.attackDisplay.ShowAttackDisplay(true);
-            }
-
-            if (enemy.fendTotal > 0)
-            {
-                enemy.combatantUI.fendScript.UpdateFendText(enemy.fendTotal);
-            }
+            enemy.combatantUI.fendScript.ResetAllFendAnimationTriggers();
+            combatManager.SelectAndDisplayCombatantMove(enemy);
         }
 
-        combatManager.playerCombat.attackPower = 0;
-        combatManager.playerCombat.playerFend = 0;
-
-        combatManager.playerCombat.combatantUI.fendScript.UpdateFendText(0);
-
-        combatManager.playerCombat.combatantUI.fendScript.ResetAllAnimationTriggers(); //its just easier this way 
-
+        foreach (Ally ally in combatManager.allies)
+        {
+            ally.combatantUI.fendScript.ResetAllFendAnimationTriggers();
+            combatManager.SelectAndDisplayCombatantMove(ally);
+        }
 
         combatManager.SetState(combatManager.firstMove);
-
         yield break;
     }
 

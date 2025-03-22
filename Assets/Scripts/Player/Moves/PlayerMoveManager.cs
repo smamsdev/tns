@@ -116,11 +116,11 @@ public class PlayerMoveManager : MonoBehaviour
 
         if (moveWeightingTotal == 0)
         {
-            Debug.LogError("No valid moves available to select!");
+            Debug.LogError("No valid moves available to select!!");
             return;
         }
 
-        int randomValue = Mathf.RoundToInt(UnityEngine.Random.Range(0f, moveWeightingTotal));
+        int randomValue = UnityEngine.Random.Range(1, moveWeightingTotal + 1);
 
         // Second loop: Select a move based on weighting, ensuring we skip nulls
         foreach (var playerMove in equippedMoveList)

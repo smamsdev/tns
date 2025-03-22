@@ -47,13 +47,6 @@ public class Ally : Combatant
         }
     }
 
-    public override void UpdateHP(int value)
-    {
-        CurrentHP += value;
-        combatantUI.damageTakenDisplay.ShowDamageDisplay(value);
-        combatantUI.statsDisplay.UpdateHPDisplay(value);
-    }
-
     public override void SelectMove()
     {
         var randomValue = Mathf.RoundToInt(Random.Range(0f, moveWeightingTotal));

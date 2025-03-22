@@ -22,6 +22,7 @@ public class AllyMoveState : State
 
             //reset narrator focus camera on allyToAct and wait
             CombatEvents.UpdateNarrator("");
+            allyToAct.combatantUI.fendScript.ShowFendDisplay(false);
             combatManager.cameraFollow.transformToFollow = allyToAct.transform;
             yield return new WaitForSeconds(0.5f);
 
@@ -31,8 +32,6 @@ public class AllyMoveState : State
             allyToAct.GetComponent<MovementScript>().lookDirection = allyToActLastLookDirection;
 
             //return target to original pos and look dir
-            Animator targetToAttackAnimator = allyToAct.targetToAttack.GetComponent<Animator>();
-            targetToAttackAnimator.SetTrigger("CombatIdle");
             yield return new WaitForSeconds(0.5f);
 
             yield return combatManager.PositionCombatant(allyToAct.targetToAttack.gameObject, allyToAct.targetToAttack.fightingPosition.transform.position);

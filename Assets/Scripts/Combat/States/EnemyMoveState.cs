@@ -36,8 +36,6 @@ public class EnemyMoveState : State
             }
 
             //return target to original pos and look dir
-            Animator targetToAttackAnimator = enemyToAct.targetToAttack.GetComponent<Animator>();
-            targetToAttackAnimator.SetTrigger("CombatIdle");
             yield return new WaitForSeconds(0.5f);
             yield return combatManager.PositionCombatant(enemyToAct.targetToAttack.gameObject, enemyToAct.targetToAttack.fightingPosition.transform.position);
             alliedTargetMovementScript.lookDirection = alliedTargetStoredLookDir;

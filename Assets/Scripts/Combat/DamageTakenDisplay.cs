@@ -13,19 +13,15 @@ public class DamageTakenDisplay : MonoBehaviour
         damageTakenTextMeshProUGUI.enabled = false;
     }
 
-    public void ShowDamageDisplay(int remainder)
-    {
-        animator.SetInteger("animState", 1);
-        damageTakenTextMeshProUGUI.enabled = true;
-        StartCoroutine(ShowDamageDisplayCoroutine(remainder));
-    }
-
-    IEnumerator ShowDamageDisplayCoroutine(int damage)
+    public IEnumerator ShowDamageDisplayCoro(int damage)
     {
         float elapsedTime = 0f;
         float lerpDuration = .75f;
         int startNumber = 1;
         int valueToDisplay;
+
+        animator.SetInteger("animState", 1);
+        damageTakenTextMeshProUGUI.enabled = true;
 
         while (elapsedTime < lerpDuration)
         {
@@ -34,12 +30,10 @@ public class DamageTakenDisplay : MonoBehaviour
             damageTakenTextMeshProUGUI.text = valueToDisplay.ToString();
             elapsedTime += Time.deltaTime;
 
-            yield return null;
+            yield return null; 
         }
-    }
 
-    public void DisableDamageDisplay()
-    {
+        yield return new WaitForSeconds(0.5f);
         animator.SetInteger("animState", 0);
     }
 }

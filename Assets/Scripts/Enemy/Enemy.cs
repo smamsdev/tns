@@ -63,12 +63,6 @@ public class Enemy : Combatant
         }
     }
 
-    public override void UpdateHP(int value)
-    {
-        CurrentHP += value;
-        combatantUI.statsDisplay.UpdateHPDisplay(value);
-    }
-
     public void DamageTaken(int attackRemainder, float damageToBodyMod)
 
     {
@@ -131,7 +125,7 @@ public class Enemy : Combatant
         CurrentHP = CurrentHP - damageTotal;
 
         combatantUI.statsDisplay.UpdateHPDisplay(CurrentHP);
-        combatantUI.damageTakenDisplay.ShowDamageDisplay(damageTotal);
+        StartCoroutine(combatantUI.damageTakenDisplay.ShowDamageDisplayCoro(damageTotal));
 
         if (CurrentHP <= 0)
         {

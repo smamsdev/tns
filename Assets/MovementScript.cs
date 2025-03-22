@@ -15,4 +15,12 @@ public abstract class MovementScript : MonoBehaviour
     public Vector2 movementDirection;
     public Vector2 lookDirection;
     public Vector2 isReversing;
+
+    private void OnDisable()
+    {
+        movementDirection = Vector2.zero;
+        lookDirection = Vector2.zero;
+        animator.SetFloat("lookDirectionX", 0);
+        animator.SetFloat("verticalInput", 0);
+    }
 }

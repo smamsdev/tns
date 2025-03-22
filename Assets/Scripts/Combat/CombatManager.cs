@@ -109,6 +109,24 @@ public class CombatManager : MonoBehaviour
         Destroy(combatantMoveMentInstanceGO);
     }
 
+    public void SelectAndDisplayCombatantMove(Combatant combatant)
+    {
+        combatant.SelectMove();
+        combatant.moveSelected.LoadMoveStats(combatant, this);
+        combatant.combatantUI.attackDisplay.UpdateAttackDisplay(combatant.attackTotal);
+        combatant.combatantUI.fendScript.fendTextMeshProUGUI.text = combatant.fendTotal.ToString();
+
+        if (combatant.attackTotal > 0)
+        {
+            combatant.combatantUI.attackDisplay.ShowAttackDisplay(true);
+        }
+
+        if (combatant.fendTotal > 0)
+        {
+            combatant.combatantUI.fendScript.ShowFendDisplay(true);
+        }
+    }
+
     void PlayerDefeated()
     {
         defeat.playerDefeated = true;

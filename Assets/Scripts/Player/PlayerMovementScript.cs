@@ -22,10 +22,6 @@ public class PlayerMovementScript : MovementScript
     {
         CombatEvents.LockPlayerMovement -= LockPlayerMovement;
         CombatEvents.UnlockPlayerMovement -= UnlockPlayerMovement;
-
-        movementDirection = Vector2.zero;
-        animator.SetFloat("lookDirectionX", 0);
-        animator.SetFloat("verticalInput", 0);
     }
 
     private void Start()

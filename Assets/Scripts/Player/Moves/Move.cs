@@ -59,7 +59,7 @@ public abstract class Move : MonoBehaviour
         return targetPosition;
     }
 
-    public virtual void LoadMoveStats(Combatant combatant, CombatManager combatManager) //default used for NPCs, handled manually by playerApplyMove state
+    public virtual void LoadMoveStats(Combatant combatant, CombatManager combatManager)
     {
         this.combatManager = combatManager;
 
