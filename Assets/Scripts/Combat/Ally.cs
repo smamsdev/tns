@@ -49,27 +49,39 @@ public class Ally : Combatant
 
     public override void SelectMove()
     {
-        var randomValue = Mathf.RoundToInt(Random.Range(0f, moveWeightingTotal));
+        int moveWeightingTotal = 0;
 
-        foreach (AllyMove move in moves)
+        foreach (var allyMove in moves)
         {
-
-            if (randomValue >= move.moveWeighting)
+            if (allyMove.moveWeighting > 0)
             {
-                randomValue -= move.moveWeighting;
+                moveWeightingTotal += allyMove.moveWeighting;
+            }
+        }
+
+        if (moveWeightingTotal == 0)
+        {
+            Debug.LogError("No valid moves available to select!");
+            return;
+        }
+
+        int randomValue = Random.Range(1, moveWeightingTotal + 1);
+
+        foreach (var allyMove in moves)
+        {
+            if (allyMove.moveWeighting == 0) continue;
+
+            if (randomValue > allyMove.moveWeighting)
+            {
+                randomValue -= allyMove.moveWeighting;
             }
             else
             {
-                moveSelected = move;
+                moveSelected = allyMove;
                 return;
             }
         }
-        Debug.LogError("Failed to select a move!");
-    }
 
-    public int AllyAttackTotal()
-
-    {
-        return attackTotal;
+        Debug.LogError("Failed to select a move! Random value was " + randomValue);
     }
 }

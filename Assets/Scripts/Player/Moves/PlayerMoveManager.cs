@@ -105,10 +105,9 @@ public class PlayerMoveManager : MonoBehaviour
     {
         int moveWeightingTotal = 0;
 
-        // First loop: Calculate the total weighting, skipping nulls
         foreach (var playerMove in equippedMoveList)
         {
-            if (playerMove != null)
+            if (playerMove != null && playerMove.moveWeighting > 0)
             {
                 moveWeightingTotal += playerMove.moveWeighting;
             }
@@ -122,12 +121,11 @@ public class PlayerMoveManager : MonoBehaviour
 
         int randomValue = UnityEngine.Random.Range(1, moveWeightingTotal + 1);
 
-        // Second loop: Select a move based on weighting, ensuring we skip nulls
         foreach (var playerMove in equippedMoveList)
         {
-            if (playerMove == null) continue; // Skip null values
+            if (playerMove == null || playerMove.moveWeighting == 0) continue;
 
-            if (randomValue >= playerMove.moveWeighting)
+            if (randomValue > playerMove.moveWeighting)
             {
                 randomValue -= playerMove.moveWeighting;
             }
@@ -138,6 +136,6 @@ public class PlayerMoveManager : MonoBehaviour
             }
         }
 
-        Debug.LogError("Failed to select a move! This should never happen.");
+        Debug.LogError("Failed to select a move! This should never happen. Random value was " + randomValue);
     }
 }

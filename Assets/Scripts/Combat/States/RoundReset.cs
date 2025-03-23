@@ -10,23 +10,21 @@ public class RoundReset : State
     {
         combatManager.roundCount++;
 
-        combatManager.playerCombat.combatantUI.fendScript.animator.SetTrigger("fendFade");
         combatManager.playerMoveManager.firstMoveIs = 0;
         combatManager.playerMoveManager.secondMoveIs = 0;
         combatManager.playerCombat.attackTotal = 0;
         combatManager.playerCombat.fendTotal = 0;
         combatManager.playerCombat.combatantUI.fendScript.fendTextMeshProUGUI.text = "0";
-        combatManager.playerCombat.combatantUI.fendScript.ResetAllFendAnimationTriggers(); //its just easier this way 
+
+        combatManager.cameraFollow.transformToFollow = combatManager.player.transform;
 
         foreach (Enemy enemy in combatManager.enemies)
         {
-            enemy.combatantUI.fendScript.ResetAllFendAnimationTriggers();
             combatManager.SelectAndDisplayCombatantMove(enemy);
         }
 
         foreach (Ally ally in combatManager.allies)
         {
-            ally.combatantUI.fendScript.ResetAllFendAnimationTriggers();
             combatManager.SelectAndDisplayCombatantMove(ally);
         }
 

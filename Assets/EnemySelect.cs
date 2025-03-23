@@ -31,6 +31,7 @@ public class EnemySelect : State
     public override void CombatOptionSelected(int moveValue)
 
     {
+        combatManager.playerCombat.targetToAttack = combatManager.enemies[moveValue];
         combatManager.SetState(combatManager.attackTarget);
     }
 

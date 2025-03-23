@@ -40,7 +40,7 @@ public class Setup : State
             SetcombatantUI(ally);
 
             //flip UI elements based on look direction
-            if (ally.forceLookDirection == Vector2.right)
+            if (ally.forceLookDirection == Vector2.left)
             {
                 var flippedPos = ally.combatantUI.attackDisplay.transform.localPosition;
                 flippedPos.x = -flippedPos.x;
@@ -81,7 +81,7 @@ public class Setup : State
         enemycombatantUI.partsTargetDisplay.InitializeEnemyPartsHP();
 
         //flip UI elements based on look direction
-        if (enemy.forceLookDirection == Vector2.right)
+        if (enemy.forceLookDirection == Vector2.left)
         {
             var flippedPos = enemy.combatantUI.attackDisplay.transform.localPosition;
             flippedPos.x = -flippedPos.x;
@@ -126,7 +126,6 @@ public class Setup : State
     void SetPlayerUI()
     {
         playerCombat.combatantUI.fendScript.combatManager = combatManager;
-        playerCombat.combatantUI.fendScript.ShowFendDisplay(false);
         playerCombat.InitialiseCombatantStats();
     }
 }

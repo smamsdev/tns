@@ -25,6 +25,7 @@ public class EnemyMoveState : State
 
             var targetToAttackUI = enemyToAct.targetToAttack.GetComponentInChildren<CombatantUI>();
             targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
+            targetToAttackUI.fendScript.ShowFendDisplay(enemyToAct.targetToAttack, true);
             yield return enemyToAct.moveSelected.ApplyMove(enemyToAct, enemyToAct.targetToAttack);
             enemyToAct.GetComponent<MovementScript>().lookDirection = enemyLastLookDirection;
 

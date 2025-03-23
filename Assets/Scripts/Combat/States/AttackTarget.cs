@@ -26,19 +26,6 @@ public class AttackTarget : State
         DisablePartsTargetDisplay();
         combatManager.combatMenuManager.DisableMenuState();
 
-        //Disable other combatant UI elements
-        foreach (Enemy enemy in combatManager.enemies)
-        {
-            enemy.combatantUI.attackDisplay.ShowAttackDisplay(false);
-            enemy.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(false);
-        }
-
-        foreach (Ally ally in combatManager.allies)
-        {
-            ally.combatantUI.attackDisplay.ShowAttackDisplay(false);
-            ally.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(false);
-        }
-
         if (combatManager.allies.Count > 0)
         {
             combatManager.SetState(combatManager.allyMoveState);

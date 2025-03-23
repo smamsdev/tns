@@ -10,25 +10,28 @@ public class FendScript : MonoBehaviour
     public TextMeshProUGUI fendTextMeshProUGUI;
     [HideInInspector] public CombatManager combatManager;
     [SerializeField] GameObject fendTextGO, fendIconGO;
-    public Animator animator;
+    [SerializeField] Animator animator;
     Combatant combatantAttacking;
     Combatant target;
     public int attackRemainder;
 
-    public void ShowFendDisplay(bool on)
+    public void ShowFendDisplay(Combatant combatantToShow, bool on)
     {
         if (on)
         {
-            fendTextGO.SetActive(true);
-            fendIconGO.SetActive(true);
-            animator.SetTrigger("fendAppear");
+            if (combatantToShow.fendTotal > 0)
+            {
+                animator.Play("FendAppear", 0 , 0);
+            }
+            combatantToShow.fendDisplayOn = on;
+            Debug.Log("on");
         }
 
         if (!on)
         {
-            fendTextGO.SetActive(false);
-            fendIconGO.SetActive(false);
-            animator.SetTrigger("fendFade");
+            animator.Play("FendFade", 0, 0);
+            Debug.Log("off");
+            combatantToShow.fendDisplayOn = false;
         }
     }
 
@@ -37,7 +40,7 @@ public class FendScript : MonoBehaviour
         combatantAttacking = combatant;
         this.target = target;
         attackRemainder = combatantAttacking.attackTotal - target.fendTotal;
-        animator.SetTrigger("fendDeflect");
+        animator.Play("FendDeflect", 0, 0);
         var combatantAnimator = target.GetComponent<Animator>();
         combatantAnimator.SetTrigger("Pain");
 
@@ -91,27 +94,21 @@ public class FendScript : MonoBehaviour
                 yield return (combatMovementInstance.MoveCombatantFixedTime(target.gameObject, stepBackPos, combatantAttacking.moveSelected.attackPushStrength, isReversing: true));
                 Destroy(combatMovementInstanceGO);
             }
+
             yield return null;
         }
+        animator.Play("FendFade", 0, 0);
+        Debug.Log("ticker off");
     }
 
     void FendBreached()
     {
-        animator.SetTrigger("fendBreak");
-        animator.ResetTrigger("fendAppear");
+        animator.Play("FendBreak", 0, 0);
         fendTextMeshProUGUI.text = "";
         if (attackRemainder > 0)
         {
             StartCoroutine(target.combatantUI.damageTakenDisplay.ShowDamageDisplayCoro(attackRemainder));
             target.UpdateHP(-attackRemainder);
         }
-    }
-
-    public void ResetAllFendAnimationTriggers()
-    {
-        animator.ResetTrigger("fendAppear");
-        animator.ResetTrigger("fendDeflect");
-        animator.ResetTrigger("fendBreak");
-        animator.ResetTrigger("fendFade");
     }
 }

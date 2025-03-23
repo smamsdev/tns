@@ -121,10 +121,7 @@ public class CombatManager : MonoBehaviour
             combatant.combatantUI.attackDisplay.ShowAttackDisplay(true);
         }
 
-        if (combatant.fendTotal > 0)
-        {
-            combatant.combatantUI.fendScript.ShowFendDisplay(true);
-        }
+            combatant.combatantUI.fendScript.ShowFendDisplay(combatant, true);
     }
 
     void PlayerDefeated()

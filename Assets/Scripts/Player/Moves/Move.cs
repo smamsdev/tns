@@ -44,16 +44,19 @@ public abstract class Move : MonoBehaviour
     public virtual Vector3 AttackPositionLocation(Combatant combatant)
     {
         Vector3 targetPosition;
-        float lookDirX = combatant.GetComponent<MovementScript>().lookDirection.x;
+
+        Vector3 direction = (combatant.targetToAttack.transform.position - combatant.transform.position).normalized;
+        float attackDirX = Mathf.Sign(direction.x);
 
         if (targetIsSelf)
         {
-            targetPosition = new Vector3(combatant.transform.position.x + (targetPositionHorizontalOffset * lookDirX), combatant.transform.position.y);
+            targetPosition = new Vector3(combatant.transform.position.x + (targetPositionHorizontalOffset * attackDirX),
+                                         combatant.transform.position.y);
         }
-
         else
         {
-            targetPosition = new Vector3(combatant.targetToAttack.transform.position.x - (targetPositionHorizontalOffset * lookDirX), combatant.targetToAttack.transform.position.y);
+            targetPosition = new Vector3(combatant.targetToAttack.transform.position.x - (targetPositionHorizontalOffset * attackDirX),
+                                         combatant.targetToAttack.transform.position.y);
         }
 
         return targetPosition;
@@ -77,6 +80,7 @@ public abstract class Move : MonoBehaviour
         CombatEvents.UpdateNarrator(moveName);
         yield return MoveToPosition(combatantToAct.gameObject, combatantToAct.moveSelected.AttackPositionLocation(combatantToAct));
 
+        combatManager.cameraFollow.transformToFollow = targetCombatant.transform;
         targetCombatant.combatantUI.fendScript.ApplyAttackToFend(combatantToAct, combatantToAct.targetToAttack);
 
         //start animation

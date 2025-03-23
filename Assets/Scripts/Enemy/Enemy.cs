@@ -150,25 +150,41 @@ public class Enemy : Combatant
     }
 
     public override void SelectMove()
-
     {
-        randomValue = Mathf.RoundToInt(Random.Range(0f, moveWeightingTotal));
+        int moveWeightingTotal = 0;
 
         foreach (var enemyMove in enemyMoves)
         {
+            if (enemyMove.moveWeighting > 0)
+            {
+                moveWeightingTotal += enemyMove.moveWeighting;
+            }
+        }
 
-            if (randomValue >= enemyMove.moveWeighting)
+        if (moveWeightingTotal == 0)
+        {
+            Debug.LogError("No valid moves available to select!");
+            return;
+        }
+
+        int randomValue = Random.Range(1, moveWeightingTotal + 1);
+
+        foreach (var enemyMove in enemyMoves)
+        {
+            if (enemyMove.moveWeighting == 0) continue;
+
+            if (randomValue > enemyMove.moveWeighting)
             {
                 randomValue -= enemyMove.moveWeighting;
             }
-            else 
+            else
             {
                 moveSelected = enemyMove;
                 return;
             }
         }
 
-        Debug.LogError("Failed to select a move!");
+        Debug.LogError("Failed to select a move! Random value was " + randomValue);
     }
 
 }

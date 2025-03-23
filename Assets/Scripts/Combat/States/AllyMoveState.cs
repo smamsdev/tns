@@ -10,6 +10,23 @@ public class AllyMoveState : State
     {
         foreach (Ally allyToAct in combatManager.allies)
         {
+            foreach (Ally ally in combatManager.allies)
+            {
+                ally.combatantUI.attackDisplay.ShowAttackDisplay(false);
+                ally.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(false);
+                ally.combatantUI.fendScript.ShowFendDisplay(ally, false);
+            }
+
+            //Disable other combatant UI elements
+            foreach (Enemy enemy in combatManager.enemies)
+            {
+                if (enemy != allyToAct.targetToAttack)
+
+                {
+                    enemy.combatantUI.fendScript.ShowFendDisplay(enemy, false);
+                }
+            }
+
             //store enemy target look dir
             var enemyTargetMovementScript = allyToAct.targetToAttack.GetComponent<MovementScript>();
             var enemyTargetStoredLookDir = enemyTargetMovementScript.lookDirection;
@@ -22,12 +39,18 @@ public class AllyMoveState : State
 
             //reset narrator focus camera on allyToAct and wait
             CombatEvents.UpdateNarrator("");
-            allyToAct.combatantUI.fendScript.ShowFendDisplay(false);
             combatManager.cameraFollow.transformToFollow = allyToAct.transform;
             yield return new WaitForSeconds(0.5f);
 
             var targetToAttackUI = allyToAct.targetToAttack.GetComponentInChildren<CombatantUI>();
+
+            if (!allyToAct.targetToAttack.fendDisplayOn)
+            {
+                targetToAttackUI.fendScript.ShowFendDisplay(allyToAct.targetToAttack, true);
+            }
+
             targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
+
             yield return allyToAct.moveSelected.ApplyMove(allyToAct, allyToAct.targetToAttack);
             allyToAct.GetComponent<MovementScript>().lookDirection = allyToActLastLookDirection;
 

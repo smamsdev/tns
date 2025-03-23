@@ -16,6 +16,23 @@ public class ApplyPlayerMove : State
         var playerAnimator = playerMovementScript.animator;
         var playerLookDirection = playerMovementScript.lookDirection;
 
+        foreach (Ally ally in combatManager.allies)
+        {
+            ally.combatantUI.attackDisplay.ShowAttackDisplay(false);
+            ally.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(false);
+            ally.combatantUI.fendScript.ShowFendDisplay(ally, false);
+        }
+
+        //Disable other combatant UI elements
+        foreach (Enemy enemy in combatManager.enemies)
+        {
+            if (enemy != player.targetToAttack)
+
+            {
+                enemy.combatantUI.fendScript.ShowFendDisplay(enemy, false);
+            }
+        }
+
         //store enemy target look dir
         var enemyTargetMovementScript = player.targetToAttack.GetComponent<MovementScript>();
         var enemyTargetStoredLookDir = enemyTargetMovementScript.lookDirection;
@@ -39,19 +56,9 @@ public class ApplyPlayerMove : State
 
         player.combatantUI.fendScript.fendTextMeshProUGUI.text = player.TotalPlayerFendPower(combatManager.playerCombat.moveSelected.fendMoveModPercent).ToString();
 
-        if (combatManager.playerCombat.fendTotal > 0)
-        {
-            combatManager.playerCombat.combatantUI.fendScript.ShowFendDisplay(true);
-            yield return new WaitForSeconds(1.5f);
-        }
-
-        else
-        {
-            combatManager.playerCombat.combatantUI.fendScript.ShowFendDisplay(false);
-        }
-
         var targetToAttackUI = player.targetToAttack.GetComponentInChildren<CombatantUI>();
         targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
+        targetToAttackUI.fendScript.ShowFendDisplay(player.targetToAttack, true);
         yield return player.moveSelected.ApplyMove(player, player.targetToAttack);
         player.GetComponent<MovementScript>().lookDirection = playerLastLookDir;
 
@@ -59,9 +66,6 @@ public class ApplyPlayerMove : State
         yield return new WaitForSeconds(0.5f);
         yield return combatManager.PositionCombatant(player.targetToAttack.gameObject, player.targetToAttack.fightingPosition.transform.position);
         enemyTargetMovementScript.lookDirection = enemyTargetStoredLookDir;
-
-        HideEnemyFends();
-
 
         //check for player defeat
         if (combatManager.defeat.playerDefeated)
@@ -72,14 +76,5 @@ public class ApplyPlayerMove : State
 
         combatManager.SetState(combatManager.enemyMoveState);
         yield return null;
-    }
-
-    void HideEnemyFends()
-    {
-        foreach (Enemy enemy in combatManager.enemies)
-
-        {
-            enemy.combatantUI.fendScript.animator.SetTrigger("fendFade");
-        }
     }
 }
