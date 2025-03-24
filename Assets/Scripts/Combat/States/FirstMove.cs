@@ -15,14 +15,14 @@ public class FirstMove : State
         combatManager.playerCombat.combatantUI.statsDisplay.ShowStatsDisplay(true);
         combatManager.combatMenuManager.ChangeMenuState(combatManager.combatMenuManager.firstMoveMenu);
         combatManager.combatMenuManager.firstMenuFirstButton.Select();
-        combatManager.playerMoveManager.firstMoveIs = 0;
+        combatManager.playerCombat.playerMoveManager.firstMoveIs = 0;
 
         yield break;
     }
 
     public override void CombatOptionSelected (int moveValue)
     {
-        combatManager.playerMoveManager.firstMoveIs = moveValue;
+        combatManager.playerCombat.playerMoveManager.firstMoveIs = moveValue;
 
         if (moveValue == 4)
         {

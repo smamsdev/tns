@@ -12,7 +12,6 @@ public class Ally : Combatant
     {
         if (fightingPosition == null)
         {
-            Debug.Log("no ally fighting position set" + this.gameObject.name);
             fightingPosition = new GameObject(this.gameObject.name + " Ally Fighting Position");
             fightingPosition.transform.position = this.transform.position;
             fightingPosition.transform.SetParent(null);

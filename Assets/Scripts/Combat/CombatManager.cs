@@ -4,25 +4,16 @@ using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
-    public State currentState;
-
-    [Header("Settings")]
-
+    [Header("Battle Setup")]
     public Battle battleScheme;
-
+    public GameObject player;
     public PlayerCombat playerCombat;
     public List<Ally> allies;
     public List<Enemy> enemies;
-
     public List<Combatant> allAllies;
 
     [Header("Debugging")]
-
-    public GameObject player;
-
-    public CombatMenuManager combatMenuManager;
-    public PlayerMoveManager playerMoveManager;
-    public int roundCount;
+    public State currentState;
 
     [Header("States")]
     public Setup setup;
@@ -38,10 +29,12 @@ public class CombatManager : MonoBehaviour
     public Defeat defeat;
     public GearSelect gearSelect;
 
-    [Header("Movement")]
-
+    [Header("Misc")]
     public GameObject combatMovementPrefab;
     public CameraFollow cameraFollow;
+    public CombatMenuManager combatMenuManager;
+    public int roundCount;
+    public Combatant lastCombatantTargeted;
 
     private void OnEnable()
     {
@@ -56,10 +49,9 @@ public class CombatManager : MonoBehaviour
     public void StartBattle()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        playerMoveManager = player.GetComponentInChildren<PlayerMoveManager>();
         playerCombat = player.GetComponentInChildren<PlayerCombat>();
 
-        if (playerMoveManager == null)
+        if (playerCombat.playerMoveManager == null)
         {
             Debug.LogError("PlayerMoveManager is not found in StartBattle");
             return;

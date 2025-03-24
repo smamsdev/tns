@@ -8,8 +8,24 @@ public class EnemyMoveState : State
 
     public override IEnumerator StartState()
     {
+        foreach (Enemy enemy in combatManager.enemies)
+        {
+            enemy.combatantUI.attackDisplay.ShowAttackDisplay(false);
+            enemy.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(false);
+            enemy.combatantUI.fendScript.ShowFendDisplay(enemy, false);
+        }
+
         foreach (Enemy enemyToAct in combatManager.enemies)
         {
+            foreach (Combatant combatant in combatManager.allAllies)
+            {
+                if (combatant != enemyToAct.targetToAttack)
+                {
+                    combatant.combatantUI.fendScript.ShowFendDisplay(combatant, false);
+                    combatant.combatantUI.statsDisplay.ShowStatsDisplay(false);
+                }
+            }
+
             //store allied target look dir
             var alliedTargetMovementScript = enemyToAct.targetToAttack.GetComponent<MovementScript>();
             var alliedTargetStoredLookDir = alliedTargetMovementScript.lookDirection;
@@ -24,8 +40,13 @@ public class EnemyMoveState : State
             yield return new WaitForSeconds(0.5f);
 
             var targetToAttackUI = enemyToAct.targetToAttack.GetComponentInChildren<CombatantUI>();
-            targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
-            targetToAttackUI.fendScript.ShowFendDisplay(enemyToAct.targetToAttack, true);
+
+            if (!enemyToAct.targetToAttack.fendDisplayOn)
+            {
+                targetToAttackUI.fendScript.ShowFendDisplay(enemyToAct.targetToAttack, true);
+                targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
+            }
+
             yield return enemyToAct.moveSelected.ApplyMove(enemyToAct, enemyToAct.targetToAttack);
             enemyToAct.GetComponent<MovementScript>().lookDirection = enemyLastLookDirection;
 

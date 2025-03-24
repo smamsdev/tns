@@ -6,6 +6,7 @@ using static Cinemachine.DocumentationSortingAttribute;
 public class PlayerCombat : Combatant
 {
     public PlayerPermanentStats playerPermanentStats;
+    public PlayerMoveManager playerMoveManager;
 
     public int CurrentPotential
     {

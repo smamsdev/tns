@@ -8,22 +8,26 @@ public class AllyMoveState : State
 
     public override IEnumerator StartState()
     {
+        foreach (Ally ally in combatManager.allies)
+        {
+            ally.combatantUI.attackDisplay.ShowAttackDisplay(false);
+            ally.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(false);
+            ally.combatantUI.fendScript.ShowFendDisplay(ally, false);
+        }
+
         foreach (Ally allyToAct in combatManager.allies)
         {
-            foreach (Ally ally in combatManager.allies)
-            {
-                ally.combatantUI.attackDisplay.ShowAttackDisplay(false);
-                ally.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(false);
-                ally.combatantUI.fendScript.ShowFendDisplay(ally, false);
-            }
+            combatManager.lastCombatantTargeted = allyToAct.targetToAttack;
 
-            //Disable other combatant UI elements
+            //Disable untargeted combatant UI elements
             foreach (Enemy enemy in combatManager.enemies)
             {
-                if (enemy != allyToAct.targetToAttack)
+                enemy.combatantUI.attackDisplay.ShowAttackDisplay(false);
 
+                if (enemy != allyToAct.targetToAttack)
                 {
                     enemy.combatantUI.fendScript.ShowFendDisplay(enemy, false);
+                    enemy.combatantUI.statsDisplay.ShowStatsDisplay(false); 
                 }
             }
 
@@ -47,9 +51,8 @@ public class AllyMoveState : State
             if (!allyToAct.targetToAttack.fendDisplayOn)
             {
                 targetToAttackUI.fendScript.ShowFendDisplay(allyToAct.targetToAttack, true);
+                targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
             }
-
-            targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
 
             yield return allyToAct.moveSelected.ApplyMove(allyToAct, allyToAct.targetToAttack);
             allyToAct.GetComponent<MovementScript>().lookDirection = allyToActLastLookDirection;
@@ -66,7 +69,6 @@ public class AllyMoveState : State
                 Debug.Log("player defeated");
                 yield break;
             }
-
             //todo check for enemy defeat
         }
         combatManager.SetState(combatManager.applyMove);

@@ -30,6 +30,7 @@ public class ApplyPlayerMove : State
 
             {
                 enemy.combatantUI.fendScript.ShowFendDisplay(enemy, false);
+                enemy.combatantUI.statsDisplay.ShowStatsDisplay(false);
             }
         }
 
@@ -58,7 +59,13 @@ public class ApplyPlayerMove : State
 
         var targetToAttackUI = player.targetToAttack.GetComponentInChildren<CombatantUI>();
         targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
-        targetToAttackUI.fendScript.ShowFendDisplay(player.targetToAttack, true);
+
+        if (player.targetToAttack != combatManager.lastCombatantTargeted)
+        {
+            targetToAttackUI.fendScript.ShowFendDisplay(player.targetToAttack, true);
+            targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
+        }
+
         yield return player.moveSelected.ApplyMove(player, player.targetToAttack);
         player.GetComponent<MovementScript>().lookDirection = playerLastLookDir;
 

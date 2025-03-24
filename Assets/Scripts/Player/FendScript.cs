@@ -22,15 +22,15 @@ public class FendScript : MonoBehaviour
             if (combatantToShow.fendTotal > 0)
             {
                 animator.Play("FendAppear", 0 , 0);
+                combatantToShow.fendDisplayOn = on;
+                //Debug.Log("on");
             }
-            combatantToShow.fendDisplayOn = on;
-            Debug.Log("on");
         }
 
-        if (!on)
+        if (!on && combatantToShow.fendDisplayOn)
         {
             animator.Play("FendFade", 0, 0);
-            Debug.Log("off");
+            //Debug.Log("off");
             combatantToShow.fendDisplayOn = false;
         }
     }
@@ -40,7 +40,7 @@ public class FendScript : MonoBehaviour
         combatantAttacking = combatant;
         this.target = target;
         attackRemainder = combatantAttacking.attackTotal - target.fendTotal;
-        animator.Play("FendDeflect", 0, 0);
+        attackRemainder = combatantAttacking.attackTotal - target.fendTotal;
         var combatantAnimator = target.GetComponent<Animator>();
         combatantAnimator.SetTrigger("Pain");
 
@@ -56,14 +56,20 @@ public class FendScript : MonoBehaviour
 
         if (target.fendTotal == 0)
         {
-            FendBreached();
-            yield return new WaitForSeconds(0.2f);
+            if (attackRemainder > 0)
+            {
+                StartCoroutine(target.combatantUI.damageTakenDisplay.ShowDamageDisplayCoro(attackRemainder));
+                target.UpdateHP(-attackRemainder);
+            }
 
             var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
             var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
             yield return (combatMovementInstance.MoveCombatantFixedTime(target.gameObject, stepBackPos, combatantAttacking.moveSelected.attackPushStrength, isReversing: true));
             Destroy(combatMovementInstanceGO);
+            yield break;
         }
+
+        animator.Play("FendDeflect", 0, 0);
 
         float elapsedTime = 0f;
         float lerpDuration = 0.5f;
@@ -74,19 +80,24 @@ public class FendScript : MonoBehaviour
 
         while (elapsedTime < lerpDuration && target.fendTotal > 0)
         {
-            // Calculate the interpolation factor between 0 and 1 based on the elapsed time and duration
             float t = Mathf.Clamp01(elapsedTime / lerpDuration);
 
-            // Lerp between the start and end values
             target.fendTotal = Mathf.RoundToInt(Mathf.Lerp(startNumber, endValue, t));
             fendTextMeshProUGUI.text = target.fendTotal.ToString();
 
-            // Increment the elapsed time
             elapsedTime += Time.deltaTime;
 
             if (target.fendTotal == 0)
             {
-                FendBreached();
+                animator.Play("FendBreak", 0, 0);
+                fendTextMeshProUGUI.text = "";
+                if (attackRemainder > 0)
+                {
+                    StartCoroutine(target.combatantUI.damageTakenDisplay.ShowDamageDisplayCoro(attackRemainder));
+                    target.UpdateHP(-attackRemainder);
+                }
+
+                target.fendDisplayOn = false;
                 yield return new WaitForSeconds(0.2f);
 
                 var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
@@ -94,21 +105,7 @@ public class FendScript : MonoBehaviour
                 yield return (combatMovementInstance.MoveCombatantFixedTime(target.gameObject, stepBackPos, combatantAttacking.moveSelected.attackPushStrength, isReversing: true));
                 Destroy(combatMovementInstanceGO);
             }
-
             yield return null;
-        }
-        animator.Play("FendFade", 0, 0);
-        Debug.Log("ticker off");
-    }
-
-    void FendBreached()
-    {
-        animator.Play("FendBreak", 0, 0);
-        fendTextMeshProUGUI.text = "";
-        if (attackRemainder > 0)
-        {
-            StartCoroutine(target.combatantUI.damageTakenDisplay.ShowDamageDisplayCoro(attackRemainder));
-            target.UpdateHP(-attackRemainder);
         }
     }
 }

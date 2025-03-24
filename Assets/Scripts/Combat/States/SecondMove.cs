@@ -13,7 +13,7 @@ public class SecondMove : State
         combatManager.combatMenuManager.ChangeMenuState(combatManager.combatMenuManager.secondMoveMenu);
 
         combatManager.combatMenuManager.secondMenuFirstButton.Select();
-        combatManager.playerMoveManager.secondMoveIs = 0;
+        combatManager.playerCombat.playerMoveManager.secondMoveIs = 0;
 
         yield break;
     }
@@ -28,9 +28,8 @@ public class SecondMove : State
 
     public override void CombatOptionSelected(int moveValue) //triggered via Button
     {
-        combatManager.playerMoveManager.secondMoveIs = moveValue;
-
-        combatManager.playerMoveManager.CombineStanceAndMove();
+        combatManager.playerCombat.playerMoveManager.secondMoveIs = moveValue;
+        combatManager.playerCombat.playerMoveManager.CombineStanceAndMove();
 
         if (combatManager.playerCombat.moveSelected.attackMoveModPercent > 0)
         {
