@@ -9,7 +9,6 @@ public class MenuGear : Menu
 {
     [SerializeField] Button firstButtonToSelect;
     public PlayerInventory playerInventory;
-    [SerializeField] EquippedGear equippedGear;
     public GameObject itemDescriptionGO;
     public InventorySlot[] inventorySlot;
 
@@ -19,7 +18,6 @@ public class MenuGear : Menu
         itemDescriptionGO.SetActive(false);
         var player = GameObject.Find("Player");
         playerInventory = player.GetComponentInChildren<PlayerInventory>();
-        equippedGear = player.GetComponentInChildren<EquippedGear>();
 
         DisableAllSlots();
 

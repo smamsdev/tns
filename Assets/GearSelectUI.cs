@@ -8,10 +8,10 @@ using UnityEngine.UI;
 public class GearSelectUI : MonoBehaviour
 {
     public Button gearSlot1Button;
-    [SerializeField] EquippedGear equippedGear;
-
+    [SerializeField] CombatManager combatManager;
     public Button[] buttonsToDisable;
     [SerializeField] GameObject firstMoveContainer;
+    PlayerInventory playerInventory;
 
     int gearToBeEquipped;
     public TextMeshProUGUI[] gearSlotDisplay;
@@ -28,15 +28,17 @@ public class GearSelectUI : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < equippedGear.equippedSlot.Length; i++)
-        {
-            if (equippedGear.equippedSlot[i] != null)
-            {
-                gearSlotDisplay[i].text = equippedGear.equippedSlot[i].name;
-            }
+        playerInventory = combatManager.player.GetComponentInChildren<PlayerInventory>();
 
-            else gearSlotDisplay[i].text = "Slot Free";
-        }
+      //  for (int i = 0; i < playerInventory.equippedSlot.equippedSlot.Length; i++)
+      //  {
+      //      if (equippedGear.equippedSlot[i] != null)
+      //      {
+      //          gearSlotDisplay[i].text = equippedGear.equippedSlot[i].name;
+      //      }
+      //
+      //      else gearSlotDisplay[i].text = "Slot Free";
+      //  }
     }
 
     public void ShowGearSelectionMenu()
@@ -65,12 +67,12 @@ public class GearSelectUI : MonoBehaviour
 
     void ButtonHighlighted(int gearSlot)
     {
-        if (equippedGear.equippedSlot[gearSlot] != null)
-        {
-            CombatEvents.UpdateNarrator(equippedGear.equippedSlot[gearSlot].GetComponent<Gear>().gearDescription);
-        }
-
-        CombatEvents.UpdateNarrator("Select Item");
+      //  if (equippedGear.equippedSlot[gearSlot] != null)
+      //  {
+      //      CombatEvents.UpdateNarrator(equippedGear.equippedSlot[gearSlot].GetComponent<Gear>().gearDescription);
+      //  }
+      //
+      //  CombatEvents.UpdateNarrator("Select Item");
     }
 }
 
