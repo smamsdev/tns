@@ -23,9 +23,8 @@ public class SceneFader : MonoBehaviour
         CombatEvents.LockPlayerMovement();
 
         if (!remainFadedDownOnSceneLoad)
-
         {
-            faderAnimator.SetBool("start", true);
+            faderAnimator.SetBool("start", true); //end of animation contains an event to invoke UnlockMovement(), this will probably backfire at some point
         }
     }
 
@@ -40,9 +39,10 @@ public class SceneFader : MonoBehaviour
         CombatEvents.LockPlayerMovement();
     }
 
-    public void UnlockMovement()
+    public void StartScene() //triggered via fadein animation event
 
     { 
-    CombatEvents.UnlockPlayerMovement();
+        CombatEvents.UnlockPlayerMovement();
+        FieldEvents.StartScene();
     }
 }

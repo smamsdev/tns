@@ -37,9 +37,11 @@ public class menuMain : Menu
         menuGO.SetActive(true);
         animator.SetBool("Open", true);
         firstMenuButton.Select(); // Ihandler uses this to trigger DisplayMenu method
-        CombatEvents.LockPlayerMovement();
+
         menuSave.UpdateSaveSlotUI();
         smamsValue.text = $"{playerPermanentStats.smams}";
+
+        StartCoroutine(LockMovementAfterDelay());
     }
 
     IEnumerator CloseMenuAnimation()
@@ -83,5 +85,11 @@ public class menuMain : Menu
             if (!isMenuOn && FieldEvents.movementLocked) return;
             ToggleMainMenu(!isMenuOn);
         }
+    }
+
+    IEnumerator LockMovementAfterDelay()
+    {
+        yield return new WaitForSeconds(.75f);
+        CombatEvents.LockPlayerMovement();
     }
 }

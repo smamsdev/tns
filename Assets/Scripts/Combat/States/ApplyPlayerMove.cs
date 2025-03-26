@@ -1,20 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ApplyPlayerMove : State
 {
     [SerializeField] CombatManager combatManager;
+    PlayerCombat player;
 
     public override IEnumerator StartState()
     {
         combatManager.combatMenuManager.DisableMenuState();
 
         //get a bunch of refs...
-        var player = combatManager.playerCombat;
-        var playerMovementScript = player.GetComponent<PlayerMovementScript>();
-        var playerAnimator = playerMovementScript.animator;
-        var playerLookDirection = playerMovementScript.lookDirection;
+        player = combatManager.playerCombat;
+
 
         foreach (Ally ally in combatManager.allies)
         {
@@ -23,6 +23,27 @@ public class ApplyPlayerMove : State
             ally.combatantUI.fendScript.ShowFendDisplay(ally, false);
         }
 
+        if (player.moveSelected.applyMoveToSelfOnly)
+        {
+            yield return ApplyMoveToSelf();
+        }
+
+        else
+        {
+            yield return ApplyMoveToEnemy();
+        }
+
+        combatManager.SetState(combatManager.enemyMoveState);
+        yield return null;
+    }
+
+    IEnumerator ApplyMoveToSelf()
+    {
+        yield return player.moveSelected.ApplyMove(player, player.targetToAttack);
+    }
+
+    IEnumerator ApplyMoveToEnemy()
+    {
         //Disable other combatant UI elements
         foreach (Enemy enemy in combatManager.enemies)
         {
@@ -33,6 +54,9 @@ public class ApplyPlayerMove : State
                 enemy.combatantUI.statsDisplay.ShowStatsDisplay(false);
             }
         }
+
+        var playerMovementScript = player.GetComponent<PlayerMovementScript>();
+        var playerLookDirection = playerMovementScript.lookDirection;
 
         //store enemy target look dir
         var enemyTargetMovementScript = player.targetToAttack.GetComponent<MovementScript>();
@@ -80,8 +104,5 @@ public class ApplyPlayerMove : State
             Debug.Log("player defeated");
             yield break;
         }
-
-        combatManager.SetState(combatManager.enemyMoveState);
-        yield return null;
     }
 }

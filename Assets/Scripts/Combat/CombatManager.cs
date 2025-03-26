@@ -48,6 +48,8 @@ public class CombatManager : MonoBehaviour
 
     public void StartBattle()
     {
+        CombatEvents.LockPlayerMovement.Invoke();
+
         player = GameObject.FindGameObjectWithTag("Player");
         playerCombat = player.GetComponentInChildren<PlayerCombat>();
 

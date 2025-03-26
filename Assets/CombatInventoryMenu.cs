@@ -11,13 +11,16 @@ public class CombatInventoryMenu : MonoBehaviour
     public GearSelectUI gearSelectUI;
     [SerializeField] GameObject inventoryMenu;
     [SerializeField] Button inventorySlotOne;
-    public int combatGearSlotSelected;
+
     public int InventorySlotNumberSelected;
     public Gear geartoEquip;
-    [SerializeField] CautiousBasic equipGearMove; //just a generic move for the narrator and combat manager to process.>WTFFFFF
+
     public InventorySlot[] inventorySlot;
 
     public GearEquipSlot[] gearEquipSlot;
+    public GearEquipSlot combatGearSlotSelected;
+
+    [SerializeField] Move equipGearMove; //player needs a move assigned to complete their turn, can put a nice animation in here maybe
 
     private void Start()
     {
@@ -38,7 +41,7 @@ public class CombatInventoryMenu : MonoBehaviour
 
         for (int i = 0; i < playerInventory.inventorySO.equipSlotString.Count; i++)
 
-            if (playerInventory.equippedSlots[i] == null)
+            if (playerInventory.equippedSlot[i] == null)
             {
                 gearEquipSlot[i].buttonTMP.text = "GEAR SLOT EMPTY";
                 gearEquipSlot[i].gameObject.SetActive(true);
@@ -46,7 +49,7 @@ public class CombatInventoryMenu : MonoBehaviour
 
             else
             {
-                Gear gearToLoad = playerInventory.equippedSlots[i].GetComponent<Gear>();
+                Gear gearToLoad = playerInventory.equippedSlot[i].GetComponent<Gear>();
                 gearEquipSlot[i].gearEquipped = gearToLoad;
                 gearEquipSlot[i].buttonTMP.text = gearToLoad.gearID;
                 gearEquipSlot[i].gameObject.SetActive(true);
@@ -54,15 +57,21 @@ public class CombatInventoryMenu : MonoBehaviour
     }
 
     public void GearSlotSelected(GearEquipSlot gearEquipSlot)
-
     {
-        //combatGearSlotSelected = gearSlot;
+        combatGearSlotSelected = gearEquipSlot;
         StartCoroutine(ShowMenuCoroutine(0.1f));
         CombatEvents.UpdateNarrator.Invoke("");
     }
 
     IEnumerator ShowMenuCoroutine(float waitTime)
     {
+        playerInventory.LoadInventoryFromSO();
+
+        foreach (InventorySlot inventorySlot in inventorySlot)
+        {
+            inventorySlot.gameObject.SetActive(false);
+        }
+
         inventoryMenu.SetActive(true);
 
         yield return new WaitForSeconds(waitTime);
@@ -73,21 +82,23 @@ public class CombatInventoryMenu : MonoBehaviour
             Gear gearToLoad = playerInventory.inventory[i];
             inventorySlot[i].gear = gearToLoad;
             inventorySlot[i].itemName.text = gearToLoad.gearID;
-            inventorySlot[i].itemQuantity.text = gearToLoad.quantityInInventory.ToString();
+            inventorySlot[i].itemQuantity.text = " x " + gearToLoad.quantityInInventory.ToString();
+            inventorySlot[i].gameObject.SetActive(true);
         }
 
         inventorySlotOne.Select();
     }
 
-    // public void equipSelectedGear()
-    // {
-    //     InventorySlotNumberSelected = int.Parse(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
-    //
-    //     //equippedGear.equippedSlot[combatGearSlotSelected] = inventorySlot[InventorySlotNumberSelected].gear;
-    //     gearSelectUI.UpdateGearDisplay(combatGearSlotSelected, inventorySlot[InventorySlotNumberSelected].gear.name);
-    //     combatManager.playerCombat.moveSelected = equipGearMove;
-    //
-    //     combatManager.SetState(combatManager.applyMove);
-    // }
+    public void equipSelectedGear(InventorySlot inventorySlot)
+    {
+        combatGearSlotSelected.gearEquipped = inventorySlot.gear;
+        playerInventory.inventorySO.inventoryString.Remove(inventorySlot.gear.name);
+        playerInventory.inventorySO.equipSlotString[combatGearSlotSelected.equipSlotNumber] = inventorySlot.gear.name;
+        playerInventory.equippedSlot[combatGearSlotSelected.equipSlotNumber] = inventorySlot.gear;
+        gearSelectUI.UpdateGearDisplay(combatGearSlotSelected);
+        combatManager.playerCombat.moveSelected = equipGearMove;
+        inventoryMenu.SetActive(false);
+        combatManager.SetState(combatManager.applyMove);
+    }
 }
 

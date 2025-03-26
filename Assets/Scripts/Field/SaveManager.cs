@@ -21,7 +21,7 @@ public class SaveManager : MonoBehaviour
 
     private void Start()
     {
-        permanentStatsSO = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<PlayerCombat>().playerPermanentStats;
+        permanentStatsSO = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>().playerPermanentStats;
     }
 
     IEnumerator SelectSlotToSaveCoRo(int slotNumber)

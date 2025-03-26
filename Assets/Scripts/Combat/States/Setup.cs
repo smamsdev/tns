@@ -119,7 +119,6 @@ public class Setup : State
         combatManager.playerCombat.fightingPosition = combatManager.battleScheme.playerFightingPosition;
         CombatEvents.BattleMode?.Invoke(true);
         CombatEvents.isBattleMode = true;
-        CombatEvents.LockPlayerMovement.Invoke();
         FieldEvents.isCameraFollow = false;
     }
 

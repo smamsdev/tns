@@ -9,6 +9,7 @@ public class GearEquipSlot : MonoBehaviour, ISelectHandler
     public Gear gearEquipped;
     public Button button;
     public TextMeshProUGUI buttonTMP;
+    public int equipSlotNumber;
 
     public void OnSelect(BaseEventData eventData)
     {

@@ -10,6 +10,7 @@ public static class FieldEvents
     public static Action<GameObject> HasCompleted;
 
     public static Action SceneChanging;
+    public static Action StartScene;
 
     public static Action<Enemy> UpdateXP;
     public static Action<RaycastHit2D> PlayerRayCastHit;
@@ -17,18 +18,16 @@ public static class FieldEvents
     public static bool isCameraFollow = true;
     public static bool isCoolDownBool;
     public static bool isDialogueActive;
-
     public static bool isSequenceRunning;
+
     public static bool movementLocked;
 
-    public static bool freshScene;
     public static Vector3 entryCoordinates;
 
     public static float movementSpeedMultiplier;
     public static bool isMovementSpeedMultiplier;
 
-    public static float horizontalInputToSave;
-
+    //Stats for saving
     public static string duration;
     public static string sceneName;
 

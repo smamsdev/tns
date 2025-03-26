@@ -19,7 +19,8 @@ public abstract class Move : MonoBehaviour
     public float animtionIntTriggerToUse = 0;
 
     public float targetPositionHorizontalOffset;
-    public bool targetIsSelf;
+    public bool offsetFromSelf;
+    public bool applyMoveToSelfOnly;
 
     [HideInInspector] public CombatManager combatManager;
 
@@ -48,7 +49,7 @@ public abstract class Move : MonoBehaviour
         Vector3 direction = (combatant.targetToAttack.transform.position - combatant.transform.position).normalized;
         float attackDirX = Mathf.Sign(direction.x);
 
-        if (targetIsSelf)
+        if (offsetFromSelf)
         {
             targetPosition = new Vector3(combatant.transform.position.x + (targetPositionHorizontalOffset * attackDirX),
                                          combatant.transform.position.y);
@@ -77,23 +78,38 @@ public abstract class Move : MonoBehaviour
 
     public virtual IEnumerator ApplyMove(Combatant combatantToAct, Combatant targetCombatant)
     {
-        CombatEvents.UpdateNarrator(moveName);
-        yield return MoveToPosition(combatantToAct.gameObject, combatantToAct.moveSelected.AttackPositionLocation(combatantToAct));
-
-        combatManager.cameraFollow.transformToFollow = targetCombatant.transform;
-        targetCombatant.combatantUI.fendScript.ApplyAttackToFend(combatantToAct, combatantToAct.targetToAttack);
-
-        //start animation
         Animator combatantToActAnimator = combatantToAct.GetComponent<Animator>();
-        combatantToActAnimator.SetFloat("MoveAnimationToUse", animtionIntTriggerToUse);
-        combatantToActAnimator.SetTrigger("Attack");
-        yield return new WaitForSeconds(0.2f);
 
-        //return combatantToAct to fightingpos, and return look direct
-        yield return ReturnFromPosition(combatantToAct.gameObject, combatantToAct.fightingPosition.transform.position);
-        combatantToActAnimator.SetTrigger("CombatIdle"); //remember to blend the transition in animator settings or it will wiggle
+        if (applyMoveToSelfOnly)
+        {
+            CombatEvents.UpdateNarrator(moveName);
+            combatantToActAnimator.SetFloat("MoveAnimationToUse", animtionIntTriggerToUse);
+            combatantToActAnimator.SetTrigger("Attack");
+            yield return new WaitForSeconds(0.5f);
+            combatantToActAnimator.SetTrigger("CombatIdle"); //remember to blend the transition in animator settings or it will wiggle
+            CombatEvents.UpdateNarrator("");
+        }
 
-        //reset narrator
-        CombatEvents.UpdateNarrator("");
+        else 
+        {
+            CombatEvents.UpdateNarrator(moveName);
+            yield return MoveToPosition(combatantToAct.gameObject, combatantToAct.moveSelected.AttackPositionLocation(combatantToAct));
+
+            combatManager.cameraFollow.transformToFollow = targetCombatant.transform;
+            targetCombatant.combatantUI.fendScript.ApplyAttackToFend(combatantToAct, combatantToAct.targetToAttack);
+
+            //start animation
+
+            combatantToActAnimator.SetFloat("MoveAnimationToUse", animtionIntTriggerToUse);
+            combatantToActAnimator.SetTrigger("Attack");
+            yield return new WaitForSeconds(0.2f);
+
+            //return combatantToAct to fightingpos, and return look direct
+            yield return ReturnFromPosition(combatantToAct.gameObject, combatantToAct.fightingPosition.transform.position);
+            combatantToActAnimator.SetTrigger("CombatIdle"); //remember to blend the transition in animator settings or it will wiggle
+
+            //reset narrator
+            CombatEvents.UpdateNarrator("");
+        }
     }
 }

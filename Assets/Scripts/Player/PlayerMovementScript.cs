@@ -10,12 +10,12 @@ public class PlayerMovementScript : MovementScript
     public Rigidbody2D playerRigidBody2d;
     public Vector2 newPosition;
     public Vector2 previousPosition;
+    public bool movementLocked;
 
     private void OnEnable()
     {
         CombatEvents.LockPlayerMovement += LockPlayerMovement;
         CombatEvents.UnlockPlayerMovement += UnlockPlayerMovement;
-        FieldEvents.movementLocked = false;
     }
 
     private void OnDisable()
@@ -126,21 +126,21 @@ public class PlayerMovementScript : MovementScript
     }
 
     public void LockPlayerMovement()
-
     {
         FieldEvents.movementLocked = true;
         horizontalInput = 0;
         verticalInput = 0;
+        movementLocked = FieldEvents.movementLocked;
 
         //Debug.Log("locked");
     }
 
     public void UnlockPlayerMovement()
-
     {
         if (!FieldEvents.isDialogueActive)
         {
             FieldEvents.movementLocked = false;
+            movementLocked = FieldEvents.movementLocked;
 
             //Debug.Log("unlocked");
         }

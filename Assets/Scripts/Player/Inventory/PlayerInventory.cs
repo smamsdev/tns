@@ -7,7 +7,7 @@ public class PlayerInventory : MonoBehaviour
     public InventorySO inventorySO;
     public Transform GearParent;
     public List<Gear> inventory = new List<Gear>();
-    public List <Gear> equippedSlots = new List<Gear>();
+    public List <Gear> equippedSlot = new List<Gear>();
 
     private void Start()
     {
@@ -53,14 +53,14 @@ public class PlayerInventory : MonoBehaviour
 
     public void LoadEquippedSlotsFromSO()
     {
-        equippedSlots.Clear();
+        equippedSlot.Clear();
 
         for (int i = 0; i < inventorySO.equipSlotString.Count; i++)
         {
             if (inventorySO.equipSlotString[i] == "")
 
             {
-                equippedSlots.Add(null);
+                equippedSlot.Add(null);
             }
 
 
@@ -72,7 +72,7 @@ public class PlayerInventory : MonoBehaviour
                 {
                     Gear gearToLoad = gearTransform.GetComponent<Gear>();
 
-                    equippedSlots.Add(gearToLoad);
+                    equippedSlot.Add(gearToLoad);
                 }
                 else
                 {

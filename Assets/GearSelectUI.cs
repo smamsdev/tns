@@ -50,9 +50,9 @@ public class GearSelectUI : MonoBehaviour
         //wtf is this
     }
 
-    public void UpdateGearDisplay(int gearSlotToUpdate, string newlyEquippedGear)
+    public void UpdateGearDisplay(GearEquipSlot gearEquipSlotToUpdate)
     {
-        gearSlotDisplay[gearSlotToUpdate].text = newlyEquippedGear;
+        gearEquipSlotToUpdate.buttonTMP.text = gearEquipSlotToUpdate.gearEquipped.gearID;
         EnableFirstMoveButtons();
     }
 
