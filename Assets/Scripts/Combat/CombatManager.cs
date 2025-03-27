@@ -27,7 +27,7 @@ public class CombatManager : MonoBehaviour
     public RoundReset roundReset;
     public Victory victory;
     public Defeat defeat;
-    public GearSelect gearSelect;
+    public GearSelectState gearSelectState;
 
     [Header("Misc")]
     public GameObject combatMovementPrefab;

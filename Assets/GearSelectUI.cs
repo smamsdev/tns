@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class GearSelectUI : MonoBehaviour
 {
-    public Button gearSlot1Button;
     [SerializeField] CombatManager combatManager;
     public Button[] buttonsToDisable;
     [SerializeField] GameObject firstMoveContainer;
@@ -50,20 +49,6 @@ public class GearSelectUI : MonoBehaviour
         //wtf is this
     }
 
-    public void UpdateGearDisplay(GearEquipSlot gearEquipSlotToUpdate)
-    {
-        gearEquipSlotToUpdate.buttonTMP.text = gearEquipSlotToUpdate.gearEquipped.gearID;
-        EnableFirstMoveButtons();
-    }
-
-    public void EnableFirstMoveButtons()
-    {
-        for (int i = 0; i < buttonsToDisable.Length; i++)
-        {
-            buttonsToDisable[i].interactable = true;
-        }
-
-    }
 
     void ButtonHighlighted(int gearSlot)
     {

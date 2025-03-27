@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot : MonoBehaviour, ISelectHandler
 {
     public Gear gear;
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI itemQuantity;
 
-    public void DisplayInventoryItemDescription()
+    public virtual void OnSelect(BaseEventData eventData)
 
     {
-        CombatEvents.UpdateNarrator(gear.gearDescription);
+        Debug.Log("remember to add some menu display update logic here pls");
     }
 }

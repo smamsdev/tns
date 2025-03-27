@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     public InventorySO inventorySO;
-    public Transform GearParent;
     public List<Gear> inventory = new List<Gear>();
     public List <Gear> equippedSlot = new List<Gear>();
+
+    public Transform GearParent;
 
     private void Start()
     {
@@ -80,5 +81,32 @@ public class PlayerInventory : MonoBehaviour
                 }
             }   
         }
+    }
+
+    public void AddGearToInventory(Gear gear)
+    {
+        inventorySO.inventoryString.Add(gear.name);
+        inventorySO.inventoryString.Sort();
+        inventory.Add(gear);
+    }
+
+    public void RemoveGearFromInventory(Gear gear)
+    {
+        inventorySO.inventoryString.Remove(gear.name);
+        inventory.Remove(gear);
+    }
+
+    public void EquipGearToSlot(Gear gearToEquip, int slotNumber)
+    {
+        inventorySO.equipSlotString[slotNumber] = gearToEquip.name;
+        equippedSlot[slotNumber] = gearToEquip;
+    }
+
+    public void UnequipGearFromSlot(Gear gearToUnequip, int slotNumber)
+    {
+        inventorySO.equipSlotString[slotNumber] = null;
+        equippedSlot[slotNumber] = null;
+
+        AddGearToInventory(gearToUnequip);
     }
 }

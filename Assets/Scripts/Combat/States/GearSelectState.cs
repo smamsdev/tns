@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class GearSelect : State
+public class GearSelectState : State
 {
     [SerializeField] CombatManager combatManager;
+    [SerializeField] GearSelectMenu gearSelectMenu;
     [SerializeField] GearSelectUI gearSelectUI;
 
     bool inventoryMenuEnabled;
@@ -13,7 +14,7 @@ public class GearSelect : State
     public override IEnumerator StartState()
     {
         combatManager.combatMenuManager.ChangeMenuState(combatManager.combatMenuManager.GearSelectMenu);
-        gearSelectUI.gearSlot1Button.Select();
+        gearSelectMenu.DisplayEquipSlots();
 
         yield break;
     }
@@ -32,18 +33,26 @@ public class GearSelect : State
             if (inventoryMenuEnabled) 
             {
                 StartCoroutine(FieldEvents.CoolDown(0.2f));
-                combatManager.SetState(combatManager.gearSelect);
-                inventoryMenuEnabled = false;
+                ResetStateGearSelect();
+
             }
 
             if (!inventoryMenuEnabled && !FieldEvents.isCooldown())
             {
-                combatManager.SetState(combatManager.firstMove);
-                CombatEvents.UpdateNarrator("");
-                gearSelectUI.EnableFirstMoveButtons();
+                RevertState();
             }
         }
-
     }
 
+    public void ResetStateGearSelect()
+    {
+        combatManager.SetState(combatManager.gearSelectState);
+        inventoryMenuEnabled = false;
+    }
+
+    void RevertState()
+    {
+        combatManager.SetState(combatManager.firstMove);
+        CombatEvents.UpdateNarrator("");
+    }
 }

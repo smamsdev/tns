@@ -332,8 +332,7 @@ GameObject:
   - component: {fileID: 49919116}
   - component: {fileID: 49919120}
   - component: {fileID: 49919119}
-  - component: {fileID: 49919118}
-  - component: {fileID: 49919117}
+  - component: {fileID: 49919121}
   m_Layer: 0
   m_Name: 11
   m_TagString: Untagged
@@ -362,33 +361,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &49919117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 49919115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ef53f274f6af74084f51ac5d33048a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &49919118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 49919115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9afcda8d41d02941bc0763e7b13df4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gear: {fileID: 0}
-  itemName: {fileID: 2088324947}
-  itemQuantity: {fileID: 883157588}
 --- !u!114 &49919119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,7 +410,7 @@ MonoBehaviour:
         m_MethodName: equipSelectedGear
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 49919118}
+          m_ObjectArgument: {fileID: 49919121}
           m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -465,6 +437,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 49919115}
   m_CullTransparentMesh: 1
+--- !u!114 &49919121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49919115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81813169f1311a148b16218e8a5b9802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gear: {fileID: 0}
+  itemName: {fileID: 2088324947}
+  itemQuantity: {fileID: 883157588}
 --- !u!1 &85978145
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,8 +736,7 @@ GameObject:
   - component: {fileID: 136457623}
   - component: {fileID: 136457627}
   - component: {fileID: 136457626}
-  - component: {fileID: 136457625}
-  - component: {fileID: 136457624}
+  - component: {fileID: 136457628}
   m_Layer: 0
   m_Name: 3
   m_TagString: Untagged
@@ -779,33 +765,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &136457624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 136457622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ef53f274f6af74084f51ac5d33048a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &136457625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 136457622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9afcda8d41d02941bc0763e7b13df4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gear: {fileID: 0}
-  itemName: {fileID: 1416896490}
-  itemQuantity: {fileID: 1073418366}
 --- !u!114 &136457626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -855,7 +814,7 @@ MonoBehaviour:
         m_MethodName: equipSelectedGear
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 136457625}
+          m_ObjectArgument: {fileID: 136457628}
           m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -882,6 +841,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 136457622}
   m_CullTransparentMesh: 1
+--- !u!114 &136457628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136457622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81813169f1311a148b16218e8a5b9802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gear: {fileID: 0}
+  itemName: {fileID: 1416896490}
+  itemQuantity: {fileID: 1073418366}
 --- !u!1 &136554332
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,7 +1119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gearID: Test
-  gearDescription: 
+  gearDescription: A Test
   isEquipment: 0
   isCurrentlyEquipped: 0
   quantityInInventory: 0
@@ -1161,8 +1135,7 @@ GameObject:
   - component: {fileID: 176009872}
   - component: {fileID: 176009876}
   - component: {fileID: 176009875}
-  - component: {fileID: 176009874}
-  - component: {fileID: 176009873}
+  - component: {fileID: 176009877}
   m_Layer: 0
   m_Name: 10
   m_TagString: Untagged
@@ -1191,33 +1164,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &176009873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 176009871}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ef53f274f6af74084f51ac5d33048a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &176009874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 176009871}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9afcda8d41d02941bc0763e7b13df4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gear: {fileID: 0}
-  itemName: {fileID: 1011380626}
-  itemQuantity: {fileID: 387115100}
 --- !u!114 &176009875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1236,7 +1182,7 @@ MonoBehaviour:
     m_SelectOnUp: {fileID: 1168366534}
     m_SelectOnDown: {fileID: 1747859971}
     m_SelectOnLeft: {fileID: 973365170}
-    m_SelectOnRight: {fileID: 49919119}
+    m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0.53333336}
@@ -1267,7 +1213,7 @@ MonoBehaviour:
         m_MethodName: equipSelectedGear
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 176009874}
+          m_ObjectArgument: {fileID: 176009877}
           m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -1294,6 +1240,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 176009871}
   m_CullTransparentMesh: 1
+--- !u!114 &176009877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176009871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81813169f1311a148b16218e8a5b9802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gear: {fileID: 0}
+  itemName: {fileID: 1011380626}
+  itemQuantity: {fileID: 387115100}
 --- !u!1 &192401773
 GameObject:
   m_ObjectHideFlags: 0
@@ -1388,6 +1349,56 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &247539240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 247539241}
+  - component: {fileID: 247539242}
+  m_Layer: 0
+  m_Name: Tester
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &247539241
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247539240}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1068269342}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &247539242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247539240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b7d873576be86d4bbb095bee1f85b4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gearID: Test
+  gearDescription: a big tester
+  isEquipment: 0
+  isCurrentlyEquipped: 0
+  quantityInInventory: 0
+  value: 0
 --- !u!1 &270766187
 GameObject:
   m_ObjectHideFlags: 0
@@ -2826,6 +2837,14 @@ PrefabInstance:
       propertyPath: equippedSlot.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4236748913608316867, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: gearDescription
+      value: A shiny vest
+      objectReference: {fileID: 0}
+    - target: {fileID: 4236748914086035609, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: gearDescription
+      value: weighted vesterr
+      objectReference: {fileID: 0}
     - target: {fileID: 5690664268955463731, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: moveWeighting
       value: 5
@@ -2916,6 +2935,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4236748915391052461, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 175904232}
+    - targetCorrespondingSourceObject: {fileID: 4236748915391052461, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 247539241}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
 --- !u!1 &531590773
@@ -3185,8 +3207,7 @@ GameObject:
   - component: {fileID: 657962326}
   - component: {fileID: 657962330}
   - component: {fileID: 657962329}
-  - component: {fileID: 657962328}
-  - component: {fileID: 657962327}
+  - component: {fileID: 657962331}
   m_Layer: 0
   m_Name: 6
   m_TagString: Untagged
@@ -3215,33 +3236,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &657962327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 657962325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ef53f274f6af74084f51ac5d33048a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &657962328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 657962325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9afcda8d41d02941bc0763e7b13df4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gear: {fileID: 0}
-  itemName: {fileID: 1396591098}
-  itemQuantity: {fileID: 1657343138}
 --- !u!114 &657962329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3291,7 +3285,7 @@ MonoBehaviour:
         m_MethodName: equipSelectedGear
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 657962328}
+          m_ObjectArgument: {fileID: 657962331}
           m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -3318,6 +3312,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 657962325}
   m_CullTransparentMesh: 1
+--- !u!114 &657962331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657962325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81813169f1311a148b16218e8a5b9802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gear: {fileID: 0}
+  itemName: {fileID: 1396591098}
+  itemQuantity: {fileID: 1657343138}
 --- !u!1 &666684351
 GameObject:
   m_ObjectHideFlags: 0
@@ -4423,8 +4432,7 @@ GameObject:
   - component: {fileID: 973365167}
   - component: {fileID: 973365171}
   - component: {fileID: 973365170}
-  - component: {fileID: 973365169}
-  - component: {fileID: 973365168}
+  - component: {fileID: 973365172}
   m_Layer: 0
   m_Name: 9
   m_TagString: Untagged
@@ -4453,33 +4461,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &973365168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 973365166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ef53f274f6af74084f51ac5d33048a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &973365169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 973365166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9afcda8d41d02941bc0763e7b13df4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gear: {fileID: 0}
-  itemName: {fileID: 1170174586}
-  itemQuantity: {fileID: 1173291689}
 --- !u!114 &973365170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4497,7 +4478,7 @@ MonoBehaviour:
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 657962329}
     m_SelectOnDown: {fileID: 6823575384371917625}
-    m_SelectOnLeft: {fileID: 49919119}
+    m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 176009875}
   m_Transition: 1
   m_Colors:
@@ -4529,7 +4510,7 @@ MonoBehaviour:
         m_MethodName: equipSelectedGear
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 973365169}
+          m_ObjectArgument: {fileID: 973365172}
           m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -4556,6 +4537,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 973365166}
   m_CullTransparentMesh: 1
+--- !u!114 &973365172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973365166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81813169f1311a148b16218e8a5b9802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gear: {fileID: 0}
+  itemName: {fileID: 1170174586}
+  itemQuantity: {fileID: 1173291689}
 --- !u!1 &1011380624
 GameObject:
   m_ObjectHideFlags: 0
@@ -5331,7 +5327,7 @@ GameObject:
   - component: {fileID: 1140751805}
   - component: {fileID: 1140751804}
   - component: {fileID: 1140751803}
-  - component: {fileID: 1140751802}
+  - component: {fileID: 1140751806}
   m_Layer: 0
   m_Name: 4
   m_TagString: Untagged
@@ -5358,22 +5354,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1140751802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1140751800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfca99dd2ff12e744be738dc0f222333, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gearEquipped: {fileID: 0}
-  button: {fileID: 1140751803}
-  buttonTMP: {fileID: 1140751804}
-  equipSlotNumber: 4
 --- !u!114 &1140751803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5387,7 +5367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 4
+    m_Mode: 2
     m_WrapAround: 1
     m_SelectOnUp: {fileID: 5869771640474232960}
     m_SelectOnDown: {fileID: 1015886348279055351}
@@ -5397,7 +5377,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0.69803923}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_PressedColor: {r: 0.92549026, g: 0.09411766, b: 0.74509805, a: 1}
+    m_PressedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -5423,7 +5403,7 @@ MonoBehaviour:
         m_MethodName: GearSlotSelected
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1140751802}
+          m_ObjectArgument: {fileID: 1140751806}
           m_ObjectArgumentAssemblyTypeName: GearEquipSlot, Assembly-CSharp
           m_IntArgument: 2
           m_FloatArgument: 0
@@ -5541,6 +5521,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1140751800}
   m_CullTransparentMesh: 1
+--- !u!114 &1140751806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140751800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c66f39262dbb17469cb0c85d6a19b31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gearEquipped: {fileID: 0}
+  buttonTMP: {fileID: 1140751804}
+  equipSlotNumber: 4
 --- !u!1 &1158189807
 GameObject:
   m_ObjectHideFlags: 0
@@ -5605,8 +5600,7 @@ GameObject:
   - component: {fileID: 1168366531}
   - component: {fileID: 1168366535}
   - component: {fileID: 1168366534}
-  - component: {fileID: 1168366533}
-  - component: {fileID: 1168366532}
+  - component: {fileID: 1168366536}
   m_Layer: 0
   m_Name: 7
   m_TagString: Untagged
@@ -5635,33 +5629,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1168366532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1168366530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ef53f274f6af74084f51ac5d33048a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1168366533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1168366530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9afcda8d41d02941bc0763e7b13df4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gear: {fileID: 0}
-  itemName: {fileID: 1214743363}
-  itemQuantity: {fileID: 1178529568}
 --- !u!114 &1168366534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5711,7 +5678,7 @@ MonoBehaviour:
         m_MethodName: equipSelectedGear
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1168366533}
+          m_ObjectArgument: {fileID: 1168366536}
           m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -5738,6 +5705,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1168366530}
   m_CullTransparentMesh: 1
+--- !u!114 &1168366536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1168366530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81813169f1311a148b16218e8a5b9802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gear: {fileID: 0}
+  itemName: {fileID: 1214743363}
+  itemQuantity: {fileID: 1178529568}
 --- !u!1 &1170174584
 GameObject:
   m_ObjectHideFlags: 0
@@ -7366,8 +7348,7 @@ GameObject:
   - component: {fileID: 1583293013}
   - component: {fileID: 1583293017}
   - component: {fileID: 1583293016}
-  - component: {fileID: 1583293015}
-  - component: {fileID: 1583293014}
+  - component: {fileID: 1583293018}
   m_Layer: 0
   m_Name: 8
   m_TagString: Untagged
@@ -7396,33 +7377,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1583293014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1583293012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ef53f274f6af74084f51ac5d33048a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1583293015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1583293012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9afcda8d41d02941bc0763e7b13df4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gear: {fileID: 0}
-  itemName: {fileID: 1615700121}
-  itemQuantity: {fileID: 1560964013}
 --- !u!114 &1583293016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7439,7 +7393,7 @@ MonoBehaviour:
     m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 2001160747}
-    m_SelectOnDown: {fileID: 49919119}
+    m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 1168366534}
     m_SelectOnRight: {fileID: 657962329}
   m_Transition: 1
@@ -7472,7 +7426,7 @@ MonoBehaviour:
         m_MethodName: equipSelectedGear
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1583293015}
+          m_ObjectArgument: {fileID: 1583293018}
           m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -7499,6 +7453,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1583293012}
   m_CullTransparentMesh: 1
+--- !u!114 &1583293018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583293012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81813169f1311a148b16218e8a5b9802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gear: {fileID: 0}
+  itemName: {fileID: 1615700121}
+  itemQuantity: {fileID: 1560964013}
 --- !u!1 &1615700119
 GameObject:
   m_ObjectHideFlags: 0
@@ -8067,8 +8036,7 @@ GameObject:
   - component: {fileID: 1747859968}
   - component: {fileID: 1747859972}
   - component: {fileID: 1747859971}
-  - component: {fileID: 1747859970}
-  - component: {fileID: 1747859969}
+  - component: {fileID: 1747859973}
   m_Layer: 0
   m_Name: 1
   m_TagString: Untagged
@@ -8097,33 +8065,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1747859969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1747859967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ef53f274f6af74084f51ac5d33048a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1747859970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1747859967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9afcda8d41d02941bc0763e7b13df4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gear: {fileID: 0}
-  itemName: {fileID: 136554334}
-  itemQuantity: {fileID: 1939329912}
 --- !u!114 &1747859971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8173,7 +8114,7 @@ MonoBehaviour:
         m_MethodName: equipSelectedGear
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1747859970}
+          m_ObjectArgument: {fileID: 1747859973}
           m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -8200,6 +8141,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1747859967}
   m_CullTransparentMesh: 1
+--- !u!114 &1747859973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1747859967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81813169f1311a148b16218e8a5b9802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gear: {fileID: 0}
+  itemName: {fileID: 136554334}
+  itemQuantity: {fileID: 1939329912}
 --- !u!1 &1779704056
 GameObject:
   m_ObjectHideFlags: 0
@@ -8256,8 +8212,7 @@ GameObject:
   - component: {fileID: 1782582582}
   - component: {fileID: 1782582586}
   - component: {fileID: 1782582585}
-  - component: {fileID: 1782582584}
-  - component: {fileID: 1782582583}
+  - component: {fileID: 1782582587}
   m_Layer: 0
   m_Name: 2
   m_TagString: Untagged
@@ -8286,33 +8241,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1782582583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1782582581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ef53f274f6af74084f51ac5d33048a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1782582584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1782582581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9afcda8d41d02941bc0763e7b13df4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gear: {fileID: 0}
-  itemName: {fileID: 507497031}
-  itemQuantity: {fileID: 2040548863}
 --- !u!114 &1782582585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8328,7 +8256,7 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 49919119}
+    m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 2001160747}
     m_SelectOnLeft: {fileID: 1747859971}
     m_SelectOnRight: {fileID: 6823575384371917625}
@@ -8362,7 +8290,7 @@ MonoBehaviour:
         m_MethodName: equipSelectedGear
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1782582584}
+          m_ObjectArgument: {fileID: 1782582587}
           m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -8389,6 +8317,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1782582581}
   m_CullTransparentMesh: 1
+--- !u!114 &1782582587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782582581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81813169f1311a148b16218e8a5b9802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gear: {fileID: 0}
+  itemName: {fileID: 507497031}
+  itemQuantity: {fileID: 2040548863}
 --- !u!1 &1827349435
 GameObject:
   m_ObjectHideFlags: 0
@@ -8955,8 +8898,7 @@ GameObject:
   - component: {fileID: 1914727022}
   - component: {fileID: 1914727026}
   - component: {fileID: 1914727025}
-  - component: {fileID: 1914727024}
-  - component: {fileID: 1914727023}
+  - component: {fileID: 1914727027}
   m_Layer: 0
   m_Name: 4
   m_TagString: Untagged
@@ -8985,33 +8927,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1914727023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1914727021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ef53f274f6af74084f51ac5d33048a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1914727024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1914727021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9afcda8d41d02941bc0763e7b13df4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gear: {fileID: 0}
-  itemName: {fileID: 429433412}
-  itemQuantity: {fileID: 1832965257}
 --- !u!114 &1914727025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9061,7 +8976,7 @@ MonoBehaviour:
         m_MethodName: equipSelectedGear
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1914727024}
+          m_ObjectArgument: {fileID: 1914727027}
           m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -9088,6 +9003,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1914727021}
   m_CullTransparentMesh: 1
+--- !u!114 &1914727027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914727021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81813169f1311a148b16218e8a5b9802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gear: {fileID: 0}
+  itemName: {fileID: 429433412}
+  itemQuantity: {fileID: 1832965257}
 --- !u!1 &1915072930
 GameObject:
   m_ObjectHideFlags: 0
@@ -9781,8 +9711,7 @@ GameObject:
   - component: {fileID: 2001160744}
   - component: {fileID: 2001160748}
   - component: {fileID: 2001160747}
-  - component: {fileID: 2001160746}
-  - component: {fileID: 2001160745}
+  - component: {fileID: 2001160749}
   m_Layer: 0
   m_Name: 5
   m_TagString: Untagged
@@ -9811,33 +9740,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2001160745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2001160743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ef53f274f6af74084f51ac5d33048a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2001160746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2001160743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9afcda8d41d02941bc0763e7b13df4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gear: {fileID: 0}
-  itemName: {fileID: 1452783750}
-  itemQuantity: {fileID: 2089879484}
 --- !u!114 &2001160747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9887,7 +9789,7 @@ MonoBehaviour:
         m_MethodName: equipSelectedGear
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 2001160746}
+          m_ObjectArgument: {fileID: 2001160749}
           m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -9914,6 +9816,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2001160743}
   m_CullTransparentMesh: 1
+--- !u!114 &2001160749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001160743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81813169f1311a148b16218e8a5b9802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gear: {fileID: 0}
+  itemName: {fileID: 1452783750}
+  itemQuantity: {fileID: 2089879484}
 --- !u!1 &2009535202
 GameObject:
   m_ObjectHideFlags: 0
@@ -10168,7 +10085,7 @@ GameObject:
   - component: {fileID: 2085777915}
   - component: {fileID: 2085777914}
   - component: {fileID: 2085777913}
-  - component: {fileID: 2085777912}
+  - component: {fileID: 2085777916}
   m_Layer: 0
   m_Name: 3
   m_TagString: Untagged
@@ -10195,22 +10112,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2085777912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2085777910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfca99dd2ff12e744be738dc0f222333, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gearEquipped: {fileID: 0}
-  button: {fileID: 2085777913}
-  buttonTMP: {fileID: 2085777914}
-  equipSlotNumber: 3
 --- !u!114 &2085777913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10224,7 +10125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 4
+    m_Mode: 2
     m_WrapAround: 1
     m_SelectOnUp: {fileID: 5869771640474232960}
     m_SelectOnDown: {fileID: 1015886348279055351}
@@ -10234,7 +10135,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0.69803923}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_PressedColor: {r: 0.92549026, g: 0.09411766, b: 0.74509805, a: 1}
+    m_PressedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -10260,7 +10161,7 @@ MonoBehaviour:
         m_MethodName: GearSlotSelected
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 2085777912}
+          m_ObjectArgument: {fileID: 2085777916}
           m_ObjectArgumentAssemblyTypeName: GearEquipSlot, Assembly-CSharp
           m_IntArgument: 2
           m_FloatArgument: 0
@@ -10378,6 +10279,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2085777910}
   m_CullTransparentMesh: 1
+--- !u!114 &2085777916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085777910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c66f39262dbb17469cb0c85d6a19b31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gearEquipped: {fileID: 0}
+  buttonTMP: {fileID: 2085777914}
+  equipSlotNumber: 3
 --- !u!1 &2088324945
 GameObject:
   m_ObjectHideFlags: 0
@@ -10850,18 +10766,6 @@ RectTransform:
   m_AnchoredPosition: {x: 125, y: -127.5}
   m_SizeDelta: {x: 173.6, y: 40.4}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &250946357415557158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5808531167994635639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ef53f274f6af74084f51ac5d33048a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &255076082603901775
 GameObject:
   m_ObjectHideFlags: 0
@@ -10874,7 +10778,7 @@ GameObject:
   - component: {fileID: 2964657597456186138}
   - component: {fileID: 1053615384744689567}
   - component: {fileID: 5869771640474232960}
-  - component: {fileID: 4407997388420265938}
+  - component: {fileID: 5869771640474232961}
   m_Layer: 0
   m_Name: 1
   m_TagString: Untagged
@@ -11247,22 +11151,6 @@ RectTransform:
   m_AnchoredPosition: {x: 509.25012, y: -550}
   m_SizeDelta: {x: 500, y: 255}
   m_Pivot: {x: 0, y: 0.5}
---- !u!114 &653566310139450227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2832785731651365292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfca99dd2ff12e744be738dc0f222333, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gearEquipped: {fileID: 0}
-  button: {fileID: 1015886348279055351}
-  buttonTMP: {fileID: 3157806367510988301}
-  equipSlotNumber: 0
 --- !u!114 &658378267357526632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11517,7 +11405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 4
+    m_Mode: 2
     m_WrapAround: 1
     m_SelectOnUp: {fileID: 4683031058461956504}
     m_SelectOnDown: {fileID: 5869771640474232960}
@@ -11527,7 +11415,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0.69803923}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_PressedColor: {r: 0.92549026, g: 0.09411766, b: 0.74509805, a: 1}
+    m_PressedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -11553,7 +11441,7 @@ MonoBehaviour:
         m_MethodName: GearSlotSelected
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 653566310139450227}
+          m_ObjectArgument: {fileID: 5194898440331163671}
           m_ObjectArgumentAssemblyTypeName: GearEquipSlot, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -11592,7 +11480,7 @@ MonoBehaviour:
   attackTargetMenu: {fileID: 5395822237424586208}
   GearSelectMenu: {fileID: 3199309145678408439}
   selectEnemyMenuScript: {fileID: 8029610473328767499}
-  combatInventoryMenuScript: {fileID: 6036588194928467085}
+  combatInventoryMenuScript: {fileID: 0}
   firstMenuFirstButton: {fileID: 5271737198208264589}
   secondMenuFirstButton: {fileID: 6953349579751689886}
   thirdMenuFirstButton: {fileID: 8757456014613137255}
@@ -11896,22 +11784,6 @@ RectTransform:
   m_AnchoredPosition: {x: -648.6, y: -550}
   m_SizeDelta: {x: -2310, y: -1185}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1243865530328836020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4301629000790075773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfca99dd2ff12e744be738dc0f222333, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gearEquipped: {fileID: 0}
-  button: {fileID: 4683031058461956504}
-  buttonTMP: {fileID: 5924248944672424929}
-  equipSlotNumber: 2
 --- !u!224 &1270324702669330453
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13467,7 +13339,7 @@ GameObject:
   - component: {fileID: 5194898440331163670}
   - component: {fileID: 3157806367510988301}
   - component: {fileID: 1015886348279055351}
-  - component: {fileID: 653566310139450227}
+  - component: {fileID: 5194898440331163671}
   m_Layer: 0
   m_Name: 0
   m_TagString: Untagged
@@ -14820,7 +14692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e43d134004a1c74aabb500080e79541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gearSlot1Button: {fileID: 1015886348279055351}
   combatManager: {fileID: 6223408871517900232}
   buttonsToDisable:
   - {fileID: 5271737198208264589}
@@ -15083,7 +14954,7 @@ GameObject:
   - component: {fileID: 6503308206647652165}
   - component: {fileID: 5924248944672424929}
   - component: {fileID: 4683031058461956504}
-  - component: {fileID: 1243865530328836020}
+  - component: {fileID: 6503308206647652166}
   m_Layer: 0
   m_Name: 2
   m_TagString: Untagged
@@ -15184,22 +15055,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &4407997388420265938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 255076082603901775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfca99dd2ff12e744be738dc0f222333, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gearEquipped: {fileID: 0}
-  button: {fileID: 5869771640474232960}
-  buttonTMP: {fileID: 1053615384744689567}
-  equipSlotNumber: 1
 --- !u!1 &4423172199229842925
 GameObject:
   m_ObjectHideFlags: 0
@@ -15317,7 +15172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 4
+    m_Mode: 2
     m_WrapAround: 1
     m_SelectOnUp: {fileID: 5869771640474232960}
     m_SelectOnDown: {fileID: 1015886348279055351}
@@ -15327,7 +15182,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0.69803923}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_PressedColor: {r: 0.92549026, g: 0.09411766, b: 0.74509805, a: 1}
+    m_PressedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -15353,7 +15208,7 @@ MonoBehaviour:
         m_MethodName: GearSlotSelected
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1243865530328836020}
+          m_ObjectArgument: {fileID: 6503308206647652166}
           m_ObjectArgumentAssemblyTypeName: GearEquipSlot, Assembly-CSharp
           m_IntArgument: 2
           m_FloatArgument: 0
@@ -15607,21 +15462,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &5083441582506737896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5808531167994635639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9afcda8d41d02941bc0763e7b13df4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gear: {fileID: 0}
-  itemName: {fileID: 7849022386606412918}
-  itemQuantity: {fileID: 1931306598}
 --- !u!223 &5105549272901473450
 Canvas:
   m_ObjectHideFlags: 0
@@ -15755,6 +15595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 6223408871517900232}
+  gearSelectMenu: {fileID: 6036588194928467085}
   gearSelectUI: {fileID: 4080982945815671358}
 --- !u!1 &5163216973112859222
 GameObject:
@@ -15799,6 +15640,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2832785731651365292}
   m_CullTransparentMesh: 1
+--- !u!114 &5194898440331163671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2832785731651365292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c66f39262dbb17469cb0c85d6a19b31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gearEquipped: {fileID: 0}
+  buttonTMP: {fileID: 3157806367510988301}
+  equipSlotNumber: 0
 --- !u!222 &5212117430121918038
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16076,7 +15932,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6811531464376747726}
-  - component: {fileID: 7209162652881965670}
   m_Layer: 0
   m_Name: InventoryMenu
   m_TagString: Untagged
@@ -16244,10 +16099,8 @@ GameObject:
   - component: {fileID: 9179320190495156333}
   - component: {fileID: 2247004355312291819}
   - component: {fileID: 6823575384371917625}
-  - component: {fileID: 5083441582506737896}
-  - component: {fileID: 250946357415557158}
   m_Layer: 0
-  m_Name: 0
+  m_Name: 0 (None)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16352,8 +16205,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 4
-    m_WrapAround: 0
+    m_Mode: 2
+    m_WrapAround: 1
     m_SelectOnUp: {fileID: 1015886348279055351}
     m_SelectOnDown: {fileID: 4683031058461956504}
     m_SelectOnLeft: {fileID: 0}
@@ -16362,7 +16215,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0.69803923}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_PressedColor: {r: 0.92549026, g: 0.09411766, b: 0.74509805, a: 1}
+    m_PressedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -16388,7 +16241,7 @@ MonoBehaviour:
         m_MethodName: GearSlotSelected
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 4407997388420265938}
+          m_ObjectArgument: {fileID: 5869771640474232961}
           m_ObjectArgumentAssemblyTypeName: GearEquipSlot, Assembly-CSharp
           m_IntArgument: 1
           m_FloatArgument: 0
@@ -16407,6 +16260,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &5869771640474232961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255076082603901775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c66f39262dbb17469cb0c85d6a19b31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gearEquipped: {fileID: 0}
+  buttonTMP: {fileID: 1053615384744689567}
+  equipSlotNumber: 1
 --- !u!1 &5870432396072699853
 GameObject:
   m_ObjectHideFlags: 0
@@ -16576,30 +16444,29 @@ MonoBehaviour:
   combatManager: {fileID: 6223408871517900232}
   playerInventory: {fileID: 0}
   gearSelectUI: {fileID: 4080982945815671358}
+  gearSelectState: {fileID: 5159866126678968651}
   inventoryMenu: {fileID: 5556139341999073795}
-  inventorySlotOne: {fileID: 6823575384371917625}
+  equipNoneOption: {fileID: 6823575384371917625}
   InventorySlotNumberSelected: 0
-  geartoEquip: {fileID: 0}
   inventorySlot:
-  - {fileID: 5083441582506737896}
-  - {fileID: 1747859970}
-  - {fileID: 1782582584}
-  - {fileID: 136457625}
-  - {fileID: 1914727024}
-  - {fileID: 2001160746}
-  - {fileID: 657962328}
-  - {fileID: 1168366533}
-  - {fileID: 1583293015}
-  - {fileID: 973365169}
-  - {fileID: 176009874}
-  - {fileID: 49919118}
+  - {fileID: 1747859973}
+  - {fileID: 1782582587}
+  - {fileID: 136457628}
+  - {fileID: 1914727027}
+  - {fileID: 2001160749}
+  - {fileID: 657962331}
+  - {fileID: 1168366536}
+  - {fileID: 1583293018}
+  - {fileID: 973365172}
+  - {fileID: 176009877}
+  - {fileID: 49919121}
   gearEquipSlot:
-  - {fileID: 653566310139450227}
-  - {fileID: 4407997388420265938}
-  - {fileID: 1243865530328836020}
-  - {fileID: 2085777912}
-  - {fileID: 1140751802}
-  combatGearSlotSelected: {fileID: 0}
+  - {fileID: 5194898440331163671}
+  - {fileID: 5869771640474232961}
+  - {fileID: 6503308206647652166}
+  - {fileID: 2085777916}
+  - {fileID: 1140751806}
+  gearEquipSlotSelected: {fileID: 0}
   equipGearMove: {fileID: 935739762}
 --- !u!114 &6097862618505134102
 MonoBehaviour:
@@ -16716,7 +16583,7 @@ MonoBehaviour:
   roundReset: {fileID: 5380174773063887752}
   victory: {fileID: 1123217750906331976}
   defeat: {fileID: 2152667997897086222}
-  gearSelect: {fileID: 5159866126678968651}
+  gearSelectState: {fileID: 5159866126678968651}
   combatMovementPrefab: {fileID: 4589934564278126355, guid: e36457b4fa252f0468a0e2e36dcdc00a, type: 3}
   cameraFollow: {fileID: 1298093478}
   combatMenuManager: {fileID: 1016123177946810541}
@@ -16878,7 +16745,7 @@ GameObject:
   - component: {fileID: 7369538178053130212}
   - component: {fileID: 5159866126678968651}
   m_Layer: 0
-  m_Name: GearSelect
+  m_Name: GearSelectState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16924,6 +16791,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4301629000790075773}
   m_CullTransparentMesh: 1
+--- !u!114 &6503308206647652166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4301629000790075773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c66f39262dbb17469cb0c85d6a19b31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gearEquipped: {fileID: 0}
+  buttonTMP: {fileID: 5924248944672424929}
+  equipSlotNumber: 2
 --- !u!224 &6515919645835265475
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17233,12 +17115,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6036588194928467085}
-        m_TargetAssemblyTypeName: CombatInventoryMenu, Assembly-CSharp
-        m_MethodName: equipSelectedGear
-        m_Mode: 2
+        m_TargetAssemblyTypeName: GearSelectMenu, Assembly-CSharp
+        m_MethodName: equipNone
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 5083441582506737896}
-          m_ObjectArgumentAssemblyTypeName: InventorySlot, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -17517,19 +17399,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
---- !u!114 &7209162652881965670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5556139341999073795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c9775f9746d8ba40bbfeec4c6d17236, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  combatInventoryMenu: {fileID: 6036588194928467085}
 --- !u!224 &7220697237312794377
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18223,7 +18092,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: NONE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 649e90157f87b334a8e0857cad166b68, type: 2}
   m_sharedMaterial: {fileID: 6935995173413385345, guid: 649e90157f87b334a8e0857cad166b68, type: 2}
