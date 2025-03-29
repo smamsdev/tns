@@ -6,14 +6,13 @@ public class PlayerInventory : MonoBehaviour
 {
     public InventorySO inventorySO;
     public List<Gear> inventory = new List<Gear>();
-    public List <Gear> equippedSlot = new List<Gear>();
+    public List <Gear> equippedInventory = new List<Gear>();
 
     public Transform GearParent;
 
     private void Start()
     {
         LoadInventoryFromSO();
-        LoadEquippedSlotsFromSO();
     }
 
     private void SaveInventory()
@@ -37,6 +36,7 @@ public class PlayerInventory : MonoBehaviour
             if (gearTransform != null)
             {
                 Gear gearToLoad = gearTransform.GetComponent<Gear>();
+                gearToLoad.isCurrentlyEquipped = false;
                 gearToLoad.quantityInInventory++;
 
                 if (!inventory.Contains(gearToLoad))
@@ -50,36 +50,26 @@ public class PlayerInventory : MonoBehaviour
                 Debug.LogWarning("Gear not found in scene: " + inventorySO.inventoryString[i]);
             }
         }
+
+        LoadEquippedSlotsFromSO();
     }
 
     public void LoadEquippedSlotsFromSO()
     {
-        equippedSlot.Clear();
+        equippedInventory.Clear();
 
-        for (int i = 0; i < inventorySO.equipSlotString.Count; i++)
+        foreach (string inventoryString in inventorySO.equipSlotString)
         {
-            if (inventorySO.equipSlotString[i] == "")
-
+            if (string.IsNullOrEmpty(inventoryString))
             {
-                equippedSlot.Add(null);
+                equippedInventory.Add(null);
+                continue;
             }
 
-
-            else
-            {
-                Transform gearTransform = GearParent.Find(inventorySO.equipSlotString[i]);
-
-                if (gearTransform != null)
-                {
-                    Gear gearToLoad = gearTransform.GetComponent<Gear>();
-
-                    equippedSlot.Add(gearToLoad);
-                }
-                else
-                {
-                    Debug.LogWarning("Gear not found in scene: " + inventorySO.inventoryString[i]);
-                }
-            }   
+            Transform gearTransform = GearParent.Find(inventoryString);
+            Gear gearToLoad = gearTransform.GetComponent<Gear>();
+            gearToLoad.isCurrentlyEquipped = true;
+            equippedInventory.Add(gearToLoad);
         }
     }
 
@@ -88,6 +78,7 @@ public class PlayerInventory : MonoBehaviour
         inventorySO.inventoryString.Add(gear.name);
         inventorySO.inventoryString.Sort();
         inventory.Add(gear);
+        gear.quantityInInventory++;
     }
 
     public void RemoveGearFromInventory(Gear gear)
@@ -98,15 +89,23 @@ public class PlayerInventory : MonoBehaviour
 
     public void EquipGearToSlot(Gear gearToEquip, int slotNumber)
     {
+        if (equippedInventory[slotNumber] != null)
+        {
+            UnequipGearFromSlot(equippedInventory[slotNumber], slotNumber);
+        }
+
+        gearToEquip.isCurrentlyEquipped = true;
+        gearToEquip.quantityInInventory--;
         inventorySO.equipSlotString[slotNumber] = gearToEquip.name;
-        equippedSlot[slotNumber] = gearToEquip;
+        equippedInventory[slotNumber] = gearToEquip;
     }
 
     public void UnequipGearFromSlot(Gear gearToUnequip, int slotNumber)
     {
         inventorySO.equipSlotString[slotNumber] = null;
-        equippedSlot[slotNumber] = null;
+        equippedInventory[slotNumber] = null;
 
+        gearToUnequip.isCurrentlyEquipped = false;
         AddGearToInventory(gearToUnequip);
     }
 }

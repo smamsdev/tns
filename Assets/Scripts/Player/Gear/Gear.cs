@@ -4,12 +4,11 @@ using UnityEngine;
 
 public abstract class Gear : MonoBehaviour
 {
-
     public string gearID;
     [TextArea(2, 5)] public string gearDescription;
-    public bool isEquipment;
     public bool isCurrentlyEquipped;
     public int quantityInInventory;
+    public bool isConsumable;
     public int value;
 
     public virtual void ApplyAttackGear()

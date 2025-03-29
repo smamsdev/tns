@@ -68,21 +68,14 @@ public class MenuMoves : Menu
                 slots[i].textMeshProUGUI.text = $"Slot {i + 1}: {moveArray[i].moveName}";
 
                 // Set alpha of the TextMeshProUGUI element based on whether the move is a flaw
-                SetTextAlpha(slots[i].textMeshProUGUI, slots[i].move.isFlaw ? 0.7f : 1f);
+                menuManagerUI.SetTextAlpha(slots[i].textMeshProUGUI, slots[i].move.isFlaw ? 0.5f : 1f);
             }
             else
             {
                 slots[i].textMeshProUGUI.text = $"Slot {i + 1}: Empty";
-                SetTextAlpha(slots[i].textMeshProUGUI, 1f); // Default alpha for empty slots
+                menuManagerUI.SetTextAlpha(slots[i].textMeshProUGUI, 1f); // Default alpha for empty slots
             }
         }
-    }
-
-    private void SetTextAlpha(TextMeshProUGUI textMeshProUGUI, float alpha)
-    {
-        Color color = textMeshProUGUI.color;
-        color.a = alpha;
-        textMeshProUGUI.color = color;
     }
 
     public void LoadAllMoveLists()

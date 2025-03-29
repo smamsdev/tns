@@ -50,10 +50,10 @@ public class ShopBuyMenu : ShopMenu
 
     void DisableAllSlots()
     {
-       for (int i = 0; i < inventorySlot.Length; i++)
-       {
-           inventorySlot[i].gameObject.SetActive(false);
-       }
+        for (int i = 0; i < inventorySlot.Length; i++)
+        {
+            inventorySlot[i].gameObject.SetActive(false);
+        }
     }
 
     public override void EnterMenu()

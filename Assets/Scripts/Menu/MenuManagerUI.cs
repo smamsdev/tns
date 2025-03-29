@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class MenuManagerUI : MonoBehaviour
 {
-    public Menu statsPage, gearPage, movesPage, configPage, savePage, exitPage, main;
+    public Menu statsPage, gearPage, gearEquipPage, movesPage, configPage, savePage, exitPage, main;
     [Header("")]
     public Menu menuUpdateMethod;
     public TextMeshProUGUI descriptionFieldTMP;
@@ -19,11 +19,12 @@ public class MenuManagerUI : MonoBehaviour
         menuUpdateMethod = main;
     }
 
-    public void DisplayMenu(Menu menuScript)
+    public void DisplayMenu(Menu menuScript) //used by main buttons onSelect to display currently highlighted
     {
         statsPage.DisplayMenu(false);
         gearPage.DisplayMenu(false);
         movesPage.DisplayMenu(false);
+        gearEquipPage.DisplayMenu(false);
         //configPage.DisplayMenu(false);
         savePage.DisplayMenu(false);
         exitPage.DisplayMenu(false);
@@ -46,19 +47,32 @@ public class MenuManagerUI : MonoBehaviour
         menuUpdateMethod.StateUpdate();
     }
 
-    public void UpdateDescriptionField(string text, bool isEquipment)
+    public void UpdateGearDescriptionField(Gear gear)
     {
-        descriptionFieldTMP.text = text;
-
-        if (!isEquipment)
+        if (!gear.isConsumable)
         {
             itemTypeTMP.text = "Equipment";
         }
-
+        
         else
         {
             itemTypeTMP.text = "Consumable";
         }
+        
+        if (gear.isCurrentlyEquipped)
+        {
+            descriptionFieldTMP.text = "Currently Equipped.\n" + gear.gearDescription;
+        }
+        else
+        {
+            descriptionFieldTMP.text = gear.gearDescription;
+        }
+    }
 
+    public void SetTextAlpha(TextMeshProUGUI textMeshProUGUI, float alpha)
+    {
+        Color color = textMeshProUGUI.color;
+        color.a = alpha;
+        textMeshProUGUI.color = color;
     }
 }

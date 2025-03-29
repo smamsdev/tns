@@ -12,9 +12,7 @@ public class MenuSlotSelect : Menu
     public MenuMoveType menuMoveTypeScript;
     public GameObject moveSlotGOHighlighted;
     public MenuMoveInventory menuMoveInventory;
-
     public TextMeshProUGUI movePropertyTMP;
-
     public IMenuMoveStyleHighlighted iMenuMoveStyleHighlighted;
 
     private void OnEnable()

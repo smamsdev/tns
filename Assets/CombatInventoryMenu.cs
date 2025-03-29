@@ -27,7 +27,7 @@ public class CombatInventoryMenu : MonoBehaviour
 
         for (int i = 0; i < playerInventory.inventorySO.equipSlotString.Count; i++)
 
-            if (playerInventory.equippedSlot[i] == null)
+            if (playerInventory.equippedInventory[i] == null)
             {
                 gearEquipSlot[i].buttonTMP.text = "GEAR SLOT EMPTY";
                 gearEquipSlot[i].gameObject.SetActive(true);
@@ -35,7 +35,7 @@ public class CombatInventoryMenu : MonoBehaviour
 
             else
             {
-                Gear gearToLoad = playerInventory.equippedSlot[i].GetComponent<Gear>();
+                Gear gearToLoad = playerInventory.equippedInventory[i].GetComponent<Gear>();
                 gearEquipSlot[i].gearEquipped = gearToLoad;
                 gearEquipSlot[i].buttonTMP.text = gearToLoad.gearID;
                 gearEquipSlot[i].gameObject.SetActive(true);
@@ -68,7 +68,12 @@ public class CombatInventoryMenu : MonoBehaviour
             Gear gearToLoad = playerInventory.inventory[i];
             inventorySlot[i].gear = gearToLoad;
             inventorySlot[i].itemName.text = gearToLoad.gearID;
-            inventorySlot[i].itemQuantity.text = " x " + gearToLoad.quantityInInventory.ToString();
+
+            inventorySlot[i].gear = gearToLoad;
+            inventorySlot[i].itemName.text = gearToLoad.gearID;
+            inventorySlot[i].itemQuantity.text = " x " + gearToLoad.quantityInInventory;
+            inventorySlot[i].gameObject.SetActive(true);
+
             inventorySlot[i].gameObject.SetActive(true);
         }
 
