@@ -4,14 +4,9 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class GearEquipSlot : MonoBehaviour, ISelectHandler
+public class GearEquipSlot : MonoBehaviour
 {
     public Gear gearEquipped;
     public TextMeshProUGUI buttonTMP;
     public int equipSlotNumber;
-
-    public virtual void OnSelect(BaseEventData eventData)
-    {
-        Debug.Log("implement something here");
-    }
 }

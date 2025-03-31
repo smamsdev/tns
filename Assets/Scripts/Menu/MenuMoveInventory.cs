@@ -48,7 +48,6 @@ public class MenuMoveInventory : Menu
     }
 
     public void ChangeMenuToRevertTo(Menu _menuToRevertTo)
-
     { 
         menuToRevertTo = _menuToRevertTo;
     }
@@ -76,17 +75,17 @@ public class MenuMoveInventory : Menu
             {
                 menuMoveInventorySlots[i].gameObject.SetActive(true);
                 menuMoveInventorySlots[i].move = moveTypeInventoryToDisplay[i];
-                menuMoveInventorySlots[i].textMeshProUGUI.text = moveTypeInventoryToDisplay[i].moveName;
+                menuMoveInventorySlots[i].slotText.text = moveTypeInventoryToDisplay[i].moveName;
 
-                Color currentColor = menuMoveInventorySlots[i].textMeshProUGUI.color; 
+                Color currentColor = menuMoveInventorySlots[i].slotText.color; 
                 currentColor.a = 1f;
-                menuMoveInventorySlots[i].textMeshProUGUI.color = currentColor;
+                menuMoveInventorySlots[i].slotText.color = currentColor;
 
                 if (menuMoveInventorySlots[i].move.isEquipped)
                 {
-                    currentColor = menuMoveInventorySlots[i].textMeshProUGUI.color; 
+                    currentColor = menuMoveInventorySlots[i].slotText.color; 
                     currentColor.a = 0.7f; 
-                    menuMoveInventorySlots[i].textMeshProUGUI.color = currentColor;
+                    menuMoveInventorySlots[i].slotText.color = currentColor;
                 }
 
             }
@@ -95,11 +94,6 @@ public class MenuMoveInventory : Menu
                 menuMoveInventorySlots[i].gameObject.SetActive(false);
             }
         }
-    }
-
-    public void MoveSlotToEquipTo(MoveSlot moveSlot)
-    {
-        moveSlotToEquipTo = moveSlot;
     }
 
     public void EquipMoveFromInventoryToSlot(MoveSlot moveInventorySlot)
@@ -113,7 +107,7 @@ public class MenuMoveInventory : Menu
 
             moveSlotToEquipTo.move = moveInventorySlot.move;
             moveInventorySlot.move.isEquipped = true;
-            moveSlotToEquipTo.textMeshProUGUI.text = "Slot " + (int.Parse(moveSlotToEquipTo.name) + 1) + ": " + moveInventorySlot.move.moveName;
+            moveSlotToEquipTo.slotText.text = "Slot " + (int.Parse(moveSlotToEquipTo.name) + 1) + ": " + moveInventorySlot.move.moveName;
             stringArrayToUpdateInSO[int.Parse(moveSlotToEquipTo.name)] = moveInventorySlot.move.moveName;
             playerMoveManager.LoadEquippedMoveListFromSO();
 

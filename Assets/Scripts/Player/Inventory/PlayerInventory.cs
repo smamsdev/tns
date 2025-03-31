@@ -58,8 +58,10 @@ public class PlayerInventory : MonoBehaviour
     {
         equippedInventory.Clear();
 
-        foreach (string inventoryString in inventorySO.equipSlotString)
+        for (int i = 0; i < inventorySO.equipSlotString.Count; i++)
         {
+            string inventoryString = inventorySO.equipSlotString[i];
+
             if (string.IsNullOrEmpty(inventoryString))
             {
                 equippedInventory.Add(null);
@@ -69,6 +71,7 @@ public class PlayerInventory : MonoBehaviour
             Transform gearTransform = GearParent.Find(inventoryString);
             Gear gearToLoad = gearTransform.GetComponent<Gear>();
             gearToLoad.isCurrentlyEquipped = true;
+            gearToLoad.equipSlotNumber = i;
             equippedInventory.Add(gearToLoad);
         }
     }
@@ -76,36 +79,35 @@ public class PlayerInventory : MonoBehaviour
     public void AddGearToInventory(Gear gear)
     {
         inventorySO.inventoryString.Add(gear.name);
-        inventorySO.inventoryString.Sort();
-        inventory.Add(gear);
-        gear.quantityInInventory++;
+        LoadInventoryFromSO();
     }
 
     public void RemoveGearFromInventory(Gear gear)
     {
         inventorySO.inventoryString.Remove(gear.name);
-        inventory.Remove(gear);
+        LoadInventoryFromSO();
     }
 
-    public void EquipGearToSlot(Gear gearToEquip, int slotNumber)
+    public void EquipGearToSlot(Gear gearToEquip, int equipSlotNumber)
     {
-        if (equippedInventory[slotNumber] != null)
+        if (equippedInventory[equipSlotNumber] != null)
         {
-            UnequipGearFromSlot(equippedInventory[slotNumber], slotNumber);
+            UnequipGearFromSlot(equippedInventory[equipSlotNumber]);
         }
 
         gearToEquip.isCurrentlyEquipped = true;
-        gearToEquip.quantityInInventory--;
-        inventorySO.equipSlotString[slotNumber] = gearToEquip.name;
-        equippedInventory[slotNumber] = gearToEquip;
+        gearToEquip.equipSlotNumber = equipSlotNumber;
+        inventorySO.equipSlotString[equipSlotNumber] = gearToEquip.name;
+        equippedInventory[equipSlotNumber] = gearToEquip;
+
+        LoadEquippedSlotsFromSO();
     }
 
-    public void UnequipGearFromSlot(Gear gearToUnequip, int slotNumber)
+    public void UnequipGearFromSlot(Gear gearToUnequip)
     {
-        inventorySO.equipSlotString[slotNumber] = null;
-        equippedInventory[slotNumber] = null;
-
+        inventorySO.equipSlotString[gearToUnequip.equipSlotNumber] = null;
         gearToUnequip.isCurrentlyEquipped = false;
-        AddGearToInventory(gearToUnequip);
+        gearToUnequip.equipSlotNumber = -1;
+        LoadEquippedSlotsFromSO();
     }
 }

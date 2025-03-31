@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class CombatGearEquipSlot : GearEquipSlot
 {
-    public override void OnSelect(BaseEventData eventData)
+    public void OnSelect(BaseEventData eventData)
     {
         if (gearEquipped != null)
         {

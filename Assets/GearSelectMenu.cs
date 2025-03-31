@@ -105,7 +105,7 @@ public class GearSelectMenu : MonoBehaviour
 
         else
         {
-            playerInventory.UnequipGearFromSlot(gearEquipSlotSelected.gearEquipped, gearEquipSlotSelected.equipSlotNumber);
+            playerInventory.UnequipGearFromSlot(gearEquipSlotSelected.gearEquipped);
             gearEquipSlotSelected.gearEquipped = null;
             ApplyGearSelected();
         }
@@ -117,12 +117,10 @@ public class GearSelectMenu : MonoBehaviour
 
         if (gearEquipSlotSelected.gearEquipped != null)
         {
-            playerInventory.UnequipGearFromSlot(gearEquipSlotSelected.gearEquipped, gearEquipSlotSelected.equipSlotNumber);
+            playerInventory.UnequipGearFromSlot(gearEquipSlotSelected.gearEquipped);
         }
 
-        playerInventory.RemoveGearFromInventory(geartoEquip);
         playerInventory.EquipGearToSlot(geartoEquip, gearEquipSlotSelected.equipSlotNumber);
-
         ApplyGearSelected();
     }
 

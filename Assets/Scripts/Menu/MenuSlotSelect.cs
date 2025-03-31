@@ -10,32 +10,14 @@ public class MenuSlotSelect : Menu
     public Button firstButtonToHighlight;
     public Color colourForSelectedParent;
     public MenuMoveType menuMoveTypeScript;
-    public GameObject moveSlotGOHighlighted;
+    public MoveSlot moveSlotHighlighted;
     public MenuMoveInventory menuMoveInventory;
-    public TextMeshProUGUI movePropertyTMP;
     public IMenuMoveStyleHighlighted iMenuMoveStyleHighlighted;
-
-    private void OnEnable()
-    {
-        movePropertyTMP.text = "";
-    }
-
-    public void SlotSelected()
-    {
-        var moveSlotSelected = menuMoveInventory.moveSlotToEquipTo.GetComponent<MoveSlot>();
-        var move = moveSlotSelected.move;
-
-        if (move == null || !move.isFlaw)
-        {
-            menuManagerUI.EnterSubMenu(menuMoveInventory);
-        }
-    }
 
     public override void DisplayMenu(bool on)
     {
         throw new System.NotImplementedException();
     }
-
 
     public void ToggleHighlightMenu(bool isOn)
 
@@ -45,15 +27,19 @@ public class MenuSlotSelect : Menu
 
     public override void EnterMenu()
     {
-        ToggleHighlightMenu(false); //have to toggle this damn thing off because of the deselecter
+        if (moveSlotHighlighted == null)
+        {
+            moveSlotHighlighted = firstButtonToHighlight.GetComponent<MoveSlot>();
+        }
 
+        ToggleHighlightMenu(false); //have to toggle this damn thing off because of the deselecter
         displayContainer.SetActive(true);
-        moveSlotGOHighlighted = firstButtonToHighlight.gameObject;
 
         ColorBlock colors = mainButtonToRevert.colors;
         colors.normalColor = colourForSelectedParent;
         mainButtonToRevert.colors = colors;
 
+        firstButtonToHighlight = moveSlotHighlighted.GetComponent<Button>();
         firstButtonToHighlight.Select();
     }
 
@@ -68,12 +54,27 @@ public class MenuSlotSelect : Menu
         menuManagerUI.menuUpdateMethod = menuMoveTypeScript;
     }
 
+    void MoveSlotHighlighted(MoveSlot moveSlot)
+
+    { 
+        moveSlotHighlighted = moveSlot;
+    }
+
+    public void MoveSlotSelected(MoveSlot moveSlot)
+    {
+        if (moveSlot.move == null || !moveSlot.move.isFlaw)
+        {
+            moveSlotHighlighted = moveSlot;
+            menuMoveInventory.moveSlotToEquipTo = moveSlot;
+            menuManagerUI.EnterSubMenu(menuMoveInventory);
+        }
+    }
+
     public void UnassignSlot()
     {
         var movesPage = (MenuMoves)menuManagerUI.movesPage;
-        IHighlightMoveSlotSelect highlightMoveSlotSelect = moveSlotGOHighlighted.GetComponent<IHighlightMoveSlotSelect>();
 
-        MoveSlot moveSlotToRemove = moveSlotGOHighlighted.GetComponent<MoveSlot>();
+        MoveSlot moveSlotToRemove = moveSlotHighlighted;
 
         if (moveSlotToRemove.move == null)
         {
@@ -82,12 +83,9 @@ public class MenuSlotSelect : Menu
 
         moveSlotToRemove.move.isEquipped = false;
         moveSlotToRemove.move = null;
-        moveSlotToRemove.textMeshProUGUI.text = "Slot " + (int.Parse(moveSlotGOHighlighted.name) + 1) + ": Free";
-        menuMoveInventory.stringArrayToUpdateInSO[int.Parse(moveSlotGOHighlighted.name)] = null;
-
+        moveSlotToRemove.slotText.text = "Slot " + (int.Parse(moveSlotHighlighted.name) + 1) + ": Free";
+        menuMoveInventory.stringArrayToUpdateInSO[int.Parse(moveSlotHighlighted.name)] = null;
         movesPage.LoadAllMoveLists();
-
-        highlightMoveSlotSelect.UpdateDescriptionText();
     }
 
     public override void StateUpdate()

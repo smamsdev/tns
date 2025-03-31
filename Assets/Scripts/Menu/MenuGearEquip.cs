@@ -26,12 +26,6 @@ public class MenuGearEquip : Menu
     {
         var geartoEquip = inventorySlotSelected.gear;
 
-        if (gearEquipSlotSelected.gearEquipped != null)
-        {
-            menuGear.playerInventory.UnequipGearFromSlot(gearEquipSlotSelected.gearEquipped, gearEquipSlotSelected.equipSlotNumber);
-        }
-
-        menuGear.playerInventory.RemoveGearFromInventory(geartoEquip);
         menuGear.playerInventory.EquipGearToSlot(geartoEquip, gearEquipSlotSelected.equipSlotNumber);
         ExitMenu();
     }
@@ -56,7 +50,7 @@ public class MenuGearEquip : Menu
 
             if (menuGear.playerInventory.equippedInventory[i] == null)
             {
-                gearEquipSlots[i].buttonTMP.text = "GEAR SLOT EMPTY";
+                gearEquipSlots[i].buttonTMP.text = "EQUIPPED SLOT " + i + ": "+ "EMPTY";
                 gearEquipSlots[i].gameObject.SetActive(true);
             }
 
@@ -64,10 +58,32 @@ public class MenuGearEquip : Menu
             {
                 Gear gearToLoad = menuGear.playerInventory.equippedInventory[i].GetComponent<Gear>();
                 gearEquipSlots[i].gearEquipped = gearToLoad;
-                gearEquipSlots[i].buttonTMP.text = gearToLoad.gearID;
+                gearEquipSlots[i].buttonTMP.text = "EQUIPPED SLOT " + (i+1) + ": " + gearToLoad.gearID;
                 gearEquipSlots[i].gameObject.SetActive(true);
             }
     }
+
+    //public void UpdateGearDescriptionField(GearEquipSlot gearEquipSlot)
+    //{
+    //    if (!gearEquipSlot.gearEquipped.isConsumable)
+    //    {
+    //        gearEquipSlot.itemTypeTMP.text = "Equipment";
+    //    }
+    //
+    //    else
+    //    {
+    //        itemTypeTMP.text = "Consumable";
+    //    }
+    //
+    //    if (gearEquipSlot.gearEquipped.isCurrentlyEquipped)
+    //    {
+    //        descriptionFieldTMP.text = "Currently Equipped.\n" + gear.gearDescription;
+    //    }
+    //    else
+    //    {
+    //        descriptionFieldTMP.text = gear.gearDescription;
+    //    }
+    //}
 
     public override void ExitMenu()
     {

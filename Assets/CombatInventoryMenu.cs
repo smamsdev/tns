@@ -86,7 +86,7 @@ public class CombatInventoryMenu : MonoBehaviour
 
         if (gearEquipSlotSelected.gearEquipped != null)
         {
-            playerInventory.UnequipGearFromSlot(gearEquipSlotSelected.gearEquipped, gearEquipSlotSelected.equipSlotNumber);
+            playerInventory.UnequipGearFromSlot(gearEquipSlotSelected.gearEquipped);
         }
 
         playerInventory.RemoveGearFromInventory(geartoEquip);

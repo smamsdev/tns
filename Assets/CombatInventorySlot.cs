@@ -6,8 +6,12 @@ using UnityEngine.EventSystems;
 
 public class CombatInventorySlot : InventorySlot
 {
-    public override void OnSelect(BaseEventData eventData)
+    private void OnEnable()
+    {
+        Debug.Log(this.gameObject);
+    }
 
+    public override void OnSelect(BaseEventData eventData)
     {
         CombatEvents.UpdateNarrator(gear.gearDescription);
     }

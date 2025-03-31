@@ -12,6 +12,10 @@ public class MenuGear : Menu
     public GameObject itemDescriptionGO;
     public InventorySlot[] inventorySlot;
     public MenuGearEquip menuGearEquip;
+    public TextMeshProUGUI itemTypeTMP;
+    public TextMeshProUGUI itemvalue;
+    public TextMeshProUGUI descriptionFieldTMP;
+    Gear gearHighlighted;
 
     public override void DisplayMenu(bool on)
     {
@@ -21,44 +25,15 @@ public class MenuGear : Menu
 
         DisableAllSlots();
 
-        // Combine inventories into one list
-        List<Gear> combinedList = new List<Gear>();
-
-        // Add items from inventory
-        foreach (Gear gearToLoad in playerInventory.inventory)
+        for (int i = 0; i < playerInventory.inventory.Count; i++)
         {
-            if (gearToLoad != null && !combinedList.Contains(gearToLoad))
-            {
-                combinedList.Add(gearToLoad); // Add to combined list only if not already added
-            }
-        }
-
-        // Add items from equippedInventory
-        foreach (Gear gearToLoad in playerInventory.equippedInventory)
-        {
-            if (gearToLoad != null && !combinedList.Contains(gearToLoad))
-            {
-                combinedList.Add(gearToLoad); // Add to combined list only if not already added
-            }
-        }
-
-        // Sort combined list alphabetically by gearID (or any other property you prefer)
-        combinedList.Sort((gear1, gear2) => string.Compare(gear1.gearID, gear2.gearID));
-
-        // Now render the sorted list to the inventory slots
-        int i = 0;
-        foreach (Gear gear in combinedList)
-        {
-            if (i >= inventorySlot.Length) break; // Prevent going out of bounds if there are more items than slots
-
-            inventorySlot[i].gear = gear;
-            inventorySlot[i].itemName.text = gear.gearID; // Or use gear.itemName if you have it
-            inventorySlot[i].itemQuantity.text = " x " + gear.quantityInInventory;
-            menuManagerUI.SetTextAlpha(inventorySlot[i].itemName, gear.isCurrentlyEquipped ? 0.5f : 1f);
-            menuManagerUI.SetTextAlpha(inventorySlot[i].itemQuantity, gear.isCurrentlyEquipped ? 0.5f : 1f);
-            inventorySlot[i].gameObject.SetActive(true); // Show the slot
-
-            i++;
+            Gear gearToLoad = playerInventory.inventory[i].GetComponent<Gear>();
+            inventorySlot[i].gear = gearToLoad;
+            inventorySlot[i].itemName.text = gearToLoad.gearID;
+            inventorySlot[i].itemQuantity.text = " x " + gearToLoad.quantityInInventory;
+            menuManagerUI.SetTextAlpha(inventorySlot[i].itemName, gearToLoad.isCurrentlyEquipped ? 0.5f : 1f);
+            menuManagerUI.SetTextAlpha(inventorySlot[i].itemQuantity, gearToLoad.isCurrentlyEquipped ? 0.5f : 1f);
+            inventorySlot[i].gameObject.SetActive(true);
         }
 
         displayContainer.SetActive(on);
@@ -83,12 +58,42 @@ public class MenuGear : Menu
     public void InventorySlotSelected(InventorySlot inventorySlot)
     {
         if (!inventorySlot.gear.isCurrentlyEquipped)
-        { 
+        {
             menuGearEquip.inventorySlotSelected = inventorySlot;
             firstButtonToSelect = inventorySlot.GetComponent<Button>();
 
             menuManagerUI.EnterSubMenu(menuManagerUI.gearEquipPage);
         }
+    }
+
+    public void GearHighlighted(Gear gear)
+    {
+        itemvalue.text = gear.value.ToString();
+        gearHighlighted = gear;
+
+        if (!gear.isConsumable)
+        {
+            itemTypeTMP.text = "Equipment";
+        }
+
+        else
+        {
+            itemTypeTMP.text = "Consumable";
+        }
+
+        if (gear.isCurrentlyEquipped)
+        {
+            descriptionFieldTMP.text = "Currently Equipped. PRESS CTRL TO REMOVE\n" + gear.gearDescription;
+        }
+        else
+        {
+            descriptionFieldTMP.text = gear.gearDescription;
+        }
+    }
+
+    void UnequipHighlightedGear()
+    {
+        playerInventory.UnequipGearFromSlot(gearHighlighted);
     }
 
     public override void ExitMenu()
@@ -105,6 +110,15 @@ public class MenuGear : Menu
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ExitMenu();
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            if (gearHighlighted.isCurrentlyEquipped)
+            {
+                UnequipHighlightedGear();
+                DisplayMenu(true);
+            }
         }
     }
 }

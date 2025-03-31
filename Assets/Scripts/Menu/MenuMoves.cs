@@ -65,15 +65,15 @@ public class MenuMoves : Menu
             {
                 slots[i].move = moveArray[i];
                 slots[i].move.isEquipped = true;
-                slots[i].textMeshProUGUI.text = $"Slot {i + 1}: {moveArray[i].moveName}";
+                slots[i].slotText.text = $"Slot {i + 1}: {moveArray[i].moveName}";
 
                 // Set alpha of the TextMeshProUGUI element based on whether the move is a flaw
-                menuManagerUI.SetTextAlpha(slots[i].textMeshProUGUI, slots[i].move.isFlaw ? 0.5f : 1f);
+                menuManagerUI.SetTextAlpha(slots[i].slotText, slots[i].move.isFlaw ? 0.5f : 1f);
             }
             else
             {
-                slots[i].textMeshProUGUI.text = $"Slot {i + 1}: Empty";
-                menuManagerUI.SetTextAlpha(slots[i].textMeshProUGUI, 1f); // Default alpha for empty slots
+                slots[i].slotText.text = $"Slot {i + 1}: Empty";
+                menuManagerUI.SetTextAlpha(slots[i].slotText, 1f); // Default alpha for empty slots
             }
         }
     }

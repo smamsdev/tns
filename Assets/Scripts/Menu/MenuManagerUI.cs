@@ -10,9 +10,6 @@ public class MenuManagerUI : MonoBehaviour
     public Menu statsPage, gearPage, gearEquipPage, movesPage, configPage, savePage, exitPage, main;
     [Header("")]
     public Menu menuUpdateMethod;
-    public TextMeshProUGUI descriptionFieldTMP;
-    public TextMeshProUGUI itemTypeTMP;
-    public TextMeshProUGUI itemvalue;
 
     private void Start()
     {
@@ -47,29 +44,7 @@ public class MenuManagerUI : MonoBehaviour
         menuUpdateMethod.StateUpdate();
     }
 
-    public void UpdateGearDescriptionField(Gear gear)
-    {
-        if (!gear.isConsumable)
-        {
-            itemTypeTMP.text = "Equipment";
-        }
-        
-        else
-        {
-            itemTypeTMP.text = "Consumable";
-        }
-        
-        if (gear.isCurrentlyEquipped)
-        {
-            descriptionFieldTMP.text = "Currently Equipped.\n" + gear.gearDescription;
-        }
-        else
-        {
-            descriptionFieldTMP.text = gear.gearDescription;
-        }
-    }
-
-    public void SetTextAlpha(TextMeshProUGUI textMeshProUGUI, float alpha)
+    public void SetTextAlpha(TextMeshProUGUI textMeshProUGUI, float alpha) //everyone seems to want to use this so put it here
     {
         Color color = textMeshProUGUI.color;
         color.a = alpha;
