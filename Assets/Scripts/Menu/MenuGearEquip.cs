@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,11 @@ public class MenuGearEquip : Menu
     public InventorySlot inventorySlotSelected;
     public MenuGear menuGear;
     public GearEquipSlot[] gearEquipSlots;
+    public TextMeshProUGUI itemTypeTMP;
+    public TextMeshProUGUI itemvalue;
+    public TextMeshProUGUI descriptionFieldTMP;
+    GearEquipSlot gearEquipSlotHighlighted;
+    public TextMeshProUGUI pageHeaderTMP;
 
     private void OnEnable()
     {
@@ -32,6 +38,7 @@ public class MenuGearEquip : Menu
 
     public override void EnterMenu()
     {
+        pageHeaderTMP.text = "Equip " + inventorySlotSelected.gear.gearID + "?";
         DisplayEquipSlots();
         menuManagerUI.gearPage.displayContainer.SetActive(false);
         DisplayMenu(true);
@@ -43,6 +50,7 @@ public class MenuGearEquip : Menu
     {
         foreach (GearEquipSlot gearEquipSlot in gearEquipSlots)
         {
+            gearEquipSlot.gearEquipped = null;
             gearEquipSlot.gameObject.SetActive(false);
         }
 
@@ -50,7 +58,7 @@ public class MenuGearEquip : Menu
 
             if (menuGear.playerInventory.equippedInventory[i] == null)
             {
-                gearEquipSlots[i].buttonTMP.text = "EQUIPPED SLOT " + i + ": "+ "EMPTY";
+                gearEquipSlots[i].buttonTMP.text = "EQUIPPED SLOT " + (i + 1) + ": "+ "EMPTY";
                 gearEquipSlots[i].gameObject.SetActive(true);
             }
 
@@ -63,27 +71,42 @@ public class MenuGearEquip : Menu
             }
     }
 
-    //public void UpdateGearDescriptionField(GearEquipSlot gearEquipSlot)
-    //{
-    //    if (!gearEquipSlot.gearEquipped.isConsumable)
-    //    {
-    //        gearEquipSlot.itemTypeTMP.text = "Equipment";
-    //    }
-    //
-    //    else
-    //    {
-    //        itemTypeTMP.text = "Consumable";
-    //    }
-    //
-    //    if (gearEquipSlot.gearEquipped.isCurrentlyEquipped)
-    //    {
-    //        descriptionFieldTMP.text = "Currently Equipped.\n" + gear.gearDescription;
-    //    }
-    //    else
-    //    {
-    //        descriptionFieldTMP.text = gear.gearDescription;
-    //    }
-    //}
+    public void EquipSlotHighlighted(GearEquipSlot gearEquipSlot)
+    {
+        gearEquipSlotHighlighted = gearEquipSlot;
+
+        if (gearEquipSlot.gearEquipped == null)
+        {
+            itemTypeTMP.text = "";
+            descriptionFieldTMP.text = "Slot free.";
+            itemvalue.text = "";
+        }
+
+        else
+        
+        {
+            if (!gearEquipSlot.gearEquipped.isConsumable)
+            {
+                itemTypeTMP.text = "Equipment";
+            }
+
+            else
+            {
+                itemTypeTMP.text = "Consumable";
+            }
+
+            if (gearEquipSlot.gearEquipped.isCurrentlyEquipped)
+            {
+                descriptionFieldTMP.text = "Currently Equipped. PRESS CTRL TO REMOVE\n" + gearEquipSlot.gearEquipped.gearDescription;
+            }
+            else
+            {
+                descriptionFieldTMP.text = gearEquipSlot.gearEquipped.gearDescription;
+            }
+
+            itemvalue.text = gearEquipSlot.gearEquipped.value.ToString();
+        }
+    }
 
     public override void ExitMenu()
     {
@@ -96,6 +119,20 @@ public class MenuGearEquip : Menu
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ExitMenu();
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+           if (gearEquipSlotHighlighted.gearEquipped != null)
+            {
+                menuGear.gearHighlighted = gearEquipSlotHighlighted.gearEquipped;
+                menuGear.UnequipHighlightedGear();
+                DisplayEquipSlots();
+
+                itemTypeTMP.text = "";
+                descriptionFieldTMP.text = "Slot free.";
+                itemvalue.text = "";
+            }
         }
     }
 }

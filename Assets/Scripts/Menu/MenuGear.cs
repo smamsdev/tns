@@ -15,7 +15,7 @@ public class MenuGear : Menu
     public TextMeshProUGUI itemTypeTMP;
     public TextMeshProUGUI itemvalue;
     public TextMeshProUGUI descriptionFieldTMP;
-    Gear gearHighlighted;
+    public Gear gearHighlighted;
 
     public override void DisplayMenu(bool on)
     {
@@ -83,7 +83,7 @@ public class MenuGear : Menu
 
         if (gear.isCurrentlyEquipped)
         {
-            descriptionFieldTMP.text = "Currently Equipped. PRESS CTRL TO REMOVE\n" + gear.gearDescription;
+            descriptionFieldTMP.text = "Currently Equipped to Slot " + (gear.equipSlotNumber+1) +". PRESS CTRL TO REMOVE\n" + gear.gearDescription;
         }
         else
         {
@@ -91,7 +91,7 @@ public class MenuGear : Menu
         }
     }
 
-    void UnequipHighlightedGear()
+    public void UnequipHighlightedGear()
     {
         playerInventory.UnequipGearFromSlot(gearHighlighted);
     }
