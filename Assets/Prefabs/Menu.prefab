@@ -1539,6 +1539,9 @@ MonoBehaviour:
   itemTypeTMP: {fileID: 0}
   itemvalue: {fileID: 0}
   descriptionFieldTMP: {fileID: 0}
+  gearHighlighted: {fileID: 0}
+  timeDisplayGO: {fileID: 0}
+  smamsDisplayGO: {fileID: 0}
 --- !u!1 &271845952712105264
 GameObject:
   m_ObjectHideFlags: 0
@@ -4857,10 +4860,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1664793388004365462}
-  - component: {fileID: 2444084122496311682}
-  - component: {fileID: 2382221395910092527}
   m_Layer: 0
-  m_Name: ItemDescriptions
+  m_Name: GearPropertiesDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4877,113 +4878,17 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8367967985381024686}
+  - {fileID: 3131003470058241422}
+  - {fileID: 5950908851829645000}
   m_Father: {fileID: 5073698862118099147}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.007, y: 0.037898775}
   m_AnchorMax: {x: 1, y: 0.272}
-  m_AnchoredPosition: {x: -6.0076294, y: -25.842468}
-  m_SizeDelta: {x: 12.015, y: 2.0032997}
+  m_AnchoredPosition: {x: 6.9509277, y: -168.38342}
+  m_SizeDelta: {x: 37.932, y: 287.0853}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &2444084122496311682
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1019909557098175628}
-  m_CullTransparentMesh: 1
---- !u!114 &2382221395910092527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1019909557098175628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: 'This is my item description area
-
-    asdasdasda'
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 649e90157f87b334a8e0857cad166b68, type: 2}
-  m_sharedMaterial: {fileID: 6935995173413385345, guid: 649e90157f87b334a8e0857cad166b68, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 55
-  m_fontSizeBase: 55
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1022493282494720555
 GameObject:
   m_ObjectHideFlags: 0
@@ -5443,7 +5348,7 @@ GameObject:
   - component: {fileID: 434147098240512646}
   - component: {fileID: 3390258033773426767}
   m_Layer: 0
-  m_Name: Value
+  m_Name: GearValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5461,11 +5366,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5073698862118099147}
+  m_Father: {fileID: 1664793388004365462}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -629.92, y: -582.94}
+  m_AnchoredPosition: {x: -642.87836, y: -114.45914}
   m_SizeDelta: {x: 456.6, y: 95.818}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &434147098240512646
@@ -7309,7 +7214,7 @@ GameObject:
   - component: {fileID: 3346316536396451020}
   - component: {fileID: 4526401195235734014}
   m_Layer: 0
-  m_Name: ItemType
+  m_Name: GearType
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7327,12 +7232,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5073698862118099147}
+  m_Father: {fileID: 1664793388004365462}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.007, y: 0.037898775}
   m_AnchorMax: {x: 1, y: 0.272}
-  m_AnchoredPosition: {x: -673.6319, y: -185.82751}
-  m_SizeDelta: {x: -1323.2377, y: -105.3933}
+  m_AnchoredPosition: {x: -686.6811, y: 151.86801}
+  m_SizeDelta: {x: -1348.9733, y: -16.661415}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3346316536396451020
 CanvasRenderer:
@@ -9308,7 +9213,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 7790667988857323999}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -10122,7 +10027,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 7817577652015822788}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -11014,6 +10919,7 @@ MonoBehaviour:
   gearEquipped: {fileID: 0}
   buttonTMP: {fileID: 2809836818460355806}
   equipSlotNumber: 4
+  menuGearEquip: {fileID: 0}
 --- !u!1 &2714222517541723552
 GameObject:
   m_ObjectHideFlags: 0
@@ -12376,7 +12282,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 2816785883907774231}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -13582,7 +13488,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 4289170832821538634}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -13743,8 +13649,6 @@ RectTransform:
   - {fileID: 3109412700118604078}
   - {fileID: 2548122628639560370}
   - {fileID: 1664793388004365462}
-  - {fileID: 3131003470058241422}
-  - {fileID: 5950908851829645000}
   m_Father: {fileID: 1488101814737376700}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -14174,7 +14078,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 2587360322723327117}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -15664,6 +15568,7 @@ MonoBehaviour:
   gearEquipped: {fileID: 0}
   buttonTMP: {fileID: 6142058442520571574}
   equipSlotNumber: 3
+  menuGearEquip: {fileID: 0}
 --- !u!1 &3874822753178497166
 GameObject:
   m_ObjectHideFlags: 0
@@ -15761,6 +15666,10 @@ MonoBehaviour:
   - {fileID: 723534706798943542}
   - {fileID: 4292157155643527915}
   - {fileID: 557723683198300361}
+  itemTypeTMP: {fileID: 0}
+  itemvalue: {fileID: 0}
+  descriptionFieldTMP: {fileID: 0}
+  pageHeaderTMP: {fileID: 0}
 --- !u!1 &3928241481840612352
 GameObject:
   m_ObjectHideFlags: 0
@@ -16074,7 +15983,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 8150944329526637592}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -18382,7 +18291,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 210.78, y: 100}
+  m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &7491450825990770836
 CanvasRenderer:
@@ -19885,6 +19794,142 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &4594198884055185987
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8367967985381024686}
+  - component: {fileID: 3275975300341970210}
+  - component: {fileID: 3923030594897528249}
+  m_Layer: 0
+  m_Name: GearDescription
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8367967985381024686
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4594198884055185987}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1664793388004365462}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.007, y: 0.037898775}
+  m_AnchorMax: {x: 1, y: 0.272}
+  m_AnchoredPosition: {x: -19.056824, y: 311.8531}
+  m_SizeDelta: {x: -13.720595, y: 90.73518}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3275975300341970210
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4594198884055185987}
+  m_CullTransparentMesh: 1
+--- !u!114 &3923030594897528249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4594198884055185987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 'This is my item description area
+
+    asdasdasdasdasdsadasdasd'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 649e90157f87b334a8e0857cad166b68, type: 2}
+  m_sharedMaterial: {fileID: 6935995173413385345, guid: 649e90157f87b334a8e0857cad166b68, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 55
+  m_fontSizeBase: 55
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &4615117148546536326
 GameObject:
   m_ObjectHideFlags: 0
@@ -20406,7 +20451,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 8975041233094731270}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -22485,7 +22530,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 255.46, y: 100}
+  m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &5512308583676588383
 CanvasRenderer:
@@ -23796,7 +23841,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 357.12, y: 100}
+  m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &7310152588580002935
 CanvasRenderer:
@@ -24382,6 +24427,7 @@ MonoBehaviour:
   gearEquipped: {fileID: 0}
   buttonTMP: {fileID: 1551340499531338033}
   equipSlotNumber: 0
+  menuGearEquip: {fileID: 0}
 --- !u!1 &6107748258524441203
 GameObject:
   m_ObjectHideFlags: 0
@@ -24760,6 +24806,7 @@ MonoBehaviour:
   gearEquipped: {fileID: 0}
   buttonTMP: {fileID: 3873124106787971525}
   equipSlotNumber: 2
+  menuGearEquip: {fileID: 0}
 --- !u!1 &6151746953144239828
 GameObject:
   m_ObjectHideFlags: 0
@@ -25241,7 +25288,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 9093673018002118555}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -25953,7 +26000,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 4445267438740004960}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -26839,7 +26886,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 250.39, y: 100}
+  m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &5705199664492883933
 CanvasRenderer:
@@ -27240,7 +27287,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 6840492056979889402}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -27747,7 +27794,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 8359676756698922976}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -28861,7 +28908,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 6526142257869781123}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -29426,7 +29473,10 @@ MonoBehaviour:
   menuGearEquip: {fileID: 845758784004025755}
   itemTypeTMP: {fileID: 4526401195235734014}
   itemvalue: {fileID: 3390258033773426767}
-  descriptionFieldTMP: {fileID: 2382221395910092527}
+  descriptionFieldTMP: {fileID: 0}
+  gearHighlighted: {fileID: 0}
+  timeDisplayGO: {fileID: 0}
+  smamsDisplayGO: {fileID: 0}
 --- !u!1 &7067574717868422259
 GameObject:
   m_ObjectHideFlags: 0
@@ -29506,7 +29556,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 7992300041075131568}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -31204,7 +31254,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 3424126866399847033}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -33960,7 +34010,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 313.98, y: 100}
+  m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &4358368785336597704
 CanvasRenderer:
@@ -34418,6 +34468,7 @@ MonoBehaviour:
   gearEquipped: {fileID: 0}
   buttonTMP: {fileID: 933156748971504123}
   equipSlotNumber: 1
+  menuGearEquip: {fileID: 0}
 --- !u!1 &7826237730153551393
 GameObject:
   m_ObjectHideFlags: 0
@@ -36783,7 +36834,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 339.75, y: 100}
+  m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &3619982039718274766
 CanvasRenderer:
@@ -38536,7 +38587,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6417565416905679513
 RectTransform:
   m_ObjectHideFlags: 0

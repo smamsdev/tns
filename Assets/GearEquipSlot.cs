@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class GearEquipSlot : MonoBehaviour, ISelectHandler
+public class GearEquipSlot : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     public Gear gearEquipped;
     public TextMeshProUGUI buttonTMP;
@@ -14,5 +14,16 @@ public class GearEquipSlot : MonoBehaviour, ISelectHandler
     public void OnSelect(BaseEventData eventData)
     {
         menuGearEquip.EquipSlotHighlighted(this);
+        buttonTMP.color = Color.yellow;
+    }
+
+    public void OnDeselect(BaseEventData eventData) 
+    {
+        buttonTMP.color = Color.white;
+    }
+
+    public void Deselect()
+    {
+        buttonTMP.color = Color.white;
     }
 }

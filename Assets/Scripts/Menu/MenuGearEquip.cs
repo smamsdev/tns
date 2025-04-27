@@ -12,11 +12,13 @@ public class MenuGearEquip : Menu
     public InventorySlot inventorySlotSelected;
     public MenuGear menuGear;
     public GearEquipSlot[] gearEquipSlots;
-    public TextMeshProUGUI itemTypeTMP;
-    public TextMeshProUGUI itemvalue;
-    public TextMeshProUGUI descriptionFieldTMP;
+    public TextMeshProUGUI gearDescriptionTMP;
+    public TextMeshProUGUI gearTypeTMP;
+    public TextMeshProUGUI gearValueTMP;
+    public TextMeshProUGUI gearEquipStatusTMP;
     GearEquipSlot gearEquipSlotHighlighted;
     public TextMeshProUGUI pageHeaderTMP;
+    public Gear transplanting;
 
     private void OnEnable()
     {
@@ -30,8 +32,15 @@ public class MenuGearEquip : Menu
 
     public void EquipSlotSelected(GearEquipSlot gearEquipSlotSelected)
     {
-        var geartoEquip = inventorySlotSelected.gear;
+        gearEquipSlotSelected.Deselect();
 
+        if (transplanting != null && gearEquipSlotSelected.gearEquipped != transplanting)
+        {
+            menuGear.playerInventory.UnequipGearFromSlot(transplanting);
+            transplanting = null;
+        }
+
+        var geartoEquip = inventorySlotSelected.gear;
         menuGear.playerInventory.EquipGearToSlot(geartoEquip, gearEquipSlotSelected.equipSlotNumber);
         ExitMenu();
     }
@@ -77,9 +86,10 @@ public class MenuGearEquip : Menu
 
         if (gearEquipSlot.gearEquipped == null)
         {
-            itemTypeTMP.text = "";
-            descriptionFieldTMP.text = "Slot free.";
-            itemvalue.text = "";
+            gearDescriptionTMP.text = "Slot free";
+            gearTypeTMP.text = "";
+            gearEquipStatusTMP.text = "";
+            gearValueTMP.text = "";
         }
 
         else
@@ -87,24 +97,25 @@ public class MenuGearEquip : Menu
         {
             if (!gearEquipSlot.gearEquipped.isConsumable)
             {
-                itemTypeTMP.text = "Equipment";
+                gearTypeTMP.text = "Type: Accessory";
             }
 
             else
             {
-                itemTypeTMP.text = "Consumable";
+                gearTypeTMP.text = "Type: Consumable";
             }
 
             if (gearEquipSlot.gearEquipped.isCurrentlyEquipped)
             {
-                descriptionFieldTMP.text = "Currently Equipped. PRESS CTRL TO REMOVE\n" + gearEquipSlot.gearEquipped.gearDescription;
+                gearDescriptionTMP.text = gearEquipSlot.gearEquipped.gearDescription;
+                gearEquipStatusTMP.text = "Currently Equipped. PRESS CTRL TO REMOVE";
             }
             else
             {
-                descriptionFieldTMP.text = gearEquipSlot.gearEquipped.gearDescription;
+                gearDescriptionTMP.text = gearEquipSlot.gearEquipped.gearDescription;
             }
 
-            itemvalue.text = gearEquipSlot.gearEquipped.value.ToString();
+            gearValueTMP.text = gearEquipSlot.gearEquipped.value.ToString();
         }
     }
 
@@ -118,6 +129,7 @@ public class MenuGearEquip : Menu
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            gearEquipSlotHighlighted.Deselect();
             ExitMenu();
         }
 
@@ -128,10 +140,8 @@ public class MenuGearEquip : Menu
                 menuGear.gearHighlighted = gearEquipSlotHighlighted.gearEquipped;
                 menuGear.UnequipHighlightedGear();
                 DisplayEquipSlots();
-
-                itemTypeTMP.text = "";
-                descriptionFieldTMP.text = "Slot free.";
-                itemvalue.text = "";
+                EquipSlotHighlighted(gearEquipSlotHighlighted);
+                transplanting = null;
             }
         }
     }

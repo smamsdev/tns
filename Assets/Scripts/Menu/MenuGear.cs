@@ -9,17 +9,20 @@ public class MenuGear : Menu
 {
     public Button firstButtonToSelect;
     public PlayerInventory playerInventory;
-    public GameObject itemDescriptionGO;
+    public GameObject gearPropertiesDisplayGO;
     public InventorySlot[] inventorySlot;
     public MenuGearEquip menuGearEquip;
-    public TextMeshProUGUI itemTypeTMP;
-    public TextMeshProUGUI itemvalue;
-    public TextMeshProUGUI descriptionFieldTMP;
+    public TextMeshProUGUI gearDescriptionTMP;
+    public TextMeshProUGUI gearTypeTMP;
+    public TextMeshProUGUI gearValueTMP;
+    public TextMeshProUGUI gearEquipStatusTMP;
     public Gear gearHighlighted;
+    public GameObject timeDisplayGO;
+    public GameObject smamsDisplayGO;
 
     public override void DisplayMenu(bool on)
     {
-        itemDescriptionGO.SetActive(false);
+        gearPropertiesDisplayGO.SetActive(false);
         var player = GameObject.Find("Player");
         playerInventory = player.GetComponentInChildren<PlayerInventory>();
 
@@ -52,42 +55,49 @@ public class MenuGear : Menu
         menuButtonHighlighted.SetButtonColor(menuButtonHighlighted.highlightedColor);
         menuButtonHighlighted.enabled = false;
         firstButtonToSelect.Select();
-        itemDescriptionGO.SetActive(true);
+        gearPropertiesDisplayGO.SetActive(true);
+        timeDisplayGO.SetActive(false);
+        smamsDisplayGO.SetActive(false);
     }
 
     public void InventorySlotSelected(InventorySlot inventorySlot)
     {
-        if (!inventorySlot.gear.isCurrentlyEquipped)
-        {
-            menuGearEquip.inventorySlotSelected = inventorySlot;
-            firstButtonToSelect = inventorySlot.GetComponent<Button>();
+        menuGearEquip.transplanting = null;
 
-            menuManagerUI.EnterSubMenu(menuManagerUI.gearEquipPage);
+        menuGearEquip.inventorySlotSelected = inventorySlot;
+        firstButtonToSelect = inventorySlot.GetComponent<Button>();
+        menuManagerUI.EnterSubMenu(menuManagerUI.gearEquipPage);
+
+        if (inventorySlot.gear.isCurrentlyEquipped)
+        {
+            menuGearEquip.transplanting = inventorySlot.gear;
         }
     }
 
     public void GearHighlighted(Gear gear)
     {
-        itemvalue.text = gear.value.ToString();
+        gearValueTMP.text = "Value: " + gear.value.ToString() + " $MAMS";
         gearHighlighted = gear;
 
         if (!gear.isConsumable)
         {
-            itemTypeTMP.text = "Equipment";
+            gearTypeTMP.text = "Type: Accessory";
         }
 
         else
         {
-            itemTypeTMP.text = "Consumable";
+            gearTypeTMP.text = "Type: Consumable";
         }
 
         if (gear.isCurrentlyEquipped)
         {
-            descriptionFieldTMP.text = "Currently Equipped to Slot " + (gear.equipSlotNumber+1) +". PRESS CTRL TO REMOVE\n" + gear.gearDescription;
+            gearDescriptionTMP.text = gear.gearDescription;
+            gearEquipStatusTMP.text = "Equipped to Slot " + (gear.equipSlotNumber + 1) + ". PRESS CTRL TO REMOVE";
         }
         else
         {
-            descriptionFieldTMP.text = gear.gearDescription;
+            gearDescriptionTMP.text = gear.gearDescription;
+            gearEquipStatusTMP.text = "Unequipped";
         }
     }
 
@@ -118,6 +128,8 @@ public class MenuGear : Menu
             {
                 UnequipHighlightedGear();
                 DisplayMenu(true);
+                gearPropertiesDisplayGO.SetActive(true);
+                GearHighlighted(gearHighlighted);
             }
         }
     }
