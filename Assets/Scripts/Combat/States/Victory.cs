@@ -5,8 +5,6 @@ using UnityEngine.Rendering;
 
 public class Victory : State
 {
-    [SerializeField] CombatManager combatManager;
-
     //rework this whole goddam thing pls. yucl
 
     public override IEnumerator StartState()

@@ -20,7 +20,7 @@ public class InventorySlot : MonoBehaviour, ISelectHandler, IDeselectHandler
         menuManagerUI.SetTextAlpha(itemQuantity, gear.isCurrentlyEquipped ? 0.5f : 1f);
     }
 
-    public void OnDeselect(BaseEventData eventData)
+    public virtual void OnDeselect(BaseEventData eventData)
     {
         itemQuantity.color = Color.white;
         menuManagerUI.SetTextAlpha(itemQuantity, gear.isCurrentlyEquipped ? 0.5f : 1f);

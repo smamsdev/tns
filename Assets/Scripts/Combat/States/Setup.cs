@@ -5,7 +5,6 @@ using UnityEngine.Rendering;
 
 public class Setup : State
 {
-    [SerializeField] CombatManager combatManager;
     [SerializeField] GameObject combatantUIPrefab;
     [SerializeField] CombatMenuManager combatMenuManager;
     PlayerCombat playerCombat;

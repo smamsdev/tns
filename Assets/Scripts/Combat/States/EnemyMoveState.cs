@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyMoveState : State
 {
-    [SerializeField] CombatManager combatManager;
-
     public override IEnumerator StartState()
     {
         foreach (Enemy enemy in combatManager.enemies)

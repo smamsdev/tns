@@ -5,16 +5,13 @@ using UnityEngine.Rendering;
 
 public class GearSelectState : State
 {
-    [SerializeField] CombatManager combatManager;
-    [SerializeField] GearSelectMenu gearSelectMenu;
-    [SerializeField] GearSelectUI gearSelectUI;
-
+    [SerializeField] CombatGearMenu combatGearMenu;
     bool inventoryMenuEnabled;
 
     public override IEnumerator StartState()
     {
         combatManager.combatMenuManager.ChangeMenuState(combatManager.combatMenuManager.GearSelectMenu);
-        gearSelectMenu.DisplayEquipSlots();
+        combatGearMenu.DisplayEquipSlots();
 
         yield break;
     }
@@ -48,6 +45,8 @@ public class GearSelectState : State
     {
         combatManager.SetState(combatManager.gearSelectState);
         inventoryMenuEnabled = false;
+        var combatMenuManager = combatManager.combatMenuManager;
+        combatMenuManager.SetButtonNormalColor(buttonSelected, Color.white);
     }
 
     void RevertState()

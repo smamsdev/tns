@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ApplyPlayerMove : State
 {
-    [SerializeField] CombatManager combatManager;
     PlayerCombat player;
 
     public override IEnumerator StartState()

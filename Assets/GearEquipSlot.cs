@@ -11,13 +11,13 @@ public class GearEquipSlot : MonoBehaviour, ISelectHandler, IDeselectHandler
     public int equipSlotNumber;
     public MenuGearEquip menuGearEquip;
 
-    public void OnSelect(BaseEventData eventData)
+    public virtual void OnSelect(BaseEventData eventData)
     {
         menuGearEquip.EquipSlotHighlighted(this);
         buttonTMP.color = Color.yellow;
     }
 
-    public void OnDeselect(BaseEventData eventData) 
+    public virtual void OnDeselect(BaseEventData eventData) 
     {
         buttonTMP.color = Color.white;
     }

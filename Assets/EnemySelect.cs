@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class EnemySelect : State
 {
     public SelectEnemyMenuScript selectEnemyMenuScript;
-    [SerializeField] CombatManager combatManager;
 
     public override IEnumerator StartState()
     {

@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class AllyMoveState : State
 {
-    [SerializeField] CombatManager combatManager;
-
-    public override IEnumerator StartState()
+   public override IEnumerator StartState()
     {
         foreach (Ally ally in combatManager.allies)
         {

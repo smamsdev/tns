@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class SecondMove : State
 {
-    [SerializeField] CombatManager combatManager;
-
     public override IEnumerator StartState()
     {
         yield return new WaitForSeconds(0.1f);

@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GearSelectMenu : MonoBehaviour
+public class CombatGearMenu : MonoBehaviour
 {
     public CombatManager combatManager;
     public PlayerInventory playerInventory;
-    public GearSelectUI gearSelectUI;
     public GearSelectState gearSelectState;
     [SerializeField] GameObject inventoryMenu;
     [SerializeField] Button equipNoneOption;
@@ -61,39 +61,46 @@ public class GearSelectMenu : MonoBehaviour
     public void GearSlotSelected(GearEquipSlot gearEquipSlot)
     {
         gearEquipSlotSelected = gearEquipSlot;
-
-        StartCoroutine(ShowMenuCoroutine(0.1f));
+        StartCoroutine(ShowGearInventoryCoroutine());
         CombatEvents.UpdateNarrator.Invoke("");
     }
 
-    IEnumerator ShowMenuCoroutine(float waitTime)
+    IEnumerator ShowGearInventoryCoroutine()
     {
         playerInventory.LoadInventoryFromSO();
-
-        foreach (InventorySlot inventorySlot in inventorySlot)
-        {
-            inventorySlot.gameObject.SetActive(false);
-        }
-
+        DisableAllInventorySlots();
 
         for (int i = 0; i < playerInventory.inventory.Count; i++)
-
         {
-            Gear gearToLoad = playerInventory.inventory[i];
-            inventorySlot[i].gear = gearToLoad;
-            inventorySlot[i].itemName.text = gearToLoad.gearID;
-
+            Gear gearToLoad = playerInventory.inventory[i].GetComponent<Gear>();
             inventorySlot[i].gear = gearToLoad;
             inventorySlot[i].itemName.text = gearToLoad.gearID;
             inventorySlot[i].itemQuantity.text = " x " + gearToLoad.quantityInInventory;
-            inventorySlot[i].gameObject.SetActive(true);
-
+            SetTextAlpha(inventorySlot[i].itemName, gearToLoad.isCurrentlyEquipped ? 0.7f : 1f);
+            SetTextAlpha(inventorySlot[i].itemQuantity, gearToLoad.isCurrentlyEquipped ? 0.7f : 1f);
             inventorySlot[i].gameObject.SetActive(true);
         }
 
         equipNoneOption.Select();
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForEndOfFrame();
+
         inventoryMenu.SetActive(true);
+    }
+
+    void DisableAllInventorySlots()
+    {
+        for (int i = 0; i < inventorySlot.Length; i++)
+        {
+            inventorySlot[i].gameObject.SetActive(false);
+        }
+    }
+
+    void SetTextAlpha(TextMeshProUGUI textMeshProUGUI, float alpha)
+    {
+        textMeshProUGUI.color = Color.white;
+        Color color = textMeshProUGUI.color;
+        color.a = alpha;
+        textMeshProUGUI.color = color;
     }
 
     public void equipNone()
@@ -113,15 +120,18 @@ public class GearSelectMenu : MonoBehaviour
 
     public void equipSelectedGear(InventorySlot inventorySlot)
     {
-        var geartoEquip = inventorySlot.gear;
-
-        if (gearEquipSlotSelected.gearEquipped != null)
+        if (!inventorySlot.gear.isCurrentlyEquipped) //if gear selected is already equipped do nothing
         {
-            playerInventory.UnequipGearFromSlot(gearEquipSlotSelected.gearEquipped);
-        }
+            var geartoEquip = inventorySlot.gear;
 
-        playerInventory.EquipGearToSlot(geartoEquip, gearEquipSlotSelected.equipSlotNumber);
-        ApplyGearSelected();
+            if (gearEquipSlotSelected.gearEquipped != null)
+            {
+                playerInventory.UnequipGearFromSlot(gearEquipSlotSelected.gearEquipped); //if a gear exists remove it before equipping a new one
+            }
+
+            playerInventory.EquipGearToSlot(geartoEquip, gearEquipSlotSelected.equipSlotNumber);
+            ApplyGearSelected();
+        }
     }
 
     void ApplyGearSelected()

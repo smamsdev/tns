@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class RoundReset : State
 {
-    [SerializeField] CombatManager combatManager;
-
     public override IEnumerator StartState()
     {
         combatManager.playerCombat.combatantUI.fendScript.ShowFendDisplay(combatManager.playerCombat, false);

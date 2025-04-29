@@ -19,7 +19,7 @@ public class CombatMenuManager : MonoBehaviour
 
     [Header("Scripts")]
     public SelectEnemyMenuScript selectEnemyMenuScript;
-    public CombatInventoryMenu combatInventoryMenuScript;
+    //public CombatInventoryMenu combatInventoryMenuScript;
 
     [Header("First Buttons to Highlight")]
 
@@ -27,6 +27,8 @@ public class CombatMenuManager : MonoBehaviour
     public Button secondMenuFirstButton;
     public Button thirdMenuFirstButton;
     public Button targetMenuFirstButton;
+
+    public Color buttonSelectedYellow;
 
     private void OnEnable()
     {
@@ -72,5 +74,12 @@ public class CombatMenuManager : MonoBehaviour
         }
 
         narratorTMP.text = narratorText;
+    }
+
+    public void SetButtonNormalColor(Button button, Color color)
+    {
+        ColorBlock colors = button.colors;
+        colors.normalColor = color;
+        button.colors = colors;
     }
 }

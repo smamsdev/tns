@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FirstMove : State
 {
-    [SerializeField] CombatManager combatManager;
     [SerializeField] GameObject firstMoveContainer;
 
     public override IEnumerator StartState()

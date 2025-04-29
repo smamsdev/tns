@@ -5,7 +5,6 @@ using UnityEngine.Rendering;
 
 public class Defeat : State
 {
-    [SerializeField] CombatManager combatManager;
     [SerializeField] GameObject combatUIContainer;
 
     public bool playerDefeated;
