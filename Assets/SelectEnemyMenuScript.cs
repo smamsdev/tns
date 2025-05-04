@@ -7,17 +7,21 @@ using UnityEngine.UI;
 public class SelectEnemyMenuScript : MonoBehaviour
 {
     [SerializeField] CombatManager combatManager;
-    public GameObject[] buttonSlot;
+    public GameObject[] buttonSlotGOs;
 
     public void InitializeButtonSlots()
     {
-        for (int i = 0; i < combatManager.enemies.Count; i++)
-
+        foreach (GameObject buttonGO in buttonSlotGOs)
         {
-            Button button = buttonSlot[i].GetComponent<Button>();
-            button.interactable = true;
+            buttonGO.SetActive(false);
+        };
 
-            var enemySelectButtonScript = button.GetComponent<EnemySelectButtonScript>();
+        for (int i = 0; i < combatManager.enemies.Count; i++)
+        {
+            buttonSlotGOs[i].SetActive(true);
+
+            Button button = buttonSlotGOs[i].GetComponent<Button>();
+            EnemySelectButtonScript enemySelectButtonScript = button.GetComponent<EnemySelectButtonScript>();
             enemySelectButtonScript.enemy = combatManager.enemies[i];
             enemySelectButtonScript.buttonText.text = enemySelectButtonScript.enemy.name;
         }
@@ -26,11 +30,15 @@ public class SelectEnemyMenuScript : MonoBehaviour
     public void HighlightEnemy(Enemy enemy)
     {
         combatManager.cameraFollow.transformToFollow = enemy.transform;
+
+        var enemyUI = enemy.combatantUI as EnemyUI;
+        enemyUI.selectedAnimator.SetBool("flash", true);
     }
 
     public void DeselectEnemy(Enemy enemy)
     {
-
+        var enemyUI = enemy.combatantUI as EnemyUI;
+        enemyUI.selectedAnimator.SetBool("flash", false);
     }
 
     public void SelectedEnemyToRevertToOnBack(Button button)

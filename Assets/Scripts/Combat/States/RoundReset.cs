@@ -7,6 +7,10 @@ public class RoundReset : State
     public override IEnumerator StartState()
     {
         combatManager.playerCombat.combatantUI.fendScript.ShowFendDisplay(combatManager.playerCombat, false);
+        combatManager.combatMenuManager.SetButtonNormalColor(combatManager.combatMenuManager.firstMenuFirstButton, Color.white);
+        combatManager.combatMenuManager.SetButtonNormalColor(combatManager.combatMenuManager.secondMenuFirstButton, Color.white);
+        combatManager.combatMenuManager.SetButtonNormalColor(combatManager.combatMenuManager.thirdMenuFirstButton, Color.white);
+        combatManager.combatMenuManager.SetButtonNormalColor(combatManager.combatMenuManager.targetMenuFirstButton, Color.white);
 
         foreach (Enemy enemy in combatManager.enemies)
         {
@@ -21,6 +25,8 @@ public class RoundReset : State
         }
 
         yield return new WaitForSeconds(0.5f);
+
+
         combatManager.roundCount++;
         combatManager.playerCombat.playerMoveManager.firstMoveIs = 0;
         combatManager.playerCombat.playerMoveManager.secondMoveIs = 0;

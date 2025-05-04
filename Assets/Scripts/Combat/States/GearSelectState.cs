@@ -10,7 +10,7 @@ public class GearSelectState : State
 
     public override IEnumerator StartState()
     {
-        combatManager.combatMenuManager.ChangeMenuState(combatManager.combatMenuManager.GearSelectMenu);
+        combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.GearSelectMenu, true);
         combatGearMenu.DisplayEquipSlots();
 
         yield break;
@@ -25,7 +25,6 @@ public class GearSelectState : State
     public override void StateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-
         {
             if (inventoryMenuEnabled) 
             {
@@ -36,7 +35,7 @@ public class GearSelectState : State
 
             if (!inventoryMenuEnabled && !FieldEvents.isCooldown())
             {
-                RevertState();
+                RevertToFirstMove();
             }
         }
     }
@@ -49,8 +48,10 @@ public class GearSelectState : State
         combatMenuManager.SetButtonNormalColor(buttonSelected, Color.white);
     }
 
-    void RevertState()
+    void RevertToFirstMove()
     {
+        combatManager.combatMenuManager.SetButtonNormalColor(combatManager.firstMove.buttonSelected, Color.white);
+        combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.GearSelectMenu, false);
         combatManager.SetState(combatManager.firstMove);
         CombatEvents.UpdateNarrator("");
     }

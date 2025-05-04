@@ -43,7 +43,7 @@ public class CombatGearMenu : MonoBehaviour
 
             if (playerInventory.equippedInventory[i] == null)
             {
-                gearEquipSlot[i].buttonTMP.text = "GEAR SLOT EMPTY";
+                gearEquipSlot[i].buttonTMP.text = "SLOT " + (i+1) + " EMPTY";
                 gearEquipSlot[i].gameObject.SetActive(true);
             }
 
@@ -55,7 +55,28 @@ public class CombatGearMenu : MonoBehaviour
                 gearEquipSlot[i].gameObject.SetActive(true);
             }
 
+        SetNavigationWrapAround();
         gearEquipSlotSelected.GetComponent<Button>().Select();
+    }
+
+    void SetNavigationWrapAround()
+    {
+        int buttonCount = playerInventory.inventorySO.equipSlotString.Count;
+
+        if (buttonCount > 1)
+        {
+            for (int i = 0; i < buttonCount; i++)
+            {
+                Button button = gearEquipSlot[i].GetComponent<Button>();
+                Navigation newNav = button.navigation;
+
+                // Default navigation: each button's up/down points to the adjacent buttons
+                newNav.selectOnUp = gearEquipSlot[(i - 1 + buttonCount) % buttonCount].GetComponent<Button>();  // Wrap around up
+                newNav.selectOnDown = gearEquipSlot[(i + 1) % buttonCount].GetComponent<Button>();  // Wrap around down
+
+                button.navigation = newNav;
+            }
+        }
     }
 
     public void GearSlotSelected(GearEquipSlot gearEquipSlot)
@@ -113,6 +134,7 @@ public class CombatGearMenu : MonoBehaviour
         else
         {
             playerInventory.UnequipGearFromSlot(gearEquipSlotSelected.gearEquipped);
+            combatManager.combatMenuManager.SetButtonNormalColor(gearEquipSlotSelected.GetComponent<Button>(), Color.white);
             gearEquipSlotSelected.gearEquipped = null;
             ApplyGearSelected();
         }
@@ -130,6 +152,8 @@ public class CombatGearMenu : MonoBehaviour
             }
 
             playerInventory.EquipGearToSlot(geartoEquip, gearEquipSlotSelected.equipSlotNumber);
+            combatManager.combatMenuManager.SetButtonNormalColor(gearEquipSlotSelected.GetComponent<Button>(), Color.white);
+
             ApplyGearSelected();
         }
     }

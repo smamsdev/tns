@@ -45,15 +45,9 @@ public class CombatMenuManager : MonoBehaviour
         DisableMenuState();
     }
 
-    public void ChangeMenuState(GameObject menuToEnable)
+    public void DisplayMenuGO(GameObject menuToEnable, bool on)
     {
-        firstMoveMenu.SetActive(false);
-        secondMoveMenu.SetActive(false);
-        enemySelectMenu.SetActive(false);
-        attackTargetMenu.SetActive(false);
-        GearSelectMenu.SetActive(false);
-
-        menuToEnable.SetActive(true);
+        menuToEnable.SetActive(on);
     }
 
     public void DisableMenuState()

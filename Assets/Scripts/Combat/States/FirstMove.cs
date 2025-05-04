@@ -10,10 +10,11 @@ public class FirstMove : State
 
     public override IEnumerator StartState()
     {
-        yield return new WaitForSeconds(0.1f);
+        //yield return new WaitForSeconds(0.1f); dont think i need this anymore
 
         combatManager.playerCombat.combatantUI.statsDisplay.ShowStatsDisplay(true);
-        combatManager.combatMenuManager.ChangeMenuState(combatManager.combatMenuManager.firstMoveMenu);
+        combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.firstMoveMenu, true);
+        combatManager.combatMenuManager.firstMenuFirstButton = buttonSelected;
         combatManager.combatMenuManager.firstMenuFirstButton.Select();
         combatManager.playerCombat.playerMoveManager.firstMoveIs = 0;
 
@@ -22,6 +23,7 @@ public class FirstMove : State
 
     public override void CombatOptionSelected (int moveValue)
     {
+        combatManager.combatMenuManager.firstMenuFirstButton = buttonSelected;
         combatManager.playerCombat.playerMoveManager.firstMoveIs = moveValue;
 
         if (moveValue == 4)

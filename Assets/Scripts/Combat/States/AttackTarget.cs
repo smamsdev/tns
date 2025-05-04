@@ -8,7 +8,7 @@ public class AttackTarget : State
     {
         yield return new WaitForSeconds(0.1f);
 
-        combatManager.combatMenuManager.ChangeMenuState(combatManager.combatMenuManager.attackTargetMenu);
+        combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.attackTargetMenu, true);
         combatManager.combatMenuManager.targetMenuFirstButton.Select();
 
         var targetUI = combatManager.playerCombat.targetToAttack.combatantUI as EnemyUI;
@@ -19,20 +19,13 @@ public class AttackTarget : State
 
     public override void CombatOptionSelected(int moveValue) //triggered via Button
     {
+        combatManager.combatMenuManager.targetMenuFirstButton = buttonSelected;
         var enemyToAttack = combatManager.playerCombat.targetToAttack as Enemy;
         enemyToAttack.SetEnemyBodyPartTarget(moveValue);
         DisablePartsTargetDisplay();
         combatManager.combatMenuManager.DisableMenuState();
 
-        if (combatManager.allies.Count > 0)
-        {
-            combatManager.SetState(combatManager.allyMoveState);
-        }
-
-        else
-        {
-            combatManager.SetState(combatManager.applyMove); 
-        }
+        combatManager.SetState(combatManager.applyMove);
     }
 
     public override void StateUpdate()
@@ -42,17 +35,16 @@ public class AttackTarget : State
         {
             DisablePartsTargetDisplay();
 
-            if (combatManager.battleScheme.enemies.Count == 1)
+            // if (combatManager.battleScheme.enemies.Count == 1)
+            //
+            // {
+            //     combatManager.SetState(combatManager.secondMove);
+            //     combatManager.cameraFollow.transformToFollow = combatManager.player.transform;
+            // }
 
-            {
-                combatManager.SetState(combatManager.secondMove);
-                combatManager.cameraFollow.transformToFollow = combatManager.player.transform;
-            }
-
-            else
-            {
-                combatManager.SetState(combatManager.enemySelect);
-            }
+            combatManager.combatMenuManager.SetButtonNormalColor(combatManager.enemySelect.buttonSelected, Color.white);
+            combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.attackTargetMenu, false);
+            combatManager.SetState(combatManager.enemySelect);
         }
     }
 

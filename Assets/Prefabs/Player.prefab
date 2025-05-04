@@ -62,7 +62,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7580801437491755071}
   - {fileID: 4236748915391052461}
   m_Father: {fileID: 7291517550505530816}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -79,8 +78,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySO: {fileID: 11400000, guid: 75a32f9470620854d86fdadedb6906f6, type: 2}
-  GearParent: {fileID: 4236748915391052461}
   inventory: []
+  equippedInventory: []
+  GearParent: {fileID: 4236748915391052461}
 --- !u!1 &539720073523974976
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +134,8 @@ MonoBehaviour:
   fendMoveModPercent: 2
   animtionIntTriggerToUse: 0
   targetPositionHorizontalOffset: 0
-  targetIsSelf: 0
+  offsetFromSelf: 0
+  applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0
@@ -193,7 +194,8 @@ MonoBehaviour:
   fendMoveModPercent: 0
   animtionIntTriggerToUse: 0
   targetPositionHorizontalOffset: 0
-  targetIsSelf: 0
+  offsetFromSelf: 0
+  applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0
@@ -330,7 +332,8 @@ MonoBehaviour:
   fendMoveModPercent: 1
   animtionIntTriggerToUse: 0
   targetPositionHorizontalOffset: 0
-  targetIsSelf: 0
+  offsetFromSelf: 0
+  applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0
@@ -389,7 +392,8 @@ MonoBehaviour:
   fendMoveModPercent: 0.5
   animtionIntTriggerToUse: 0
   targetPositionHorizontalOffset: 0
-  targetIsSelf: 0
+  offsetFromSelf: 0
+  applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0
@@ -448,57 +452,13 @@ MonoBehaviour:
   fendMoveModPercent: 0
   animtionIntTriggerToUse: 0
   targetPositionHorizontalOffset: 0
-  targetIsSelf: 0
+  offsetFromSelf: 0
+  applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 3
   potentialChange: -10
   isFlaw: 0
---- !u!1 &1775209863991066390
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7580801437491755071}
-  - component: {fileID: 1487544614038507580}
-  m_Layer: 7
-  m_Name: EquippedGear
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7580801437491755071
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1775209863991066390}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4603510060094619080}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1487544614038507580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1775209863991066390}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 304b9dbf7eeaf414783c32234ec062d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  equippedSlot: []
 --- !u!1 &2169447423222127668
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,7 +627,8 @@ MonoBehaviour:
   fendMoveModPercent: 0
   animtionIntTriggerToUse: 0
   targetPositionHorizontalOffset: 0
-  targetIsSelf: 0
+  offsetFromSelf: 0
+  applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 1
@@ -921,7 +882,8 @@ MonoBehaviour:
   fendMoveModPercent: 0
   animtionIntTriggerToUse: 0
   targetPositionHorizontalOffset: 0
-  targetIsSelf: 0
+  offsetFromSelf: 0
+  applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0
@@ -1207,6 +1169,7 @@ MonoBehaviour:
   playerRigidBody2d: {fileID: 4400780416818078350}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
+  movementLocked: 0
 --- !u!95 &8879681757372781048
 Animator:
   serializedVersion: 5
@@ -1307,10 +1270,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatantName: 
+  combatantUI: {fileID: 0}
+  rigidbody2D: {fileID: 0}
   attackBase: 0
   fendBase: 0
-  attackPowerBase: 0
   maxHP: 0
+  fendDisplayOn: 0
   currentHP: 0
   attackTotal: 0
   fendTotal: 0
@@ -1320,17 +1285,10 @@ MonoBehaviour:
   targetToAttack: {fileID: 0}
   moveSelected: {fileID: 0}
   playerPermanentStats: {fileID: 11400000, guid: 891a8d8bd88cd9a45acd6a5ac406be03, type: 2}
-  playerCurrentHP: 0
-  playerMaxHP: 0
-  playerFend: 0
-  fendPotMod: 0
-  attackPower: 0
-  attackPowerPotMod: 0
+  playerMoveManager: {fileID: 0}
   currentPotential: 0
-  maxPotential: 0
-  potentialMod: 0
-  attackPowerBaseMod: 0
-  fendBaseMod: 0
+  fendPotMod: 0
+  attackPowerPotMod: 0
   playerFocusbaseMod: 0
   attackPowerGearMod: 0
   fendPowerGearMod: 0
@@ -1390,7 +1348,8 @@ MonoBehaviour:
   fendMoveModPercent: 2
   animtionIntTriggerToUse: 0
   targetPositionHorizontalOffset: 0
-  targetIsSelf: 0
+  offsetFromSelf: 0
+  applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0
@@ -1449,7 +1408,8 @@ MonoBehaviour:
   fendMoveModPercent: 0.5
   animtionIntTriggerToUse: 0
   targetPositionHorizontalOffset: 0
-  targetIsSelf: 0
+  offsetFromSelf: 0
+  applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0
@@ -1508,7 +1468,8 @@ MonoBehaviour:
   fendMoveModPercent: 0
   animtionIntTriggerToUse: 0
   targetPositionHorizontalOffset: 0
-  targetIsSelf: 0
+  offsetFromSelf: 0
+  applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0
@@ -1601,7 +1562,8 @@ MonoBehaviour:
   fendMoveModPercent: 2
   animtionIntTriggerToUse: 0
   targetPositionHorizontalOffset: 0
-  targetIsSelf: 0
+  offsetFromSelf: 0
+  applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0
@@ -1692,7 +1654,8 @@ MonoBehaviour:
   fendMoveModPercent: 0.2
   animtionIntTriggerToUse: 0
   targetPositionHorizontalOffset: 0
-  targetIsSelf: 0
+  offsetFromSelf: 0
+  applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0

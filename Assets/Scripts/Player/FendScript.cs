@@ -23,7 +23,6 @@ public class FendScript : MonoBehaviour
             {
                 animator.Play("FendAppear", 0 , 0);
                 combatantToShow.fendDisplayOn = on;
-                //Debug.Log("on");
             }
         }
 

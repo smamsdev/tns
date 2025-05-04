@@ -8,7 +8,7 @@ public class StatsDisplay : MonoBehaviour
     public TextMeshProUGUI combatantNameTextMeshPro;
     public TextMeshProUGUI combatantHPTextMeshPro;
     public GameObject statsDisplayGameObject;
-    [SerializeField] Animator HPTMPanimator;
+    [SerializeField] Animator HPTMPAnimator;
     public Combatant combatant;
     public int combatantHP;
 
@@ -40,7 +40,7 @@ public class StatsDisplay : MonoBehaviour
 
     IEnumerator UpdateHPDisplayCoroutine(int enemyHP, int value)
     {
-        HPTMPanimator.SetTrigger("bump");
+        HPTMPAnimator.SetTrigger("bump");
         var newHPValue = enemyHP + value;
 
         float elapsedTime = 0f;

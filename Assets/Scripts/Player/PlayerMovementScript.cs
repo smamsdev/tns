@@ -30,6 +30,7 @@ public class PlayerMovementScript : MovementScript
         scriptedMovement = false;
         FieldEvents.movementSpeedMultiplier = 1;
         isReversing = Vector2.one;
+        playerRigidBody2d.bodyType = RigidbodyType2D.Dynamic;
     }
 
     private void Update()

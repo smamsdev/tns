@@ -22,6 +22,11 @@ public class ApplyPlayerMove : State
             ally.combatantUI.fendScript.ShowFendDisplay(ally, false);
         }
 
+        foreach (Enemy enemy in combatManager.enemies)
+        {
+            enemy.combatantUI.attackDisplay.ShowAttackDisplay(false);
+        }
+
         if (player.moveSelected.applyMoveToSelfOnly)
         {
             yield return ApplyMoveToSelf();
@@ -32,7 +37,15 @@ public class ApplyPlayerMove : State
             yield return ApplyMoveToEnemy();
         }
 
-        combatManager.SetState(combatManager.enemyMoveState);
+        if (combatManager.allies.Count > 0)
+        {
+            combatManager.SetState(combatManager.allyMoveState);
+        }
+
+        else
+        {
+            combatManager.SetState(combatManager.enemyMoveState);
+        }
         yield return null;
     }
 
@@ -82,12 +95,6 @@ public class ApplyPlayerMove : State
 
         var targetToAttackUI = player.targetToAttack.GetComponentInChildren<CombatantUI>();
         targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
-
-        if (player.targetToAttack != combatManager.lastCombatantTargeted)
-        {
-            targetToAttackUI.fendScript.ShowFendDisplay(player.targetToAttack, true);
-            targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
-        }
 
         yield return player.moveSelected.ApplyMove(player, player.targetToAttack);
         player.GetComponent<MovementScript>().lookDirection = playerLastLookDir;

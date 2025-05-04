@@ -11,11 +11,19 @@ public class Setup : State
 
     public override IEnumerator StartState()
     {
-        yield return HouseKeeping();
+        yield return new WaitForSeconds(0.01f);
+        combatManager.playerCombat.fightingPosition = combatManager.battleScheme.playerFightingPosition;
+        CombatEvents.BattleMode?.Invoke(true);
+        CombatEvents.isBattleMode = true;
+        FieldEvents.isCameraFollow = false;
 
         playerCombat = combatManager.playerCombat;
         yield return combatManager.PositionCombatant(playerCombat.gameObject, playerCombat.fightingPosition.transform.position);
-        playerCombat.GetComponent<PlayerMovementScript>().lookDirection = combatManager.battleScheme.playerDefaultLookDirection;
+
+        PlayerMovementScript playerMovementScript = playerCombat.GetComponent<PlayerMovementScript>();
+        playerMovementScript.lookDirection = combatManager.battleScheme.playerDefaultLookDirection;
+        playerMovementScript.playerRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
+
         var playerAnimator = playerCombat.GetComponent<Animator>();
         playerAnimator.SetBool("isCombat", true);
 
@@ -110,15 +118,6 @@ public class Setup : State
         ally.combatantUI.fendScript.fendTextMeshProUGUI.text = ally.fendTotal.ToString();
         ally.InitialiseCombatantStats();
         ally.combatantUI.statsDisplay.ShowStatsDisplay(true);
-    }
-
-    IEnumerator HouseKeeping()
-    {
-        yield return new WaitForSeconds(0.01f);
-        combatManager.playerCombat.fightingPosition = combatManager.battleScheme.playerFightingPosition;
-        CombatEvents.BattleMode?.Invoke(true);
-        CombatEvents.isBattleMode = true;
-        FieldEvents.isCameraFollow = false;
     }
 
     void SetPlayerUI()

@@ -6,6 +6,7 @@ public abstract class Combatant : MonoBehaviour
 {
     public string combatantName;
     public CombatantUI combatantUI;
+    public Rigidbody2D rigidbody2D;
 
     public int attackBase;
     public int fendBase;

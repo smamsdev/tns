@@ -69,6 +69,6 @@ public class AllyMoveState : State
             }
             //todo check for enemy defeat
         }
-        combatManager.SetState(combatManager.applyMove);
+        combatManager.SetState(combatManager.enemyMoveState);
     }
 }
