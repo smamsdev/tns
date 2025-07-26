@@ -4,7 +4,5 @@ using UnityEngine;
 
 public class EnemyUI : CombatantUI
 {
-    public BodyPartsDamageTakenDisplay bodyPartsDamageTakenDisplay;
-    public PartsTargetDisplay partsTargetDisplay;
     public Animator selectedAnimator;
 }

@@ -14,7 +14,6 @@ public class CombatMenuManager : MonoBehaviour
     public GameObject firstMoveMenu;
     public GameObject secondMoveMenu;
     public GameObject enemySelectMenu;
-    public GameObject attackTargetMenu;
     public GameObject GearSelectMenu;
 
     [Header("Scripts")]
@@ -26,7 +25,6 @@ public class CombatMenuManager : MonoBehaviour
     public Button firstMenuFirstButton; 
     public Button secondMenuFirstButton;
     public Button thirdMenuFirstButton;
-    public Button targetMenuFirstButton;
 
     public Color buttonSelectedYellow;
 
@@ -55,7 +53,6 @@ public class CombatMenuManager : MonoBehaviour
         firstMoveMenu.SetActive(false);
         secondMoveMenu.SetActive(false);
         enemySelectMenu.SetActive(false);
-        attackTargetMenu.SetActive(false);
         GearSelectMenu.SetActive(false);
         narratorTMP.gameObject.SetActive(false);
     }

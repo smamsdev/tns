@@ -15,7 +15,9 @@ public class EnemyMoveState : State
 
         foreach (Enemy enemyToAct in combatManager.enemies)
         {
-            foreach (Combatant combatant in combatManager.allAllies)
+            enemyToAct.targetToAttack = combatManager.allAlliesToTarget[Random.Range(0, combatManager.allAlliesToTarget.Count)];
+
+            foreach (Combatant combatant in combatManager.allies)
             {
                 if (combatant != enemyToAct.targetToAttack)
                 {
@@ -55,10 +57,13 @@ public class EnemyMoveState : State
                 yield break;
             }
 
-            //return target to original pos and look dir
-            yield return new WaitForSeconds(0.5f);
-            yield return combatManager.PositionCombatant(enemyToAct.targetToAttack.gameObject, enemyToAct.targetToAttack.fightingPosition.transform.position);
-            alliedTargetMovementScript.lookDirection = alliedTargetStoredLookDir;
+            //return target to original pos and look dir, if still alive
+            if (enemyToAct.targetToAttack.CurrentHP != 0)
+            {
+                yield return new WaitForSeconds(0.5f);
+                yield return combatManager.PositionCombatant(enemyToAct.targetToAttack.gameObject, enemyToAct.targetToAttack.fightingPosition.transform.position);
+                alliedTargetMovementScript.lookDirection = alliedTargetStoredLookDir;
+            }
         }
         combatManager.SetState(combatManager.roundReset);
     }

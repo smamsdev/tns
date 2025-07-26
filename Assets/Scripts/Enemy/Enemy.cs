@@ -67,57 +67,7 @@ public class Enemy : Combatant
 
     {
         DamageToHP(attackRemainder + damageReceivedInjuryBonus);
-        DamageToParts(Mathf.RoundToInt(attackRemainder * damageToBodyMod));
-    }
-
-    public void DamageToParts(int attackRemainder)
-    {
-        EnemyUI enemyUI = combatantUI as EnemyUI;
-
-        if (targetIs == Target.body)
-
-        {
-            if (enemyBodyHP > 0)
-            {
-                enemyUI.bodyPartsDamageTakenDisplay.BodyPartDamageTakenDisplay("Body", enemyBodyHP, Mathf.Clamp(enemyBodyHP - attackRemainder, 0, 9999), enemyBodyMaxHP);
-                enemyBodyHP = Mathf.Clamp(enemyBodyHP - attackRemainder, 0, 9999);
-            }
-        }
-
-        if (targetIs == Target.arms)
-
-        {
-            if (enemyArmsHP > 0)
-            {
-                enemyUI.bodyPartsDamageTakenDisplay.BodyPartDamageTakenDisplay("Arms", enemyArmsHP, Mathf.Clamp(enemyArmsHP - attackRemainder, 0, 9999), enemyArmsMaxHP);
-                enemyArmsHP = Mathf.Clamp(enemyArmsHP - attackRemainder, 0, 9999);
-            }
-        }
-
-        if (targetIs == Target.head)
-
-        {
-            if (enemyHeadHP > 0)
-            {
-                enemyUI.bodyPartsDamageTakenDisplay.BodyPartDamageTakenDisplay("Head", enemyHeadHP, Mathf.Clamp(enemyHeadHP - attackRemainder, 0, 9999), enemyHeadMaxHP);
-                enemyHeadHP = Mathf.Clamp(enemyHeadHP - attackRemainder, 0, 9999);
-            }
-        }
-
-        if (enemyBodyHP == 0)
-        {
-            damageReceivedInjuryBonus = attackRemainder;
-        }
-
-        if (enemyArmsHP == 0)
-        {
-            injuryPenalty = attackTotal / 2;
-        }
-
-        if (enemyHeadHP == 0)
-        {
-            injuryPenalty = attackTotal / 2;
-        }
+        //DamageToParts(Mathf.RoundToInt(attackRemainder * damageToBodyMod));
     }
 
     void DamageToHP(int damageTotal)

@@ -10,17 +10,17 @@ public class RoundReset : State
         combatManager.combatMenuManager.SetButtonNormalColor(combatManager.combatMenuManager.firstMenuFirstButton, Color.white);
         combatManager.combatMenuManager.SetButtonNormalColor(combatManager.combatMenuManager.secondMenuFirstButton, Color.white);
         combatManager.combatMenuManager.SetButtonNormalColor(combatManager.combatMenuManager.thirdMenuFirstButton, Color.white);
-        combatManager.combatMenuManager.SetButtonNormalColor(combatManager.combatMenuManager.targetMenuFirstButton, Color.white);
 
         foreach (Enemy enemy in combatManager.enemies)
         {
-            enemy.targetToAttack = combatManager.allAllies[Random.Range(0, combatManager.allAllies.Count)];
             combatManager.SelectAndDisplayCombatantMove(enemy);
+            enemy.combatantUI.statsDisplay.ShowStatsDisplay(true);
         }
 
         foreach (Ally ally in combatManager.allies)
         {
             ally.targetToAttack = combatManager.enemies[Random.Range(0, combatManager.enemies.Count)];
+            ally.combatantUI.statsDisplay.ShowStatsDisplay(true);
             combatManager.SelectAndDisplayCombatantMove(ally);
         }
 

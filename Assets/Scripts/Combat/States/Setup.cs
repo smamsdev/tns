@@ -33,7 +33,7 @@ public class Setup : State
         foreach (Enemy enemy in combatManager.enemies)
         {
             yield return combatManager.PositionCombatant(enemy.gameObject, enemy.fightingPosition.transform.position);
-            enemy.targetToAttack = combatManager.allAllies[Random.Range(0, combatManager.allAllies.Count)];
+            enemy.targetToAttack = combatManager.allies[Random.Range(0, combatManager.allies.Count)];
             SetDefaultLookDirectionAndType(enemy);
             SetcombatantUI(enemy);
             yield return new WaitForSeconds(0.1f);
@@ -42,7 +42,6 @@ public class Setup : State
         foreach (Ally ally in combatManager.allies)
         {
             yield return combatManager.PositionCombatant(ally.gameObject, ally.fightingPosition.transform.position);
-            ally.targetToAttack = combatManager.enemies[Random.Range(0, combatManager.enemies.Count)];
             SetDefaultLookDirectionAndType(ally);
             SetcombatantUI(ally);
 
@@ -83,9 +82,7 @@ public class Setup : State
         var enemycombatantUI = newEnemyCombatUI.GetComponent<EnemyUI>();
         enemy.combatantUI = enemycombatantUI;
 
-        enemycombatantUI.partsTargetDisplay.enemy = enemy;
         enemycombatantUI.fendScript.combatManager = combatManager;
-        enemycombatantUI.partsTargetDisplay.InitializeEnemyPartsHP();
 
         //flip UI elements based on look direction
         if (enemy.forceLookDirection == Vector2.left)
@@ -93,7 +90,6 @@ public class Setup : State
             var flippedPos = enemy.combatantUI.attackDisplay.transform.localPosition;
             flippedPos.x = -flippedPos.x;
             enemycombatantUI.attackDisplay.transform.localPosition = flippedPos;
-            enemycombatantUI.partsTargetDisplay.FlipTargetDisplay();
         }
 
         enemy.InitialiseCombatantStats();

@@ -31,7 +31,8 @@ public class EnemySelect : State
     {
         combatManager.playerCombat.targetToAttack = combatManager.enemies[moveValue];
         combatManager.combatMenuManager.thirdMenuFirstButton = buttonSelected;
-        combatManager.SetState(combatManager.attackTarget);
+        selectEnemyMenuScript.DeselectEnemy(selectEnemyMenuScript.enemyhighlighted);
+        combatManager.SetState(combatManager.applyMove);
     }
 
     public override void StateUpdate()

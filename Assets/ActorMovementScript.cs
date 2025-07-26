@@ -109,28 +109,28 @@ public class ActorMovementScript : MovementScript
 
             if (horizontalInput > 0)
             {
-                lookDirection = Vector2.right;
+                lookDirection = Vector2.right * isReversing.x;
             }
 
             if (horizontalInput < 0)
             {
-                lookDirection = Vector2.left;
+                lookDirection = Vector2.left * isReversing.x;
             }
 
             if (verticalInput > 0)
             {
-                lookDirection = Vector2.up;
+                lookDirection = Vector2.up * isReversing.y;
             }
 
             if (verticalInput < 0)
             {
-                lookDirection = Vector2.down;
+                lookDirection = Vector2.down * isReversing.y;
             }
 
             animator.SetFloat("horizontalInput", movementDirection.x * isReversing.x);
             animator.SetFloat("verticalInput", movementDirection.y * isReversing.y);
-            animator.SetFloat("lookDirectionX", lookDirection.x * isReversing.x);
-            animator.SetFloat("lookDirectionY", lookDirection.y * isReversing.y);
+            animator.SetFloat("lookDirectionX", lookDirection.x);
+            animator.SetFloat("lookDirectionY", lookDirection.y);
         }
     }
 }

@@ -79,10 +79,10 @@ public abstract class Move : MonoBehaviour
     public virtual IEnumerator ApplyMove(Combatant combatantToAct, Combatant targetCombatant)
     {
         Animator combatantToActAnimator = combatantToAct.GetComponent<Animator>();
+        CombatEvents.UpdateNarrator(moveName);
 
         if (applyMoveToSelfOnly)
         {
-            CombatEvents.UpdateNarrator(moveName);
             combatantToActAnimator.SetFloat("MoveAnimationToUse", animtionIntTriggerToUse);
             combatantToActAnimator.SetTrigger("Attack");
             yield return new WaitForSeconds(0.5f);
@@ -92,7 +92,6 @@ public abstract class Move : MonoBehaviour
 
         else 
         {
-            CombatEvents.UpdateNarrator(moveName);
             yield return MoveToPosition(combatantToAct.gameObject, combatantToAct.moveSelected.AttackPositionLocation(combatantToAct));
 
             combatManager.cameraFollow.transformToFollow = targetCombatant.transform;

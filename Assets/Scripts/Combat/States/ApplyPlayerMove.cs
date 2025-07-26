@@ -37,7 +37,7 @@ public class ApplyPlayerMove : State
             yield return ApplyMoveToEnemy();
         }
 
-        if (combatManager.allies.Count > 0)
+        if (combatManager.allies.Count > 1) //if there is more than just the 1 player ally in battle
         {
             combatManager.SetState(combatManager.allyMoveState);
         }
@@ -99,10 +99,13 @@ public class ApplyPlayerMove : State
         yield return player.moveSelected.ApplyMove(player, player.targetToAttack);
         player.GetComponent<MovementScript>().lookDirection = playerLastLookDir;
 
-        //return enemy target to original pos and look dir
-        yield return new WaitForSeconds(0.5f);
-        yield return combatManager.PositionCombatant(player.targetToAttack.gameObject, player.targetToAttack.fightingPosition.transform.position);
-        enemyTargetMovementScript.lookDirection = enemyTargetStoredLookDir;
+        //return target to original pos and look dir, if still alive
+        if (player.targetToAttack.CurrentHP != 0)
+        {
+            yield return new WaitForSeconds(0.5f);
+            yield return combatManager.PositionCombatant(player.targetToAttack.gameObject, player.targetToAttack.fightingPosition.transform.position);
+            enemyTargetMovementScript.lookDirection = enemyTargetStoredLookDir;
+        }
 
         //check for player defeat
         if (combatManager.defeat.playerDefeated)

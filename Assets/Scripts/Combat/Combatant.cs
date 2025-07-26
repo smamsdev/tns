@@ -6,7 +6,6 @@ public abstract class Combatant : MonoBehaviour
 {
     public string combatantName;
     public CombatantUI combatantUI;
-    public Rigidbody2D rigidbody2D;
 
     public int attackBase;
     public int fendBase;
@@ -15,7 +14,10 @@ public abstract class Combatant : MonoBehaviour
 
     public int CurrentHP
     {
-        get { return currentHP; }
+        get 
+        { 
+            return currentHP;
+        }
         set
         {
             currentHP = Mathf.Clamp(value, 0, 9999);
@@ -37,8 +39,45 @@ public abstract class Combatant : MonoBehaviour
 
     public virtual void UpdateHP(int value)
     {
-        CurrentHP += value;
-        combatantUI.statsDisplay.UpdateHPDisplay(value);
+        StartCoroutine(UpdateHPCoRo(value));
+        //combatantUI.statsDisplay.UpdateHPDisplay(value);
+    }
+
+    public virtual IEnumerator UpdateHPCoRo(int value)
+    {
+        var newHPValue = CurrentHP + value;
+
+        float elapsedTime = 0f;
+        float lerpDuration = 1f;
+        int valueToOutput;
+
+        combatantUI.statsDisplay.HPTMPAnimator.SetTrigger("bump");
+
+        while (elapsedTime < lerpDuration)
+        {
+            float t = Mathf.Clamp01(elapsedTime / lerpDuration);
+
+            valueToOutput = Mathf.RoundToInt(Mathf.Lerp(CurrentHP, newHPValue, t));
+            CurrentHP = valueToOutput;
+            combatantUI.statsDisplay.UpdateHPDisplay(CurrentHP);
+
+            if (CurrentHP <= 0)
+            {
+                Defeated();
+                yield break;
+            }
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    public void Defeated()
+    { 
+        CombatEvents.CombatantisDefeated(this);
+        StartCoroutine(DefeatedCoro());
     }
 
     public virtual void InitialiseCombatantStats()
@@ -50,5 +89,15 @@ public abstract class Combatant : MonoBehaviour
         combatantUI.statsDisplay.combatant = this;
         combatantUI.statsDisplay.combatantHP = CurrentHP;
         combatantUI.statsDisplay.combatantNameTextMeshPro.text = combatantName;
+    }
+
+    public virtual IEnumerator DefeatedCoro()
+    {
+        var combatantAnimator = this.GetComponent<Animator>();
+        yield return new WaitForSeconds(.5f);
+
+        combatantAnimator.SetBool("Defeated", true);
+
+        yield break;
     }
 }

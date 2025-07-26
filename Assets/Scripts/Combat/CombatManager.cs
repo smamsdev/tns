@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class CombatManager : MonoBehaviour
 {
@@ -10,7 +12,7 @@ public class CombatManager : MonoBehaviour
     public PlayerCombat playerCombat;
     public List<Ally> allies;
     public List<Enemy> enemies;
-    public List<Combatant> allAllies;
+    public List<Combatant> allAlliesToTarget;
 
     [Header("Debugging")]
     public State currentState;
@@ -20,7 +22,6 @@ public class CombatManager : MonoBehaviour
     public FirstMove firstMove;
     public SecondMove secondMove;
     public EnemySelect enemySelect;
-    public AttackTarget attackTarget;
     public AllyMoveState allyMoveState;
     public ApplyPlayerMove applyMove;
     public EnemyMoveState enemyMoveState;
@@ -39,11 +40,29 @@ public class CombatManager : MonoBehaviour
     private void OnEnable()
     {
         CombatEvents.PlayerDefeated += PlayerDefeated;
+        CombatEvents.CombatantisDefeated += CombatantDefeated;
     }
 
     private void OnDisable()
     {
         CombatEvents.PlayerDefeated -= PlayerDefeated;
+        CombatEvents.CombatantisDefeated -= CombatantDefeated;
+    }
+
+    void CombatantDefeated(Combatant combatant)
+    {
+        if (combatant is Enemy)
+        {
+            enemies.Remove(combatant as Enemy);
+            combatant.combatantUI.statsDisplay.ShowStatsDisplay(false);
+        }
+
+        if (combatant is Ally)
+        {
+            allies.Remove(combatant as Ally);
+            allAlliesToTarget.Remove(combatant as Ally);
+            combatant.combatantUI.statsDisplay.ShowStatsDisplay(false);
+        }
     }
 
     public void StartBattle()
@@ -73,8 +92,8 @@ public class CombatManager : MonoBehaviour
 
         else { Debug.Log("enemy not set in Battle"); }
 
-        allAllies = new List<Combatant> { playerCombat };
-        allAllies.AddRange(allies);
+        allAlliesToTarget = new List<Combatant> { playerCombat }; //create a new list and add player do it, this is the pool of allies enemies can attack
+        allAlliesToTarget.AddRange(allies);
 
         SetState(setup);
     }
