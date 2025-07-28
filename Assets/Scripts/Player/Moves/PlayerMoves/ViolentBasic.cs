@@ -4,38 +4,6 @@ using UnityEngine;
 
 public class ViolentBasic : ViolentMove
 {
-    public override IEnumerator OnApplyMove(CombatManager _combatManager, Enemy _enemy)
-
-    {
-        combatManager = _combatManager;
-        var playerMovementScript = combatManager.player.GetComponent<PlayerMovementScript>();
-        //var enemyPosition = combatManager.battleScheme.enemies[combatManager.selectedEnemy].transform.position;
-        var moveSelected = combatManager.playerCombat.moveSelected;
-
-        //combatManager.combatMenuManager.playerFendScript.ShowFendDisplay(true);
-
-
-        {
-            //move to attack position
-
-            //var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
-            //var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-            //yield return (combatMovementInstance.MoveCombatant(combatManager.player.gameObject, enemyPosition, 85f));
-            //Destroy(combatMovementInstanceGO);
-            //
-            //combatManager.enemies[combatManager.selectedEnemy].combatantUI.enemyFendScript.ApplyPlayerAttackToFend(combatManager.playerCombat.attackPower, playerMovementScript.lookDirection, moveSelected.attackPushStrength);
-            //
-            //combatManager.playerAnimator.SetTrigger("Attack");
-            yield return new WaitForSeconds(0.5f);
-        }
-
-        //if we just want to use this as a basic fend
-
-
-        {
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
 
     public override IEnumerator OnEnemyAttack(CombatManager _combatManager, Enemy _enemy)
 

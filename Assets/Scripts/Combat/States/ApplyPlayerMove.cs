@@ -10,10 +10,7 @@ public class ApplyPlayerMove : State
     public override IEnumerator StartState()
     {
         combatManager.combatMenuManager.DisableMenuState();
-
-        //get a bunch of refs...
         player = combatManager.playerCombat;
-
 
         foreach (Ally ally in combatManager.allies)
         {
@@ -75,7 +72,7 @@ public class ApplyPlayerMove : State
         var enemyTargetStoredLookDir = enemyTargetMovementScript.lookDirection;
 
         //store player look dir and camera focus
-        var playerLastLookDir = playerLookDirection; //this needs to happen here to remember direction of last enemy attacked
+        var playerLastLookDir = playerLookDirection;
         combatManager.cameraFollow.transformToFollow = player.transform;
 
         //reset narrator focus camera on allyToAct and wait
@@ -97,6 +94,7 @@ public class ApplyPlayerMove : State
         targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
 
         yield return player.moveSelected.ApplyMove(player, player.targetToAttack);
+
         player.GetComponent<MovementScript>().lookDirection = playerLastLookDir;
 
         //return target to original pos and look dir, if still alive

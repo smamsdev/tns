@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class CautiousBotch : CautiousMove
 {
-    public override IEnumerator OnApplyMove(CombatManager _combatManager, Enemy _enemy)
-    {
-        combatManager = _combatManager;
-
-        yield return new WaitForSeconds(1.0f);
-    }
 
     public override IEnumerator OnEnemyAttack(CombatManager _combatManager, Enemy _enemy)
 

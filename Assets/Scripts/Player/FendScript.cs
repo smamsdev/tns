@@ -36,6 +36,14 @@ public class FendScript : MonoBehaviour
 
     public void ApplyAttackToFend(Combatant combatant, Combatant target)
     {
+        var combatantToActLookDir = combatant.GetComponent<MovementScript>().lookDirection;
+        var targetLookDir = target.GetComponent<MovementScript>().lookDirection;
+
+        if (combatantToActLookDir == targetLookDir)
+        {
+            Debug.Log("baclkstadck!!!");  
+        }
+
         combatantAttacking = combatant;
         this.target = target;
         attackRemainder = combatantAttacking.attackTotal - target.fendTotal;

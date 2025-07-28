@@ -2721,9 +2721,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8579276996753944672, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: moveWeighting
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3474892475207483148, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1817306172}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
 --- !u!1 &531590773
@@ -3318,7 +3325,7 @@ MonoBehaviour:
   combatantUI: {fileID: 1108316055}
   attackBase: 12
   fendBase: 1
-  maxHP: 1
+  maxHP: 100
   fendDisplayOn: 0
   currentHP: 0
   attackTotal: 0
@@ -3419,6 +3426,11 @@ MonoBehaviour:
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
+--- !u!4 &816190967 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3474892475207483148, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+  m_PrefabInstance: {fileID: 519880131}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &834348077
 GameObject:
   m_ObjectHideFlags: 0
@@ -8149,6 +8161,66 @@ MonoBehaviour:
   menuManagerUI: {fileID: 507892054}
   menuGear: {fileID: 0}
   buttonSelectedYellow: {r: 1, g: 0.9098039, b: 0.21960784, a: 1}
+--- !u!1 &1817306171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1817306172}
+  - component: {fileID: 1817306173}
+  m_Layer: 7
+  m_Name: Ricochet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1817306172
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817306171}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 816190967}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1817306173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817306171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d70b9c9d3f46f614fb82c74c91999edc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveName: Ricochet
+  moveDescription: Ricochet
+  isEquipped: 0
+  moveWeighting: 100
+  attackPushStrength: 0
+  attackMoveModPercent: 1
+  fendMoveModPercent: 0
+  animtionIntTriggerToUse: 0
+  targetPositionHorizontalOffset: 0.2
+  offsetFromSelf: 0
+  applyMoveToSelfOnly: 0
+  combatManager: {fileID: 0}
+  enemy: {fileID: 0}
+  damageToPartsMultiplier: 0
+  potentialChange: 0
+  isFlaw: 0
 --- !u!1 &1825085726
 GameObject:
   m_ObjectHideFlags: 0
@@ -17384,7 +17456,7 @@ MonoBehaviour:
   attackTotal: 0
   fendTotal: 0
   injuryPenalty: 0
-  forceLookDirection: {x: 1, y: 0}
+  forceLookDirection: {x: -1, y: 0}
   fightingPosition: {fileID: 0}
   targetToAttack: {fileID: 0}
   moveSelected: {fileID: 0}
