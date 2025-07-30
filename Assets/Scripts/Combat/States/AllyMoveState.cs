@@ -11,7 +11,6 @@ public class AllyMoveState : State
             ally.combatantUI.attackDisplay.ShowAttackDisplay(false);
             ally.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(false);
             ally.combatantUI.fendScript.ShowFendDisplay(ally, false);
-            ally.targetToAttack = combatManager.enemies[Random.Range(0, combatManager.enemies.Count)];
         }
 
         foreach (Ally allyToAct in combatManager.allies)

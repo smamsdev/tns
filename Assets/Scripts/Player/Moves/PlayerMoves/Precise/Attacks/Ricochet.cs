@@ -4,35 +4,19 @@ using UnityEngine;
 
 public class Ricochet : PreciseMove
 {
-    public override IEnumerator ApplyMove(Combatant player, Combatant targetCombatant)
+    public override IEnumerator MoveToPosition(GameObject objectToMove, Vector3 targetPosition)
     {
-        Animator combatantToActAnimator = player.GetComponent<Animator>();
-        CombatEvents.UpdateNarrator(moveName);
+        var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
+        var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
+        yield return (combatMovementInstance.MoveCombatant(objectToMove, targetPosition));
+        Destroy(combatMovementInstanceGO);
 
-        yield return MoveToPosition(player.gameObject, player.moveSelected.AttackPositionLocation(player));
-
-        Vector3 direction = (player.targetToAttack.transform.position - player.transform.position).normalized;
+        Vector3 direction = (combatantToAct.targetToAttack.transform.position - combatantToAct.transform.position).normalized;
         float attackDirX = Mathf.Sign(direction.x);
 
-        player.GetComponent<PlayerMovementScript>().lookDirection = new Vector2(attackDirX, 0);
+        combatantToAct.GetComponent<PlayerMovementScript>().lookDirection = new Vector2(attackDirX, 0);
 
         yield return new WaitForSeconds(.5f);
-
-        combatManager.cameraFollow.transformToFollow = targetCombatant.transform;
-        targetCombatant.combatantUI.fendScript.ApplyAttackToFend(player, player.targetToAttack);
-
-        //start animation
-
-        combatantToActAnimator.SetFloat("MoveAnimationToUse", animtionIntTriggerToUse);
-        combatantToActAnimator.SetTrigger("Attack");
-        yield return new WaitForSeconds(0.2f);
-
-        //return combatantToAct to fightingpos, and return look direct
-        yield return ReturnFromPosition(player.gameObject, player.fightingPosition.transform.position);
-        combatantToActAnimator.SetTrigger("CombatIdle"); //remember to blend the transition in animator settings or it will wiggle
-
-        //reset narrator
-        CombatEvents.UpdateNarrator("");
     }
 
     public override Vector3 AttackPositionLocation(Combatant combatant)
@@ -46,15 +30,5 @@ public class Ricochet : PreciseMove
                                          combatant.targetToAttack.transform.position.y);
 
         return targetPosition;
-    }
-
-    public override IEnumerator Return()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override IEnumerator OnEnemyAttack(CombatManager _combatManager, Enemy _enemy)
-    {
-        throw new System.NotImplementedException();
     }
 }

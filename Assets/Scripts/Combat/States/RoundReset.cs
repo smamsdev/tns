@@ -13,13 +13,14 @@ public class RoundReset : State
 
         foreach (Enemy enemy in combatManager.enemies)
         {
+            combatManager.SelectTargetToAttack(enemy, combatManager.allAlliesToTarget);
             combatManager.SelectAndDisplayCombatantMove(enemy);
             enemy.combatantUI.statsDisplay.ShowStatsDisplay(true);
         }
 
         foreach (Ally ally in combatManager.allies)
         {
-            ally.targetToAttack = combatManager.enemies[Random.Range(0, combatManager.enemies.Count)];
+            combatManager.SelectTargetToAttack(ally, combatManager.enemies);
             ally.combatantUI.statsDisplay.ShowStatsDisplay(true);
             combatManager.SelectAndDisplayCombatantMove(ally);
         }

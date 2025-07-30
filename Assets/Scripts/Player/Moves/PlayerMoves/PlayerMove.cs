@@ -8,8 +8,9 @@ public abstract class PlayerMove : Move
     public int potentialChange;
     public bool isFlaw;
 
-    public abstract IEnumerator Return();
-
-    public abstract IEnumerator OnEnemyAttack(CombatManager _combatManager, Enemy _enemy);
+    public virtual IEnumerator OnEnemyAttack(CombatManager _combatManager, Enemy _enemy)
+    {
+        yield break;
+    }
 
 }

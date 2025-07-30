@@ -48,9 +48,7 @@ public class Setup : State
             //flip UI elements based on look direction
             if (ally.forceLookDirection == Vector2.left)
             {
-                var flippedPos = ally.combatantUI.attackDisplay.transform.localPosition;
-                flippedPos.x = -flippedPos.x;
-                ally.combatantUI.attackDisplay.transform.localPosition = flippedPos;
+                combatManager.SetUIBasedOnLookDir(ally);
             }
 
             yield return new WaitForSeconds(0.1f);
@@ -60,12 +58,13 @@ public class Setup : State
 
         foreach (Ally ally in combatManager.allies)
         {
+            combatManager.SelectTargetToAttack(ally, combatManager.enemies);
             combatManager.SelectAndDisplayCombatantMove(ally);
-            ally.targetToAttack = combatManager.enemies[Random.Range(0, combatManager.enemies.Count)];
         }
 
         foreach (Enemy enemy in combatManager.enemies)
         {
+            combatManager.SelectTargetToAttack(enemy, combatManager.allAlliesToTarget);
             combatManager.SelectAndDisplayCombatantMove(enemy);
         }
 
@@ -87,9 +86,7 @@ public class Setup : State
         //flip UI elements based on look direction
         if (enemy.forceLookDirection == Vector2.left)
         {
-            var flippedPos = enemy.combatantUI.attackDisplay.transform.localPosition;
-            flippedPos.x = -flippedPos.x;
-            enemycombatantUI.attackDisplay.transform.localPosition = flippedPos;
+           combatManager.SetUIBasedOnLookDir(enemy);
         }
 
         enemy.InitialiseCombatantStats();

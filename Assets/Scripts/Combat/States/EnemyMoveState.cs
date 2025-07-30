@@ -15,8 +15,6 @@ public class EnemyMoveState : State
 
         foreach (Enemy enemyToAct in combatManager.enemies)
         {
-            enemyToAct.targetToAttack = combatManager.allAlliesToTarget[Random.Range(0, combatManager.allAlliesToTarget.Count)];
-
             foreach (Combatant combatant in combatManager.allies)
             {
                 if (combatant != enemyToAct.targetToAttack)

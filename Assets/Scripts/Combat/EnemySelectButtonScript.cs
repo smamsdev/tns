@@ -9,15 +9,15 @@ public class EnemySelectButtonScript : MonoBehaviour, ISelectHandler, IDeselectH
 {
     public SelectEnemyMenuScript selectEnemyMenuScript;
     public TextMeshProUGUI buttonText;
-    public Enemy enemy;
+    public Combatant combatant;
 
     public void OnSelect(BaseEventData eventData)
     {
-        selectEnemyMenuScript.HighlightEnemy(enemy);
+        selectEnemyMenuScript.HighlightEnemy(combatant);
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        selectEnemyMenuScript.DeselectEnemy(enemy);
+        selectEnemyMenuScript.DeselectEnemy(combatant);
     }
 }

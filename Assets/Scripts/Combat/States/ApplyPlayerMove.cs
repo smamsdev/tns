@@ -24,17 +24,9 @@ public class ApplyPlayerMove : State
             enemy.combatantUI.attackDisplay.ShowAttackDisplay(false);
         }
 
-        if (player.moveSelected.applyMoveToSelfOnly)
-        {
-            yield return ApplyMoveToSelf();
-        }
+        yield return ApplyMove();
 
-        else
-        {
-            yield return ApplyMoveToEnemy();
-        }
-
-        if (combatManager.allies.Count > 1) //if there is more than just the 1 player ally in battle
+        if (combatManager.allies.Count > 0)
         {
             combatManager.SetState(combatManager.allyMoveState);
         }
@@ -46,13 +38,9 @@ public class ApplyPlayerMove : State
         yield return null;
     }
 
-    IEnumerator ApplyMoveToSelf()
+    IEnumerator ApplyMove()
     {
-        yield return player.moveSelected.ApplyMove(player, player.targetToAttack);
-    }
 
-    IEnumerator ApplyMoveToEnemy()
-    {
         //Disable other combatant UI elements
         foreach (Enemy enemy in combatManager.enemies)
         {
@@ -67,17 +55,17 @@ public class ApplyPlayerMove : State
         var playerMovementScript = player.GetComponent<PlayerMovementScript>();
         var playerLookDirection = playerMovementScript.lookDirection;
 
-        //store enemy target look dir
-        var enemyTargetMovementScript = player.targetToAttack.GetComponent<MovementScript>();
-        var enemyTargetStoredLookDir = enemyTargetMovementScript.lookDirection;
+        ////store enemy target look dir DO I NEED THIS
+        //var enemyTargetMovementScript = player.targetToAttack.GetComponent<MovementScript>();
+        //var enemyTargetStoredLookDir = enemyTargetMovementScript.lookDirection;
 
         //store player look dir and camera focus
         var playerLastLookDir = playerLookDirection;
-        combatManager.cameraFollow.transformToFollow = player.transform;
 
         //reset narrator focus camera on allyToAct and wait
         CombatEvents.UpdateNarrator("");
         combatManager.cameraFollow.transformToFollow = player.transform;
+
         yield return new WaitForSeconds(0.5f);
 
         //update potential
@@ -102,7 +90,6 @@ public class ApplyPlayerMove : State
         {
             yield return new WaitForSeconds(0.5f);
             yield return combatManager.PositionCombatant(player.targetToAttack.gameObject, player.targetToAttack.fightingPosition.transform.position);
-            enemyTargetMovementScript.lookDirection = enemyTargetStoredLookDir;
         }
 
         //check for player defeat

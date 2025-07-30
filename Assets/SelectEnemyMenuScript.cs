@@ -8,7 +8,7 @@ public class SelectEnemyMenuScript : MonoBehaviour
 {
     [SerializeField] CombatManager combatManager;
     public GameObject[] buttonSlotGOs;
-    public Enemy enemyhighlighted;
+    public Combatant enemyhighlighted;
 
     public void InitializeButtonSlots()
     {
@@ -23,23 +23,23 @@ public class SelectEnemyMenuScript : MonoBehaviour
 
             Button button = buttonSlotGOs[i].GetComponent<Button>();
             EnemySelectButtonScript enemySelectButtonScript = button.GetComponent<EnemySelectButtonScript>();
-            enemySelectButtonScript.enemy = combatManager.enemies[i];
-            enemySelectButtonScript.buttonText.text = enemySelectButtonScript.enemy.name;
+            enemySelectButtonScript.combatant = combatManager.enemies[i];
+            enemySelectButtonScript.buttonText.text = enemySelectButtonScript.combatant.name;
         }
     }
 
-    public void HighlightEnemy(Enemy enemy)
+    public void HighlightEnemy(Combatant combatant)
     {
-        combatManager.cameraFollow.transformToFollow = enemy.transform;
-        enemyhighlighted = enemy;
+        combatManager.cameraFollow.transformToFollow = combatant.transform;
+        enemyhighlighted = combatant;
 
-        var enemyUI = enemy.combatantUI as EnemyUI;
+        var enemyUI = combatant.combatantUI as EnemyUI;
         enemyUI.selectedAnimator.SetBool("flash", true);
     }
 
-    public void DeselectEnemy(Enemy enemy)
+    public void DeselectEnemy(Combatant combatant)
     {
-        var enemyUI = enemy.combatantUI as EnemyUI;
+        var enemyUI = combatant.combatantUI as EnemyUI;
         enemyUI.selectedAnimator.SetBool("flash", false);
     }
 

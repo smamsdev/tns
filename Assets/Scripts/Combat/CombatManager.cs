@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +9,8 @@ public class CombatManager : MonoBehaviour
     public Battle battleScheme;
     public GameObject player;
     public PlayerCombat playerCombat;
-    public List<Ally> allies;
-    public List<Enemy> enemies;
+    public List<Combatant> allies;
+    public List<Combatant> enemies;
     public List<Combatant> allAlliesToTarget;
 
     [Header("Debugging")]
@@ -49,19 +48,35 @@ public class CombatManager : MonoBehaviour
         CombatEvents.CombatantisDefeated -= CombatantDefeated;
     }
 
-    void CombatantDefeated(Combatant combatant)
+    void CombatantDefeated(Combatant defeatedCombatant)
     {
-        if (combatant is Enemy)
+        if (defeatedCombatant is Enemy)
         {
-            enemies.Remove(combatant as Enemy);
-            combatant.combatantUI.statsDisplay.ShowStatsDisplay(false);
+            enemies.Remove(defeatedCombatant);
+            defeatedCombatant.combatantUI.statsDisplay.ShowStatsDisplay(false);
+
+            foreach (Ally ally in allies)
+            {
+                if (enemies.Count > 0 && ally.targetToAttack == defeatedCombatant)
+                {
+                    SelectTargetToAttack(ally, enemies);
+                }
+            }
         }
 
-        if (combatant is Ally)
+        if (defeatedCombatant is Ally)
         {
-            allies.Remove(combatant as Ally);
-            allAlliesToTarget.Remove(combatant as Ally);
-            combatant.combatantUI.statsDisplay.ShowStatsDisplay(false);
+            allies.Remove(defeatedCombatant);
+            allAlliesToTarget.Remove(defeatedCombatant);
+            defeatedCombatant.combatantUI.statsDisplay.ShowStatsDisplay(false);
+
+            foreach (Enemy enemy in enemies)
+            {
+                if (enemy.targetToAttack == defeatedCombatant)
+                {
+                    SelectTargetToAttack(enemy, allAlliesToTarget);
+                }
+            }
         }
     }
 
@@ -81,13 +96,13 @@ public class CombatManager : MonoBehaviour
         if (battleScheme.allies != null)
         
         {
-            allies = new List<Ally>(battleScheme.allies);
+            allies = new List<Combatant>(battleScheme.allies);
         }
 
         if (battleScheme.enemies != null)
 
         {
-            enemies = new List<Enemy>(battleScheme.enemies);
+            enemies = new List<Combatant>(battleScheme.enemies);
         }
 
         else { Debug.Log("enemy not set in Battle"); }
@@ -141,5 +156,17 @@ public class CombatManager : MonoBehaviour
     {
         defeat.playerDefeated = true;
         SetState(defeat);
+    }
+
+    public void SetUIBasedOnLookDir(Combatant combatant)
+    {
+        var flippedPos = combatant.combatantUI.attackDisplay.transform.localPosition;
+        flippedPos.x = -flippedPos.x;
+        combatant.combatantUI.attackDisplay.transform.localPosition = flippedPos;
+    }
+
+    public void SelectTargetToAttack(Combatant combatant, List<Combatant> targetList)
+    {
+        combatant.targetToAttack = targetList[Random.Range(0, targetList.Count)];
     }
 }

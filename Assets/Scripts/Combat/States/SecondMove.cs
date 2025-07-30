@@ -37,7 +37,7 @@ public class SecondMove : State
         }
         else
         {
-            combatManager.SetState(combatManager.allyMoveState);
+            combatManager.SetState(combatManager.applyMove);
         }
     }
 }
