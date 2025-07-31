@@ -33,43 +33,36 @@ public class Setup : State
         foreach (Enemy enemy in combatManager.enemies)
         {
             yield return combatManager.PositionCombatant(enemy.gameObject, enemy.fightingPosition.transform.position);
-            enemy.targetToAttack = combatManager.allies[Random.Range(0, combatManager.allies.Count)];
-            SetDefaultLookDirectionAndType(enemy);
-            SetcombatantUI(enemy);
-            yield return new WaitForSeconds(0.1f);
         }
 
         foreach (Ally ally in combatManager.allies)
         {
             yield return combatManager.PositionCombatant(ally.gameObject, ally.fightingPosition.transform.position);
-            SetDefaultLookDirectionAndType(ally);
-            SetcombatantUI(ally);
-
-            //flip UI elements based on look direction
-            if (ally.forceLookDirection == Vector2.left)
-            {
-                combatManager.SetUIBasedOnLookDir(ally);
-            }
-
-            yield return new WaitForSeconds(0.1f);
         }
 
         FieldEvents.isCameraFollow = true;
 
-        foreach (Ally ally in combatManager.allies)
-        {
-            combatManager.SelectTargetToAttack(ally, combatManager.enemies);
-            combatManager.SelectAndDisplayCombatantMove(ally);
-        }
-
         foreach (Enemy enemy in combatManager.enemies)
         {
             combatManager.SelectTargetToAttack(enemy, combatManager.allAlliesToTarget);
+            combatManager.SetRigidBodyType(enemy, RigidbodyType2D.Kinematic);
+            enemy.GetComponent<Animator>().SetBool("isCombat", true);
+            SetcombatantUI(enemy);
+            yield return new WaitForSeconds(0.1f); //i cant remember why u have to wait but attack ui wont appear if you dont
             combatManager.SelectAndDisplayCombatantMove(enemy);
         }
 
-        yield return new WaitForSeconds(1);
+        foreach (Ally ally in combatManager.allies)
+        {
+            combatManager.SelectTargetToAttack(ally, combatManager.enemies);
+            combatManager.SetRigidBodyType(ally, RigidbodyType2D.Kinematic);
+            ally.GetComponent<Animator>().SetBool("isCombat", true);
+            SetcombatantUI(ally);
+            yield return new WaitForSeconds(0.1f); //i cant remember why u have to wait but attack ui wont appear if you dont
+            combatManager.SelectAndDisplayCombatantMove(ally);
+        }
 
+        yield return new WaitForSeconds(1);
         combatManager.SetState(combatManager.firstMove);
     }
 
@@ -84,7 +77,7 @@ public class Setup : State
         enemycombatantUI.fendScript.combatManager = combatManager;
 
         //flip UI elements based on look direction
-        if (enemy.forceLookDirection == Vector2.left)
+        if (enemy.GetComponent<MovementScript>().lookDirection == Vector2.left)
         {
            combatManager.SetUIBasedOnLookDir(enemy);
         }
@@ -93,15 +86,7 @@ public class Setup : State
         enemycombatantUI.statsDisplay.ShowStatsDisplay(true);
     }
 
-    void SetDefaultLookDirectionAndType(Combatant _combatant)
-    {
-        GameObject combatantGO = _combatant.gameObject;
-        var combatantMovementScript = combatantGO.GetComponent<ActorMovementScript>();
-        var combatant = combatantGO.GetComponent<Combatant>();
-        combatantMovementScript.lookDirection = combatant.forceLookDirection;
-        combatantMovementScript.actorRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
-        _combatant.GetComponent<Animator>().SetBool("isCombat", true);
-    }
+
 
     void SetcombatantUI(Ally ally)
     {
@@ -109,6 +94,12 @@ public class Setup : State
         ally.combatantUI = ally.combatantUI.GetComponent<CombatantUI>();
         ally.combatantUI.fendScript.combatManager = combatManager;
         ally.combatantUI.fendScript.fendTextMeshProUGUI.text = ally.fendTotal.ToString();
+
+        if (ally.GetComponent<MovementScript>().lookDirection == Vector2.left)
+        {
+            combatManager.SetUIBasedOnLookDir(ally);
+        }
+
         ally.InitialiseCombatantStats();
         ally.combatantUI.statsDisplay.ShowStatsDisplay(true);
     }

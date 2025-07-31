@@ -85,8 +85,13 @@ public class ApplyPlayerMove : State
 
         player.GetComponent<MovementScript>().lookDirection = playerLastLookDir;
 
+        if (player.targetToAttack.CurrentHP == 0)
+        {
+            player.targetToAttack.Defeated();
+        }
+
         //return target to original pos and look dir, if still alive
-        if (player.targetToAttack.CurrentHP != 0)
+        else
         {
             yield return new WaitForSeconds(0.5f);
             yield return combatManager.PositionCombatant(player.targetToAttack.gameObject, player.targetToAttack.fightingPosition.transform.position);

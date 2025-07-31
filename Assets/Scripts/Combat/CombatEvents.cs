@@ -25,7 +25,6 @@ public static class CombatEvents
     public static Action<int> GearSlotButtonHighlighted;
     
     //Enemy
-    public static Action<int> SetEnemyBodyPartTarget;
 
     public static Action<Combatant> CombatantisDefeated;
 

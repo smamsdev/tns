@@ -55,19 +55,18 @@ public class AllyMoveState : State
             yield return allyToAct.moveSelected.ApplyMove(allyToAct, allyToAct.targetToAttack);
             allyToAct.GetComponent<MovementScript>().lookDirection = allyToActLastLookDirection;
 
-            //return target to original pos and look dir
-            yield return new WaitForSeconds(0.5f);
-
-            yield return combatManager.PositionCombatant(allyToAct.targetToAttack.gameObject, allyToAct.targetToAttack.fightingPosition.transform.position);
-            enemyTargetMovementScript.lookDirection = enemyTargetStoredLookDir;
-
-            //check for player defeat
-            if (combatManager.defeat.playerDefeated)
+            if (allyToAct.targetToAttack.CurrentHP == 0)
             {
-                Debug.Log("player defeated");
-                yield break;
+                allyToAct.targetToAttack.Defeated();
+                yield return new WaitForSeconds(4.5f);
             }
-            //todo check for enemy defeat
+
+            //return target to original pos and look dir, if still alive
+            else
+            {
+                yield return new WaitForSeconds(0.5f);
+                yield return combatManager.PositionCombatant(allyToAct.targetToAttack.gameObject, allyToAct.targetToAttack.fightingPosition.transform.position);
+            }
         }
         combatManager.SetState(combatManager.enemyMoveState);
     }

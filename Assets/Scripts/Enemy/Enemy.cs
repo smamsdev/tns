@@ -33,19 +33,12 @@ public class Enemy : Combatant
 
     private void OnEnable()
     {
-        CombatEvents.SetEnemyBodyPartTarget += SetEnemyBodyPartTarget;
-
         if (fightingPosition == null)
         {
             fightingPosition = new GameObject(this.gameObject.name + " Enemy Fighting Position");
             fightingPosition.transform.position = this.transform.position;
             fightingPosition.transform.SetParent(null); 
         }
-    }
-
-    private void OnDisable()
-    {
-        CombatEvents.SetEnemyBodyPartTarget += SetEnemyBodyPartTarget;
     }
 
     private void Start()

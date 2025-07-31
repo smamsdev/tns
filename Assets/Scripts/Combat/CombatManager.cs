@@ -149,7 +149,7 @@ public class CombatManager : MonoBehaviour
             combatant.combatantUI.attackDisplay.ShowAttackDisplay(true);
         }
 
-            combatant.combatantUI.fendScript.ShowFendDisplay(combatant, true);
+        combatant.combatantUI.fendScript.ShowFendDisplay(combatant, true);
     }
 
     void PlayerDefeated()
@@ -168,5 +168,15 @@ public class CombatManager : MonoBehaviour
     public void SelectTargetToAttack(Combatant combatant, List<Combatant> targetList)
     {
         combatant.targetToAttack = targetList[Random.Range(0, targetList.Count)];
+
+        Vector3 direction = (combatant.targetToAttack.transform.position - combatant.transform.position).normalized;
+        float attackDirX = Mathf.Sign(direction.x);
+
+        combatant.GetComponent<MovementScript>().lookDirection = new Vector2(attackDirX, 0);
+    }
+
+    public void SetRigidBodyType(Combatant combatant, RigidbodyType2D bodyType)
+    {
+        combatant.GetComponent<ActorMovementScript>().actorRigidBody2d.bodyType = bodyType;
     }
 }

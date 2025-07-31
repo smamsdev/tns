@@ -63,7 +63,6 @@ public abstract class Combatant : MonoBehaviour
 
             if (CurrentHP <= 0)
             {
-                Defeated();
                 yield break;
             }
 
@@ -94,7 +93,7 @@ public abstract class Combatant : MonoBehaviour
     public virtual IEnumerator DefeatedCoro()
     {
         var combatantAnimator = this.GetComponent<Animator>();
-        yield return new WaitForSeconds(.5f);
+ 
 
         combatantAnimator.SetBool("Defeated", true);
 
