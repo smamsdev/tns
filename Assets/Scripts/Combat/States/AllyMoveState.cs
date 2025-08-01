@@ -57,8 +57,7 @@ public class AllyMoveState : State
 
             if (allyToAct.targetToAttack.CurrentHP == 0)
             {
-                allyToAct.targetToAttack.Defeated();
-                yield return new WaitForSeconds(4.5f);
+                combatManager.CombatantDefeated(allyToAct.targetToAttack);
             }
 
             //return target to original pos and look dir, if still alive

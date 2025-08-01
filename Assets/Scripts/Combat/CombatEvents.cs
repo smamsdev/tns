@@ -23,10 +23,6 @@ public static class CombatEvents
     public static Action<float> InputCoolDown;
     public static Action<int> InventoryButtonHighlighted;
     public static Action<int> GearSlotButtonHighlighted;
-    
-    //Enemy
-
-    public static Action<Combatant> CombatantisDefeated;
 
     //Player
     public static Action<float, bool> UpdatePlayerAttackMoveMod;

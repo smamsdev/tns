@@ -8,7 +8,7 @@ public class StatsDisplay : MonoBehaviour
     public TextMeshProUGUI combatantNameTextMeshPro;
     public TextMeshProUGUI combatantHPTextMeshPro;
     public GameObject statsDisplayGameObject;
-    public Animator HPTMPAnimator;
+    public Animator HPTMPAnimator, statsDisplayContainerAnimator;
     public Combatant combatant;
     public int combatantHP;
 
@@ -29,8 +29,7 @@ public class StatsDisplay : MonoBehaviour
 
         if (combatant.CurrentHP <= 0)
         {
-            HPTMPAnimator.SetTrigger("bump");
-            combatantHPTextMeshPro.text = "DEFEATED";
+            statsDisplayContainerAnimator.Play("StatsDisplayOnDefeat");
         }
     }
 }

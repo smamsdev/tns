@@ -63,6 +63,7 @@ public abstract class Combatant : MonoBehaviour
 
             if (CurrentHP <= 0)
             {
+                Defeated();
                 yield break;
             }
 
@@ -75,8 +76,8 @@ public abstract class Combatant : MonoBehaviour
 
     public void Defeated()
     { 
-        CombatEvents.CombatantisDefeated(this);
-        StartCoroutine(DefeatedCoro());
+        var combatantAnimator = this.GetComponent<Animator>();
+        combatantAnimator.SetBool("Defeated", true);
     }
 
     public virtual void InitialiseCombatantStats()
@@ -88,15 +89,5 @@ public abstract class Combatant : MonoBehaviour
         combatantUI.statsDisplay.combatant = this;
         combatantUI.statsDisplay.combatantHP = CurrentHP;
         combatantUI.statsDisplay.combatantNameTextMeshPro.text = combatantName;
-    }
-
-    public virtual IEnumerator DefeatedCoro()
-    {
-        var combatantAnimator = this.GetComponent<Animator>();
- 
-
-        combatantAnimator.SetBool("Defeated", true);
-
-        yield break;
     }
 }

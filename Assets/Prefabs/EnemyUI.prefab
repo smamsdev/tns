@@ -528,6 +528,7 @@ MonoBehaviour:
   combatantHPTextMeshPro: {fileID: 1092966303211495939}
   statsDisplayGameObject: {fileID: 3365311331488213722}
   HPTMPAnimator: {fileID: 3238889342694107120}
+  statsDisplayContainerAnimator: {fileID: 3120520706185176849}
   combatant: {fileID: 0}
   combatantHP: 0
 --- !u!1 &2384728010077165602
@@ -719,6 +720,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2226336704969267696}
   - component: {fileID: 3710798987740099019}
+  - component: {fileID: 3120520706185176849}
   m_Layer: 8
   m_Name: StatsDisplayContainer
   m_TagString: Untagged
@@ -771,6 +773,27 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0.18}
   m_Constraint: 2
   m_ConstraintCount: 2
+--- !u!95 &3120520706185176849
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3365311331488213722}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fc00597104610e74ea0392f38688392b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4982799706101020034
 GameObject:
   m_ObjectHideFlags: 0

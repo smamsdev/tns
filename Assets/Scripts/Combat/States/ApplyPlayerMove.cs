@@ -87,7 +87,7 @@ public class ApplyPlayerMove : State
 
         if (player.targetToAttack.CurrentHP == 0)
         {
-            player.targetToAttack.Defeated();
+            combatManager.CombatantDefeated(player.targetToAttack);
         }
 
         //return target to original pos and look dir, if still alive

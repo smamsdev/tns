@@ -39,16 +39,14 @@ public class CombatManager : MonoBehaviour
     private void OnEnable()
     {
         CombatEvents.PlayerDefeated += PlayerDefeated;
-        CombatEvents.CombatantisDefeated += CombatantDefeated;
     }
 
     private void OnDisable()
     {
         CombatEvents.PlayerDefeated -= PlayerDefeated;
-        CombatEvents.CombatantisDefeated -= CombatantDefeated;
     }
 
-    void CombatantDefeated(Combatant defeatedCombatant)
+    public void CombatantDefeated(Combatant defeatedCombatant)
     {
         if (defeatedCombatant is Enemy)
         {
