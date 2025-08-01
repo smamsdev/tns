@@ -71,9 +71,8 @@ public class Setup : State
         GameObject newEnemyCombatUI = Instantiate(combatantUIPrefab, enemy.gameObject.transform);
         newEnemyCombatUI.transform.localPosition = Vector3.zero;
         newEnemyCombatUI.name = "combatantUI For " + enemy.combatantName;
-        var enemycombatantUI = newEnemyCombatUI.GetComponent<EnemyUI>();
+        var enemycombatantUI = newEnemyCombatUI.GetComponent<CombatantUI>();
         enemy.combatantUI = enemycombatantUI;
-
         enemycombatantUI.fendScript.combatManager = combatManager;
 
         //flip UI elements based on look direction

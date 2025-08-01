@@ -8,4 +8,5 @@ public class CombatantUI : MonoBehaviour
     public AttackDisplay attackDisplay;
     public FendScript fendScript;
     public DamageTakenDisplay damageTakenDisplay;
+    public Animator selectedAnimator;
 }

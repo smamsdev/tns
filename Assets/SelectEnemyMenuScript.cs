@@ -32,15 +32,15 @@ public class SelectEnemyMenuScript : MonoBehaviour
     {
         combatManager.cameraFollow.transformToFollow = combatant.transform;
         enemyhighlighted = combatant;
+        var combatantUI = combatant.combatantUI;
 
-        var enemyUI = combatant.combatantUI as EnemyUI;
-        enemyUI.selectedAnimator.SetBool("flash", true);
+        combatantUI.selectedAnimator.SetBool("Flash", true);
     }
 
     public void DeselectEnemy(Combatant combatant)
     {
-        var enemyUI = combatant.combatantUI as EnemyUI;
-        enemyUI.selectedAnimator.SetBool("flash", false);
+        var combatantUI = combatant.combatantUI;
+        combatantUI.selectedAnimator.SetBool("Flash", false);
     }
 
     public void SelectedEnemyToRevertToOnBack(Button button)

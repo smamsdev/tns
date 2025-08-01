@@ -8,7 +8,7 @@ using static UnityEngine.Rendering.DebugUI;
 public class FendScript : MonoBehaviour
 {
     public TextMeshProUGUI fendTextMeshProUGUI;
-    [HideInInspector] public CombatManager combatManager;
+    public CombatManager combatManager;
     [SerializeField] GameObject fendTextGO, fendIconGO;
     [SerializeField] Animator animator;
     Combatant combatantAttacking;
