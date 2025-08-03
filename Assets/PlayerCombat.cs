@@ -7,6 +7,7 @@ public class PlayerCombat : Combatant
 {
     public PlayerPermanentStats playerPermanentStats;
     public PlayerMoveManager playerMoveManager;
+    public MovementScript movementScript;
 
     public int CurrentPotential
     {
@@ -34,6 +35,7 @@ public class PlayerCombat : Combatant
     private void OnEnable()
     {
         CombatEvents.UpdatePlayerPot += UpdatePlayerPot;
+        movementScript = GetComponent<MovementScript>();
     }
 
     private void OnDisable()

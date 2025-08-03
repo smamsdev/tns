@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class EnemySelect : State
 {
     public SelectEnemyMenuScript selectEnemyMenuScript;
+    Vector2 previousLookDir;
 
     public override IEnumerator StartState()
     {
@@ -13,6 +14,7 @@ public class EnemySelect : State
         combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.enemySelectMenu, true);
         combatManager.combatMenuManager.thirdMenuFirstButton = buttonSelected;
         combatManager.combatMenuManager.thirdMenuFirstButton.Select();
+        previousLookDir = combatManager.playerCombat.movementScript.lookDirection;
 
         // if (combatManager.enemies.Count == 1)
         //
@@ -43,6 +45,8 @@ public class EnemySelect : State
             combatManager.cameraFollow.transformToFollow = combatManager.player.transform;
             combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.enemySelectMenu, false);
             combatManager.combatMenuManager.SetButtonNormalColor(combatManager.secondMove.buttonSelected, Color.white);
+            selectEnemyMenuScript.DeselectEnemy(selectEnemyMenuScript.enemyhighlighted);
+            combatManager.playerCombat.movementScript.lookDirection = previousLookDir;
 
             combatManager.SetState(combatManager.secondMove);
 

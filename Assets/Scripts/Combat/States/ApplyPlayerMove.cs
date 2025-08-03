@@ -52,16 +52,6 @@ public class ApplyPlayerMove : State
             }
         }
 
-        var playerMovementScript = player.GetComponent<PlayerMovementScript>();
-        var playerLookDirection = playerMovementScript.lookDirection;
-
-        ////store enemy target look dir DO I NEED THIS
-        //var enemyTargetMovementScript = player.targetToAttack.GetComponent<MovementScript>();
-        //var enemyTargetStoredLookDir = enemyTargetMovementScript.lookDirection;
-
-        //store player look dir and camera focus
-        var playerLastLookDir = playerLookDirection;
-
         //reset narrator focus camera on allyToAct and wait
         CombatEvents.UpdateNarrator("");
         combatManager.cameraFollow.transformToFollow = player.transform;
@@ -76,32 +66,29 @@ public class ApplyPlayerMove : State
 
         player.moveSelected.LoadMoveStats(player, combatManager);
 
-        player.combatantUI.fendScript.fendTextMeshProUGUI.text = player.TotalPlayerFendPower(combatManager.playerCombat.moveSelected.fendMoveModPercent).ToString();
-
-        var targetToAttackUI = player.targetToAttack.GetComponentInChildren<CombatantUI>();
-        targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
-
         yield return player.moveSelected.ApplyMove(player, player.targetToAttack);
 
-        player.GetComponent<MovementScript>().lookDirection = playerLastLookDir;
-
-        if (player.targetToAttack.CurrentHP == 0)
+        if (player.targetToAttack !=null)
         {
-            combatManager.CombatantDefeated(player.targetToAttack);
+            if (player.targetToAttack.CurrentHP == 0)
+            {
+                combatManager.CombatantDefeated(player.targetToAttack);
+            }
+
+            else         //return target to original pos and look dir, if still alive
+            {
+                yield return new WaitForSeconds(0.5f);
+                yield return combatManager.PositionCombatant(player.targetToAttack.gameObject, player.targetToAttack.fightingPosition.transform.position);
+            }
         }
 
-        //return target to original pos and look dir, if still alive
-        else
-        {
-            yield return new WaitForSeconds(0.5f);
-            yield return combatManager.PositionCombatant(player.targetToAttack.gameObject, player.targetToAttack.fightingPosition.transform.position);
-        }
+        player.combatantUI.fendScript.fendTextMeshProUGUI.text = player.TotalPlayerFendPower(combatManager.playerCombat.moveSelected.fendMoveModPercent).ToString();
 
-        //check for player defeat
-        if (combatManager.defeat.playerDefeated)
+        if (player.fendTotal > 0)
         {
-            Debug.Log("player defeated");
-            yield break;
+            player.combatantUI.fendScript.ShowFendDisplay(player, true);
+            yield return new WaitForSeconds(1.5f);
+
         }
     }
 }

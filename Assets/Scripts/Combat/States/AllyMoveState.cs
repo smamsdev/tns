@@ -13,6 +13,8 @@ public class AllyMoveState : State
             ally.combatantUI.fendScript.ShowFendDisplay(ally, false);
         }
 
+        combatManager.playerCombat.combatantUI.fendScript.ShowFendDisplay(combatManager.playerCombat,false);
+
         foreach (Ally allyToAct in combatManager.allies)
         {
             combatManager.lastCombatantTargeted = allyToAct.targetToAttack;

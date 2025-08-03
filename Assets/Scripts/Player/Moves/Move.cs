@@ -24,6 +24,8 @@ public abstract class Move : MonoBehaviour
 
     [HideInInspector] public CombatManager combatManager;
     [HideInInspector] public Animator combatantToActAnimator;
+    [HideInInspector] public MovementScript combatantToActMovementScript;
+
 
     [HideInInspector] public Combatant combatantToAct, targetCombatant;
 
@@ -41,7 +43,7 @@ public abstract class Move : MonoBehaviour
 
         var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
         var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-        yield return (combatMovementInstance.MoveCombatant(objectToMove, targetPosition));
+        yield return (combatMovementInstance.MoveCombatant(objectToMove, targetPosition, isReversingX: true));
         Destroy(combatMovementInstanceGO);
     }
 
@@ -98,6 +100,7 @@ public abstract class Move : MonoBehaviour
     public virtual void GetReferences(Combatant combatantToAct, Combatant targetCombatant)
     {
         combatantToActAnimator = combatantToAct.GetComponent<Animator>();
+        combatantToActMovementScript = combatantToAct.GetComponent<MovementScript>();
         this.combatantToAct = combatantToAct;
         this.targetCombatant = targetCombatant;
     }
@@ -115,20 +118,24 @@ public abstract class Move : MonoBehaviour
 
     public virtual void TriggerIdleAnimation()
     {
-        combatantToActAnimator.SetTrigger("CombatIdle"); //remember to blend the transition in animator settings or it will wiggle
+       combatantToActAnimator.SetTrigger("CombatIdle"); //remember to blend the transition in animator settings or it will wiggle
     }
 
     public virtual IEnumerator ApplyMoveToSelf()
     {
         TriggerMoveAnimation();
-        Debug.Log("is this on");
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(0.5f);
         TriggerIdleAnimation();
+        yield return new WaitForSeconds(1f);
         UpdateNarrator("");
     }
 
     public virtual IEnumerator ApplyMoveToEnemy()
     {
+        var playerDefaultLookDirection = combatantToActMovementScript.lookDirection;
+        var targetToAttackUI = combatantToAct.targetToAttack.GetComponentInChildren<CombatantUI>();
+        targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
+
         //move to attack pos
         yield return MoveToPosition(combatantToAct.gameObject, combatantToAct.moveSelected.AttackPositionLocation(combatantToAct));
 
@@ -139,7 +146,10 @@ public abstract class Move : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         //return combatantToAct to fightingpos, and return look direct
+        combatantToActAnimator.SetTrigger("Back");
         yield return ReturnFromPosition(combatantToAct.gameObject, combatantToAct.fightingPosition.transform.position);
+
+        combatantToActMovementScript.lookDirection = playerDefaultLookDirection;
         TriggerIdleAnimation();
 
         UpdateNarrator("");

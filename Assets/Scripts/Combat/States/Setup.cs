@@ -85,8 +85,6 @@ public class Setup : State
         enemycombatantUI.statsDisplay.ShowStatsDisplay(true);
     }
 
-
-
     void SetcombatantUI(Ally ally)
     {
         ally.combatantUI.name = "combatantUI For " + ally.combatantName;

@@ -92,7 +92,7 @@ public class PlayerMovementScript : MovementScript
             animator.SetBool("isMoving", true);
         }
 
-        else if (movementDirection.magnitude < 0.015f)
+        else if (movementDirection.magnitude < 0.1f)
         {
             animator.SetBool("isMoving", false);
         }

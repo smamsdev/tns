@@ -1072,6 +1072,7 @@ MonoBehaviour:
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
   targetCombatant: {fileID: 0}
 --- !u!224 &272747831 stripped
@@ -1136,6 +1137,7 @@ MonoBehaviour:
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
   targetCombatant: {fileID: 0}
 --- !u!1001 &337093868
@@ -1479,6 +1481,7 @@ MonoBehaviour:
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
   targetCombatant: {fileID: 0}
 --- !u!1 &416641335
@@ -1639,6 +1642,7 @@ MonoBehaviour:
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
   targetCombatant: {fileID: 0}
 --- !u!1 &429433410
@@ -1832,6 +1836,7 @@ MonoBehaviour:
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
   targetCombatant: {fileID: 0}
 --- !u!1 &476719678
@@ -2187,6 +2192,10 @@ PrefabInstance:
       propertyPath: isEquipped
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5690664268955463731, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: fendMoveModPercent
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5853114165235238953, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: offsetFromSelf
       value: 0
@@ -2197,7 +2206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5853114165235238953, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: applyMoveToSelfOnly
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5853114165235238953, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: targetPositionHorizontalOffset
@@ -2800,7 +2809,7 @@ MonoBehaviour:
   combatantUI: {fileID: 1108316055}
   attackBase: 12
   fendBase: 1
-  maxHP: 2
+  maxHP: 222
   fendDisplayOn: 0
   currentHP: 0
   attackTotal: 0
@@ -2902,6 +2911,7 @@ MonoBehaviour:
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
   targetCombatant: {fileID: 0}
 --- !u!4 &816190967 stripped
@@ -3482,6 +3492,7 @@ MonoBehaviour:
   applyMoveToSelfOnly: 1
   combatManager: {fileID: 0}
   combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
   targetCombatant: {fileID: 0}
   enemy: {fileID: 0}
@@ -3857,7 +3868,7 @@ MonoBehaviour:
   - {fileID: 1728482599}
   playerFightingPosition: {fileID: 836338419}
   combatManager: {fileID: 0}
-  playerDefaultLookDirection: {x: 1, y: 0}
+  playerDefaultLookDirection: {x: -1, y: 0}
 --- !u!1001 &1024215743
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4413,6 +4424,7 @@ MonoBehaviour:
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
   targetCombatant: {fileID: 0}
 --- !u!1 &1158189807
@@ -5116,6 +5128,7 @@ MonoBehaviour:
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
   targetCombatant: {fileID: 0}
 --- !u!4 &1208208640
@@ -6082,6 +6095,7 @@ MonoBehaviour:
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
   targetCombatant: {fileID: 0}
 --- !u!1 &1560964011
@@ -6691,8 +6705,8 @@ MonoBehaviour:
   combatantName: Hef 2
   combatantUI: {fileID: 0}
   attackBase: 4
-  fendBase: 4
-  maxHP: 1
+  fendBase: 12
+  maxHP: 22222
   fendDisplayOn: 0
   currentHP: 0
   attackTotal: 0
@@ -6907,7 +6921,7 @@ Transform:
   m_GameObject: {fileID: 1728482598}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.125, y: 1.175, z: 0}
+  m_LocalPosition: {x: 0.655, y: 1.3349999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7292,6 +7306,7 @@ MonoBehaviour:
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
   targetCombatant: {fileID: 0}
   enemy: {fileID: 0}
@@ -7556,6 +7571,7 @@ MonoBehaviour:
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
   targetCombatant: {fileID: 0}
 --- !u!1 &1855403270
@@ -11959,6 +11975,7 @@ MonoBehaviour:
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
   targetCombatant: {fileID: 0}
 --- !u!4 &3417646607471902872
@@ -12674,6 +12691,7 @@ MonoBehaviour:
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
   targetCombatant: {fileID: 0}
 --- !u!1 &4301629000790075773
@@ -13119,6 +13137,7 @@ MonoBehaviour:
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
   targetCombatant: {fileID: 0}
 --- !u!222 &4980434362534382273
@@ -15692,6 +15711,7 @@ MonoBehaviour:
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
   targetCombatant: {fileID: 0}
 --- !u!1 &8443841670716444459
@@ -16098,6 +16118,7 @@ MonoBehaviour:
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
   combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
   targetCombatant: {fileID: 0}
 --- !u!224 &8939861799264235719
@@ -16299,8 +16320,8 @@ MonoBehaviour:
   combatantName: Hef
   combatantUI: {fileID: 0}
   attackBase: 4
-  fendBase: 2
-  maxHP: 1
+  fendBase: 4
+  maxHP: 1111
   fendDisplayOn: 0
   currentHP: 0
   attackTotal: 0

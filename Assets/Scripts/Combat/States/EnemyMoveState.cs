@@ -15,7 +15,7 @@ public class EnemyMoveState : State
 
         foreach (Enemy enemyToAct in combatManager.enemies)
         {
-            foreach (Combatant combatant in combatManager.allies)
+            foreach (Combatant combatant in combatManager.allAlliesToTarget)
             {
                 if (combatant != enemyToAct.targetToAttack)
                 {

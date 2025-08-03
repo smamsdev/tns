@@ -35,6 +35,11 @@ public class SelectEnemyMenuScript : MonoBehaviour
         var combatantUI = combatant.combatantUI;
 
         combatantUI.selectedAnimator.SetBool("Flash", true);
+
+        Vector2 direction = (combatant.transform.position - combatManager.player.transform.position).normalized;
+        float attackDirX = Mathf.Sign(direction.x);
+
+        combatManager.playerCombat.movementScript.lookDirection = new Vector2 (attackDirX, 0);
     }
 
     public void DeselectEnemy(Combatant combatant)
@@ -43,7 +48,7 @@ public class SelectEnemyMenuScript : MonoBehaviour
         combatantUI.selectedAnimator.SetBool("Flash", false);
     }
 
-    public void SelectedEnemyToRevertToOnBack(Button button)
+    public void SelectedEnemyToRevertToOnBack(Button button)  //prob dont eneed this
     { 
         combatManager.combatMenuManager.thirdMenuFirstButton = button;
     }
