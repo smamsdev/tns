@@ -108,15 +108,15 @@ RectTransform:
   m_GameObject: {fileID: 259668151054159685}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8141338910928800134}
-  m_Father: {fileID: 7480956048217281426}
+  m_Father: {fileID: 8509336136061949462}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.7383356}
+  m_AnchoredPosition: {x: 0, y: 0.75}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4586262846546261908
@@ -212,6 +212,10 @@ MonoBehaviour:
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
+  combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
+  combatantToAct: {fileID: 0}
+  targetCombatant: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0
   potentialChange: 12
@@ -272,6 +276,10 @@ MonoBehaviour:
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
+  combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
+  combatantToAct: {fileID: 0}
+  targetCombatant: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0
   potentialChange: 5
@@ -378,10 +386,10 @@ RectTransform:
   m_GameObject: {fileID: 602458996687009870}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
+  m_LocalScale: {x: 0.020000001, y: 0.020000001, z: 0.020000001}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 131349315033712158}
+  m_Father: {fileID: 8509336136061949462}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -470,7 +478,7 @@ GameObject:
   - component: {fileID: 7451799450445645147}
   - component: {fileID: 5628073045649337421}
   m_Layer: 7
-  m_Name: Fend
+  m_Name: FendAndDamage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -488,8 +496,7 @@ RectTransform:
   m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 6931901832197756146}
-  - {fileID: 5655029608739900934}
+  - {fileID: 8509336136061949462}
   m_Father: {fileID: 7480956048217281426}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -609,16 +616,58 @@ MonoBehaviour:
   moveWeighting: 25
   attackPushStrength: 0
   attackMoveModPercent: 0
-  fendMoveModPercent: 1
+  fendMoveModPercent: 0.5
   animtionIntTriggerToUse: 0
   targetPositionHorizontalOffset: 0
   offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
+  applyMoveToSelfOnly: 1
   combatManager: {fileID: 0}
+  combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
+  combatantToAct: {fileID: 0}
+  targetCombatant: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0
   potentialChange: -15
   isFlaw: 0
+--- !u!1 &1226592405145835248
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8509336136061949462}
+  m_Layer: 7
+  m_Name: OffsetContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8509336136061949462
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226592405145835248}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6931901832197756146}
+  - {fileID: 5655029608739900934}
+  - {fileID: 5697557093823740641}
+  m_Father: {fileID: 131349315033712158}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1352870325393854133
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,6 +724,10 @@ MonoBehaviour:
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
+  combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
+  combatantToAct: {fileID: 0}
+  targetCombatant: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0
   potentialChange: 15
@@ -709,7 +762,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 131349315033712158}
+  m_Father: {fileID: 8509336136061949462}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -860,7 +913,7 @@ MonoBehaviour:
   moveName: Precise Attack
   moveDescription: Deals 3x damage to body parts
   isEquipped: 0
-  moveWeighting: 55
+  moveWeighting: 0
   attackPushStrength: 0
   attackMoveModPercent: 1
   fendMoveModPercent: 0
@@ -869,6 +922,10 @@ MonoBehaviour:
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
+  combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
+  combatantToAct: {fileID: 0}
+  targetCombatant: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 3
   potentialChange: -10
@@ -1060,7 +1117,6 @@ RectTransform:
   m_Children:
   - {fileID: 1707678062937891107}
   - {fileID: 131349315033712158}
-  - {fileID: 5697557093823740641}
   m_Father: {fileID: 7291517550505530816}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1084,6 +1140,7 @@ MonoBehaviour:
   attackDisplay: {fileID: 0}
   fendScript: {fileID: 7451799450445645147}
   damageTakenDisplay: {fileID: 4586262846546261908}
+  selectedAnimator: {fileID: 0}
 --- !u!1 &2603667995567483167
 GameObject:
   m_ObjectHideFlags: 0
@@ -1115,6 +1172,7 @@ Transform:
   m_Children:
   - {fileID: 8712293475103656911}
   - {fileID: 128249470098662302}
+  - {fileID: 5423321751083471352}
   m_Father: {fileID: 6053984093416605366}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2645650158453017449
@@ -1214,20 +1272,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveName: Reckless Attack
   moveDescription: Deals heavy damage
-  isEquipped: 0
+  isEquipped: 1
   moveWeighting: 5
   attackPushStrength: 0.3
   attackMoveModPercent: 1
-  fendMoveModPercent: 0
+  fendMoveModPercent: 1
   animtionIntTriggerToUse: 0
   targetPositionHorizontalOffset: 0.2
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
+  combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
+  combatantToAct: {fileID: 0}
+  targetCombatant: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 1
   potentialChange: -15
-  isFlaw: 1
+  isFlaw: 0
 --- !u!1 &3002824090083780472
 GameObject:
   m_ObjectHideFlags: 0
@@ -1447,6 +1509,10 @@ MonoBehaviour:
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
+  combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
+  combatantToAct: {fileID: 0}
+  targetCombatant: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0
   potentialChange: 14
@@ -2222,7 +2288,7 @@ MonoBehaviour:
   combatantName: 
   combatantUI: {fileID: 7883207155541732718}
   attackBase: 5
-  fendBase: 222
+  fendBase: 1
   maxHP: 0
   fendDisplayOn: 0
   currentHP: 0
@@ -2235,6 +2301,7 @@ MonoBehaviour:
   moveSelected: {fileID: 0}
   playerPermanentStats: {fileID: 11400000, guid: 891a8d8bd88cd9a45acd6a5ac406be03, type: 2}
   playerMoveManager: {fileID: 5232138969718999026}
+  movementScript: {fileID: 0}
   currentPotential: 0
   fendPotMod: 0
   attackPowerPotMod: 0
@@ -2300,6 +2367,10 @@ MonoBehaviour:
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
+  combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
+  combatantToAct: {fileID: 0}
+  targetCombatant: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0
   potentialChange: 10
@@ -2360,6 +2431,10 @@ MonoBehaviour:
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
+  combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
+  combatantToAct: {fileID: 0}
+  targetCombatant: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0
   potentialChange: -15
@@ -2420,6 +2495,10 @@ MonoBehaviour:
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
+  combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
+  combatantToAct: {fileID: 0}
+  targetCombatant: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0
   potentialChange: -10
@@ -2503,17 +2582,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveName: Cautious Fend
-  moveDescription: Defenseive fend
+  moveDescription: Turtle
   isEquipped: 0
   moveWeighting: 25
   attackPushStrength: 0
   attackMoveModPercent: 0
-  fendMoveModPercent: 2
+  fendMoveModPercent: 1
   animtionIntTriggerToUse: 0
-  targetPositionHorizontalOffset: 0
+  targetPositionHorizontalOffset: 0.2
   offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
+  applyMoveToSelfOnly: 1
   combatManager: {fileID: 0}
+  combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
+  combatantToAct: {fileID: 0}
+  targetCombatant: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0
   potentialChange: -20
@@ -2657,6 +2740,10 @@ MonoBehaviour:
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
+  combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
+  combatantToAct: {fileID: 0}
+  targetCombatant: {fileID: 0}
   enemy: {fileID: 0}
   damageToPartsMultiplier: 0
   potentialChange: -5
@@ -2778,6 +2865,70 @@ Transform:
   - {fileID: 8058366525642174918}
   m_Father: {fileID: 6346086027618368374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8669226165379764559
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5423321751083471352}
+  - component: {fileID: 688420330996259635}
+  m_Layer: 7
+  m_Name: Ricochet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5423321751083471352
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8669226165379764559}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3474892475207483148}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &688420330996259635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8669226165379764559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d70b9c9d3f46f614fb82c74c91999edc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveName: Ricochet
+  moveDescription: Ricochet
+  isEquipped: 0
+  moveWeighting: 100
+  attackPushStrength: 0
+  attackMoveModPercent: 1
+  fendMoveModPercent: 0
+  animtionIntTriggerToUse: 0
+  targetPositionHorizontalOffset: 0.2
+  offsetFromSelf: 0
+  applyMoveToSelfOnly: 0
+  combatManager: {fileID: 0}
+  combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
+  combatantToAct: {fileID: 0}
+  targetCombatant: {fileID: 0}
+  enemy: {fileID: 0}
+  damageToPartsMultiplier: 0
+  potentialChange: 0
+  isFlaw: 0
 --- !u!1 &8813471233155239021
 GameObject:
   m_ObjectHideFlags: 0
@@ -2970,6 +3121,7 @@ MonoBehaviour:
   combatantHPTextMeshPro: {fileID: 3806247342547371097}
   statsDisplayGameObject: {fileID: 4645553439046408796}
   HPTMPAnimator: {fileID: 0}
+  statsDisplayContainerAnimator: {fileID: 0}
   combatant: {fileID: 8916189207439800493}
   combatantHP: 0
   potentialTMP: {fileID: 5776708279045501393}

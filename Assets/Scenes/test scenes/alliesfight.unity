@@ -2184,33 +2184,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5690664268955463731, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-      propertyPath: isFlaw
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5690664268955463731, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-      propertyPath: isEquipped
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5690664268955463731, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+    - target: {fileID: 3144260444219595121, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: fendMoveModPercent
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5853114165235238953, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-      propertyPath: offsetFromSelf
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5853114165235238953, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-      propertyPath: moveDescription
-      value: Turtle
-      objectReference: {fileID: 0}
-    - target: {fileID: 5853114165235238953, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-      propertyPath: applyMoveToSelfOnly
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5853114165235238953, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-      propertyPath: targetPositionHorizontalOffset
-      value: 0.2
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 6457784655243026927, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: m_Name
@@ -2256,16 +2232,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8579276996753944672, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-      propertyPath: moveWeighting
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 3474892475207483148, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1817306172}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
 --- !u!1 &537572825
@@ -2651,7 +2620,7 @@ BoxCollider2D:
   m_Offset: {x: 0.004714586, y: 0.017735332}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.47058824, y: 0}
+    pivot: {x: 0.5294118, y: 0}
     oldSize: {x: 0.17, y: 0.51}
     newSize: {x: 0.21, y: 0.54}
     adaptiveTilingThreshold: 0.5
@@ -2914,11 +2883,6 @@ MonoBehaviour:
   combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
   targetCombatant: {fileID: 0}
---- !u!4 &816190967 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3474892475207483148, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
-  m_PrefabInstance: {fileID: 519880131}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &834348077
 GameObject:
   m_ObjectHideFlags: 0
@@ -3861,8 +3825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b67369182688b42855f6f2c04fe9ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allies:
-  - {fileID: 776682662}
+  allies: []
   enemies:
   - {fileID: 9187000179356484324}
   - {fileID: 1728482599}
@@ -6704,9 +6667,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combatantName: Hef 2
   combatantUI: {fileID: 0}
-  attackBase: 4
+  attackBase: 16
   fendBase: 12
-  maxHP: 22222
+  maxHP: 555
   fendDisplayOn: 0
   currentHP: 0
   attackTotal: 0
@@ -7249,70 +7212,6 @@ MonoBehaviour:
   menuManagerUI: {fileID: 507892054}
   menuGear: {fileID: 0}
   buttonSelectedYellow: {r: 1, g: 0.9098039, b: 0.21960784, a: 1}
---- !u!1 &1817306171
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1817306172}
-  - component: {fileID: 1817306173}
-  m_Layer: 7
-  m_Name: Ricochet
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1817306172
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1817306171}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 816190967}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1817306173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1817306171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d70b9c9d3f46f614fb82c74c91999edc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Ricochet
-  moveDescription: Ricochet
-  isEquipped: 0
-  moveWeighting: 100
-  attackPushStrength: 0
-  attackMoveModPercent: 1
-  fendMoveModPercent: 0
-  animtionIntTriggerToUse: 0
-  targetPositionHorizontalOffset: 0.2
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
-  enemy: {fileID: 0}
-  damageToPartsMultiplier: 0
-  potentialChange: 0
-  isFlaw: 0
 --- !u!1 &1825085726
 GameObject:
   m_ObjectHideFlags: 0
@@ -16319,7 +16218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combatantName: Hef
   combatantUI: {fileID: 0}
-  attackBase: 4
+  attackBase: 22
   fendBase: 4
   maxHP: 1111
   fendDisplayOn: 0

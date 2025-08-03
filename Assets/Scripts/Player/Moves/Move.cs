@@ -139,11 +139,15 @@ public abstract class Move : MonoBehaviour
         //move to attack pos
         yield return MoveToPosition(combatantToAct.gameObject, combatantToAct.moveSelected.AttackPositionLocation(combatantToAct));
 
+        //move counterattack?
+        yield return combatantToAct.targetToAttack.moveSelected.OnReceieveAttack(combatantToAct, combatantToAct.targetToAttack);
+
         //apply stats to enemy and animate
         combatManager.cameraFollow.transformToFollow = targetCombatant.transform;
         targetCombatant.combatantUI.fendScript.ApplyAttackToFend(combatantToAct, combatantToAct.targetToAttack);
         TriggerMoveAnimation();
-        yield return new WaitForSeconds(0.2f);
+
+        yield return new WaitForSeconds(0.5f);
 
         //return combatantToAct to fightingpos, and return look direct
         combatantToActAnimator.SetTrigger("Back");
@@ -153,5 +157,11 @@ public abstract class Move : MonoBehaviour
         TriggerIdleAnimation();
 
         UpdateNarrator("");
+    }
+
+    // Optional for reactions to attacks. Default does nothing.
+    public virtual IEnumerator OnReceieveAttack(Combatant combatantApplying, Combatant combatantReceiving)
+    {
+        yield break;
     }
 }
