@@ -9,11 +9,11 @@ public class FendScript : MonoBehaviour
 {
     public TextMeshProUGUI fendTextMeshProUGUI;
     public CombatManager combatManager;
-    [SerializeField] GameObject fendTextGO, fendIconGO;
-    [SerializeField] Animator animator;
+    [SerializeField] Animator fendAnimator, backStabAnimator;
     Combatant combatantAttacking;
     Combatant target;
     public int attackRemainder;
+    int backStabBonus;
 
     public void ShowFendDisplay(Combatant combatantToShow, bool on)
     {
@@ -21,14 +21,14 @@ public class FendScript : MonoBehaviour
         {
             if (combatantToShow.fendTotal > 0)
             {
-                animator.Play("FendAppear", 0 , 0);
+                fendAnimator.Play("FendAppear", 0 , 0);
                 combatantToShow.fendDisplayOn = on;
             }
         }
 
         if (!on && combatantToShow.fendDisplayOn)
         {
-            animator.Play("FendFade", 0, 0);
+            fendAnimator.Play("FendFade", 0, 0);
             //Debug.Log("off");
             combatantToShow.fendDisplayOn = false;
         }
@@ -38,20 +38,24 @@ public class FendScript : MonoBehaviour
     {
         var combatantToActLookDir = combatant.GetComponent<MovementScript>().lookDirection;
         var targetLookDir = target.GetComponent<MovementScript>().lookDirection;
+        combatantAttacking = combatant;
+        this.target = target;
+        var combatantAnimator = target.GetComponent<Animator>();
 
         if (combatantToActLookDir == targetLookDir)
         {
-            Debug.Log("baclkstadck!!!");  
+            backStabBonus = combatantAttacking.attackTotal;
         }
 
-        combatantAttacking = combatant;
-        this.target = target;
-        attackRemainder = combatantAttacking.attackTotal - target.fendTotal;
-        attackRemainder = combatantAttacking.attackTotal - target.fendTotal;
-        var combatantAnimator = target.GetComponent<Animator>();
+        else
+        {
+            backStabBonus = 0;
+        }
+
+        attackRemainder = (combatantAttacking.attackTotal + backStabBonus) - target.fendTotal;
         combatantAnimator.SetTrigger("Pain");
 
-        StartCoroutine(ApplyAttackToFendCoRo(combatantAttacking.attackTotal));
+        StartCoroutine(ApplyAttackToFendCoRo(combatantAttacking.attackTotal + backStabBonus));
     }
 
     IEnumerator ApplyAttackToFendCoRo(int attack)
@@ -76,7 +80,11 @@ public class FendScript : MonoBehaviour
             yield break;
         }
 
-        animator.Play("FendDeflect", 0, 0);
+        fendAnimator.Play("FendDeflect", 0, 0);
+        if (backStabBonus > 0)
+        {
+            backStabAnimator.Play("BackStabShowAndFade");
+        }
 
         float elapsedTime = 0f;
         float lerpDuration = 0.5f;
@@ -96,7 +104,7 @@ public class FendScript : MonoBehaviour
 
             if (target.fendTotal == 0)
             {
-                animator.Play("FendBreak", 0, 0);
+                fendAnimator.Play("FendBreak", 0, 0);
                 fendTextMeshProUGUI.text = "";
                 if (attackRemainder > 0)
                 {

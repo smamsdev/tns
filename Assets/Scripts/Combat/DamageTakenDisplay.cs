@@ -6,7 +6,7 @@ using UnityEngine;
 public class DamageTakenDisplay : MonoBehaviour
 {
     [SerializeField] Animator animator;
-    public TextMeshProUGUI damageTakenTextMeshProUGUI;
+    public TextMeshProUGUI damageTakenTextMeshProUGUI, backStabText;
 
     void Start()
     {
