@@ -87,8 +87,7 @@ public class ApplyPlayerMove : State
         if (player.fendTotal > 0)
         {
             player.combatantUI.fendScript.ShowFendDisplay(player, true);
-            yield return new WaitForSeconds(1.5f);
-
+            yield return new WaitForSeconds(1f);
         }
     }
 }

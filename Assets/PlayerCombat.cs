@@ -107,12 +107,12 @@ public class PlayerCombat : Combatant
         StartCoroutine(playerStatsDisplay.UpdatePlayerPotentialUI(currentPotential));
     }
 
-    public override void UpdateHP(int value)
-    {
-        CurrentHP += value;
-        PlayerStatsDisplay playerStatsDisplay = combatantUI.statsDisplay as PlayerStatsDisplay;
-        playerStatsDisplay.UpdateHPDisplay(CurrentHP);
-    }
+  // public override void UpdateHP(int value)
+  // {
+  //     CurrentHP += value;
+  //     PlayerStatsDisplay playerStatsDisplay = combatantUI.statsDisplay as PlayerStatsDisplay;
+  //     playerStatsDisplay.UpdateHPDisplay(CurrentHP);
+  // }
 
     public override void SelectMove()
     {
