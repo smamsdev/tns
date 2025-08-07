@@ -12,19 +12,21 @@ public class EnemySelect : State
     {
         combatManager.combatMenuManager.selectEnemyMenuScript.InitializeButtonSlots();
         combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.enemySelectMenu, true);
-        combatManager.combatMenuManager.thirdMenuFirstButton = buttonSelected;
+
+        if (!combatManager.combatMenuManager.thirdMenuFirstButton.isActiveAndEnabled)
+        {
+            {
+                combatManager.combatMenuManager.thirdMenuFirstButton = combatManager.combatMenuManager.selectEnemyMenuScript.buttonSlotGOs[0].GetComponent<Button>();
+            }
+        }
+
+        else
+        {
+            combatManager.combatMenuManager.thirdMenuFirstButton = buttonSelected;
+        }
+
         combatManager.combatMenuManager.thirdMenuFirstButton.Select();
         previousLookDir = combatManager.playerCombat.movementScript.lookDirection;
-
-        // if (combatManager.enemies.Count == 1)
-        //
-        // {
-        //     combatManager.SetState(combatManager.attackTarget);
-        //     var enemy = combatManager.enemies[0];
-        //     combatManager.playerCombat.targetToAttack = enemy;
-        //     enemy.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(true);
-        //     combatManager.cameraFollow.transformToFollow = enemy.transform;
-        // }
 
         yield break;
     }

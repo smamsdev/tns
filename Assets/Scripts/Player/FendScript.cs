@@ -13,7 +13,7 @@ public class FendScript : MonoBehaviour
     Combatant combatantAttacking;
     Combatant target;
     public int attackRemainder;
-    int backStabBonus;
+    public int backStabBonus;
 
     public void ShowFendDisplay(Combatant combatantToShow, bool on)
     {
@@ -65,6 +65,11 @@ public class FendScript : MonoBehaviour
             (target.transform.position.x + (combatantAttacking.moveSelected.attackPushStrength * combatantAttackingLookDirX),
             target.transform.position.y);
 
+        if (backStabBonus > 0)
+        {
+            backStabAnimator.Play("BackStabShowAndFade");
+        }
+
         if (target.fendTotal == 0)
         {
             if (attackRemainder > 0)
@@ -81,10 +86,7 @@ public class FendScript : MonoBehaviour
         }
 
         fendAnimator.Play("FendDeflect", 0, 0);
-        if (backStabBonus > 0)
-        {
-            backStabAnimator.Play("BackStabShowAndFade");
-        }
+
 
         float elapsedTime = 0f;
         float lerpDuration = 0.5f;

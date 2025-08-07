@@ -142,6 +142,11 @@ public abstract class Move : MonoBehaviour
         //move counterattack?
         yield return combatantToAct.targetToAttack.moveSelected.OnReceieveAttack(combatantToAct, combatantToAct.targetToAttack);
 
+        if (combatantToAct.CurrentHP == 0)
+        {
+            yield break;
+        }
+
         //apply stats to enemy and animate
         combatManager.cameraFollow.transformToFollow = targetCombatant.transform;
         targetCombatant.combatantUI.fendScript.ApplyAttackToFend(combatantToAct, combatantToAct.targetToAttack);

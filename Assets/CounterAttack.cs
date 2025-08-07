@@ -18,7 +18,10 @@ public class CounterAttack : ViolentMove
             combatantApplying.combatantUI.fendScript.ApplyAttackToFend(combatantToAct, combatantApplying);
             TriggerMoveAnimation();
 
+
+
             yield return new WaitForSeconds(1f);
+
 
             attackMoveModPercent = 0;
             TriggerIdleAnimation();
