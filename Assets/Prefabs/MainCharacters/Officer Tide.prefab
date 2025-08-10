@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1687619254449306983}
   - component: {fileID: 6977658935215211970}
   - component: {fileID: 6877737862443075817}
+  - component: {fileID: 2589843183481861184}
   m_Layer: 7
   m_Name: Officer Tide
   m_TagString: NPC
@@ -30,12 +31,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2297029071285235822}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20.62657, y: 11.359881, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6676103138628139219}
+  - {fileID: 5345910506390473628}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3247977045582857446
@@ -223,6 +225,43 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2589843183481861184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2297029071285235822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d7e7d453d431143ab5807ed0947b3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combatantName: Officer Tide
+  combatantUI: {fileID: 0}
+  attackBase: 0
+  fendBase: 0
+  maxHP: 0
+  fendDisplayOn: 0
+  currentHP: 0
+  attackTotal: 0
+  fendTotal: 0
+  injuryPenalty: 0
+  forceLookDirection: {x: 0, y: 0}
+  fightingPosition: {fileID: 0}
+  targetToAttack: {fileID: 0}
+  moveSelected: {fileID: 0}
+  enemyXP: 0
+  enemyBodyHP: 0
+  enemyArmsHP: 0
+  enemyHeadHP: 0
+  enemyMoves:
+  - {fileID: 504409933210459725}
+  damageReceivedInjuryBonus: 0
+  totalDamage: 0
+  targetIs: 0
+  randomValue: 0
+  rng: 0
 --- !u!1 &3011668649289163520
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,3 +315,95 @@ MonoBehaviour:
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
   isLoopedDialogue: 1
+--- !u!1 &4186187239361174860
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5345910506390473628}
+  m_Layer: 7
+  m_Name: Moves
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5345910506390473628
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4186187239361174860}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4366483163911070269}
+  m_Father: {fileID: 8204797696462499418}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6299366927495552337
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4366483163911070269}
+  - component: {fileID: 504409933210459725}
+  m_Layer: 7
+  m_Name: Smash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4366483163911070269
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6299366927495552337}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5345910506390473628}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &504409933210459725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6299366927495552337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02efbbc36f2f41f468bc6029b82840eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveName: Smash
+  moveDescription: Smash in the face!
+  isEquipped: 0
+  moveWeighting: 1
+  attackPushStrength: 1
+  attackMoveModPercent: 1
+  fendMoveModPercent: 0
+  animtionIntTriggerToUse: 0
+  targetPositionHorizontalOffset: 0.2
+  offsetFromSelf: 0
+  applyMoveToSelfOnly: 0
+  combatManager: {fileID: 0}
+  combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
+  combatantToAct: {fileID: 0}
+  targetCombatant: {fileID: 0}

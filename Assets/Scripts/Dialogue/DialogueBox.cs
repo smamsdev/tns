@@ -13,6 +13,7 @@ public class DialogueBox : MonoBehaviour
     [SerializeField] TextMeshProUGUI dialogueFieldBackground;
     public Animator animator;
     GameObject playerObj;
+    SpriteRenderer speakerSpriteRenderer;
 
     Vector2 actorPos;
     public Vector2 dialogueFinalPosition;
@@ -24,7 +25,7 @@ public class DialogueBox : MonoBehaviour
     {
         playerObj = GameObject.Find("Player");
         dialogueElement = _dialogueElement;
-       // this.transform.position = actorPos;
+        speakerSpriteRenderer = dialogueElement.actorGameObject.GetComponent<SpriteRenderer>();
 
         SetFinalPosition();
         animator.SetTrigger("OpenDialogue");
@@ -37,12 +38,13 @@ public class DialogueBox : MonoBehaviour
 
     {
         actorPos = dialogueElement.actorGameObject.transform.position;
+
         // if there is no Optional end position set in the inspector...
         if (dialogueElement.optionalDialogueFinalPosition == Vector3.zero)
 
         {
             dialogueFinalPosition.x = actorPos.x - 0.00f;
-            dialogueFinalPosition.y = actorPos.y + 0.8f;
+            dialogueFinalPosition.y = actorPos.y + speakerSpriteRenderer.bounds.size.y + 0.3f;
         }
 
         else
@@ -109,7 +111,7 @@ public class DialogueBox : MonoBehaviour
     {
         float elapsedTime = 0;
         float seconds = 0.4f;
-        Vector2 startingPos = new Vector2 (actorPos.x, actorPos.y + 0.35f);
+        Vector2 startingPos = new Vector2 (actorPos.x, actorPos.y + speakerSpriteRenderer.bounds.size.y - 0.1f);
         while (elapsedTime < seconds)
         {
             this.transform.position = Vector2.Lerp(startingPos, finalPosition, (elapsedTime / seconds));

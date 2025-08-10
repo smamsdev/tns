@@ -5,24 +5,22 @@ using UnityEngine;
 
 public class Battle : ToTrigger
 {
-    public List<Ally> allies;
-    public List<Enemy> enemies;
+    public List<Combatant> allies;
+    public List<Combatant> enemies;
 
     public GameObject playerFightingPosition;
-    public GameObject combatManager;
+    public CombatManager combatManager;
     public Vector2 playerDefaultLookDirection;
 
-    private void Start()
+    private void OnEnable()
     {
-        combatManager = GameObject.FindGameObjectWithTag("CombatManager");
+        combatManager = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>();
     }
 
     public override IEnumerator DoAction()
     {
-        var combatManagerscript = combatManager.GetComponent<CombatManager>();
-
-        combatManagerscript.battleScheme = this;
-        combatManagerscript.StartBattle();
+        combatManager.battleScheme = this;
+        combatManager.StartBattle();
 
         FieldEvents.HasCompleted.Invoke(this.gameObject);
 

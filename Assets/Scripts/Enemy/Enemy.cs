@@ -37,7 +37,7 @@ public class Enemy : Combatant
         {
             fightingPosition = new GameObject(this.gameObject.name + " Enemy Fighting Position");
             fightingPosition.transform.position = this.transform.position;
-            fightingPosition.transform.SetParent(null); 
+            fightingPosition.transform.SetParent(this.transform); 
         }
     }
 

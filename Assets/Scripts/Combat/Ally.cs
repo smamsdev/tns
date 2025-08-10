@@ -14,7 +14,7 @@ public class Ally : Combatant
         {
             fightingPosition = new GameObject(this.gameObject.name + " Ally Fighting Position");
             fightingPosition.transform.position = this.transform.position;
-            fightingPosition.transform.SetParent(null);
+            fightingPosition.transform.SetParent(this.transform);
 
         }
         foreach (AllyMove moves in moves)

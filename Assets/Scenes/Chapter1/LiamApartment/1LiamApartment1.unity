@@ -253,7 +253,7 @@ MonoBehaviour:
   actorMove:
     actorGO: {fileID: 763417649}
     destination:
-    - {x: 0.21164873, y: 0.14000002, z: 0}
+    - {x: 0.21164873, y: 0.09, z: 0}
 --- !u!1 &118874367
 GameObject:
   m_ObjectHideFlags: 0
@@ -1366,10 +1366,10 @@ MonoBehaviour:
   - {fileID: 1216563091}
   - {fileID: 1466854642}
   - {fileID: 1273708902}
-  - {fileID: 1750341804}
+  - {fileID: 1750341806}
   - {fileID: 110831197}
   - {fileID: 234316329}
-  - {fileID: 960468684}
+  - {fileID: 960468685}
   - {fileID: 1397776024}
 --- !u!1 &749571017
 GameObject:
@@ -2008,7 +2008,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 960468683}
-  - component: {fileID: 960468684}
   - component: {fileID: 960468685}
   m_Layer: 0
   m_Name: JoyExit
@@ -2032,22 +2031,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1533234190}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &960468684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 960468682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66133870d80cf0446a1ebdc1bbef7b3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actorMove:
-    actorGO: {fileID: 763417649}
-    destination:
-    - {x: 0.20664872, y: 0.03, z: 0}
 --- !u!114 &960468685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2242,12 +2225,27 @@ MonoBehaviour:
   dialogue:
   - actorGameObject: {fileID: 413688478}
     actorName: 
-    dialoguetext: Daddy! Daddy! You're Awake!
+    dialoguetext: Daddy! Daddy!
     optionalDialogueFinalPosition: {x: -0.19999999, y: 1.5, z: 0}
+    dialogueGameObject: {fileID: 0}
+  - actorGameObject: {fileID: 420972605}
+    actorName: 
+    dialoguetext: Hi buddy!
+    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 413688478}
     actorName: 
-    dialoguetext: I'm awake too!
+    dialoguetext: You're Awake!!
+    optionalDialogueFinalPosition: {x: -0.19999999, y: 1.5, z: 0}
+    dialogueGameObject: {fileID: 0}
+  - actorGameObject: {fileID: 420972605}
+    actorName: 
+    dialoguetext: Kind of...
+    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
+    dialogueGameObject: {fileID: 0}
+  - actorGameObject: {fileID: 413688478}
+    actorName: 
+    dialoguetext: I'm awake too!!
     optionalDialogueFinalPosition: {x: -0.19999999, y: 1.5, z: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
@@ -2645,7 +2643,7 @@ MonoBehaviour:
   dialogue:
   - actorGameObject: {fileID: 763417649}
     actorName: 
-    dialoguetext: "Okay, so we're running late.\n The agent left a message. "
+    dialoguetext: "Okay, good. We're running late.\n The rental agent left a message. "
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 763417649}
@@ -2656,7 +2654,7 @@ MonoBehaviour:
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 420972605}
     actorName: 
-    dialoguetext: 'I don''t know...we that big have that show
+    dialoguetext: 'I don''t know...I that big have that show
 
       tonight, the
       label will be there.
@@ -2666,29 +2664,39 @@ MonoBehaviour:
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 763417649}
     actorName: 
-    dialoguetext: "He yelled at me. \nHe said this was our final warning."
-    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
-    dialogueGameObject: {fileID: 0}
-  - actorGameObject: {fileID: 420972605}
-    actorName: 
-    dialoguetext: C'mon! What a dick.
-    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
-    dialogueGameObject: {fileID: 0}
-  - actorGameObject: {fileID: 763417649}
-    actorName: 
-    dialoguetext: Totally...can you please take care of it?
-    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
-    dialogueGameObject: {fileID: 0}
-  - actorGameObject: {fileID: 420972605}
-    actorName: 
-    dialoguetext: "Do you really want me to do it, \nor do you want it done right?"
-    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
-    dialogueGameObject: {fileID: 0}
-  - actorGameObject: {fileID: 763417649}
-    actorName: 
-    dialoguetext: 'You''ve can handle this...but I need to leave
+    dialoguetext: 'He threatened us.
 
-      right now.'
+      He said this was our final warning.'
+    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
+    dialogueGameObject: {fileID: 0}
+  - actorGameObject: {fileID: 420972605}
+    actorName: 
+    dialoguetext: Really? What a dick.
+    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
+    dialogueGameObject: {fileID: 0}
+  - actorGameObject: {fileID: 763417649}
+    actorName: 
+    dialoguetext: 'The worst, I need you to take care
+
+      of it for me today.'
+    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
+    dialogueGameObject: {fileID: 0}
+  - actorGameObject: {fileID: 420972605}
+    actorName: 
+    dialoguetext: 'Do you really need me to do it?
+
+      Don''t you want it done
+      right?
+
+      It''s too risky.'
+    optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
+    dialogueGameObject: {fileID: 0}
+  - actorGameObject: {fileID: 763417649}
+    actorName: 
+    dialoguetext: 'You can handle this...but we need to leave
+
+      right now. I
+      trust you.'
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
@@ -3112,7 +3120,7 @@ MonoBehaviour:
   dialogue:
   - actorGameObject: {fileID: 413688478}
     actorName: 
-    dialoguetext: Buba- bye! Love youooo guys!
+    dialoguetext: Buba- bye! Love you-ooo!
     optionalDialogueFinalPosition: {x: 0.1, y: 0.8, z: 0}
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 420972605}
@@ -3310,7 +3318,7 @@ MonoBehaviour:
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 420972605}
     actorName: 
-    dialoguetext: Let's handle it...The Bank then...
+    dialoguetext: I can handle it...The Bank then...
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
@@ -3470,6 +3478,7 @@ MonoBehaviour:
   forceLook: {x: 0, y: 0}
   forcedEntryCoordinates: {x: 0, y: 0, z: 0}
   forceEntryCoorinates: 0
+  sceneName: The Carthy Apartment
 --- !u!1001 &1465253707
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3621,7 +3630,7 @@ MonoBehaviour:
   actorMove:
     actorGO: {fileID: 413688478}
     destination:
-    - {x: 0.21164873, y: 0.14000002, z: 0}
+    - {x: 0.21164873, y: 0.09, z: 0}
 --- !u!1 &1471086744
 GameObject:
   m_ObjectHideFlags: 0
@@ -4610,7 +4619,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1750341805}
-  - component: {fileID: 1750341804}
   - component: {fileID: 1750341806}
   m_Layer: 0
   m_Name: josieExit
@@ -4619,22 +4627,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1750341804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1750341803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66133870d80cf0446a1ebdc1bbef7b3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actorMove:
-    actorGO: {fileID: 413688478}
-    destination:
-    - {x: 0.20664872, y: 0.03, z: 0}
 --- !u!4 &1750341805
 Transform:
   m_ObjectHideFlags: 0
@@ -4905,7 +4897,9 @@ MonoBehaviour:
   dialogue:
   - actorGameObject: {fileID: 763417649}
     actorName: 
-    dialoguetext: ...Hey...
+    dialoguetext: 'Liam....Hey...
+
+      ...Are you up?'
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 420972605}
@@ -4920,7 +4914,7 @@ MonoBehaviour:
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 763417649}
     actorName: 
-    dialoguetext: "No time to explain. \nBut I need help with something..."
+    dialoguetext: I need help with something...
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 420972605}
@@ -4930,7 +4924,7 @@ MonoBehaviour:
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 763417649}
     actorName: 
-    dialoguetext: Please get up...and I'll explain...
+    dialoguetext: Please...get up...and I'll explain...
     optionalDialogueFinalPosition: {x: 0, y: 0, z: 0}
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
@@ -4943,6 +4937,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1911130620075127215, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6457784655243026927, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: m_Name
       value: Player
@@ -5049,7 +5047,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b67369182688b42855f6f2c04fe9ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyGameObject: []
+  allies: []
+  enemies: []
   playerFightingPosition: {fileID: 0}
   combatManager: {fileID: 0}
   playerDefaultLookDirection: {x: 0, y: 0}
