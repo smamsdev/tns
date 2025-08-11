@@ -31,16 +31,6 @@ public class Enemy : Combatant
     public int randomValue;
     public int rng;
 
-    private void OnEnable()
-    {
-        if (fightingPosition == null)
-        {
-            fightingPosition = new GameObject(this.gameObject.name + " Enemy Fighting Position");
-            fightingPosition.transform.position = this.transform.position;
-            fightingPosition.transform.SetParent(this.transform); 
-        }
-    }
-
     private void Start()
     {
         injuryPenalty = 0;

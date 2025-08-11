@@ -24,7 +24,7 @@ public class SelectEnemyMenuScript : MonoBehaviour
             Button button = buttonSlotGOs[i].GetComponent<Button>();
             EnemySelectButtonScript enemySelectButtonScript = button.GetComponent<EnemySelectButtonScript>();
             enemySelectButtonScript.combatant = combatManager.enemies[i];
-            enemySelectButtonScript.buttonText.text = enemySelectButtonScript.combatant.name;
+            enemySelectButtonScript.buttonText.text = enemySelectButtonScript.combatant.combatantName;
         }
     }
 
