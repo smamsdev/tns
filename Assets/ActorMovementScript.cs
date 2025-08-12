@@ -11,6 +11,7 @@ public class ActorMovementScript : MovementScript
 
     private void Awake()
     {
+        movementSpeed = defaultMovementspeed;
         actorRigidBody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -22,7 +23,6 @@ public class ActorMovementScript : MovementScript
 
     private void Start()
     {
-        movementSpeed = defaultMovementspeed;
         actorRigidBody2d.bodyType = RigidbodyType2D.Dynamic;
         scriptedMovement = false;
         isReversing = Vector2.one;

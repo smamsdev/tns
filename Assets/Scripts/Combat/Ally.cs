@@ -8,6 +8,11 @@ public class Ally : Combatant
 
     [SerializeField] AllyMove[] moves;
 
+    private void OnEnable()
+    {
+        movementScript = GetComponent<MovementScript>();
+    }
+
     private void Start()
     {
         if (fightingPosition == null)

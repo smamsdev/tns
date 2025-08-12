@@ -9,11 +9,6 @@ public class Enemy : Combatant
     [Header("")]
     public int enemyXP;
 
-    [Header("Parts")]
-    public int enemyBodyHP;
-    public int enemyArmsHP;
-    public int enemyHeadHP;
-
     [HideInInspector] int enemyBodyMaxHP;
     [HideInInspector] int enemyArmsMaxHP;
     [HideInInspector] int enemyHeadMaxHP;
@@ -31,14 +26,15 @@ public class Enemy : Combatant
     public int randomValue;
     public int rng;
 
+    private void OnEnable()
+    {
+        movementScript = GetComponent<MovementScript>();
+    }
+
     private void Start()
     {
         injuryPenalty = 0;
         damageReceivedInjuryBonus = 0;
-
-        enemyBodyMaxHP = enemyBodyHP; 
-        enemyArmsMaxHP = enemyArmsHP; 
-        enemyHeadMaxHP = enemyHeadHP;
 
         foreach (var enemyMoves in enemyMoves)
         {

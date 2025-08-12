@@ -21,10 +21,18 @@ public class Encounters : MonoBehaviour
 
     void StartScene()
     {
+        StartCoroutine(StartSceneCoRo());
+    }
+
+    IEnumerator StartSceneCoRo()
+    {
         InitialiseBattle();
-        EnemyLayout();
+        // Debug.Break();
+        StandardBattleLayout();
+        yield return SurpriseAttack();
         SpawnBattle();
     }
+
 
     public void InitialiseBattle()
     {
@@ -53,7 +61,8 @@ public class Encounters : MonoBehaviour
                 GameObject enemyToAdd = Instantiate(enemy.enemyPreFab, this.transform);
                 Combatant combatant = enemyToAdd.GetComponent<Combatant>();
 
-                combatant.gameObject.name = combatant.combatantName;
+                enemyToAdd.name = combatant.combatantName;
+                enemyToAdd.transform.position = new Vector2(this.transform.position.x, this.transform.position.y + 1000 + i);
 
                 enemy.amountSpawned++;
                 if (enemy.amountSpawned > 1)
@@ -68,23 +77,92 @@ public class Encounters : MonoBehaviour
         }
     }
 
-    void EnemyLayout()
+    void StandardBattleLayout()
     {
+        nextBattle.playerDefaultLookDirection = Vector2.right;
+
         Vector2 fpf = nextBattle.playerFightingPosition.transform.position;
         int n = nextBattle.enemies.Count;
-        float spacing = 0.2f;
-        float totalHeight = (n - 1) * spacing;
+        float verticalSpacing = 0.2f;
+        float totalHeight = (n - 1) * verticalSpacing;
         float startY = fpf.y - totalHeight / 1.5f;
 
         for (int i = 0; i < n; i++)
         {
             Combatant enemy = nextBattle.enemies[i];
-            float yPos = startY + i * spacing;
-            enemy.transform.position = new Vector2(fpf.x + 0.5f + Random.Range(0f, 0.7f), yPos);
+
+
+            float yPos = startY + i * verticalSpacing;
+            var movementScript = enemy.movementScript as ActorMovementScript;
+            movementScript.forceLookDirectionOnLoad = Vector2.zero;
+            movementScript.lookDirection = Vector2.left;
+            movementScript.movementSpeed = 3;
+
+            Vector2 fightingPos = new Vector2(fpf.x + 0.9f + Random.Range(-0.5f, 0.5f), yPos);
             enemy.fightingPosition = new GameObject(enemy.combatantName + " FightingPosition");
-            enemy.fightingPosition.transform.position = enemy.transform.position;
-            enemy.fightingPosition.transform.SetParent(enemy.transform);
+
+            enemy.transform.position = new Vector2(fightingPos.x+2, fightingPos.y);
+            enemy.fightingPosition.transform.SetParent(this.transform);
+            enemy.fightingPosition.transform.position = fightingPos;
         }
+    }
+
+    IEnumerator SurpriseAttack()
+    {
+        nextBattle.playerDefaultLookDirection = Vector2.right;
+        List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
+
+        Vector2 fpf = nextBattle.playerFightingPosition.transform.position;
+        int n = nextBattle.enemies.Count;
+        float verticalSpacing = 0.2f;
+        float totalHeight = (n - 1) * verticalSpacing;
+        float startY = fpf.y - totalHeight / 1.5f;
+
+        for (int i = 0; i < n; i++)
+        {
+            Combatant enemy = nextBattle.enemies[i];
+
+            float yPos = startY + i * verticalSpacing;
+            var movementScript = enemy.movementScript as ActorMovementScript;
+            movementScript.forceLookDirectionOnLoad = Vector2.zero;
+            movementScript.lookDirection = Vector2.left;
+            movementScript.movementSpeed = 3;
+
+            Vector2 fightingPos = new Vector2(fpf.x + 0.9f + Random.Range(-0.5f, 0.5f), yPos);
+            enemy.fightingPosition = new GameObject(enemy.combatantName + " FightingPosition");
+
+            enemy.transform.position = new Vector2(fightingPos.x, fightingPos.y);
+            enemy.fightingPosition.transform.SetParent(this.transform);
+            enemy.fightingPosition.transform.position = fightingPos;
+
+            var spriteRenderer = enemy.GetComponent<SpriteRenderer>();
+
+            Color c = spriteRenderer.color;
+            c.a = 0f;
+            spriteRenderer.color = c;
+
+            spriteRenderers.Add(spriteRenderer);
+        }
+
+        float duration = 1f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+
+            foreach (SpriteRenderer sprite in spriteRenderers)
+            {
+                Color c = sprite.color;
+                c.a = Mathf.Lerp(0f, 1f, t);
+                sprite.color = c;
+            }
+
+            yield return null;
+        }
+
+        yield return null;
     }
 
     public void SpawnBattle()

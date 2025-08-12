@@ -33,6 +33,7 @@ public class Setup : State
         foreach (Enemy enemy in combatManager.enemies)
         {
             yield return combatManager.PositionCombatant(enemy.gameObject, enemy.fightingPosition.transform.position);
+            enemy.movementScript.movementSpeed = enemy.movementScript.defaultMovementspeed;
         }
 
         foreach (Ally ally in combatManager.allies)

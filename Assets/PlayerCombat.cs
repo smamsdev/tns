@@ -7,7 +7,6 @@ public class PlayerCombat : Combatant
 {
     public PlayerPermanentStats playerPermanentStats;
     public PlayerMoveManager playerMoveManager;
-    public MovementScript movementScript;
 
     public int CurrentPotential
     {
