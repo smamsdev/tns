@@ -714,6 +714,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8916189207439800493, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: party
+      value: 
+      objectReference: {fileID: 11400000, guid: 7b54538dd0515b34c937ff6de93a275f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1715,8 +1719,13 @@ MonoBehaviour:
     maxNumberOfType: 4
     remainingThisBattle: 0
     amountSpawned: 0
-  AllyRoster: []
-  maxTotalEnemies: 10
+  AllyRoster:
+  - allyPreFab: {fileID: 8544772069570677220, guid: fa949162a57d96241a4504056afb3076, type: 3}
+    maxNumberOfType: 1
+    remainingThisBattle: 0
+    amountSpawned: 0
+  maxTotalEnemies: 4
+  maxBonusAllies: 2
   nextBattle: {fileID: 1272831097}
 --- !u!224 &1272831096
 RectTransform:

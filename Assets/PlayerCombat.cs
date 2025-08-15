@@ -7,6 +7,7 @@ public class PlayerCombat : Combatant
 {
     public PlayerPermanentStats playerPermanentStats;
     public PlayerMoveManager playerMoveManager;
+    public PartySO party;
 
     public int CurrentPotential
     {

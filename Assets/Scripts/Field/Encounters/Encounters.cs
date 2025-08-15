@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Encounters : MonoBehaviour
@@ -7,10 +8,13 @@ public class Encounters : MonoBehaviour
     [SerializeField] EnemyProfile[] EnemyRoster;
     [SerializeField] AllyProfile[] AllyRoster;
     public int maxTotalEnemies = 1;
+    public int maxBonusAllies = 0;
     public Battle nextBattle;
+    PlayerCombat playerCombat;
 
     private void OnEnable()
     {
+        playerCombat = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>();
         FieldEvents.StartScene += StartScene;
     }
 
@@ -26,13 +30,14 @@ public class Encounters : MonoBehaviour
 
     IEnumerator StartSceneCoRo()
     {
+
         InitialiseBattle();
         // Debug.Break();
         StandardBattleLayout();
         yield return SurpriseAttack();
+
         SpawnBattle();
     }
-
 
     public void InitialiseBattle()
     {
@@ -42,6 +47,53 @@ public class Encounters : MonoBehaviour
         nextBattle.playerFightingPosition.transform.position = Vector3.zero;
 
         nextBattle.enemies.Clear();
+        nextBattle.allies.Clear();
+
+        foreach (var ally in AllyRoster)
+        {
+            ally.remainingThisBattle = ally.maxNumberOfType;
+            ally.amountSpawned = 0;
+        }
+
+        for (int i = 0; i < playerCombat.party.partyMembers.Count; i++)
+        { 
+            GameObject allyToAdd = Instantiate(playerCombat.party.partyMembers[i].prefab,this.transform);
+            Combatant allyCombatant = allyToAdd.GetComponent<Combatant>();
+            nextBattle.allies.Add(allyCombatant);
+
+            allyToAdd.name = allyCombatant.combatantName;
+            allyToAdd.transform.position = new Vector2(this.transform.position.x + 5, this.transform.position.y + 1000 + i);
+        }
+
+        int randomNumberOfAllies = Random.Range(0, maxBonusAllies + 1);
+        int totalAllies = randomNumberOfAllies + playerCombat.party.partyMembers.Count;
+
+        for (int i = 0; i < randomNumberOfAllies; i++)
+        {
+            int randomIndex = Random.Range(0, AllyRoster.Length);
+            AllyProfile bonusAlly = AllyRoster[randomIndex];
+
+            if (bonusAlly.remainingThisBattle > 0)
+            {
+                GameObject bonusAllyToAdd = Instantiate(bonusAlly.allyPreFab, this.transform);
+                Combatant bonusAllyCombatant = bonusAllyToAdd.GetComponent<Combatant>();
+
+                bonusAllyToAdd.name = bonusAllyCombatant.combatantName;
+                bonusAllyToAdd.transform.position = new Vector2(this.transform.position.x + 6, this.transform.position.y + 1000 + i);
+
+                bonusAlly.amountSpawned++;
+                if (bonusAlly.amountSpawned > 1)
+                {
+                    bonusAllyCombatant.combatantName += " " + bonusAlly.amountSpawned;
+                    bonusAllyToAdd.gameObject.name = bonusAllyCombatant.combatantName;
+                }
+
+                nextBattle.allies.Add(bonusAllyCombatant);
+                bonusAlly.remainingThisBattle--;
+            }
+        }
+
+        nextBattle.allies.Shuffle();
 
         foreach (var enemy in EnemyRoster)
         {
@@ -59,19 +111,19 @@ public class Encounters : MonoBehaviour
             if (enemy.remainingThisBattle > 0)
             {
                 GameObject enemyToAdd = Instantiate(enemy.enemyPreFab, this.transform);
-                Combatant combatant = enemyToAdd.GetComponent<Combatant>();
+                Combatant enemyCombatant = enemyToAdd.GetComponent<Combatant>();
 
-                enemyToAdd.name = combatant.combatantName;
+                enemyToAdd.name = enemyCombatant.combatantName;
                 enemyToAdd.transform.position = new Vector2(this.transform.position.x, this.transform.position.y + 1000 + i);
 
                 enemy.amountSpawned++;
                 if (enemy.amountSpawned > 1)
                 {
-                    combatant.combatantName += " " + enemy.amountSpawned;
-                    combatant.gameObject.name = combatant.combatantName;
+                    enemyCombatant.combatantName += " " + enemy.amountSpawned;
+                    enemyCombatant.gameObject.name = enemyCombatant.combatantName;
                 }
 
-                nextBattle.enemies.Add(combatant);
+                nextBattle.enemies.Add(enemyCombatant);
                 enemy.remainingThisBattle--;
             }
         }
@@ -82,15 +134,14 @@ public class Encounters : MonoBehaviour
         nextBattle.playerDefaultLookDirection = Vector2.right;
 
         Vector2 fpf = nextBattle.playerFightingPosition.transform.position;
-        int n = nextBattle.enemies.Count;
+        int nEnemies = nextBattle.enemies.Count;
         float verticalSpacing = 0.2f;
-        float totalHeight = (n - 1) * verticalSpacing;
+        float totalHeight = (nEnemies - 1) * verticalSpacing;
         float startY = fpf.y - totalHeight / 1.5f;
 
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < nEnemies; i++)
         {
             Combatant enemy = nextBattle.enemies[i];
-
 
             float yPos = startY + i * verticalSpacing;
             var movementScript = enemy.movementScript as ActorMovementScript;
@@ -113,22 +164,22 @@ public class Encounters : MonoBehaviour
         List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
 
         Vector2 fpf = nextBattle.playerFightingPosition.transform.position;
-        int n = nextBattle.enemies.Count;
+        int nEnemies = nextBattle.enemies.Count;
         float verticalSpacing = 0.2f;
-        float totalHeight = (n - 1) * verticalSpacing;
+        float totalHeight = (nEnemies - 1) * verticalSpacing;
         float startY = fpf.y - totalHeight / 1.5f;
 
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < nEnemies; i++)
         {
             Combatant enemy = nextBattle.enemies[i];
 
             float yPos = startY + i * verticalSpacing;
             var movementScript = enemy.movementScript as ActorMovementScript;
             movementScript.forceLookDirectionOnLoad = Vector2.zero;
-            movementScript.lookDirection = Vector2.left;
+            movementScript.lookDirection = Vector2.right;
             movementScript.movementSpeed = 3;
 
-            Vector2 fightingPos = new Vector2(fpf.x + 0.9f + Random.Range(-0.5f, 0.5f), yPos);
+            Vector2 fightingPos = new Vector2(fpf.x - 0.9f + Random.Range(-0.5f, 0.5f), yPos);
             enemy.fightingPosition = new GameObject(enemy.combatantName + " FightingPosition");
 
             enemy.transform.position = new Vector2(fightingPos.x, fightingPos.y);
@@ -176,14 +227,16 @@ public class Encounters : MonoBehaviour
     {
         public GameObject enemyPreFab;
         public int maxNumberOfType;
-        public int remainingThisBattle;
-        public int amountSpawned = 0;
+        [HideInInspector]public int remainingThisBattle;
+        [HideInInspector]public int amountSpawned = 0;
     }
 
     [System.Serializable]
     public class AllyProfile
     {
         public GameObject allyPreFab;
-        public int maxNumber;
+        public int maxNumberOfType;
+        [HideInInspector]public int remainingThisBattle;
+        [HideInInspector]public int amountSpawned = 0;
     }
 }
