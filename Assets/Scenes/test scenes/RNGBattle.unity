@@ -718,6 +718,10 @@ PrefabInstance:
       propertyPath: party
       value: 
       objectReference: {fileID: 11400000, guid: 7b54538dd0515b34c937ff6de93a275f, type: 2}
+    - target: {fileID: 8916189207439800493, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: combatantName
+      value: Liam
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1720,12 +1724,20 @@ MonoBehaviour:
     remainingThisBattle: 0
     amountSpawned: 0
   AllyRoster:
-  - allyPreFab: {fileID: 8544772069570677220, guid: fa949162a57d96241a4504056afb3076, type: 3}
-    maxNumberOfType: 1
+  - allyPreFab: {fileID: 8544772069570677220, guid: 6b232a7d294652e4e9fe2955c7bfae27, type: 3}
+    maxNumberOfType: 5
+    remainingThisBattle: 0
+    amountSpawned: 0
+  - allyPreFab: {fileID: 8544772069570677220, guid: b752cef2dea368b41a0b854975287c62, type: 3}
+    maxNumberOfType: 5
+    remainingThisBattle: 0
+    amountSpawned: 0
+  - allyPreFab: {fileID: 8544772069570677220, guid: 62a8286e754a5d8419de81c5bbef7fee, type: 3}
+    maxNumberOfType: 5
     remainingThisBattle: 0
     amountSpawned: 0
   maxTotalEnemies: 4
-  maxBonusAllies: 2
+  maxBonusAllies: 0
   nextBattle: {fileID: 1272831097}
 --- !u!224 &1272831096
 RectTransform:

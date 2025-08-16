@@ -32,20 +32,16 @@ public class Encounters : MonoBehaviour
     {
 
         InitialiseBattle();
-        // Debug.Break();
         StandardBattleLayout();
-        yield return SurpriseAttack();
+        nextBattle.playerFightingPosition = SetPlayerFightingPosition();
+        //yield return SurpriseAttack();
 
+        yield return null;
         SpawnBattle();
     }
 
     public void InitialiseBattle()
     {
-        this.transform.position = Vector3.zero;
-        nextBattle.playerFightingPosition = new GameObject("Player Fighting Position");
-        nextBattle.playerFightingPosition.transform.SetParent(this.transform);
-        nextBattle.playerFightingPosition.transform.position = Vector3.zero;
-
         nextBattle.enemies.Clear();
         nextBattle.allies.Clear();
 
@@ -94,6 +90,32 @@ public class Encounters : MonoBehaviour
         }
 
         nextBattle.allies.Shuffle();
+        NumberDuplicates(nextBattle.allies);
+
+
+        void NumberDuplicates(List<Combatant> allies)
+        {
+            Dictionary<string, int> nameCounts = new Dictionary<string, int>();
+
+            foreach (var ally in allies)
+            {
+                string baseName = ally.combatantName;
+
+                if (!nameCounts.ContainsKey(baseName))
+                { 
+                    nameCounts[baseName] = 0; 
+                }
+
+                nameCounts[baseName]++;
+
+                // only append a number if there's more than one of this type
+                if (nameCounts[baseName] > 1)
+                {
+                    ally.combatantName = baseName + " " + nameCounts[baseName];
+                    ally.gameObject.name = ally.combatantName; // update GameObject name too
+                }
+            }
+        }
 
         foreach (var enemy in EnemyRoster)
         {
@@ -131,31 +153,89 @@ public class Encounters : MonoBehaviour
 
     void StandardBattleLayout()
     {
-        nextBattle.playerDefaultLookDirection = Vector2.right;
+        this.transform.position = Vector3.zero;
+        Vector2 battleCenter = this.transform.position;
 
-        Vector2 fpf = nextBattle.playerFightingPosition.transform.position;
-        int nEnemies = nextBattle.enemies.Count;
-        float verticalSpacing = 0.2f;
-        float totalHeight = (nEnemies - 1) * verticalSpacing;
-        float startY = fpf.y - totalHeight / 1.5f;
+        float verticalSpacingEnemies = 0.2f;
+        int enemyCount = nextBattle.enemies.Count;
+        float totalHeightEnemies = (enemyCount - 1) * verticalSpacingEnemies;
+        float startYEnemies = battleCenter.y - totalHeightEnemies / 1.5f;
 
-        for (int i = 0; i < nEnemies; i++)
+        int[] enemyIndices = new int[enemyCount];
+        for (int i = 0; i < enemyCount; i++)
+        {
+            enemyIndices[i] = +i;
+        }
+        enemyIndices.Shuffle();
+
+        float xSpacingEnemies = 0.2f;
+        float startXEnemies = battleCenter.x + 0.7f;
+
+        for (int i = 0; i < enemyCount; i++)
         {
             Combatant enemy = nextBattle.enemies[i];
+            float yPos = startYEnemies + i * verticalSpacingEnemies;
 
-            float yPos = startY + i * verticalSpacing;
-            var movementScript = enemy.movementScript as ActorMovementScript;
-            movementScript.forceLookDirectionOnLoad = Vector2.zero;
-            movementScript.lookDirection = Vector2.left;
-            movementScript.movementSpeed = 3;
+            float xPos = startXEnemies + enemyIndices[i] * xSpacingEnemies;
+            Vector2 fightingPos = new Vector2(xPos, yPos);
 
-            Vector2 fightingPos = new Vector2(fpf.x + 0.9f + Random.Range(-0.5f, 0.5f), yPos);
             enemy.fightingPosition = new GameObject(enemy.combatantName + " FightingPosition");
-
-            enemy.transform.position = new Vector2(fightingPos.x+2, fightingPos.y);
             enemy.fightingPosition.transform.SetParent(this.transform);
             enemy.fightingPosition.transform.position = fightingPos;
+
+            enemy.transform.position = new Vector2(fightingPos.x + 2, fightingPos.y);
+
+            var movementScript = enemy.movementScript;
+            movementScript.forceLookDirectionOnLoad = Vector2.zero;
+            movementScript.lookDirection = Vector2.left;
+            movementScript.movementSpeed = movementScript.defaultMovementspeed * 3;
         }
+
+        List<Combatant> allAllies = new List<Combatant>(nextBattle.allies);
+        allAllies.Insert(Random.Range(0, allAllies.Count + 1), playerCombat);
+
+        float verticalSpacingAlly = 0.2f;
+        int allyCount = allAllies.Count;
+        float totalHeightAlly = (allyCount - 1) * verticalSpacingAlly;
+        float startYAlly = battleCenter.y - totalHeightAlly / 1.5f;
+
+        int[] allyIndices = new int[allyCount];
+        for (int i = 0; i < allyCount; i++)
+        {
+            allyIndices[i] = -i;
+        }
+        allyIndices.Shuffle();
+
+        float xSpacingAlly = 0.2f;
+        float startXAlly = battleCenter.x - (allyCount - 1) * xSpacingAlly / 2f;
+
+        for (int i = 0; i < allyCount; i++)
+        {
+            Combatant allyOrPlayer = allAllies[i];
+            float yPos = startYAlly + i * verticalSpacingAlly;
+
+            float xPos = startXAlly + allyIndices[i] * xSpacingAlly;
+            Vector2 fightingPos = new Vector2(xPos, yPos);
+
+            allyOrPlayer.fightingPosition = new GameObject(allyOrPlayer.combatantName + " FightingPosition");
+            allyOrPlayer.fightingPosition.transform.SetParent(this.transform);
+            allyOrPlayer.fightingPosition.transform.position = fightingPos;
+
+            allyOrPlayer.transform.position = fightingPos;
+
+            var movementScript = allyOrPlayer.movementScript;
+            movementScript.forceLookDirectionOnLoad = Vector2.zero;
+            movementScript.lookDirection = Vector2.right;
+        }
+
+        nextBattle.playerDefaultLookDirection = Vector2.right;
+    }
+
+
+    GameObject SetPlayerFightingPosition()
+    {
+        nextBattle.playerFightingPosition = playerCombat.fightingPosition;
+        return playerCombat.fightingPosition;
     }
 
     IEnumerator SurpriseAttack()

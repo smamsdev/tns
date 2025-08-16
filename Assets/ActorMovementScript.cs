@@ -7,7 +7,6 @@ public class ActorMovementScript : MovementScript
     public Rigidbody2D actorRigidBody2d;
     public Vector2 newPosition;
     public Vector2 previousPosition;
-    public Vector2 forceLookDirectionOnLoad;
 
     private void Awake()
     {
