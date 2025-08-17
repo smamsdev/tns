@@ -227,10 +227,8 @@ public class Encounters : MonoBehaviour
             movementScript.forceLookDirectionOnLoad = Vector2.zero;
             movementScript.lookDirection = Vector2.right;
         }
-
         nextBattle.playerDefaultLookDirection = Vector2.right;
     }
-
 
     GameObject SetPlayerFightingPosition()
     {
