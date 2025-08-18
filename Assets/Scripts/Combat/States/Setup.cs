@@ -13,40 +13,42 @@ public class Setup : State
     {
         yield return new WaitForSeconds(0.01f);
         combatManager.playerCombat.fightingPosition = combatManager.battleScheme.playerFightingPosition;
-        CombatEvents.BattleMode?.Invoke(true);
         CombatEvents.isBattleMode = true;
-        FieldEvents.isCameraFollow = false;
+        combatManager.cameraFollow.transformToFollow = combatManager.battleScheme.battleCenterPosition;
 
+
+        //position player
         playerCombat = combatManager.playerCombat;
+        PlayerMovementScript playerMovementScript = playerCombat.GetComponent<PlayerMovementScript>();
+        playerMovementScript.playerRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
         yield return combatManager.PositionCombatant(playerCombat.gameObject, playerCombat.fightingPosition.transform.position);
 
-        PlayerMovementScript playerMovementScript = playerCombat.GetComponent<PlayerMovementScript>();
+        //set up player stance and UI
         playerMovementScript.lookDirection = combatManager.battleScheme.playerDefaultLookDirection;
-        playerMovementScript.playerRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
-
         var playerAnimator = playerCombat.GetComponent<Animator>();
         playerAnimator.SetBool("isCombat", true);
-
         SetPlayerUI();
+
         yield return new WaitForSeconds(0.1f);
 
+        //position enemies
         foreach (Enemy enemy in combatManager.enemies)
         {
+            combatManager.SetRigidBodyType(enemy, RigidbodyType2D.Kinematic);
             yield return combatManager.PositionCombatant(enemy.gameObject, enemy.fightingPosition.transform.position);
             enemy.movementScript.movementSpeed = enemy.movementScript.defaultMovementspeed * 1;
         }
 
+        //position allies
         foreach (Ally ally in combatManager.allies)
         {
+            combatManager.SetRigidBodyType(ally, RigidbodyType2D.Kinematic);
             yield return combatManager.PositionCombatant(ally.gameObject, ally.fightingPosition.transform.position);
         }
-
-        FieldEvents.isCameraFollow = true;
 
         foreach (Enemy enemy in combatManager.enemies)
         {
             combatManager.SelectTargetToAttack(enemy, combatManager.allAlliesToTarget);
-            combatManager.SetRigidBodyType(enemy, RigidbodyType2D.Kinematic);
             enemy.GetComponent<Animator>().SetBool("isCombat", true);
             SetcombatantUI(enemy);
             yield return new WaitForSeconds(0.1f); //i cant remember why u have to wait but attack ui wont appear if you dont
@@ -56,7 +58,6 @@ public class Setup : State
         foreach (Ally ally in combatManager.allies)
         {
             combatManager.SelectTargetToAttack(ally, combatManager.enemies);
-            combatManager.SetRigidBodyType(ally, RigidbodyType2D.Kinematic);
             ally.GetComponent<Animator>().SetBool("isCombat", true);
             SetcombatantUI(ally);
             yield return new WaitForSeconds(0.1f); //i cant remember why u have to wait but attack ui wont appear if you dont

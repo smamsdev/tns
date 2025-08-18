@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -32,7 +32,8 @@ public class Encounters : MonoBehaviour
     {
 
         InitialiseBattle();
-        StandardBattleLayout();
+        //StandardBattleLayout();
+        ReverseBattleLayout();
         nextBattle.playerFightingPosition = SetPlayerFightingPosition();
         //yield return SurpriseAttack();
 
@@ -42,6 +43,8 @@ public class Encounters : MonoBehaviour
 
     public void InitialiseBattle()
     {
+        this.transform.position = Vector3.zero;
+        nextBattle.battleCenterPosition = this.transform;
         nextBattle.enemies.Clear();
         nextBattle.allies.Clear();
 
@@ -134,6 +137,7 @@ public class Encounters : MonoBehaviour
             {
                 GameObject enemyToAdd = Instantiate(enemy.enemyPreFab, this.transform);
                 Combatant enemyCombatant = enemyToAdd.GetComponent<Combatant>();
+                enemyCombatant.GetComponent<ActorMovementScript>().actorRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
 
                 enemyToAdd.name = enemyCombatant.combatantName;
                 enemyToAdd.transform.position = new Vector2(this.transform.position.x, this.transform.position.y + 1000 + i);
@@ -151,83 +155,86 @@ public class Encounters : MonoBehaviour
         }
     }
 
-    void StandardBattleLayout()
+    void ReverseBattleLayout()
     {
-        this.transform.position = Vector3.zero;
-        Vector2 battleCenter = this.transform.position;
-
-        float verticalSpacingEnemies = 0.2f;
-        int enemyCount = nextBattle.enemies.Count;
-        float totalHeightEnemies = (enemyCount - 1) * verticalSpacingEnemies;
-        float startYEnemies = battleCenter.y - totalHeightEnemies / 1.5f;
-
-        int[] enemyIndices = new int[enemyCount];
-        for (int i = 0; i < enemyCount; i++)
-        {
-            enemyIndices[i] = +i;
-        }
-        enemyIndices.Shuffle();
-
-        float xSpacingEnemies = 0.2f;
-        float startXEnemies = battleCenter.x + 0.7f;
-
-        for (int i = 0; i < enemyCount; i++)
-        {
-            Combatant enemy = nextBattle.enemies[i];
-            float yPos = startYEnemies + i * verticalSpacingEnemies;
-
-            float xPos = startXEnemies + enemyIndices[i] * xSpacingEnemies;
-            Vector2 fightingPos = new Vector2(xPos, yPos);
-
-            enemy.fightingPosition = new GameObject(enemy.combatantName + " FightingPosition");
-            enemy.fightingPosition.transform.SetParent(this.transform);
-            enemy.fightingPosition.transform.position = fightingPos;
-
-            enemy.transform.position = new Vector2(fightingPos.x + 2, fightingPos.y);
-
-            var movementScript = enemy.movementScript;
-            movementScript.forceLookDirectionOnLoad = Vector2.zero;
-            movementScript.lookDirection = Vector2.left;
-            movementScript.movementSpeed = movementScript.defaultMovementspeed * 3;
-        }
-
         List<Combatant> allAllies = new List<Combatant>(nextBattle.allies);
         allAllies.Insert(Random.Range(0, allAllies.Count + 1), playerCombat);
 
-        float verticalSpacingAlly = 0.2f;
-        int allyCount = allAllies.Count;
-        float totalHeightAlly = (allyCount - 1) * verticalSpacingAlly;
-        float startYAlly = battleCenter.y - totalHeightAlly / 1.5f;
+        // Allies on left, enemies on right
+        SpaceCombatants(allAllies, false, 0, Vector2.left);
+        SpaceCombatants(nextBattle.enemies, true, -2.5f, Vector2.right);
 
-        int[] allyIndices = new int[allyCount];
-        for (int i = 0; i < allyCount; i++)
+        nextBattle.playerDefaultLookDirection = Vector2.left;
+    }
+
+    void StandardBattleLayout()
+    {
+        List<Combatant> allAllies = new List<Combatant>(nextBattle.allies);
+        allAllies.Insert(Random.Range(0, allAllies.Count + 1), playerCombat);
+
+        // Allies on left, enemies on right
+        SpaceCombatants(allAllies, true, 0, Vector2.right);
+        SpaceCombatants(nextBattle.enemies, false, 2.5f, Vector2.left);
+
+        nextBattle.playerDefaultLookDirection = Vector2.right;
+    }
+
+    void SpaceCombatants(List<Combatant> combatantList, bool isLeftSided, float startPosOffset, Vector2 lookDir)
+    {
+        Vector2 battleCenter = nextBattle.battleCenterPosition.transform.position;
+        int combatantCount = combatantList.Count;
+
+        float minSpacingY = 0.1f;
+        float maxSpacingY = 0.35f;
+        float adjustedSpacingY = Mathf.Clamp(maxSpacingY - (combatantCount - 1) * 0.02f, minSpacingY, maxSpacingY);
+        float totalHeightCombatants = (combatantCount - 1) * adjustedSpacingY;
+        float startYCombatants = battleCenter.y - totalHeightCombatants / 2f;
+
+        float minSpacingX = 0.1f;
+        float maxSpacingX = 0.35f;
+        float adjustedSpacingX = Mathf.Clamp(maxSpacingX - (combatantCount - 1) * 0.02f, minSpacingX, maxSpacingX);
+
+        int sideMultiplier = isLeftSided ? -1 : 1;
+        float startXCombatants = battleCenter.x + (0.4f * sideMultiplier);
+
+        int[] combatantIndices = new int[combatantCount];
+        for (int i = 0; i < combatantCount; i++)
         {
-            allyIndices[i] = -i;
+            combatantIndices[i] = i * sideMultiplier;
         }
-        allyIndices.Shuffle();
+        combatantIndices.Shuffle();
 
-        float xSpacingAlly = 0.2f;
-        float startXAlly = battleCenter.x - (allyCount - 1) * xSpacingAlly / 2f;
-
-        for (int i = 0; i < allyCount; i++)
+        for (int i = 0; i < combatantCount; i++)
         {
-            Combatant allyOrPlayer = allAllies[i];
-            float yPos = startYAlly + i * verticalSpacingAlly;
+            Combatant combatant = combatantList[i];
+            float yPos = startYCombatants + i * adjustedSpacingY;
+            float xPos = startXCombatants + combatantIndices[i] * adjustedSpacingX;
 
-            float xPos = startXAlly + allyIndices[i] * xSpacingAlly;
             Vector2 fightingPos = new Vector2(xPos, yPos);
 
-            allyOrPlayer.fightingPosition = new GameObject(allyOrPlayer.combatantName + " FightingPosition");
-            allyOrPlayer.fightingPosition.transform.SetParent(this.transform);
-            allyOrPlayer.fightingPosition.transform.position = fightingPos;
+            combatant.fightingPosition = new GameObject(combatant.combatantName + " FightingPosition");
+            combatant.fightingPosition.transform.SetParent(this.transform);
+            combatant.fightingPosition.transform.position = fightingPos;
 
-            allyOrPlayer.transform.position = fightingPos;
+            if (startPosOffset != 0)
+            {
+                combatant.transform.position = new Vector2(startPosOffset, fightingPos.y);
+            }
+            else
+            {
+                combatant.transform.position = new Vector2(fightingPos.x + startPosOffset, fightingPos.y);
+            }
 
-            var movementScript = allyOrPlayer.movementScript;
+            var movementScript = combatant.movementScript;
             movementScript.forceLookDirectionOnLoad = Vector2.zero;
-            movementScript.lookDirection = Vector2.right;
+            movementScript.lookDirection = lookDir;
+            movementScript.movementSpeed = movementScript.defaultMovementspeed * 4;
         }
-        nextBattle.playerDefaultLookDirection = Vector2.right;
+    }
+
+    float CalculateSpacing(int combatantCount, float minSpacing, float maxSpacing)
+    {
+        return Mathf.Clamp(maxSpacing - (combatantCount - 1) * 0.02f, minSpacing, maxSpacing);
     }
 
     GameObject SetPlayerFightingPosition()

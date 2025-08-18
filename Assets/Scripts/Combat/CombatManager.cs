@@ -131,7 +131,7 @@ public class CombatManager : MonoBehaviour
         var combatantMoveMentInstance = combatantMoveMentInstanceGO.GetComponent<CombatMovement>();
         combatantMoveMentInstanceGO.name = "MoveCombatant" + goToMove.gameObject.name;
 
-        yield return (combatantMoveMentInstance.MoveCombatant(goToMove, targetPosition, stoppingPercentage = 100f, useTimeout = false));
+        yield return (combatantMoveMentInstance.MoveCombatant(goToMove, targetPosition, stoppingPercentage, useTimeout = false));
         Destroy(combatantMoveMentInstanceGO);
     }
 

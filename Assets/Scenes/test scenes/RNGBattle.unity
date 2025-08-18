@@ -1357,6 +1357,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  battleCenterPosition: {fileID: 0}
   playerFightingPosition: {fileID: 836338419}
   combatManager: {fileID: 0}
   playerDefaultLookDirection: {x: -1, y: 0}
@@ -1639,7 +1640,7 @@ Transform:
   m_GameObject: {fileID: 1216325878}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.495, y: -0.29999995, z: 0}
+  m_LocalPosition: {x: 1.495, y: -0.42999998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1754,11 +1755,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyRoster:
   - enemyPreFab: {fileID: 1705068664190481556, guid: 2886a77e0ed244747a6ee7bb09ec4289, type: 3}
-    maxNumberOfType: 12
+    maxNumberOfType: 32
     remainingThisBattle: 0
     amountSpawned: 0
   - enemyPreFab: {fileID: 2297029071285235822, guid: fa354b6427bba834994016b16a0844dd, type: 3}
-    maxNumberOfType: 12
+    maxNumberOfType: 32
     remainingThisBattle: 0
     amountSpawned: 0
   AllyRoster:
@@ -1775,7 +1776,7 @@ MonoBehaviour:
     remainingThisBattle: 0
     amountSpawned: 0
   maxTotalEnemies: 12
-  maxBonusAllies: 3
+  maxBonusAllies: 5
   nextBattle: {fileID: 1272831097}
 --- !u!224 &1272831096
 RectTransform:
@@ -1810,6 +1811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allies: []
   enemies: []
+  battleCenterPosition: {fileID: 0}
   playerFightingPosition: {fileID: 0}
   combatManager: {fileID: 0}
   playerDefaultLookDirection: {x: 0, y: 0}

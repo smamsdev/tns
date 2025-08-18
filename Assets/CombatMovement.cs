@@ -24,7 +24,7 @@ public class CombatMovement : MonoBehaviour
         float endPointDeltaY = Mathf.Abs(movementScript.transform.position.y - stoppingPosition.y);
 
         // Vertical movement
-        while (endPointDeltaY > 0.03f)
+        while (endPointDeltaY > 0.05f)
         {
             if (useTimeout && Time.time - startTime > moveTimeoutDuration) yield break;
             if (Time.time - startTime > timeoutDuration)
@@ -47,7 +47,7 @@ public class CombatMovement : MonoBehaviour
         startTime = Time.time;
         float endPointDeltaX = Mathf.Abs(movementScript.transform.position.x - stoppingPosition.x);
 
-        while (endPointDeltaX > 0.03f)
+        while (endPointDeltaX > 0.05f)
         {
             if (useTimeout && Time.time - startTime > moveTimeoutDuration) yield break;
             if (Time.time - startTime > timeoutDuration)

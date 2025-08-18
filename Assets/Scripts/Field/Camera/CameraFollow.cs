@@ -14,16 +14,6 @@ public class CameraFollow : MonoBehaviour
     float floatValueFromCoRoutine;
     float testFloat;
 
-    private void OnEnable()
-    {
-        CombatEvents.BattleMode += CameraBattleMode;
-    }
-
-    private void OnDisable()
-    {
-        CombatEvents.BattleMode -= CameraBattleMode;
-    }
-
     //dont forget about z -10, it's important!
 
     private void Start()
@@ -38,25 +28,6 @@ public class CameraFollow : MonoBehaviour
         {
             newPos = new Vector3(transformToFollow.position.x + xOffset, transformToFollow.position.y + yOffset, -10f);
             transform.position = Vector3.Slerp(transform.position, newPos, cameraSpeed * Time.deltaTime);
-        }
-    }
-
-    public void CameraBattleMode(bool on)
-    {
-
-        battleModeOn = on;
-        if (on) 
-        
-        {
-           //StartCoroutine(UpdateCameraXOffsetOverTimeCoRoutine(0, 2, 0.5f));
-           //StartCoroutine(UpdateCameraSpeedCoRoutine(3, 0, 2));
-        }
-
-        else if (!on)
-
-        {
-           // StartCoroutine(UpdateCameraXOffsetOverTimeCoRoutine(2, 0, 0.5f));
-           // StartCoroutine(UpdateCameraSpeedCoRoutine(0, 3, 2));
         }
     }
 
