@@ -12,19 +12,7 @@ public class EnemySelect : State
     {
         combatManager.combatMenuManager.selectEnemyMenuScript.InitializeButtonSlots();
         combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.enemySelectMenu, true);
-
-        if (!combatManager.combatMenuManager.thirdMenuFirstButton.isActiveAndEnabled)
-        {
-            {
-                combatManager.combatMenuManager.thirdMenuFirstButton = combatManager.combatMenuManager.selectEnemyMenuScript.buttonSlotGOs[0].GetComponent<Button>();
-            }
-        }
-
-        else
-        {
-            combatManager.combatMenuManager.thirdMenuFirstButton = buttonSelected;
-        }
-
+        combatManager.combatMenuManager.thirdMenuFirstButton = selectEnemyMenuScript.lastEnemySelected;
         combatManager.combatMenuManager.thirdMenuFirstButton.Select();
         previousLookDir = combatManager.playerCombat.movementScript.lookDirection;
 
