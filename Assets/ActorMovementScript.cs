@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class ActorMovementScript : MovementScript
 {
-    public Rigidbody2D actorRigidBody2d;
     public Vector2 newPosition;
     public Vector2 previousPosition;
 
     private void Awake()
     {
         movementSpeed = defaultMovementspeed;
-        actorRigidBody2d = GetComponent<Rigidbody2D>();
+        rigidBody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
     private void OnDisable()
@@ -22,7 +21,7 @@ public class ActorMovementScript : MovementScript
 
     private void Start()
     {
-        actorRigidBody2d.bodyType = RigidbodyType2D.Dynamic;
+        rigidBody2d.bodyType = RigidbodyType2D.Dynamic;
         scriptedMovement = false;
         isReversing = Vector2.one;
 
@@ -86,13 +85,13 @@ public class ActorMovementScript : MovementScript
     void FixedUpdate()
     {
         {
-            newPosition = actorRigidBody2d.position;
-            previousPosition = actorRigidBody2d.position;
+            newPosition = rigidBody2d.position;
+            previousPosition = rigidBody2d.position;
 
             newPosition.x += movementSpeed * horizontalInput * Time.deltaTime;
             newPosition.y += movementSpeed * (verticalInput + sloping) * Time.deltaTime;
 
-            actorRigidBody2d.MovePosition(newPosition);
+            rigidBody2d.MovePosition(newPosition);
 
             movementDirection = (newPosition - previousPosition);
 

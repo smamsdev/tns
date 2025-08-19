@@ -137,7 +137,7 @@ public class Encounters : MonoBehaviour
             {
                 GameObject enemyToAdd = Instantiate(enemy.enemyPreFab, this.transform);
                 Combatant enemyCombatant = enemyToAdd.GetComponent<Combatant>();
-                enemyCombatant.GetComponent<ActorMovementScript>().actorRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
+                enemyCombatant.GetComponent<ActorMovementScript>().rigidBody2d.bodyType = RigidbodyType2D.Kinematic;
 
                 enemyToAdd.name = enemyCombatant.combatantName;
                 enemyToAdd.transform.position = new Vector2(this.transform.position.x, this.transform.position.y + 1000 + i);
@@ -184,9 +184,10 @@ public class Encounters : MonoBehaviour
         Vector2 battleCenter = nextBattle.battleCenterPosition.transform.position;
         int combatantCount = combatantList.Count;
 
+        //these numbers are mostly eyeballed
         float minSpacingY = 0.1f;
         float maxSpacingY = 0.35f;
-        float adjustedSpacingY = Mathf.Clamp(maxSpacingY - (combatantCount - 1) * 0.02f, minSpacingY, maxSpacingY);
+        float adjustedSpacingY = Mathf.Clamp(maxSpacingY - (combatantCount - 1) * 0.025f, minSpacingY, maxSpacingY);
         float totalHeightCombatants = (combatantCount - 1) * adjustedSpacingY;
         float startYCombatants = battleCenter.y - totalHeightCombatants / 2f;
 

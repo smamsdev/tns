@@ -2212,11 +2212,12 @@ MonoBehaviour:
   movementSpeed: 0
   scriptedMovement: 0
   sloping: 0
+  forceLookDirectionOnLoad: {x: 0, y: 0}
   animator: {fileID: 8879681757372781048}
   movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
   isReversing: {x: 0, y: 0}
-  playerRigidBody2d: {fileID: 4400780416818078350}
+  rigidBody2d: {fileID: 4400780416818078350}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
   movementLocked: 0
@@ -2319,8 +2320,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69585983eb1cf6f4bab827c80845cbe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combatantName: 
+  combatantName: Liam
   combatantUI: {fileID: 7883207155541732718}
+  movementScript: {fileID: 0}
   attackBase: 5
   fendBase: 1
   maxHP: 0
@@ -2335,7 +2337,7 @@ MonoBehaviour:
   moveSelected: {fileID: 0}
   playerPermanentStats: {fileID: 11400000, guid: 891a8d8bd88cd9a45acd6a5ac406be03, type: 2}
   playerMoveManager: {fileID: 5232138969718999026}
-  movementScript: {fileID: 0}
+  party: {fileID: 11400000, guid: 7b54538dd0515b34c937ff6de93a275f, type: 2}
   currentPotential: 0
   fendPotMod: 0
   attackPowerPotMod: 0

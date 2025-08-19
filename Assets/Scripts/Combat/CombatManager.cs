@@ -175,6 +175,6 @@ public class CombatManager : MonoBehaviour
 
     public void SetRigidBodyType(Combatant combatant, RigidbodyType2D bodyType)
     {
-        combatant.GetComponent<ActorMovementScript>().actorRigidBody2d.bodyType = bodyType;
+        combatant.movementScript.rigidBody2d.bodyType = bodyType;
     }
 }

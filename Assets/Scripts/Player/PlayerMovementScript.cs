@@ -7,7 +7,6 @@ using UnityEngine.UIElements;
 
 public class PlayerMovementScript : MovementScript
 {
-    public Rigidbody2D playerRigidBody2d;
     public Vector2 newPosition;
     public Vector2 previousPosition;
     public bool movementLocked;
@@ -30,7 +29,7 @@ public class PlayerMovementScript : MovementScript
         scriptedMovement = false;
         FieldEvents.movementSpeedMultiplier = 1;
         isReversing = Vector2.one;
-        playerRigidBody2d.bodyType = RigidbodyType2D.Dynamic;
+        rigidBody2d.bodyType = RigidbodyType2D.Dynamic;
         movementLocked = FieldEvents.movementLocked;
     }
 
@@ -78,13 +77,13 @@ public class PlayerMovementScript : MovementScript
             verticalInput = Input.GetAxis("Vertical") * isReversing.y + sloping;
         }
 
-            newPosition = playerRigidBody2d.position;
-            previousPosition = playerRigidBody2d.position;
+            newPosition = rigidBody2d.position;
+            previousPosition = rigidBody2d.position;
 
             newPosition.x += movementSpeed * horizontalInput * Time.deltaTime;
             newPosition.y += movementSpeed * verticalInput * Time.deltaTime;
 
-            playerRigidBody2d.MovePosition(newPosition);
+            rigidBody2d.MovePosition(newPosition);
 
             movementDirection = (newPosition - previousPosition);
 

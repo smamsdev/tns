@@ -19,9 +19,10 @@ public class Setup : State
 
         //position player
         playerCombat = combatManager.playerCombat;
-        PlayerMovementScript playerMovementScript = playerCombat.GetComponent<PlayerMovementScript>();
-        playerMovementScript.playerRigidBody2d.bodyType = RigidbodyType2D.Kinematic;
+        MovementScript playerMovementScript = playerCombat.movementScript;
+        playerMovementScript.rigidBody2d.bodyType = RigidbodyType2D.Kinematic;
         yield return combatManager.PositionCombatant(playerCombat.gameObject, playerCombat.fightingPosition.transform.position);
+        playerMovementScript.movementSpeed = playerMovementScript.defaultMovementspeed * 1;
 
         //set up player stance and UI
         playerMovementScript.lookDirection = combatManager.battleScheme.playerDefaultLookDirection;
@@ -44,6 +45,7 @@ public class Setup : State
         {
             combatManager.SetRigidBodyType(ally, RigidbodyType2D.Kinematic);
             yield return combatManager.PositionCombatant(ally.gameObject, ally.fightingPosition.transform.position);
+            ally.movementScript.movementSpeed = ally.movementScript.defaultMovementspeed * 1;
         }
 
         foreach (Enemy enemy in combatManager.enemies)
