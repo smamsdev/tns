@@ -12,13 +12,6 @@ public class ApplyPlayerMove : State
         combatManager.combatMenuManager.DisableMenuState();
         player = combatManager.playerCombat;
 
-        foreach (Ally ally in combatManager.allies)
-        {
-            ally.combatantUI.attackDisplay.ShowAttackDisplay(false);
-            ally.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(false);
-            ally.combatantUI.fendScript.ShowFendDisplay(ally, false);
-        }
-
         foreach (Enemy enemy in combatManager.enemies)
         {
             enemy.combatantUI.attackDisplay.ShowAttackDisplay(false);
@@ -41,16 +34,16 @@ public class ApplyPlayerMove : State
     IEnumerator ApplyMove()
     {
 
-        //Disable other combatant UI elements
-        foreach (Enemy enemy in combatManager.enemies)
-        {
-            if (enemy != player.targetToAttack)
-
-            {
-                enemy.combatantUI.fendScript.ShowFendDisplay(enemy, false);
-                enemy.combatantUI.statsDisplay.ShowStatsDisplay(false);
-            }
-        }
+        //Disable other combatant UI elements. dont know if we still need
+       // foreach (Enemy enemy in combatManager.enemies)
+       // {
+       //     if (enemy != player.targetToAttack)
+       //
+       //     {
+       //         enemy.combatantUI.fendScript.ShowFendDisplay(enemy, false);
+       //         enemy.combatantUI.statsDisplay.ShowStatsDisplay(false);
+       //     }
+       // }
 
         //reset narrator focus camera on allyToAct and wait
         CombatEvents.UpdateNarrator("");

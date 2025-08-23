@@ -6,12 +6,8 @@ using UnityEngine.UI;
 
 public class FirstMove : State
 {
-    [SerializeField] GameObject firstMoveContainer;
-
     public override IEnumerator StartState()
     {
-        //yield return new WaitForSeconds(0.1f); dont think i need this anymore
-
         combatManager.playerCombat.combatantUI.statsDisplay.ShowStatsDisplay(true);
         combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.firstMoveMenu, true);
         combatManager.combatMenuManager.firstMenuFirstButton = buttonSelected;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Encounters : MonoBehaviour
+public class Encounters : ToTrigger
 {
     [SerializeField] EnemyProfile[] EnemyRoster;
     [SerializeField] AllyProfile[] AllyRoster;
@@ -11,34 +11,26 @@ public class Encounters : MonoBehaviour
     public int maxBonusAllies = 0;
     public Battle nextBattle;
     PlayerCombat playerCombat;
+    public SceneSetup sceneSetup;
 
     private void OnEnable()
     {
         playerCombat = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>();
-        FieldEvents.StartScene += StartScene;
     }
 
-    private void OnDisable()
+    public override IEnumerator DoAction()
     {
-        FieldEvents.StartScene -= StartScene;
-    }
-
-    void StartScene()
-    {
-        StartCoroutine(StartSceneCoRo());
-    }
-
-    IEnumerator StartSceneCoRo()
-    {
-
         InitialiseBattle();
-        //StandardBattleLayout();
-        ReverseBattleLayout();
+        StandardBattleLayout();
+        //ReverseBattleLayout();
         nextBattle.playerFightingPosition = SetPlayerFightingPosition();
         //yield return SurpriseAttack();
 
-        yield return null;
+
         SpawnBattle();
+        yield return new WaitForSeconds(0.2f);
+        StartCoroutine(sceneSetup.FadeUpAndUnlock());
+        yield return null;
     }
 
     public void InitialiseBattle()

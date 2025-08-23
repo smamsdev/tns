@@ -9,7 +9,7 @@ public class FendScript : MonoBehaviour
 {
     public TextMeshProUGUI fendTextMeshProUGUI;
     public CombatManager combatManager;
-    [SerializeField] Animator fendAnimator, backStabAnimator;
+    public Animator fendAnimator, backStabAnimator;
     Combatant combatantAttacking;
     Combatant target;
     public int attackRemainder;

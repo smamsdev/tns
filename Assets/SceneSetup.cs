@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class SceneSetup : MonoBehaviour
@@ -10,10 +11,14 @@ public class SceneSetup : MonoBehaviour
     public bool forceEntryCoorinates;
     public string sceneName;
 
+    [SerializeField] Animator defaultFaderAnimator;
+    public bool isCustomSceneStart;
+
     private void OnEnable()
     {
-        if (sceneName == "")
+        FieldEvents.SceneChanging += FadeDown;
 
+        if (sceneName == "")
         {
             Debug.Log("scene name is blank!");
         }
@@ -40,5 +45,49 @@ public class SceneSetup : MonoBehaviour
         }
 
         mainCamera.transform.position = new Vector3(transformToFollow.position.x, transformToFollow.transform.position.y, transformToFollow.transform.position.z - 10);
+    }
+
+    private void OnDisable()
+    {
+        FieldEvents.SceneChanging -= FadeDown;
+    }
+
+    private void Start()
+    {
+        CombatEvents.LockPlayerMovement();
+
+        if (!isCustomSceneStart)
+        {
+            DefaultSceneStart();
+        }
+
+        else
+        { 
+            FieldEvents.StartScene();
+        }
+    }
+
+    void DefaultSceneStart()
+    {
+        StartCoroutine(FadeUpAndUnlock());
+        StartScene();
+    }
+
+    public IEnumerator FadeUpAndUnlock()
+    {
+        defaultFaderAnimator.SetBool("start", true);
+        yield return new WaitForSeconds(0.5f);
+        CombatEvents.UnlockPlayerMovement();
+    }
+
+    public void StartScene()
+
+    {
+        FieldEvents.StartScene();
+    }
+
+    void FadeDown()
+    {
+        defaultFaderAnimator.SetTrigger("Trigger2");
     }
 }

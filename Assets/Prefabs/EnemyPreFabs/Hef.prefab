@@ -231,14 +231,14 @@ MonoBehaviour:
   movementSpeed: 0
   scriptedMovement: 0
   sloping: 0
+  forceLookDirectionOnLoad: {x: 1, y: 0}
   animator: {fileID: 0}
   movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
   isReversing: {x: 0, y: 0}
-  actorRigidBody2d: {fileID: 0}
+  rigidBody2d: {fileID: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  forceLookDirectionOnLoad: {x: 1, y: 0}
 --- !u!95 &2801603950815456003
 Animator:
   serializedVersion: 5
@@ -360,7 +360,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combatantName: Hef
   combatantUI: {fileID: 0}
-  attackBase: 1
+  movementScript: {fileID: 0}
+  attackBase: 12
   fendBase: 2
   maxHP: 55
   fendDisplayOn: 0
@@ -373,9 +374,6 @@ MonoBehaviour:
   targetToAttack: {fileID: 0}
   moveSelected: {fileID: 0}
   enemyXP: 23
-  enemyBodyHP: 34
-  enemyArmsHP: 53
-  enemyHeadHP: 34
   enemyMoves:
   - {fileID: 86816273644681938}
   damageReceivedInjuryBonus: 0

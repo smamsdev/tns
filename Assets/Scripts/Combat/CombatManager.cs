@@ -20,7 +20,7 @@ public class CombatManager : MonoBehaviour
     public Setup setup;
     public FirstMove firstMove;
     public SecondMove secondMove;
-    public EnemySelect enemySelect;
+    public EnemySelectState enemySelectState;
     public AllyMoveState allyMoveState;
     public ApplyPlayerMove applyMove;
     public EnemyMoveState enemyMoveState;
@@ -82,6 +82,7 @@ public class CombatManager : MonoBehaviour
     {
         CombatEvents.LockPlayerMovement.Invoke();
 
+        cameraFollow = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerCombat = player.GetComponentInChildren<PlayerCombat>();
 
@@ -140,6 +141,7 @@ public class CombatManager : MonoBehaviour
         combatant.SelectMove();
         combatant.moveSelected.LoadMoveStats(combatant, this);
         combatant.combatantUI.attackDisplay.UpdateAttackDisplay(combatant.attackTotal);
+        combatant.combatantUI.attackDisplay.attackDisplayAnimator.Play("CombatantAttackDamageFadeUp");
         combatant.combatantUI.fendScript.fendTextMeshProUGUI.text = combatant.fendTotal.ToString();
 
         if (combatant.attackTotal > 0)

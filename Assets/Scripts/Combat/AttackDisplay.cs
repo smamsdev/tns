@@ -7,6 +7,7 @@ public class AttackDisplay : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI allyAttackDamageTextMeshProUI;
     [SerializeField] GameObject attackDisplayTextGO;
+    public Animator attackDisplayAnimator; 
 
     private void Start()
     {

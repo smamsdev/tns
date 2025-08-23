@@ -6,15 +6,20 @@ using UnityEngine.UI;
 
 public class SelectEnemyMenuScript : MonoBehaviour
 {
-    [SerializeField] CombatManager combatManager;
+    public CombatManager combatManager;
     public Combatant enemyhighlighted;
     [SerializeField] GameObject enemySelectButtonPrefab;
     [SerializeField] GameObject selectEnemyMenuContainer;
-    public Button lastEnemySelected;
+    public Button defaultButton;
     public List<EnemySelectButtonScript> enemySelectButtons = new List<EnemySelectButtonScript>();
 
     public void InitializeButtonSlots()
     {
+        foreach (Transform child in selectEnemyMenuContainer.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
         enemySelectButtons.Clear();
 
         for (int i = 0; i < combatManager.enemies.Count; i++)
@@ -27,10 +32,8 @@ public class SelectEnemyMenuScript : MonoBehaviour
             enemySelectButtonGO.name = enemySelectButtonScript.combatant.combatantName;
             enemySelectButtons.Add(enemySelectButtonScript);
         }
-        DefaultButtonSelected();
-
-
         SetGridNavigationWrapAround(enemySelectButtons,4);
+        defaultButton = enemySelectButtons[0].button;
     }
 
     void SetGridNavigationWrapAround(List<EnemySelectButtonScript> enemySelectButtons, int maxRows)
@@ -65,21 +68,15 @@ public class SelectEnemyMenuScript : MonoBehaviour
         }
     }
 
-    public void DefaultButtonSelected()
-    {
-        if (lastEnemySelected == null)
-        {
-            lastEnemySelected = enemySelectButtons[0].button;
-        }
-    }
-
     public void HighlightEnemy(Combatant combatant)
     {
         combatManager.cameraFollow.transformToFollow = combatant.transform;
         enemyhighlighted = combatant;
         var combatantUI = combatant.combatantUI;
+        combatantUI.statsDisplay.ShowStatsDisplay(true);
 
         combatantUI.selectedAnimator.SetBool("Flash", true);
+        combatManager.SelectAndDisplayCombatantMove(combatant);
 
         Vector2 direction = (combatant.transform.position - combatManager.player.transform.position).normalized;
         float attackDirX = Mathf.Sign(direction.x);
@@ -91,10 +88,18 @@ public class SelectEnemyMenuScript : MonoBehaviour
     {
         var combatantUI = combatant.combatantUI;
         combatantUI.selectedAnimator.SetBool("Flash", false);
+        combatantUI.statsDisplay.ShowStatsDisplay(false);
+        combatantUI.attackDisplay.attackDisplayAnimator.Play("CombatantAttackDamageFadeUpReverse");
+        if (combatant.fendTotal > 0)
+        {
+            combatant.combatantUI.fendScript.fendAnimator.Play("FendAppearReverse");
+        }
     }
 
-    public void SelectedEnemyToRevertToOnBack(Button button)  //prob dont eneed this
-    { 
-        combatManager.combatMenuManager.thirdMenuFirstButton = button;
+    public void CombatantSelected(Combatant combatant)
+    {
+        Combatant combatant1 = combatant;
+        Debug.Log("is this on");
     }
+
 }

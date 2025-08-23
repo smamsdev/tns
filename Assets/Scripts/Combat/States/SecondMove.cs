@@ -33,7 +33,7 @@ public class SecondMove : State
 
         if (combatManager.playerCombat.moveSelected.attackMoveModPercent > 0)
         {
-            combatManager.SetState(combatManager.enemySelect);
+            combatManager.SetState(combatManager.enemySelectState);
         }
         else
         {

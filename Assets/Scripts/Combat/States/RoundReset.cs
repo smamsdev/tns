@@ -9,20 +9,36 @@ public class RoundReset : State
         combatManager.playerCombat.combatantUI.fendScript.ShowFendDisplay(combatManager.playerCombat, false);
         combatManager.combatMenuManager.SetButtonNormalColor(combatManager.combatMenuManager.firstMenuFirstButton, Color.white);
         combatManager.combatMenuManager.SetButtonNormalColor(combatManager.combatMenuManager.secondMenuFirstButton, Color.white);
-        combatManager.combatMenuManager.SetButtonNormalColor(combatManager.combatMenuManager.thirdMenuFirstButton, Color.white);
+        if (combatManager.combatMenuManager.thirdMenuFirstButton != null)
+        {
+            combatManager.combatMenuManager.SetButtonNormalColor(combatManager.combatMenuManager.thirdMenuFirstButton, Color.white);
+        }
 
         foreach (Enemy enemy in combatManager.enemies)
         {
             combatManager.SelectTargetToAttack(enemy, combatManager.allAlliesToTarget);
             combatManager.SelectAndDisplayCombatantMove(enemy);
-            enemy.combatantUI.statsDisplay.ShowStatsDisplay(true);
+
+            yield return new WaitForSeconds(.7f);
+            enemy.combatantUI.attackDisplay.attackDisplayAnimator.Play("CombatantAttackDamageFadeDown");
+            if (enemy.fendTotal > 0)
+            {
+                enemy.combatantUI.fendScript.fendAnimator.Play("FendFade");
+            }
+
         }
 
         foreach (Ally ally in combatManager.allies)
         {
             combatManager.SelectTargetToAttack(ally, combatManager.enemies);
             ally.combatantUI.statsDisplay.ShowStatsDisplay(true);
-            combatManager.SelectAndDisplayCombatantMove(ally);
+
+            yield return new WaitForSeconds(.7f);
+            ally.combatantUI.attackDisplay.attackDisplayAnimator.Play("CombatantAttackDamageFadeDown");
+            if (ally.fendTotal > 0)
+            {
+                ally.combatantUI.fendScript.fendAnimator.Play("FendFade");
+            }
         }
 
         yield return new WaitForSeconds(0.5f);

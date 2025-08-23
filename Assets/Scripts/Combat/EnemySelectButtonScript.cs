@@ -22,4 +22,19 @@ public class EnemySelectButtonScript : MonoBehaviour, ISelectHandler, IDeselectH
     {
         selectEnemyMenuScript.DeselectEnemy(combatant);
     }
+
+    private void OnEnable()
+    {
+        button.onClick.AddListener(OnButtonClicked);
+    }
+
+    private void OnDisable()
+    {
+        button.onClick.RemoveListener(OnButtonClicked);
+    }
+
+    private void OnButtonClicked()
+    {
+        selectEnemyMenuScript.combatManager.enemySelectState.CombatantSelected(combatant);
+    }
 }

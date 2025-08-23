@@ -30,6 +30,17 @@ public class Setup : State
         playerAnimator.SetBool("isCombat", true);
         SetPlayerUI();
 
+        //Set combat animations
+        foreach (Combatant combatant in combatManager.enemies)
+        {
+            combatant.GetComponent<Animator>().SetBool("isCombat", true);
+        }
+
+        foreach (Combatant combatant in combatManager.allies)
+        {
+            combatant.GetComponent<Animator>().SetBool("isCombat", true);
+        }
+
         yield return new WaitForSeconds(0.1f);
 
         //position enemies
@@ -51,58 +62,53 @@ public class Setup : State
         foreach (Enemy enemy in combatManager.enemies)
         {
             combatManager.SelectTargetToAttack(enemy, combatManager.allAlliesToTarget);
-            enemy.GetComponent<Animator>().SetBool("isCombat", true);
             SetcombatantUI(enemy);
             yield return new WaitForSeconds(0.1f); //i cant remember why u have to wait but attack ui wont appear if you dont
             combatManager.SelectAndDisplayCombatantMove(enemy);
+            yield return new WaitForSeconds(.7f);
+            enemy.combatantUI.attackDisplay.attackDisplayAnimator.Play("CombatantAttackDamageFadeDown");
+            if (enemy.fendTotal > 0)
+            {
+                enemy.combatantUI.fendScript.fendAnimator.Play("FendFade");
+            }
         }
 
         foreach (Ally ally in combatManager.allies)
         {
             combatManager.SelectTargetToAttack(ally, combatManager.enemies);
-            ally.GetComponent<Animator>().SetBool("isCombat", true);
             SetcombatantUI(ally);
             yield return new WaitForSeconds(0.1f); //i cant remember why u have to wait but attack ui wont appear if you dont
             combatManager.SelectAndDisplayCombatantMove(ally);
+            yield return new WaitForSeconds(.7f);
+            ally.combatantUI.attackDisplay.attackDisplayAnimator.Play("CombatantAttackDamageFadeDown");
+            if (ally.fendTotal > 0)
+            {
+                ally.combatantUI.fendScript.fendAnimator.Play("FendFade");
+            }
         }
 
         yield return new WaitForSeconds(1);
         combatManager.SetState(combatManager.firstMove);
     }
 
-    void SetcombatantUI(Enemy enemy)
+    void SetcombatantUI(Combatant combatant)
     {
-        GameObject newEnemyCombatUI = Instantiate(combatantUIPrefab, enemy.gameObject.transform);
-        newEnemyCombatUI.transform.localPosition = Vector3.zero;
-        newEnemyCombatUI.name = "combatantUI For " + enemy.combatantName;
-        var enemycombatantUI = newEnemyCombatUI.GetComponent<CombatantUI>();
-        enemy.combatantUI = enemycombatantUI;
-        enemycombatantUI.fendScript.combatManager = combatManager;
+        GameObject newCombatantUIGO = Instantiate(combatantUIPrefab, combatant.gameObject.transform);
+        newCombatantUIGO.transform.localPosition = Vector3.zero;
+        newCombatantUIGO.name = "combatantUI For " + combatant.combatantName;
+
+        var combatantUI = newCombatantUIGO.GetComponent<CombatantUI>();
+        combatant.combatantUI = combatantUI;
+        combatantUI.fendScript.combatManager = combatManager;
 
         //flip UI elements based on look direction
-        if (enemy.GetComponent<MovementScript>().lookDirection == Vector2.left)
+        if (combatant.GetComponent<MovementScript>().lookDirection == Vector2.left)
         {
-           combatManager.SetUIBasedOnLookDir(enemy);
+            combatManager.SetUIBasedOnLookDir(combatant);
         }
 
-        enemy.InitialiseCombatantStats();
-        enemycombatantUI.statsDisplay.ShowStatsDisplay(true);
-    }
-
-    void SetcombatantUI(Ally ally)
-    {
-        ally.combatantUI.name = "combatantUI For " + ally.combatantName;
-        ally.combatantUI = ally.combatantUI.GetComponent<CombatantUI>();
-        ally.combatantUI.fendScript.combatManager = combatManager;
-        ally.combatantUI.fendScript.fendTextMeshProUGUI.text = ally.fendTotal.ToString();
-
-        if (ally.GetComponent<MovementScript>().lookDirection == Vector2.left)
-        {
-            combatManager.SetUIBasedOnLookDir(ally);
-        }
-
-        ally.InitialiseCombatantStats();
-        ally.combatantUI.statsDisplay.ShowStatsDisplay(true);
+        combatant.InitialiseCombatantStats();
+        combatantUI.statsDisplay.ShowStatsDisplay(false);
     }
 
     void SetPlayerUI()
