@@ -8,6 +8,13 @@ public class FirstMove : State
 {
     public override IEnumerator StartState()
     {
+        if (combatManager.battleScheme.isAllyFlanked)
+        {
+            combatManager.battleScheme.isAllyFlanked = false;
+            combatManager.SetState(combatManager.enemyMoveState);
+            yield break;
+        }
+
         combatManager.playerCombat.combatantUI.statsDisplay.ShowStatsDisplay(true);
         combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.firstMoveMenu, true);
         combatManager.combatMenuManager.firstMenuFirstButton = buttonSelected;

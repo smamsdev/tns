@@ -995,6 +995,53 @@ Transform:
   - {fileID: 85978146}
   m_Father: {fileID: 1465253708}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &806923597
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 806923599}
+  - component: {fileID: 806923598}
+  m_Layer: 0
+  m_Name: EncounterSetup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &806923598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806923597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8303d4e2e2846f24097acfa369b355fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  encounterProfiles:
+  - encounter: {fileID: 1272831095}
+    encounterWeighting: 100
+--- !u!4 &806923599
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806923597}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.71691084, y: -0.17976363, z: -0.0016672652}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &834348077
 GameObject:
   m_ObjectHideFlags: 0
@@ -1349,6 +1396,8 @@ MonoBehaviour:
   playerFightingPosition: {fileID: 836338419}
   combatManager: {fileID: 0}
   playerDefaultLookDirection: {x: -1, y: 0}
+  isEnemyFlanked: 0
+  isAllyFlanked: 0
 --- !u!1001 &1024215743
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1723,7 +1772,7 @@ GameObject:
   - component: {fileID: 1272831095}
   - component: {fileID: 1272831097}
   m_Layer: 0
-  m_Name: Encounters
+  m_Name: Encounter1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1748,13 +1797,15 @@ MonoBehaviour:
     amountSpawned: 0
   AllyRoster:
   - allyPreFab: {fileID: 8544772069570677220, guid: 3adb3fcc8de78db42af461023f610772, type: 3}
-    maxNumberOfType: 2
+    maxNumberOfType: 12
     remainingThisBattle: 0
     amountSpawned: 0
-  maxTotalEnemies: 4
+  maxTotalEnemies: 3
   maxBonusAllies: 0
-  nextBattle: {fileID: 1272831097}
+  battle: {fileID: 1272831097}
   sceneSetup: {fileID: 1458070175}
+  surpriseAttackPer100: 33
+  flankBattlePer100: 33
 --- !u!224 &1272831096
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1792,6 +1843,8 @@ MonoBehaviour:
   playerFightingPosition: {fileID: 0}
   combatManager: {fileID: 0}
   playerDefaultLookDirection: {x: 0, y: 0}
+  isEnemyFlanked: 0
+  isAllyFlanked: 0
 --- !u!1 &1289438637 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2253911629886400664, guid: 85250310ae72d1344970b6d8565e8b98, type: 3}
@@ -1855,7 +1908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTriggerOnLoad: 1
-  triggerOnLoad: {fileID: 1272831095}
+  triggerOnLoad: {fileID: 806923598}
   trigger: []
 --- !u!114 &1458070175
 MonoBehaviour:
@@ -3446,3 +3499,4 @@ SceneRoots:
   - {fileID: 1024215743}
   - {fileID: 1094384654}
   - {fileID: 1272831096}
+  - {fileID: 806923599}

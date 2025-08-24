@@ -140,7 +140,10 @@ public abstract class Move : MonoBehaviour
         yield return MoveToPosition(combatantToAct.gameObject, combatantToAct.moveSelected.AttackPositionLocation(combatantToAct));
 
         //move counterattack?
-        yield return combatantToAct.targetToAttack.moveSelected.OnReceieveAttack(combatantToAct, combatantToAct.targetToAttack);
+        if (combatantToAct.targetToAttack.moveSelected != null)
+        {
+            yield return combatantToAct.targetToAttack.moveSelected.OnReceieveAttack(combatantToAct, combatantToAct.targetToAttack);
+        }
 
         if (combatantToAct.CurrentHP == 0)
         {

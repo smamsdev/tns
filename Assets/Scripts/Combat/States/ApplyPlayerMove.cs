@@ -68,7 +68,7 @@ public class ApplyPlayerMove : State
                 combatManager.CombatantDefeated(player.targetToAttack);
             }
 
-            else         //return target to original pos and look dir, if still alive
+            else         //return target to original pos if still alive
             {
                 yield return new WaitForSeconds(0.5f);
                 yield return combatManager.PositionCombatant(player.targetToAttack.gameObject, player.targetToAttack.fightingPosition.transform.position);

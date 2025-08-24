@@ -143,7 +143,7 @@ public class PlayerMovementScript : MovementScript
             FieldEvents.movementLocked = false;
             movementLocked = FieldEvents.movementLocked;
 
-            //Debug.Log("unlocked");
+           // Debug.Log("unlocked");
         }
     }
 }

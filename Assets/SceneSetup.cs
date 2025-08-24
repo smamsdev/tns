@@ -58,7 +58,7 @@ public class SceneSetup : MonoBehaviour
 
         if (!isCustomSceneStart)
         {
-            DefaultSceneStart();
+            StartCoroutine(DefaultSceneStart());
         }
 
         else
@@ -67,17 +67,18 @@ public class SceneSetup : MonoBehaviour
         }
     }
 
-    void DefaultSceneStart()
-    {
-        StartCoroutine(FadeUpAndUnlock());
-        StartScene();
-    }
-
-    public IEnumerator FadeUpAndUnlock()
+    IEnumerator DefaultSceneStart()
     {
         defaultFaderAnimator.SetBool("start", true);
         yield return new WaitForSeconds(0.5f);
         CombatEvents.UnlockPlayerMovement();
+
+        StartScene();
+    }
+
+    public void FadeUp()
+    {
+        defaultFaderAnimator.SetBool("start", true);
     }
 
     public void StartScene()

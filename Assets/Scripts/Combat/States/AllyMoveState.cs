@@ -62,7 +62,7 @@ public class AllyMoveState : State
                 combatManager.CombatantDefeated(combatManager.allies[i].targetToAttack);
             }
 
-            //return target to original pos and look dir, if still alive
+            //return target to original pos if still alive
             else
             {
                 yield return new WaitForSeconds(0.5f);

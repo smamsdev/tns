@@ -17,22 +17,31 @@ public class RoundReset : State
         foreach (Enemy enemy in combatManager.enemies)
         {
             combatManager.SelectTargetToAttack(enemy, combatManager.allAlliesToTarget);
-            combatManager.SelectAndDisplayCombatantMove(enemy);
 
+            if (enemy.GetComponent<MovementScript>().lookDirection == Vector2.left)
+            {
+                combatManager.SetUIBasedOnLookDir(enemy);
+            }
+
+            combatManager.SelectAndDisplayCombatantMove(enemy);
             yield return new WaitForSeconds(.7f);
             enemy.combatantUI.attackDisplay.attackDisplayAnimator.Play("CombatantAttackDamageFadeDown");
             if (enemy.fendTotal > 0)
             {
                 enemy.combatantUI.fendScript.fendAnimator.Play("FendFade");
             }
-
         }
 
         foreach (Ally ally in combatManager.allies)
         {
             combatManager.SelectTargetToAttack(ally, combatManager.enemies);
-            ally.combatantUI.statsDisplay.ShowStatsDisplay(true);
 
+            if (ally.GetComponent<MovementScript>().lookDirection == Vector2.left)
+            {
+                combatManager.SetUIBasedOnLookDir(ally);
+            }
+
+            combatManager.SelectAndDisplayCombatantMove(ally);
             yield return new WaitForSeconds(.7f);
             ally.combatantUI.attackDisplay.attackDisplayAnimator.Play("CombatantAttackDamageFadeDown");
             if (ally.fendTotal > 0)

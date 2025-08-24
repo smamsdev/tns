@@ -43,14 +43,6 @@ public class Setup : State
 
         yield return new WaitForSeconds(0.1f);
 
-        //position enemies
-        foreach (Enemy enemy in combatManager.enemies)
-        {
-            combatManager.SetRigidBodyType(enemy, RigidbodyType2D.Kinematic);
-            yield return combatManager.PositionCombatant(enemy.gameObject, enemy.fightingPosition.transform.position);
-            enemy.movementScript.movementSpeed = enemy.movementScript.defaultMovementspeed * 1;
-        }
-
         //position allies
         foreach (Ally ally in combatManager.allies)
         {
@@ -59,28 +51,49 @@ public class Setup : State
             ally.movementScript.movementSpeed = ally.movementScript.defaultMovementspeed * 1;
         }
 
+        //position enemies
         foreach (Enemy enemy in combatManager.enemies)
         {
-            combatManager.SelectTargetToAttack(enemy, combatManager.allAlliesToTarget);
+            combatManager.SetRigidBodyType(enemy, RigidbodyType2D.Kinematic);
+            yield return combatManager.PositionCombatant(enemy.gameObject, enemy.fightingPosition.transform.position);
+            enemy.movementScript.movementSpeed = enemy.movementScript.defaultMovementspeed * 1;
+        }
+
+        //select enemy attack
+        foreach (Enemy enemy in combatManager.enemies)
+        {
             SetcombatantUI(enemy);
             yield return new WaitForSeconds(0.1f); //i cant remember why u have to wait but attack ui wont appear if you dont
-            combatManager.SelectAndDisplayCombatantMove(enemy);
-            yield return new WaitForSeconds(.7f);
-            enemy.combatantUI.attackDisplay.attackDisplayAnimator.Play("CombatantAttackDamageFadeDown");
+
+            if (!combatManager.battleScheme.isEnemyFlanked)
+            {
+                combatManager.SelectTargetToAttack(enemy, combatManager.allAlliesToTarget);
+                combatManager.SelectAndDisplayCombatantMove(enemy);
+                yield return new WaitForSeconds(.7f);
+                enemy.combatantUI.attackDisplay.attackDisplayAnimator.Play("CombatantAttackDamageFadeDown");
+            }
+
             if (enemy.fendTotal > 0)
             {
                 enemy.combatantUI.fendScript.fendAnimator.Play("FendFade");
             }
+
         }
 
+        //select ally attack
         foreach (Ally ally in combatManager.allies)
         {
-            combatManager.SelectTargetToAttack(ally, combatManager.enemies);
             SetcombatantUI(ally);
             yield return new WaitForSeconds(0.1f); //i cant remember why u have to wait but attack ui wont appear if you dont
-            combatManager.SelectAndDisplayCombatantMove(ally);
-            yield return new WaitForSeconds(.7f);
-            ally.combatantUI.attackDisplay.attackDisplayAnimator.Play("CombatantAttackDamageFadeDown");
+
+            if (!combatManager.battleScheme.isAllyFlanked)
+            {
+                combatManager.SelectTargetToAttack(ally, combatManager.enemies);
+                combatManager.SelectAndDisplayCombatantMove(ally);
+                yield return new WaitForSeconds(.7f);
+                ally.combatantUI.attackDisplay.attackDisplayAnimator.Play("CombatantAttackDamageFadeDown");
+            }
+
             if (ally.fendTotal > 0)
             {
                 ally.combatantUI.fendScript.fendAnimator.Play("FendFade");

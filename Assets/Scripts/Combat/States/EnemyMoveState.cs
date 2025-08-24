@@ -6,12 +6,19 @@ public class EnemyMoveState : State
 {
     public override IEnumerator StartState()
     {
-        foreach (Enemy enemy in combatManager.enemies)
+        if (combatManager.battleScheme.isEnemyFlanked)
         {
-            enemy.combatantUI.attackDisplay.ShowAttackDisplay(false);
-            enemy.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(false);
-            enemy.combatantUI.fendScript.ShowFendDisplay(enemy, false);
+            combatManager.battleScheme.isEnemyFlanked = false;
+            combatManager.SetState(combatManager.roundReset);
+            yield break;
         }
+                
+     //  foreach (Enemy enemy in combatManager.enemies)
+     //  {
+     //      enemy.combatantUI.attackDisplay.ShowAttackDisplay(false);
+     //      enemy.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(false);
+     //      enemy.combatantUI.fendScript.ShowFendDisplay(enemy, false);
+     //  }
 
         for (int i = 0; i < combatManager.enemies.Count;) //gotta manage an iterator here as the enemy list count may change mid loop
         {
@@ -55,12 +62,11 @@ public class EnemyMoveState : State
                 yield break;
             }
 
-            //return target to original pos and look dir, if still alive
+            //return target to original pos if still alive
             if (combatManager.enemies[i].targetToAttack.CurrentHP != 0)
             {
                 yield return new WaitForSeconds(0.5f);
                 yield return combatManager.PositionCombatant(combatManager.enemies[i].targetToAttack.gameObject, combatManager.enemies[i].targetToAttack.fightingPosition.transform.position);
-                alliedTargetMovementScript.lookDirection = alliedTargetStoredLookDir;
             }
 
             //check that enemy to act did not die mid turn and iterate

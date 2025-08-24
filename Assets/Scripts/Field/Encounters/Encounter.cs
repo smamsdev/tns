@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Encounters : ToTrigger
+public class Encounter : ToTrigger
 {
     [SerializeField] EnemyProfile[] EnemyRoster;
     [SerializeField] AllyProfile[] AllyRoster;
     public int maxTotalEnemies = 1;
     public int maxBonusAllies = 0;
-    public Battle nextBattle;
+    public Battle battle;
     PlayerCombat playerCombat;
     public SceneSetup sceneSetup;
+    [SerializeField] int surpriseAttackPer100;
+    [SerializeField] int flankBattlePer100;
 
     private void OnEnable()
     {
@@ -21,24 +23,46 @@ public class Encounters : ToTrigger
     public override IEnumerator DoAction()
     {
         InitialiseBattle();
-        StandardBattleLayout();
-        //ReverseBattleLayout();
-        nextBattle.playerFightingPosition = SetPlayerFightingPosition();
-        //yield return SurpriseAttack();
+        SelectLayoutType();
 
+        battle.playerFightingPosition = SetPlayerFightingPosition();
 
         SpawnBattle();
         yield return new WaitForSeconds(0.2f);
-        StartCoroutine(sceneSetup.FadeUpAndUnlock());
+        sceneSetup.FadeUp();
         yield return null;
+    }
+
+    void SelectLayoutType()
+    {
+        int layoutTypeWeightingTotal = 100 + flankBattlePer100 + surpriseAttackPer100;
+        int randomValue = Random.Range(1, layoutTypeWeightingTotal + 1);
+
+        if (randomValue <= flankBattlePer100)
+        {
+            FlankBattleLayout();
+            return;
+        }
+
+        if (randomValue <= flankBattlePer100 + surpriseAttackPer100)
+        {
+            SurpriseBattleLayout();
+            return;
+        }
+
+        else
+        {
+            StandardBattleLayout();
+            return;
+        }
     }
 
     public void InitialiseBattle()
     {
         this.transform.position = Vector3.zero;
-        nextBattle.battleCenterPosition = this.transform;
-        nextBattle.enemies.Clear();
-        nextBattle.allies.Clear();
+        battle.battleCenterPosition = this.transform;
+        battle.enemies.Clear();
+        battle.allies.Clear();
 
         foreach (var ally in AllyRoster)
         {
@@ -50,7 +74,7 @@ public class Encounters : ToTrigger
         { 
             GameObject allyToAdd = Instantiate(playerCombat.party.partyMembers[i].prefab,this.transform);
             Combatant allyCombatant = allyToAdd.GetComponent<Combatant>();
-            nextBattle.allies.Add(allyCombatant);
+            battle.allies.Add(allyCombatant);
 
             allyToAdd.name = allyCombatant.combatantName;
             allyToAdd.transform.position = new Vector2(this.transform.position.x + 5, this.transform.position.y + 1000 + i);
@@ -79,13 +103,13 @@ public class Encounters : ToTrigger
                     bonusAllyToAdd.gameObject.name = bonusAllyCombatant.combatantName;
                 }
 
-                nextBattle.allies.Add(bonusAllyCombatant);
+                battle.allies.Add(bonusAllyCombatant);
                 bonusAlly.remainingThisBattle--;
             }
         }
 
-        nextBattle.allies.Shuffle();
-        NumberDuplicates(nextBattle.allies);
+        battle.allies.Shuffle();
+        NumberDuplicates(battle.allies);
 
 
         void NumberDuplicates(List<Combatant> allies)
@@ -141,7 +165,7 @@ public class Encounters : ToTrigger
                     enemyCombatant.gameObject.name = enemyCombatant.combatantName;
                 }
 
-                nextBattle.enemies.Add(enemyCombatant);
+                battle.enemies.Add(enemyCombatant);
                 enemy.remainingThisBattle--;
             }
         }
@@ -149,38 +173,38 @@ public class Encounters : ToTrigger
 
     void ReverseBattleLayout()
     {
-        List<Combatant> allAllies = new List<Combatant>(nextBattle.allies);
+        List<Combatant> allAllies = new List<Combatant>(battle.allies);
         allAllies.Insert(Random.Range(0, allAllies.Count + 1), playerCombat);
 
         // Allies on left, enemies on right
         SpaceCombatants(allAllies, false, 0, Vector2.left);
-        SpaceCombatants(nextBattle.enemies, true, -2.5f, Vector2.right);
+        SpaceCombatants(battle.enemies, true, -2.5f, Vector2.right);
 
-        nextBattle.playerDefaultLookDirection = Vector2.left;
+        battle.playerDefaultLookDirection = Vector2.left;
     }
 
     void StandardBattleLayout()
     {
-        List<Combatant> allAllies = new List<Combatant>(nextBattle.allies);
+        List<Combatant> allAllies = new List<Combatant>(battle.allies);
         allAllies.Insert(Random.Range(0, allAllies.Count + 1), playerCombat);
 
         // Allies on left, enemies on right
         SpaceCombatants(allAllies, true, 0, Vector2.right);
-        SpaceCombatants(nextBattle.enemies, false, 2.5f, Vector2.left);
+        SpaceCombatants(battle.enemies, false, 0, Vector2.left);
 
-        nextBattle.playerDefaultLookDirection = Vector2.right;
+        battle.playerDefaultLookDirection = Vector2.right;
     }
 
     void SpaceCombatants(List<Combatant> combatantList, bool isLeftSided, float startPosOffset, Vector2 lookDir)
     {
-        Vector2 battleCenter = nextBattle.battleCenterPosition.transform.position;
+        Vector2 battleCenter = battle.battleCenterPosition.transform.position;
         int combatantCount = combatantList.Count;
 
         //these numbers are mostly eyeballed
         float minSpacingY = 0.1f;
         float maxSpacingY = 0.35f;
         float adjustedSpacingY = Mathf.Clamp(maxSpacingY - (combatantCount - 1) * 0.025f, minSpacingY, maxSpacingY);
-        float totalHeightCombatants = (combatantCount - 1) * adjustedSpacingY;
+        float totalHeightCombatants = (combatantCount - 1) * -adjustedSpacingY;
         float startYCombatants = battleCenter.y - totalHeightCombatants / 2f;
 
         float minSpacingX = 0.1f;
@@ -200,7 +224,7 @@ public class Encounters : ToTrigger
         for (int i = 0; i < combatantCount; i++)
         {
             Combatant combatant = combatantList[i];
-            float yPos = startYCombatants + i * adjustedSpacingY;
+            float yPos = startYCombatants + i * -adjustedSpacingY;
             float xPos = startXCombatants + combatantIndices[i] * adjustedSpacingX;
 
             Vector2 fightingPos = new Vector2(xPos, yPos);
@@ -221,7 +245,7 @@ public class Encounters : ToTrigger
             var movementScript = combatant.movementScript;
             movementScript.forceLookDirectionOnLoad = Vector2.zero;
             movementScript.lookDirection = lookDir;
-            movementScript.movementSpeed = movementScript.defaultMovementspeed * 4;
+            movementScript.movementSpeed = movementScript.defaultMovementspeed * 3;
         }
     }
 
@@ -232,72 +256,40 @@ public class Encounters : ToTrigger
 
     GameObject SetPlayerFightingPosition()
     {
-        nextBattle.playerFightingPosition = playerCombat.fightingPosition;
+        battle.playerFightingPosition = playerCombat.fightingPosition;
         return playerCombat.fightingPosition;
     }
 
-    IEnumerator SurpriseAttack()
+    void FlankBattleLayout()
     {
-        nextBattle.playerDefaultLookDirection = Vector2.right;
-        List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
+        List<Combatant> allAllies = new List<Combatant>(battle.allies);
+        allAllies.Insert(Random.Range(0, allAllies.Count + 1), playerCombat);
 
-        Vector2 fpf = nextBattle.playerFightingPosition.transform.position;
-        int nEnemies = nextBattle.enemies.Count;
-        float verticalSpacing = 0.2f;
-        float totalHeight = (nEnemies - 1) * verticalSpacing;
-        float startY = fpf.y - totalHeight / 1.5f;
+        // Allies on left, enemies on right
+        SpaceCombatants(allAllies, true, -2.5f, Vector2.right);
+        SpaceCombatants(battle.enemies, false, 0, Vector2.right);
 
-        for (int i = 0; i < nEnemies; i++)
-        {
-            Combatant enemy = nextBattle.enemies[i];
+        battle.playerDefaultLookDirection = Vector2.right;
+        battle.isEnemyFlanked = true;
+    }
 
-            float yPos = startY + i * verticalSpacing;
-            var movementScript = enemy.movementScript as ActorMovementScript;
-            movementScript.forceLookDirectionOnLoad = Vector2.zero;
-            movementScript.lookDirection = Vector2.right;
-            movementScript.movementSpeed = 3;
+    void SurpriseBattleLayout()
+    {
+        List<Combatant> allAllies = new List<Combatant>(battle.allies);
+        allAllies.Insert(Random.Range(0, allAllies.Count + 1), playerCombat);
 
-            Vector2 fightingPos = new Vector2(fpf.x - 0.9f + Random.Range(-0.5f, 0.5f), yPos);
-            enemy.fightingPosition = new GameObject(enemy.combatantName + " FightingPosition");
+        // Allies on right, enemies on left
+        SpaceCombatants(allAllies, false, 0, Vector2.right);
+        SpaceCombatants(battle.enemies, true, -2.5f, Vector2.right);
 
-            enemy.transform.position = new Vector2(fightingPos.x, fightingPos.y);
-            enemy.fightingPosition.transform.SetParent(this.transform);
-            enemy.fightingPosition.transform.position = fightingPos;
-
-            var spriteRenderer = enemy.GetComponent<SpriteRenderer>();
-
-            Color c = spriteRenderer.color;
-            c.a = 0f;
-            spriteRenderer.color = c;
-
-            spriteRenderers.Add(spriteRenderer);
-        }
-
-        float duration = 1f;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsedTime / duration);
-
-            foreach (SpriteRenderer sprite in spriteRenderers)
-            {
-                Color c = sprite.color;
-                c.a = Mathf.Lerp(0f, 1f, t);
-                sprite.color = c;
-            }
-
-            yield return null;
-        }
-
-        yield return null;
+        battle.playerDefaultLookDirection = Vector2.right;
+        battle.isAllyFlanked = true;
     }
 
     public void SpawnBattle()
     {
-        nextBattle.combatManager.battleScheme = nextBattle;
-        nextBattle.combatManager.StartBattle();
+        battle.combatManager.battleScheme = battle;
+        battle.combatManager.StartBattle();
     }
 
     [System.Serializable]
