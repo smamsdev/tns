@@ -19,16 +19,29 @@ public class ApplyPlayerMove : State
 
         yield return ApplyMove();
 
-        if (combatManager.allies.Count > 0)
+        if (combatManager.enemies.Count == 0)
+        {
+            combatManager.SetState(combatManager.victory);
+            yield break;
+        }
+
+        if (player.fendTotal > 0)
+        {
+            player.combatantUI.fendScript.ShowFendDisplay(player, true);
+            yield return new WaitForSeconds(1f);
+        }
+
+        if (combatManager.allies.Count > 0 && combatManager.enemies.Count > 0)
         {
             combatManager.SetState(combatManager.allyMoveState);
+            yield break;
         }
 
         else
         {
             combatManager.SetState(combatManager.enemyMoveState);
+            yield break;
         }
-        yield return null;
     }
 
     IEnumerator ApplyMove()
@@ -76,11 +89,5 @@ public class ApplyPlayerMove : State
         }
 
         player.combatantUI.fendScript.fendTextMeshProUGUI.text = player.TotalPlayerFendPower(combatManager.playerCombat.moveSelected.fendMoveModPercent).ToString();
-
-        if (player.fendTotal > 0)
-        {
-            player.combatantUI.fendScript.ShowFendDisplay(player, true);
-            yield return new WaitForSeconds(1f);
-        }
     }
 }

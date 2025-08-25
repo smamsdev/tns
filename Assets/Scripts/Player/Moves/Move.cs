@@ -155,7 +155,7 @@ public abstract class Move : MonoBehaviour
         targetCombatant.combatantUI.fendScript.ApplyAttackToFend(combatantToAct, combatantToAct.targetToAttack);
         TriggerMoveAnimation();
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0);
 
         //return combatantToAct to fightingpos, and return look direct
         combatantToActAnimator.SetTrigger("Back");

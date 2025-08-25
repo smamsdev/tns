@@ -10,6 +10,12 @@ public class PlayerMovementScript : MovementScript
     public Vector2 newPosition;
     public Vector2 previousPosition;
     public bool movementLocked;
+    public float distanceTravelled;
+
+    public float previousPositionmag;
+    public float newPositionmag;
+    private Vector2 previousRigidPosition;
+    public Vector2 delta;
 
     private void OnEnable()
     {
@@ -25,12 +31,14 @@ public class PlayerMovementScript : MovementScript
 
     private void Start()
     {
+        previousRigidPosition = rigidBody2d.position;
         movementSpeed = defaultMovementspeed;
         scriptedMovement = false;
         FieldEvents.movementSpeedMultiplier = 1;
         isReversing = Vector2.one;
         rigidBody2d.bodyType = RigidbodyType2D.Dynamic;
         movementLocked = FieldEvents.movementLocked;
+        distanceTravelled = 0;
     }
 
     private void Update()
@@ -71,50 +79,40 @@ public class PlayerMovementScript : MovementScript
     void FixedUpdate()
     {
         if (!FieldEvents.movementLocked)
-
         {
             horizontalInput = Input.GetAxis("Horizontal");
             verticalInput = Input.GetAxis("Vertical") * isReversing.y + sloping;
         }
 
-            newPosition = rigidBody2d.position;
-            previousPosition = rigidBody2d.position;
+        Vector2 newPosition = rigidBody2d.position;
+        newPosition.x += movementSpeed * horizontalInput * Time.deltaTime;
+        newPosition.y += movementSpeed * verticalInput * Time.deltaTime;
 
-            newPosition.x += movementSpeed * horizontalInput * Time.deltaTime;
-            newPosition.y += movementSpeed * verticalInput * Time.deltaTime;
+        rigidBody2d.MovePosition(newPosition);
 
-            rigidBody2d.MovePosition(newPosition);
+        delta = rigidBody2d.position - previousRigidPosition;
 
-            movementDirection = (newPosition - previousPosition);
+        if (delta.sqrMagnitude > 0.0001f)
+            distanceTravelled += delta.magnitude;
 
-        if (movementDirection.magnitude > 0)
-        {
+        movementDirection = newPosition - previousRigidPosition;
+
+        if (movementDirection.sqrMagnitude > 0.0001f)
             animator.SetBool("isMoving", true);
-        }
-
-        else if (movementDirection.magnitude < 0.1f)
-        {
+        else
             animator.SetBool("isMoving", false);
-        }
 
         if (verticalInput > 0 && horizontalInput == 0)
-        {
             lookDirection.y = 1 * isReversing.y;
-        }
-
-        if (verticalInput < 0)
-        {
+        else if (verticalInput < 0)
             lookDirection.y = -1 * isReversing.y;
-        }
 
         if (horizontalInput > 0)
         {
             lookDirection.x = 1 * isReversing.x;
             lookDirection.y = 0;
-
         }
-
-        if (horizontalInput < 0)
+        else if (horizontalInput < 0)
         {
             lookDirection.x = -1 * isReversing.x;
             lookDirection.y = 0;
@@ -124,6 +122,8 @@ public class PlayerMovementScript : MovementScript
         animator.SetFloat("verticalInput", movementDirection.y * isReversing.y);
         animator.SetFloat("lookDirectionX", lookDirection.x);
         animator.SetFloat("lookDirectionY", lookDirection.y);
+
+        previousRigidPosition = rigidBody2d.position;
     }
 
     public void LockPlayerMovement()
