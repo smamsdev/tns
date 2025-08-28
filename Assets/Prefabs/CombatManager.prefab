@@ -3285,7 +3285,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &454415991263062700
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3304,7 +3304,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 1012.69995, y: -550}
-  m_SizeDelta: {x: 0, y: -1185}
+  m_SizeDelta: {x: -2537, y: -1185}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &5271003317150518583
 MonoBehaviour:
@@ -4678,7 +4678,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5804303145380344952
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5200,10 +5200,10 @@ RectTransform:
   - {fileID: 2731818499537524584}
   m_Father: {fileID: 5804303145380344952}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -44}
+  m_SizeDelta: {x: 175, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2999468070505079038
 CanvasRenderer:
@@ -5582,7 +5582,7 @@ MonoBehaviour:
   setup: {fileID: 605427109166944849}
   firstMove: {fileID: 6314902108178064469}
   secondMove: {fileID: 8294734829676095811}
-  enemySelect: {fileID: 2480434471190737390}
+  enemySelectState: {fileID: 2480434471190737390}
   allyMoveState: {fileID: 7674881518996319167}
   applyMove: {fileID: 4414184210447155275}
   enemyMoveState: {fileID: 5285348281914902247}
@@ -5691,7 +5691,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 2560, y: 1440}
-  m_ScreenMatchMode: 2
+  m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -5737,7 +5737,7 @@ MonoBehaviour:
   enemyhighlighted: {fileID: 0}
   enemySelectButtonPrefab: {fileID: 7601083301187507106, guid: 3d026390181295d46915247017717648, type: 3}
   selectEnemyMenuContainer: {fileID: 3477108513602117589}
-  lastEnemySelected: {fileID: 0}
+  defaultButton: {fileID: 0}
   enemySelectButtons: []
 --- !u!1 &5231129804109556351
 GameObject:
@@ -5917,10 +5917,10 @@ RectTransform:
   - {fileID: 6529575054373251348}
   m_Father: {fileID: 3763687617680593399}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -44}
+  m_SizeDelta: {x: 175, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7281921253462017416
 CanvasRenderer:
@@ -6732,7 +6732,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3763687617680593399
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7269,7 +7269,7 @@ GameObject:
   - component: {fileID: 7112907090161880884}
   - component: {fileID: 2480434471190737390}
   m_Layer: 0
-  m_Name: EnemySelect
+  m_Name: EnemySelectState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7338,10 +7338,10 @@ RectTransform:
   - {fileID: 4939045807184698318}
   m_Father: {fileID: 3763687617680593399}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -84}
+  m_SizeDelta: {x: 175, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8114529016494053333
 CanvasRenderer:
@@ -8565,10 +8565,10 @@ RectTransform:
   - {fileID: 1411893950250417427}
   m_Father: {fileID: 3763687617680593399}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -164}
+  m_SizeDelta: {x: 175, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7251955131770717444
 CanvasRenderer:
@@ -8679,10 +8679,10 @@ RectTransform:
   - {fileID: 5284258394545542357}
   m_Father: {fileID: 5804303145380344952}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -124}
+  m_SizeDelta: {x: 175, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5209789907882302706
 CanvasRenderer:
@@ -9429,10 +9429,10 @@ RectTransform:
   - {fileID: 1818730270482118076}
   m_Father: {fileID: 3763687617680593399}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -124}
+  m_SizeDelta: {x: 175, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2339149188773847468
 CanvasRenderer:
@@ -9585,10 +9585,10 @@ RectTransform:
   - {fileID: 4318116007512986208}
   m_Father: {fileID: 5804303145380344952}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -84}
+  m_SizeDelta: {x: 175, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3290830482434236483
 CanvasRenderer:
@@ -9946,7 +9946,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combatManager: {fileID: 6322698934734197723}
   buttonSelected: {fileID: 1743770268319594932}
-  firstMoveContainer: {fileID: 5813753315243815674}
 --- !u!1 &9003641512979333031
 GameObject:
   m_ObjectHideFlags: 0

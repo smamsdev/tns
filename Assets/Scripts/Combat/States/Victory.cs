@@ -12,6 +12,8 @@ public class Victory : State
 
         yield return new WaitForSeconds(0);
 
+        Debug.Log("test");
+
         //FieldEvents.UpdateXP(combatManager.battleScheme.enemies[combatManager.selectedEnemy]);
     }
 }
