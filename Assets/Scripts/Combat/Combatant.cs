@@ -12,6 +12,7 @@ public abstract class Combatant : MonoBehaviour
     public int fendBase;
     public int maxHP;
     public bool fendDisplayOn;
+    public bool isEncounterSpawned;
 
     public int CurrentHP
     {

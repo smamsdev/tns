@@ -5,15 +5,15 @@ using UnityEngine.Rendering;
 
 public class Victory : State
 {
+    public VictoryRewards victoryRewards;
+
     public override IEnumerator StartState()
     {
         combatManager.combatMenuManager.DisableMenuState();
         combatManager.playerCombat.combatantUI.statsDisplay.ShowStatsDisplay(false);
 
-        yield return new WaitForSeconds(0);
+        victoryRewards.ShowTotalXP();
 
-        Debug.Log("test");
-
-        //FieldEvents.UpdateXP(combatManager.battleScheme.enemies[combatManager.selectedEnemy]);
+        yield return null;
     }
 }
