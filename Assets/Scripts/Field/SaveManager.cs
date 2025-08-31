@@ -37,8 +37,8 @@ public class SaveManager : MonoBehaviour
 
         saveDataSlot.sceneName = FieldEvents.sceneName;
         saveDataSlot.fendBase = permanentStatsSO.fendBase;
-        saveDataSlot.attackPowerBase = permanentStatsSO.attackPowerBase;
-        saveDataSlot.playerFocusbase = permanentStatsSO.playerFocusbase;
+        saveDataSlot.attackBase = permanentStatsSO.attackBase;
+        saveDataSlot.focusBase = permanentStatsSO.focusBase;
         saveDataSlot.maxPotential = permanentStatsSO.maxPotential;
         saveDataSlot.currentPotential = permanentStatsSO.currentPotential;
         saveDataSlot.maxHP = permanentStatsSO.maxHP;
@@ -46,8 +46,8 @@ public class SaveManager : MonoBehaviour
         saveDataSlot.level = permanentStatsSO.level;
         saveDataSlot.XP = permanentStatsSO.XP;
         saveDataSlot.XPThreshold = permanentStatsSO.XPThreshold;
-        saveDataSlot.XPremainder = permanentStatsSO.XPremainder;
-        saveDataSlot.defaultXPThreshold = permanentStatsSO.defaultXPThreshold;
+        //saveDataSlot.XPremainder = permanentStatsSO.XPremainder;
+        //saveDataSlot.defaultXPThreshold = permanentStatsSO.defaultXPThreshold;
         saveDataSlot.smams = permanentStatsSO.smams;
         saveDataSlot.duration = FieldEvents.duration;
         saveDataSlot.date = System.DateTime.Now.ToString("yyyy/MM/dd");
@@ -88,8 +88,8 @@ public class SaveManager : MonoBehaviour
 
             saveData.sceneName = loadedData.sceneName;
             saveData.fendBase = loadedData.fendBase;
-            saveData.attackPowerBase = loadedData.attackPowerBase;
-            saveData.playerFocusbase = loadedData.playerFocusbase;
+            saveData.attackBase = loadedData.attackBase;
+            saveData.focusBase = loadedData.focusBase;
             saveData.maxPotential = loadedData.maxPotential;
             saveData.currentPotential = loadedData.currentPotential;
             saveData.maxHP = loadedData.maxHP;
@@ -138,8 +138,8 @@ public class SaveManager : MonoBehaviour
     {
         if (saveData != null)
         {
-            permanentStatsSO.attackPowerBase = saveData.attackPowerBase;
-            permanentStatsSO.playerFocusbase = saveData.playerFocusbase;
+            permanentStatsSO.attackBase = saveData.attackBase;
+            permanentStatsSO.focusBase = saveData.focusBase;
             permanentStatsSO.maxPotential = saveData.maxPotential;
             permanentStatsSO.currentPotential = saveData.currentPotential;
             permanentStatsSO.maxHP = saveData.maxHP;
@@ -147,8 +147,8 @@ public class SaveManager : MonoBehaviour
             permanentStatsSO.level = saveData.level;
             permanentStatsSO.XP = saveData.XP;
             permanentStatsSO.XPThreshold = saveData.XPThreshold;
-            permanentStatsSO.XPremainder = saveData.XPremainder;
-            permanentStatsSO.defaultXPThreshold = saveData.defaultXPThreshold;
+            //permanentStatsSO.XPremainder = saveData.XPremainder;
+            // permanentStatsSO.defaultXPThreshold = saveData.defaultXPThreshold;
         }
     }
 }
@@ -159,8 +159,8 @@ public class SaveData
     public string sceneName;
     public int slotNumber;
     public int fendBase;
-    public int attackPowerBase;
-    public int playerFocusbase;
+    public int attackBase;
+    public int focusBase;
     public int maxPotential;
     public int currentPotential;
     public int maxHP;

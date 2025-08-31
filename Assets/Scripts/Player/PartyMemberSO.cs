@@ -6,6 +6,4 @@ using UnityEngine;
 public class PartyMemberSO : ScriptableObject
 {
     public GameObject prefab;
-    public int level;
-    public int XP;
 }

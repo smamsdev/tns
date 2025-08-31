@@ -12,7 +12,7 @@ public class Victory : State
         combatManager.combatMenuManager.DisableMenuState();
         combatManager.playerCombat.combatantUI.statsDisplay.ShowStatsDisplay(false);
 
-        victoryRewards.ShowTotalXP();
+        victoryRewards.ShowRewards();
 
         yield return null;
     }

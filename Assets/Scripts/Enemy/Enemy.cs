@@ -7,7 +7,7 @@ public enum Target {body, arms, head};
 public class Enemy : Combatant
 {
     [Header("")]
-    public int enemyXP;
+    public int XPReward;
 
     [HideInInspector] int enemyBodyMaxHP;
     [HideInInspector] int enemyArmsMaxHP;

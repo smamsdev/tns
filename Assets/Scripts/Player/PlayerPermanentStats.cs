@@ -1,75 +1,39 @@
-
 using UnityEngine;
 
-public class PlayerPermanentStats : ScriptableObject
+[CreateAssetMenu]
+
+public class PlayerPermanentStats : AllyPermanentStats
 {
-    private void OnEnable()
-    {
-        FieldEvents.UpdateXP += UpdateXP;
-    }
-
-    private void OnDisable()
-    {
-        FieldEvents.UpdateXP -= UpdateXP;
-    }
-
-    public int fendBase;
-    public int attackPowerBase;
-    public int playerFocusbase;
+    [Header("Base Stats")]
+    public int focusBase;
     public int maxPotential;
     public int currentPotential;
-    public int maxHP;
-    public int currentHP;
-
-
-
-
     public int smams;
+    public int focusBaseGrowth;
 
-
-    [Header("Exp")]
-    public int level;
-    public int XP;
-    public int XPThreshold;
-    public int XPremainder;
-    public int defaultXPThreshold;
-
-    public void InitaliseplayerPermanentStats()
+    public override void InitialisePlayerPermanentStats()
     {
-       // level up stuff
-       // XPremainder = 0;
-       // XPThreshold = defaultXPThreshold + (level * 30);
-       //
-       // TotalPlayerMovePower();
-       // CombatEvents.InitializePlayerPotUI?.Invoke(playerCurrentPotential);
-
-
+        currentHP = maxHP;
+        currentPotential = maxPotential;
+        XPThreshold = NextLevelThreshold();
     }
 
-    public void LevelUp()
+    public override void LevelUp()
     {
-        // defaultPlayerFendBase = defaultPlayerFendBase + Mathf.CeilToInt(defaultPlayerFendBase * 0.02f);
-        // defaultPlayerAttackPowerBase = defaultPlayerAttackPowerBase + Mathf.CeilToInt(defaultPlayerAttackPowerBase * 0.02f);
-        // defaultPlayerFocusbase = defaultPlayerFocusbase + Mathf.CeilToInt(defaultPlayerFocusbase * 0.02f);
-        // level++;
-        // 
-        // XP = 0 + XPremainder;
-        // Debug.Log("LEVELUP");
+        XPThreshold = NextLevelThreshold();
+        attackBase += StatGrowth(attackBaseGrowth);
+        fendBase += StatGrowth(fendBaseGrowth);
+        focusBase += StatGrowth(focusBaseGrowth);
+        level++;
     }
 
-    public void UpdateXP(Enemy enemy)
+    int StatGrowth(int growthFactor)
     {
-        XP += enemy.enemyXP;
-        XPremainder = XP - XPThreshold;
+        int rawStatGrowth;
+        int roundedStatGrowth;
 
-        if (XPThreshold <= XP)
-
-        {
-            LevelUp();
-        }
-
-        InitaliseplayerPermanentStats();
+        rawStatGrowth = (growthFactor * level) / 10;
+        roundedStatGrowth = Mathf.CeilToInt(rawStatGrowth);
+        return roundedStatGrowth;
     }
-
 }
-      

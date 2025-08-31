@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Cinemachine.DocumentationSortingAttribute;
 
-public class PlayerCombat : Combatant
+public class PlayerCombat : Ally
 {
-    public PlayerPermanentStats playerPermanentStats;
     public PlayerMoveManager playerMoveManager;
+    public PlayerPermanentStats playerPermanentStats;
     public PartySO party;
 
     public int CurrentPotential
@@ -24,12 +24,12 @@ public class PlayerCombat : Combatant
     [SerializeField] float attackPowerPotMod;
 
     [Header("Base Mods")]  
-    [SerializeField] int playerFocusbaseMod;
+    [SerializeField] int focusBaseMod;
     [SerializeField] int attackPowerGearMod;
     [SerializeField] int fendPowerGearMod;
 
-    [SerializeField] int playerFocusbaseChange;
-    [SerializeField] int attackPowerBaseChange;
+    [SerializeField] int focusBaseChange;
+    [SerializeField] int attackBaseChange;
     [SerializeField] int fendBaseChange;
 
     private void OnEnable()
@@ -86,7 +86,7 @@ public class PlayerCombat : Combatant
     public void TotalPlayerAttackPower(float moveMod)
     {
         // Calculate the potential attack power based on various modifiers
-        int potentialAttackPower = Mathf.RoundToInt(playerPermanentStats.attackPowerBase * moveMod * CalculatePotentialMod());
+        int potentialAttackPower = Mathf.RoundToInt(playerPermanentStats.attackBase * moveMod * CalculatePotentialMod());
 
         // Ensure the attack power is not less than zero
         attackTotal = Mathf.Max(0, potentialAttackPower);

@@ -17,8 +17,8 @@ public class StatChange : ToTrigger
         permanentStatsSO = GameObject.FindWithTag("CombatManager").GetComponent<PlayerCombat>().playerPermanentStats;
 
         permanentStatsSO.fendBase += fendBaseStatChange;
-        permanentStatsSO.attackPowerBase += attackBaseStatChange;
-        permanentStatsSO.playerFocusbase += focusBaseStatChange;
+        permanentStatsSO.attackBase += attackBaseStatChange;
+        permanentStatsSO.focusBase += focusBaseStatChange;
         permanentStatsSO.maxPotential += maxPotentialStatChange;
         permanentStatsSO.maxHP += maxHpStatChange;
 

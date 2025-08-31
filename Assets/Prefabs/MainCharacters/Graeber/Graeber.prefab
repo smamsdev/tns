@@ -532,14 +532,14 @@ MonoBehaviour:
   movementSpeed: 0
   scriptedMovement: 0
   sloping: 0
+  forceLookDirectionOnLoad: {x: 1, y: 0}
   animator: {fileID: 0}
   movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
   isReversing: {x: 0, y: 0}
-  actorRigidBody2d: {fileID: 0}
+  rigidBody2d: {fileID: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  forceLookDirectionOnLoad: {x: 1, y: 0}
 --- !u!95 &6161421096262733778
 Animator:
   serializedVersion: 5
@@ -666,6 +666,7 @@ MonoBehaviour:
   fendBase: 1
   maxHP: 222
   fendDisplayOn: 0
+  isEncounterSpawned: 0
   currentHP: 0
   attackTotal: 0
   fendTotal: 0
@@ -677,6 +678,7 @@ MonoBehaviour:
   moves:
   - {fileID: 8683365583146559718}
   - {fileID: 594778832947085336}
+  allyPermanentStats: {fileID: 11400000, guid: 06870b462ace2f64096dc3aa119873c4, type: 2}
 --- !u!1 &8679503915426022358
 GameObject:
   m_ObjectHideFlags: 0

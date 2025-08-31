@@ -4,51 +4,12 @@ using UnityEngine;
 
 public class Ally : Combatant
 {
-    int moveWeightingTotal = 0;
-
     [SerializeField] AllyMove[] moves;
+    public AllyPermanentStats allyPermanentStats;
 
     private void OnEnable()
     {
         movementScript = GetComponent<MovementScript>();
-    }
-
-    private void Start()
-    {
-        if (fightingPosition == null)
-        {
-            fightingPosition = new GameObject(this.gameObject.name + " Ally Fighting Position");
-            fightingPosition.transform.position = this.transform.position;
-            fightingPosition.transform.SetParent(this.transform);
-
-        }
-        foreach (AllyMove moves in moves)
-        {
-            moveWeightingTotal += moves.moveWeighting;
-        }
-        if (moves.Length <= 1)
-        { Debug.Log("assign more moves for " + this.gameObject.name); }
-    }
-
-    public void DamageTaken(int attackRemainder)
-
-    {
-        DamageToHP(attackRemainder);
-    }
-
-    void DamageToHP(int damageTotal)
-    {
-        CurrentHP = CurrentHP - damageTotal;
-
-        //combatantUI.statsDisplay.UpdateAllyHPDisplay(currentHP);
-        //combatantUI.ally.ShowEnemyDamageDisplay(damageTotal);
-
-        //fix!!
-
-        if (CurrentHP <= 0)
-        {
-            // CombatEvents.EnemyIsDead.Invoke(true); fix this
-        }
     }
 
     public override void SelectMove()
@@ -88,4 +49,29 @@ public class Ally : Combatant
 
         Debug.LogError("Failed to select a move! Random value was " + randomValue);
     }
+
+
+    //not sure ineed the below anymore??
+    public void DamageTaken(int attackRemainder)
+
+    {
+        DamageToHP(attackRemainder);
+    }
+
+    void DamageToHP(int damageTotal)
+    {
+        CurrentHP = CurrentHP - damageTotal;
+
+        //combatantUI.statsDisplay.UpdateAllyHPDisplay(currentHP);
+        //combatantUI.ally.ShowEnemyDamageDisplay(damageTotal);
+
+        //fix!!
+
+        if (CurrentHP <= 0)
+        {
+            // CombatEvents.EnemyIsDead.Invoke(true); fix this
+        }
+    }
+
+ 
 }

@@ -47,9 +47,9 @@ public class MenuStats : Menu
     {
         hpValue.text = $"{playerPermanentStats.currentHP} / {playerPermanentStats.maxHP}";
         potentialValue.text = $"{playerPermanentStats.currentPotential} / {playerPermanentStats.maxPotential}";
-        strengthValue.text = $"{playerPermanentStats.attackPowerBase}";
+        strengthValue.text = $"{playerPermanentStats.attackBase}";
         defenceValue.text = $"{playerPermanentStats.fendBase}";
-        focusValue.text = $"{playerPermanentStats.playerFocusbase}";
+        focusValue.text = $"{playerPermanentStats.focusBase}";
 
         levelValue.text = $"{playerPermanentStats.level}";
         experienceValue.text = $"{playerPermanentStats.XP}";
