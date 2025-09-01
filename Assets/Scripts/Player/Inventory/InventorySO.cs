@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu]
 
 public class InventorySO : ScriptableObject
 {
-    public List<string> inventoryString = new List<string>();
-    public List<string> equipSlotString = new List<string>();
+    public List<GearSO> gearInventory = new List<GearSO>();
+    public List<GearSO> equippedGear = new List<GearSO>();
+    public int equipSlotsAvailable;
 }

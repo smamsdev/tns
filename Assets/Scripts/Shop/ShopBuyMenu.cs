@@ -26,26 +26,29 @@ public class ShopBuyMenu : ShopMenu
         for (int i = 0; i < shopDynamicInventory.Count; i++)
 
         {
-            Gear gearToLoad = shopDynamicInventory[i].GetComponent<Gear>();
-            inventorySlot[i].gear = gearToLoad;
-            inventorySlot[i].itemName.text = gearToLoad.gearID;
-            inventorySlot[i].itemQuantity.text = " x " + gearToLoad.quantityInInventory;
-            inventorySlot[i].gameObject.SetActive(true);
+            Debug.Log("fix this");
+            //GearSO gearToLoad = shopDynamicInventory[i].GetComponent<Gear>();
+            //inventorySlot[i].gear = gearToLoad;
+            //inventorySlot[i].itemName.text = gearToLoad.gearID;
+            //inventorySlot[i].itemQuantity.text = " x " + gearToLoad.quantityInInventory;
+            //inventorySlot[i].gameObject.SetActive(true);
         }
     }
 
     public void LoadInventoryStringFromSO()
 
     {
-        var gearParent = menuManagerUI.playerInventory.GearParent;
+        Debug.Log("fix this");
+        //var gearParent = menuManagerUI.playerInventory.GearParent;
         ShopMainMenu main = menuManagerUI.mainMenu;
 
         shopDynamicInventory.Clear();
 
-        for (int i = 0; i < main.shopInventorySO.inventoryString.Count; i++)
-        {
-            shopDynamicInventory.Add(gearParent.Find(main.shopInventorySO.inventoryString[i]).GetComponent<Gear>()); ;
-        }
+        Debug.Log("fix");
+        // for (int i = 0; i < main.shopInventorySO.inventoryString.Count; i++)
+        // {
+        //     shopDynamicInventory.Add(gearParent.Find(main.shopInventorySO.inventoryString[i]).GetComponent<Gear>()); ;
+        // }
     }
 
     void DisableAllSlots()
@@ -65,7 +68,6 @@ public class ShopBuyMenu : ShopMenu
     }
 
     public override void ExitMenu()
-
     {
         shopButtonHighlighted.enabled = true;
         shopButtonHighlighted.SetButtonColor(Color.white);
@@ -74,11 +76,11 @@ public class ShopBuyMenu : ShopMenu
     }
 
     public void BuyGearInSlot(InventorySlot inventorySlot)
-
     {
-        Gear gearToBuy = inventorySlot.gear;
-        menuManagerUI.playerInventory.inventorySO.inventoryString.Add(gearToBuy.name);
-        menuManagerUI.playerInventory.LoadInventoryFromSO();
+        GearSO gearToBuy = inventorySlot.gear;
+        //menuManagerUI.playerInventory.inventorySO.inventoryString.Add(gearToBuy.name);
+        //menuManagerUI.playerInventory.LoadInventoryFromSO();
+        Debug.Log("fix this");
 
         var main = menuManagerUI.mainMenu;
         main.playerPermanentStats.smams -= gearToBuy.value;

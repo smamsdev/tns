@@ -8,6 +8,7 @@ public class Enemy : Combatant
 {
     [Header("")]
     public int XPReward;
+    public GearSO itemReward;
 
     [HideInInspector] int enemyBodyMaxHP;
     [HideInInspector] int enemyArmsMaxHP;
@@ -116,4 +117,17 @@ public class Enemy : Combatant
         Debug.LogError("Failed to select a move! Random value was " + randomValue);
     }
 
+    public GearSO ItemDrop()
+    {
+        if (itemReward != null)
+        {
+            if (Random.Range(0, 3) == 0)
+            {
+                return itemReward;
+            }
+
+            else { return null; }
+        }
+        else { return null; }
+    }
 }

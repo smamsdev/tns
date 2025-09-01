@@ -16,30 +16,34 @@ public class MenuGear : Menu
     public TextMeshProUGUI gearTypeTMP;
     public TextMeshProUGUI gearValueTMP;
     public TextMeshProUGUI gearEquipStatusTMP;
-    public Gear gearHighlighted;
+    public GearSO gearHighlighted;
     public GameObject timeDisplayGO;
     public GameObject smamsDisplayGO;
 
     public override void DisplayMenu(bool on)
     {
-        gearPropertiesDisplayGO.SetActive(false);
-        var player = GameObject.Find("Player");
-        playerInventory = player.GetComponentInChildren<PlayerInventory>();
-
-        DisableAllSlots();
-
-        for (int i = 0; i < playerInventory.inventory.Count; i++)
+        if (on) 
         {
-            Gear gearToLoad = playerInventory.inventory[i].GetComponent<Gear>();
-            inventorySlot[i].gear = gearToLoad;
-            inventorySlot[i].itemName.text = gearToLoad.gearID;
-            inventorySlot[i].itemQuantity.text = " x " + gearToLoad.quantityInInventory;
-            menuManagerUI.SetTextAlpha(inventorySlot[i].itemName, gearToLoad.isCurrentlyEquipped ? 0.5f : 1f);
-            menuManagerUI.SetTextAlpha(inventorySlot[i].itemQuantity, gearToLoad.isCurrentlyEquipped ? 0.5f : 1f);
-            inventorySlot[i].gameObject.SetActive(true);
+            gearPropertiesDisplayGO.SetActive(false);
+            var player = GameObject.Find("Player");
+            playerInventory = player.GetComponentInChildren<PlayerInventory>();
+
+            DisableAllSlots();
+
+            for (int i = 0; i < playerInventory.inventorySO.gearInventory.Count; i++)
+            {
+                GearSO gear = playerInventory.inventorySO.gearInventory[i];
+                inventorySlot[i].gear = gear;
+                inventorySlot[i].itemName.text = gear.gearName;
+                inventorySlot[i].itemQuantity.text = " x " + gear.quantityInInventory;
+                menuManagerUI.SetTextAlpha(inventorySlot[i].itemName, gear.isCurrentlyEquipped ? 0.5f : 1f);
+                menuManagerUI.SetTextAlpha(inventorySlot[i].itemQuantity, gear.isCurrentlyEquipped ? 0.5f : 1f);
+                inventorySlot[i].gameObject.SetActive(true);
+            }
         }
 
         displayContainer.SetActive(on);
+
     }
 
     void DisableAllSlots()
@@ -74,7 +78,7 @@ public class MenuGear : Menu
         }
     }
 
-    public void GearHighlighted(Gear gear)
+    public void GearHighlighted(GearSO gear)
     {
         gearValueTMP.text = "Value: " + gear.value.ToString() + " $MAMS";
         gearHighlighted = gear;

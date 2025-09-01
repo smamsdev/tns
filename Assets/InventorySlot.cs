@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class InventorySlot : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
-    public Gear gear;
+    public GearSO gear;
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI itemQuantity;
     public MenuManagerUI menuManagerUI;
@@ -15,7 +15,6 @@ public class InventorySlot : MonoBehaviour, ISelectHandler, IDeselectHandler
     public virtual void OnSelect(BaseEventData eventData)
     {
         menuGear.GearHighlighted(gear);
-
         itemQuantity.color = Color.yellow;
         menuManagerUI.SetTextAlpha(itemQuantity, gear.isCurrentlyEquipped ? 0.5f : 1f);
     }

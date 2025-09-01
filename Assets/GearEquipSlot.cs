@@ -4,9 +4,9 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class GearEquipSlot : MonoBehaviour, ISelectHandler, IDeselectHandler
+public class uiGearSlot : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
-    public Gear gearEquipped;
+    public GearSO gearEquipped;
     public TextMeshProUGUI buttonTMP;
     public int equipSlotNumber;
     public MenuGearEquip menuGearEquip;

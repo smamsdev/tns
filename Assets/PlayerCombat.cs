@@ -8,6 +8,7 @@ public class PlayerCombat : Ally
     public PlayerMoveManager playerMoveManager;
     public PlayerPermanentStats playerPermanentStats;
     public PartySO party;
+    public InventorySO playerInventory;
 
     public int CurrentPotential
     {

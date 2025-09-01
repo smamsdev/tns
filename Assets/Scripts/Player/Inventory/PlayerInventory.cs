@@ -5,109 +5,34 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     public InventorySO inventorySO;
-    public List<Gear> inventory = new List<Gear>();
-    public List <Gear> equippedInventory = new List<Gear>();
 
-    public Transform GearParent;
-
-    private void Start()
-    {
-        LoadInventoryFromSO();
-    }
-
-    private void SaveInventory()
-    {
-        for (int i = 0; i < inventory.Count; i++)
+        public void AddGearToInventory(GearSO gear)
         {
-            if (!inventorySO.inventoryString.Contains(inventory[i].gearID))
-                inventorySO.inventoryString.Add(inventory[i].gearID);
+            inventorySO.gearInventory.Add(gear);
         }
-    }
-
-    public void LoadInventoryFromSO()
-    {
-        inventorySO.inventoryString.Sort();
-        inventory.Clear();
-
-        for (int i = 0; i < inventorySO.inventoryString.Count; i++)
+        
+        public void RemoveGearFromInventory(GearSO gear)
         {
-            Transform gearTransform = GearParent.Find(inventorySO.inventoryString[i]);
-
-            if (gearTransform != null)
-            {
-                Gear gearToLoad = gearTransform.GetComponent<Gear>();
-                gearToLoad.isCurrentlyEquipped = false;
-                gearToLoad.quantityInInventory++;
-
-                if (!inventory.Contains(gearToLoad))
-                {
-                    gearToLoad.quantityInInventory = 1;
-                    inventory.Add(gearToLoad);
-                }
-            }
-            else
-            {
-                Debug.LogWarning("Gear not found in scene: " + inventorySO.inventoryString[i]);
-            }
+            inventorySO.gearInventory.Remove(gear);
         }
-
-        LoadEquippedSlotsFromSO();
-    }
-
-    public void LoadEquippedSlotsFromSO()
-    {
-        equippedInventory.Clear();
-
-        for (int i = 0; i < inventorySO.equipSlotString.Count; i++)
+        
+        public void EquipGearToSlot(GearSO gearSOToEquip, int equipSlotNumber)
         {
-            string inventoryString = inventorySO.equipSlotString[i];
-
-            if (string.IsNullOrEmpty(inventoryString))
+            if (inventorySO.equippedGear[equipSlotNumber] != null)
             {
-                equippedInventory.Add(null);
-                continue;
+                UnequipGearFromSlot(inventorySO.equippedGear[equipSlotNumber]);
             }
 
-            Transform gearTransform = GearParent.Find(inventoryString);
-            Gear gearToLoad = gearTransform.GetComponent<Gear>();
-            gearToLoad.isCurrentlyEquipped = true;
-            gearToLoad.equipSlotNumber = i;
-            equippedInventory.Add(gearToLoad);
+            gearSOToEquip.isCurrentlyEquipped = true;
+            gearSOToEquip.equipSlotNumber = equipSlotNumber;
+
+            inventorySO.equippedGear[equipSlotNumber] = gearSOToEquip;
         }
-    }
-
-    public void AddGearToInventory(Gear gear)
-    {
-        inventorySO.inventoryString.Add(gear.name);
-        LoadInventoryFromSO();
-    }
-
-    public void RemoveGearFromInventory(Gear gear)
-    {
-        inventorySO.inventoryString.Remove(gear.name);
-        LoadInventoryFromSO();
-    }
-
-    public void EquipGearToSlot(Gear gearToEquip, int equipSlotNumber)
-    {
-        if (equippedInventory[equipSlotNumber] != null)
+        
+        public void UnequipGearFromSlot(GearSO gearToUnequip)
         {
-            UnequipGearFromSlot(equippedInventory[equipSlotNumber]);
+            inventorySO.equippedGear[gearToUnequip.equipSlotNumber] = null;
+            gearToUnequip.isCurrentlyEquipped = false;
+            gearToUnequip.equipSlotNumber = -1;
         }
-
-        gearToEquip.isCurrentlyEquipped = true;
-        gearToEquip.equipSlotNumber = equipSlotNumber;
-        inventorySO.equipSlotString[equipSlotNumber] = gearToEquip.name;
-        equippedInventory[equipSlotNumber] = gearToEquip;
-
-        LoadEquippedSlotsFromSO();
-    }
-
-    public void UnequipGearFromSlot(Gear gearToUnequip)
-    {
-        inventorySO.equipSlotString[gearToUnequip.equipSlotNumber] = null;
-        gearToUnequip.isCurrentlyEquipped = false;
-        gearToUnequip.equipSlotNumber = -1;
-        LoadEquippedSlotsFromSO();
-    }
 }

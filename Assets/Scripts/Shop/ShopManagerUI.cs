@@ -58,7 +58,7 @@ public class ShopManagerUI : MonoBehaviour
         menuUpdateMethod.StateUpdate();
     }
 
-    public void UpdateDescriptionField(Gear gear)
+    public void UpdateDescriptionField(GearSO gear)
     {
         descriptionFieldTMP.text = gear.gearDescription;
 

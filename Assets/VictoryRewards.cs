@@ -9,9 +9,7 @@ public class VictoryRewards : MonoBehaviour
 {
     public CombatManager combatManager;
     public GridLayoutGroup totalXPgridLayout;
-    public TextMeshProUGUI[] totalXPTextElements;
-    public TextMeshProUGUI[] rewardXPTextElements;
-    public TextMeshProUGUI totalXPEarnedTMP;
+    public List<TextMeshProUGUI> rewardTextElements, distributeXPTextElements;
     public GridLayoutGroup XPGainGridLayoutGroup;
 
     int XPEarned;
@@ -21,12 +19,15 @@ public class VictoryRewards : MonoBehaviour
     public TextMeshProUGUI allyNameTMP, allyLevelTMP, allyXPRemainderTMP, allyXPTMP, allyAttackTMP, allyFendTMP, playerFocusTMP;
 
     public GameObject[] playerStatsOnly;
+    public TextMeshProUGUI[] defaultRewardTextElements;
+
+    public GameObject uiRewardSlotPrefab, rewardsParent;
 
     float lastRewardWidth = 0f;
 
-    TextMeshProUGUI FindLongestText(TextMeshProUGUI[] arrayToSort)
+    TextMeshProUGUI FindLongestText(List<TextMeshProUGUI> textElementsToSort)
     {
-        return arrayToSort.OrderByDescending(text => text.preferredWidth).First();
+        return textElementsToSort.OrderByDescending(text => text.preferredWidth).First();
     }
 
     void TotalXPEarned()
@@ -46,9 +47,16 @@ public class VictoryRewards : MonoBehaviour
     {
         partyToLoop = 0;
         TotalXPEarned();
-        totalXPEarnedTMP.text = XPEarned + " Experience gained";
 
-        float preferredWidth = FindLongestText(totalXPTextElements).preferredWidth;
+        rewardTextElements = new List<TextMeshProUGUI>();
+        rewardTextElements.Add(defaultRewardTextElements[0]);
+        rewardTextElements.Add(defaultRewardTextElements[1]);
+
+        ShowXPReward();
+        ShowItemReward();
+
+
+        float preferredWidth = FindLongestText(rewardTextElements).preferredWidth;
         Vector2 newCellSize = totalXPgridLayout.cellSize;
         newCellSize.x = preferredWidth;
         totalXPgridLayout.cellSize = newCellSize;
@@ -58,7 +66,7 @@ public class VictoryRewards : MonoBehaviour
 
     void UpdateXPGainLayout()
     {
-        float preferredWidth = FindLongestText(rewardXPTextElements).preferredWidth;
+        float preferredWidth = FindLongestText(distributeXPTextElements).preferredWidth;
         if (Mathf.Approximately(preferredWidth, lastRewardWidth)) return;
         lastRewardWidth = preferredWidth;
 
@@ -135,6 +143,41 @@ public class VictoryRewards : MonoBehaviour
             }
 
             partyToLoop++;
+        }
+    }
+
+    void ShowXPReward()
+    {
+        if (XPEarned > 0)
+        {
+            GameObject rewardXPSlotGO = Instantiate(uiRewardSlotPrefab);
+            rewardXPSlotGO.transform.SetParent(rewardsParent.transform);
+            rewardXPSlotGO.name = "XPEarned";
+            var rewardSlotTMP = rewardXPSlotGO.GetComponent<TextMeshProUGUI>();
+            rewardSlotTMP.text = XPEarned + " Experience";
+
+            rewardTextElements.Add(rewardSlotTMP);
+        }
+    }
+
+    void ShowItemReward()
+    {
+        foreach (Enemy enemy in combatManager.battleScheme.enemies)
+        {
+            var drop = enemy.ItemDrop();
+            int i = 0;
+
+            if (drop != null)
+            { 
+                combatManager.playerCombat.playerInventory.gearInventory.Add(drop);
+                i++;
+                GameObject rewardItemSlotGO = Instantiate(uiRewardSlotPrefab);
+                rewardItemSlotGO.transform.SetParent(rewardsParent.transform);
+                rewardItemSlotGO.name = "ItemDrop" + i;
+                var rewardSlotTMP = rewardItemSlotGO.GetComponent<TextMeshProUGUI>();
+                rewardSlotTMP.text = drop.gearName;
+                rewardTextElements.Add(rewardSlotTMP);
+            }
         }
     }
 }
