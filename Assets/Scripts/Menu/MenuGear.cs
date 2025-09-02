@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Burst.CompilerServices;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +11,8 @@ public class MenuGear : Menu
     public Button firstButtonToSelect;
     public PlayerInventory playerInventory;
     public GameObject gearPropertiesDisplayGO;
-    public InventorySlot[] inventorySlot;
+    public List<InventorySlot> gearSlots = new List<InventorySlot>();
+    List<Button> slotButtons = new List<Button>();
     public MenuGearEquip menuGearEquip;
     public TextMeshProUGUI gearDescriptionTMP;
     public TextMeshProUGUI gearTypeTMP;
@@ -19,43 +21,55 @@ public class MenuGear : Menu
     public GearSO gearHighlighted;
     public GameObject timeDisplayGO;
     public GameObject smamsDisplayGO;
+    public GameObject UIFieldMenuGearSlotPrefab;
+    public GameObject inventorySlotsParent;
 
     public override void DisplayMenu(bool on)
     {
-        if (on) 
+        if (on)
         {
             gearPropertiesDisplayGO.SetActive(false);
-            var player = GameObject.Find("Player");
+            var player = GameObject.FindGameObjectWithTag("Player");
             playerInventory = player.GetComponentInChildren<PlayerInventory>();
-
-            DisableAllSlots();
-
-            for (int i = 0; i < playerInventory.inventorySO.gearInventory.Count; i++)
-            {
-                GearSO gear = playerInventory.inventorySO.gearInventory[i];
-                inventorySlot[i].gear = gear;
-                inventorySlot[i].itemName.text = gear.gearName;
-                inventorySlot[i].itemQuantity.text = " x " + gear.quantityInInventory;
-                menuManagerUI.SetTextAlpha(inventorySlot[i].itemName, gear.isCurrentlyEquipped ? 0.5f : 1f);
-                menuManagerUI.SetTextAlpha(inventorySlot[i].itemQuantity, gear.isCurrentlyEquipped ? 0.5f : 1f);
-                inventorySlot[i].gameObject.SetActive(true);
-            }
+            InstantiateUIGearSlots();
         }
 
         displayContainer.SetActive(on);
-
     }
 
-    void DisableAllSlots()
+    void InstantiateUIGearSlots()
     {
-        for (int i = 0; i < inventorySlot.Length; i++)
+        HashSet<GearSO> gearSet = new HashSet<GearSO>();
+        gearSlots.Clear();
+        slotButtons.Clear();
+
+        foreach (GearSO gear in playerInventory.inventorySO.gearInventory)
         {
-            inventorySlot[i].gameObject.SetActive(false);
+            if (gearSet.Add(gear))
+            {
+                GameObject UIgearSlot = Instantiate(UIFieldMenuGearSlotPrefab);
+                UIgearSlot.transform.SetParent(inventorySlotsParent.transform);
+                InventorySlot inventorySlot = UIgearSlot.GetComponent<InventorySlot>();
+                gearSlots.Add(inventorySlot);
+                inventorySlot.gear = gear;
+                inventorySlot.itemName.text = gear.gearName;
+                inventorySlot.itemQuantity.text = " x " + gear.quantityInInventory;
+                inventorySlot.menuGear = this;
+                inventorySlot.menuManagerUI = menuManagerUI;
+                menuManagerUI.SetTextAlpha(inventorySlot.itemName, gear.isCurrentlyEquipped ? 0.5f : 1f);
+                menuManagerUI.SetTextAlpha(inventorySlot.itemQuantity, gear.isCurrentlyEquipped ? 0.5f : 1f);
+                UIgearSlot.name = inventorySlot.gear.gearID;
+
+                slotButtons.Add(inventorySlot.button);
+                FieldEvents.SetGridNavigationWrapAround(slotButtons, 5);
+            }
         }
     }
 
     public override void EnterMenu()
     {
+        if (firstButtonToSelect == null) { firstButtonToSelect = gearSlots[0].button; }
+
         menuButtonHighlighted.SetButtonColor(menuButtonHighlighted.highlightedColor);
         menuButtonHighlighted.enabled = false;
         firstButtonToSelect.Select();

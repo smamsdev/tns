@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class InventorySlot : MonoBehaviour, ISelectHandler, IDeselectHandler
@@ -11,6 +12,7 @@ public class InventorySlot : MonoBehaviour, ISelectHandler, IDeselectHandler
     public TextMeshProUGUI itemQuantity;
     public MenuManagerUI menuManagerUI;
     public MenuGear menuGear;
+    public Button button;
 
     public virtual void OnSelect(BaseEventData eventData)
     {
