@@ -78,9 +78,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySO: {fileID: 11400000, guid: 75a32f9470620854d86fdadedb6906f6, type: 2}
-  inventory: []
-  equippedInventory: []
-  GearParent: {fileID: 4236748915391052461}
 --- !u!1 &122313192486112768
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,8 +811,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 125, y: -104}
-  m_SizeDelta: {x: 100, y: 47}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8658279641288820745
 CanvasRenderer:
@@ -1518,7 +1515,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6515173661138919344
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1793,8 +1790,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 125, y: -151}
-  m_SizeDelta: {x: 100, y: 47}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9160837376896640787
 CanvasRenderer:
@@ -2195,6 +2192,10 @@ MonoBehaviour:
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
   movementLocked: 0
+  distanceTravelled: 0
+  previousPositionmag: 0
+  newPositionmag: 0
+  delta: {x: 0, y: 0}
 --- !u!95 &8879681757372781048
 Animator:
   serializedVersion: 5
@@ -2301,6 +2302,7 @@ MonoBehaviour:
   fendBase: 1
   maxHP: 0
   fendDisplayOn: 0
+  isEncounterSpawned: 0
   currentHP: 0
   attackTotal: 0
   fendTotal: 0
@@ -2309,17 +2311,20 @@ MonoBehaviour:
   fightingPosition: {fileID: 0}
   targetToAttack: {fileID: 0}
   moveSelected: {fileID: 0}
-  playerPermanentStats: {fileID: 11400000, guid: 891a8d8bd88cd9a45acd6a5ac406be03, type: 2}
+  moves: []
+  allyPermanentStats: {fileID: 0}
   playerMoveManager: {fileID: 5232138969718999026}
+  playerPermanentStats: {fileID: 11400000, guid: 891a8d8bd88cd9a45acd6a5ac406be03, type: 2}
   party: {fileID: 11400000, guid: 7b54538dd0515b34c937ff6de93a275f, type: 2}
+  playerInventory: {fileID: 8524157694805311256}
   currentPotential: 0
   fendPotMod: 0
   attackPowerPotMod: 0
-  playerFocusbaseMod: 0
+  focusBaseMod: 0
   attackPowerGearMod: 0
   fendPowerGearMod: 0
-  playerFocusbaseChange: 0
-  attackPowerBaseChange: 0
+  focusBaseChange: 0
+  attackBaseChange: 0
   fendBaseChange: 0
 --- !u!1 &6562236617326698140
 GameObject:

@@ -18,52 +18,62 @@ public class MenuGear : Menu
     public TextMeshProUGUI gearTypeTMP;
     public TextMeshProUGUI gearValueTMP;
     public TextMeshProUGUI gearEquipStatusTMP;
-    public GearSO gearHighlighted;
+    public InventorySlot inventorySlotHighlighted;
     public GameObject timeDisplayGO;
     public GameObject smamsDisplayGO;
     public GameObject UIFieldMenuGearSlotPrefab;
     public GameObject inventorySlotsParent;
+    public Dictionary<GearSO, InventorySlot> gearToSlot = new Dictionary<GearSO, InventorySlot>();
+
 
     public override void DisplayMenu(bool on)
     {
         if (on)
         {
             gearPropertiesDisplayGO.SetActive(false);
-            var player = GameObject.FindGameObjectWithTag("Player");
-            playerInventory = player.GetComponentInChildren<PlayerInventory>();
-            InstantiateUIGearSlots();
         }
 
         displayContainer.SetActive(on);
     }
 
-    void InstantiateUIGearSlots()
+    public void InstantiateUIGearSlots()
     {
-        HashSet<GearSO> gearSet = new HashSet<GearSO>();
+        playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>().playerInventory;
+
         gearSlots.Clear();
         slotButtons.Clear();
+        gearToSlot.Clear();
 
         foreach (GearSO gear in playerInventory.inventorySO.gearInventory)
         {
-            if (gearSet.Add(gear))
+            if (!gearToSlot.ContainsKey(gear))
             {
                 GameObject UIgearSlot = Instantiate(UIFieldMenuGearSlotPrefab);
-                UIgearSlot.transform.SetParent(inventorySlotsParent.transform);
+                UIgearSlot.transform.SetParent(inventorySlotsParent.transform, false);
+
                 InventorySlot inventorySlot = UIgearSlot.GetComponent<InventorySlot>();
-                gearSlots.Add(inventorySlot);
                 inventorySlot.gear = gear;
-                inventorySlot.itemName.text = gear.gearName;
-                inventorySlot.itemQuantity.text = " x " + gear.quantityInInventory;
                 inventorySlot.menuGear = this;
                 inventorySlot.menuManagerUI = menuManagerUI;
-                menuManagerUI.SetTextAlpha(inventorySlot.itemName, gear.isCurrentlyEquipped ? 0.5f : 1f);
-                menuManagerUI.SetTextAlpha(inventorySlot.itemQuantity, gear.isCurrentlyEquipped ? 0.5f : 1f);
-                UIgearSlot.name = inventorySlot.gear.gearID;
 
+                inventorySlot.itemName.text = gear.gearName;
+                inventorySlot.itemQuantity.text = "x" + gear.quantityInInventory;
+
+                float alpha = gear.isCurrentlyEquipped ? 0.5f : 1f;
+                menuManagerUI.SetTextAlpha(inventorySlot.itemName, alpha);
+                menuManagerUI.SetTextAlpha(inventorySlot.itemQuantity, alpha);
+
+                inventorySlot.button.onClick.AddListener(() => InventorySlotSelected(inventorySlot));
+
+                UIgearSlot.name = gear.gearID;
+
+                gearSlots.Add(inventorySlot);
                 slotButtons.Add(inventorySlot.button);
-                FieldEvents.SetGridNavigationWrapAround(slotButtons, 5);
+                gearToSlot[gear] = inventorySlot;
             }
         }
+
+        FieldEvents.SetGridNavigationWrapAround(slotButtons, 5);
     }
 
     public override void EnterMenu()
@@ -80,24 +90,25 @@ public class MenuGear : Menu
 
     public void InventorySlotSelected(InventorySlot inventorySlot)
     {
-        menuGearEquip.transplanting = null;
-
+        menuGearEquip.transplantingSlot = null;
         menuGearEquip.inventorySlotSelected = inventorySlot;
-        firstButtonToSelect = inventorySlot.GetComponent<Button>();
-        menuManagerUI.EnterSubMenu(menuManagerUI.gearEquipPage);
 
         if (inventorySlot.gear.isCurrentlyEquipped)
         {
-            menuGearEquip.transplanting = inventorySlot.gear;
+            menuGearEquip.transplantingSlot = inventorySlot;
         }
+
+        firstButtonToSelect = inventorySlot.button;
+        menuManagerUI.EnterSubMenu(menuManagerUI.gearEquipPage);
     }
 
-    public void GearHighlighted(GearSO gear)
+    public void GearSlotHighlighted(InventorySlot inventorySlot)
     {
-        gearValueTMP.text = "Value: " + gear.value.ToString() + " $MAMS";
-        gearHighlighted = gear;
+        gearValueTMP.text = "Value: " + inventorySlot.gear.value.ToString() + " $MAMS";
+        inventorySlotHighlighted = inventorySlot;
 
-        if (!gear.isConsumable)
+
+        if (!inventorySlot.gear.isConsumable)
         {
             gearTypeTMP.text = "Type: Accessory";
         }
@@ -107,21 +118,25 @@ public class MenuGear : Menu
             gearTypeTMP.text = "Type: Consumable";
         }
 
-        if (gear.isCurrentlyEquipped)
+        if (inventorySlot.gear.isCurrentlyEquipped)
         {
-            gearDescriptionTMP.text = gear.gearDescription;
-            gearEquipStatusTMP.text = "Equipped to Slot " + (gear.equipSlotNumber + 1) + ". PRESS CTRL TO REMOVE";
+            gearDescriptionTMP.text = inventorySlot.gear.gearDescription;
+            gearEquipStatusTMP.text = "Equipped to Slot " + playerInventory.inventorySO.equippedGear.IndexOf(inventorySlot.gear) + 1 + ". PRESS CTRL TO REMOVE";
         }
         else
         {
-            gearDescriptionTMP.text = gear.gearDescription;
+            gearDescriptionTMP.text = inventorySlot.gear.gearDescription;
             gearEquipStatusTMP.text = "Unequipped";
         }
     }
 
-    public void UnequipHighlightedGear()
+    public void UnequipHighlightedGear(GearSO gear)
     {
-        playerInventory.UnequipGearFromSlot(gearHighlighted);
+        playerInventory.UnequipGearFromSlot(gear);
+
+        var slot = gearToSlot[gear];
+        menuManagerUI.SetTextAlpha(slot.itemName, 1f);
+        menuManagerUI.SetTextAlpha(slot.itemQuantity, 1f);
     }
 
     public override void ExitMenu()
@@ -142,12 +157,12 @@ public class MenuGear : Menu
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            if (gearHighlighted.isCurrentlyEquipped)
+            if (inventorySlotHighlighted.gear.isCurrentlyEquipped)
             {
-                UnequipHighlightedGear();
                 DisplayMenu(true);
                 gearPropertiesDisplayGO.SetActive(true);
-                GearHighlighted(gearHighlighted);
+                GearSlotHighlighted(inventorySlotHighlighted);
+                UnequipHighlightedGear(inventorySlotHighlighted.gear);
             }
         }
     }

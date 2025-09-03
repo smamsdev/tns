@@ -8,13 +8,13 @@ public class menuMain : Menu
 {
     public GameObject menuGO;
     public Button firstMenuButton;
-    public PlayerPermanentStats playerPermanentStats;
     public Animator animator;
 
     [SerializeField] TextMeshProUGUI smamsValue;
     [SerializeField] TextMeshProUGUI durationDisplay;
     
     public MenuSave menuSave;
+    public MenuGear menuGear;
 
     private bool isMenuOn = false;
 
@@ -39,6 +39,9 @@ public class menuMain : Menu
         firstMenuButton.Select(); // Ihandler uses this to trigger DisplayMenu method
 
         menuSave.UpdateSaveSlotUI();
+        menuGear.InstantiateUIGearSlots();
+
+        var playerPermanentStats = menuManagerUI.playerGO.GetComponent<PlayerCombat>().playerPermanentStats; 
         smamsValue.text = $"{playerPermanentStats.smams}";
 
         StartCoroutine(LockMovementAfterDelay());

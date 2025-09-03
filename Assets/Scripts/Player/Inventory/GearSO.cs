@@ -10,7 +10,6 @@ public class GearSO : ScriptableObject
     public string gearName;
     [TextArea(2, 5)] public string gearDescription;
     public bool isCurrentlyEquipped;
-    public int equipSlotNumber;
     public int quantityInInventory;
     public bool isConsumable;
     public int value;

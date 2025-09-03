@@ -16,7 +16,7 @@ public class InventorySlot : MonoBehaviour, ISelectHandler, IDeselectHandler
 
     public virtual void OnSelect(BaseEventData eventData)
     {
-        menuGear.GearHighlighted(gear);
+        menuGear.GearSlotHighlighted(this);
         itemQuantity.color = Color.yellow;
         menuManagerUI.SetTextAlpha(itemQuantity, gear.isCurrentlyEquipped ? 0.5f : 1f);
     }

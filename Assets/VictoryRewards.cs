@@ -169,7 +169,7 @@ public class VictoryRewards : MonoBehaviour
 
             if (drop != null)
             { 
-                combatManager.playerCombat.playerInventory.gearInventory.Add(drop);
+                combatManager.playerCombat.playerInventory.AddGearToInventory(drop);
                 i++;
                 GameObject rewardItemSlotGO = Instantiate(uiRewardSlotPrefab);
                 rewardItemSlotGO.transform.SetParent(rewardsParent.transform);

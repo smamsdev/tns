@@ -10,10 +10,12 @@ public class MenuManagerUI : MonoBehaviour
     public Menu statsPage, gearPage, gearEquipPage, movesPage, configPage, savePage, exitPage, main;
     [Header("")]
     public Menu menuUpdateMethod;
+    public GameObject playerGO;
 
     private void Start()
     {
         menuUpdateMethod = main;
+        playerGO = GameObject.FindGameObjectWithTag("Player");
     }
 
     public void DisplayMenu(Menu menuScript) //used by main buttons onSelect to display currently highlighted
