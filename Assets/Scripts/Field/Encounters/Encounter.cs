@@ -6,7 +6,7 @@ using UnityEngine;
 public class Encounter : ToTrigger
 {
     [SerializeField] EnemyProfile[] EnemyRoster;
-    [SerializeField] AllyProfile[] AllyRoster;
+    [SerializeField] AllyProfile[] bonusAllyRoster;
     public int maxTotalEnemies = 1;
     public int maxBonusAllies = 0;
     public Battle battle;
@@ -64,7 +64,7 @@ public class Encounter : ToTrigger
         battle.enemies.Clear();
         battle.allies.Clear();
 
-        foreach (var ally in AllyRoster)
+        foreach (var ally in bonusAllyRoster)
         {
             ally.remainingThisBattle = ally.maxNumberOfType;
             ally.amountSpawned = 0;
@@ -80,31 +80,34 @@ public class Encounter : ToTrigger
             allyToAdd.transform.position = new Vector2(this.transform.position.x + 5, this.transform.position.y + 1000 + i);
         }
 
-        int randomNumberOfAllies = Random.Range(0, maxBonusAllies + 1);
-        int totalAllies = randomNumberOfAllies + playerCombat.party.partyMembers.Count;
-
-        for (int i = 0; i < randomNumberOfAllies; i++)
+        if (bonusAllyRoster.Length > 0)
         {
-            int randomIndex = Random.Range(0, AllyRoster.Length);
-            AllyProfile bonusAlly = AllyRoster[randomIndex];
+            int randomNumberOfAllies = Random.Range(0, maxBonusAllies + 1);
+            int totalAllies = randomNumberOfAllies + playerCombat.party.partyMembers.Count;
 
-            if (bonusAlly.remainingThisBattle > 0)
+            for (int i = 0; i < randomNumberOfAllies; i++)
             {
-                GameObject bonusAllyToAdd = Instantiate(bonusAlly.allyPreFab, this.transform);
-                Combatant bonusAllyCombatant = bonusAllyToAdd.GetComponent<Combatant>();
+                int randomIndex = Random.Range(0, bonusAllyRoster.Length);
+                AllyProfile bonusAlly = bonusAllyRoster[randomIndex];
 
-                bonusAllyToAdd.name = bonusAllyCombatant.combatantName;
-                bonusAllyToAdd.transform.position = new Vector2(this.transform.position.x + 6, this.transform.position.y + 1000 + i);
-
-                bonusAlly.amountSpawned++;
-                if (bonusAlly.amountSpawned > 1)
+                if (bonusAlly.remainingThisBattle > 0)
                 {
-                    bonusAllyCombatant.combatantName += " " + bonusAlly.amountSpawned;
-                    bonusAllyToAdd.gameObject.name = bonusAllyCombatant.combatantName;
-                }
+                    GameObject bonusAllyToAdd = Instantiate(bonusAlly.allyPreFab, this.transform);
+                    Combatant bonusAllyCombatant = bonusAllyToAdd.GetComponent<Combatant>();
 
-                battle.allies.Add(bonusAllyCombatant);
-                bonusAlly.remainingThisBattle--;
+                    bonusAllyToAdd.name = bonusAllyCombatant.combatantName;
+                    bonusAllyToAdd.transform.position = new Vector2(this.transform.position.x + 6, this.transform.position.y + 1000 + i);
+
+                    bonusAlly.amountSpawned++;
+                    if (bonusAlly.amountSpawned > 1)
+                    {
+                        bonusAllyCombatant.combatantName += " " + bonusAlly.amountSpawned;
+                        bonusAllyToAdd.gameObject.name = bonusAllyCombatant.combatantName;
+                    }
+
+                    battle.allies.Add(bonusAllyCombatant);
+                    bonusAlly.remainingThisBattle--;
+                }
             }
         }
 

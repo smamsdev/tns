@@ -47,9 +47,10 @@ public class MenuGearEquip : Menu
         {
             menuGear.playerInventory.UnequipGearFromSlot(gearGettingReplaced);
 
-            var slot = menuGear.gearToSlot[gearGettingReplaced];
+            InventorySlot slot = menuGear.gearToSlot[gearGettingReplaced];
             menuManagerUI.SetTextAlpha(slot.itemName, 1f);
             menuManagerUI.SetTextAlpha(slot.itemQuantity, 1f);
+            slot.itemQuantity.text = "x" + gearGettingReplaced.quantityInInventory.ToString();
         }
 
         GearSO geartoEquip = inventorySlotSelected.gear;
@@ -57,6 +58,7 @@ public class MenuGearEquip : Menu
 
         menuManagerUI.SetTextAlpha(inventorySlotSelected.itemName, 0.5f);
         menuManagerUI.SetTextAlpha(inventorySlotSelected.itemQuantity, 0.5f);
+        inventorySlotSelected.itemQuantity.text = "x" + geartoEquip.quantityInInventory.ToString();
 
         ExitMenu();
     }

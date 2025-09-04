@@ -11,6 +11,7 @@ public class VictoryRewards : MonoBehaviour
     public GridLayoutGroup totalXPgridLayout;
     public List<TextMeshProUGUI> rewardTextElements, distributeXPTextElements;
     public GridLayoutGroup XPGainGridLayoutGroup;
+    public Victory victory;
 
     int XPEarned;
     public Button totalXPButton;
@@ -21,7 +22,7 @@ public class VictoryRewards : MonoBehaviour
     public GameObject[] playerStatsOnly;
     public TextMeshProUGUI[] defaultRewardTextElements;
 
-    public GameObject uiRewardSlotPrefab, rewardsParent;
+    public GameObject uiRewardSlotPrefab, rewardsParent, XPRewardsDistributeParent;
 
     float lastRewardWidth = 0f;
 
@@ -33,7 +34,7 @@ public class VictoryRewards : MonoBehaviour
     void TotalXPEarned()
     {
         XPEarned = 0;
-        foreach (Enemy enemy in combatManager.enemies)
+        foreach (Enemy enemy in combatManager.battleScheme.enemies)
         {
             XPEarned += enemy.XPReward;
             if (enemy.XPReward == 0)
@@ -43,25 +44,38 @@ public class VictoryRewards : MonoBehaviour
         }
     }
 
-    public void ShowRewards()
+    public IEnumerator ShowRewards()
     {
+        XPRewardsDistributeParent.SetActive(false);
+        
         partyToLoop = 0;
-        TotalXPEarned();
-
-        rewardTextElements = new List<TextMeshProUGUI>();
+        rewardTextElements.Clear();
         rewardTextElements.Add(defaultRewardTextElements[0]);
         rewardTextElements.Add(defaultRewardTextElements[1]);
-
+        
+        TotalXPEarned();
         ShowXPReward();
         ShowItemReward();
-
-
+        
         float preferredWidth = FindLongestText(rewardTextElements).preferredWidth;
         Vector2 newCellSize = totalXPgridLayout.cellSize;
         newCellSize.x = preferredWidth;
         totalXPgridLayout.cellSize = newCellSize;
 
-        totalXPButton.Select();
+        yield return AnimateRewardsPage(0, 1, .5f);
+    }
+
+    public IEnumerator AnimateRewardsPage(float start, float end, float duration)
+    {
+        var rewardsRect = this.transform as RectTransform;
+        var scale = rewardsRect.localScale;
+
+        FieldEvents.LerpValues(start, end, duration, animateScale =>
+        {
+            rewardsRect.localScale = new Vector3(animateScale, animateScale, animateScale);
+        });
+
+        yield return new WaitForSeconds(duration);
     }
 
     void UpdateXPGainLayout()
@@ -82,6 +96,14 @@ public class VictoryRewards : MonoBehaviour
 
     public void CyclePartyMemberXPGain()
     {
+        if (!XPRewardsDistributeParent.activeSelf) { XPRewardsDistributeParent.SetActive(true); }
+
+        if (partyToLoop >= combatManager.allAlliesToTarget.Count)
+        {
+            StartCoroutine(victory.EndBattle());
+            return;
+        }
+                
         if (partyToLoop < combatManager.allAlliesToTarget.Count)
         {
             if (!combatManager.allAlliesToTarget[partyToLoop].isEncounterSpawned)
@@ -119,8 +141,8 @@ public class VictoryRewards : MonoBehaviour
 
                 FieldEvents.LerpValues(previousXP, targetXP, 1, value =>
                 {
-                    stats.XP = value;
-                    allyXPTMP.text = value.ToString();
+                    stats.XP = Mathf.RoundToInt(value);
+                    allyXPTMP.text = stats.XP.ToString();
                     allyXPRemainderTMP.text = (stats.XPThreshold - stats.XP).ToString();
 
                     UpdateXPGainLayout();
@@ -150,6 +172,7 @@ public class VictoryRewards : MonoBehaviour
     {
         if (XPEarned > 0)
         {
+
             GameObject rewardXPSlotGO = Instantiate(uiRewardSlotPrefab);
             rewardXPSlotGO.transform.SetParent(rewardsParent.transform);
             rewardXPSlotGO.name = "XPEarned";

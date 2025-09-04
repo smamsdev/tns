@@ -76,6 +76,14 @@ public class MenuGear : Menu
         FieldEvents.SetGridNavigationWrapAround(slotButtons, 5);
     }
 
+    public void DeleteAllInventoryUI()
+    {
+        for (int i = inventorySlotsParent.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(inventorySlotsParent.transform.GetChild(i).gameObject);
+        }
+    }
+
     public override void EnterMenu()
     {
         if (firstButtonToSelect == null) { firstButtonToSelect = gearSlots[0].button; }
@@ -137,6 +145,7 @@ public class MenuGear : Menu
         var slot = gearToSlot[gear];
         menuManagerUI.SetTextAlpha(slot.itemName, 1f);
         menuManagerUI.SetTextAlpha(slot.itemQuantity, 1f);
+        slot.itemQuantity.text = "x" + gear.quantityInInventory.ToString();
     }
 
     public override void ExitMenu()

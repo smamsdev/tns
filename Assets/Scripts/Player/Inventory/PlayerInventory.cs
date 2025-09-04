@@ -26,12 +26,14 @@ public class PlayerInventory : MonoBehaviour
         }
 
         gearSOToEquip.isCurrentlyEquipped = true;
+        gearSOToEquip.quantityInInventory--;
         inventorySO.equippedGear[equipSlotNumber] = gearSOToEquip;
     }
         
     public void UnequipGearFromSlot(GearSO gearToUnequip)
     {
         gearToUnequip.isCurrentlyEquipped = false;
+        gearToUnequip.quantityInInventory++;
         int index = inventorySO.equippedGear.IndexOf(gearToUnequip);
         inventorySO.equippedGear[index] = null;
     }

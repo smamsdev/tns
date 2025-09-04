@@ -15,6 +15,7 @@ public class CombatMenuManager : MonoBehaviour
     public GameObject secondMoveMenu;
     public GameObject enemySelectMenu;
     public GameObject GearSelectMenu;
+    public GameObject VictoryMenu;
 
     [Header("Scripts")]
     public SelectEnemyMenuScript selectEnemyMenuScript;
@@ -54,6 +55,7 @@ public class CombatMenuManager : MonoBehaviour
         secondMoveMenu.SetActive(false);
         enemySelectMenu.SetActive(false);
         GearSelectMenu.SetActive(false);
+        VictoryMenu.SetActive(false);
         narratorTMP.gameObject.SetActive(false);
     }
 

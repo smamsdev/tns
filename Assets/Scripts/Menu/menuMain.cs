@@ -58,6 +58,7 @@ public class menuMain : Menu
     public override void ExitMenu()
     {
         isMenuOn = false;
+        menuGear.DeleteAllInventoryUI();
         StartCoroutine(CloseMenuAnimation());
     }
 
