@@ -9,4 +9,10 @@ public class CombatantUI : MonoBehaviour
     public FendScript fendScript;
     public DamageTakenDisplay damageTakenDisplay;
     public Animator selectedAnimator;
+    public GameObject combatUIContainer;
+
+    private void OnEnable()
+    {
+        combatUIContainer.SetActive(false);
+    }
 }

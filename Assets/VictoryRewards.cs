@@ -11,7 +11,7 @@ public class VictoryRewards : MonoBehaviour
     public GridLayoutGroup totalXPgridLayout;
     public List<TextMeshProUGUI> rewardTextElements, distributeXPTextElements;
     public GridLayoutGroup XPGainGridLayoutGroup;
-    public Victory victory;
+    public VictoryState victory;
 
     int XPEarned;
     public Button totalXPButton;

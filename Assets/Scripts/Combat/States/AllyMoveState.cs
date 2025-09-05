@@ -78,6 +78,13 @@ public class AllyMoveState : State
                 i++;
             }
         }
+
+        if (combatManager.enemies.Count == 0)
+        {
+            combatManager.SetState(combatManager.victory);
+            yield break;
+        }
+
         combatManager.SetState(combatManager.enemyMoveState);
     }
 }

@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
-public class Victory : State
+public class VictoryState : State
 {
     public VictoryRewards victoryRewards;
 
@@ -29,7 +30,14 @@ public class Victory : State
         playerAnimator.SetBool("isCombat", false);
         playerAnimator.Play("Idle");
         combatManager.cameraFollow.transformToFollow = combatManager.player.transform;
-        CombatEvents.UnlockPlayerMovement();
 
+        if (combatManager.battleScheme.isRandomEnounter)
+        {
+            FieldEvents.isReturningFromEncounter = true;
+            SceneManager.LoadScene(FieldEvents.sceneBeforeEncounterName);
+        }
+
+        else
+        CombatEvents.UnlockPlayerMovement();
     }
 }

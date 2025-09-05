@@ -112,6 +112,7 @@ public class Setup : State
 
         var combatantUI = newCombatantUIGO.GetComponent<CombatantUI>();
         combatant.combatantUI = combatantUI;
+        combatantUI.combatUIContainer.SetActive(true);
         combatantUI.fendScript.combatManager = combatManager;
 
         //flip UI elements based on look direction
@@ -126,6 +127,7 @@ public class Setup : State
 
     void SetPlayerUI()
     {
+        playerCombat.combatantUI.combatUIContainer.SetActive(true);
         playerCombat.combatantUI.fendScript.combatManager = combatManager;
         playerCombat.InitialiseCombatantStats();
     }

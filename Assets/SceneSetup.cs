@@ -27,6 +27,27 @@ public class SceneSetup : MonoBehaviour
 
         var playerGO = GameObject.Find("Player");
 
+        if (FieldEvents.isReturningFromEncounter)
+        { 
+            useEntryCoordinates = true;
+            forceEntryCoorinates = true;
+            forcedEntryCoordinates = FieldEvents.coordinatesBeforeEncounter;
+            forceLook = FieldEvents.lookDirBeforeEncounter;
+            FieldEvents.isReturningFromEncounter = false;
+        }
+
+        if (forceLook != Vector2.zero)
+        {
+            var playerMovementScript = playerGO.GetComponent<PlayerMovementScript>();
+            playerMovementScript.lookDirection = forceLook;
+        }
+
+        if (forceLook != Vector2.zero && !FieldEvents.isReturningFromEncounter)
+        {
+            var playerMovementScript = playerGO.GetComponent<PlayerMovementScript>();
+            playerMovementScript.lookDirection = forceLook;
+        }
+
         if (useEntryCoordinates)
         {
             if (forceEntryCoorinates)
@@ -34,16 +55,8 @@ public class SceneSetup : MonoBehaviour
                 FieldEvents.entryCoordinates = forcedEntryCoordinates;
             }
 
-            transformToFollow.transform.position = FieldEvents.entryCoordinates;
+            playerGO.transform.position = FieldEvents.entryCoordinates;
         }
-
-        if (forceLook != Vector2.zero) 
-        {
-
-            var playerMovementScript = playerGO.GetComponent<PlayerMovementScript>();
-            playerMovementScript.lookDirection = forceLook;
-        }
-
         mainCamera.transform.position = new Vector3(transformToFollow.position.x, transformToFollow.transform.position.y, transformToFollow.transform.position.z - 10);
     }
 

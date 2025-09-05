@@ -39,9 +39,6 @@ public class SceneTriggers : MonoBehaviour
 
                {
                    StartCoroutine(trigger[i].toTrigger.DoAction());
-                  //trigger[i].ifTriggered = null;
-                  //trigger[i].toTrigger = null;
-
                    return;
                }
            }

@@ -61,6 +61,7 @@ public class Encounter : ToTrigger
     {
         this.transform.position = Vector3.zero;
         battle.battleCenterPosition = this.transform;
+        battle.isRandomEnounter = true;
         battle.enemies.Clear();
         battle.allies.Clear();
 

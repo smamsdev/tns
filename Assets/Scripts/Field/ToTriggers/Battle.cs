@@ -13,6 +13,7 @@ public class Battle : ToTrigger
     public Vector2 playerDefaultLookDirection;
     public bool isEnemyFlanked =false;
     public bool isAllyFlanked = false;
+    public bool isRandomEnounter;
 
 
     private void OnEnable()

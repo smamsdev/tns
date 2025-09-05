@@ -5,6 +5,7 @@ using System.Globalization;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public static class FieldEvents
 {
@@ -23,6 +24,10 @@ public static class FieldEvents
     public static bool movementLocked;
 
     public static Vector3 entryCoordinates;
+    public static Vector3 coordinatesBeforeEncounter;
+    public static string sceneBeforeEncounterName;
+    public static bool isReturningFromEncounter;
+    public static Vector2 lookDirBeforeEncounter;
 
     public static float movementSpeedMultiplier;
     public static bool isMovementSpeedMultiplier;

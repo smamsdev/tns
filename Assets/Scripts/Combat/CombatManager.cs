@@ -25,7 +25,7 @@ public class CombatManager : MonoBehaviour
     public ApplyPlayerMove applyMove;
     public EnemyMoveState enemyMoveState;
     public RoundReset roundReset;
-    public Victory victory;
+    public VictoryState victory;
     public Defeat defeat;
     public GearSelectState gearSelectState;
 
