@@ -1,5 +1,8 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.SceneManagement;
+using UnityEngine.U2D;
 
 public class RandomEncounter : MonoBehaviour
 {
@@ -39,8 +42,9 @@ public class RandomEncounter : MonoBehaviour
 
         if (encounterValue + rngValue >= encounterThreshold)
         {
-            LoadScene(sceneToLoad);
-            encounterValue = 0; 
+            StartCoroutine(EncounterTransition());
+            //LoadScene(sceneToLoad);
+            //encounterValue = 0; 
         }
         else
         {
@@ -52,5 +56,39 @@ public class RandomEncounter : MonoBehaviour
     {
         FieldEvents.SceneChanging();
         SceneManager.LoadScene(sceneName);
+    }
+
+    IEnumerator EncounterTransition()
+    {
+        GameObject mainCam = GameObject.FindGameObjectWithTag("MainCamera");
+        CombatEvents.LockPlayerMovement();
+
+        FieldEvents.LerpValues(0, 359, 2, output =>
+        {
+            mainCam.transform.rotation = Quaternion.Euler(0, 0, output);
+        });
+
+        // Get *all* components and filter by type name
+        var allComponents = mainCam.GetComponents<Component>();
+
+        foreach (var c in allComponents)
+        {
+            if (c.GetType().Name.Contains("PixelPerfectCamera"))
+            {
+                Debug.Log($"Found PixelPerfectCamera: {c.GetType().FullName}");
+            }
+        }
+
+        var ppc = mainCam.GetComponent<UnityEngine.U2D.PixelPerfectCamera>();
+
+        FieldEvents.LerpValues(150, 0, 2, output =>
+        {
+            ppc.assetsPPU = Mathf.RoundToInt(output);
+        });
+
+
+
+
+        yield return null;
     }
 }
