@@ -12,11 +12,14 @@ public class SelectEnemyMenuScript : MonoBehaviour
     [SerializeField] GameObject selectEnemyMenuContainer;
     public Button defaultButton;
     public List<EnemySelectButtonScript> enemySelectButtons = new List<EnemySelectButtonScript>();
+    public GameObject selectEnemyLabelGO;
+
 
     public void InitializeButtonSlots()
     {
         foreach (Transform child in selectEnemyMenuContainer.transform)
         {
+            if (child != selectEnemyLabelGO.transform)
             Destroy(child.gameObject);
         }
 

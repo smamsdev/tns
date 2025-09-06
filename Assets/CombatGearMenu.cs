@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class CombatGearMenu : MonoBehaviour
 {
     public CombatManager combatManager;
-    public PlayerInventory playerInventory;
+    PlayerInventory playerInventory;
     public GearSelectState gearSelectState;
     [SerializeField] GameObject inventoryMenu;
     [SerializeField] Button equipNoneOption;
@@ -17,71 +17,43 @@ public class CombatGearMenu : MonoBehaviour
 
     public InventorySlot[] inventorySlot;
 
-    public uiGearSlot[] gearEquipSlot;
-    public uiGearSlot gearEquipSlotSelected;
+    public List<UIGearEquipSlot> uIGearEquipSlots = new List<UIGearEquipSlot>();
+    public List<Button> uIGearEquipSlotButtons = new List<Button>();
+    public UIGearEquipSlot gearEquipSlotSelected;
 
-    [SerializeField] Move equipGearMove; //player needs a move assigned to complete their turn, can put a nice animation in here maybe
+    [SerializeField] Move equipGearMove; //player needs a move assigned to complete their turn
 
     public void DisplayEquipSlots()
     {
-        if (gearEquipSlotSelected == null)
-        {
-            gearEquipSlotSelected = gearEquipSlot[0];
-        }
+        playerInventory = combatManager.playerCombat.playerInventory;
 
-        foreach (uiGearSlot gearEquipSlot in gearEquipSlot)
+        foreach (UIGearEquipSlot gearEquipSlot in uIGearEquipSlots)
         {
+            gearEquipSlot.gearEquipped = null;
             gearEquipSlot.gameObject.SetActive(false);
         }
 
-        var player = GameObject.Find("Player");
-        playerInventory = player.GetComponentInChildren<PlayerInventory>();
+        for (int i = 0; i < playerInventory.inventorySO.equipSlotsAvailable; i++)
+        {
+            if (playerInventory.inventorySO.equippedGear[i] == null)
+            {
+                uIGearEquipSlots[i].buttonTMP.text = "SLOT " + (i + 1) + ": " + "EMPTY";
+                uIGearEquipSlots[i].gameObject.SetActive(true);
+            }
 
-        inventoryMenu.SetActive(false); //hide inventory container for now
+            else
+            {
+                GearSO gearToLoad = playerInventory.inventorySO.equippedGear[i];
+                uIGearEquipSlots[i].gearEquipped = gearToLoad;
+                uIGearEquipSlots[i].buttonTMP.text = "SLOT " + (i + 1) + ": " + gearToLoad.gearName;
+                uIGearEquipSlots[i].gameObject.SetActive(true);
+            }
+        }
 
-        Debug.Log("fix");
-       // for (int i = 0; i < playerInventory.inventorySO.equipSlotString.Count; i++)
-       //
-       //     if (playerInventory.equippedInventory[i] == null)
-       //     {
-       //         gearEquipSlot[i].buttonTMP.text = "SLOT " + (i+1) + " EMPTY";
-       //         gearEquipSlot[i].gameObject.SetActive(true);
-       //     }
-       //
-       //     else
-       //     {
-       //         Gear gearToLoad = playerInventory.equippedInventory[i].GetComponent<Gear>();
-       //         gearEquipSlot[i].gearEquipped = gearToLoad;
-       //         gearEquipSlot[i].buttonTMP.text = gearToLoad.gearID;
-       //         gearEquipSlot[i].gameObject.SetActive(true);
-       //     }
-
-        SetNavigationWrapAround();
-        gearEquipSlotSelected.GetComponent<Button>().Select();
+        FieldEvents.SetGridNavigationWrapAround(uIGearEquipSlotButtons, playerInventory.inventorySO.equipSlotsAvailable);
     }
 
-    void SetNavigationWrapAround()
-    {
-        Debug.Log("fix");
-        //int buttonCount = playerInventory.inventorySO.equipSlotString.Count;
-        //
-        //if (buttonCount > 1)
-        //{
-        //    for (int i = 0; i < buttonCount; i++)
-        //    {
-        //        Button button = gearEquipSlot[i].GetComponent<Button>();
-        //        Navigation newNav = button.navigation;
-        //
-        //        // Default navigation: each button's up/down points to the adjacent buttons
-        //        newNav.selectOnUp = gearEquipSlot[(i - 1 + buttonCount) % buttonCount].GetComponent<Button>();  // Wrap around up
-        //        newNav.selectOnDown = gearEquipSlot[(i + 1) % buttonCount].GetComponent<Button>();  // Wrap around down
-        //
-        //        button.navigation = newNav;
-        //    }
-        //}
-    }
-
-    public void GearSlotSelected(uiGearSlot gearEquipSlot)
+    public void GearSlotSelected(UIGearEquipSlot gearEquipSlot)
     {
         gearEquipSlotSelected = gearEquipSlot;
         StartCoroutine(ShowGearInventoryCoroutine());
@@ -169,7 +141,7 @@ public class CombatGearMenu : MonoBehaviour
     {
         combatManager.playerCombat.moveSelected = equipGearMove;
         inventoryMenu.SetActive(false);
-        gearEquipSlotSelected = gearEquipSlot[0];
+        gearEquipSlotSelected = uIGearEquipSlots[0];
         combatManager.SetState(combatManager.applyMove);
     }
 }

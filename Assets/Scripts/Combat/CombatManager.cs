@@ -27,6 +27,7 @@ public class CombatManager : MonoBehaviour
     public RoundReset roundReset;
     public VictoryState victory;
     public Defeat defeat;
+    public TacticalState tacticalSelectState;
     public GearSelectState gearSelectState;
 
     [Header("Misc")]

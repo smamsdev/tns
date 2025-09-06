@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class uiGearSlot : MonoBehaviour, ISelectHandler, IDeselectHandler
+public class UIGearEquipSlot : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     public GearSO gearEquipped;
     public TextMeshProUGUI buttonTMP;

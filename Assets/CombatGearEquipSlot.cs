@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CombatGearEquipSlot : uiGearSlot
+public class UICombatGearEquipSlot :UIGearEquipSlot
 {
     public override void OnSelect(BaseEventData eventData)
     {

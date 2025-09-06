@@ -11,13 +11,13 @@ public class MenuGearEquip : Menu
     [SerializeField] Button firstButtonToSelect;
     public InventorySlot inventorySlotSelected;
     public MenuGear menuGear;
-    public uiGearSlot[] uiGearSlots;
+    public UIGearEquipSlot[] uIGearEquipSlots;
     public List<Button> equipSlotButtons = new List<Button>();
     public TextMeshProUGUI gearDescriptionTMP;
     public TextMeshProUGUI gearTypeTMP;
     public TextMeshProUGUI gearValueTMP;
     public TextMeshProUGUI gearEquipStatusTMP;
-    public uiGearSlot gearEquipSlotHighlighted;
+    public UIGearEquipSlot gearEquipSlotHighlighted;
     public TextMeshProUGUI pageHeaderTMP;
     public InventorySlot transplantingSlot;
 
@@ -31,7 +31,7 @@ public class MenuGearEquip : Menu
         displayContainer.SetActive(on);
     }
 
-    public void EquipToSlotSelected(uiGearSlot gearEquipSlotSelected)
+    public void EquipToSlotSelected(UIGearEquipSlot gearEquipSlotSelected)
     {
         gearEquipSlotSelected.Deselect();
 
@@ -75,7 +75,7 @@ public class MenuGearEquip : Menu
 
     public void DisplayEquipSlots()
     {
-        foreach (uiGearSlot gearEquipSlot in uiGearSlots)
+        foreach (UIGearEquipSlot gearEquipSlot in uIGearEquipSlots)
         {
             gearEquipSlot.gearEquipped = null;
             gearEquipSlot.gameObject.SetActive(false);
@@ -85,23 +85,23 @@ public class MenuGearEquip : Menu
         {
             if (menuGear.playerInventory.inventorySO.equippedGear[i] == null)
             {
-                uiGearSlots[i].buttonTMP.text = "EQUIPPED SLOT " + (i + 1) + ": " + "EMPTY";
-                uiGearSlots[i].gameObject.SetActive(true);
+                uIGearEquipSlots[i].buttonTMP.text = "EQUIPPED SLOT " + (i + 1) + ": " + "EMPTY";
+                uIGearEquipSlots[i].gameObject.SetActive(true);
             }
 
             else
             {
                 GearSO gearToLoad = menuGear.playerInventory.inventorySO.equippedGear[i];
-                uiGearSlots[i].gearEquipped = gearToLoad;
-                uiGearSlots[i].buttonTMP.text = "EQUIPPED SLOT " + (i + 1) + ": " + gearToLoad.gearName;
-                uiGearSlots[i].gameObject.SetActive(true);
+                uIGearEquipSlots[i].gearEquipped = gearToLoad;
+                uIGearEquipSlots[i].buttonTMP.text = "EQUIPPED SLOT " + (i + 1) + ": " + gearToLoad.gearName;
+                uIGearEquipSlots[i].gameObject.SetActive(true);
             }
         }
 
         FieldEvents.SetGridNavigationWrapAround(equipSlotButtons, menuGear.playerInventory.inventorySO.equipSlotsAvailable);
     }
 
-    public void EquipSlotHighlighted(uiGearSlot gearEquipSlot)
+    public void EquipSlotHighlighted(UIGearEquipSlot gearEquipSlot)
     {
         gearEquipSlotHighlighted = gearEquipSlot;
 

@@ -31,7 +31,7 @@ public class FirstMove : State
 
         if (moveValue == 4)
         {
-            combatManager.SetState(combatManager.gearSelectState);
+            combatManager.SetState(combatManager.tacticalSelectState);
         }
         else
         {
