@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FirstMove : State
+public class FirstMoveState : State
 {
     public override IEnumerator StartState()
     {
@@ -24,12 +24,12 @@ public class FirstMove : State
         yield break;
     }
 
-    public override void CombatOptionSelected (int moveValue)
+    public void ActionButtonSelected (int moveValue)
     {
         combatManager.combatMenuManager.firstMenuFirstButton = buttonSelected;
         combatManager.playerCombat.playerMoveManager.firstMoveIs = moveValue;
 
-        if (moveValue == 4)
+        if (moveValue == 0)
         {
             combatManager.SetState(combatManager.tacticalSelectState);
         }

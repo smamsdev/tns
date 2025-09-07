@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SecondMove : State
+public class SecondMoveState : State
 {
     public override IEnumerator StartState()
     {
@@ -25,7 +25,7 @@ public class SecondMove : State
         }
     }
 
-    public override void CombatOptionSelected(int moveValue) //triggered via Button
+    public void StyleButtonSelected(int moveValue) //triggered via Button
     {
         combatManager.playerCombat.playerMoveManager.secondMoveIs = moveValue;
         combatManager.combatMenuManager.secondMenuFirstButton = buttonSelected;

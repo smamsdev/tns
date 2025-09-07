@@ -17,16 +17,4 @@ public abstract class State : MonoBehaviour
     {
         
     }
-
-    public virtual void CombatOptionSelected(int Value)
-    { 
-    
-    }
-
-    public void ButtonSelected(Button button)
-    {
-        buttonSelected = button;
-        var combatMenuManager = combatManager.combatMenuManager;
-        combatMenuManager.SetButtonNormalColor(button, combatMenuManager.buttonSelectedYellow);
-    }
 }

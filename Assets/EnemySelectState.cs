@@ -10,7 +10,7 @@ public class EnemySelectState : State
 
     public override IEnumerator StartState()
     {
-        combatManager.combatMenuManager.selectEnemyMenuScript.InitializeButtonSlots();
+        selectEnemyMenuScript.InitializeButtonSlots();
         combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.enemySelectMenu, true);
         combatManager.combatMenuManager.thirdMenuFirstButton = selectEnemyMenuScript.defaultButton;
         combatManager.combatMenuManager.thirdMenuFirstButton.Select();

@@ -5,23 +5,16 @@ using UnityEngine.Rendering;
 
 public class EquipSlotSelectState : State
 {
-    [SerializeField] CombatGearMenu combatGearMenu;
-    bool inventoryMenuEnabled;
+    [SerializeField] EquipSlotSelectMenu combatGearMenu;
 
     public override IEnumerator StartState()
     {
-        combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.GearSelectMenu, true);
+        combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.EquipSlotSelectMenu, true);
         combatGearMenu.DisplayEquipSlots();
         combatManager.combatMenuManager.gearSelectMenuFirstButton = buttonSelected;
         combatManager.combatMenuManager.gearSelectMenuFirstButton.Select();
 
         yield break;
-    }
-
-    public void InventoryMenuEnabled(bool toggle)  //used by button
-
-    { 
-        inventoryMenuEnabled = toggle;
     }
 
     public override void StateUpdate()
@@ -35,6 +28,4 @@ public class EquipSlotSelectState : State
             CombatEvents.UpdateNarrator("");
         }
     }
-
-
 }

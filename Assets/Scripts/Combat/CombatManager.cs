@@ -18,8 +18,8 @@ public class CombatManager : MonoBehaviour
 
     [Header("States")]
     public Setup setup;
-    public FirstMove firstMove;
-    public SecondMove secondMove;
+    public FirstMoveState firstMove;
+    public SecondMoveState secondMove;
     public EnemySelectState enemySelectState;
     public AllyMoveState allyMoveState;
     public ApplyPlayerMove applyMove;
@@ -29,6 +29,7 @@ public class CombatManager : MonoBehaviour
     public Defeat defeat;
     public TacticalSelectState tacticalSelectState;
     public EquipSlotSelectState equipSlotSelectState;
+    public GearSelectCombatState gearSelectCombatState;
 
     [Header("Misc")]
     public GameObject combatMovementPrefab;

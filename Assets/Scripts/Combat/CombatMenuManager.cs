@@ -14,13 +14,10 @@ public class CombatMenuManager : MonoBehaviour
     public GameObject firstMoveMenu;
     public GameObject secondMoveMenu;
     public GameObject enemySelectMenu;
-    public GameObject GearSelectMenu;
     public GameObject TacticalSelectMenu;
+    public GameObject EquipSlotSelectMenu;
+    public GameObject GearSelectMenu;
     public GameObject VictoryMenu;
-
-    [Header("Scripts")]
-    public SelectEnemyMenuScript selectEnemyMenuScript;
-    //public CombatInventoryMenu combatInventoryMenuScript;
 
     [Header("First Buttons to Highlight")]
 
@@ -78,5 +75,21 @@ public class CombatMenuManager : MonoBehaviour
         ColorBlock colors = button.colors;
         colors.normalColor = color;
         button.colors = colors;
+    }
+
+    public void ColorButtonYellow(Button button) //via Button
+    {
+        SetButtonNormalColor(button, buttonSelectedYellow);
+    }
+
+    public void SetTextAlpha(TextMeshProUGUI textMeshProUGUI, float alpha, Color color = default)
+    {
+        if (color == default)
+            color = Color.white;
+
+        textMeshProUGUI.color = color;
+        Color newColor = textMeshProUGUI.color;
+        newColor.a = alpha;
+        textMeshProUGUI.color = newColor;
     }
 }
