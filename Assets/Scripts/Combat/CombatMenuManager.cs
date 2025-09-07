@@ -28,6 +28,7 @@ public class CombatMenuManager : MonoBehaviour
     public Button secondMenuFirstButton;
     public Button thirdMenuFirstButton;
     public Button tacticalMenuFirstButton;
+    public Button gearSelectMenuFirstButton;
 
     public Color buttonSelectedYellow;
 

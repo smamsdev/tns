@@ -9,7 +9,7 @@ public class CombatGearMenu : MonoBehaviour
 {
     public CombatManager combatManager;
     PlayerInventory playerInventory;
-    public GearSelectState gearSelectState;
+    public EquipSlotSelectState equipSlotSelectState;
     [SerializeField] GameObject inventoryMenu;
     [SerializeField] Button equipNoneOption;
 
@@ -104,7 +104,8 @@ public class CombatGearMenu : MonoBehaviour
     {
         if (gearEquipSlotSelected.gearEquipped == null)
         {
-            gearSelectState.ResetStateGearSelect();
+            //equipSlotSelectState.ResetStateGearSelect();
+            Debug.Log("Fix");
         }
 
         else

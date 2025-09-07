@@ -27,8 +27,8 @@ public class CombatManager : MonoBehaviour
     public RoundReset roundReset;
     public VictoryState victory;
     public Defeat defeat;
-    public TacticalState tacticalSelectState;
-    public GearSelectState gearSelectState;
+    public TacticalSelectState tacticalSelectState;
+    public EquipSlotSelectState equipSlotSelectState;
 
     [Header("Misc")]
     public GameObject combatMovementPrefab;

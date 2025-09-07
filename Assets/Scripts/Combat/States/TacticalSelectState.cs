@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TacticalState : State
+public class TacticalSelectState : State
 {
     public override IEnumerator StartState()
     {
