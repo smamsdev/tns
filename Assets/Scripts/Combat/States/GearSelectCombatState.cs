@@ -5,14 +5,16 @@ using UnityEngine.UI;
 
 public class GearSelectCombatState : State
 {
-    [SerializeField] Button equipNoneOption;
     public EquipSlotSelectMenu equipSlotSelectMenu;
     public GearSelectCombatMenu gearSelectCombatMenu;
+    [SerializeField] Move equipGearMove; //player needs a move assigned to complete their turn
 
     public override IEnumerator StartState()
     {
         gearSelectCombatMenu.InstantiateUIGearSlots();
         combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.GearSelectMenu, true);
+        combatManager.combatMenuManager.gearSelectMenuDefaultButton.Select();
+       // gearSelectCombatMenu.DefaultButtonSelected();
         yield return new WaitForEndOfFrame();
     }
 
@@ -20,58 +22,56 @@ public class GearSelectCombatState : State
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //StartCoroutine(FieldEvents.CoolDown(0.2f));
-            //combatManager.combatMenuManager.SetButtonNormalColor(combatManager.firstMove.buttonSelected, Color.white);
-            //combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.GearSelectMenu, false);
-            //combatManager.SetState(combatManager.tacticalSelectState);
-            //CombatEvents.UpdateNarrator("");
+            StartCoroutine(FieldEvents.CoolDown(0.2f));
+            combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.GearSelectMenu, false);
+            combatManager.SetState(combatManager.equipSlotSelectState);
+            combatManager.combatMenuManager.SetButtonNormalColor(combatManager.equipSlotSelectState.lastButtonSelected, Color.white);
+            gearSelectCombatMenu.UICombatGearSlotHighlighed.Deselect();
+            combatManager.equipSlotSelectState.lastButtonSelected.Select();
+            CombatEvents.UpdateNarrator("");
         }
     }
 
-    public void equipNone()
+    public void EquipSelectedGear(UICombatGearSlot uICombatGearSlot)
     {
-        if (equipSlotSelectMenu.equipSlotSelected.gearEquipped == null)
-        {
-            //equipSlotSelectState.ResetStateGearSelect();
-            Debug.Log("Fix");
-        }
+        gearSelectCombatMenu.isGearSlotsInitialized = false;
+        var geartoEquip = uICombatGearSlot.gearSO;
+        var playerInventory = combatManager.playerCombat.playerInventory;
 
-        else
+        if (geartoEquip.isCurrentlyEquipped)
         {
-            //playerInventory.UnequipGearFromSlot(gearEquipSlotSelected.gearEquipped);
-            Debug.Log("fix this");
-            combatManager.combatMenuManager.SetButtonNormalColor(equipSlotSelectMenu.equipSlotSelected.GetComponent<Button>(), Color.white);
-            equipSlotSelectMenu.equipSlotSelected.gearEquipped = null;
-            ApplyGearSelected();
-        }
-    }
+            int index = playerInventory.inventorySO.equippedGear.IndexOf(geartoEquip);
 
-    public void equipSelectedGear(InventorySlot inventorySlot)
-    {
-        if (!inventorySlot.gear.isCurrentlyEquipped) //if gear selected is already equipped do nothing
-        {
-            var geartoEquip = inventorySlot.gear;
-
-            if (equipSlotSelectMenu.equipSlotSelected.gearEquipped != null)
+            if (index == equipSlotSelectMenu.equipSlotSelected.equipSlotNumber) //if a gear selected is already equipped in the currently selected slot, do nothing
             {
-                Debug.Log("fix this");
-                //playerInventory.UnequipGearFromSlot(gearEquipSlotSelected.gearEquipped); //if a gear exists remove it before equipping a new one
+                return;
             }
 
-            Debug.Log("fix this");
-            //playerInventory.EquipGearToSlot(geartoEquip, gearEquipSlotSelected.equipSlotNumber);
-            combatManager.combatMenuManager.SetButtonNormalColor(equipSlotSelectMenu.equipSlotSelected.GetComponent<Button>(), Color.white);
-
-            ApplyGearSelected();
+            else 
+            {
+                playerInventory.UnequipGearFromSlot(geartoEquip); //if the gear to equip is already in another slot, remove it first
+                playerInventory.DestroyGearInstance(geartoEquip);
+            }
         }
+
+        if (equipSlotSelectMenu.equipSlotSelected.gearEquipped != null) //if a gear already exists in that slot remove it before equipping a new one
+        {
+            playerInventory.UnequipGearFromSlot(equipSlotSelectMenu.equipSlotSelected.gearEquipped);
+            playerInventory.DestroyGearInstance(equipSlotSelectMenu.equipSlotSelected.gearEquipped);
+        }
+
+        playerInventory.EquipGearToSlot(geartoEquip, equipSlotSelectMenu.equipSlotSelected.equipSlotNumber);
+        playerInventory.InstantiateNewEquippedGear(combatManager, geartoEquip);
+        combatManager.combatMenuManager.SetButtonNormalColor(equipSlotSelectMenu.equipSlotSelected.GetComponent<Button>(), Color.white);
+        gearSelectCombatMenu.ClearSlots();
+        gearSelectCombatMenu.isGearSlotsInitialized = false;
+        ApplyGearEquipMove();   
     }
 
-    void ApplyGearSelected()
+    void ApplyGearEquipMove()
     {
-        Debug.Log("fix");
-        //combatManager.playerCombat.moveSelected = equipGearMove;
-        //inventoryMenu.SetActive(false);
-        //equipSlotSelectMenu.equipSlotSelected = uIGearEquipSlots[0];
-        //combatManager.SetState(combatManager.applyMove);
+        combatManager.playerCombat.moveSelected = equipGearMove;
+        equipSlotSelectMenu.equipSlotSelected = equipSlotSelectMenu.uIGearEquipSlots[0];
+        combatManager.SetState(combatManager.applyMove);
     }
 }

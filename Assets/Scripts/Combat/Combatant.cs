@@ -42,7 +42,6 @@ public abstract class Combatant : MonoBehaviour
     public virtual void UpdateHP(int value)
     {
         StartCoroutine(UpdateHPCoRo(value));
-        //combatantUI.statsDisplay.UpdateHPDisplay(value);
     }
 
     public virtual IEnumerator UpdateHPCoRo(int value)

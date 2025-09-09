@@ -17,6 +17,7 @@ public class ApplyPlayerMove : State
             enemy.combatantUI.attackDisplay.ShowAttackDisplay(false);
         }
 
+        yield return ApplyGear();
         yield return ApplyMove();
 
         if (combatManager.enemies.Count == 0)
@@ -41,6 +42,24 @@ public class ApplyPlayerMove : State
         {
             combatManager.SetState(combatManager.enemyMoveState);
             yield break;
+        }
+    }
+
+    IEnumerator ApplyGear()
+    {
+        var equipped = player.playerInventory.inventorySO.equippedGear;
+        for (int i = equipped.Count - 1; i >= 0; i--)
+        {
+            GearSO gearSO = equipped[i];
+            if (gearSO == null) continue;
+
+            yield return gearSO.gearInstance.ApplyGear();
+
+            if (gearSO.gearInstance.turnsUntilConsumed == 0)
+            {
+                player.playerInventory.DestroyGearInstance(gearSO);
+                player.playerInventory.GearConsumed(gearSO);
+            }
         }
     }
 

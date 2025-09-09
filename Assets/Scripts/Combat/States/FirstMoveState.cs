@@ -17,8 +17,7 @@ public class FirstMoveState : State
 
         combatManager.playerCombat.combatantUI.statsDisplay.ShowStatsDisplay(true);
         combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.firstMoveMenu, true);
-        combatManager.combatMenuManager.firstMenuFirstButton = buttonSelected;
-        combatManager.combatMenuManager.firstMenuFirstButton.Select();
+        combatManager.combatMenuManager.actionMenuDefaultButton.Select();
         combatManager.playerCombat.playerMoveManager.firstMoveIs = 0;
 
         yield break;
@@ -26,7 +25,7 @@ public class FirstMoveState : State
 
     public void ActionButtonSelected (int moveValue)
     {
-        combatManager.combatMenuManager.firstMenuFirstButton = buttonSelected;
+        combatManager.combatMenuManager.actionMenuDefaultButton = lastButtonSelected;
         combatManager.playerCombat.playerMoveManager.firstMoveIs = moveValue;
 
         if (moveValue == 0)

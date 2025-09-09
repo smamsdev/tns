@@ -7,8 +7,7 @@ public class TacticalSelectState : State
     public override IEnumerator StartState()
     {
         combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.TacticalSelectMenu, true);
-        combatManager.combatMenuManager.tacticalMenuFirstButton = buttonSelected;
-        combatManager.combatMenuManager.tacticalMenuFirstButton.Select();
+        combatManager.combatMenuManager.tacticalSelectMenuDefaultButton.Select();
 
         yield break;
     }
@@ -18,8 +17,9 @@ public class TacticalSelectState : State
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.TacticalSelectMenu, false);
+            combatManager.combatMenuManager.SetButtonNormalColor(combatManager.firstMove.lastButtonSelected, Color.white);
+            combatManager.firstMove.lastButtonSelected.Select();
             combatManager.SetState(combatManager.firstMove);
-            combatManager.combatMenuManager.SetButtonNormalColor(combatManager.firstMove.buttonSelected, Color.white);
         }
     }
 

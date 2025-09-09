@@ -6,4 +6,8 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class WeightedVest : Gear
 {
+    public override IEnumerator ApplyGear()
+    {
+        throw new System.NotImplementedException();
+    }
 }

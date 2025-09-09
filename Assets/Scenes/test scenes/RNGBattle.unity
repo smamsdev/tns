@@ -338,8 +338,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1856412509316802594}
+  m_Children: []
   m_Father: {fileID: 3572846713296478804}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -362,7 +361,10 @@ MonoBehaviour:
   combatManager: {fileID: 2779943596843121145}
   UICombatGearSlotPrefab: {fileID: 7732399050573741445, guid: f24ffa1fc4cd4674dbb08416378b6e16, type: 3}
   inventorySlotsParent: {fileID: 111231820}
+  gearSelectCombatState: {fileID: 167392639}
   gearSlots: []
+  UICombatGearSlotHighlighed: {fileID: 0}
+  isGearSlotsInitialized: 0
 --- !u!114 &111231823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,7 +659,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1856412509316802594}
   m_Father: {fileID: 2242970450288673166}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &167392639
@@ -673,10 +676,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 2779943596843121145}
-  buttonSelected: {fileID: 0}
-  equipNoneOption: {fileID: 0}
+  lastButtonSelected: {fileID: 0}
   equipSlotSelectMenu: {fileID: 1352871047785168101}
   gearSelectCombatMenu: {fileID: 111231822}
+  equipGearMove: {fileID: 9167694735775232736}
 --- !u!1 &174834064
 GameObject:
   m_ObjectHideFlags: 0
@@ -1045,6 +1048,10 @@ PrefabInstance:
       propertyPath: gearSOtest
       value: 
       objectReference: {fileID: 11400000, guid: 1be06c8320cb3184d864ab5bb17cd241, type: 2}
+    - target: {fileID: 8524157694805311256, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: inventoryParent
+      value: 
+      objectReference: {fileID: 1036115958}
     - target: {fileID: 8859697587654934920, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1768,6 +1775,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c8e637a2b61f594b881fd65bafa945a, type: 3}
+--- !u!1 &1036115958 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 82617726707128403, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+  m_PrefabInstance: {fileID: 519880131}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1094384654
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2722,15 +2734,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyRoster:
   - enemyPreFab: {fileID: 1705068664190481556, guid: 2886a77e0ed244747a6ee7bb09ec4289, type: 3}
-    maxNumberOfType: 1
+    maxNumberOfType: 2
     remainingThisBattle: 0
     amountSpawned: 0
   bonusAllyRoster: []
-  maxTotalEnemies: 1
+  maxTotalEnemies: 2
   maxBonusAllies: 3
   battle: {fileID: 1272831097}
   sceneSetup: {fileID: 1458070175}
-  surpriseAttackPer100: 25
+  surpriseAttackPer100: 0
   flankBattlePer100: 25
 --- !u!224 &1272831096
 RectTransform:
@@ -3524,7 +3536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 2779943596843121145}
-  buttonSelected: {fileID: 7420489363680585234}
+  lastButtonSelected: {fileID: 0}
 --- !u!1 &166409967790704541
 GameObject:
   m_ObjectHideFlags: 0
@@ -3621,74 +3633,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5258278802049994222}
   m_CullTransparentMesh: 1
---- !u!114 &304915601217832151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6021353091901966833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 4
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 3413265355882506174}
-    m_SelectOnDown: {fileID: 3834956867859458030}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.8784314, g: 0.6666667, b: 0.23529412, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.8773585, g: 0.66520107, b: 0.23506583, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 0
-  m_TargetGraphic: {fileID: 0}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4147903475507595297}
-        m_TargetAssemblyTypeName: CombatMenuScript, Assembly-CSharp
-        m_MethodName: HideFirstMove
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5860004189133314548}
-        m_TargetAssemblyTypeName: State, Assembly-CSharp
-        m_MethodName: ButtonSelected
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 304915601217832151}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &362428268405769210
 GameObject:
   m_ObjectHideFlags: 0
@@ -4983,7 +4927,6 @@ MonoBehaviour:
   - {fileID: 1231169786315364641}
   - {fileID: 3531938499957874130}
   equipSlotSelected: {fileID: 0}
-  equipGearMove: {fileID: 8423800860498823881}
 --- !u!114 &1353159082496239585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5340,11 +5283,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 111231821}
+  m_Father: {fileID: 167392638}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 699.04, y: -160}
+  m_AnchoredPosition: {x: 2032.04, y: 137.5}
   m_SizeDelta: {x: 225, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1871221005183102467
@@ -5527,7 +5470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 2779943596843121145}
-  buttonSelected: {fileID: 0}
+  lastButtonSelected: {fileID: 0}
 --- !u!114 &1999978023574771518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5754,7 +5697,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Healing Strip
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -6236,7 +6179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 2779943596843121145}
-  buttonSelected: {fileID: 7573355860369707926}
+  lastButtonSelected: {fileID: 0}
 --- !u!114 &2779943596843121145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6930,6 +6873,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 4147903475507595297}
+        m_TargetAssemblyTypeName: CombatMenuManager, Assembly-CSharp
+        m_MethodName: ColorButtonYellow
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 3481137893218730727}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 5860004189133314548}
         m_TargetAssemblyTypeName: TacticalState, Assembly-CSharp
         m_MethodName: TacticalOptionSelected
@@ -6937,18 +6892,6 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 4374383745868527523}
           m_ObjectArgumentAssemblyTypeName: State, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5860004189133314548}
-        m_TargetAssemblyTypeName: State, Assembly-CSharp
-        m_MethodName: ButtonSelected
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 3481137893218730727}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -7574,7 +7517,7 @@ GameObject:
   - component: {fileID: 2943362769596908238}
   - component: {fileID: 5311843981825312709}
   m_Layer: 0
-  m_Name: Display2ndMoveText
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7729,13 +7672,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5860004189133314548}
-        m_TargetAssemblyTypeName: TacticalState, Assembly-CSharp
-        m_MethodName: TacticalOptionSelected
+      - m_Target: {fileID: 4147903475507595297}
+        m_TargetAssemblyTypeName: CombatMenuManager, Assembly-CSharp
+        m_MethodName: ColorButtonYellow
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: State, Assembly-CSharp
+          m_ObjectArgument: {fileID: 3985456006523485207}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -7880,7 +7823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 2779943596843121145}
-  buttonSelected: {fileID: 0}
+  lastButtonSelected: {fileID: 0}
 --- !u!224 &4071148326947749623
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7964,11 +7907,12 @@ MonoBehaviour:
   EquipSlotSelectMenu: {fileID: 1077561228672294422}
   GearSelectMenu: {fileID: 111231820}
   VictoryMenu: {fileID: 1151035953082048482}
-  firstMenuFirstButton: {fileID: 7573355860369707926}
-  secondMenuFirstButton: {fileID: 7420489363680585234}
-  thirdMenuFirstButton: {fileID: 0}
-  tacticalMenuFirstButton: {fileID: 0}
-  gearSelectMenuFirstButton: {fileID: 0}
+  actionMenuDefaultButton: {fileID: 7573355860369707926}
+  styleMenuDefaultButton: {fileID: 7420489363680585234}
+  selectEnemyMenuDefaultButton: {fileID: 0}
+  tacticalSelectMenuDefaultButton: {fileID: 3481137893218730727}
+  equipSlotSelectMenuDefaultButton: {fileID: 6233487571313123758}
+  gearSelectMenuDefaultButton: {fileID: 0}
   buttonSelectedYellow: {r: 1, g: 0.9098039, b: 0.21960784, a: 1}
 --- !u!1 &4157488765210624093
 GameObject:
@@ -8237,8 +8181,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 2779943596843121145}
-  buttonSelected: {fileID: 6233487571313123758}
-  combatGearMenu: {fileID: 1352871047785168101}
+  lastButtonSelected: {fileID: 0}
+  equipSlotSelectMenu: {fileID: 1352871047785168101}
 --- !u!114 &4388689155988229257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8644,13 +8588,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5860004189133314548}
-        m_TargetAssemblyTypeName: TacticalState, Assembly-CSharp
-        m_MethodName: TacticalOptionSelected
+      - m_Target: {fileID: 4147903475507595297}
+        m_TargetAssemblyTypeName: CombatMenuManager, Assembly-CSharp
+        m_MethodName: ColorButtonYellow
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: State, Assembly-CSharp
+          m_ObjectArgument: {fileID: 4823668599966268795}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8668,14 +8612,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!222 &4826645337772220922
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6021353091901966833}
-  m_CullTransparentMesh: 1
 --- !u!222 &4843583018070064359
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9489,7 +9425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 2779943596843121145}
-  buttonSelected: {fileID: 0}
+  lastButtonSelected: {fileID: 0}
 --- !u!222 &5527721786883103704
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9816,7 +9752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 2779943596843121145}
-  buttonSelected: {fileID: 3481137893218730727}
+  lastButtonSelected: {fileID: 0}
 --- !u!222 &5862764350651239310
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9899,7 +9835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 2779943596843121145}
-  buttonSelected: {fileID: 0}
+  lastButtonSelected: {fileID: 0}
   selectEnemyMenuScript: {fileID: 8603144373143322767}
 --- !u!4 &6001099435621908229
 Transform:
@@ -9939,11 +9875,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5978985799696920481}
-  - component: {fileID: 4826645337772220922}
-  - component: {fileID: 304915601217832151}
   - component: {fileID: 1936708359331170851}
   m_Layer: 0
-  m_Name: Style
+  m_Name: StyleLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10821,15 +10755,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.92549026, g: 0.09411766, b: 0.74509805, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: -6526367461493168759, guid: 5dddf6f5777318d488a0154b26e46dcf, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -11493,7 +11427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 2779943596843121145}
-  buttonSelected: {fileID: 0}
+  lastButtonSelected: {fileID: 0}
   victoryRewards: {fileID: 8291341181929506598}
 --- !u!222 &7698466529412870708
 CanvasRenderer:
@@ -11644,7 +11578,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!222 &7792075613362188488
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12193,38 +12127,6 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &8423800860498823881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9167694735775232734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad23615e1bdd8e44f802ca6eb6c23670, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Equip Gear
-  moveDescription: 
-  isEquipped: 0
-  moveWeighting: 0
-  attackPushStrength: 0
-  attackMoveModPercent: 0
-  fendMoveModPercent: 0
-  animtionIntTriggerToUse: 0
-  targetPositionHorizontalOffset: 0
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 1
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
-  enemy: {fileID: 0}
-  damageToPartsMultiplier: 0
-  potentialChange: 0
-  isFlaw: 0
 --- !u!114 &8431873973257894344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12496,12 +12398,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 2779943596843121145}
-  enemyhighlighted: {fileID: 0}
+  enemySelectButtonScriptHighlighted: {fileID: 0}
   enemySelectButtonPrefab: {fileID: 7601083301187507106, guid: 3d026390181295d46915247017717648, type: 3}
   selectEnemyMenuContainer: {fileID: 4714073722948662775}
   defaultButton: {fileID: 0}
   enemySelectButtons: []
   selectEnemyLabelGO: {fileID: 1406769035748384689}
+  isEnemySlotsInitialized: 0
 --- !u!4 &8652062202309334017
 Transform:
   m_ObjectHideFlags: 0
@@ -12566,7 +12469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 2779943596843121145}
-  buttonSelected: {fileID: 0}
+  lastButtonSelected: {fileID: 0}
   combatantUIPrefab: {fileID: 3277375303926951123, guid: 5960bcfa750ea67429ae09d54c0557f4, type: 3}
   combatMenuManager: {fileID: 4147903475507595297}
 --- !u!4 &8765095792263627750
@@ -12721,7 +12624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 2779943596843121145}
-  buttonSelected: {fileID: 0}
+  lastButtonSelected: {fileID: 0}
 --- !u!114 &9133253773387066689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12820,8 +12723,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1856412509316802594}
-  - component: {fileID: 8423800860498823881}
   - component: {fileID: 9167694735775232735}
+  - component: {fileID: 9167694735775232736}
   m_Layer: 0
   m_Name: EquipGearMove
   m_TagString: Untagged
@@ -12849,6 +12752,38 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &9167694735775232736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9167694735775232734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71536a75d52059d4aa48963aa9398882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveName: Equipping Gear
+  moveDescription: 
+  isEquipped: 0
+  moveWeighting: 0
+  attackPushStrength: 0
+  attackMoveModPercent: 0
+  fendMoveModPercent: 0
+  animtionIntTriggerToUse: 0
+  targetPositionHorizontalOffset: 0
+  offsetFromSelf: 0
+  applyMoveToSelfOnly: 0
+  combatManager: {fileID: 0}
+  combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
+  combatantToAct: {fileID: 0}
+  targetCombatant: {fileID: 0}
+  enemy: {fileID: 0}
+  damageToPartsMultiplier: 0
+  potentialChange: 0
+  isFlaw: 0
 --- !u!4 &9203654140424421243
 Transform:
   m_ObjectHideFlags: 0
@@ -12877,7 +12812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 2779943596843121145}
-  buttonSelected: {fileID: 0}
+  lastButtonSelected: {fileID: 0}
   combatUIContainer: {fileID: 4002092761699636633}
   playerDefeated: 0
 --- !u!1660057539 &9223372036854775807

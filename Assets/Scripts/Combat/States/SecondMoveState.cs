@@ -7,9 +7,7 @@ public class SecondMoveState : State
     public override IEnumerator StartState()
     {
         combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.secondMoveMenu, true);
-
-        combatManager.combatMenuManager.secondMenuFirstButton = buttonSelected;
-        combatManager.combatMenuManager.secondMenuFirstButton.Select();
+        combatManager.combatMenuManager.styleMenuDefaultButton.Select();
         combatManager.playerCombat.playerMoveManager.secondMoveIs = 0;
 
         yield break;
@@ -20,15 +18,16 @@ public class SecondMoveState : State
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.secondMoveMenu, false);
+            combatManager.combatMenuManager.SetButtonNormalColor(combatManager.firstMove.lastButtonSelected, Color.white);
+            combatManager.firstMove.lastButtonSelected.Select();
             combatManager.SetState(combatManager.firstMove);
-            combatManager.combatMenuManager.SetButtonNormalColor(combatManager.firstMove.buttonSelected, Color.white);
         }
     }
 
     public void StyleButtonSelected(int moveValue) //triggered via Button
     {
         combatManager.playerCombat.playerMoveManager.secondMoveIs = moveValue;
-        combatManager.combatMenuManager.secondMenuFirstButton = buttonSelected;
+        combatManager.combatMenuManager.styleMenuDefaultButton = lastButtonSelected;
         combatManager.playerCombat.playerMoveManager.CombineStanceAndMove();
 
         if (combatManager.playerCombat.moveSelected.attackMoveModPercent > 0)

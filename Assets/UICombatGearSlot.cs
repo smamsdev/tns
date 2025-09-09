@@ -7,26 +7,28 @@ using UnityEngine.EventSystems;
 
 public class UICombatGearSlot : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
-    public GearSO gear;
+    public GearSO gearSO;
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI itemQuantity;
     public Button button;
     public CombatMenuManager combatMenuManager;
+    public GearSelectCombatMenu gearSelectCombatMenu;
 
     public void OnSelect(BaseEventData eventData)
     {
-        CombatEvents.UpdateNarrator(gear.gearDescription);
-        combatMenuManager.SetTextAlpha(itemQuantity, gear.isCurrentlyEquipped ? 0.7f : 1f, Color.yellow);
+        CombatEvents.UpdateNarrator(gearSO.gearDescription);
+        combatMenuManager.SetTextAlpha(itemQuantity, gearSO.isCurrentlyEquipped ? 0.7f : 1f, Color.yellow);
+        combatMenuManager.gearSelectMenuDefaultButton = button;
+        gearSelectCombatMenu.UICombatGearSlotHighlighed = this;
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        combatMenuManager.SetTextAlpha(itemQuantity, gear.isCurrentlyEquipped ? 0.5f : 1f, Color.white);
+        combatMenuManager.SetTextAlpha(itemQuantity, gearSO.isCurrentlyEquipped ? 0.5f : 1f, Color.white);
     }
 
-    public void DefaultButtonSelected() //put this here because OnSelect doesn't work at first
+    public void Deselect()
     {
-        CombatEvents.UpdateNarrator(gear.gearDescription);
-        combatMenuManager.SetTextAlpha(itemQuantity, gear.isCurrentlyEquipped ? 0.7f : 1f, Color.yellow);
+        combatMenuManager.SetTextAlpha(itemQuantity, gearSO.isCurrentlyEquipped ? 0.5f : 1f, Color.white);
     }
 }

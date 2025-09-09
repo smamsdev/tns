@@ -5,14 +5,13 @@ using UnityEngine.Rendering;
 
 public class EquipSlotSelectState : State
 {
-    [SerializeField] EquipSlotSelectMenu combatGearMenu;
+    [SerializeField] EquipSlotSelectMenu equipSlotSelectMenu;
 
     public override IEnumerator StartState()
     {
         combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.EquipSlotSelectMenu, true);
-        combatGearMenu.DisplayEquipSlots();
-        combatManager.combatMenuManager.gearSelectMenuFirstButton = buttonSelected;
-        combatManager.combatMenuManager.gearSelectMenuFirstButton.Select();
+        equipSlotSelectMenu.DisplayEquipSlots();
+        combatManager.combatMenuManager.equipSlotSelectMenuDefaultButton.Select();
 
         yield break;
     }
@@ -22,9 +21,10 @@ public class EquipSlotSelectState : State
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             StartCoroutine(FieldEvents.CoolDown(0.2f));
-            combatManager.combatMenuManager.SetButtonNormalColor(combatManager.firstMove.buttonSelected, Color.white);
-            combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.GearSelectMenu, false);
+            combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.EquipSlotSelectMenu, false);
             combatManager.SetState(combatManager.tacticalSelectState);
+            combatManager.combatMenuManager.SetButtonNormalColor(combatManager.tacticalSelectState.lastButtonSelected, Color.white);
+            combatManager.tacticalSelectState.lastButtonSelected.Select();
             CombatEvents.UpdateNarrator("");
         }
     }

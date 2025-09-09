@@ -8,18 +8,26 @@ public class GearSelectCombatMenu : MonoBehaviour
     public CombatManager combatManager;
     PlayerInventory playerInventory;
     public GameObject UICombatGearSlotPrefab, inventorySlotsParent;
+    public GearSelectCombatState gearSelectCombatState;
 
     public List<UICombatGearSlot> gearSlots = new List<UICombatGearSlot>();
     List<Button> slotButtons = new List<Button>();
     public Dictionary<GearSO, UICombatGearSlot> gearToSlot = new Dictionary<GearSO, UICombatGearSlot>();
 
+    public UICombatGearSlot UICombatGearSlotHighlighed;
+
+    public bool isGearSlotsInitialized;
+
     public void InstantiateUIGearSlots()
     {
+        if (isGearSlotsInitialized)
+        { return; }
+
+        isGearSlotsInitialized = true;
+
         playerInventory = combatManager.playerCombat.playerInventory;
 
-        gearSlots.Clear();
-        slotButtons.Clear();
-        gearToSlot.Clear();
+        ClearSlots();
 
         foreach (GearSO gear in playerInventory.inventorySO.gearInventory)
         {
@@ -30,8 +38,9 @@ public class GearSelectCombatMenu : MonoBehaviour
 
                 UICombatGearSlot inventorySlot = UICombatgearSlot.GetComponent<UICombatGearSlot>();
                 UICombatgearSlot.name = gear.gearID;
-                inventorySlot.gear = gear;
+                inventorySlot.gearSO = gear;
                 inventorySlot.combatMenuManager = combatManager.combatMenuManager;
+                inventorySlot.gearSelectCombatMenu = this;
                 inventorySlot.itemName.text = gear.gearName;
                 inventorySlot.itemQuantity.text = "x" + gear.quantityInInventory;
 
@@ -39,7 +48,7 @@ public class GearSelectCombatMenu : MonoBehaviour
                 combatManager.combatMenuManager.SetTextAlpha(inventorySlot.itemName, alpha);
                 combatManager.combatMenuManager.SetTextAlpha(inventorySlot.itemQuantity, alpha);
 
-                //inventorySlot.button.onClick.AddListener(() => InventorySlotSelected(inventorySlot));
+                inventorySlot.button.onClick.AddListener(() => gearSelectCombatState.EquipSelectedGear(inventorySlot));
                 gearSlots.Add(inventorySlot);
                 slotButtons.Add(inventorySlot.button);
                 gearToSlot[gear] = inventorySlot;
@@ -47,8 +56,19 @@ public class GearSelectCombatMenu : MonoBehaviour
         }
 
         FieldEvents.SetGridNavigationWrapAround(slotButtons, 5);
-        gearSlots[0].button.Select();
-        gearSlots[0].DefaultButtonSelected();
+        combatManager.combatMenuManager.gearSelectMenuDefaultButton = gearSlots[0].button;
+    }
+
+    public void ClearSlots()
+    {
+        foreach (Transform child in inventorySlotsParent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        gearSlots.Clear();
+        slotButtons.Clear();
+        gearToSlot.Clear();
     }
 
 

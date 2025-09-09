@@ -15,26 +15,16 @@ public class EnemySelectButtonScript : MonoBehaviour, ISelectHandler, IDeselectH
 
     public void OnSelect(BaseEventData eventData)
     {
-        selectEnemyMenuScript.HighlightEnemy(combatant);
+        selectEnemyMenuScript.HighlightEnemy(this);
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        selectEnemyMenuScript.DeselectEnemy(combatant);
+        selectEnemyMenuScript.DeselectEnemy(this);
     }
 
-    private void OnEnable()
+    public void OnButtonSelected()
     {
-        button.onClick.AddListener(OnButtonClicked);
-    }
-
-    private void OnDisable()
-    {
-        button.onClick.RemoveListener(OnButtonClicked);
-    }
-
-    private void OnButtonClicked()
-    {
-        selectEnemyMenuScript.combatManager.enemySelectState.CombatantSelected(combatant);
+        selectEnemyMenuScript.combatManager.enemySelectState.CombatantSelected(this);
     }
 }

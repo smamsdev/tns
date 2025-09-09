@@ -8,20 +8,22 @@ public class DamageTakenDisplay : MonoBehaviour
     [SerializeField] Animator animator;
     public TextMeshProUGUI damageTakenTextMeshProUGUI, backStabText;
 
-    void Start()
+    public IEnumerator ShowDamageDisplayCoro(int damage, bool isHeal = false)
     {
-        damageTakenTextMeshProUGUI.enabled = false;
-    }
 
-    public IEnumerator ShowDamageDisplayCoro(int damage)
-    {
         float elapsedTime = 0f;
         float lerpDuration = .75f;
         int startNumber = 1;
         int valueToDisplay;
 
-        animator.SetInteger("animState", 1);
-        damageTakenTextMeshProUGUI.enabled = true;
+        if (isHeal)
+        {
+            animator.Play("HealingTaken");
+        }
+        else
+        {
+            animator.Play("DamageTaken");
+        }
 
         while (elapsedTime < lerpDuration)
         {
@@ -34,6 +36,5 @@ public class DamageTakenDisplay : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
-        animator.SetInteger("animState", 0);
     }
 }

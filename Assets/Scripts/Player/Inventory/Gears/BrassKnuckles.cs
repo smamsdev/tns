@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Vest : Gear
+public class BrassKnuckles : Gear
 {
     public override IEnumerator ApplyGear()
     {
-        Debug.Log("todo");
-        yield break;
+        throw new System.NotImplementedException();
     }
+
 }

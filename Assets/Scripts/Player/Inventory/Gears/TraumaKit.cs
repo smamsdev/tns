@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class TraumaKit : Gear
 {
-
+    public override IEnumerator ApplyGear()
+    {
+        throw new System.NotImplementedException();
+    }
 }

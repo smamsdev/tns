@@ -14,4 +14,5 @@ public class GearSO : ScriptableObject
     public bool isConsumable;
     public int value;
     public GameObject gearPrefab;
+    [System.NonSerialized] public Gear gearInstance;
 }

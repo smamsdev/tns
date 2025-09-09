@@ -15,10 +15,12 @@ public class Setup : State
         combatManager.playerCombat.fightingPosition = combatManager.battleScheme.playerFightingPosition;
         CombatEvents.isBattleMode = true;
         combatManager.cameraFollow.transformToFollow = combatManager.battleScheme.battleCenterPosition;
+        playerCombat = combatManager.playerCombat;
 
+        //InstantiateEquippedGear
+        playerCombat.playerInventory.InstantiateAllEquippedGear(combatManager);
 
         //position player
-        playerCombat = combatManager.playerCombat;
         MovementScript playerMovementScript = playerCombat.movementScript;
         playerMovementScript.rigidBody2d.bodyType = RigidbodyType2D.Kinematic;
         yield return combatManager.PositionCombatant(playerCombat.gameObject, playerCombat.fightingPosition.transform.position);

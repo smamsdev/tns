@@ -19,13 +19,13 @@ public class CombatMenuManager : MonoBehaviour
     public GameObject GearSelectMenu;
     public GameObject VictoryMenu;
 
-    [Header("First Buttons to Highlight")]
-
-    public Button firstMenuFirstButton; 
-    public Button secondMenuFirstButton;
-    public Button thirdMenuFirstButton;
-    public Button tacticalMenuFirstButton;
-    public Button gearSelectMenuFirstButton;
+    [Header("Default Buttons for Highlight")]
+    public Button actionMenuDefaultButton;
+    public Button styleMenuDefaultButton;
+    public Button selectEnemyMenuDefaultButton;
+    public Button tacticalSelectMenuDefaultButton;
+    public Button equipSlotSelectMenuDefaultButton;
+    public Button gearSelectMenuDefaultButton;
 
     public Color buttonSelectedYellow;
 
@@ -57,6 +57,9 @@ public class CombatMenuManager : MonoBehaviour
         GearSelectMenu.SetActive(false);
         VictoryMenu.SetActive(false);
         TacticalSelectMenu.SetActive(false);
+        EquipSlotSelectMenu.SetActive(false);
+        GearSelectMenu.SetActive(false);
+
         narratorTMP.gameObject.SetActive(false);
     }
 
@@ -80,6 +83,7 @@ public class CombatMenuManager : MonoBehaviour
     public void ColorButtonYellow(Button button) //via Button
     {
         SetButtonNormalColor(button, buttonSelectedYellow);
+        combatManager.currentState.lastButtonSelected = button;
     }
 
     public void SetTextAlpha(TextMeshProUGUI textMeshProUGUI, float alpha, Color color = default)

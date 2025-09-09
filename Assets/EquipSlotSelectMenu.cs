@@ -13,8 +13,6 @@ public class EquipSlotSelectMenu : MonoBehaviour
     public List<Button> uIGearEquipSlotButtons = new List<Button>();
     public UIGearEquipSlot equipSlotSelected;
 
-    [SerializeField] Move equipGearMove; //player needs a move assigned to complete their turn
-
     public void DisplayEquipSlots()
     {
         playerInventory = combatManager.playerCombat.playerInventory;
