@@ -46,15 +46,8 @@ public class PlayerCombat : Ally
 
     public override void InitialiseCombatantStats()
     {
-        PlayerStatsDisplay playerStatsDisplay = combatantUI.statsDisplay as PlayerStatsDisplay;
-
         CurrentHP = playerPermanentStats.currentHP;
-        playerStatsDisplay.combatantHP = CurrentHP;
-        playerStatsDisplay.combatantHPTextMeshPro.text = "HP: " + CurrentHP.ToString();
-
-        CurrentPotential = (playerPermanentStats.maxPotential / 2);
-        playerStatsDisplay.currentPotential = CurrentPotential;
-        playerStatsDisplay.potentialTMP.text = "Potential: " + CurrentPotential.ToString();
+        CurrentPotential = (playerPermanentStats.currentPotential);
     }
 
     public float CalculatePotentialMod()
@@ -107,13 +100,6 @@ public class PlayerCombat : Ally
         PlayerStatsDisplay playerStatsDisplay = combatantUI.statsDisplay as PlayerStatsDisplay;
         StartCoroutine(playerStatsDisplay.UpdatePlayerPotentialUI(currentPotential));
     }
-
-  // public override void UpdateHP(int value)
-  // {
-  //     CurrentHP += value;
-  //     PlayerStatsDisplay playerStatsDisplay = combatantUI.statsDisplay as PlayerStatsDisplay;
-  //     playerStatsDisplay.UpdateHPDisplay(CurrentHP);
-  // }
 
     public override void SelectMove()
     {

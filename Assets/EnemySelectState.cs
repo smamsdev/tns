@@ -31,7 +31,7 @@ public class EnemySelectState : State
         if (Input.GetKeyDown(KeyCode.Escape))
 
         {
-            combatManager.cameraFollow.transformToFollow = combatManager.player.transform;
+            combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
             selectEnemyMenuScript.DeselectEnemy(selectEnemyMenuScript.enemySelectButtonScriptHighlighted);
             combatManager.combatMenuManager.SetButtonNormalColor(combatManager.secondMove.lastButtonSelected, Color.white);
             combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.enemySelectMenu, false);

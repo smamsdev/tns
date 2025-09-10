@@ -18,7 +18,6 @@ public class StatsDisplay : MonoBehaviour
     }
 
     public void ShowStatsDisplay(bool on)
-
     {
         statsDisplayGameObject.SetActive(on);
     }
@@ -31,5 +30,13 @@ public class StatsDisplay : MonoBehaviour
         {
             statsDisplayContainerAnimator.Play("StatsDisplayOnDefeat");
         }
+    }
+
+    public virtual void InitialiseCombatStatsDisplay(Combatant combatant)
+    {
+        this.combatant = combatant;
+
+        combatantHP = combatant.CurrentHP;
+        combatantHPTextMeshPro.text = "HP: " + combatant.CurrentHP.ToString();
     }
 }

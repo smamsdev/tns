@@ -9,4 +9,8 @@ public class BrassKnuckles : Gear
         throw new System.NotImplementedException();
     }
 
+    public override void OnEquipGear()
+    {
+        throw new System.NotImplementedException();
+    }
 }

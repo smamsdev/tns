@@ -2,36 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ally : Combatant
+public class AllyTemp : Combatant
 {
-    [SerializeField] Move[] moves;
+    [SerializeField] EnemyMove[] enemyMoves;
 
-    private void OnEnable()
-    {
-        movementScript = GetComponent<MovementScript>();
-    }
 
     public override void SelectMove()
     {
         int moveWeightingTotal = 0;
 
-        foreach (var move in moves)
+        foreach (var enemyMove in enemyMoves)
         {
-            if (move.moveWeighting > 0)
+            if (enemyMove.moveWeighting > 0)
             {
-                moveWeightingTotal += move.moveWeighting;
+                moveWeightingTotal += enemyMove.moveWeighting;
             }
         }
 
         if (moveWeightingTotal == 0)
         {
-            Debug.LogError("No valid moves available to select! for" + this.gameObject.name);
+            Debug.LogError("No valid moves available to select!");
             return;
         }
 
         int randomValue = Random.Range(1, moveWeightingTotal + 1);
 
-        foreach (var enemyMove in moves)
+        foreach (var enemyMove in enemyMoves)
         {
             if (enemyMove.moveWeighting == 0) continue;
 
@@ -47,5 +43,17 @@ public class Ally : Combatant
         }
 
         Debug.LogError("Failed to select a move! Random value was " + randomValue);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }

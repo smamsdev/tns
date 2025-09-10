@@ -8,4 +8,6 @@ public abstract class Gear : MonoBehaviour
     public int turnsUntilConsumed;
 
     public abstract IEnumerator ApplyGear();
+
+    public abstract void OnEquipGear();
 }

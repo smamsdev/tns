@@ -6,7 +6,11 @@ public class Vest : Gear
 {
     public override IEnumerator ApplyGear()
     {
-        Debug.Log("todo");
-        yield break;
+        return null;
+    }
+
+    public override void OnEquipGear()
+    {
+        return;
     }
 }

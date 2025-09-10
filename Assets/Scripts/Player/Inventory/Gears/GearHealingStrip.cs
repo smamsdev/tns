@@ -17,4 +17,9 @@ public class GearHealingStrip : Gear
         yield return new WaitForSeconds(1.5f);
         CombatEvents.UpdateNarrator("");
     }
+
+    public override void OnEquipGear()
+    {
+        return;
+    }
 }

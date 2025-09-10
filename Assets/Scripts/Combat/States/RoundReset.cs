@@ -49,7 +49,7 @@ public class RoundReset : State
 
         yield return new WaitForSeconds(0.5f);
 
-        combatManager.cameraFollow.transformToFollow = combatManager.player.transform;
+        combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
         combatManager.roundCount++;
         combatManager.playerCombat.playerMoveManager.firstMoveIs = 0;
         combatManager.playerCombat.playerMoveManager.secondMoveIs = 0;

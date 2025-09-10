@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
@@ -35,6 +36,7 @@ public class PlayerInventory : MonoBehaviour
                 Gear gearInstance = gearInstanceGO.GetComponent<Gear>();
                 gearSO.gearInstance = gearInstance;
                 gearInstance.combatManager = combatManager;
+                gearInstance.OnEquipGear();
 
                 if (!gearSO.isConsumable)
                 { gearInstance.turnsUntilConsumed = -1; }

@@ -84,11 +84,5 @@ public abstract class Combatant : MonoBehaviour
     public virtual void InitialiseCombatantStats()
     {
         CurrentHP = maxHP;
-        combatantUI.statsDisplay.combatantHP = CurrentHP;
-        combatantUI.statsDisplay.combatantHPTextMeshPro.text = "HP: " + CurrentHP.ToString();
-
-        combatantUI.statsDisplay.combatant = this;
-        combatantUI.statsDisplay.combatantHP = CurrentHP;
-        combatantUI.statsDisplay.combatantNameTextMeshPro.text = combatantName;
     }
 }

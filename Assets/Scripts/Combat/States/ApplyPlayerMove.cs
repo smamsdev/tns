@@ -55,6 +55,16 @@ public class ApplyPlayerMove : State
 
             yield return gearSO.gearInstance.ApplyGear();
 
+            if (!gearSO.isConsumable)
+            {
+                gearSO.gearInstance.turnsUntilConsumed = -1;
+            }
+
+            else
+            {
+                gearSO.gearInstance.turnsUntilConsumed--;
+            }
+
             if (gearSO.gearInstance.turnsUntilConsumed == 0)
             {
                 player.playerInventory.DestroyGearInstance(gearSO);

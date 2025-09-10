@@ -17,9 +17,6 @@ public class Setup : State
         combatManager.cameraFollow.transformToFollow = combatManager.battleScheme.battleCenterPosition;
         playerCombat = combatManager.playerCombat;
 
-        //InstantiateEquippedGear
-        playerCombat.playerInventory.InstantiateAllEquippedGear(combatManager);
-
         //position player
         MovementScript playerMovementScript = playerCombat.movementScript;
         playerMovementScript.rigidBody2d.bodyType = RigidbodyType2D.Kinematic;
@@ -124,6 +121,7 @@ public class Setup : State
         }
 
         combatant.InitialiseCombatantStats();
+        combatantUI.statsDisplay.InitialiseCombatStatsDisplay(combatant);
         combatantUI.statsDisplay.ShowStatsDisplay(false);
     }
 

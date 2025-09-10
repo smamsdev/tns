@@ -29,7 +29,7 @@ public class VictoryState : State
         var playerAnimator = playerCombat.GetComponent<Animator>();
         playerAnimator.SetBool("isCombat", false);
         playerAnimator.Play("Idle");
-        combatManager.cameraFollow.transformToFollow = combatManager.player.transform;
+        combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
 
         if (combatManager.battleScheme.isRandomEnounter)
         {

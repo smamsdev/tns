@@ -8,4 +8,9 @@ public class TraumaKit : Gear
     {
         throw new System.NotImplementedException();
     }
+
+    public override void OnEquipGear()
+    {
+        throw new System.NotImplementedException();
+    }
 }

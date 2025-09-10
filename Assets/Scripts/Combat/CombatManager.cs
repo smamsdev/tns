@@ -7,7 +7,7 @@ public class CombatManager : MonoBehaviour
 {
     [Header("Battle Setup")]
     public Battle battleScheme;
-    public GameObject player;
+    //public GameObject player;
     public PlayerCombat playerCombat;
     public List<Combatant> allies;
     public List<Combatant> enemies;
@@ -41,11 +41,23 @@ public class CombatManager : MonoBehaviour
     private void OnEnable()
     {
         CombatEvents.PlayerDefeated += PlayerDefeated;
+        cameraFollow = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
+        playerCombat = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>();
     }
 
     private void OnDisable()
     {
         CombatEvents.PlayerDefeated -= PlayerDefeated;
+    }
+
+    private void Start()
+    {
+        InitializePermanentStatsAndGear();
+    }
+
+    void InitializePermanentStatsAndGear()
+    {
+        playerCombat.playerInventory.InstantiateAllEquippedGear(this);
     }
 
     public void CombatantDefeated(Combatant defeatedCombatant)
@@ -83,10 +95,6 @@ public class CombatManager : MonoBehaviour
     public void StartBattle()
     {
         CombatEvents.LockPlayerMovement.Invoke();
-
-        cameraFollow = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerCombat = player.GetComponentInChildren<PlayerCombat>();
 
         if (playerCombat.playerMoveManager == null)
         {

@@ -435,7 +435,7 @@ GameObject:
   - component: {fileID: 3169146816005420042}
   - component: {fileID: 6509056630106291203}
   - component: {fileID: 4033945746910455513}
-  - component: {fileID: 5433470166303698911}
+  - component: {fileID: 1863034815345287229}
   m_Layer: 8
   m_Name: Graeber
   m_TagString: NPC
@@ -646,7 +646,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5433470166303698911
+--- !u!114 &1863034815345287229
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -655,29 +655,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 8544772069570677220}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 228763fc52a29aa44ad7d54fd63d9511, type: 3}
+  m_Script: {fileID: 11500000, guid: 78da61f05d16ab748aded60011c6abb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   combatantName: Graeber
   combatantUI: {fileID: 0}
   movementScript: {fileID: 0}
   attackBase: 12
-  fendBase: 1
-  maxHP: 222
+  fendBase: 12
+  maxHP: 12
   fendDisplayOn: 0
   isEncounterSpawned: 0
   currentHP: 0
   attackTotal: 0
   fendTotal: 0
   injuryPenalty: 0
-  forceLookDirection: {x: 1, y: 0}
+  forceLookDirection: {x: 0, y: 0}
   fightingPosition: {fileID: 0}
   targetToAttack: {fileID: 0}
   moveSelected: {fileID: 0}
+  enemyMoves: []
   moves:
   - {fileID: 8683365583146559718}
-  - {fileID: 594778832947085336}
-  allyPermanentStats: {fileID: 11400000, guid: 06870b462ace2f64096dc3aa119873c4, type: 2}
+  partyMemberPermanentStats: {fileID: 11400000, guid: 06870b462ace2f64096dc3aa119873c4, type: 2}
 --- !u!1 &8679503915426022358
 GameObject:
   m_ObjectHideFlags: 0

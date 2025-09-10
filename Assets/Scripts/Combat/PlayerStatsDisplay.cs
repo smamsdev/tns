@@ -31,4 +31,15 @@ public class PlayerStatsDisplay : StatsDisplay
 
         currentPotential = newValue;
     }
+
+    public override void InitialiseCombatStatsDisplay(Combatant combatant)
+    {
+        combatantHP = combatant.CurrentHP;
+        combatantHPTextMeshPro.text = "HP: " + combatant.CurrentHP.ToString();
+
+        var playerCombatant = combatant as PlayerCombat;
+
+        currentPotential = playerCombatant.CurrentPotential;
+        potentialTMP.text = "Potential: " + playerCombatant.CurrentPotential.ToString();
+    }
 }

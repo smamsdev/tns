@@ -62,7 +62,7 @@ public class SelectEnemyMenuScript : MonoBehaviour
         combatantUI.selectedAnimator.SetBool("Flash", true);
         combatManager.SelectAndDisplayCombatantMove(enemySelectScript.combatant);
 
-        Vector2 direction = (enemySelectScript.combatant.transform.position - combatManager.player.transform.position).normalized;
+        Vector2 direction = (enemySelectScript.combatant.transform.position - combatManager.playerCombat.transform.position).normalized;
         float attackDirX = Mathf.Sign(direction.x);
 
         combatManager.playerCombat.movementScript.lookDirection = new Vector2 (attackDirX, 0);

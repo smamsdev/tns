@@ -108,10 +108,10 @@ public class VictoryRewards : MonoBehaviour
         {
             if (!combatManager.allAlliesToTarget[partyToLoop].isEncounterSpawned)
             {
-                Ally ally = combatManager.allAlliesToTarget[partyToLoop] as Ally;
+                Combatant combatant = combatManager.allAlliesToTarget[partyToLoop];
                 AllyPermanentStats stats;
 
-                if (ally is PlayerCombat playerCombat)
+                if (combatant is PlayerCombat playerCombat)
                 {
                     foreach (GameObject go in playerStatsOnly)
                     { go.SetActive(true); }
@@ -120,15 +120,20 @@ public class VictoryRewards : MonoBehaviour
                     stats = playerStats;
                     playerFocusTMP.text = playerStats.focusBase.ToString();
                 }
-                else
+                else if (combatant is PartyMember partyMember)
                 {
                     foreach (GameObject go in playerStatsOnly)
                     { go.SetActive(false); }
-                    stats = ally.allyPermanentStats;
+                    stats = partyMember.partyMemberPermanentStats;
+                }
+
+                else
+                {
+                    throw new System.InvalidOperationException($"Unexpected combatant type: {combatant.GetType().Name}");
                 }
 
                 stats.UpdateThreshold();
-                allyNameTMP.text = ally.combatantName;
+                allyNameTMP.text = combatant.combatantName;
                 allyLevelTMP.text = stats.level.ToString();
                 allyAttackTMP.text = stats.attackBase.ToString();
                 allyFendTMP.text = stats.fendBase.ToString();
