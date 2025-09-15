@@ -9,7 +9,7 @@ public class FendScript : MonoBehaviour
 {
     public TextMeshProUGUI fendTextMeshProUGUI;
     public CombatManager combatManager;
-    public Animator fendAnimator, backStabAnimator;
+    [SerializeField] Animator fendAnimator, backStabAnimator;
     Combatant combatantAttacking;
     Combatant target;
     public int attackRemainder;
@@ -17,20 +17,23 @@ public class FendScript : MonoBehaviour
 
     public void ShowFendDisplay(Combatant combatantToShow, bool on)
     {
-        if (on)
+        if (combatantToShow.fendTotal > 0)
         {
-            if (combatantToShow.fendTotal > 0)
+            if (on)
             {
-                fendAnimator.Play("FendAppear", 0 , 0);
-                combatantToShow.fendDisplayOn = on;
+                fendAnimator.Play("FendAppear");
+                fendTextMeshProUGUI.text = combatantToShow.fendTotal.ToString();
+            }
+
+            else
+            {
+                fendAnimator.Play("FendAppearReverse");
             }
         }
 
-        if (!on && combatantToShow.fendDisplayOn)
+        else
         {
-            fendAnimator.Play("FendFade", 0, 0);
-            //Debug.Log("off");
-            combatantToShow.fendDisplayOn = false;
+            fendAnimator.Play("FendDefault");
         }
     }
 
@@ -114,7 +117,6 @@ public class FendScript : MonoBehaviour
                     target.UpdateHP(-attackRemainder);
                 }
 
-                target.fendDisplayOn = false;
                 yield return new WaitForSeconds(0.2f);
 
                 var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);

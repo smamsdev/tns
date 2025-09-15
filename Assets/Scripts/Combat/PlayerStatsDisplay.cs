@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class PlayerStatsDisplay : StatsDisplay
@@ -8,6 +9,21 @@ public class PlayerStatsDisplay : StatsDisplay
     public TextMeshProUGUI potentialTMP;
     [SerializeField] Animator potentialTMPAnimator;
     public int currentPotential;
+
+    public override void ShowStatsDisplay(bool on)
+    {
+        return;
+    }
+
+    public override void UpdateHPDisplay(int value)
+    {
+        combatantHPTextMeshPro.text = "HP: " + value.ToString();
+
+        if (combatant.CurrentHP <= 0)
+        {
+            Debug.LogError("player just died do someth");
+        }
+    }
 
     public IEnumerator UpdatePlayerPotentialUI(int newValue)
     {

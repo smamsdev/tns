@@ -940,6 +940,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 688420330996259635, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: attackPushStrength
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2600038062933993359, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: statsDisplayContainerAnimator
+      value: 
+      objectReference: {fileID: 1239289747}
     - target: {fileID: 6457784655243026927, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2530,6 +2538,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1746740990}
   customAnimationTriggerNumber: 2
+--- !u!95 &1239289747 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1170908821512508967, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+  m_PrefabInstance: {fileID: 519880131}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1242662118
 GameObject:
   m_ObjectHideFlags: 0
@@ -2604,20 +2617,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyRoster:
   - enemyPreFab: {fileID: 1705068664190481556, guid: 2886a77e0ed244747a6ee7bb09ec4289, type: 3}
-    maxNumberOfType: 2
+    maxNumberOfType: 3
     remainingThisBattle: 0
     amountSpawned: 0
-  bonusAllyRoster:
-  - allyPreFab: {fileID: 3804467936908968402, guid: c6e2d128947970843b7b8b925d4f9886, type: 3}
-    maxNumberOfType: 1
-    remainingThisBattle: 0
-    amountSpawned: 0
-  maxTotalEnemies: 2
+  bonusAllyRoster: []
+  maxTotalEnemies: 3
   maxBonusAllies: 1
   battle: {fileID: 1272831097}
   sceneSetup: {fileID: 1458070175}
   surpriseAttackPer100: 0
-  flankBattlePer100: 25
+  flankBattlePer100: 0
 --- !u!224 &1272831096
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12653,8 +12662,6 @@ MonoBehaviour:
   combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
   targetCombatant: {fileID: 0}
-  enemy: {fileID: 0}
-  damageToPartsMultiplier: 0
   potentialChange: 0
   isFlaw: 0
 --- !u!4 &9203654140424421243

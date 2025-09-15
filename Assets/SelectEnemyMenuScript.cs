@@ -60,7 +60,7 @@ public class SelectEnemyMenuScript : MonoBehaviour
         combatantUI.statsDisplay.ShowStatsDisplay(true);
 
         combatantUI.selectedAnimator.SetBool("Flash", true);
-        combatManager.SelectAndDisplayCombatantMove(enemySelectScript.combatant);
+        enemySelectScript.combatant.combatantUI.DisplayCombatantMove(enemySelectScript.combatant);
 
         Vector2 direction = (enemySelectScript.combatant.transform.position - combatManager.playerCombat.transform.position).normalized;
         float attackDirX = Mathf.Sign(direction.x);
@@ -68,16 +68,13 @@ public class SelectEnemyMenuScript : MonoBehaviour
         combatManager.playerCombat.movementScript.lookDirection = new Vector2 (attackDirX, 0);
     }
 
-    public void DeselectEnemy(EnemySelectButtonScript enemySelectScript)
+    public void DeselectEnemy(EnemySelectButtonScript enemySelectScriptToDeselect)
     {
-        var combatantUI = enemySelectScript.combatant.combatantUI;
+        var combatantUI = enemySelectScriptToDeselect.combatant.combatantUI;
         combatantUI.selectedAnimator.SetBool("Flash", false);
         combatantUI.statsDisplay.ShowStatsDisplay(false);
-        combatantUI.attackDisplay.attackDisplayAnimator.Play("CombatantAttackDamageFadeUpReverse");
-        if (enemySelectScript.combatant.fendTotal > 0)
-        {
-            enemySelectScript.combatant.combatantUI.fendScript.fendAnimator.Play("FendAppearReverse");
-        }
+        combatantUI.attackDisplay.ShowAttackDisplay(enemySelectScriptToDeselect.combatant, false);
+        enemySelectScriptToDeselect.combatant.combatantUI.fendScript.ShowFendDisplay(enemySelectScriptToDeselect.combatant, false);
     }
 
 }

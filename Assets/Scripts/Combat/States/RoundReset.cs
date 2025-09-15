@@ -14,37 +14,26 @@ public class RoundReset : State
         foreach (Enemy enemy in combatManager.enemies)
         {
             combatManager.SelectTargetToAttack(enemy, combatManager.allAlliesToTarget);
+            enemy.combatantUI.attackDisplay.SetAttackDisplayDirBasedOnLookDir(enemy);
 
-            if (enemy.GetComponent<MovementScript>().lookDirection == Vector2.left)
-            {
-                combatManager.SetUIBasedOnLookDir(enemy);
-            }
+            combatManager.SelectCombatantMove(enemy);
+            enemy.combatantUI.DisplayCombatantMove(enemy);
 
-            combatManager.SelectAndDisplayCombatantMove(enemy);
-            yield return new WaitForSeconds(.7f);
-            enemy.combatantUI.attackDisplay.attackDisplayAnimator.Play("CombatantAttackDamageFadeDown");
-            if (enemy.fendTotal > 0)
-            {
-                enemy.combatantUI.fendScript.fendAnimator.Play("FendFade");
-            }
+            yield return new WaitForSeconds(1f);
+            enemy.combatantUI.attackDisplay.ShowAttackDisplay(enemy, false);
+            enemy.combatantUI.fendScript.ShowFendDisplay(enemy, false);
         }
 
         foreach (Ally ally in combatManager.allies)
         {
             combatManager.SelectTargetToAttack(ally, combatManager.enemies);
+            ally.combatantUI.attackDisplay.SetAttackDisplayDirBasedOnLookDir(ally);
 
-            if (ally.GetComponent<MovementScript>().lookDirection == Vector2.left)
-            {
-                combatManager.SetUIBasedOnLookDir(ally);
-            }
-
-            combatManager.SelectAndDisplayCombatantMove(ally);
-            yield return new WaitForSeconds(.7f);
-            ally.combatantUI.attackDisplay.attackDisplayAnimator.Play("CombatantAttackDamageFadeDown");
-            if (ally.fendTotal > 0)
-            {
-                ally.combatantUI.fendScript.fendAnimator.Play("FendFade");
-            }
+            combatManager.SelectCombatantMove(ally);
+            ally.combatantUI.DisplayCombatantMove(ally);
+            yield return new WaitForSeconds(1f);
+            ally.combatantUI.attackDisplay.ShowAttackDisplay(ally, false);
+            ally.combatantUI.fendScript.ShowFendDisplay(ally, false);
         }
 
         yield return new WaitForSeconds(0.5f);

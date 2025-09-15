@@ -12,13 +12,6 @@ public class EnemyMoveState : State
             combatManager.SetState(combatManager.roundReset);
             yield break;
         }
-                
-     //  foreach (Enemy enemy in combatManager.enemies)
-     //  {
-     //      enemy.combatantUI.attackDisplay.ShowAttackDisplay(false);
-     //      enemy.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(false);
-     //      enemy.combatantUI.fendScript.ShowFendDisplay(enemy, false);
-     //  }
 
         for (int i = 0; i < combatManager.enemies.Count;) //gotta manage an iterator here as the enemy list count may change mid loop
         {
@@ -32,10 +25,10 @@ public class EnemyMoveState : State
             }
 
             //store allied target look dir
-            var alliedTargetMovementScript = combatManager.enemies[i].targetToAttack.GetComponent<MovementScript>();
+            var alliedTargetMovementScript = combatManager.enemies[i].targetToAttack.movementScript;
             var alliedTargetStoredLookDir = alliedTargetMovementScript.lookDirection;
 
-            var enemyLastLookDirection = combatManager.enemies[i].GetComponent<MovementScript>().lookDirection;
+            var enemyLastLookDirection = combatManager.enemies[i].movementScript.lookDirection;
             var enemyAnimator = combatManager.enemies[i].gameObject.GetComponent<Animator>();
             enemyAnimator.ResetTrigger("CombatIdle");
 
@@ -46,14 +39,14 @@ public class EnemyMoveState : State
 
             var targetToAttackUI = combatManager.enemies[i].targetToAttack.GetComponentInChildren<CombatantUI>();
 
-            if (!combatManager.enemies[i].targetToAttack.fendDisplayOn)
+            if (combatManager.enemies[i].targetToAttack.fendTotal > 0)
             {
                 targetToAttackUI.fendScript.ShowFendDisplay(combatManager.enemies[i].targetToAttack, true);
                 targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
             }
 
             yield return combatManager.enemies[i].moveSelected.ApplyMove(combatManager.enemies[i], combatManager.enemies[i].targetToAttack);
-            combatManager.enemies[i].GetComponent<MovementScript>().lookDirection = enemyLastLookDirection;
+            combatManager.enemies[i].movementScript.lookDirection = enemyLastLookDirection;
 
             //check for player defeat
             if (combatManager.defeat.playerDefeated)
@@ -67,6 +60,7 @@ public class EnemyMoveState : State
             {
                 yield return new WaitForSeconds(0.5f);
                 yield return combatManager.PositionCombatant(combatManager.enemies[i].targetToAttack.gameObject, combatManager.enemies[i].targetToAttack.fightingPosition.transform.position);
+                targetToAttackUI.fendScript.ShowFendDisplay(combatManager.enemies[i].targetToAttack, false);
             }
 
             //check that enemy to act did not die mid turn and iterate

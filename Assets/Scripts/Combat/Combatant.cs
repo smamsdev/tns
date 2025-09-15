@@ -11,8 +11,11 @@ public abstract class Combatant : MonoBehaviour
     public int attackBase;
     public int fendBase;
     public int maxHP;
-    public bool fendDisplayOn;
-    public bool isEncounterSpawned;
+
+    private void OnEnable()
+    {
+        movementScript = GetComponent<MovementScript>();
+    }
 
     public int CurrentHP
     {
@@ -22,7 +25,7 @@ public abstract class Combatant : MonoBehaviour
         }
         set
         {
-            currentHP = Mathf.Clamp(value, 0, 9999);
+            currentHP = Mathf.Clamp(value, 0, maxHP);
         }
     }
 
@@ -30,7 +33,6 @@ public abstract class Combatant : MonoBehaviour
 
     public int attackTotal;
     public int fendTotal;
-    public int injuryPenalty;
 
     public Vector2 forceLookDirection;
     public GameObject fightingPosition;
@@ -79,10 +81,5 @@ public abstract class Combatant : MonoBehaviour
     { 
         var combatantAnimator = this.GetComponent<Animator>();
         combatantAnimator.SetBool("Defeated", true);
-    }
-
-    public virtual void InitialiseCombatantStats()
-    {
-        CurrentHP = maxHP;
     }
 }

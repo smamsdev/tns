@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Move : MonoBehaviour
+public class Move : MonoBehaviour
 {
     public string moveName;
     [TextArea(2, 5)]
@@ -25,8 +25,6 @@ public abstract class Move : MonoBehaviour
     [HideInInspector] public CombatManager combatManager;
     [HideInInspector] public Animator combatantToActAnimator;
     [HideInInspector] public MovementScript combatantToActMovementScript;
-
-
     [HideInInspector] public Combatant combatantToAct, targetCombatant;
 
     public virtual IEnumerator MoveToPosition(GameObject objectToMove, Vector3 targetPosition)
@@ -68,7 +66,7 @@ public abstract class Move : MonoBehaviour
         return targetPosition;
     }
 
-    public virtual void LoadMoveStats(Combatant combatant, CombatManager combatManager)
+    public virtual void LoadMoveStatsAndPassCBM(Combatant combatant, CombatManager combatManager)
     {
         this.combatManager = combatManager;
 
@@ -77,7 +75,6 @@ public abstract class Move : MonoBehaviour
 
         var rng = Mathf.RoundToInt(combatant.attackTotal * Random.Range(-0.3f, 0.3f));
 
-        combatant.attackTotal -= combatant.injuryPenalty;
         combatant.attackTotal = Mathf.RoundToInt(combatant.attackTotal + rng);
     }
 
@@ -134,7 +131,6 @@ public abstract class Move : MonoBehaviour
     {
         var playerDefaultLookDirection = combatantToActMovementScript.lookDirection;
         var targetToAttackUI = combatantToAct.targetToAttack.GetComponentInChildren<CombatantUI>();
-        targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
 
         //move to attack pos
         yield return MoveToPosition(combatantToAct.gameObject, combatantToAct.moveSelected.AttackPositionLocation(combatantToAct));
@@ -151,6 +147,7 @@ public abstract class Move : MonoBehaviour
         }
 
         //apply stats to enemy and animate
+        targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
         combatManager.cameraFollow.transformToFollow = targetCombatant.transform;
         targetCombatant.combatantUI.fendScript.ApplyAttackToFend(combatantToAct, combatantToAct.targetToAttack);
         TriggerMoveAnimation();
@@ -158,8 +155,8 @@ public abstract class Move : MonoBehaviour
         yield return new WaitForSeconds(0);
 
         //return combatantToAct to fightingpos, and return look direct
-        combatantToActAnimator.SetTrigger("Back");
         yield return ReturnFromPosition(combatantToAct.gameObject, combatantToAct.fightingPosition.transform.position);
+        targetToAttackUI.statsDisplay.ShowStatsDisplay(false);
 
         combatantToActMovementScript.lookDirection = playerDefaultLookDirection;
         TriggerIdleAnimation();

@@ -2,24 +2,48 @@ using TMPro;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
-public class Enemy : Ally
+public class Enemy : Combatant
 {
-    [Header("")]
     public int XPReward;
     public GearSO itemReward;
+    [SerializeField] Move[] moves;
 
-    [HideInInspector] int enemyBodyMaxHP;
-    [HideInInspector] int enemyArmsMaxHP;
-    [HideInInspector] int enemyHeadMaxHP;
-
-    [Header("Misc")]
-    int moveWeightingTotal = 0;
-    public int randomValue;
-    public int rng;
-
-    private void OnEnable()
+    public override void SelectMove()
     {
-        movementScript = GetComponent<MovementScript>();
+        int moveWeightingTotal = 0;
+
+        foreach (var move in moves)
+        {
+            if (move.moveWeighting > 0)
+            {
+                moveWeightingTotal += move.moveWeighting;
+            }
+        }
+
+        if (moveWeightingTotal == 0)
+        {
+            Debug.LogError("No valid moves available to select! for" + this.gameObject.name);
+            return;
+        }
+
+        int randomValue = Random.Range(1, moveWeightingTotal + 1);
+
+        foreach (var enemyMove in moves)
+        {
+            if (enemyMove.moveWeighting == 0) continue;
+
+            if (randomValue > enemyMove.moveWeighting)
+            {
+                randomValue -= enemyMove.moveWeighting;
+            }
+            else
+            {
+                moveSelected = enemyMove;
+                return;
+            }
+        }
+
+        Debug.LogError("Failed to select a move! Random value was " + randomValue);
     }
 
     public GearSO ItemDrop()

@@ -4,6 +4,7 @@ using TMPro;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
 public class VictoryRewards : MonoBehaviour
 {
@@ -97,7 +98,7 @@ public class VictoryRewards : MonoBehaviour
     public void CyclePartyMemberXPGain()
     {
         if (!XPRewardsDistributeParent.activeSelf) { XPRewardsDistributeParent.SetActive(true); }
-
+        
         if (partyToLoop >= combatManager.allAlliesToTarget.Count)
         {
             StartCoroutine(victory.EndBattle());
@@ -106,39 +107,26 @@ public class VictoryRewards : MonoBehaviour
                 
         if (partyToLoop < combatManager.allAlliesToTarget.Count)
         {
-            if (!combatManager.allAlliesToTarget[partyToLoop].isEncounterSpawned)
+            Combatant combatant = combatManager.allAlliesToTarget[partyToLoop];
+            combatManager.cameraFollow.transformToFollow = combatManager.allAlliesToTarget[partyToLoop].transform;
+
+            if (combatant is PlayerCombat playerCombat)
             {
-                Combatant combatant = combatManager.allAlliesToTarget[partyToLoop];
-                AllyPermanentStats stats;
-
-                if (combatant is PlayerCombat playerCombat)
+                foreach (GameObject go in playerStatsOnly)
                 {
-                    foreach (GameObject go in playerStatsOnly)
-                    { go.SetActive(true); }
-
-                    PlayerPermanentStats playerStats = playerCombat.playerPermanentStats;
-                    stats = playerStats;
-                    playerFocusTMP.text = playerStats.focusBase.ToString();
-                }
-                else if (combatant is PartyMember partyMember)
-                {
-                    foreach (GameObject go in playerStatsOnly)
-                    { go.SetActive(false); }
-                    stats = partyMember.partyMemberPermanentStats;
+                    go.SetActive(true);
                 }
 
-                else
-                {
-                    throw new System.InvalidOperationException($"Unexpected combatant type: {combatant.GetType().Name}");
-                }
+                PlayerPermanentStats playerStats = playerCombat.playerPermanentStats;
 
-                stats.UpdateThreshold();
+                playerFocusTMP.text = playerStats.focusBase.ToString();
+                playerStats.UpdateThreshold();
                 allyNameTMP.text = combatant.combatantName;
-                allyLevelTMP.text = stats.level.ToString();
-                allyAttackTMP.text = stats.attackBase.ToString();
-                allyFendTMP.text = stats.fendBase.ToString();
+                allyLevelTMP.text = playerStats.level.ToString();
+                allyAttackTMP.text = playerStats.attackBase.ToString();
+                allyFendTMP.text = playerStats.fendBase.ToString();
 
-                var previousXP = stats.XP;
+                var previousXP = playerStats.XP;
                 var targetXP = previousXP + XPEarned;
                 allyXPTMP.text = previousXP.ToString();
 
@@ -146,30 +134,64 @@ public class VictoryRewards : MonoBehaviour
 
                 FieldEvents.LerpValues(previousXP, targetXP, 1, value =>
                 {
-                    stats.XP = Mathf.RoundToInt(value);
-                    allyXPTMP.text = stats.XP.ToString();
-                    allyXPRemainderTMP.text = (stats.XPThreshold - stats.XP).ToString();
+                    playerStats.XP = Mathf.RoundToInt(value);
+                    allyXPTMP.text = playerStats.XP.ToString();
+                    allyXPRemainderTMP.text = (playerStats.XPThreshold - playerStats.XP).ToString();
 
                     UpdateXPGainLayout();
 
-                    if (stats.XP >= stats.XPThreshold)
+                    if (playerStats.XP >= playerStats.XPThreshold)
                     {
-                        stats.LevelUp();
-                        allyLevelTMP.text = stats.level.ToString();
-                        allyAttackTMP.text = stats.attackBase.ToString();
-                        allyFendTMP.text = stats.fendBase.ToString();
-
-                        if (stats is PlayerPermanentStats playerStats)
-                        {
-                            playerFocusTMP.text = playerStats.focusBase.ToString();
-                        }
+                        playerStats.LevelUp();
+                        allyLevelTMP.text = playerStats.level.ToString();
+                        allyAttackTMP.text = playerStats.attackBase.ToString();
+                        allyFendTMP.text = playerStats.fendBase.ToString();
+                        playerFocusTMP.text = playerStats.focusBase.ToString();
                     }
                 });
-
-                combatManager.cameraFollow.transformToFollow = combatManager.allAlliesToTarget[partyToLoop].transform;
             }
 
-            partyToLoop++;
+            else
+
+            {
+                PartyMemberCombat partyMemberCombat = combatant as PartyMemberCombat;
+
+                foreach (GameObject go in playerStatsOnly)
+                { go.SetActive(false); }
+
+                PartyMemberSO partyMemberSO = partyMemberCombat.partyMemberSO;
+
+                partyMemberSO.UpdateThreshold();
+                allyNameTMP.text = combatant.combatantName;
+                allyLevelTMP.text = partyMemberSO.level.ToString();
+                allyAttackTMP.text = partyMemberSO.attackBase.ToString();
+                allyFendTMP.text = partyMemberSO.fendBase.ToString();
+
+                var previousXP = partyMemberSO.XP;
+                var targetXP = previousXP + XPEarned;
+                allyXPTMP.text = previousXP.ToString();
+
+                UpdateXPGainLayout();
+
+                FieldEvents.LerpValues(previousXP, targetXP, 1, value =>
+                {
+                    partyMemberSO.XP = Mathf.RoundToInt(value);
+                    allyXPTMP.text = partyMemberSO.XP.ToString();
+                    allyXPRemainderTMP.text = (partyMemberSO.XPThreshold - partyMemberSO.XP).ToString();
+
+                    UpdateXPGainLayout();
+
+                    if (partyMemberSO.XP >= partyMemberSO.XPThreshold)
+                    {
+                        partyMemberSO.LevelUp();
+                        allyLevelTMP.text = partyMemberSO.level.ToString();
+                        allyAttackTMP.text = partyMemberSO.attackBase.ToString();
+                        allyFendTMP.text = partyMemberSO.fendBase.ToString();
+                    }
+                });
+            }
+        
+        partyToLoop++;
         }
     }
 

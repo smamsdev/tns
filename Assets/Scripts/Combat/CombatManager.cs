@@ -58,6 +58,14 @@ public class CombatManager : MonoBehaviour
     void InitializePermanentStatsAndGear()
     {
         playerCombat.playerInventory.InstantiateAllEquippedGear(this);
+
+        playerCombat.maxHP = playerCombat.playerPermanentStats.maxHP;
+        playerCombat.CurrentHP = playerCombat.playerPermanentStats.currentHP;
+        playerCombat.currentPotential = playerCombat.playerPermanentStats.currentPotential;
+        playerCombat.attackBase = playerCombat.playerPermanentStats.attackBase;
+        playerCombat.fendBase = playerCombat.playerPermanentStats.fendBase;
+        playerCombat.focusBase = playerCombat.playerPermanentStats.focusBase;
+
     }
 
     public void CombatantDefeated(Combatant defeatedCombatant)
@@ -147,33 +155,16 @@ public class CombatManager : MonoBehaviour
         Destroy(combatantMoveMentInstanceGO);
     }
 
-    public void SelectAndDisplayCombatantMove(Combatant combatant)
+    public void SelectCombatantMove(Combatant combatant)
     {
         combatant.SelectMove();
-        combatant.moveSelected.LoadMoveStats(combatant, this);
-        combatant.combatantUI.attackDisplay.UpdateAttackDisplay(combatant.attackTotal);
-        combatant.combatantUI.attackDisplay.attackDisplayAnimator.Play("CombatantAttackDamageFadeUp");
-        combatant.combatantUI.fendScript.fendTextMeshProUGUI.text = combatant.fendTotal.ToString();
-
-        if (combatant.attackTotal > 0)
-        {
-            combatant.combatantUI.attackDisplay.ShowAttackDisplay(true);
-        }
-
-        combatant.combatantUI.fendScript.ShowFendDisplay(combatant, true);
+        combatant.moveSelected.LoadMoveStatsAndPassCBM(combatant, this);
     }
 
     void PlayerDefeated()
     {
         defeat.playerDefeated = true;
         SetState(defeat);
-    }
-
-    public void SetUIBasedOnLookDir(Combatant combatant)
-    {
-        var flippedPos = combatant.combatantUI.attackDisplay.transform.localPosition;
-        flippedPos.x = -flippedPos.x;
-        combatant.combatantUI.attackDisplay.transform.localPosition = flippedPos;
     }
 
     public void SelectTargetToAttack(Combatant combatant, List<Combatant> targetList)

@@ -17,12 +17,12 @@ public class StatsDisplay : MonoBehaviour
         ShowStatsDisplay(false);
     }
 
-    public void ShowStatsDisplay(bool on)
+    public virtual void ShowStatsDisplay(bool on)
     {
         statsDisplayGameObject.SetActive(on);
     }
 
-    public void UpdateHPDisplay(int value)
+    public virtual void UpdateHPDisplay(int value)
     {
         combatantHPTextMeshPro.text = "HP: " + value.ToString();
 
@@ -38,5 +38,6 @@ public class StatsDisplay : MonoBehaviour
 
         combatantHP = combatant.CurrentHP;
         combatantHPTextMeshPro.text = "HP: " + combatant.CurrentHP.ToString();
+        combatantNameTextMeshPro.text = combatant.combatantName;
     }
 }

@@ -2,33 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class AttackDisplay : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI allyAttackDamageTextMeshProUI;
-    [SerializeField] GameObject attackDisplayTextGO;
-    public Animator attackDisplayAnimator; 
+    public TextMeshProUGUI allyAttackDamageTextMeshProUI;
+    public GameObject attackDisplayTextGO;
+    [SerializeField] Animator attackDisplayAnimator; 
 
-    private void Start()
+    public void ShowAttackDisplay(Combatant combatant, bool on)
     {
-        ShowAttackDisplay(false);
-    }
-
-    public void UpdateAttackDisplay(int value)
-
-    {
-        if (value >= 0)
+        if (combatant.attackTotal > 0)
         {
-            attackDisplayTextGO.SetActive(false);
+            if (on)
+            {
+                allyAttackDamageTextMeshProUI.text = combatant.attackTotal.ToString();
+                attackDisplayTextGO.SetActive(on);
+                attackDisplayAnimator.Play("CombatantAttackDamageFadeUp");
+            }
+
+            else
+            {
+                attackDisplayAnimator.Play("CombatantAttackDamageFadeUpReverse");
+            }
         }
 
-        attackDisplayTextGO.SetActive(true);
-        allyAttackDamageTextMeshProUI.text = value.ToString();
+        else
+        {
+            attackDisplayAnimator.Play("CombatantAttackDamageHidden");
+        }
     }
 
-    public void ShowAttackDisplay(bool on)
-
+    public void SetAttackDisplayDirBasedOnLookDir(Combatant combatant)
     {
-        attackDisplayTextGO.SetActive(on);
+        var pos = combatant.combatantUI.attackDisplay.transform.localPosition;
+
+        if (combatant.movementScript.lookDirection == Vector2.left)
+        {
+            pos.x = -Mathf.Abs(pos.x);
+        }
+        else
+        {
+            pos.x = Mathf.Abs(pos.x);
+        }
+
+        combatant.combatantUI.attackDisplay.transform.localPosition = pos;
     }
 }

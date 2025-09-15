@@ -6,11 +6,6 @@ public class Ally : Combatant
 {
     [SerializeField] Move[] moves;
 
-    private void OnEnable()
-    {
-        movementScript = GetComponent<MovementScript>();
-    }
-
     public override void SelectMove()
     {
         int moveWeightingTotal = 0;

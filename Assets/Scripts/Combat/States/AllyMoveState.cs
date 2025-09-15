@@ -8,7 +8,7 @@ public class AllyMoveState : State
     {
         foreach (Ally ally in combatManager.allies)
         {
-            ally.combatantUI.attackDisplay.ShowAttackDisplay(false);
+            ally.combatantUI.attackDisplay.ShowAttackDisplay(ally, false);
             ally.combatantUI.statsDisplay.statsDisplayGameObject.SetActive(false);
             ally.combatantUI.fendScript.ShowFendDisplay(ally, false);
         }
@@ -22,7 +22,7 @@ public class AllyMoveState : State
             //Disable untargeted combatant UI elements
             foreach (Enemy enemy in combatManager.enemies)
             {
-                enemy.combatantUI.attackDisplay.ShowAttackDisplay(false);
+                enemy.combatantUI.attackDisplay.ShowAttackDisplay(enemy, false);
 
                 if (enemy != combatManager.allies[i].targetToAttack)
                 {
@@ -48,7 +48,7 @@ public class AllyMoveState : State
 
             var targetToAttackUI = combatManager.allies[i].targetToAttack.GetComponentInChildren<CombatantUI>();
 
-            if (!combatManager.allies[i].targetToAttack.fendDisplayOn)
+            if (combatManager.allies[i].targetToAttack.fendTotal > 0)
             {
                 targetToAttackUI.fendScript.ShowFendDisplay(combatManager.allies[i].targetToAttack, true);
                 targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
@@ -71,8 +71,9 @@ public class AllyMoveState : State
 
             if (combatManager.allies[i].CurrentHP == 0)
             {
-                combatManager.CombatantDefeated(combatManager.enemies[i]);
+                combatManager.CombatantDefeated(combatManager.allies[i]);
             }
+
             else
             {
                 i++;

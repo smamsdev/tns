@@ -1,125 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &437033145780403882
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7385340630104101872}
-  - component: {fileID: 86816273644681938}
-  m_Layer: 8
-  m_Name: BasicAttack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7385340630104101872
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 437033145780403882}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9175807384692527323}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &86816273644681938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 437033145780403882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02efbbc36f2f41f468bc6029b82840eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Fist to the face!
-  moveDescription: 
-  isEquipped: 0
-  moveWeighting: 100
-  attackPushStrength: 1
-  attackMoveModPercent: 1
-  fendMoveModPercent: 0.4
-  animtionIntTriggerToUse: 0
-  targetPositionHorizontalOffset: 0.2
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
---- !u!1 &1387834886546513202
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4033560319947870538}
-  - component: {fileID: 431285892993247228}
-  m_Layer: 8
-  m_Name: RareFend
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4033560319947870538
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1387834886546513202}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9175807384692527323}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &431285892993247228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1387834886546513202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02efbbc36f2f41f468bc6029b82840eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: 
-  moveDescription: 
-  isEquipped: 0
-  moveWeighting: 25
-  attackPushStrength: 0.2
-  attackMoveModPercent: 0
-  fendMoveModPercent: 2
-  animtionIntTriggerToUse: 0
-  targetPositionHorizontalOffset: 0
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
 --- !u!1 &1705068664190481556
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,26 +243,18 @@ MonoBehaviour:
   movementScript: {fileID: 0}
   attackBase: 12
   fendBase: 2
-  maxHP: 25
-  fendDisplayOn: 0
-  isEncounterSpawned: 0
-  currentHP: 0
-  attackTotal: 0
-  fendTotal: 0
-  injuryPenalty: 0
+  maxHP: 100
+  currentHP: 55
+  attackTotal: 12
+  fendTotal: 12
   forceLookDirection: {x: 0, y: 0}
   fightingPosition: {fileID: 0}
   targetToAttack: {fileID: 0}
   moveSelected: {fileID: 0}
   XPReward: 275
   itemReward: {fileID: 11400000, guid: 1be06c8320cb3184d864ab5bb17cd241, type: 2}
-  enemyMoves:
-  - {fileID: 86816273644681938}
-  damageReceivedInjuryBonus: 0
-  totalDamage: 0
-  targetIs: 0
-  randomValue: 0
-  rng: 0
+  moves:
+  - {fileID: 7883858996147921203}
 --- !u!1 &2793900058083318604
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,7 +375,7 @@ MonoBehaviour:
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
   isLoopedDialogue: 1
---- !u!1 &4676455587275609280
+--- !u!1 &4391609247809986471
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -511,51 +383,51 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5725918560173487677}
-  - component: {fileID: 3440306927981805519}
+  - component: {fileID: 7017632198111330960}
+  - component: {fileID: 7883858996147921203}
   m_Layer: 8
-  m_Name: BasicFend
+  m_Name: Basic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5725918560173487677
+--- !u!4 &7017632198111330960
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4676455587275609280}
+  m_GameObject: {fileID: 4391609247809986471}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9175807384692527323}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3440306927981805519
+--- !u!114 &7883858996147921203
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4676455587275609280}
+  m_GameObject: {fileID: 4391609247809986471}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02efbbc36f2f41f468bc6029b82840eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 22ae4ef03e473e5439aa23d2598b2ee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveName: 
-  moveDescription: 
+  moveName: Bash
+  moveDescription: Bonk
   isEquipped: 0
-  moveWeighting: 35
-  attackPushStrength: 0.2
-  attackMoveModPercent: 0
+  moveWeighting: 100
+  attackPushStrength: 1
+  attackMoveModPercent: 1
   fendMoveModPercent: 1
-  animtionIntTriggerToUse: 0
-  targetPositionHorizontalOffset: 0
+  animtionIntTriggerToUse: 1
+  targetPositionHorizontalOffset: 0.2
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
   combatManager: {fileID: 0}
@@ -592,130 +464,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7385340630104101872}
-  - {fileID: 266292114301149962}
-  - {fileID: 3483354087236461306}
-  - {fileID: 5725918560173487677}
-  - {fileID: 4033560319947870538}
+  - {fileID: 7017632198111330960}
   m_Father: {fileID: 8544917762391058261}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5276387477829170800
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 266292114301149962}
-  - component: {fileID: 6746528913590886847}
-  m_Layer: 8
-  m_Name: RareAttack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &266292114301149962
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5276387477829170800}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9175807384692527323}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6746528913590886847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5276387477829170800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02efbbc36f2f41f468bc6029b82840eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: 
-  moveDescription: 
-  isEquipped: 0
-  moveWeighting: 25
-  attackPushStrength: 0.2
-  attackMoveModPercent: 1.2
-  fendMoveModPercent: 0.3
-  animtionIntTriggerToUse: 0
-  targetPositionHorizontalOffset: 0
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
---- !u!1 &8225625690310645638
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3483354087236461306}
-  - component: {fileID: 8942607375967930661}
-  m_Layer: 8
-  m_Name: VeryRareAttack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3483354087236461306
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8225625690310645638}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9175807384692527323}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8942607375967930661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8225625690310645638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02efbbc36f2f41f468bc6029b82840eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: 
-  moveDescription: 
-  isEquipped: 0
-  moveWeighting: 20
-  attackPushStrength: 0.2
-  attackMoveModPercent: 2.5
-  fendMoveModPercent: 0
-  animtionIntTriggerToUse: 0
-  targetPositionHorizontalOffset: 0
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}

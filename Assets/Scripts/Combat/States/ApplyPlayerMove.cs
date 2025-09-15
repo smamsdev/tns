@@ -12,11 +12,11 @@ public class ApplyPlayerMove : State
         combatManager.combatMenuManager.DisableMenuState();
         player = combatManager.playerCombat;
 
-        foreach (Enemy enemy in combatManager.enemies)
-        {
-            enemy.combatantUI.attackDisplay.ShowAttackDisplay(false);
-        }
-
+        //foreach (Enemy enemy in combatManager.enemies)
+        //{
+        //    enemy.combatantUI.attackDisplay.ShowAttackDisplay(enemy, false);
+        //}
+        //
         yield return ApplyGear();
         yield return ApplyMove();
 
@@ -30,6 +30,9 @@ public class ApplyPlayerMove : State
         {
             player.combatantUI.fendScript.ShowFendDisplay(player, true);
             yield return new WaitForSeconds(1f);
+            player.combatantUI.fendScript.ShowFendDisplay(player, false);
+            yield return new WaitForSeconds(.2f);
+
         }
 
         if (combatManager.allies.Count > 0 && combatManager.enemies.Count > 0)
@@ -87,7 +90,7 @@ public class ApplyPlayerMove : State
         combatManager.playerCombat.TotalPlayerAttackPower(moveSelected.attackMoveModPercent);
         CombatEvents.UpdatePlayerPot.Invoke(moveSelected.potentialChange);
 
-        player.moveSelected.LoadMoveStats(player, combatManager);
+        player.moveSelected.LoadMoveStatsAndPassCBM(player, combatManager);
 
         yield return player.moveSelected.ApplyMove(player, player.targetToAttack);
 
@@ -105,6 +108,6 @@ public class ApplyPlayerMove : State
             }
         }
 
-        player.combatantUI.fendScript.fendTextMeshProUGUI.text = player.TotalPlayerFendPower(combatManager.playerCombat.moveSelected.fendMoveModPercent).ToString();
+        //player.combatantUI.fendScript.fendTextMeshProUGUI.text = player.TotalPlayerFendPower(combatManager.playerCombat.moveSelected.fendMoveModPercent).ToString();
     }
 }

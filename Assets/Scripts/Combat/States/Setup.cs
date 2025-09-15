@@ -58,7 +58,7 @@ public class Setup : State
             enemy.movementScript.movementSpeed = enemy.movementScript.defaultMovementspeed * 1;
         }
 
-        //select enemy attack
+        //set enemy ui and attack
         foreach (Enemy enemy in combatManager.enemies)
         {
             SetcombatantUI(enemy);
@@ -67,19 +67,16 @@ public class Setup : State
             if (!combatManager.battleScheme.isEnemyFlanked)
             {
                 combatManager.SelectTargetToAttack(enemy, combatManager.allAlliesToTarget);
-                combatManager.SelectAndDisplayCombatantMove(enemy);
-                yield return new WaitForSeconds(.7f);
-                enemy.combatantUI.attackDisplay.attackDisplayAnimator.Play("CombatantAttackDamageFadeDown");
+                combatManager.SelectCombatantMove(enemy);
+                enemy.combatantUI.DisplayCombatantMove(enemy);
+                yield return new WaitForSeconds(1f);
+                enemy.combatantUI.attackDisplay.ShowAttackDisplay(enemy, false);
             }
 
-            if (enemy.fendTotal > 0)
-            {
-                enemy.combatantUI.fendScript.fendAnimator.Play("FendFade");
-            }
-
+            enemy.combatantUI.fendScript.ShowFendDisplay(enemy, false);
         }
 
-        //select ally attack
+        //set ally ui and attack
         foreach (Ally ally in combatManager.allies)
         {
             SetcombatantUI(ally);
@@ -88,15 +85,24 @@ public class Setup : State
             if (!combatManager.battleScheme.isAllyFlanked)
             {
                 combatManager.SelectTargetToAttack(ally, combatManager.enemies);
-                combatManager.SelectAndDisplayCombatantMove(ally);
-                yield return new WaitForSeconds(.7f);
-                ally.combatantUI.attackDisplay.attackDisplayAnimator.Play("CombatantAttackDamageFadeDown");
+                combatManager.SelectCombatantMove(ally);
+                ally.combatantUI.DisplayCombatantMove(ally);
+                ally.combatantUI.attackDisplay.ShowAttackDisplay(ally, false);
             }
 
-            if (ally.fendTotal > 0)
+            yield return new WaitForSeconds(1f);
+            ally.combatantUI.fendScript.ShowFendDisplay(ally, false);
+
+            if (ally is PartyMemberCombat)
             {
-                ally.combatantUI.fendScript.fendAnimator.Play("FendFade");
+                PartyMemberCombat partyMember = ally as PartyMemberCombat;
+
+                partyMember.attackBase = partyMember.partyMemberSO.attackBase;
+                partyMember.fendBase = partyMember.partyMemberSO.fendBase;
+                partyMember.maxHP = partyMember.partyMemberSO.maxHP;
+                partyMember.CurrentHP = partyMember.partyMemberSO.currentHP;
             }
+
         }
 
         yield return new WaitForSeconds(1);
@@ -113,14 +119,7 @@ public class Setup : State
         combatant.combatantUI = combatantUI;
         combatantUI.combatUIContainer.SetActive(true);
         combatantUI.fendScript.combatManager = combatManager;
-
-        //flip UI elements based on look direction
-        if (combatant.GetComponent<MovementScript>().lookDirection == Vector2.left)
-        {
-            combatManager.SetUIBasedOnLookDir(combatant);
-        }
-
-        combatant.InitialiseCombatantStats();
+        combatant.combatantUI.attackDisplay.SetAttackDisplayDirBasedOnLookDir(combatant);
         combatantUI.statsDisplay.InitialiseCombatStatsDisplay(combatant);
         combatantUI.statsDisplay.ShowStatsDisplay(false);
     }
@@ -129,6 +128,5 @@ public class Setup : State
     {
         playerCombat.combatantUI.combatUIContainer.SetActive(true);
         playerCombat.combatantUI.fendScript.combatManager = combatManager;
-        playerCombat.InitialiseCombatantStats();
     }
 }

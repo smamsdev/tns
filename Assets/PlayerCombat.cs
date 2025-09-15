@@ -21,17 +21,9 @@ public class PlayerCombat : Ally
 
     [Header("Potential")]
     public int currentPotential;
-    [SerializeField] float fendPotMod;
-    [SerializeField] float attackPowerPotMod;
-
-    [Header("Base Mods")]  
-    [SerializeField] int focusBaseMod;
-    [SerializeField] int attackPowerGearMod;
-    [SerializeField] int fendPowerGearMod;
-
-    [SerializeField] int focusBaseChange;
-    [SerializeField] int attackBaseChange;
-    [SerializeField] int fendBaseChange;
+    public int focusBase;
+    public float fendPotMod;
+    public float attackPowerPotMod;
 
     private void OnEnable()
     {
@@ -42,12 +34,6 @@ public class PlayerCombat : Ally
     private void OnDisable()
     {
         CombatEvents.UpdatePlayerPot -= UpdatePlayerPot;
-    }
-
-    public override void InitialiseCombatantStats()
-    {
-        CurrentHP = playerPermanentStats.currentHP;
-        CurrentPotential = (playerPermanentStats.currentPotential);
     }
 
     public float CalculatePotentialMod()

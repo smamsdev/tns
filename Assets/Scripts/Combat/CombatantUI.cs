@@ -15,4 +15,17 @@ public class CombatantUI : MonoBehaviour
     {
         combatUIContainer.SetActive(false);
     }
+
+    public void DisplayCombatantMove(Combatant combatant)
+    {
+        combatant.combatantUI.attackDisplay.ShowAttackDisplay(combatant, true);
+        combatant.combatantUI.fendScript.ShowFendDisplay(combatant, true);
+    }
+
+    //public void HideCombatantMove(Combatant combatant)
+    //{
+    //    combatant.combatantUI.attackDisplay.attackDisplayAnimator.Play("CombatantAttackDamageHidden");
+    //    combatant.combatantUI.fendScript.fendAnimator.Play("FendDefault");
+    //    Debug.Log("asdasd");
+    //}
 }
