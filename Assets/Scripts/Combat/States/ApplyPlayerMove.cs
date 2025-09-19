@@ -94,20 +94,18 @@ public class ApplyPlayerMove : State
 
         yield return player.moveSelected.ApplyMove(player, player.targetToAttack);
 
-        if (player.targetToAttack !=null)
-        {
-            if (player.targetToAttack.CurrentHP == 0)
-            {
-                combatManager.CombatantDefeated(player.targetToAttack);
-            }
-
-            else         //return target to original pos if still alive
-            {
-                yield return new WaitForSeconds(0.5f);
-                yield return combatManager.PositionCombatant(player.targetToAttack.gameObject, player.targetToAttack.fightingPosition.transform.position);
-            }
-        }
-
-        //player.combatantUI.fendScript.fendTextMeshProUGUI.text = player.TotalPlayerFendPower(combatManager.playerCombat.moveSelected.fendMoveModPercent).ToString();
+       // if (player.targetToAttack !=null)
+       // {
+       //     if (player.targetToAttack.CurrentHP == 0)
+       //     {
+       //         combatManager.CombatantDefeated(player.targetToAttack);
+       //     }
+       //
+       //     else         //return target to original pos if still alive
+       //     {
+       //         yield return new WaitForSeconds(0.5f);
+       //         yield return combatManager.PositionCombatant(player.targetToAttack.gameObject, player.targetToAttack.fightingPosition.transform.position);
+       //     }
+       // }
     }
 }

@@ -285,7 +285,7 @@ MonoBehaviour:
   attackPushStrength: 0
   attackMoveModPercent: 0
   fendMoveModPercent: 2
-  animtionIntTriggerToUse: 0
+  attackTypeFloat: 0
   targetPositionHorizontalOffset: 0
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
@@ -347,7 +347,7 @@ MonoBehaviour:
   attackPushStrength: 0
   attackMoveModPercent: 1
   fendMoveModPercent: 0
-  animtionIntTriggerToUse: 0
+  attackTypeFloat: 0
   targetPositionHorizontalOffset: 0
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
@@ -578,7 +578,7 @@ MonoBehaviour:
   attackPushStrength: 0
   attackMoveModPercent: 0
   fendMoveModPercent: 23
-  animtionIntTriggerToUse: 0
+  attackTypeFloat: 0
   targetPositionHorizontalOffset: 0
   offsetFromSelf: 0
   applyMoveToSelfOnly: 1
@@ -692,7 +692,7 @@ MonoBehaviour:
   attackPushStrength: 0
   attackMoveModPercent: 0
   fendMoveModPercent: 0.5
-  animtionIntTriggerToUse: 0
+  attackTypeFloat: 0
   targetPositionHorizontalOffset: 0
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
@@ -754,7 +754,7 @@ MonoBehaviour:
   attackPushStrength: 0
   attackMoveModPercent: 1
   fendMoveModPercent: 0
-  animtionIntTriggerToUse: 0
+  attackTypeFloat: 0
   targetPositionHorizontalOffset: 0
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
@@ -1232,7 +1232,7 @@ MonoBehaviour:
   attackPushStrength: 0.3
   attackMoveModPercent: 1
   fendMoveModPercent: 0
-  animtionIntTriggerToUse: 0
+  attackTypeFloat: 0
   targetPositionHorizontalOffset: 0.2
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
@@ -1457,7 +1457,7 @@ MonoBehaviour:
   attackPushStrength: 0
   attackMoveModPercent: 0
   fendMoveModPercent: 0
-  animtionIntTriggerToUse: 0
+  attackTypeFloat: 0
   targetPositionHorizontalOffset: 0
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
@@ -1935,6 +1935,7 @@ Transform:
   m_Children:
   - {fileID: 823243170297164299}
   - {fileID: 9054488621636529731}
+  - {fileID: 2692893951540633627}
   m_Father: {fileID: 6531990500401077899}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5375799984386380507
@@ -2361,7 +2362,7 @@ MonoBehaviour:
   attackPushStrength: 0
   attackMoveModPercent: 0
   fendMoveModPercent: 2
-  animtionIntTriggerToUse: 0
+  attackTypeFloat: 0
   targetPositionHorizontalOffset: 0
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
@@ -2423,7 +2424,7 @@ MonoBehaviour:
   attackPushStrength: 0
   attackMoveModPercent: 0.7
   fendMoveModPercent: 0.5
-  animtionIntTriggerToUse: 0
+  attackTypeFloat: 0
   targetPositionHorizontalOffset: 0
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
@@ -2434,6 +2435,69 @@ MonoBehaviour:
   targetCombatant: {fileID: 0}
   potentialChange: -15
   isFlaw: 0
+--- !u!1 &6694399590224140333
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2692893951540633627}
+  - component: {fileID: 7036558732072847627}
+  m_Layer: 7
+  m_Name: Squall
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2692893951540633627
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6694399590224140333}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8046860258707766845}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7036558732072847627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6694399590224140333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36602798bb022834098092a6527ff6ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveName: Squall
+  moveDescription: a big squall
+  isEquipped: 0
+  moveWeighting: 9000
+  attackPushStrength: 0.2
+  attackMoveModPercent: 1
+  fendMoveModPercent: 0
+  attackTypeFloat: 0
+  targetPositionHorizontalOffset: 0.3
+  offsetFromSelf: 0
+  applyMoveToSelfOnly: 0
+  combatManager: {fileID: 0}
+  combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
+  combatantToAct: {fileID: 0}
+  targetCombatant: {fileID: 0}
+  potentialChange: 20
+  isFlaw: 0
+  enemiesInFront: []
 --- !u!1 &7016995569545363975
 GameObject:
   m_ObjectHideFlags: 0
@@ -2485,7 +2549,7 @@ MonoBehaviour:
   attackPushStrength: 0
   attackMoveModPercent: 0
   fendMoveModPercent: 1
-  animtionIntTriggerToUse: 0
+  attackTypeFloat: 0
   targetPositionHorizontalOffset: 0
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
@@ -2581,7 +2645,7 @@ MonoBehaviour:
   attackPushStrength: 0
   attackMoveModPercent: 0
   fendMoveModPercent: 3
-  animtionIntTriggerToUse: 0
+  attackTypeFloat: 0
   targetPositionHorizontalOffset: 0.2
   offsetFromSelf: 0
   applyMoveToSelfOnly: 1
@@ -2675,7 +2739,7 @@ MonoBehaviour:
   attackPushStrength: 0
   attackMoveModPercent: 1
   fendMoveModPercent: 0.2
-  animtionIntTriggerToUse: 0
+  attackTypeFloat: 0
   targetPositionHorizontalOffset: 0
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
@@ -2851,10 +2915,10 @@ MonoBehaviour:
   moveDescription: Ricochet
   isEquipped: 0
   moveWeighting: 100
-  attackPushStrength: 0
+  attackPushStrength: 0.2
   attackMoveModPercent: 1
   fendMoveModPercent: 0
-  animtionIntTriggerToUse: 0
+  attackTypeFloat: 0
   targetPositionHorizontalOffset: 0.2
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0
@@ -3082,7 +3146,7 @@ MonoBehaviour:
   combatantHPTextMeshPro: {fileID: 3806247342547371097}
   statsDisplayGameObject: {fileID: 4645553439046408796}
   HPTMPAnimator: {fileID: 1173022359103221663}
-  statsDisplayContainerAnimator: {fileID: 0}
+  statsDisplayContainerAnimator: {fileID: 1170908821512508967}
   combatant: {fileID: 8916189207439800493}
   combatantHP: 0
   potentialTMP: {fileID: 5776708279045501393}

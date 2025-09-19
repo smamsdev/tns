@@ -118,8 +118,8 @@ public class PlayerMovementScript : MovementScript
             lookDirection.y = 0;
         }
 
-        animator.SetFloat("horizontalInput", movementDirection.x * isReversing.x);
-        animator.SetFloat("verticalInput", movementDirection.y * isReversing.y);
+        animator.SetFloat("horizontalInput", horizontalInput * isReversing.x);
+        animator.SetFloat("verticalInput", verticalInput * isReversing.y);
         animator.SetFloat("lookDirectionX", lookDirection.x);
         animator.SetFloat("lookDirectionY", lookDirection.y);
 

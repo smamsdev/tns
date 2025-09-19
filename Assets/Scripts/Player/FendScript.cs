@@ -37,17 +37,28 @@ public class FendScript : MonoBehaviour
         }
     }
 
-    public void ApplyAttackToFend(Combatant combatant, Combatant target)
+    public void ApplyAttackToFend(Combatant combatant, Combatant target, int optionalAttackTotal = 0)
     {
         var combatantToActLookDir = combatant.GetComponent<MovementScript>().lookDirection;
         var targetLookDir = target.GetComponent<MovementScript>().lookDirection;
         combatantAttacking = combatant;
         this.target = target;
         var combatantAnimator = target.GetComponent<Animator>();
+        int attackTotal = optionalAttackTotal;
+
+        if (optionalAttackTotal > 0)
+        {
+            attackTotal = optionalAttackTotal;
+        }
+
+        else
+        {
+            attackTotal = combatantAttacking.attackTotal;
+        }
 
         if (combatantToActLookDir == targetLookDir)
         {
-            backStabBonus = combatantAttacking.attackTotal;
+            backStabBonus = attackTotal;
         }
 
         else
@@ -55,10 +66,10 @@ public class FendScript : MonoBehaviour
             backStabBonus = 0;
         }
 
-        attackRemainder = (combatantAttacking.attackTotal + backStabBonus) - target.fendTotal;
-        combatantAnimator.SetTrigger("Pain");
+        attackRemainder = (attackTotal + backStabBonus) - target.fendTotal;
+        combatantAnimator.Play("Pain");
 
-        StartCoroutine(ApplyAttackToFendCoRo(combatantAttacking.attackTotal + backStabBonus));
+        StartCoroutine(ApplyAttackToFendCoRo(attackTotal + backStabBonus));
     }
 
     IEnumerator ApplyAttackToFendCoRo(int attack)

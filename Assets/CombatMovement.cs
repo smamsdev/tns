@@ -47,7 +47,7 @@ public class CombatMovement : MonoBehaviour
         startTime = Time.time;
         float endPointDeltaX = Mathf.Abs(movementScript.transform.position.x - stoppingPosition.x);
 
-        while (endPointDeltaX > 0.05f)
+        while (endPointDeltaX > 0.04f)
         {
             if (useTimeout && Time.time - startTime > moveTimeoutDuration) yield break;
             if (Time.time - startTime > timeoutDuration)
@@ -88,10 +88,14 @@ public class CombatMovement : MonoBehaviour
             float t = elapsedTime / fixedDuration;
 
             movementScript.transform.position = Vector3.Lerp(startPosition, targetPosition, t);
+            float directionX = targetPosition.x - movementScript.transform.position.x;
+
+            movementScript.horizontalInput = Mathf.Sign(directionX);
             yield return null;
         }
 
         movementScript.transform.position = targetPosition;
         movementScript.isReversing = Vector2.one;
+        movementScript.horizontalInput = 0f;
     }
 }

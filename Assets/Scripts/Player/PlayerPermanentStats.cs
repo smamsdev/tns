@@ -23,6 +23,9 @@ public class PlayerPermanentStats : ScriptableObject
     public int fendBaseGrowth;
     public int focusBaseGrowth;
 
+    [Header("Misc")]
+    public float weaponEquipped;
+
     public virtual void LevelUp()
     {
         XPThreshold = NextLevelThreshold();

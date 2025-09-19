@@ -10172,8 +10172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5d39e4cff5294248bcd0d53aea0abd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  faderAnimator: {fileID: 1122285855}
-  remainFadedDownOnSceneLoad: 0
 --- !u!1 &1122802623
 GameObject:
   m_ObjectHideFlags: 0
@@ -12810,6 +12808,8 @@ MonoBehaviour:
   forcedEntryCoordinates: {x: 6.7549996, y: 2.335, z: 0}
   forceEntryCoorinates: 0
   sceneName: 
+  defaultFaderAnimator: {fileID: 1122285855}
+  isCustomSceneStart: 0
 --- !u!114 &1458070177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18864,14 +18864,14 @@ MonoBehaviour:
   movementSpeed: 0
   scriptedMovement: 0
   sloping: 0
+  forceLookDirectionOnLoad: {x: -1, y: 0}
   animator: {fileID: 0}
   movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
   isReversing: {x: 0, y: 0}
-  actorRigidBody2d: {fileID: 0}
+  rigidBody2d: {fileID: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  forceLookDirectionOnLoad: {x: -1, y: 0}
 --- !u!50 &6586684762923986387
 Rigidbody2D:
   serializedVersion: 4
