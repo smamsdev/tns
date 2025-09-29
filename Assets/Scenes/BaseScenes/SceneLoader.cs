@@ -1,17 +1,17 @@
-using TMPro;
-using UnityEngine.SceneManagement;
-using UnityEngine;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class LevelLoaderScript : ToTrigger
+public class SceneLoader : ToTrigger
 {
-    //deprecated 
+    public String newBaseSceneName;
+    public String newAdditiveSceneName;
 
-
-    public string sceneID;
-    public string sceneName;
+    public string destinationNameToDisplay;
     public Vector3 entryCoordinates;
-    private string pendingPreviousScene;
     public Animator animator;
     bool isCollision;
     public TextMeshProUGUI textMeshProUGUI;
@@ -19,8 +19,13 @@ public class LevelLoaderScript : ToTrigger
     private void Start()
     {
         if (textMeshProUGUI != null)
+        {
+            textMeshProUGUI.text = destinationNameToDisplay;
+        }
+
+        else 
         { 
-            textMeshProUGUI.text = sceneName;
+            Debug.Log(this.name + " destination is blank");
         }
     }
 
@@ -45,28 +50,17 @@ public class LevelLoaderScript : ToTrigger
     public override IEnumerator DoAction()
     {
         FieldEvents.entryCoordinates = entryCoordinates;
-        FieldEvents.SceneChanging.Invoke();
         yield return new WaitForSeconds(1f);
-        LoadScene(sceneID);
+        LoadScene(newBaseSceneName, newAdditiveSceneName);
         FieldEvents.HasCompleted.Invoke(this.gameObject);
         yield return null;
     }
 
-    public void LoadScene(string SceneNameToLoad)
+    public void LoadScene(String newBaseSceneName, String newAdditiveSceneName)
     {
         FadeOut();
-        pendingPreviousScene = SceneManager.GetActiveScene().name;
-        SceneManager.sceneLoaded += ActivatorAndUnloader;
-        SceneManager.LoadScene(SceneNameToLoad, LoadSceneMode.Additive);
-    }
-
-    private void ActivatorAndUnloader(Scene scene, LoadSceneMode mode)
-    {
-        SceneManager.sceneLoaded -= ActivatorAndUnloader;
-        SceneManager.SetActiveScene(scene);
-
-        SceneManager.UnloadSceneAsync(pendingPreviousScene);
-
+        SceneManager.LoadScene(newBaseSceneName, LoadSceneMode.Single);
+        SceneManager.LoadScene(newAdditiveSceneName, LoadSceneMode.Additive);
     }
 
     private void FadeOut()
