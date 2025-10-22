@@ -27,6 +27,7 @@ public class Setup : State
         playerMovementScript.lookDirection = combatManager.battleScheme.playerDefaultLookDirection;
         var playerAnimator = playerCombat.GetComponent<Animator>();
         playerAnimator.SetBool("isCombat", true);
+        playerAnimator.Play("CombatIdle");
         SetPlayerUI();
 
         //Set combat animations

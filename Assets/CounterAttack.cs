@@ -24,7 +24,7 @@ public class CounterAttack : ViolentMove
 
 
             attackMoveModPercent = 0;
-            TriggerIdleAnimation();
+            CombatEvents.TriggerAnimationOnce(combatantToActAnimator, "CombatIdle");
         }
 
         yield return null;

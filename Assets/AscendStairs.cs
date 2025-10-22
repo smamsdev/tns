@@ -14,7 +14,7 @@ public class AscendStairs : MonoBehaviour
         if (collisionWith.gameObject.layer != ignoreLayer)
         { 
             collisionWith.GetComponent<LayerChanger>().ChangeLayer("Actors");
-            collisionWith.GetComponent<MovementScript>().isReversing = new Vector2(1, 1);
+            collisionWith.GetComponent<MovementScript>().descendingFactor = 1;
 
             actor = collisionWith.gameObject;
             actor.layer = LayerMask.NameToLayer("Actors");

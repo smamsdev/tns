@@ -7,20 +7,31 @@ public abstract class Combatant : MonoBehaviour
     public string combatantName;
     public CombatantUI combatantUI;
     public MovementScript movementScript;
+    public GameObject fightingPosition;
+    public bool isBackstabbed;
+    public int CombatLookDirX
+    {
+        get => _combatLookDirX;
+        set
+        {
+            _combatLookDirX = value;
+            movementScript.animator.SetFloat("CombatLookDirX", value);
+        }
+    }
+
+    [SerializeField] private int _combatLookDirX;
+
+    [Header("Stats")]
 
     public int attackBase;
     public int fendBase;
     public int maxHP;
-
-    private void OnEnable()
-    {
-        movementScript = GetComponent<MovementScript>();
-    }
-
+    public int attackTotal;
+    public int fendTotal;
     public int CurrentHP
     {
-        get 
-        { 
+        get
+        {
             return currentHP;
         }
         set
@@ -31,13 +42,16 @@ public abstract class Combatant : MonoBehaviour
 
     [SerializeField] int currentHP;
 
-    public int attackTotal;
-    public int fendTotal;
+    private void OnEnable()
+    {
+        movementScript = GetComponent<MovementScript>();
+    }
 
-    public Vector2 forceLookDirection;
-    public GameObject fightingPosition;
+
+    [Header("Moves")]
     public Combatant targetToAttack;
     public Move moveSelected;
+
 
     public abstract void SelectMove();
 

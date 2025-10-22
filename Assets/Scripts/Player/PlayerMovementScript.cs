@@ -35,7 +35,6 @@ public class PlayerMovementScript : MovementScript
         movementSpeed = defaultMovementspeed;
         scriptedMovement = false;
         FieldEvents.movementSpeedMultiplier = 1;
-        isReversing = Vector2.one;
         rigidBody2d.bodyType = RigidbodyType2D.Dynamic;
         movementLocked = FieldEvents.movementLocked;
         distanceTravelled = 0;
@@ -81,49 +80,31 @@ public class PlayerMovementScript : MovementScript
         if (!FieldEvents.movementLocked)
         {
             horizontalInput = Input.GetAxis("Horizontal");
-            verticalInput = Input.GetAxis("Vertical") * isReversing.y + sloping;
+            verticalInput = Input.GetAxis("Vertical");
         }
 
-        Vector2 newPosition = rigidBody2d.position;
-        newPosition.x += movementSpeed * horizontalInput * Time.deltaTime;
-        newPosition.y += movementSpeed * verticalInput * Time.deltaTime;
+        Vector2 input = new Vector2(horizontalInput, verticalInput + sloping);
 
+        Vector2 newPosition = rigidBody2d.position + input * movementSpeed * Time.fixedDeltaTime;
         rigidBody2d.MovePosition(newPosition);
 
         delta = rigidBody2d.position - previousRigidPosition;
+        distanceTravelled += delta.magnitude;
+        previousRigidPosition = rigidBody2d.position;
 
-        if (delta.sqrMagnitude > 0.0001f)
-            distanceTravelled += delta.magnitude;
-
-        movementDirection = newPosition - previousRigidPosition;
-
-        if (movementDirection.sqrMagnitude > 0.0001f)
-            animator.SetBool("isMoving", true);
-        else
-            animator.SetBool("isMoving", false);
-
-        if (verticalInput > 0 && horizontalInput == 0)
-            lookDirection.y = 1 * isReversing.y;
-        else if (verticalInput < 0)
-            lookDirection.y = -1 * isReversing.y;
-
-        if (horizontalInput > 0)
+        if (input.sqrMagnitude > 0.001f)
         {
-            lookDirection.x = 1 * isReversing.x;
-            lookDirection.y = 0;
-        }
-        else if (horizontalInput < 0)
-        {
-            lookDirection.x = -1 * isReversing.x;
-            lookDirection.y = 0;
+            lookDirection = input.normalized;
         }
 
-        animator.SetFloat("horizontalInput", horizontalInput * isReversing.x);
-        animator.SetFloat("verticalInput", verticalInput * isReversing.y);
+        animator.SetFloat("sqrMagnitude", input.sqrMagnitude);
         animator.SetFloat("lookDirectionX", lookDirection.x);
         animator.SetFloat("lookDirectionY", lookDirection.y);
 
-        previousRigidPosition = rigidBody2d.position;
+        if (float.IsNaN(lookDirection.x) || float.IsNaN(lookDirection.y)) //stop this from creating errors i guess
+        {
+            lookDirection = Vector2.right;
+        }
     }
 
     public void LockPlayerMovement()

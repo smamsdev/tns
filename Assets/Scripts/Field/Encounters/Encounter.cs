@@ -184,7 +184,10 @@ public class Encounter : ToTrigger
         SpaceCombatants(allAllies, false, 0, Vector2.left);
         SpaceCombatants(battle.enemies, true, -2.5f, Vector2.right);
 
-        battle.playerDefaultLookDirection = Vector2.left;
+        foreach (Combatant combatant in allAllies)
+        {
+            combatant.CombatLookDirX = 1;
+        }
     }
 
     void StandardBattleLayout()
@@ -196,7 +199,10 @@ public class Encounter : ToTrigger
         SpaceCombatants(allAllies, true, 0, Vector2.right);
         SpaceCombatants(battle.enemies, false, 0, Vector2.left);
 
-        battle.playerDefaultLookDirection = Vector2.right;
+        foreach (Combatant combatant in allAllies)
+        {
+            combatant.CombatLookDirX = 1;
+        }
     }
 
     void SpaceCombatants(List<Combatant> combatantList, bool isLeftSided, float startPosOffset, Vector2 lookDir)
@@ -273,8 +279,12 @@ public class Encounter : ToTrigger
         SpaceCombatants(allAllies, true, -2.5f, Vector2.right);
         SpaceCombatants(battle.enemies, false, 0, Vector2.right);
 
-        battle.playerDefaultLookDirection = Vector2.right;
         battle.isEnemyFlanked = true;
+
+        foreach (Combatant combatant in allAllies)
+        {
+            combatant.CombatLookDirX = -1;
+        }
     }
 
     void SurpriseBattleLayout()
@@ -288,6 +298,11 @@ public class Encounter : ToTrigger
 
         battle.playerDefaultLookDirection = Vector2.right;
         battle.isAllyFlanked = true;
+
+        foreach (Combatant combatant in allAllies)
+        {
+            combatant.CombatLookDirX = 1;
+        }
     }
 
     public void SpawnBattle()

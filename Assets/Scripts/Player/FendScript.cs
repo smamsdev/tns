@@ -39,8 +39,6 @@ public class FendScript : MonoBehaviour
 
     public void ApplyAttackToFend(Combatant combatant, Combatant target, int optionalAttackTotal = 0)
     {
-        var combatantToActLookDir = combatant.GetComponent<MovementScript>().lookDirection;
-        var targetLookDir = target.GetComponent<MovementScript>().lookDirection;
         combatantAttacking = combatant;
         this.target = target;
         var combatantAnimator = target.GetComponent<Animator>();
@@ -56,7 +54,7 @@ public class FendScript : MonoBehaviour
             attackTotal = combatantAttacking.attackTotal;
         }
 
-        if (combatantToActLookDir == targetLookDir)
+        if (target.isBackstabbed)
         {
             backStabBonus = attackTotal;
         }
@@ -79,7 +77,7 @@ public class FendScript : MonoBehaviour
             (target.transform.position.x + (combatantAttacking.moveSelected.attackPushStrength * combatantAttackingLookDirX),
             target.transform.position.y);
 
-        if (backStabBonus > 0)
+        if (target.isBackstabbed)
         {
             backStabAnimator.Play("BackStabShowAndFade");
         }
@@ -94,7 +92,7 @@ public class FendScript : MonoBehaviour
 
             var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
             var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-            yield return (combatMovementInstance.MoveCombatantFixedTime(target.gameObject, stepBackPos, combatantAttacking.moveSelected.attackPushStrength, isReversingX: true));
+            yield return (combatMovementInstance.MoveCombatantFixedTime(target.gameObject, stepBackPos, combatantAttacking.moveSelected.attackPushStrength));
             Destroy(combatMovementInstanceGO);
             yield break;
         }
@@ -132,7 +130,7 @@ public class FendScript : MonoBehaviour
 
                 var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
                 var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-                yield return (combatMovementInstance.MoveCombatantFixedTime(target.gameObject, stepBackPos, combatantAttacking.moveSelected.attackPushStrength, isReversingX: true));
+                yield return (combatMovementInstance.MoveCombatantFixedTime(target.gameObject, stepBackPos, combatantAttacking.moveSelected.attackPushStrength));
                 Destroy(combatMovementInstanceGO);
             }
             yield return null;

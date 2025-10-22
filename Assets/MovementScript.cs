@@ -15,7 +15,7 @@ public abstract class MovementScript : MonoBehaviour
     public Animator animator;
     public Vector2 movementDirection;
     public Vector2 lookDirection;
-    public Vector2 isReversing;
+    public int descendingFactor;
     public Rigidbody2D rigidBody2d;
 
     private void OnDisable()

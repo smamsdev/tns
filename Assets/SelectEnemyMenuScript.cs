@@ -63,9 +63,7 @@ public class SelectEnemyMenuScript : MonoBehaviour
         enemySelectScript.combatant.combatantUI.DisplayCombatantMove(enemySelectScript.combatant);
 
         Vector2 direction = (enemySelectScript.combatant.transform.position - combatManager.playerCombat.transform.position).normalized;
-        float attackDirX = Mathf.Sign(direction.x);
-
-        combatManager.playerCombat.movementScript.lookDirection = new Vector2 (attackDirX, 0);
+        combatManager.playerCombat.CombatLookDirX = (int)Mathf.Sign(direction.x);
     }
 
     public void DeselectEnemy(EnemySelectButtonScript enemySelectScriptToDeselect)

@@ -6,14 +6,12 @@ public class CombatMovement : MonoBehaviour
     public ActorMove actorMove;
     public MovementScript movementScript;
 
-    public IEnumerator MoveCombatant(GameObject gameObject, Vector3 targetPosition, float stoppingPercentage = 100f, bool useTimeout = false, bool isReversingX = false)
+    public IEnumerator MoveCombatant(GameObject gameObject, Vector3 targetPosition, float stoppingPercentage = 100f, bool useTimeout = false)
     {
         actorMove.actorGO = gameObject;
         actorMove.destination[0] = targetPosition;
 
         movementScript = actorMove.actorGO.GetComponent<MovementScript>();
-
-        movementScript.isReversing = isReversingX ? new Vector2(-1, 1) : Vector2.one;
 
         // Calculate stopping distance based on the stopping percentage
         Vector3 stoppingPosition = Vector3.Lerp(movementScript.transform.position, targetPosition, stoppingPercentage / 100f);
@@ -47,7 +45,7 @@ public class CombatMovement : MonoBehaviour
         startTime = Time.time;
         float endPointDeltaX = Mathf.Abs(movementScript.transform.position.x - stoppingPosition.x);
 
-        while (endPointDeltaX > 0.04f)
+        while (endPointDeltaX > 0.035f)
         {
             if (useTimeout && Time.time - startTime > moveTimeoutDuration) yield break;
             if (Time.time - startTime > timeoutDuration)
@@ -65,8 +63,6 @@ public class CombatMovement : MonoBehaviour
 
         movementScript.horizontalInput = 0;
         movementScript.transform.position = new Vector3(stoppingPosition.x, stoppingPosition.y, movementScript.transform.position.z);
-
-        movementScript.isReversing = Vector2.one;
     }
 
     public IEnumerator MoveCombatantFixedTime(GameObject gameObject, Vector3 targetPosition, float _fixedDuration, bool isReversingX = false)
@@ -75,8 +71,6 @@ public class CombatMovement : MonoBehaviour
         actorMove.destination[0] = targetPosition;
 
         movementScript = actorMove.actorGO.GetComponent<MovementScript>();
-
-        movementScript.isReversing = isReversingX ? new Vector2(-1,1) : Vector2.one;
 
         float fixedDuration = _fixedDuration / 2;
         Vector3 startPosition = movementScript.transform.position;
@@ -95,7 +89,6 @@ public class CombatMovement : MonoBehaviour
         }
 
         movementScript.transform.position = targetPosition;
-        movementScript.isReversing = Vector2.one;
         movementScript.horizontalInput = 0f;
     }
 }

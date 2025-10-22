@@ -23,7 +23,6 @@ public class ActorMovementScript : MovementScript
     {
         rigidBody2d.bodyType = RigidbodyType2D.Dynamic;
         scriptedMovement = false;
-        isReversing = Vector2.one;
 
         if (forceLookDirectionOnLoad != Vector2.zero ) 
         
@@ -37,7 +36,7 @@ public class ActorMovementScript : MovementScript
         if (Input.GetKeyDown(KeyCode.I))
 
         {
-            verticalInput = 1 * isReversing.y;
+            verticalInput = 1 * descendingFactor;
         }
 
         if (Input.GetKeyUp(KeyCode.I))
@@ -49,7 +48,7 @@ public class ActorMovementScript : MovementScript
         if (Input.GetKeyDown(KeyCode.K))
 
         {
-            verticalInput = -1 * isReversing.y;
+            verticalInput = -1 * descendingFactor;
         }
 
         if (Input.GetKeyUp(KeyCode.K))
@@ -107,26 +106,26 @@ public class ActorMovementScript : MovementScript
 
             if (horizontalInput > 0)
             {
-                lookDirection = Vector2.right * isReversing.x;
+                lookDirection = Vector2.right;
             }
 
             if (horizontalInput < 0)
             {
-                lookDirection = Vector2.left * isReversing.x;
+                lookDirection = Vector2.left;
             }
 
             if (verticalInput > 0)
             {
-                lookDirection = Vector2.up * isReversing.y;
+                lookDirection = Vector2.up * descendingFactor;
             }
 
             if (verticalInput < 0)
             {
-                lookDirection = Vector2.down * isReversing.y;
+                lookDirection = Vector2.down * descendingFactor;
             }
 
-            animator.SetFloat("horizontalInput", movementDirection.x * isReversing.x);
-            animator.SetFloat("verticalInput", movementDirection.y * isReversing.y);
+            animator.SetFloat("horizontalInput", movementDirection.x);
+            animator.SetFloat("verticalInput", movementDirection.y * descendingFactor);
             animator.SetFloat("lookDirectionX", lookDirection.x);
             animator.SetFloat("lookDirectionY", lookDirection.y);
         }

@@ -6,15 +6,14 @@ using UnityEngine.UI;
 public class EnemySelectState : State
 {
     public SelectEnemyMenuScript selectEnemyMenuScript;
-    Vector2 previousLookDir;
+    int previousLookDirX;
 
     public override IEnumerator StartState()
     {
+        previousLookDirX = combatManager.playerCombat.CombatLookDirX;
         selectEnemyMenuScript.InitializeButtonSlots();
         combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.enemySelectMenu, true);
         combatManager.combatMenuManager.selectEnemyMenuDefaultButton.Select();
-        previousLookDir = combatManager.playerCombat.movementScript.lookDirection;
-
         yield break;
     }
 
@@ -36,7 +35,7 @@ public class EnemySelectState : State
             combatManager.combatMenuManager.SetButtonNormalColor(combatManager.secondMove.lastButtonSelected, Color.white);
             combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.enemySelectMenu, false);
 
-            combatManager.playerCombat.movementScript.lookDirection = previousLookDir;
+            combatManager.playerCombat.CombatLookDirX = previousLookDirX;
 
             combatManager.SetState(combatManager.secondMove);
 

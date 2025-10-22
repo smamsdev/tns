@@ -47,6 +47,7 @@ public class Squall : ViolentMove
         }
 
         yield return new WaitForSeconds(.5f);
+        combatantToActAnimator.SetFloat("lookDirectionX", -1);
         combatantToActAnimator.Play("Back");
 
         //return combatantToAct to fightingpos, and return look direct
@@ -58,7 +59,7 @@ public class Squall : ViolentMove
         }
 
         combatantToActMovementScript.lookDirection = playerDefaultLookDirection;
-        TriggerIdleAnimation();
+        CombatEvents.TriggerAnimationOnce(combatantToActAnimator, "CombatIdle");
 
         UpdateNarrator("");
 

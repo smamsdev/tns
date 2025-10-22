@@ -38,4 +38,11 @@ public static class CombatEvents
             (list[i], list[j]) = (list[j], list[i]);
         }
     }
+
+    public static IEnumerator TriggerAnimationOnce(Animator animator, string trigger)
+    {
+        animator.SetTrigger(trigger);
+        yield return null;
+        animator.ResetTrigger(trigger);
+    }
 }

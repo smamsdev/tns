@@ -39,7 +39,7 @@ public class Move : MonoBehaviour
     {
         var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
         var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-        yield return (combatMovementInstance.MoveCombatant(objectToMove, targetPosition, isReversingX: true));
+        yield return (combatMovementInstance.MoveCombatant(objectToMove, targetPosition));
         Destroy(combatMovementInstanceGO);
     }
 
@@ -88,6 +88,7 @@ public class Move : MonoBehaviour
 
         else
         {
+            combatantToActAnimator.Play("Advance");
             yield return ApplyMoveToEnemy();
         }
     }
@@ -122,16 +123,16 @@ public class Move : MonoBehaviour
         combatantToActAnimator.Play("Attack");
     }
 
-    public virtual void TriggerIdleAnimation()
-    {
-       combatantToActAnimator.SetTrigger("CombatIdle"); //remember to blend the transition in animator settings or it will wiggle
-    }
+  // public virtual void TriggerIdleAnimation()
+  // {
+  //     combatantToActAnimator.SetTrigger("CombatIdle");
+  // }
 
     public virtual IEnumerator ApplyMoveToSelf()
     {
         TriggerMoveAnimation();
         yield return new WaitForSeconds(0.5f);
-        TriggerIdleAnimation();
+        CombatEvents.TriggerAnimationOnce(combatantToActAnimator, "CombatIdle");
         yield return new WaitForSeconds(1f);
         UpdateNarrator("");
     }
@@ -155,25 +156,35 @@ public class Move : MonoBehaviour
             yield break;
         }
 
+        //set backstab status
+        if (combatantToAct.CombatLookDirX == targetCombatant.CombatLookDirX)
+        {
+            targetCombatant.isBackstabbed = true;
+        }
+
         //apply stats to enemy and animate
         targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
         combatManager.cameraFollow.transformToFollow = targetCombatant.transform;
+
+
         targetCombatant.combatantUI.fendScript.ApplyAttackToFend(combatantToAct, combatantToAct.targetToAttack);
         TriggerMoveAnimation();
 
         yield return new WaitForSeconds(.5f);
+
+        combatantToActAnimator.SetFloat("lookDirectionX", -1);
         combatantToActAnimator.Play("Back");
 
         //return combatantToAct to fightingpos, and return look direct
         yield return ReturnFromPosition(combatantToAct.gameObject, combatantToAct.fightingPosition.transform.position);
         targetToAttackUI.statsDisplay.ShowStatsDisplay(false);
-
-        combatantToActMovementScript.lookDirection = playerDefaultLookDirection;
-        TriggerIdleAnimation();
+        //TriggerIdleAnimation();
+        CombatEvents.TriggerAnimationOnce(combatantToActAnimator, "CombatIdle");
 
         UpdateNarrator("");
 
         yield return ReturnTargetToFightingPos();
+        targetCombatant.isBackstabbed = false;
     }
 
     public virtual IEnumerator ReturnTargetToFightingPos()
@@ -183,10 +194,22 @@ public class Move : MonoBehaviour
             combatManager.CombatantDefeated(combatantToAct.targetToAttack);
         }
 
-        else         //return target to original pos if still alive
+        else //return target to original pos if still alive
         {
             yield return new WaitForSeconds(0.5f);
+
+            if (targetCombatant.isBackstabbed)
+            {
+                combatantToAct.targetToAttack.movementScript.animator.Play("Back");
+            }
+
+            else
+            {
+                combatantToAct.targetToAttack.movementScript.animator.Play("Advance");
+            }
+
             yield return combatManager.PositionCombatant(combatantToAct.targetToAttack.gameObject, combatantToAct.targetToAttack.fightingPosition.transform.position);
+            combatantToAct.targetToAttack.movementScript.animator.Play("CombatIdle");
         }
     }
 
