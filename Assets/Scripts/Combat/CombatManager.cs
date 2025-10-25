@@ -73,8 +73,6 @@ public class CombatManager : MonoBehaviour
         if (defeatedCombatant is Enemy)
         {
             enemies.Remove(defeatedCombatant);
-            defeatedCombatant.combatantUI.statsDisplay.ShowStatsDisplay(false);
-
             foreach (Ally ally in allies)
             {
                 if (enemies.Count > 0 && ally.targetToAttack == defeatedCombatant)
@@ -88,8 +86,6 @@ public class CombatManager : MonoBehaviour
         {
             allies.Remove(defeatedCombatant);
             allAlliesToTarget.Remove(defeatedCombatant);
-            defeatedCombatant.combatantUI.statsDisplay.ShowStatsDisplay(false);
-
             foreach (Enemy enemy in enemies)
             {
                 if (enemy.targetToAttack == defeatedCombatant)
@@ -98,6 +94,16 @@ public class CombatManager : MonoBehaviour
                 }
             }
         }
+
+        StartCoroutine(CombatantDefeatedAnimations(defeatedCombatant));
+    }
+
+    IEnumerator CombatantDefeatedAnimations(Combatant defeatedCombatant)
+    {
+        defeatedCombatant.combatantUI.statsDisplay.statsDisplayContainerAnimator.Play("StatsDisplayOnDefeat");
+        defeatedCombatant.movementScript.animator.Play("Fall");
+        yield return new WaitForSeconds(1);
+        defeatedCombatant.combatantUI.statsDisplay.ShowStatsDisplay(false);
     }
 
     public void StartBattle()
@@ -172,9 +178,7 @@ public class CombatManager : MonoBehaviour
         combatant.targetToAttack = targetList[Random.Range(0, targetList.Count)];
 
         Vector3 direction = (combatant.targetToAttack.transform.position - combatant.transform.position).normalized;
-        float attackDirX = Mathf.Sign(direction.x);
-
-        combatant.GetComponent<MovementScript>().lookDirection = new Vector2(attackDirX, 0);
+        combatant.CombatLookDirX = (int)Mathf.Sign(direction.x);
     }
 
     public void SetRigidBodyType(Combatant combatant, RigidbodyType2D bodyType)

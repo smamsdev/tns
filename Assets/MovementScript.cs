@@ -8,7 +8,7 @@ public abstract class MovementScript : MonoBehaviour
     public float verticalInput;
     public float defaultMovementspeed;
     public float movementSpeed;
-    public bool scriptedMovement;
+
     public float sloping;
     public Vector2 forceLookDirectionOnLoad;
 
@@ -17,12 +17,4 @@ public abstract class MovementScript : MonoBehaviour
     public Vector2 lookDirection;
     public int descendingFactor;
     public Rigidbody2D rigidBody2d;
-
-    private void OnDisable()
-    {
-        movementDirection = Vector2.zero;
-        lookDirection = Vector2.zero;
-        animator.SetFloat("lookDirectionX", 0);
-        animator.SetFloat("verticalInput", 0);
-    }
 }

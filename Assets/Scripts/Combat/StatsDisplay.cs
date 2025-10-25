@@ -25,11 +25,6 @@ public class StatsDisplay : MonoBehaviour
     public virtual void UpdateHPDisplay(int value)
     {
         combatantHPTextMeshPro.text = "HP: " + value.ToString();
-
-        if (combatant.CurrentHP <= 0)
-        {
-            statsDisplayContainerAnimator.Play("StatsDisplayOnDefeat");
-        }
     }
 
     public virtual void InitialiseCombatStatsDisplay(Combatant combatant)

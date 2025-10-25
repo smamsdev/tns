@@ -16,7 +16,7 @@ public class Move : MonoBehaviour
     [Header("")]
     public float attackMoveModPercent;
     public float fendMoveModPercent;
-    public float attackTypeFloat = 0;
+    public float moveAnimationFloat = 0;
 
     public float targetPositionHorizontalOffset;
     public bool offsetFromSelf;
@@ -108,31 +108,15 @@ public class Move : MonoBehaviour
 
     public virtual void TriggerMoveAnimation()
     {
-        if (combatantToAct is PlayerCombat)
-        {
-            PlayerCombat playerCombat = combatantToAct as PlayerCombat;
-            combatantToActAnimator.SetFloat("WeaponTypeFloat", playerCombat.playerPermanentStats.weaponEquipped);
-        }
-
-        else
-        {
-            combatantToActAnimator.SetFloat("WeaponTypeFloat", 0);
-        }
-
-        combatantToActAnimator.SetFloat("AttackTypeFloat", attackTypeFloat);
+        combatantToActAnimator.SetFloat("MoveAnimationFloat", moveAnimationFloat);
         combatantToActAnimator.Play("Attack");
     }
-
-  // public virtual void TriggerIdleAnimation()
-  // {
-  //     combatantToActAnimator.SetTrigger("CombatIdle");
-  // }
 
     public virtual IEnumerator ApplyMoveToSelf()
     {
         TriggerMoveAnimation();
         yield return new WaitForSeconds(0.5f);
-        CombatEvents.TriggerAnimationOnce(combatantToActAnimator, "CombatIdle");
+        combatantToActAnimator.SetTrigger("CombatIdle");
         yield return new WaitForSeconds(1f);
         UpdateNarrator("");
     }
@@ -140,7 +124,6 @@ public class Move : MonoBehaviour
     public virtual IEnumerator ApplyMoveToEnemy()
     {
         var playerDefaultLookDirection = combatantToActMovementScript.lookDirection;
-        var targetToAttackUI = combatantToAct.targetToAttack.GetComponentInChildren<CombatantUI>();
 
         //move to attack pos
         yield return MoveToPosition(combatantToAct.gameObject, AttackPositionLocation(combatantToAct));
@@ -163,23 +146,23 @@ public class Move : MonoBehaviour
         }
 
         //apply stats to enemy and animate
-        targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
+        combatantToAct.targetToAttack.combatantUI.statsDisplay.ShowStatsDisplay(true);
         combatManager.cameraFollow.transformToFollow = targetCombatant.transform;
 
 
         targetCombatant.combatantUI.fendScript.ApplyAttackToFend(combatantToAct, combatantToAct.targetToAttack);
+        var spriteRenderer = combatantToActAnimator.GetComponent<SpriteRenderer>();
+        spriteRenderer.sortingOrder = 1;
         TriggerMoveAnimation();
 
         yield return new WaitForSeconds(.5f);
+        spriteRenderer.sortingOrder = 0;
 
-        combatantToActAnimator.SetFloat("lookDirectionX", -1);
         combatantToActAnimator.Play("Back");
 
-        //return combatantToAct to fightingpos, and return look direct
+        //return combatantToAct to fightingpos
         yield return ReturnFromPosition(combatantToAct.gameObject, combatantToAct.fightingPosition.transform.position);
-        targetToAttackUI.statsDisplay.ShowStatsDisplay(false);
-        //TriggerIdleAnimation();
-        CombatEvents.TriggerAnimationOnce(combatantToActAnimator, "CombatIdle");
+        combatantToActAnimator.SetTrigger("CombatIdle");
 
         UpdateNarrator("");
 
@@ -191,12 +174,16 @@ public class Move : MonoBehaviour
     {
         if (combatantToAct.targetToAttack.CurrentHP == 0)
         {
+            yield return new WaitForSeconds(0.5f);
             combatManager.CombatantDefeated(combatantToAct.targetToAttack);
+            combatantToAct.targetToAttack.combatantUI.statsDisplay.statsDisplayContainerAnimator.Play("StatsDisplayOnDefeat");
+            yield return new WaitForSeconds(1.5f);
         }
 
         else //return target to original pos if still alive
         {
             yield return new WaitForSeconds(0.5f);
+            combatantToAct.targetToAttack.combatantUI.statsDisplay.ShowStatsDisplay(false);
 
             if (targetCombatant.isBackstabbed)
             {

@@ -26,20 +26,8 @@ public class Setup : State
         //set up player stance and UI
         playerMovementScript.lookDirection = combatManager.battleScheme.playerDefaultLookDirection;
         var playerAnimator = playerCombat.GetComponent<Animator>();
-        playerAnimator.SetBool("isCombat", true);
-        playerAnimator.Play("CombatIdle");
+        playerAnimator.SetTrigger("CombatIdle");
         SetPlayerUI();
-
-        //Set combat animations
-        foreach (Combatant combatant in combatManager.enemies)
-        {
-            combatant.GetComponent<Animator>().SetBool("isCombat", true);
-        }
-
-        foreach (Combatant combatant in combatManager.allies)
-        {
-            combatant.GetComponent<Animator>().SetBool("isCombat", true);
-        }
 
         yield return new WaitForSeconds(0.1f);
 
@@ -69,30 +57,18 @@ public class Setup : State
             {
                 combatManager.SelectTargetToAttack(enemy, combatManager.allAlliesToTarget);
                 combatManager.SelectCombatantMove(enemy);
+                enemy.movementScript.animator.SetTrigger("CombatIdle");
                 enemy.combatantUI.DisplayCombatantMove(enemy);
                 yield return new WaitForSeconds(1f);
                 enemy.combatantUI.attackDisplay.ShowAttackDisplay(enemy, false);
+                enemy.combatantUI.fendScript.ShowFendDisplay(enemy, false);
             }
-
-            enemy.combatantUI.fendScript.ShowFendDisplay(enemy, false);
         }
 
         //set ally ui and attack
         foreach (Ally ally in combatManager.allies)
         {
             SetcombatantUI(ally);
-            yield return new WaitForSeconds(0.1f); //i cant remember why u have to wait but attack ui wont appear if you dont
-
-            if (!combatManager.battleScheme.isAllyFlanked)
-            {
-                combatManager.SelectTargetToAttack(ally, combatManager.enemies);
-                combatManager.SelectCombatantMove(ally);
-                ally.combatantUI.DisplayCombatantMove(ally);
-                ally.combatantUI.attackDisplay.ShowAttackDisplay(ally, false);
-            }
-
-            yield return new WaitForSeconds(1f);
-            ally.combatantUI.fendScript.ShowFendDisplay(ally, false);
 
             if (ally is PartyMemberCombat)
             {
@@ -104,6 +80,20 @@ public class Setup : State
                 partyMember.CurrentHP = partyMember.partyMemberSO.currentHP;
             }
 
+            yield return new WaitForSeconds(0.1f); //i cant remember why u have to wait but attack ui wont appear if you dont
+
+            if (!combatManager.battleScheme.isAllyFlanked)
+            {
+                combatManager.SelectTargetToAttack(ally, combatManager.enemies);
+                combatManager.SelectCombatantMove(ally);
+                ally.movementScript.animator.SetTrigger("CombatIdle");
+                ally.combatantUI.DisplayCombatantMove(ally);
+                yield return new WaitForSeconds(1f);
+                ally.combatantUI.attackDisplay.ShowAttackDisplay(ally, false);
+                ally.combatantUI.fendScript.ShowFendDisplay(ally, false);
+            }
+
+            yield return new WaitForSeconds(1f);
         }
 
         yield return new WaitForSeconds(1);

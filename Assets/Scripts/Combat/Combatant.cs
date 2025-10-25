@@ -26,8 +26,10 @@ public abstract class Combatant : MonoBehaviour
     public int attackBase;
     public int fendBase;
     public int maxHP;
+    [Tooltip("Set by code. Leave as 0.")]
     public int attackTotal;
-    public int fendTotal;
+    [Tooltip("Set by code. Leave as 0.")]
+    public int fendTotal = 0;
     public int CurrentHP
     {
         get
@@ -78,22 +80,10 @@ public abstract class Combatant : MonoBehaviour
             CurrentHP = valueToOutput;
             combatantUI.statsDisplay.UpdateHPDisplay(CurrentHP);
 
-            if (CurrentHP <= 0)
-            {
-                Defeated();
-                yield break;
-            }
-
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         yield return new WaitForSeconds(0.5f);
-    }
-
-    public void Defeated()
-    { 
-        var combatantAnimator = this.GetComponent<Animator>();
-        combatantAnimator.SetBool("Defeated", true);
     }
 }

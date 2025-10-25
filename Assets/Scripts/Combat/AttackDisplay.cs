@@ -37,7 +37,7 @@ public class AttackDisplay : MonoBehaviour
     {
         var pos = combatant.combatantUI.attackDisplay.transform.localPosition;
 
-        if (combatant.movementScript.lookDirection == Vector2.left)
+        if (combatant.CombatLookDirX == -1)
         {
             pos.x = -Mathf.Abs(pos.x);
         }

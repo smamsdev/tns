@@ -109,13 +109,12 @@ MonoBehaviour:
   verticalInput: 0
   defaultMovementspeed: 1.2
   movementSpeed: 0
-  scriptedMovement: 0
   sloping: 0
   forceLookDirectionOnLoad: {x: 1, y: 0}
   animator: {fileID: 0}
   movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
-  isReversing: {x: 0, y: 0}
+  descendingFactor: 0
   rigidBody2d: {fileID: 0}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
@@ -241,14 +240,15 @@ MonoBehaviour:
   combatantName: Hef
   combatantUI: {fileID: 0}
   movementScript: {fileID: 0}
+  fightingPosition: {fileID: 0}
+  isBackstabbed: 0
+  _combatLookDirX: 0
   attackBase: 12
   fendBase: 2
   maxHP: 100
+  attackTotal: 0
+  fendTotal: 0
   currentHP: 55
-  attackTotal: 12
-  fendTotal: 12
-  forceLookDirection: {x: 0, y: 0}
-  fightingPosition: {fileID: 0}
   targetToAttack: {fileID: 0}
   moveSelected: {fileID: 0}
   XPReward: 275
@@ -426,7 +426,7 @@ MonoBehaviour:
   attackPushStrength: 1
   attackMoveModPercent: 1
   fendMoveModPercent: 1
-  animtionIntTriggerToUse: 1
+  moveAnimationFloat: 0
   targetPositionHorizontalOffset: 0.2
   offsetFromSelf: 0
   applyMoveToSelfOnly: 0

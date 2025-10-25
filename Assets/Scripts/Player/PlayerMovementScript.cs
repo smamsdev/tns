@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
@@ -33,20 +33,24 @@ public class PlayerMovementScript : MovementScript
     {
         previousRigidPosition = rigidBody2d.position;
         movementSpeed = defaultMovementspeed;
-        scriptedMovement = false;
         FieldEvents.movementSpeedMultiplier = 1;
         rigidBody2d.bodyType = RigidbodyType2D.Dynamic;
         movementLocked = FieldEvents.movementLocked;
         distanceTravelled = 0;
     }
 
+    private void OnValidate()
+    {
+        // Prevent NaN from ever sticking to the serialized value
+        if (float.IsNaN(lookDirection.x) || float.IsNaN(lookDirection.y))
+        {
+            lookDirection = Vector2.right;
+            Debug.Log($"{name}: lookDirection was NaN, reset to Vector2.right");
+        }
+    }
+
     private void Update()
     {
-        if (FieldEvents.isMovementSpeedMultiplier)
-        {
-            movementSpeed = defaultMovementspeed * FieldEvents.movementSpeedMultiplier;
-        }
-
         if (Input.GetKeyDown(KeyCode.LeftShift))
 
         {
@@ -92,19 +96,14 @@ public class PlayerMovementScript : MovementScript
         distanceTravelled += delta.magnitude;
         previousRigidPosition = rigidBody2d.position;
 
-        if (input.sqrMagnitude > 0.001f)
+        if (input.sqrMagnitude > 0.1f)
         {
             lookDirection = input.normalized;
+            animator.SetFloat("lookDirectionX", lookDirection.x);
+            animator.SetFloat("lookDirectionY", lookDirection.y);
         }
 
         animator.SetFloat("sqrMagnitude", input.sqrMagnitude);
-        animator.SetFloat("lookDirectionX", lookDirection.x);
-        animator.SetFloat("lookDirectionY", lookDirection.y);
-
-        if (float.IsNaN(lookDirection.x) || float.IsNaN(lookDirection.y)) //stop this from creating errors i guess
-        {
-            lookDirection = Vector2.right;
-        }
     }
 
     public void LockPlayerMovement()

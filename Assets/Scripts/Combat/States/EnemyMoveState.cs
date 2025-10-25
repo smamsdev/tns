@@ -15,23 +15,6 @@ public class EnemyMoveState : State
 
         for (int i = 0; i < combatManager.enemies.Count;) //gotta manage an iterator here as the enemy list count may change mid loop
         {
-            foreach (Combatant combatant in combatManager.allAlliesToTarget)
-            {
-                if (combatant != combatManager.enemies[i].targetToAttack)
-                {
-                    combatant.combatantUI.fendScript.ShowFendDisplay(combatant, false);
-                    combatant.combatantUI.statsDisplay.ShowStatsDisplay(false);
-                }
-            }
-
-            //store allied target look dir
-            var alliedTargetMovementScript = combatManager.enemies[i].targetToAttack.movementScript;
-            var alliedTargetStoredLookDir = alliedTargetMovementScript.lookDirection;
-
-            var enemyLastLookDirection = combatManager.enemies[i].movementScript.lookDirection;
-            var enemyAnimator = combatManager.enemies[i].gameObject.GetComponent<Animator>();
-            enemyAnimator.ResetTrigger("CombatIdle");
-
             //reset narrator focus camera on enemy to act and wait
             CombatEvents.UpdateNarrator.Invoke("");
             combatManager.cameraFollow.transformToFollow = combatManager.enemies[i].transform;
@@ -46,7 +29,6 @@ public class EnemyMoveState : State
             }
 
             yield return combatManager.enemies[i].moveSelected.ApplyMove(combatManager.enemies[i], combatManager.enemies[i].targetToAttack);
-            combatManager.enemies[i].movementScript.lookDirection = enemyLastLookDirection;
 
             //check for player defeat
             if (combatManager.defeat.playerDefeated)

@@ -12,8 +12,8 @@ public class Encounter : ToTrigger
     public Battle battle;
     PlayerCombat playerCombat;
     public SceneSetup sceneSetup;
-    [SerializeField] int surpriseAttackPer100;
-    [SerializeField] int flankBattlePer100;
+    [SerializeField] int allySurprisedBattlePer100;
+    [SerializeField] int enemySurprisedBattlePer100;
 
     private void OnEnable()
     {
@@ -35,24 +35,25 @@ public class Encounter : ToTrigger
 
     void SelectLayoutType()
     {
-        int layoutTypeWeightingTotal = 100 + flankBattlePer100 + surpriseAttackPer100;
-        int randomValue = Random.Range(1, layoutTypeWeightingTotal + 1);
+        int defaultBattle = 100;
+        int total = defaultBattle + enemySurprisedBattlePer100 + allySurprisedBattlePer100;
+        int randomValue = Random.Range(1, total + 1);
 
-        if (randomValue <= flankBattlePer100)
-        {
-            FlankBattleLayout();
-            return;
-        }
-
-        if (randomValue <= flankBattlePer100 + surpriseAttackPer100)
-        {
-            SurpriseBattleLayout();
-            return;
-        }
-
-        else
+        if (randomValue <= defaultBattle)
         {
             StandardBattleLayout();
+            return;
+        }
+
+        if (randomValue <= defaultBattle + enemySurprisedBattlePer100)
+        {
+            EnemySurprisedBattleLayout();
+            return;
+        }
+
+        if (randomValue <= total)
+        {
+            AllySurprisedBattleLayout();
             return;
         }
     }
@@ -175,36 +176,6 @@ public class Encounter : ToTrigger
         }
     }
 
-    void ReverseBattleLayout()
-    {
-        List<Combatant> allAllies = new List<Combatant>(battle.allies);
-        allAllies.Insert(Random.Range(0, allAllies.Count + 1), playerCombat);
-
-        // Allies on left, enemies on right
-        SpaceCombatants(allAllies, false, 0, Vector2.left);
-        SpaceCombatants(battle.enemies, true, -2.5f, Vector2.right);
-
-        foreach (Combatant combatant in allAllies)
-        {
-            combatant.CombatLookDirX = 1;
-        }
-    }
-
-    void StandardBattleLayout()
-    {
-        List<Combatant> allAllies = new List<Combatant>(battle.allies);
-        allAllies.Insert(Random.Range(0, allAllies.Count + 1), playerCombat);
-
-        // Allies on left, enemies on right
-        SpaceCombatants(allAllies, true, 0, Vector2.right);
-        SpaceCombatants(battle.enemies, false, 0, Vector2.left);
-
-        foreach (Combatant combatant in allAllies)
-        {
-            combatant.CombatLookDirX = 1;
-        }
-    }
-
     void SpaceCombatants(List<Combatant> combatantList, bool isLeftSided, float startPosOffset, Vector2 lookDir)
     {
         Vector2 battleCenter = battle.battleCenterPosition.transform.position;
@@ -270,7 +241,27 @@ public class Encounter : ToTrigger
         return playerCombat.fightingPosition;
     }
 
-    void FlankBattleLayout()
+    void StandardBattleLayout()
+    {
+        List<Combatant> allAllies = new List<Combatant>(battle.allies);
+        allAllies.Insert(Random.Range(0, allAllies.Count + 1), playerCombat);
+
+        // Allies on left, enemies on right
+        SpaceCombatants(allAllies, true, -2.5f, Vector2.right);
+        SpaceCombatants(battle.enemies, false, 2.5f, Vector2.left);
+
+        foreach (Combatant combatant in allAllies)
+        {
+            combatant.CombatLookDirX = 1;
+        }
+
+        foreach (Combatant combatant in battle.enemies)
+        {
+            combatant.CombatLookDirX = -1;
+        }
+    }
+
+    void EnemySurprisedBattleLayout()
     {
         List<Combatant> allAllies = new List<Combatant>(battle.allies);
         allAllies.Insert(Random.Range(0, allAllies.Count + 1), playerCombat);
@@ -283,11 +274,16 @@ public class Encounter : ToTrigger
 
         foreach (Combatant combatant in allAllies)
         {
-            combatant.CombatLookDirX = -1;
+            combatant.CombatLookDirX = 1;
+        }
+
+        foreach (Combatant combatant in battle.enemies)
+        {
+            combatant.CombatLookDirX = 1;
         }
     }
 
-    void SurpriseBattleLayout()
+    void AllySurprisedBattleLayout()
     {
         List<Combatant> allAllies = new List<Combatant>(battle.allies);
         allAllies.Insert(Random.Range(0, allAllies.Count + 1), playerCombat);
@@ -300,6 +296,11 @@ public class Encounter : ToTrigger
         battle.isAllyFlanked = true;
 
         foreach (Combatant combatant in allAllies)
+        {
+            combatant.CombatLookDirX = 1;
+        }
+
+        foreach (Combatant combatant in battle.enemies)
         {
             combatant.CombatLookDirX = 1;
         }

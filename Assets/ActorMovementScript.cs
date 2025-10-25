@@ -13,16 +13,10 @@ public class ActorMovementScript : MovementScript
         rigidBody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
-    private void OnDisable()
-    {
-        animator.SetFloat("lookDirectionX", 0);
-        animator.SetFloat("verticalInput", 0);
-    }
 
     private void Start()
     {
         rigidBody2d.bodyType = RigidbodyType2D.Dynamic;
-        scriptedMovement = false;
 
         if (forceLookDirectionOnLoad != Vector2.zero ) 
         
@@ -83,51 +77,18 @@ public class ActorMovementScript : MovementScript
 
     void FixedUpdate()
     {
+        Vector2 input = new Vector2(horizontalInput, verticalInput + sloping);
+
+        Vector2 newPosition = rigidBody2d.position + input * movementSpeed * Time.fixedDeltaTime;
+        rigidBody2d.MovePosition(newPosition);
+
+        if (input.sqrMagnitude > 0.001f)
         {
-            newPosition = rigidBody2d.position;
-            previousPosition = rigidBody2d.position;
-
-            newPosition.x += movementSpeed * horizontalInput * Time.deltaTime;
-            newPosition.y += movementSpeed * (verticalInput + sloping) * Time.deltaTime;
-
-            rigidBody2d.MovePosition(newPosition);
-
-            movementDirection = (newPosition - previousPosition);
-
-            if (movementDirection.magnitude > 0)
-            {
-                animator.SetBool("isMoving", true);
-            }
-
-            else
-            {
-                animator.SetBool("isMoving", false);
-            }
-
-            if (horizontalInput > 0)
-            {
-                lookDirection = Vector2.right;
-            }
-
-            if (horizontalInput < 0)
-            {
-                lookDirection = Vector2.left;
-            }
-
-            if (verticalInput > 0)
-            {
-                lookDirection = Vector2.up * descendingFactor;
-            }
-
-            if (verticalInput < 0)
-            {
-                lookDirection = Vector2.down * descendingFactor;
-            }
-
-            animator.SetFloat("horizontalInput", movementDirection.x);
-            animator.SetFloat("verticalInput", movementDirection.y * descendingFactor);
-            animator.SetFloat("lookDirectionX", lookDirection.x);
-            animator.SetFloat("lookDirectionY", lookDirection.y);
+            lookDirection = input.normalized;
         }
+
+        animator.SetFloat("sqrMagnitude", input.sqrMagnitude);
+        animator.SetFloat("lookDirectionX", lookDirection.x);
+        animator.SetFloat("lookDirectionY", lookDirection.y);
     }
 }

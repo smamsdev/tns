@@ -59,7 +59,7 @@ public class Squall : ViolentMove
         }
 
         combatantToActMovementScript.lookDirection = playerDefaultLookDirection;
-        CombatEvents.TriggerAnimationOnce(combatantToActAnimator, "CombatIdle");
+        combatantToActAnimator.SetTrigger("CombatIdle");
 
         UpdateNarrator("");
 
@@ -76,10 +76,22 @@ public class Squall : ViolentMove
                 combatManager.CombatantDefeated(combatantToAct.targetToAttack);
             }
 
-            else         //return target to original pos if still alive
+            else //return target to original pos if still alive
             {
                 yield return new WaitForSeconds(0.5f);
-                yield return combatManager.PositionCombatant(enemy.gameObject, enemy.fightingPosition.transform.position);
+
+                if (targetCombatant.isBackstabbed)
+                {
+                    combatantToAct.targetToAttack.movementScript.animator.Play("Back");
+                }
+
+                else
+                {
+                    combatantToAct.targetToAttack.movementScript.animator.Play("Advance");
+                }
+
+                yield return combatManager.PositionCombatant(combatantToAct.targetToAttack.gameObject, combatantToAct.targetToAttack.fightingPosition.transform.position);
+                combatantToAct.targetToAttack.movementScript.animator.Play("CombatIdle");
             }
         }
     }

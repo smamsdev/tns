@@ -51,8 +51,6 @@ public class MoveTo : ToTrigger
                 yield break; 
             }
 
-            movementScript.scriptedMovement = true;
-
             float directionX = targetPosition.x - movementScript.transform.position.x;
             movementScript.horizontalInput = Mathf.Sign(directionX);
             endPointDeltaX = Mathf.Abs(movementScript.transform.position.x - targetPosition.x);
@@ -82,7 +80,6 @@ public class MoveTo : ToTrigger
 
         movementScript.verticalInput = 0;
         movementScript.transform.position = new Vector3(targetPosition.x, targetPosition.y, movementScript.transform.position.z);
-        movementScript.scriptedMovement = false;
     }
 }
 
