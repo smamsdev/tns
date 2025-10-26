@@ -37,6 +37,7 @@ public class Setup : State
             combatManager.SetRigidBodyType(ally, RigidbodyType2D.Kinematic);
             yield return combatManager.PositionCombatant(ally.gameObject, ally.fightingPosition.transform.position);
             ally.movementScript.movementSpeed = ally.movementScript.defaultMovementspeed * 1;
+            ally.movementScript.animator.SetTrigger("CombatIdle");
         }
 
         //position enemies
@@ -45,6 +46,7 @@ public class Setup : State
             combatManager.SetRigidBodyType(enemy, RigidbodyType2D.Kinematic);
             yield return combatManager.PositionCombatant(enemy.gameObject, enemy.fightingPosition.transform.position);
             enemy.movementScript.movementSpeed = enemy.movementScript.defaultMovementspeed * 1;
+            enemy.movementScript.animator.SetTrigger("CombatIdle");
         }
 
         //set enemy ui and attack
@@ -57,7 +59,7 @@ public class Setup : State
             {
                 combatManager.SelectTargetToAttack(enemy, combatManager.allAlliesToTarget);
                 combatManager.SelectCombatantMove(enemy);
-                enemy.movementScript.animator.SetTrigger("CombatIdle");
+                combatManager.cameraFollow.transformToFollow = enemy.transform;
                 enemy.combatantUI.DisplayCombatantMove(enemy);
                 yield return new WaitForSeconds(1f);
                 enemy.combatantUI.attackDisplay.ShowAttackDisplay(enemy, false);
@@ -86,17 +88,15 @@ public class Setup : State
             {
                 combatManager.SelectTargetToAttack(ally, combatManager.enemies);
                 combatManager.SelectCombatantMove(ally);
-                ally.movementScript.animator.SetTrigger("CombatIdle");
+                combatManager.cameraFollow.transformToFollow = ally.transform;
                 ally.combatantUI.DisplayCombatantMove(ally);
                 yield return new WaitForSeconds(1f);
                 ally.combatantUI.attackDisplay.ShowAttackDisplay(ally, false);
                 ally.combatantUI.fendScript.ShowFendDisplay(ally, false);
             }
-
-            yield return new WaitForSeconds(1f);
         }
 
-        yield return new WaitForSeconds(1);
+        //yield return new WaitForSeconds(1);
         combatManager.SetState(combatManager.firstMove);
     }
 

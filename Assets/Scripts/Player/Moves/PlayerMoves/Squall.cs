@@ -13,7 +13,7 @@ public class Squall : ViolentMove
         enemiesInFront.Clear();
 
         //move to attack pos
-        yield return MoveToPosition(combatantToAct.gameObject, AttackPositionLocation(combatantToAct));
+        yield return MoveToPosition(combatantToAct, AttackPositionLocation(combatantToAct));
 
         //move counterattack?
         if (combatantToAct.targetToAttack.moveSelected != null)
@@ -42,8 +42,7 @@ public class Squall : ViolentMove
 
         foreach (Enemy enemy in enemiesInFront)
         {
-            enemy.combatantUI.statsDisplay.ShowStatsDisplay(true);
-            enemy.combatantUI.fendScript.ApplyAttackToFend(combatantToAct, enemy, (combatantToAct.attackTotal * 3));
+            yield return enemy.combatantUI.fendScript.ApplyAttackToCombatant(combatantToAct, enemy);
         }
 
         yield return new WaitForSeconds(.5f);
@@ -51,7 +50,7 @@ public class Squall : ViolentMove
         combatantToActAnimator.Play("Back");
 
         //return combatantToAct to fightingpos, and return look direct
-        yield return ReturnFromPosition(combatantToAct.gameObject, combatantToAct.fightingPosition.transform.position);
+        yield return MoveToPosition(combatantToAct, combatantToAct.fightingPosition.transform.position);
 
         foreach (Enemy enemy in enemiesInFront)
         {

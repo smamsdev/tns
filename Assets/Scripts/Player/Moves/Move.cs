@@ -27,21 +27,21 @@ public class Move : MonoBehaviour
     [HideInInspector] public MovementScript combatantToActMovementScript;
     [HideInInspector] public Combatant combatantToAct, targetCombatant;
 
-    public virtual IEnumerator MoveToPosition(GameObject objectToMove, Vector3 targetPosition)
+    public virtual IEnumerator MoveToPosition(Combatant combatant, Vector3 targetPosition)
     {
         var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
         var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-        yield return (combatMovementInstance.MoveCombatant(objectToMove, targetPosition));
+        yield return (combatMovementInstance.LerpPositionBySpeed(combatant.gameObject, targetPosition, combatant.movementScript.movementSpeed));
         Destroy(combatMovementInstanceGO);
     }
 
-    public virtual IEnumerator ReturnFromPosition(GameObject objectToMove, Vector3 targetPosition)
-    {
-        var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
-        var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-        yield return (combatMovementInstance.MoveCombatant(objectToMove, targetPosition));
-        Destroy(combatMovementInstanceGO);
-    }
+   // public virtual IEnumerator ReturnFromPosition(GameObject objectToMove, Vector3 targetPosition)
+   // {
+   //     var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
+   //     var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
+   //     yield return (combatMovementInstance.MoveCombatant(objectToMove, targetPosition));
+   //     Destroy(combatMovementInstanceGO);
+   // }
 
     public virtual Vector3 AttackPositionLocation(Combatant combatant)
     {
@@ -126,7 +126,7 @@ public class Move : MonoBehaviour
         var playerDefaultLookDirection = combatantToActMovementScript.lookDirection;
 
         //move to attack pos
-        yield return MoveToPosition(combatantToAct.gameObject, AttackPositionLocation(combatantToAct));
+        yield return MoveToPosition(combatantToAct, AttackPositionLocation(combatantToAct));
 
         //move counterattack?
         if (combatantToAct.targetToAttack.moveSelected != null)
@@ -146,22 +146,19 @@ public class Move : MonoBehaviour
         }
 
         //apply stats to enemy and animate
-        combatantToAct.targetToAttack.combatantUI.statsDisplay.ShowStatsDisplay(true);
         combatManager.cameraFollow.transformToFollow = targetCombatant.transform;
 
-
-        targetCombatant.combatantUI.fendScript.ApplyAttackToFend(combatantToAct, combatantToAct.targetToAttack);
         var spriteRenderer = combatantToActAnimator.GetComponent<SpriteRenderer>();
         spriteRenderer.sortingOrder = 1;
         TriggerMoveAnimation();
+        yield return targetCombatant.combatantUI.fendScript.ApplyAttackToCombatant(combatantToAct, combatantToAct.targetToAttack);
 
-        yield return new WaitForSeconds(.5f);
         spriteRenderer.sortingOrder = 0;
 
         combatantToActAnimator.Play("Back");
 
         //return combatantToAct to fightingpos
-        yield return ReturnFromPosition(combatantToAct.gameObject, combatantToAct.fightingPosition.transform.position);
+        yield return MoveToPosition(combatantToAct, combatantToAct.fightingPosition.transform.position);
         combatantToActAnimator.SetTrigger("CombatIdle");
 
         UpdateNarrator("");

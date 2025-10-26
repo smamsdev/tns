@@ -15,7 +15,7 @@ public class CounterAttack : ViolentMove
             attackMoveModPercent = 2;
             combatManager.playerCombat.TotalPlayerAttackPower(attackMoveModPercent);
 
-            combatantApplying.combatantUI.fendScript.ApplyAttackToFend(combatantToAct, combatantApplying);
+            combatantApplying.combatantUI.fendScript.ApplyAttackToCombatant(combatantToAct, combatantApplying);
             TriggerMoveAnimation();
 
 

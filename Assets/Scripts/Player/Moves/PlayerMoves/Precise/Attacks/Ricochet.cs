@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Ricochet : PreciseMove
 {
-    public override IEnumerator MoveToPosition(GameObject objectToMove, Vector3 targetPosition)
+    public override IEnumerator MoveToPosition(Combatant combatant, Vector3 targetPosition)
     {
         var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
         var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-        yield return (combatMovementInstance.MoveCombatant(objectToMove, targetPosition));
+        yield return (combatMovementInstance.LerpPositionBySpeed(combatant.gameObject, targetPosition, combatant.movementScript.movementSpeed));
         Destroy(combatMovementInstanceGO);
 
         Vector3 direction = (combatantToAct.targetToAttack.transform.position - combatantToAct.transform.position).normalized;

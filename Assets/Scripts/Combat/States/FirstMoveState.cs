@@ -15,6 +15,7 @@ public class FirstMoveState : State
             yield break;
         }
 
+        combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
         combatManager.playerCombat.combatantUI.statsDisplay.ShowStatsDisplay(true);
         combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.firstMoveMenu, true);
         combatManager.combatMenuManager.actionMenuDefaultButton.Select();

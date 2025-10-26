@@ -151,13 +151,13 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public IEnumerator PositionCombatant(GameObject goToMove, Vector3 targetPosition, float stoppingPercentage = 100f, bool useTimeout = false)
+    public IEnumerator PositionCombatant(GameObject goToMove, Vector3 targetPosition)
     {
         var combatantMoveMentInstanceGO = Instantiate(combatMovementPrefab, this.transform);
         var combatantMoveMentInstance = combatantMoveMentInstanceGO.GetComponent<CombatMovement>();
         combatantMoveMentInstanceGO.name = "MoveCombatant" + goToMove.gameObject.name;
 
-        yield return (combatantMoveMentInstance.MoveCombatant(goToMove, targetPosition, stoppingPercentage, useTimeout = false));
+        yield return (combatantMoveMentInstance.MoveCombatant(goToMove, targetPosition));
         Destroy(combatantMoveMentInstanceGO);
     }
 
