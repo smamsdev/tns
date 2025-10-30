@@ -10,6 +10,17 @@ public class PlayerCombat : Ally
     public PartySO party;
     public PlayerInventory playerInventory;
 
+    public int MaxPotential
+    {
+        get { return maxPotential; }
+        set
+        {
+            maxPotential = Mathf.Clamp(value, 0, 9999);
+        }
+    }
+
+    [SerializeField] private int maxPotential;
+
     public int CurrentPotential
     {
         get { return currentPotential; }
@@ -19,8 +30,7 @@ public class PlayerCombat : Ally
         }
     }
 
-    [Header("Potential")]
-    public int currentPotential;
+    [SerializeField] private int currentPotential;
     public int focusBase;
     public float fendPotMod;
     public float attackPowerPotMod;

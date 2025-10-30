@@ -164,8 +164,8 @@ public class VictoryRewards : MonoBehaviour
                 partyMemberSO.UpdateThreshold();
                 allyNameTMP.text = combatant.combatantName;
                 allyLevelTMP.text = partyMemberSO.level.ToString();
-                allyAttackTMP.text = partyMemberSO.attackBase.ToString();
-                allyFendTMP.text = partyMemberSO.fendBase.ToString();
+                allyAttackTMP.text = partyMemberSO.AttackBase.ToString();
+                allyFendTMP.text = partyMemberSO.FendBase.ToString();
 
                 var previousXP = partyMemberSO.XP;
                 var targetXP = previousXP + XPEarned;
@@ -185,8 +185,8 @@ public class VictoryRewards : MonoBehaviour
                     {
                         partyMemberSO.LevelUp();
                         allyLevelTMP.text = partyMemberSO.level.ToString();
-                        allyAttackTMP.text = partyMemberSO.attackBase.ToString();
-                        allyFendTMP.text = partyMemberSO.fendBase.ToString();
+                        allyAttackTMP.text = partyMemberSO.AttackBase.ToString();
+                        allyFendTMP.text = partyMemberSO.FendBase.ToString();
                     }
                 });
             }

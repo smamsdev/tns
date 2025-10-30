@@ -21,28 +21,51 @@ public abstract class Combatant : MonoBehaviour
 
     [SerializeField] private int _combatLookDirX;
 
-    [Header("Stats")]
+    public int AttackBase
+    {
+        get { return attackBase; }
+        set
+        {
+            attackBase = Mathf.Clamp(value, 0, 999);
+        }
+    }
 
-    public int attackBase;
-    public int fendBase;
-    public int maxHP;
+    public int FendBase
+    {
+        get { return fendBase; }
+        set
+        {
+            fendBase = Mathf.Clamp(value, 0, 999);
+        }
+    }
+
+    public int MaxHP
+    {
+        get { return maxHP; }
+        set
+        {
+            maxHP = Mathf.Clamp(value, 0, 9999);
+        }
+    }
+
+    public int CurrentHP
+    {
+        get { return currentHP; }
+        set
+        {
+            currentHP = Mathf.Clamp(value, 0, 9999);
+        }
+    }
+
+    [Header("Stats")]
+    [SerializeField] private int attackBase;
+    [SerializeField] private int fendBase;
+    [SerializeField] private int maxHP;
+    [SerializeField] private int currentHP;
     [Tooltip("Set by code. Leave as 0.")]
     public int attackTotal;
     [Tooltip("Set by code. Leave as 0.")]
     public int fendTotal = 0;
-    public int CurrentHP
-    {
-        get
-        {
-            return currentHP;
-        }
-        set
-        {
-            currentHP = Mathf.Clamp(value, 0, maxHP);
-        }
-    }
-
-    [SerializeField] int currentHP;
 
     private void OnEnable()
     {

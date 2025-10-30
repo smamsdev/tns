@@ -27,6 +27,7 @@ public class Setup : State
         playerMovementScript.lookDirection = combatManager.battleScheme.playerDefaultLookDirection;
         var playerAnimator = playerCombat.GetComponent<Animator>();
         playerAnimator.SetTrigger("CombatIdle");
+        InitializePermanentStatsAndGear();
         SetPlayerUI();
 
         yield return new WaitForSeconds(0.1f);
@@ -76,10 +77,10 @@ public class Setup : State
             {
                 PartyMemberCombat partyMember = ally as PartyMemberCombat;
 
-                partyMember.attackBase = partyMember.partyMemberSO.attackBase;
-                partyMember.fendBase = partyMember.partyMemberSO.fendBase;
-                partyMember.maxHP = partyMember.partyMemberSO.maxHP;
-                partyMember.CurrentHP = partyMember.partyMemberSO.currentHP;
+                partyMember.AttackBase = partyMember.partyMemberSO.AttackBase;
+                partyMember.FendBase = partyMember.partyMemberSO.FendBase;
+                partyMember.MaxHP = partyMember.partyMemberSO.MaxHP;
+                partyMember.CurrentHP = partyMember.partyMemberSO.CurrentHP;
             }
 
             yield return new WaitForSeconds(0.1f); //i cant remember why u have to wait but attack ui wont appear if you dont
@@ -117,7 +118,21 @@ public class Setup : State
 
     void SetPlayerUI()
     {
+        playerCombat.combatantUI.statsDisplay.InitialiseCombatStatsDisplay(playerCombat);
         playerCombat.combatantUI.combatUIContainer.SetActive(true);
         playerCombat.combatantUI.fendScript.combatManager = combatManager;
+    }
+
+    void InitializePermanentStatsAndGear()
+    {
+        playerCombat.playerInventory.InstantiateAllEquippedGear(combatManager);
+
+        playerCombat.MaxHP = playerCombat.playerPermanentStats.maxHP;
+        playerCombat.CurrentHP = playerCombat.playerPermanentStats.currentHP;
+        playerCombat.MaxPotential = playerCombat.playerPermanentStats.maxPotential;
+        playerCombat.CurrentPotential = playerCombat.playerPermanentStats.currentPotential;
+        playerCombat.AttackBase = playerCombat.playerPermanentStats.attackBase;
+        playerCombat.FendBase = playerCombat.playerPermanentStats.fendBase;
+        playerCombat.focusBase = playerCombat.playerPermanentStats.focusBase;
     }
 }

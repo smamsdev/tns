@@ -56,7 +56,7 @@ public class FendScript : MonoBehaviour
         fendAnimator.Play("FendDeflect", 0, 0);
 
         float elapsedTime = 0f;
-        float lerpDuration = 0.5f;
+        float lerpDuration = 1f;
         int startNumber = target.fendTotal;
         int endValue = target.fendTotal - attackCombinedTotal;
 

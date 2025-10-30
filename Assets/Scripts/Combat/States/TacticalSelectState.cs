@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TacticalSelectState : State
 {
+    [SerializeField] PlayerMove flankMove;
+
     public override IEnumerator StartState()
     {
         combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.TacticalSelectMenu, true);
@@ -27,4 +29,11 @@ public class TacticalSelectState : State
     {
         combatManager.SetState(state);
     }
+
+    public void FlankSelected()
+    {
+        combatManager.playerCombat.moveSelected = flankMove;
+        combatManager.SetState(combatManager.enemySelectState);
+    }
+
 }

@@ -430,9 +430,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 688420330996259635, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: attackPushStrength
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 688420330996259635, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: targetPositionHorizontalOffset
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5690664268955463731, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: moveWeighting
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5690664268955463731, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: attackTypeFloat
@@ -440,7 +448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5690664268955463731, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: attackPushStrength
-      value: 1
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 5690664268955463731, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: moveAnimationFloat
@@ -455,12 +463,24 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7036558732072847627, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: isFlaw
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036558732072847627, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: moveWeighting
-      value: 20
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036558732072847627, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: potentialChange
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 7036558732072847627, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: attackPushStrength
-      value: 1
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036558732072847627, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: targetPositionHorizontalOffset
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7291517550505530816, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1449,12 +1469,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyRoster:
   - enemyPreFab: {fileID: 1705068664190481556, guid: 2886a77e0ed244747a6ee7bb09ec4289, type: 3}
-    maxNumberOfType: 3
+    maxNumberOfType: 12
     remainingThisBattle: 0
     amountSpawned: 0
-  bonusAllyRoster: []
-  maxTotalEnemies: 1
-  maxBonusAllies: 1
+  bonusAllyRoster:
+  - allyPreFab: {fileID: 8544772069570677220, guid: fa949162a57d96241a4504056afb3076, type: 3}
+    maxNumberOfType: 12
+    remainingThisBattle: 0
+    amountSpawned: 0
+  maxTotalEnemies: 16
+  maxBonusAllies: 16
   battle: {fileID: 1272831097}
   sceneSetup: {fileID: 1458070175}
   allySurprisedBattlePer100: 0
@@ -1784,6 +1808,52 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 3153619107460022657, guid: 1043ae82aa594a04e89098cedb341589, type: 3}
   m_PrefabInstance: {fileID: 3203464327039275315}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1798052105 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8542296935082499608, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+  m_PrefabInstance: {fileID: 5489358879724395098}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1798052107 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2814025605737142086, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+  m_PrefabInstance: {fileID: 5489358879724395098}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798052105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3985c40e50875c944b0864f556ad9c35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1798052108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798052105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 548035b20d8367346aeb93d07d2a18c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveName: Flank
+  moveDescription: Flank
+  isEquipped: 0
+  moveWeighting: 0
+  attackPushStrength: 0
+  attackMoveModPercent: 0
+  fendMoveModPercent: 0
+  moveAnimationFloat: 0
+  targetPositionHorizontalOffset: 0.5
+  offsetFromSelf: 0
+  applyMoveToSelfOnly: 0
+  combatManager: {fileID: 0}
+  combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
+  combatantToAct: {fileID: 0}
+  targetCombatant: {fileID: 0}
+  potentialChange: 0
+  isFlaw: 0
 --- !u!1001 &3203464327039275315
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1918,6 +1988,34 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2814025605737142086, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+      propertyPath: flankMove
+      value: 
+      objectReference: {fileID: 1798052108}
+    - target: {fileID: 3736852850917496665, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3736852850917496665, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1798052107}
+    - target: {fileID: 3736852850917496665, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: FlankSelected
+      objectReference: {fileID: 0}
+    - target: {fileID: 3736852850917496665, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: TacticalSelectState, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3736852850917496665, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3736852850917496665, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3806044827229114904, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1962,10 +2060,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CombatManager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6785925696779331904, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8542296935082499608, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1798052108}
   m_SourcePrefab: {fileID: 100100000, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
 --- !u!4 &7291517550005069827 stripped
 Transform:

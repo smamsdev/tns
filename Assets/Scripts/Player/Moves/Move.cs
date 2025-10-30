@@ -35,14 +35,6 @@ public class Move : MonoBehaviour
         Destroy(combatMovementInstanceGO);
     }
 
-   // public virtual IEnumerator ReturnFromPosition(GameObject objectToMove, Vector3 targetPosition)
-   // {
-   //     var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
-   //     var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-   //     yield return (combatMovementInstance.MoveCombatant(objectToMove, targetPosition));
-   //     Destroy(combatMovementInstanceGO);
-   // }
-
     public virtual Vector3 AttackPositionLocation(Combatant combatant)
     {
         Vector3 targetPosition;
@@ -68,8 +60,8 @@ public class Move : MonoBehaviour
     {
         this.combatManager = combatManager;
 
-        combatant.attackTotal = Mathf.RoundToInt(combatant.attackBase * attackMoveModPercent);
-        combatant.fendTotal = Mathf.RoundToInt(combatant.fendBase * fendMoveModPercent);
+        combatant.attackTotal = Mathf.RoundToInt(combatant.AttackBase * attackMoveModPercent);
+        combatant.fendTotal = Mathf.RoundToInt(combatant.FendBase * fendMoveModPercent);
 
         var rng = Mathf.RoundToInt(combatant.attackTotal * Random.Range(-0.3f, 0.3f));
 
@@ -88,7 +80,8 @@ public class Move : MonoBehaviour
 
         else
         {
-            combatantToActAnimator.Play("Advance");
+            Vector3 direction = (combatantToAct.targetToAttack.transform.position - combatantToAct.transform.position).normalized;
+            combatantToAct.CombatLookDirX = (int)Mathf.Sign(direction.x);
             yield return ApplyMoveToEnemy();
         }
     }
@@ -123,9 +116,11 @@ public class Move : MonoBehaviour
 
     public virtual IEnumerator ApplyMoveToEnemy()
     {
-        var playerDefaultLookDirection = combatantToActMovementScript.lookDirection;
+        targetCombatant.combatantUI.fendScript.ShowFendDisplay(targetCombatant, true);
+        yield return new WaitForSeconds(0.5f);
 
         //move to attack pos
+        combatantToActAnimator.Play("Advance");
         yield return MoveToPosition(combatantToAct, AttackPositionLocation(combatantToAct));
 
         //move counterattack?
@@ -171,15 +166,12 @@ public class Move : MonoBehaviour
     {
         if (combatantToAct.targetToAttack.CurrentHP == 0)
         {
-            yield return new WaitForSeconds(0.5f);
             combatManager.CombatantDefeated(combatantToAct.targetToAttack);
-            combatantToAct.targetToAttack.combatantUI.statsDisplay.statsDisplayContainerAnimator.Play("StatsDisplayOnDefeat");
             yield return new WaitForSeconds(1.5f);
         }
 
         else //return target to original pos if still alive
         {
-            yield return new WaitForSeconds(0.5f);
             combatantToAct.targetToAttack.combatantUI.statsDisplay.ShowStatsDisplay(false);
 
             if (targetCombatant.isBackstabbed)

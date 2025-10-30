@@ -50,24 +50,6 @@ public class CombatManager : MonoBehaviour
         CombatEvents.PlayerDefeated -= PlayerDefeated;
     }
 
-    private void Start()
-    {
-        InitializePermanentStatsAndGear();
-    }
-
-    void InitializePermanentStatsAndGear()
-    {
-        playerCombat.playerInventory.InstantiateAllEquippedGear(this);
-
-        playerCombat.maxHP = playerCombat.playerPermanentStats.maxHP;
-        playerCombat.CurrentHP = playerCombat.playerPermanentStats.currentHP;
-        playerCombat.currentPotential = playerCombat.playerPermanentStats.currentPotential;
-        playerCombat.attackBase = playerCombat.playerPermanentStats.attackBase;
-        playerCombat.fendBase = playerCombat.playerPermanentStats.fendBase;
-        playerCombat.focusBase = playerCombat.playerPermanentStats.focusBase;
-
-    }
-
     public void CombatantDefeated(Combatant defeatedCombatant)
     {
         if (defeatedCombatant is Enemy)

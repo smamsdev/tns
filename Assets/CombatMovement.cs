@@ -40,7 +40,7 @@ public class CombatMovement : MonoBehaviour
         startTime = Time.time;
         float endPointDeltaX = Mathf.Abs(movementScript.transform.position.x - targetPosition.x);
 
-        while (endPointDeltaX > 0.035f)
+        while (endPointDeltaX > 0.037f)
         {
             if (Time.time - startTime > timeoutDuration)
             {

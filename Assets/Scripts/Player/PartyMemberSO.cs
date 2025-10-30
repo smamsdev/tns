@@ -7,11 +7,47 @@ public class PartyMemberSO : ScriptableObject
 {
     public GameObject prefab;
 
-    [Header("Permanent Base Stats")]
-    public int attackBase;
-    public int fendBase;
-    public int maxHP;
-    public int currentHP;
+    public int AttackBase
+        {
+        get { return attackBase; }
+        set
+        {
+            attackBase = Mathf.Clamp(value, 0, 999);
+        }
+    }
+
+    public int FendBase
+    {
+        get { return fendBase; }
+        set
+        {
+            fendBase = Mathf.Clamp(value, 0, 999);
+        }
+    }
+
+    public int MaxHP
+    {
+        get { return maxHP; }
+        set
+        {
+            maxHP = Mathf.Clamp(value, 0, 9999);
+        }
+    }
+
+    public int CurrentHP
+        {
+        get { return currentHP; }
+        set
+        {
+            currentHP = Mathf.Clamp(value, 0, 9999);
+        }
+    }
+
+    [SerializeField] private int attackBase;
+    [SerializeField] private int fendBase;
+    [SerializeField] private int maxHP;
+    [SerializeField] private int currentHP;
+
 
 
     [Header("Exp")]

@@ -2,8 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ricochet : PreciseMove
+public class FlankMove : PlayerMove
 {
+    public override IEnumerator ApplyMove(Combatant combatantToAct, Combatant targetCombatant)
+    {
+        GetReferences(combatantToAct, targetCombatant);
+        UpdateNarrator(moveName);
+
+        combatantToActAnimator.Play("Advance");
+        yield return MoveToPosition(combatantToAct, AttackPositionLocation(combatantToAct));
+        combatantToActAnimator.SetTrigger("CombatIdle");
+
+        yield return new WaitForSeconds(1);
+    }
+
     public override IEnumerator MoveToPosition(Combatant combatant, Vector3 targetPosition)
     {
         var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
@@ -22,9 +34,11 @@ public class Ricochet : PreciseMove
         Vector3 direction = (combatant.targetToAttack.transform.position - combatant.transform.position).normalized;
         float attackDirX = Mathf.Sign(direction.x);
 
-            targetPosition = new Vector3(combatant.targetToAttack.transform.position.x + (targetPositionHorizontalOffset * attackDirX),
-                                         combatant.targetToAttack.transform.position.y);
+        targetPosition = new Vector3(combatant.targetToAttack.transform.position.x + (targetPositionHorizontalOffset * attackDirX),
+                                     combatantToAct.targetToAttack.transform.position.y);
 
+        combatantToAct.fightingPosition.transform.position = targetPosition;
         return targetPosition;
     }
+
 }

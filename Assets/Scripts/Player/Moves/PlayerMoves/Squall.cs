@@ -8,11 +8,10 @@ public class Squall : ViolentMove
 
     public override IEnumerator ApplyMoveToEnemy()
     {
-        var playerDefaultLookDirection = combatantToActMovementScript.lookDirection;
-        var targetToAttackUI = combatantToAct.targetToAttack.GetComponentInChildren<CombatantUI>();
         enemiesInFront.Clear();
 
         //move to attack pos
+        combatantToActAnimator.Play("Advance");
         yield return MoveToPosition(combatantToAct, AttackPositionLocation(combatantToAct));
 
         //move counterattack?
@@ -26,10 +25,6 @@ public class Squall : ViolentMove
             yield break;
         }
 
-        //apply stats to enemy and animate
-        combatManager.cameraFollow.transformToFollow = targetCombatant.transform;
-        TriggerMoveAnimation();
-
         foreach (Enemy enemy in combatManager.enemies)
         {
             float dirToEnemyX = enemy.transform.position.x - combatManager.playerCombat.transform.position.x;
@@ -42,14 +37,24 @@ public class Squall : ViolentMove
 
         foreach (Enemy enemy in enemiesInFront)
         {
-            yield return enemy.combatantUI.fendScript.ApplyAttackToCombatant(combatantToAct, enemy);
+            enemy.combatantUI.fendScript.ShowFendDisplay(enemy, true);
+        }
+
+        combatantToActAnimator.SetTrigger("CombatIdle");
+
+        yield return new WaitForSeconds(.5f);
+
+        TriggerMoveAnimation();
+
+        foreach (Enemy enemy in enemiesInFront)
+        {
+            StartCoroutine(enemy.combatantUI.fendScript.ApplyAttackToCombatant(combatantToAct, enemy));
         }
 
         yield return new WaitForSeconds(.5f);
-        combatantToActAnimator.SetFloat("lookDirectionX", -1);
-        combatantToActAnimator.Play("Back");
 
-        //return combatantToAct to fightingpos, and return look direct
+        //return combatantToAct to fightingpos
+        combatantToActAnimator.Play("Back");
         yield return MoveToPosition(combatantToAct, combatantToAct.fightingPosition.transform.position);
 
         foreach (Enemy enemy in enemiesInFront)
@@ -57,7 +62,6 @@ public class Squall : ViolentMove
             enemy.combatantUI.statsDisplay.ShowStatsDisplay(false);
         }
 
-        combatantToActMovementScript.lookDirection = playerDefaultLookDirection;
         combatantToActAnimator.SetTrigger("CombatIdle");
 
         UpdateNarrator("");
@@ -69,10 +73,10 @@ public class Squall : ViolentMove
     {
         foreach (Enemy enemy in enemiesInFront)
         {
-
             if (enemy.CurrentHP == 0)
             {
-                combatManager.CombatantDefeated(combatantToAct.targetToAttack);
+                combatManager.CombatantDefeated(enemy);
+                yield return new WaitForSeconds(1.5f);
             }
 
             else //return target to original pos if still alive
@@ -81,16 +85,16 @@ public class Squall : ViolentMove
 
                 if (targetCombatant.isBackstabbed)
                 {
-                    combatantToAct.targetToAttack.movementScript.animator.Play("Back");
+                    enemy.movementScript.animator.Play("Back");
                 }
 
                 else
                 {
-                    combatantToAct.targetToAttack.movementScript.animator.Play("Advance");
+                    enemy.movementScript.animator.Play("Advance");
                 }
 
-                yield return combatManager.PositionCombatant(combatantToAct.targetToAttack.gameObject, combatantToAct.targetToAttack.fightingPosition.transform.position);
-                combatantToAct.targetToAttack.movementScript.animator.Play("CombatIdle");
+                yield return combatManager.PositionCombatant(enemy.gameObject, enemy.fightingPosition.transform.position);
+                enemy.movementScript.animator.Play("CombatIdle");
             }
         }
     }
