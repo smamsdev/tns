@@ -9,6 +9,7 @@ public abstract class Combatant : MonoBehaviour
     public MovementScript movementScript;
     public GameObject fightingPosition;
     public bool isBackstabbed;
+    public bool isEnclosed;
     public int CombatLookDirX
     {
         get => _combatLookDirX;

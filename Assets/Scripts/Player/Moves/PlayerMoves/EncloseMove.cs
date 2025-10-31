@@ -2,16 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlankMove : PlayerMove
+public class EncloseMove : PlayerMove
 {
+    public Combatant combatantEnclosed;
+
     public override IEnumerator ApplyMove(Combatant combatantToAct, Combatant targetCombatant)
     {
         GetReferences(combatantToAct, targetCombatant);
         UpdateNarrator(moveName);
+        combatantEnclosed = targetCombatant;
+        combatantEnclosed.isEnclosed = true;
 
         combatantToActAnimator.Play("Advance");
         yield return MoveToPosition(combatantToAct, AttackPositionLocation(combatantToAct));
         combatantToActAnimator.SetTrigger("CombatIdle");
+
+        //its simply outrageous to be modifying combatUI elements at Move level but i am very tired
+        combatManager.combatMenuManager.SetButtonNormalColor(combatManager.tacticalSelectState.lastButtonSelected, Color.white);
+        combatManager.tacticalSelectState.lastButtonSelected = combatManager.tacticalSelectState.returnButton;
 
         yield return new WaitForSeconds(1);
     }

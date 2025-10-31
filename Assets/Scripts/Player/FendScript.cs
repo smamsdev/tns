@@ -107,6 +107,5 @@ public class FendScript : MonoBehaviour
 
             yield break;
         }
-
     }
 }

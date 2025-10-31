@@ -5,6 +5,9 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public class CombatManager : MonoBehaviour
 {
+    [Header("Debugging")]
+    public State currentState;
+
     [Header("Battle Setup")]
     public Battle battleScheme;
     //public GameObject player;
@@ -12,9 +15,6 @@ public class CombatManager : MonoBehaviour
     public List<Combatant> allies;
     public List<Combatant> enemies;
     public List<Combatant> allAlliesToTarget;
-
-    [Header("Debugging")]
-    public State currentState;
 
     [Header("States")]
     public Setup setup;
@@ -30,6 +30,7 @@ public class CombatManager : MonoBehaviour
     public TacticalSelectState tacticalSelectState;
     public EquipSlotSelectState equipSlotSelectState;
     public GearSelectCombatState gearSelectCombatState;
+    public EncloseSelectState encloseSelectState;
 
     [Header("Misc")]
     public GameObject combatMovementPrefab;
