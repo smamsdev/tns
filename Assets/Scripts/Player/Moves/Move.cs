@@ -99,15 +99,16 @@ public class Move : MonoBehaviour
         CombatEvents.UpdateNarrator(narratorString);
     }
 
-    public virtual void TriggerMoveAnimation()
+    public virtual IEnumerator TriggerMoveAnimation()
     {
         combatantToActAnimator.SetFloat("MoveAnimationFloat", moveAnimationFloat);
         combatantToActAnimator.Play("Attack");
+        yield return null;
     }
 
     public virtual IEnumerator ApplyMoveToSelf()
     {
-        TriggerMoveAnimation();
+        yield return TriggerMoveAnimation();
         yield return new WaitForSeconds(0.5f);
         combatantToActAnimator.SetTrigger("CombatIdle");
         yield return new WaitForSeconds(1f);
@@ -145,7 +146,7 @@ public class Move : MonoBehaviour
 
         var spriteRenderer = combatantToActAnimator.GetComponent<SpriteRenderer>();
         spriteRenderer.sortingOrder = 1;
-        TriggerMoveAnimation();
+        yield return TriggerMoveAnimation();
         yield return targetCombatant.combatantUI.fendScript.ApplyAttackToCombatant(combatantToAct, combatantToAct.targetToAttack);
 
         spriteRenderer.sortingOrder = 0;

@@ -44,7 +44,7 @@ public class Squall : ViolentMove
 
         yield return new WaitForSeconds(.5f);
 
-        TriggerMoveAnimation();
+        yield return TriggerMoveAnimation();
 
         foreach (Enemy enemy in enemiesInFront)
         {

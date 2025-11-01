@@ -380,6 +380,68 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &174562495
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 174562496}
+  - component: {fileID: 174562497}
+  m_Layer: 7
+  m_Name: Sunder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &174562496
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174562495}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 395318609}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &174562497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174562495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60f31ead3a158044aa56ddc49d972483, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveName: Sunder
+  moveDescription: Katana slice
+  isEquipped: 0
+  moveWeighting: 999
+  attackPushStrength: 0
+  attackMoveModPercent: 1
+  fendMoveModPercent: 0
+  moveAnimationFloat: 2
+  targetPositionHorizontalOffset: 0.3
+  offsetFromSelf: 0
+  applyMoveToSelfOnly: 0
+  combatManager: {fileID: 0}
+  combatantToActAnimator: {fileID: 0}
+  combatantToActMovementScript: {fileID: 0}
+  combatantToAct: {fileID: 0}
+  targetCombatant: {fileID: 0}
+  potentialChange: -20
+  isFlaw: 0
 --- !u!1 &174834064
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,6 +542,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &395318609 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3474892475207483148, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+  m_PrefabInstance: {fileID: 519880131}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &476719678
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,6 +588,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 688420330996259635, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: moveWeighting
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 688420330996259635, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: attackPushStrength
       value: 0.02
       objectReference: {fileID: 0}
@@ -530,7 +601,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5690664268955463731, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: moveWeighting
-      value: 10
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 5690664268955463731, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: attackTypeFloat
@@ -542,11 +613,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5690664268955463731, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: moveAnimationFloat
-      value: 2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5690664268955463731, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: attackMoveModPercent
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5690664268955463731, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: targetPositionHorizontalOffset
-      value: 0.4
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5989087119214572885, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      propertyPath: m_Size.x
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6457784655243026927, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: m_Name
@@ -626,7 +705,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3474892475207483148, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 174562496}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
 --- !u!114 &553934644 stripped

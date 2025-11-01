@@ -38,7 +38,6 @@ public class EnemySelectState : State
             combatManager.playerCombat.CombatLookDirX = previousLookDirX;
 
             combatManager.SetState(combatManager.secondMove);
-
         }
     }
 }

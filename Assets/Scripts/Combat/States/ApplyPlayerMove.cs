@@ -93,19 +93,5 @@ public class ApplyPlayerMove : State
         player.moveSelected.LoadMoveStatsAndPassCBM(player, combatManager);
 
         yield return player.moveSelected.ApplyMove(player, player.targetToAttack);
-
-       // if (player.targetToAttack !=null)
-       // {
-       //     if (player.targetToAttack.CurrentHP == 0)
-       //     {
-       //         combatManager.CombatantDefeated(player.targetToAttack);
-       //     }
-       //
-       //     else         //return target to original pos if still alive
-       //     {
-       //         yield return new WaitForSeconds(0.5f);
-       //         yield return combatManager.PositionCombatant(player.targetToAttack.gameObject, player.targetToAttack.fightingPosition.transform.position);
-       //     }
-       // }
     }
 }
