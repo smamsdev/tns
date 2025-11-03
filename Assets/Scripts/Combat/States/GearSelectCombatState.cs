@@ -70,7 +70,8 @@ public class GearSelectCombatState : State
 
     void ApplyGearEquipMove()
     {
-        combatManager.playerCombat.moveSelected = equipGearMove;
+        //combatManager.playerCombat.moveSelected = equipGearMove;
+        Debug.Log("asdasd");
         equipSlotSelectMenu.equipSlotSelected = equipSlotSelectMenu.uIGearEquipSlots[0];
         combatManager.SetState(combatManager.applyMove);
     }

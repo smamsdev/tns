@@ -147,7 +147,7 @@ public class CombatManager : MonoBehaviour
     public void SelectCombatantMove(Combatant combatant)
     {
         combatant.SelectMove();
-        combatant.moveSelected.LoadMoveStatsAndPassCBM(combatant, this);
+        combatant.moveSOSelected.moveInstance.LoadMoveStatsAndPassCBM(combatant, this);
     }
 
     void PlayerDefeated()

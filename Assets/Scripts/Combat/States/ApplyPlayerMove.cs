@@ -78,20 +78,22 @@ public class ApplyPlayerMove : State
 
     IEnumerator ApplyMove()
     {
+        combatManager.playerCombat.moveSOSelected.combatManager = combatManager;
+
         //reset narrator focus camera on allyToAct and wait
         CombatEvents.UpdateNarrator("");
         combatManager.cameraFollow.transformToFollow = player.transform;
+        var moveSOSelected = combatManager.playerCombat.moveSOSelected;
+        combatManager.playerCombat.TotalPlayerAttackPower(moveSOSelected.attackMoveModPercent);
 
         yield return new WaitForSeconds(0.5f);
 
         //update potential
-        PlayerMove moveSelected = combatManager.playerCombat.moveSelected as PlayerMove;
-        moveSelected.combatManager = combatManager;
-        combatManager.playerCombat.TotalPlayerAttackPower(moveSelected.attackMoveModPercent);
-        CombatEvents.UpdatePlayerPot.Invoke(moveSelected.potentialChange);
 
-        player.moveSelected.LoadMoveStatsAndPassCBM(player, combatManager);
 
-        yield return player.moveSelected.ApplyMove(player, player.targetToAttack);
+        //rock out
+        CombatEvents.UpdatePlayerPot.Invoke(moveSOSelected.potentialChange);
+        moveSOSelected.moveInstance.LoadMoveStatsAndPassCBM(player, combatManager);
+        yield return moveSOSelected.moveInstance.ApplyMove(player, player.targetToAttack);
     }
 }

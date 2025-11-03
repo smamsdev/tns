@@ -76,7 +76,7 @@ public abstract class Combatant : MonoBehaviour
 
     [Header("Moves")]
     public Combatant targetToAttack;
-    public Move moveSelected;
+    public MoveSO moveSOSelected;
 
 
     public abstract void SelectMove();

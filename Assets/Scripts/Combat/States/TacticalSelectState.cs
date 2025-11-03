@@ -44,14 +44,15 @@ public class TacticalSelectState : State
     {
         playerDefaultFightingPosition = combatManager.playerCombat.fightingPosition.transform.position;
         isEnclosing = true;
-        combatManager.playerCombat.moveSelected = encloseMove;
+        Debug.Log("asdasdasd");
+        //combatManager.playerCombat.moveSOSelected = encloseMove;
     }
 
     public void ReturnSelected()
     {
         combatManager.playerCombat.fightingPosition.transform.position = playerDefaultFightingPosition;
         isEnclosing = false;
-        combatManager.playerCombat.moveSelected = returnMove;
+        //combatManager.playerCombat.moveSelected = returnMove;
         combatManager.SetState(combatManager.applyMove);
     }
 

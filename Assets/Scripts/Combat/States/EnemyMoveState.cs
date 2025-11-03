@@ -28,7 +28,7 @@ public class EnemyMoveState : State
                 targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
             }
 
-            yield return combatManager.enemies[i].moveSelected.ApplyMove(combatManager.enemies[i], combatManager.enemies[i].targetToAttack);
+            yield return combatManager.enemies[i].moveSOSelected.moveInstance.ApplyMove(combatManager.enemies[i], combatManager.enemies[i].targetToAttack);
 
             //check for player defeat
             if (combatManager.defeat.playerDefeated)

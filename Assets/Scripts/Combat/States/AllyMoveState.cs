@@ -54,7 +54,7 @@ public class AllyMoveState : State
                 targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
             }
 
-            yield return combatManager.allies[i].moveSelected.ApplyMove(combatManager.allies[i], combatManager.allies[i].targetToAttack);
+            yield return combatManager.allies[i].moveSOSelected.moveInstance.ApplyMove(combatManager.allies[i], combatManager.allies[i].targetToAttack);
             combatManager.allies[i].GetComponent<MovementScript>().lookDirection = allyToActLastLookDirection;
 
             if (combatManager.allies[i].targetToAttack.CurrentHP == 0)

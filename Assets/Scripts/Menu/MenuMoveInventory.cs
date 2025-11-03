@@ -12,21 +12,21 @@ public class MenuMoveInventory : Menu
     public Menu menuToRevertTo;
     public TextMeshProUGUI moveInventoryHeaderTMP;
 
-    public List<PlayerMove> moveTypeInventoryToDisplay;
-    MoveInventory moveInventory;
+    public List<MoveSO> moveTypeInventoryToDisplay;
+    //MoveInventory moveInventory;
     public MoveSlot[] menuMoveInventorySlots;
     public MoveSlot moveSlotToEquipTo;
 
     public PlayerMoveManager playerMoveManager;
-    public PlayerEquippedMovesSO playerEquippedMovesSO;
     public string[] stringArrayToUpdateInSO;
 
-    private void OnEnable()
+    private void OnEnable() //this is wack
     {
         var player = GameObject.Find("Player");
-        moveInventory = player.GetComponentInChildren<MoveInventory>();
+        //moveInventory = player.GetComponentInChildren<MoveInventory>();
         playerMoveManager = player.GetComponentInChildren<PlayerMoveManager>();
-        playerEquippedMovesSO = playerMoveManager.playerEquippedMovesSO;
+        // playerEquippedMovesSO = playerMoveManager.playerEquippedMovesSO;
+        Debug.Log("this is wack");
     }
 
     private void Start()
@@ -96,7 +96,7 @@ public class MenuMoveInventory : Menu
         }
     }
 
-    public void EquipMoveFromInventoryToSlot(MoveSlot moveInventorySlot)
+    public void EquipMoveFromInventoryToSlot(MoveSlot moveInventorySlot) //reworkk
     {
         if (!moveInventorySlot.move.isEquipped)
         {
@@ -109,7 +109,7 @@ public class MenuMoveInventory : Menu
             moveInventorySlot.move.isEquipped = true;
             moveSlotToEquipTo.slotText.text = "Slot " + (int.Parse(moveSlotToEquipTo.name) + 1) + ": " + moveInventorySlot.move.moveName;
             stringArrayToUpdateInSO[int.Parse(moveSlotToEquipTo.name)] = moveInventorySlot.move.moveName;
-            playerMoveManager.LoadEquippedMoveListFromSO();
+            //playerMoveManager.LoadEquippedMoveListFromSO();
 
             ExitMenu();
         }
@@ -128,55 +128,55 @@ public class MenuMoveInventory : Menu
 
     public void SetInventoryMoveTypeViolentAttacks()
     {
-        moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.violentAttacksInventory);
-        stringArrayToUpdateInSO = playerEquippedMovesSO.violentAttacksListString;
+       // moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.violentAttacksInventory);
+      //  stringArrayToUpdateInSO = playerEquippedMovesSO.violentAttacksListString;
     }
 
     public void SetInventoryMoveTypeViolentFends()
     {
-        moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.violentFendsInventory);
-        stringArrayToUpdateInSO = playerEquippedMovesSO.violentFendsListString;
+      //  moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.violentFendsInventory);
+     //   stringArrayToUpdateInSO = playerEquippedMovesSO.violentFendsListString;
     }
 
     public void SetInventoryMoveTypeViolentFocuses()
     {
-        moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.violentFocusesInventory);
-        stringArrayToUpdateInSO = playerEquippedMovesSO.violentFocusesListString;
+       // moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.violentFocusesInventory);
+      //  stringArrayToUpdateInSO = playerEquippedMovesSO.violentFocusesListString;
     }
 
     public void SetInventoryMoveTypeCautiousAttacks()
     {
-        moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.cautiousAttacksInventory);
-        stringArrayToUpdateInSO = playerEquippedMovesSO.cautiousAttackssListString;
+    //    moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.cautiousAttacksInventory);
+     //   stringArrayToUpdateInSO = playerEquippedMovesSO.cautiousAttackssListString;
     }
 
     public void SetInventoryMoveTypeCautiousFends()
     {
-        moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.cautiousFendsInventory);
-        stringArrayToUpdateInSO = playerEquippedMovesSO.cautiousFendsListString;
+      //  moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.cautiousFendsInventory);
+     //   stringArrayToUpdateInSO = playerEquippedMovesSO.cautiousFendsListString;
     }
 
     public void SetInventoryMoveTypeCautiousFocuses()
     {
-        moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.cautiousFocusesInventory);
-        stringArrayToUpdateInSO = playerEquippedMovesSO.cautiousFocusesListString;
+      //  moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.cautiousFocusesInventory);
+       // stringArrayToUpdateInSO = playerEquippedMovesSO.cautiousFocusesListString;
     }
 
     public void SetInventoryMoveTypePreciseAttacks()
     {
-        moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.preciseAttacksInventory);
-        stringArrayToUpdateInSO = playerEquippedMovesSO.preciseAttacksListString;
+     //   moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.preciseAttacksInventory);
+       // stringArrayToUpdateInSO = playerEquippedMovesSO.preciseAttacksListString;
     }
 
     public void SetInventoryMoveTypePreciseFends()
     {
-        moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.preciseFendsInventory);
-        stringArrayToUpdateInSO = playerEquippedMovesSO.preciseFendsListString;
+     //   moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.preciseFendsInventory);
+       // stringArrayToUpdateInSO = playerEquippedMovesSO.preciseFendsListString;
     }
 
     public void SetInventoryMoveTypePreciseFocuses()
     {
-        moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.preciseFocusesInventory);
-        stringArrayToUpdateInSO = playerEquippedMovesSO.preciseFocusesListString;
+       // moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.preciseFocusesInventory);
+      //  stringArrayToUpdateInSO = playerEquippedMovesSO.preciseFocusesListString;
     }
 }

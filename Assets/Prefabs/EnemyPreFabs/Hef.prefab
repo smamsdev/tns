@@ -242,6 +242,7 @@ MonoBehaviour:
   movementScript: {fileID: 0}
   fightingPosition: {fileID: 0}
   isBackstabbed: 0
+  isEnclosed: 0
   _combatLookDirX: 0
   attackBase: 12
   fendBase: 50
@@ -250,11 +251,12 @@ MonoBehaviour:
   attackTotal: 0
   fendTotal: 0
   targetToAttack: {fileID: 0}
-  moveSelected: {fileID: 0}
+  moveSOSelected: {fileID: 0}
+  moveList:
+  - {fileID: 11400000, guid: 356dc7227969d2148a297851e215e5e9, type: 2}
+  movesFolderGO: {fileID: 5185246044404074909}
   XPReward: 275
   itemReward: {fileID: 11400000, guid: 1be06c8320cb3184d864ab5bb17cd241, type: 2}
-  moves:
-  - {fileID: 7883858996147921203}
 --- !u!1 &2793900058083318604
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,66 +377,6 @@ MonoBehaviour:
     dialogueGameObject: {fileID: 0}
   dialogueLaunched: 0
   isLoopedDialogue: 1
---- !u!1 &4391609247809986471
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7017632198111330960}
-  - component: {fileID: 7883858996147921203}
-  m_Layer: 8
-  m_Name: Basic
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7017632198111330960
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4391609247809986471}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9175807384692527323}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7883858996147921203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4391609247809986471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22ae4ef03e473e5439aa23d2598b2ee2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Bash
-  moveDescription: Bonk
-  isEquipped: 0
-  moveWeighting: 100
-  attackPushStrength: 0.1
-  attackMoveModPercent: 1
-  fendMoveModPercent: 1
-  moveAnimationFloat: 0
-  targetPositionHorizontalOffset: 0.15
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
 --- !u!1 &5185246044404074909
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,7 +405,6 @@ Transform:
   m_LocalPosition: {x: -2.62, y: -1.4923354, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7017632198111330960}
+  m_Children: []
   m_Father: {fileID: 8544917762391058261}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

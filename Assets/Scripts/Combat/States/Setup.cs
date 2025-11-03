@@ -28,6 +28,7 @@ public class Setup : State
         var playerAnimator = playerCombat.GetComponent<Animator>();
         playerAnimator.SetTrigger("CombatIdle");
         InitializePermanentStatsAndGear();
+        playerCombat.playerMoveManager.InstantiateEquippedMoves();
         SetPlayerUI();
 
         yield return new WaitForSeconds(0.1f);
@@ -54,6 +55,7 @@ public class Setup : State
         foreach (Enemy enemy in combatManager.enemies)
         {
             SetcombatantUI(enemy);
+            enemy.InstantiateMoves();
             yield return new WaitForSeconds(0.1f); //i cant remember why u have to wait but attack ui wont appear if you dont
 
             if (!combatManager.battleScheme.isEnemyFlanked)
@@ -72,6 +74,7 @@ public class Setup : State
         foreach (Ally ally in combatManager.allies)
         {
             SetcombatantUI(ally);
+            ally.InstantiateMoves();
 
             if (ally is PartyMemberCombat)
             {

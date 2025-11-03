@@ -57,7 +57,7 @@ public class MenuMoves : Menu
         }
     }
 
-    public void LoadMoveList<T>(T[] moveArray, MoveSlot[] slots) where T : PlayerMove
+    public void LoadMoveList<T>(T[] moveArray, MoveSlot[] slots) where T : MoveSO
     {
         for (int i = 0; i < slots.Length; i++)
         {
@@ -78,20 +78,21 @@ public class MenuMoves : Menu
         }
     }
 
-    public void LoadAllMoveLists()
+    public void LoadAllMoveLists() //rework
     {
-        playerMoveManager.LoadEquippedMoveListFromSO();
+        Debug.Log("liberate mei");
+        //playerMoveManager.LoadEquippedMoveListFromSO();
 
-        LoadMoveList(playerMoveManager.violentAttackSlots, violentAttackSlots);
-        LoadMoveList(playerMoveManager.violentFendSlots, violentFendSlots);
-        LoadMoveList(playerMoveManager.violentFocusSlots, violentFocusSlots);
-
-        LoadMoveList(playerMoveManager.cautiousAttackSlots, cautiousAttackSlots);
-        LoadMoveList(playerMoveManager.cautiousFendSlots, cautiousFendSlots);
-        LoadMoveList(playerMoveManager.cautiousFocusSlots, cautiousFocusSlots);
-
-        LoadMoveList(playerMoveManager.preciseAttackSlots, preciseAttackSlots);
-        LoadMoveList(playerMoveManager.preciseFendSlots, preciseFendSlots);
-        LoadMoveList(playerMoveManager.preciseFocusSlots, preciseFocusSlots);
+        //LoadMoveList(playerMoveManager.violentAttackSlots, violentAttackSlots);
+        //LoadMoveList(playerMoveManager.violentFendSlots, violentFendSlots);
+        //LoadMoveList(playerMoveManager.violentFocusSlots, violentFocusSlots);
+        //
+        //LoadMoveList(playerMoveManager.cautiousAttackSlots, cautiousAttackSlots);
+        //LoadMoveList(playerMoveManager.cautiousFendSlots, cautiousFendSlots);
+        //LoadMoveList(playerMoveManager.cautiousFocusSlots, cautiousFocusSlots);
+        //
+        //LoadMoveList(playerMoveManager.preciseAttackSlots, preciseAttackSlots);
+        //LoadMoveList(playerMoveManager.preciseFendSlots, preciseFendSlots);
+        //LoadMoveList(playerMoveManager.preciseFocusSlots, preciseFocusSlots);
     }
 }

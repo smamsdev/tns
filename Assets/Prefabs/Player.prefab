@@ -1,37 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6242386210123493
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7881316210849185373}
-  m_Layer: 7
-  m_Name: Fends
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7881316210849185373
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6242386210123493}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8213709444715032268}
-  m_Father: {fileID: 6053984093416605366}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &82617726707128403
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,130 +202,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &539720073523974976
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8213709444715032268}
-  - component: {fileID: 2366385179175440577}
-  m_Layer: 7
-  m_Name: Precise Fend
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8213709444715032268
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 539720073523974976}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7881316210849185373}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2366385179175440577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 539720073523974976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 655d8cde86dc11846aa943c008816fca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Precise Fend
-  moveDescription: Exacting
-  isEquipped: 0
-  moveWeighting: 55
-  attackPushStrength: 0
-  attackMoveModPercent: 0
-  fendMoveModPercent: 2
-  attackTypeFloat: 0
-  targetPositionHorizontalOffset: 0
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
-  potentialChange: 12
-  isFlaw: 0
---- !u!1 &551155799480956367
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 128249470098662302}
-  - component: {fileID: 2055817929403727569}
-  m_Layer: 7
-  m_Name: Option Paralysis
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &128249470098662302
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 551155799480956367}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3474892475207483148}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2055817929403727569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 551155799480956367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7701ca0ed09c60749b6769d27a67ca57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Option Paralysis
-  moveDescription: When one lacks action or certainty, indecision and doubt arise.
-  isEquipped: 0
-  moveWeighting: 0
-  attackPushStrength: 0
-  attackMoveModPercent: 1
-  fendMoveModPercent: 0
-  attackTypeFloat: 0
-  targetPositionHorizontalOffset: 0
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
-  potentialChange: 5
-  isFlaw: 1
 --- !u!1 &710185640659821120
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,6 +232,40 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7291517550505530816}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &816338700216954724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 26374758005752300}
+  m_Layer: 7
+  m_Name: Cautious
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &26374758005752300
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816338700216954724}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 834806428857336761}
+  - {fileID: 4261002244110847713}
+  - {fileID: 4169335082367769718}
+  m_Father: {fileID: 6419265074929225717}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &863026345371267490
 GameObject:
@@ -465,8 +343,6 @@ MonoBehaviour:
   combatManager: {fileID: 0}
   fendAnimator: {fileID: 5448525359647572290}
   backStabAnimator: {fileID: 9030049615023655470}
-  attackRemainder: 0
-  backStabBonus: 0
 --- !u!223 &5628073045649337421
 Canvas:
   m_ObjectHideFlags: 0
@@ -527,68 +403,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1193910150451002177
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 364376691937175062}
-  - component: {fileID: 3144260444219595121}
-  m_Layer: 7
-  m_Name: Counter Attack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &364376691937175062
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1193910150451002177}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6580526483310134424}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3144260444219595121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1193910150451002177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94b1093f0dc782649afc7a39e0a86db8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Counter Attack
-  moveDescription: Country atack
-  isEquipped: 0
-  moveWeighting: 25
-  attackPushStrength: 0
-  attackMoveModPercent: 0
-  fendMoveModPercent: 23
-  attackTypeFloat: 0
-  targetPositionHorizontalOffset: 0
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 1
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
-  potentialChange: -15
-  isFlaw: 0
 --- !u!1 &1237916937157881194
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,7 +455,7 @@ MonoBehaviour:
   animator: {fileID: 8088262132899306759}
   damageTakenTextMeshProUGUI: {fileID: 2947267426782114021}
   backStabText: {fileID: 2805487330885409026}
---- !u!1 &1352870325393854133
+--- !u!1 &1263625616719364937
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -649,122 +463,29 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4853084088316933622}
-  - component: {fileID: 6718934453022850941}
+  - component: {fileID: 8159414347565183003}
   m_Layer: 7
-  m_Name: Reckless Focus
+  m_Name: Attacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4853084088316933622
+--- !u!4 &8159414347565183003
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1352870325393854133}
+  m_GameObject: {fileID: 1263625616719364937}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3785976975582390065}
+  m_Father: {fileID: 6960183902106157929}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6718934453022850941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1352870325393854133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee8698e8b690d624c9c940e6597dbfaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Reckless Focus
-  moveDescription: My reckles focus desc
-  isEquipped: 0
-  moveWeighting: 25
-  attackPushStrength: 0
-  attackMoveModPercent: 0
-  fendMoveModPercent: 0.5
-  attackTypeFloat: 0
-  targetPositionHorizontalOffset: 0
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
-  potentialChange: 15
-  isFlaw: 0
---- !u!1 &1534626795260286935
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8712293475103656911}
-  - component: {fileID: 8579276996753944672}
-  m_Layer: 7
-  m_Name: Precise Attack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8712293475103656911
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1534626795260286935}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3474892475207483148}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8579276996753944672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1534626795260286935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 655d8cde86dc11846aa943c008816fca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Precise Attack
-  moveDescription: Deals 3x damage to body parts
-  isEquipped: 0
-  moveWeighting: 0
-  attackPushStrength: 0
-  attackMoveModPercent: 1
-  fendMoveModPercent: 0
-  attackTypeFloat: 0
-  targetPositionHorizontalOffset: 0
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
-  potentialChange: -10
-  isFlaw: 0
 --- !u!1 &1797262549961371976
 GameObject:
   m_ObjectHideFlags: 0
@@ -921,6 +642,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &1909128730201163071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4169335082367769718}
+  m_Layer: 7
+  m_Name: Focuses
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4169335082367769718
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909128730201163071}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 26374758005752300}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1911130620075127215
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,7 +765,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &2603667995567483167
+--- !u!1 &2390835128513454465
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1021,31 +773,31 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3474892475207483148}
+  - component: {fileID: 6419265074929225717}
   m_Layer: 7
-  m_Name: Attacks
+  m_Name: EquippedMoves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3474892475207483148
+--- !u!4 &6419265074929225717
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2603667995567483167}
+  m_GameObject: {fileID: 2390835128513454465}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8712293475103656911}
-  - {fileID: 128249470098662302}
-  - {fileID: 5423321751083471352}
-  m_Father: {fileID: 6053984093416605366}
+  - {fileID: 5736814738980272509}
+  - {fileID: 26374758005752300}
+  - {fileID: 6960183902106157929}
+  m_Father: {fileID: 4385107063098349603}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2657278018285256360
 GameObject:
@@ -1181,7 +933,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &2777095904883674409
+--- !u!1 &4051311036315259945
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1189,93 +941,93 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 823243170297164299}
-  - component: {fileID: 5690664268955463731}
+  - component: {fileID: 6960183902106157929}
   m_Layer: 7
-  m_Name: Reckless Attack
+  m_Name: Precise
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &823243170297164299
+--- !u!4 &6960183902106157929
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2777095904883674409}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8046860258707766845}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5690664268955463731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2777095904883674409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b78f78e03a63b6d4db83620e9fe383c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Reckless Attack
-  moveDescription: Deals heavy damage
-  isEquipped: 1
-  moveWeighting: 5
-  attackPushStrength: 0.3
-  attackMoveModPercent: 1
-  fendMoveModPercent: 0
-  attackTypeFloat: 0
-  targetPositionHorizontalOffset: 0.2
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
-  potentialChange: -15
-  isFlaw: 0
---- !u!1 &3002824090083780472
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6531990500401077899}
-  m_Layer: 7
-  m_Name: Violent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6531990500401077899
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3002824090083780472}
+  m_GameObject: {fileID: 4051311036315259945}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8046860258707766845}
-  - {fileID: 6580526483310134424}
-  - {fileID: 3785976975582390065}
-  m_Father: {fileID: 4385107063098349603}
+  - {fileID: 8159414347565183003}
+  - {fileID: 2661925978988653310}
+  - {fileID: 2450750237231077823}
+  m_Father: {fileID: 6419265074929225717}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4122767040265247939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4261002244110847713}
+  m_Layer: 7
+  m_Name: Fends
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4261002244110847713
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4122767040265247939}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 26374758005752300}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4210293672364492230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2661925978988653310}
+  m_Layer: 7
+  m_Name: Fends
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2661925978988653310
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4210293672364492230}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6960183902106157929}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4249036023532707788
 GameObject:
@@ -1287,7 +1039,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4385107063098349603}
   - component: {fileID: 5232138969718999026}
-  - component: {fileID: 761596406056827750}
   m_Layer: 7
   m_Name: MoveManager
   m_TagString: Untagged
@@ -1308,9 +1059,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6531990500401077899}
-  - {fileID: 6346086027618368374}
-  - {fileID: 6053984093416605366}
+  - {fileID: 6419265074929225717}
   m_Father: {fileID: 7291517550505530816}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5232138969718999026
@@ -1328,6 +1077,16 @@ MonoBehaviour:
   firstMoveIs: 0
   secondMoveIs: 0
   playerEquippedMovesSO: {fileID: 11400000, guid: df34d5de6f4dd2c4d94126931bcdd52e, type: 2}
+  playerMoveInventorySO: {fileID: 11400000, guid: 4658aa4d7d4f0c24fb16a242861b273c, type: 2}
+  ViolentAttacksFolder: {fileID: 7181943373128863204}
+  VioletFendsFolder: {fileID: 0}
+  ViolentFocusesFolder: {fileID: 0}
+  CautiousAttacksFolder: {fileID: 0}
+  CautiousFendsFolder: {fileID: 0}
+  CautiousFocusesFolder: {fileID: 0}
+  PreciseAttacksFolder: {fileID: 0}
+  PreciseFendsFolder: {fileID: 0}
+  PreciseFocusesFolder: {fileID: 0}
   playerCombat: {fileID: 8916189207439800493}
   violentAttackSlots:
   - {fileID: 0}
@@ -1383,91 +1142,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
---- !u!114 &761596406056827750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4249036023532707788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9eea9a8272e8a1144aa7ab5d294383eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveInventorySO: {fileID: 11400000, guid: 4658aa4d7d4f0c24fb16a242861b273c, type: 2}
-  violentAttacksInventory:
-  - {fileID: 0}
-  violentFendsInventory: []
-  violentFocusesInventory: []
-  cautiousAttacksInventory: []
-  cautiousFendsInventory: []
-  cautiousFocusesInventory: []
-  preciseAttacksInventory: []
-  preciseFendsInventory: []
-  preciseFocusesInventory: []
---- !u!1 &4377225542144362073
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7891091972437913851}
-  - component: {fileID: 6294116311098629907}
-  m_Layer: 7
-  m_Name: Precise Focus
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7891091972437913851
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4377225542144362073}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3573371721089376782}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6294116311098629907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4377225542144362073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 655d8cde86dc11846aa943c008816fca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Precise Focus
-  moveDescription: Vegeta
-  isEquipped: 0
-  moveWeighting: 55
-  attackPushStrength: 0
-  attackMoveModPercent: 0
-  fendMoveModPercent: 0
-  attackTypeFloat: 0
-  targetPositionHorizontalOffset: 0
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
-  potentialChange: 14
-  isFlaw: 0
 --- !u!1 &4645553439046408796
 GameObject:
   m_ObjectHideFlags: 0
@@ -1904,7 +1578,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &4909455078986123961
+--- !u!1 &5300333938604542810
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1912,73 +1586,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8046860258707766845}
-  m_Layer: 7
-  m_Name: Attacks
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8046860258707766845
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4909455078986123961}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 823243170297164299}
-  - {fileID: 9054488621636529731}
-  - {fileID: 2692893951540633627}
-  m_Father: {fileID: 6531990500401077899}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5375799984386380507
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 494510806054484999}
-  m_Layer: 7
-  m_Name: Focuses
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &494510806054484999
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5375799984386380507}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 809216785636615941}
-  m_Father: {fileID: 6346086027618368374}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5684657788600483064
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6408567144758020979}
+  - component: {fileID: 972705000245337443}
   m_Layer: 7
   m_Name: Fends
   m_TagString: Untagged
@@ -1986,23 +1594,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6408567144758020979
+--- !u!4 &972705000245337443
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5684657788600483064}
+  m_GameObject: {fileID: 5300333938604542810}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2136383264205976726}
-  m_Father: {fileID: 6346086027618368374}
+  m_Children: []
+  m_Father: {fileID: 5736814738980272509}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5920924032288113215
+--- !u!1 &5457038480682525513
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2010,31 +1617,59 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6346086027618368374}
+  - component: {fileID: 834806428857336761}
   m_Layer: 7
-  m_Name: Cautious
+  m_Name: Attacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6346086027618368374
+--- !u!4 &834806428857336761
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5920924032288113215}
+  m_GameObject: {fileID: 5457038480682525513}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 924730074356932477}
-  - {fileID: 6408567144758020979}
-  - {fileID: 494510806054484999}
-  m_Father: {fileID: 4385107063098349603}
+  m_Children: []
+  m_Father: {fileID: 26374758005752300}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6451062353674095499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2450750237231077823}
+  m_Layer: 7
+  m_Name: Focuses
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2450750237231077823
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6451062353674095499}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6960183902106157929}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6457784655243026927
 GameObject:
@@ -2126,10 +1761,10 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.22, y: 0.54}
+  m_Size: {x: 0.3, y: 0.54}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
 --- !u!50 &4400780416818078350
@@ -2175,13 +1810,12 @@ MonoBehaviour:
   verticalInput: 0
   defaultMovementspeed: 1.2
   movementSpeed: 0
-  scriptedMovement: 0
   sloping: 0
   forceLookDirectionOnLoad: {x: 0, y: 0}
   animator: {fileID: 8879681757372781048}
   movementDirection: {x: 0, y: 0}
   lookDirection: {x: 0, y: 0}
-  isReversing: {x: 0, y: 0}
+  descendingFactor: 0
   rigidBody2d: {fileID: 4400780416818078350}
   newPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
@@ -2200,7 +1834,7 @@ Animator:
   m_GameObject: {fileID: 6457784655243026927}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 368cb62c559537a4fbc5682682e940d7, type: 2}
+  m_Controller: {fileID: 22100000, guid: 97f1282e3239ced45a4aa8a364f5dcfe, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2292,14 +1926,16 @@ MonoBehaviour:
   combatantName: Liam
   combatantUI: {fileID: 7883207155541732718}
   movementScript: {fileID: 0}
-  attackBase: 5
-  fendBase: 1
+  fightingPosition: {fileID: 0}
+  isBackstabbed: 0
+  isEnclosed: 1
+  _combatLookDirX: 0
+  attackBase: 55
+  fendBase: 55
   maxHP: 0
   currentHP: 0
   attackTotal: 0
   fendTotal: 0
-  forceLookDirection: {x: 0, y: 0}
-  fightingPosition: {fileID: 0}
   targetToAttack: {fileID: 0}
   moveSelected: {fileID: 0}
   moves: []
@@ -2307,11 +1943,12 @@ MonoBehaviour:
   playerPermanentStats: {fileID: 11400000, guid: 891a8d8bd88cd9a45acd6a5ac406be03, type: 2}
   party: {fileID: 11400000, guid: 7b54538dd0515b34c937ff6de93a275f, type: 2}
   playerInventory: {fileID: 8524157694805311256}
+  maxPotential: 0
   currentPotential: 0
   focusBase: 0
   fendPotMod: 0
   attackPowerPotMod: 0
---- !u!1 &6562236617326698140
+--- !u!1 &6973264544303119192
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2319,282 +1956,33 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 809216785636615941}
-  - component: {fileID: 6384779814281747352}
+  - component: {fileID: 5736814738980272509}
   m_Layer: 7
-  m_Name: Slip Focus
+  m_Name: Violent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &809216785636615941
+--- !u!4 &5736814738980272509
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6562236617326698140}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 494510806054484999}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6384779814281747352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6562236617326698140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad23615e1bdd8e44f802ca6eb6c23670, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Slip Focus
-  moveDescription: Slip forcus
-  isEquipped: 0
-  moveWeighting: 55
-  attackPushStrength: 0
-  attackMoveModPercent: 0
-  fendMoveModPercent: 2
-  attackTypeFloat: 0
-  targetPositionHorizontalOffset: 0
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
-  potentialChange: 10
-  isFlaw: 0
---- !u!1 &6595303164841505670
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5798399696130040072}
-  - component: {fileID: 846492063073543673}
-  m_Layer: 7
-  m_Name: Slip Attack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5798399696130040072
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6595303164841505670}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 924730074356932477}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &846492063073543673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6595303164841505670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad23615e1bdd8e44f802ca6eb6c23670, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Slip Attack
-  moveDescription: SSLippy
-  isEquipped: 0
-  moveWeighting: 55
-  attackPushStrength: 0
-  attackMoveModPercent: 0.7
-  fendMoveModPercent: 0.5
-  attackTypeFloat: 0
-  targetPositionHorizontalOffset: 0
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
-  potentialChange: -15
-  isFlaw: 0
---- !u!1 &6694399590224140333
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2692893951540633627}
-  - component: {fileID: 7036558732072847627}
-  m_Layer: 7
-  m_Name: Squall
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2692893951540633627
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6694399590224140333}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8046860258707766845}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7036558732072847627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6694399590224140333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36602798bb022834098092a6527ff6ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Squall
-  moveDescription: a big squall
-  isEquipped: 0
-  moveWeighting: 9000
-  attackPushStrength: 0.2
-  attackMoveModPercent: 1
-  fendMoveModPercent: 0
-  attackTypeFloat: 0
-  targetPositionHorizontalOffset: 0.3
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
-  potentialChange: 20
-  isFlaw: 0
-  enemiesInFront: []
---- !u!1 &7016995569545363975
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9054488621636529731}
-  - component: {fileID: 5872529364335568773}
-  m_Layer: 7
-  m_Name: Violent Botch
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9054488621636529731
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7016995569545363975}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8046860258707766845}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5872529364335568773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7016995569545363975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ddd4a3c74ff1514583ae198b7bb6b00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Violent Botch
-  moveDescription: Too aggressive
-  isEquipped: 0
-  moveWeighting: 0
-  attackPushStrength: 0
-  attackMoveModPercent: 0
-  fendMoveModPercent: 1
-  attackTypeFloat: 0
-  targetPositionHorizontalOffset: 0
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
-  potentialChange: -10
-  isFlaw: 1
---- !u!1 &7164250575696481239
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6053984093416605366}
-  m_Layer: 7
-  m_Name: Precise
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6053984093416605366
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7164250575696481239}
+  m_GameObject: {fileID: 6973264544303119192}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3474892475207483148}
-  - {fileID: 7881316210849185373}
-  - {fileID: 3573371721089376782}
-  m_Father: {fileID: 4385107063098349603}
+  - {fileID: 7349081639722867715}
+  - {fileID: 972705000245337443}
+  - {fileID: 4825622786820253410}
+  m_Father: {fileID: 6419265074929225717}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7460548611517077210
+--- !u!1 &7181943373128863204
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2602,154 +1990,29 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2136383264205976726}
-  - component: {fileID: 5853114165235238953}
+  - component: {fileID: 7349081639722867715}
   m_Layer: 7
-  m_Name: Cautious Fend
+  m_Name: Attacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2136383264205976726
+--- !u!4 &7349081639722867715
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7460548611517077210}
+  m_GameObject: {fileID: 7181943373128863204}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6408567144758020979}
+  m_Father: {fileID: 5736814738980272509}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5853114165235238953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7460548611517077210}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad23615e1bdd8e44f802ca6eb6c23670, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Cautious Fend
-  moveDescription: Turtle
-  isEquipped: 0
-  moveWeighting: 25
-  attackPushStrength: 0
-  attackMoveModPercent: 0
-  fendMoveModPercent: 3
-  attackTypeFloat: 0
-  targetPositionHorizontalOffset: 0.2
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 1
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
-  potentialChange: -20
-  isFlaw: 0
---- !u!1 &8089375447339374614
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3573371721089376782}
-  m_Layer: 7
-  m_Name: Focuses
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3573371721089376782
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8089375447339374614}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7891091972437913851}
-  m_Father: {fileID: 6053984093416605366}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8370444328263974248
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8058366525642174918}
-  - component: {fileID: 5515073571870535413}
-  m_Layer: 7
-  m_Name: Cautious Botch
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8058366525642174918
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8370444328263974248}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 924730074356932477}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5515073571870535413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8370444328263974248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb2d360e6c4d6e74ea9818fd24289065, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Cautious Botch
-  moveDescription: Caushtois botch
-  isEquipped: 0
-  moveWeighting: 25
-  attackPushStrength: 0
-  attackMoveModPercent: 1
-  fendMoveModPercent: 0.2
-  attackTypeFloat: 0
-  targetPositionHorizontalOffset: 0
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
-  potentialChange: -5
-  isFlaw: 1
 --- !u!1 &8463103151050209164
 GameObject:
   m_ObjectHideFlags: 0
@@ -2834,7 +2097,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!1 &8550302312496560374
+--- !u!1 &8637928391364272614
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2842,93 +2105,29 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 924730074356932477}
+  - component: {fileID: 4825622786820253410}
   m_Layer: 7
-  m_Name: Attacks
+  m_Name: Focuses
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &924730074356932477
+--- !u!4 &4825622786820253410
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8550302312496560374}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5798399696130040072}
-  - {fileID: 8058366525642174918}
-  m_Father: {fileID: 6346086027618368374}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8669226165379764559
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5423321751083471352}
-  - component: {fileID: 688420330996259635}
-  m_Layer: 7
-  m_Name: Ricochet
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5423321751083471352
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8669226165379764559}
+  m_GameObject: {fileID: 8637928391364272614}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3474892475207483148}
+  m_Father: {fileID: 5736814738980272509}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &688420330996259635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8669226165379764559}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d70b9c9d3f46f614fb82c74c91999edc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Ricochet
-  moveDescription: Ricochet
-  isEquipped: 0
-  moveWeighting: 100
-  attackPushStrength: 0.2
-  attackMoveModPercent: 1
-  fendMoveModPercent: 0
-  attackTypeFloat: 0
-  targetPositionHorizontalOffset: 0.2
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
-  potentialChange: 0
-  isFlaw: 0
 --- !u!1 &8761889404623035857
 GameObject:
   m_ObjectHideFlags: 0
@@ -3005,70 +2204,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &8813471233155239021
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3785976975582390065}
-  m_Layer: 7
-  m_Name: Focuses
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3785976975582390065
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8813471233155239021}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4853084088316933622}
-  m_Father: {fileID: 6531990500401077899}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8888827247840282711
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6580526483310134424}
-  m_Layer: 7
-  m_Name: Fends
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6580526483310134424
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8888827247840282711}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 364376691937175062}
-  m_Father: {fileID: 6531990500401077899}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9103209401631004003
 GameObject:
   m_ObjectHideFlags: 0
