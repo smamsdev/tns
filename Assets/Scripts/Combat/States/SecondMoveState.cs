@@ -30,12 +30,13 @@ public class SecondMoveState : State
         combatManager.combatMenuManager.styleMenuDefaultButton = lastButtonSelected;
         combatManager.playerCombat.playerMoveManager.CombineStanceAndMove();
 
-        if (!combatManager.playerCombat.moveSOSelected.applyMoveToSelfOnly)
+        if (!combatManager.playerCombat.moveSelected.moveSO.ApplyMoveToSelfOnly)
         {
             combatManager.SetState(combatManager.enemySelectState);
         }
         else
         {
+            combatManager.playerCombat.targetCombatant = combatManager.playerCombat;
             combatManager.SetState(combatManager.applyMove);
         }
     }

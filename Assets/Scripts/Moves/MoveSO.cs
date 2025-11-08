@@ -1,35 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
-
+[CreateAssetMenu(menuName = "Move")]
 public class MoveSO : ScriptableObject
 {
-    public string moveName;
-    [TextArea(2, 5)]
-    public string moveDescription;
+    [Header("Monobehaviour Prefab")]
+    [SerializeField] private GameObject movePrefab;
 
-    [Header("")]
-    public int moveWeighting;
-    public float attackPushStrength;
-    public float attackMoveModPercent;
-    public float fendMoveModPercent;
-    public float moveAnimationFloat = 0;
-    public float targetPositionHorizontalOffset;
-    public bool offsetFromSelf;
-    public bool applyMoveToSelfOnly;
+    [Header("Move")]
+    [SerializeField] private string moveName;
+    [SerializeField, TextArea(2, 5)] private string moveDescription;
+    [SerializeField] private int moveWeighting;
+    [SerializeField] private float attackPushStrength;
+    [SerializeField] private float attackMoveModPercent;
+    [SerializeField] private float fendMoveModPercent;
+    [SerializeField] private float moveAnimationFloat = 0;
+    [SerializeField] private float targetPositionHorizontalOffset;
+    [SerializeField] private bool offsetFromSelf;
+    [SerializeField] private bool applyMoveToSelfOnly;
 
     [Header("Player Specific")]
-    public int potentialChange;
-    public bool isFlaw;
+    [SerializeField] private int potentialChange;
+    [SerializeField] private bool isFlaw;
     public bool isEquipped;
 
-    public GameObject movePrefab;
-    [System.NonSerialized] public Move moveInstance;
-
-    [HideInInspector] public CombatManager combatManager;
-    [HideInInspector] public Animator combatantToActAnimator;
-    [HideInInspector] public MovementScript combatantToActMovementScript;
-    [HideInInspector] public Combatant combatantToAct, targetCombatant;
+    //Getters
+    [HideInInspector] public GameObject MovePrefab => movePrefab;
+    [HideInInspector] public string MoveName => moveName;
+    [HideInInspector] public string MoveDescription => moveDescription;
+    [HideInInspector] public int MoveWeighting => moveWeighting;
+    [HideInInspector] public float AttackPushStrength => attackPushStrength;
+    [HideInInspector] public float AttackMoveModPercent => attackMoveModPercent;
+    [HideInInspector] public float FendMoveModPercent => fendMoveModPercent;
+    [HideInInspector] public float MoveAnimationFloat => moveAnimationFloat;
+    [HideInInspector] public float TargetPositionHorizontalOffset => targetPositionHorizontalOffset;
+    [HideInInspector] public bool OffsetFromSelf => offsetFromSelf;
+    [HideInInspector] public bool ApplyMoveToSelfOnly => applyMoveToSelfOnly;
+    [HideInInspector] public int PotentialChange => potentialChange;
+    [HideInInspector] public bool IsFlaw => isFlaw;
 }

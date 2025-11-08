@@ -20,15 +20,15 @@ public class EnemyMoveState : State
             combatManager.cameraFollow.transformToFollow = combatManager.enemies[i].transform;
             yield return new WaitForSeconds(0.5f);
 
-            var targetToAttackUI = combatManager.enemies[i].targetToAttack.GetComponentInChildren<CombatantUI>();
+            var targetCombatantUI = combatManager.enemies[i].targetCombatant.GetComponentInChildren<CombatantUI>();
 
-            if (combatManager.enemies[i].targetToAttack.fendTotal > 0)
+            if (combatManager.enemies[i].targetCombatant.fendTotal > 0)
             {
-                targetToAttackUI.fendScript.ShowFendDisplay(combatManager.enemies[i].targetToAttack, true);
-                targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
+                targetCombatantUI.fendScript.ShowFendDisplay(combatManager.enemies[i].targetCombatant, true);
+                targetCombatantUI.statsDisplay.ShowStatsDisplay(true);
             }
 
-            yield return combatManager.enemies[i].moveSOSelected.moveInstance.ApplyMove(combatManager.enemies[i], combatManager.enemies[i].targetToAttack);
+            yield return combatManager.enemies[i].moveSelected.ApplyMove(combatManager.enemies[i], combatManager.enemies[i].targetCombatant);
 
             //check for player defeat
             if (combatManager.defeat.playerDefeated)
@@ -38,11 +38,11 @@ public class EnemyMoveState : State
             }
 
             //return target to original pos if still alive
-            if (combatManager.enemies[i].targetToAttack.CurrentHP != 0)
+            if (combatManager.enemies[i].targetCombatant.CurrentHP != 0)
             {
                 yield return new WaitForSeconds(0.5f);
-                yield return combatManager.PositionCombatant(combatManager.enemies[i].targetToAttack.gameObject, combatManager.enemies[i].targetToAttack.fightingPosition.transform.position);
-                targetToAttackUI.fendScript.ShowFendDisplay(combatManager.enemies[i].targetToAttack, false);
+                yield return combatManager.PositionCombatant(combatManager.enemies[i].targetCombatant.gameObject, combatManager.enemies[i].targetCombatant.fightingPosition.transform.position);
+                targetCombatantUI.fendScript.ShowFendDisplay(combatManager.enemies[i].targetCombatant, false);
             }
 
             //check that enemy to act did not die mid turn and iterate

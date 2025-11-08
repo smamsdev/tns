@@ -5,51 +5,54 @@ using UnityEngine;
 public class Ally : Combatant
 {
     public List<MoveSO> moveList = new List<MoveSO>();
+    private List<Move> moveInstances = new List<Move>();
     public GameObject movesFolderGO;
 
     public void InstantiateMoves()
     {
         foreach (MoveSO moveSO in moveList)
         {
-            GameObject moveInstanceGO = Instantiate(moveSO.movePrefab);
-            moveInstanceGO.name = moveSO.moveName;
+            GameObject moveInstanceGO = Instantiate(moveSO.MovePrefab);
+            moveInstanceGO.name = moveSO.MoveName;
             moveInstanceGO.transform.SetParent(movesFolderGO.transform, false);
             Move moveInstance = moveInstanceGO.GetComponent<Move>();
-            moveSO.moveInstance = moveInstance;
+            Move move = moveInstanceGO.GetComponent<Move>();
+            moveInstance.moveSO = moveSO;
+            moveInstances.Add(move);
         }
     }
 
    public override void SelectMove()
     {
-        int moveWeightingTotal = 0;
+        int MoveWeightingTotal = 0;
 
-        foreach (var move in moveList)
+        foreach (Move move in moveInstances)
         {
-            if (move != null && move.moveWeighting > 0)
+            if (move != null && move.moveSO.MoveWeighting > 0)
             {
-                moveWeightingTotal += move.moveWeighting;
+                MoveWeightingTotal += move.moveSO.MoveWeighting;
             }
         }
 
-        if (moveWeightingTotal == 0)
+        if (MoveWeightingTotal == 0)
         {
             Debug.LogError("No valid moves available to select!!");
             return;
         }
 
-        int randomValue = Random.Range(1, moveWeightingTotal + 1);
+        int randomValue = Random.Range(1, MoveWeightingTotal + 1);
 
-        foreach (var move in moveList)
+        foreach (Move move in moveInstances)
         {
-            if (move == null || move.moveWeighting == 0) continue;
+            if (move == null || move.moveSO.MoveWeighting == 0) continue;
 
-            if (randomValue > move.moveWeighting)
+            if (randomValue > move.moveSO.MoveWeighting)
             {
-                randomValue -= move.moveWeighting;
+                randomValue -= move.moveSO.MoveWeighting;
             }
             else
             {
-                moveSOSelected = move;
+                moveSelected = move;
                 return;
             }
         }

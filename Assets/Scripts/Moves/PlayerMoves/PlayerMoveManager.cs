@@ -17,27 +17,44 @@ public class PlayerMoveManager : MonoBehaviour
 
     public PlayerCombat playerCombat;
 
-    public Move[] violentAttackSlots = new Move[5];
-    public Move[] violentFendSlots =  new Move[5];
-    public Move[] violentFocusSlots = new Move[5];
+    [SerializeField] List<Move> violentAttackInstances = new List<Move>();
+    [SerializeField] List<Move> violentFendInstances =  new List<Move>();
+    [SerializeField] List<Move> violentFocusInstances = new List<Move>();
+    [SerializeField] List<Move> cautiousAttackInstances = new List<Move>();
+    [SerializeField] List<Move> cautiousFendInstances = new List<Move>();
+    [SerializeField] List<Move> cautiousFocusInstances =new List<Move>(); 
+    [SerializeField] List<Move> preciseAttackInstances =new List<Move>(); 
+    [SerializeField] List<Move> preciseFendInstances = new List<Move>();
+    [SerializeField] List<Move> preciseFocusInstances = new List<Move>();
 
-    public Move[] cautiousAttackSlots = new Move[5];
-    public Move[] cautiousFendSlots = new Move[5];
-    public Move[] cautiousFocusSlots = new Move[5];
-
-    public Move[] preciseAttackSlots = new Move[5];
-    public Move[] preciseFendSlots = new Move[5];
-    public Move[] preciseFocusSlots = new Move[5];
-
-    public void InstantiateEquippedMoves()
+    public void InstantiateAllEquippedMoves()
     {
-        foreach (MoveSO moveSO in playerMoveInventorySO.violentAttacksInventory)
+        InstantiateMovesOfType(playerMoveInventorySO.violentAttacksEquipped, ViolentAttacksFolder, violentAttackInstances);
+        InstantiateMovesOfType(playerMoveInventorySO.violentFendsEquipped, VioletFendsFolder, violentFendInstances);
+        InstantiateMovesOfType(playerMoveInventorySO.violentFocusesEquipped, ViolentFocusesFolder, violentFocusInstances);
+
+        InstantiateMovesOfType(playerMoveInventorySO.cautiousAttacksEquipped, CautiousAttacksFolder, cautiousAttackInstances);
+        InstantiateMovesOfType(playerMoveInventorySO.cautiousFendsEquipped, CautiousFendsFolder, cautiousFendInstances);
+        InstantiateMovesOfType(playerMoveInventorySO.cautiousFocusesEquipped, CautiousFocusesFolder, cautiousFocusInstances);
+
+        InstantiateMovesOfType(playerMoveInventorySO.preciseAttacksEquipped, PreciseAttacksFolder, preciseAttackInstances);
+        InstantiateMovesOfType(playerMoveInventorySO.preciseFendsEquipped, PreciseFendsFolder, preciseFendInstances);
+        InstantiateMovesOfType(playerMoveInventorySO.preciseFocusesEquipped, PreciseFocusesFolder, preciseFocusInstances);
+    }
+
+    void InstantiateMovesOfType(MoveSO[] equippedMovesOfType, GameObject moveTypeFolder, List<Move> equippedInstancesOfType)
+    {
+        foreach (MoveSO moveSO in equippedMovesOfType)
         {
-            GameObject moveInstanceGO = Instantiate(moveSO.movePrefab);
-            moveInstanceGO.name = moveSO.moveName;
-            moveInstanceGO.transform.SetParent(ViolentAttacksFolder.transform, false);
-            Move moveInstance = moveInstanceGO.GetComponent<Move>();
-            moveSO.moveInstance = moveInstance;
+            if (moveSO != null)
+            {
+                GameObject moveInstanceGO = Instantiate(moveSO.MovePrefab);
+                moveInstanceGO.name = moveSO.MoveName;
+                moveInstanceGO.transform.SetParent(moveTypeFolder.transform, false);
+                Move moveInstance = moveInstanceGO.GetComponent<Move>();
+                moveInstance.moveSO = moveSO;
+                equippedInstancesOfType.Add(moveInstance);
+            }
         }
     }
 
@@ -52,63 +69,63 @@ public class PlayerMoveManager : MonoBehaviour
             case 1: // Violent stance
                 switch (secondMoveIs)
                 {
-                    case 1: SelectMove(playerMoveInventorySO.violentAttacksEquipped); break;
-                    case 2: SelectMove(playerMoveInventorySO.violentFendsEquipped); break;
-                    case 3: SelectMove(playerMoveInventorySO.violentFocusesEquipped); break;
+                    case 1: SelectMove(violentAttackInstances); break;
+                    case 2: SelectMove(violentFendInstances); break;
+                    case 3: SelectMove(violentFocusInstances); break;
                 }
                 break;
 
             case 2: // Cautious stance
                 switch (secondMoveIs)
                 {
-                    case 1: SelectMove(playerMoveInventorySO.cautiousAttacksEquipped); break;
-                    case 2: SelectMove(playerMoveInventorySO.cautiousFendsEquipped); break;
-                    case 3: SelectMove(playerMoveInventorySO.cautiousFocusesEquipped); break;
+                    case 1: SelectMove(cautiousAttackInstances); break;
+                    case 2: SelectMove(cautiousFendInstances); break;
+                    case 3: SelectMove(cautiousFocusInstances); break;
                 }
                 break;
 
             case 3: // Precise stance
                 switch (secondMoveIs)
                 {
-                    case 1: SelectMove(playerMoveInventorySO.preciseAttacksEquipped); break;
-                    case 2: SelectMove(playerMoveInventorySO.preciseFendsEquipped); break;
-                    case 3: SelectMove(playerMoveInventorySO.preciseFocusesEquipped); break;
+                    case 1: SelectMove(preciseAttackInstances); break;
+                    case 2: SelectMove(preciseFendInstances); break;
+                    case 3: SelectMove(preciseFocusInstances); break;
                 }
                 break;
         }
     }
 
-    void SelectMove(MoveSO[] EquippedMoveList)
+    void SelectMove(List<Move> moveInstancesOfType)
     {
-        int moveWeightingTotal = 0;
+        int MoveWeightingTotal = 0;
 
-        foreach (var move in EquippedMoveList)
+        foreach (Move move in moveInstancesOfType)
         {
-            if (move != null && move.moveWeighting > 0)
+            if (move != null && move.moveSO.MoveWeighting > 0)
             {
-                moveWeightingTotal += move.moveWeighting;
+                MoveWeightingTotal += move.moveSO.MoveWeighting;
             }
         }
 
-        if (moveWeightingTotal == 0)
+        if (MoveWeightingTotal == 0)
         {
             Debug.LogError("No valid moves available to select!!");
             return;
         }
 
-        int randomValue = UnityEngine.Random.Range(1, moveWeightingTotal + 1);
+        int randomValue = UnityEngine.Random.Range(1, MoveWeightingTotal + 1);
 
-        foreach (var move in EquippedMoveList)
+        foreach (Move move in moveInstancesOfType)
         {
-            if (move == null || move.moveWeighting == 0) continue;
+            if (move == null || move.moveSO.MoveWeighting == 0) continue;
 
-            if (randomValue > move.moveWeighting)
+            if (randomValue > move.moveSO.MoveWeighting)
             {
-                randomValue -= move.moveWeighting;
+                randomValue -= move.moveSO.MoveWeighting;
             }
             else
             {
-                playerCombat.moveSOSelected = move;
+                playerCombat.moveSelected = move;
                 return;
             }
         }

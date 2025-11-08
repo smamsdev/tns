@@ -12,11 +12,6 @@ public class ApplyPlayerMove : State
         combatManager.combatMenuManager.DisableMenuState();
         player = combatManager.playerCombat;
 
-        //foreach (Enemy enemy in combatManager.enemies)
-        //{
-        //    enemy.combatantUI.attackDisplay.ShowAttackDisplay(enemy, false);
-        //}
-        //
         yield return ApplyGear();
         yield return ApplyMove();
 
@@ -78,22 +73,24 @@ public class ApplyPlayerMove : State
 
     IEnumerator ApplyMove()
     {
-        combatManager.playerCombat.moveSOSelected.combatManager = combatManager;
-
         //reset narrator focus camera on allyToAct and wait
         CombatEvents.UpdateNarrator("");
         combatManager.cameraFollow.transformToFollow = player.transform;
-        var moveSOSelected = combatManager.playerCombat.moveSOSelected;
-        combatManager.playerCombat.TotalPlayerAttackPower(moveSOSelected.attackMoveModPercent);
-
+        var moveSelected = combatManager.playerCombat.moveSelected;
+        combatManager.playerCombat.TotalPlayerAttackPower(moveSelected.moveSO.AttackMoveModPercent);
+        moveSelected.LoadMoveReferences(player, combatManager);
+        CombatEvents.UpdateNarrator(moveSelected.moveSO.MoveName);
+        ApplyPotentialChange();
         yield return new WaitForSeconds(0.5f);
 
-        //update potential
-
-
         //rock out
-        CombatEvents.UpdatePlayerPot.Invoke(moveSOSelected.potentialChange);
-        moveSOSelected.moveInstance.LoadMoveStatsAndPassCBM(player, combatManager);
-        yield return moveSOSelected.moveInstance.ApplyMove(player, player.targetToAttack);
+        moveSelected.CalculateMoveStats();
+        yield return moveSelected.ApplyMove(player, player.targetCombatant);
+        CombatEvents.UpdateNarrator("");
+    }
+
+    void ApplyPotentialChange()
+    {
+        CombatEvents.UpdatePlayerPot.Invoke(combatManager.playerCombat.moveSelected.CalculateAndReturnPotentialChange());
     }
 }

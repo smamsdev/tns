@@ -19,7 +19,7 @@ public class EnemySelectState : State
 
     public void CombatantSelected(EnemySelectButtonScript enemySelectScript)
     {
-        combatManager.playerCombat.targetToAttack = enemySelectScript.combatant;
+        combatManager.playerCombat.targetCombatant = enemySelectScript.combatant;
         selectEnemyMenuScript.DeselectEnemy(enemySelectScript);
         selectEnemyMenuScript.isEnemySlotsInitialized = false;
         combatManager.SetState(combatManager.applyMove);

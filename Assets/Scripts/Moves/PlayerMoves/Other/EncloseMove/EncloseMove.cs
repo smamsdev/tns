@@ -8,8 +8,6 @@ public class EncloseMove : Move
 
     public override IEnumerator ApplyMove(Combatant combatantToAct, Combatant targetCombatant)
     {
-        GetReferences(combatantToAct, targetCombatant);
-        UpdateNarrator(moveSO.moveName);
         combatantEnclosed = targetCombatant;
         combatantEnclosed.isEnclosed = true;
 
@@ -31,7 +29,7 @@ public class EncloseMove : Move
         yield return (combatMovementInstance.LerpPositionFixedTime(combatant.gameObject, targetPosition, .5f));
         Destroy(combatMovementInstanceGO);
 
-        Vector3 direction = (combatantToAct.targetToAttack.transform.position - combatantToAct.transform.position).normalized;
+        Vector3 direction = (combatantToAct.targetCombatant.transform.position - combatantToAct.transform.position).normalized;
         combatant.CombatLookDirX = (int)Mathf.Sign(direction.x);
     }
 
@@ -39,11 +37,11 @@ public class EncloseMove : Move
     {
         Vector3 targetPosition;
 
-        Vector3 direction = (combatant.targetToAttack.transform.position - combatant.transform.position).normalized;
+        Vector3 direction = (combatant.targetCombatant.transform.position - combatant.transform.position).normalized;
         float attackDirX = Mathf.Sign(direction.x);
 
-        targetPosition = new Vector3(combatant.targetToAttack.transform.position.x + (moveSO.targetPositionHorizontalOffset * attackDirX),
-                                     combatantToAct.targetToAttack.transform.position.y);
+        targetPosition = new Vector3(combatant.targetCombatant.transform.position.x + (moveSO.TargetPositionHorizontalOffset * attackDirX),
+                                     combatantToAct.targetCombatant.transform.position.y);
 
         combatantToAct.fightingPosition.transform.position = targetPosition;
         return targetPosition;

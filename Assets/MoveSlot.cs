@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class MoveSlot : MonoBehaviour, ISelectHandler
 {
-    public MoveSO move;
+    public MoveSO moveSO;
     public TextMeshProUGUI slotText;
     public TextMeshProUGUI movePropertyTMP;
     public TextMeshProUGUI moveDescriptions;
@@ -19,27 +19,25 @@ public class MoveSlot : MonoBehaviour, ISelectHandler
 
     public virtual void UpdateMoveDescriptionText()
     {
-        Debug.Log("adasd");
-       //if (move != null)
-       //{
-       //    if (move.isFlaw)
-       //    {
-       //        movePropertyTMP.text = "Flaw - Cannot unassign";
-       //        moveDescriptions.text = move.moveDescription;
-       //    }
-       //
-       //    else
-       //    {
-       //        movePropertyTMP.text = "Press CTRL to unassign";
-       //        moveDescriptions.text = move.moveDescription;
-       //    }
-       //}
+       if (moveSO != null)
+       {
+           if (moveSO.IsFlaw)
+           {
+               movePropertyTMP.text = "Flaw - Cannot unassign";
+               moveDescriptions.text = moveSO.MoveDescription;
+           }
+       
+           else
+           {
+               movePropertyTMP.text = "Press CTRL to unassign";
+               moveDescriptions.text = moveSO.MoveDescription;
+           }
+       }
 
-        if (move == null)
+        if (moveSO == null)
         {
             moveDescriptions.text = "";
             movePropertyTMP.text = "Select to assign a move";
         }
     }
-
 }

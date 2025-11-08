@@ -73,11 +73,9 @@ public abstract class Combatant : MonoBehaviour
         movementScript = GetComponent<MovementScript>();
     }
 
-
     [Header("Moves")]
-    public Combatant targetToAttack;
-    public MoveSO moveSOSelected;
-
+    public Combatant targetCombatant;
+    public Move moveSelected;
 
     public abstract void SelectMove();
 

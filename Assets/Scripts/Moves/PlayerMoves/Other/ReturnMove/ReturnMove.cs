@@ -8,8 +8,6 @@ public class ReturnMove : Move
 
     public override IEnumerator ApplyMove(Combatant combatantToAct, Combatant targetCombatant)
     {
-        GetReferences(combatantToAct, targetCombatant);
-        UpdateNarrator(moveSO.moveName);
         encloseMove.combatantEnclosed.isEnclosed = false;
 
         combatantToActAnimator.Play("Advance");
@@ -19,7 +17,7 @@ public class ReturnMove : Move
         combatManager.tacticalSelectState.lastButtonSelected = combatManager.tacticalSelectState.gearButton;
 
 
-        Vector3 direction = (combatantToAct.targetToAttack.transform.position - combatantToAct.transform.position).normalized;
+        Vector3 direction = (combatantToAct.targetCombatant.transform.position - combatantToAct.transform.position).normalized;
         combatantToAct.CombatLookDirX = (int)Mathf.Sign(direction.x);
 
         yield return new WaitForSeconds(1);

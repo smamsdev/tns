@@ -6,24 +6,24 @@ public class MoveInventorySlot : MoveSlot
 {
     public override void UpdateMoveDescriptionText()
     {
-        if (move != null)
+        if (moveSO != null)
         {
             movePropertyTMP.text = "SELECT TO EQUIP TO SLOT";
-            moveDescriptions.text = move.moveDescription;
+            moveDescriptions.text = moveSO.MoveDescription;
 
-            if (move.isFlaw)
+            if (moveSO.IsFlaw)
             {
                 movePropertyTMP.text = "FLAW.<br>CANNOT UNASSIGN";
             }
 
-            if (move.isEquipped && !move.isFlaw)
+            if (moveSO.isEquipped && !moveSO.IsFlaw)
             {
                 movePropertyTMP.text = "CURRENTLY EQUIPPED";
-                moveDescriptions.text = move.moveDescription;
+                moveDescriptions.text = moveSO.MoveDescription;
             }
         }
 
-        if (move == null)
+        if (moveSO == null)
 
         {
             movePropertyTMP.text = "";

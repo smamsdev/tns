@@ -28,7 +28,7 @@ public class Setup : State
         var playerAnimator = playerCombat.GetComponent<Animator>();
         playerAnimator.SetTrigger("CombatIdle");
         InitializePermanentStatsAndGear();
-        playerCombat.playerMoveManager.InstantiateEquippedMoves();
+        playerCombat.playerMoveManager.InstantiateAllEquippedMoves();
         SetPlayerUI();
 
         yield return new WaitForSeconds(0.1f);

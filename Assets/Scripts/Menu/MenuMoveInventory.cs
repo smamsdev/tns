@@ -20,15 +20,6 @@ public class MenuMoveInventory : Menu
     public PlayerMoveManager playerMoveManager;
     public string[] stringArrayToUpdateInSO;
 
-    private void OnEnable() //this is wack
-    {
-        var player = GameObject.Find("Player");
-        //moveInventory = player.GetComponentInChildren<MoveInventory>();
-        playerMoveManager = player.GetComponentInChildren<PlayerMoveManager>();
-        // playerEquippedMovesSO = playerMoveManager.playerEquippedMovesSO;
-        Debug.Log("this is wack");
-    }
-
     private void Start()
     {
         displayContainer.SetActive(false);
@@ -74,14 +65,14 @@ public class MenuMoveInventory : Menu
             if (i < moveTypeInventoryToDisplay.Count)
             {
                 menuMoveInventorySlots[i].gameObject.SetActive(true);
-                menuMoveInventorySlots[i].move = moveTypeInventoryToDisplay[i];
-                menuMoveInventorySlots[i].slotText.text = moveTypeInventoryToDisplay[i].moveName;
+                menuMoveInventorySlots[i].moveSO = moveTypeInventoryToDisplay[i];
+                menuMoveInventorySlots[i].slotText.text = moveTypeInventoryToDisplay[i].MoveName;
 
                 Color currentColor = menuMoveInventorySlots[i].slotText.color; 
                 currentColor.a = 1f;
                 menuMoveInventorySlots[i].slotText.color = currentColor;
 
-                if (menuMoveInventorySlots[i].move.isEquipped)
+                if (menuMoveInventorySlots[i].moveSO.isEquipped)
                 {
                     currentColor = menuMoveInventorySlots[i].slotText.color; 
                     currentColor.a = 0.7f; 
@@ -98,23 +89,23 @@ public class MenuMoveInventory : Menu
 
     public void EquipMoveFromInventoryToSlot(MoveSlot moveInventorySlot) //reworkk
     {
-        if (!moveInventorySlot.move.isEquipped)
+        if (!moveInventorySlot.moveSO.isEquipped)
         {
-            if (moveSlotToEquipTo.move != null)
+            if (moveSlotToEquipTo.moveSO != null)
             {
-                moveSlotToEquipTo.move.isEquipped = false;
+                moveSlotToEquipTo.moveSO.isEquipped = false;
             } 
 
-            moveSlotToEquipTo.move = moveInventorySlot.move;
-            moveInventorySlot.move.isEquipped = true;
-            moveSlotToEquipTo.slotText.text = "Slot " + (int.Parse(moveSlotToEquipTo.name) + 1) + ": " + moveInventorySlot.move.moveName;
-            stringArrayToUpdateInSO[int.Parse(moveSlotToEquipTo.name)] = moveInventorySlot.move.moveName;
+            moveSlotToEquipTo.moveSO = moveInventorySlot.moveSO;
+            moveInventorySlot.moveSO.isEquipped = true;
+            moveSlotToEquipTo.slotText.text = "Slot " + (int.Parse(moveSlotToEquipTo.name) + 1) + ": " + moveInventorySlot.moveSO.MoveName;
+            stringArrayToUpdateInSO[int.Parse(moveSlotToEquipTo.name)] = moveInventorySlot.moveSO.MoveName;
             //playerMoveManager.LoadEquippedMoveListFromSO();
 
             ExitMenu();
         }
 
-        if (moveInventorySlot.move.isEquipped)
+        if (moveInventorySlot.moveSO.isEquipped)
 
         {
             return;

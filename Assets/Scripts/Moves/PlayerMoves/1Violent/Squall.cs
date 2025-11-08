@@ -53,8 +53,6 @@ public class Squall : Move
 
         combatantToActAnimator.SetTrigger("CombatIdle");
 
-        UpdateNarrator("");
-
         yield return ReturnTargetToFightingPos();
     }
 

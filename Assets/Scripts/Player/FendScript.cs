@@ -33,16 +33,16 @@ public class FendScript : MonoBehaviour
         }
     }
 
-    public IEnumerator ApplyAttackToCombatant(Combatant combatant, Combatant target)
+    public IEnumerator ApplyAttackToCombatant(Combatant combatantApplying, Combatant target)
     {
-        int backStabBonus = target.isBackstabbed ? combatant.attackTotal : 0;
+        int backStabBonus = target.isBackstabbed ? combatantApplying.attackTotal : 0;
 
         if (target.isBackstabbed)
         {
             backStabAnimator.Play("BackStabShowAndFade");
         }
 
-        int attackCombinedTotal = combatant.attackTotal + backStabBonus;
+        int attackCombinedTotal = combatantApplying.attackTotal + backStabBonus;
         int attackRemainder = attackCombinedTotal - target.fendTotal;
         target.GetComponent<Animator>().Play("Pain");
 
@@ -81,7 +81,7 @@ public class FendScript : MonoBehaviour
         IEnumerator PushBack()
         {
             var stepBackPos = new Vector2
-            (target.transform.position.x + (combatant.moveSOSelected.attackPushStrength * combatant.CombatLookDirX),
+            (target.transform.position.x + (combatantApplying.moveSelected.moveSO.AttackPushStrength * combatantApplying.CombatLookDirX),
             target.transform.position.y);
 
             var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);

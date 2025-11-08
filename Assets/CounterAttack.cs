@@ -31,12 +31,4 @@ public class CounterAttack : Move
 
         yield return null;
     }
-
-    public override void GetReferences(Combatant combatantToAct, Combatant targetCombatant)
-    {
-        combatantToActAnimator = combatantToAct.GetComponent<Animator>();
-        combatantToActMovementScript = combatantToAct.GetComponent<MovementScript>();
-        this.combatantToAct = combatantToAct;
-        this.targetCombatant = targetCombatant;
-    }
 }

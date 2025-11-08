@@ -4,11 +4,11 @@ using UnityEngine;
 
 public abstract class Move : MonoBehaviour
 {
-    protected MoveSO moveSO;
-    protected CombatManager combatManager;
+    public MoveSO moveSO;
+    public CombatManager combatManager;
     protected Animator combatantToActAnimator;
-    protected MovementScript combatantToActMovementScript;
-    protected Combatant combatantToAct, targetCombatant;
+    public MovementScript combatantToActMovementScript;
+    public Combatant combatantToAct, targetCombatant;
 
     public virtual IEnumerator MoveToPosition(Combatant combatant, Vector3 targetPosition)
     {
@@ -22,69 +22,60 @@ public abstract class Move : MonoBehaviour
     {
         Vector3 targetPosition;
 
-        Vector3 direction = (combatant.targetToAttack.transform.position - combatant.transform.position).normalized;
+        Vector3 direction = (combatant.targetCombatant.transform.position - combatant.transform.position).normalized;
         float attackDirX = Mathf.Sign(direction.x);
 
-        if (moveSO.offsetFromSelf)
+        if (moveSO.OffsetFromSelf)
         {
-            targetPosition = new Vector3(combatant.transform.position.x + (moveSO.targetPositionHorizontalOffset * attackDirX),
+            targetPosition = new Vector3(combatant.transform.position.x + (moveSO.TargetPositionHorizontalOffset * attackDirX),
                                          combatant.transform.position.y);
         }
         else
         {
-            targetPosition = new Vector3(combatant.targetToAttack.transform.position.x - (moveSO.targetPositionHorizontalOffset * attackDirX),
-                                         combatant.targetToAttack.transform.position.y);
+            targetPosition = new Vector3(combatant.targetCombatant.transform.position.x - (moveSO.TargetPositionHorizontalOffset * attackDirX),
+                                         combatant.targetCombatant.transform.position.y);
         }
 
         return targetPosition;
     }
 
-    public virtual void LoadMoveStatsAndPassCBM(Combatant combatant, CombatManager combatManager)
+    public virtual void LoadMoveReferences(Combatant combatantToAct, CombatManager combatManager)
     {
         this.combatManager = combatManager;
+        combatantToActAnimator = combatantToAct.GetComponent<Animator>();
+        combatantToActMovementScript = combatantToAct.GetComponent<MovementScript>();
+        this.combatantToAct = combatantToAct;
+        this.targetCombatant = combatantToAct.targetCombatant;
+    }
 
-        combatant.attackTotal = Mathf.RoundToInt(combatant.AttackBase * moveSO.attackMoveModPercent);
-        combatant.fendTotal = Mathf.RoundToInt(combatant.FendBase * moveSO.fendMoveModPercent);
+    public virtual void CalculateMoveStats()
+    {
+        combatantToAct.attackTotal = Mathf.RoundToInt(combatantToAct.AttackBase * moveSO.AttackMoveModPercent);
+        combatantToAct.fendTotal = Mathf.RoundToInt(combatantToAct.FendBase * moveSO.FendMoveModPercent);
 
-        var rng = Mathf.RoundToInt(combatant.attackTotal * Random.Range(-0.3f, 0.3f));
+        var rng = Mathf.RoundToInt(combatantToAct.attackTotal * Random.Range(-0.3f, 0.3f));
 
-        combatant.attackTotal = Mathf.RoundToInt(combatant.attackTotal + rng);
+        combatantToAct.attackTotal = Mathf.RoundToInt(combatantToAct.attackTotal + rng);
     }
 
     public virtual IEnumerator ApplyMove(Combatant combatantToAct, Combatant targetCombatant)
     {
-        GetReferences(combatantToAct, targetCombatant);
-        UpdateNarrator(moveSO.moveName);
-
-        if (moveSO.applyMoveToSelfOnly)
+        if (moveSO.ApplyMoveToSelfOnly)
         {
             yield return ApplyMoveToSelf();
         }
 
         else
         {
-            Vector3 direction = (combatantToAct.targetToAttack.transform.position - combatantToAct.transform.position).normalized;
+            Vector3 direction = (combatantToAct.targetCombatant.transform.position - combatantToAct.transform.position).normalized;
             combatantToAct.CombatLookDirX = (int)Mathf.Sign(direction.x);
             yield return ApplyMoveToEnemy();
         }
     }
 
-    public virtual void GetReferences(Combatant combatantToAct, Combatant targetCombatant)
-    {
-        combatantToActAnimator = combatantToAct.GetComponent<Animator>();
-        combatantToActMovementScript = combatantToAct.GetComponent<MovementScript>();
-        this.combatantToAct = combatantToAct;
-        this.targetCombatant = targetCombatant;
-    }
-
-    public virtual void UpdateNarrator(string narratorString)
-    {
-        CombatEvents.UpdateNarrator(narratorString);
-    }
-
     public virtual IEnumerator TriggerMoveAnimation()
     {
-        combatantToActAnimator.SetFloat("MoveAnimationFloat", moveSO.moveAnimationFloat);
+        combatantToActAnimator.SetFloat("MoveAnimationFloat", moveSO.MoveAnimationFloat);
         combatantToActAnimator.Play("Attack");
         yield return null;
     }
@@ -95,7 +86,6 @@ public abstract class Move : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         combatantToActAnimator.SetTrigger("CombatIdle");
         yield return new WaitForSeconds(1f);
-        UpdateNarrator("");
     }
 
     public virtual IEnumerator ApplyMoveToEnemy()
@@ -116,12 +106,8 @@ public abstract class Move : MonoBehaviour
         //apply stats to enemy and animate
         combatManager.cameraFollow.transformToFollow = targetCombatant.transform;
 
-        var spriteRenderer = combatantToActAnimator.GetComponent<SpriteRenderer>();
-        spriteRenderer.sortingOrder = 1;
         yield return TriggerMoveAnimation();
-        yield return targetCombatant.combatantUI.fendScript.ApplyAttackToCombatant(combatantToAct, combatantToAct.targetToAttack);
-
-        spriteRenderer.sortingOrder = 0;
+        yield return targetCombatant.combatantUI.fendScript.ApplyAttackToCombatant(combatantToAct, combatantToAct.targetCombatant);
 
         combatantToActAnimator.Play("Back");
 
@@ -129,37 +115,40 @@ public abstract class Move : MonoBehaviour
         yield return MoveToPosition(combatantToAct, combatantToAct.fightingPosition.transform.position);
         combatantToActAnimator.SetTrigger("CombatIdle");
 
-        UpdateNarrator("");
-
         yield return ReturnTargetToFightingPos();
         targetCombatant.isBackstabbed = false;
     }
 
     public virtual IEnumerator ReturnTargetToFightingPos()
     {
-        if (combatantToAct.targetToAttack.CurrentHP == 0)
+        if (combatantToAct.targetCombatant.CurrentHP == 0)
         {
-            combatManager.CombatantDefeated(combatantToAct.targetToAttack);
+            combatManager.CombatantDefeated(combatantToAct.targetCombatant);
             yield return new WaitForSeconds(1.5f);
         }
 
         else //return target to original pos if still alive
         {
-            combatantToAct.targetToAttack.combatantUI.statsDisplay.ShowStatsDisplay(false);
+            combatantToAct.targetCombatant.combatantUI.statsDisplay.ShowStatsDisplay(false);
 
             if (targetCombatant.isBackstabbed)
             {
-                combatantToAct.targetToAttack.movementScript.animator.Play("Back");
+                combatantToAct.targetCombatant.movementScript.animator.Play("Back");
             }
 
             else
             {
-                combatantToAct.targetToAttack.movementScript.animator.Play("Advance");
+                combatantToAct.targetCombatant.movementScript.animator.Play("Advance");
             }
 
-            yield return combatManager.PositionCombatant(combatantToAct.targetToAttack.gameObject, combatantToAct.targetToAttack.fightingPosition.transform.position);
-            combatantToAct.targetToAttack.movementScript.animator.Play("CombatIdle");
+            yield return combatManager.PositionCombatant(combatantToAct.targetCombatant.gameObject, combatantToAct.targetCombatant.fightingPosition.transform.position);
+            combatantToAct.targetCombatant.movementScript.animator.Play("CombatIdle");
         }
+    }
+
+    public virtual int CalculateAndReturnPotentialChange()
+    {
+        return moveSO.PotentialChange;
     }
 
     // Optional for reactions to attacks. Default does nothing.

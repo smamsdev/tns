@@ -17,14 +17,14 @@ public class AllyMoveState : State
 
         for (int i = 0; i < combatManager.allies.Count;)
         {
-            combatManager.lastCombatantTargeted = combatManager.allies[i].targetToAttack;
+            combatManager.lastCombatantTargeted = combatManager.allies[i].targetCombatant;
 
             //Disable untargeted combatant UI elements
             foreach (Enemy enemy in combatManager.enemies)
             {
                 enemy.combatantUI.attackDisplay.ShowAttackDisplay(enemy, false);
 
-                if (enemy != combatManager.allies[i].targetToAttack)
+                if (enemy != combatManager.allies[i].targetCombatant)
                 {
                     enemy.combatantUI.fendScript.ShowFendDisplay(enemy, false);
                     enemy.combatantUI.statsDisplay.ShowStatsDisplay(false); 
@@ -32,7 +32,7 @@ public class AllyMoveState : State
             }
 
             //store enemy target look dir
-            var enemyTargetMovementScript = combatManager.allies[i].targetToAttack.GetComponent<MovementScript>();
+            var enemyTargetMovementScript = combatManager.allies[i].targetCombatant.GetComponent<MovementScript>();
             var enemyTargetStoredLookDir = enemyTargetMovementScript.lookDirection;
 
             var allyToActMovementScript = combatManager.allies[i].GetComponent<MovementScript>();
@@ -46,27 +46,27 @@ public class AllyMoveState : State
             combatManager.cameraFollow.transformToFollow = combatManager.allies[i].transform;
             yield return new WaitForSeconds(0.5f);
 
-            var targetToAttackUI = combatManager.allies[i].targetToAttack.GetComponentInChildren<CombatantUI>();
+            var targetCombatantUI = combatManager.allies[i].targetCombatant.GetComponentInChildren<CombatantUI>();
 
-            if (combatManager.allies[i].targetToAttack.fendTotal > 0)
+            if (combatManager.allies[i].targetCombatant.fendTotal > 0)
             {
-                targetToAttackUI.fendScript.ShowFendDisplay(combatManager.allies[i].targetToAttack, true);
-                targetToAttackUI.statsDisplay.ShowStatsDisplay(true);
+                targetCombatantUI.fendScript.ShowFendDisplay(combatManager.allies[i].targetCombatant, true);
+                targetCombatantUI.statsDisplay.ShowStatsDisplay(true);
             }
 
-            yield return combatManager.allies[i].moveSOSelected.moveInstance.ApplyMove(combatManager.allies[i], combatManager.allies[i].targetToAttack);
+            yield return combatManager.allies[i].moveSelected.ApplyMove(combatManager.allies[i], combatManager.allies[i].targetCombatant);
             combatManager.allies[i].GetComponent<MovementScript>().lookDirection = allyToActLastLookDirection;
 
-            if (combatManager.allies[i].targetToAttack.CurrentHP == 0)
+            if (combatManager.allies[i].targetCombatant.CurrentHP == 0)
             {
-                combatManager.CombatantDefeated(combatManager.allies[i].targetToAttack);
+                combatManager.CombatantDefeated(combatManager.allies[i].targetCombatant);
             }
 
             //return target to original pos if still alive
             else
             {
                 yield return new WaitForSeconds(0.5f);
-                yield return combatManager.PositionCombatant(combatManager.allies[i].targetToAttack.gameObject, combatManager.allies[i].targetToAttack.fightingPosition.transform.position);
+                yield return combatManager.PositionCombatant(combatManager.allies[i].targetCombatant.gameObject, combatManager.allies[i].targetCombatant.fightingPosition.transform.position);
             }
 
             if (combatManager.allies[i].CurrentHP == 0)

@@ -6,7 +6,7 @@ public class KatanaSlice : Move
 {
     public override IEnumerator TriggerMoveAnimation()
     {
-        combatantToActAnimator.SetFloat("MoveAnimationFloat", moveSO.moveAnimationFloat);
+        combatantToActAnimator.SetFloat("MoveAnimationFloat", moveSO.MoveAnimationFloat);
 
         combatantToActAnimator.speed = 0;
         combatantToActAnimator.Play("Attack", 0, 0);

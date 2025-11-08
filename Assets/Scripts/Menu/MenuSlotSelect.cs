@@ -62,7 +62,7 @@ public class MenuSlotSelect : Menu
 
     public void MoveSlotSelected(MoveSlot moveSlot)
     {
-        if (moveSlot.move == null || !moveSlot.move.isFlaw)
+        if (moveSlot.moveSO == null || !moveSlot.moveSO.IsFlaw)
         {
             moveSlotHighlighted = moveSlot;
             menuMoveInventory.moveSlotToEquipTo = moveSlot;
@@ -76,16 +76,16 @@ public class MenuSlotSelect : Menu
 
         MoveSlot moveSlotToRemove = moveSlotHighlighted;
 
-        if (moveSlotToRemove.move == null)
+        if (moveSlotToRemove.moveSO == null)
         {
             return;
         }
 
-        moveSlotToRemove.move.isEquipped = false;
-        moveSlotToRemove.move = null;
+        moveSlotToRemove.moveSO.isEquipped = false;
+        moveSlotToRemove.moveSO = null;
         moveSlotToRemove.slotText.text = "Slot " + (int.Parse(moveSlotHighlighted.name) + 1) + ": Free";
         menuMoveInventory.stringArrayToUpdateInSO[int.Parse(moveSlotHighlighted.name)] = null;
-        movesPage.LoadAllMoveLists();
+        movesPage.LoadAllEquippedMovesToUISlots();
     }
 
     public override void StateUpdate()

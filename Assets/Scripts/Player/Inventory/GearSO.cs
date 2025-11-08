@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu]
 
 public class GearSO : ScriptableObject
-{
+{   //should i use getters on these to be safe?
     public string gearID;
     public string gearName;
     [TextArea(2, 5)] public string gearDescription;

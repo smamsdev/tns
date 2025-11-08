@@ -11,7 +11,7 @@ public class Ricochet : Move
         yield return (combatMovementInstance.LerpPositionFixedTime(combatant.gameObject, targetPosition, .5f));
         Destroy(combatMovementInstanceGO);
 
-        Vector3 direction = (combatantToAct.targetToAttack.transform.position - combatantToAct.transform.position).normalized;
+        Vector3 direction = (combatantToAct.targetCombatant.transform.position - combatantToAct.transform.position).normalized;
         combatant.CombatLookDirX = (int)Mathf.Sign(direction.x);
     }
 
@@ -19,11 +19,11 @@ public class Ricochet : Move
     {
         Vector3 targetPosition;
 
-        Vector3 direction = (combatant.targetToAttack.transform.position - combatant.transform.position).normalized;
+        Vector3 direction = (combatant.targetCombatant.transform.position - combatant.transform.position).normalized;
         float attackDirX = Mathf.Sign(direction.x);
 
-            targetPosition = new Vector3(combatant.targetToAttack.transform.position.x + (moveSO.targetPositionHorizontalOffset * attackDirX),
-                                         combatant.targetToAttack.transform.position.y);
+            targetPosition = new Vector3(combatant.targetCombatant.transform.position.x + (moveSO.TargetPositionHorizontalOffset * attackDirX),
+                                         combatant.targetCombatant.transform.position.y);
 
         return targetPosition;
     }

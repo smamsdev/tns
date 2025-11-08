@@ -58,7 +58,7 @@ public class CombatManager : MonoBehaviour
             enemies.Remove(defeatedCombatant);
             foreach (Ally ally in allies)
             {
-                if (enemies.Count > 0 && ally.targetToAttack == defeatedCombatant)
+                if (enemies.Count > 0 && ally.targetCombatant == defeatedCombatant)
                 {
                     SelectTargetToAttack(ally, enemies);
                 }
@@ -71,7 +71,7 @@ public class CombatManager : MonoBehaviour
             allAlliesToTarget.Remove(defeatedCombatant);
             foreach (Enemy enemy in enemies)
             {
-                if (enemy.targetToAttack == defeatedCombatant)
+                if (enemy.targetCombatant == defeatedCombatant)
                 {
                     SelectTargetToAttack(enemy, allAlliesToTarget);
                 }
@@ -147,7 +147,9 @@ public class CombatManager : MonoBehaviour
     public void SelectCombatantMove(Combatant combatant)
     {
         combatant.SelectMove();
-        combatant.moveSOSelected.moveInstance.LoadMoveStatsAndPassCBM(combatant, this);
+        combatant.moveSelected.LoadMoveReferences(combatant, this);
+        combatant.moveSelected.CalculateMoveStats();
+
     }
 
     void PlayerDefeated()
@@ -158,9 +160,9 @@ public class CombatManager : MonoBehaviour
 
     public void SelectTargetToAttack(Combatant combatant, List<Combatant> targetList)
     {
-        combatant.targetToAttack = targetList[Random.Range(0, targetList.Count)];
+        combatant.targetCombatant = targetList[Random.Range(0, targetList.Count)];
 
-        Vector3 direction = (combatant.targetToAttack.transform.position - combatant.transform.position).normalized;
+        Vector3 direction = (combatant.targetCombatant.transform.position - combatant.transform.position).normalized;
         combatant.CombatLookDirX = (int)Mathf.Sign(direction.x);
     }
 

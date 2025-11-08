@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
 
 public class MenuMoves : Menu
 {
@@ -38,7 +39,7 @@ public class MenuMoves : Menu
         firstButtonToSelect.Select();
         moveDescriptionGO.SetActive(true);
 
-        LoadAllMoveLists();
+        LoadAllEquippedMovesToUISlots();
     }
 
     public override void ExitMenu()
@@ -57,42 +58,39 @@ public class MenuMoves : Menu
         }
     }
 
-    public void LoadMoveList<T>(T[] moveArray, MoveSlot[] slots) where T : MoveSO
+    public void LoadMoveList(MoveSO[] equippedMovesOfType, MoveSlot[] slots)
     {
-        for (int i = 0; i < slots.Length; i++)
-        {
-            if (i < moveArray.Length && moveArray[i] != null)
-            {
-                slots[i].move = moveArray[i];
-                slots[i].move.isEquipped = true;
-                slots[i].slotText.text = $"Slot {i + 1}: {moveArray[i].moveName}";
-
-                // Set alpha of the TextMeshProUGUI element based on whether the move is a flaw
-                menuManagerUI.SetTextAlpha(slots[i].slotText, slots[i].move.isFlaw ? 0.5f : 1f);
-            }
-            else
-            {
-                slots[i].slotText.text = $"Slot {i + 1}: Empty";
-                menuManagerUI.SetTextAlpha(slots[i].slotText, 1f); // Default alpha for empty slots
-            }
-        }
+       for (int i = 0; i < slots.Length; i++)
+       {
+           if (i < equippedMovesOfType.Length && equippedMovesOfType[i] != null)
+           {
+               slots[i].moveSO = equippedMovesOfType[i];
+               slots[i].moveSO.isEquipped = true;
+               slots[i].slotText.text = $"Slot {i + 1}: {equippedMovesOfType[i].MoveName}";
+       
+               // Set alpha of the TextMeshProUGUI element based on whether the move is a flaw
+               menuManagerUI.SetTextAlpha(slots[i].slotText, slots[i].moveSO.IsFlaw ? 0.5f : 1f);
+           }
+           else
+           {
+               slots[i].slotText.text = $"Slot {i + 1}: Empty";
+               menuManagerUI.SetTextAlpha(slots[i].slotText, 1f); // Default alpha for empty slots
+           }
+       }
     }
 
-    public void LoadAllMoveLists() //rework
+    public void LoadAllEquippedMovesToUISlots() //rework
     {
-        Debug.Log("liberate mei");
-        //playerMoveManager.LoadEquippedMoveListFromSO();
-
-        //LoadMoveList(playerMoveManager.violentAttackSlots, violentAttackSlots);
-        //LoadMoveList(playerMoveManager.violentFendSlots, violentFendSlots);
-        //LoadMoveList(playerMoveManager.violentFocusSlots, violentFocusSlots);
-        //
-        //LoadMoveList(playerMoveManager.cautiousAttackSlots, cautiousAttackSlots);
-        //LoadMoveList(playerMoveManager.cautiousFendSlots, cautiousFendSlots);
-        //LoadMoveList(playerMoveManager.cautiousFocusSlots, cautiousFocusSlots);
-        //
-        //LoadMoveList(playerMoveManager.preciseAttackSlots, preciseAttackSlots);
-        //LoadMoveList(playerMoveManager.preciseFendSlots, preciseFendSlots);
-        //LoadMoveList(playerMoveManager.preciseFocusSlots, preciseFocusSlots);
+        LoadMoveList(playerMoveManager.playerMoveInventorySO.violentAttacksEquipped, violentAttackSlots);
+        LoadMoveList(playerMoveManager.playerMoveInventorySO.violentFendsEquipped, violentFendSlots);
+        LoadMoveList(playerMoveManager.playerMoveInventorySO.violentFocusesEquipped, violentFocusSlots);
+        
+        LoadMoveList(playerMoveManager.playerMoveInventorySO.cautiousAttacksEquipped, cautiousAttackSlots);
+        LoadMoveList(playerMoveManager.playerMoveInventorySO.cautiousFendsEquipped, cautiousFendSlots);
+        LoadMoveList(playerMoveManager.playerMoveInventorySO.cautiousFocusesEquipped, cautiousFocusSlots);
+        
+        LoadMoveList(playerMoveManager.playerMoveInventorySO.preciseAttacksEquipped, preciseAttackSlots);
+        LoadMoveList(playerMoveManager.playerMoveInventorySO.preciseFendsEquipped, preciseFendSlots);
+        LoadMoveList(playerMoveManager.playerMoveInventorySO.preciseFocusesEquipped, preciseFocusSlots);
     }
 }
