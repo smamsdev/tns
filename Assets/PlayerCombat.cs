@@ -73,23 +73,6 @@ public class PlayerCombat : Ally
         return potentialMod;
     }
 
-    public void TotalPlayerAttackPower(float moveMod)
-    {
-        // Calculate the potential attack power based on various modifiers
-        int potentialAttackPower = Mathf.RoundToInt(playerPermanentStats.attackBase * moveMod * CalculatePotentialMod());
-
-        // Ensure the attack power is not less than zero
-        attackTotal = Mathf.Max(0, potentialAttackPower);
-    }
-
-    public int TotalPlayerFendPower(float moveMod)
-    {
-        CalculatePotentialMod();
-
-        fendTotal = Mathf.Clamp(Mathf.RoundToInt(playerPermanentStats.fendBase * moveMod), 0, 9999);
-        return fendTotal;
-    }
-
     public void UpdatePlayerPot(int value)
     {
         currentPotential += value;

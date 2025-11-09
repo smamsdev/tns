@@ -51,7 +51,7 @@ public abstract class Combatant : MonoBehaviour
 
     public int CurrentHP
     {
-        get { return currentHP; }
+        get => currentHP;
         set
         {
             currentHP = Mathf.Clamp(value, 0, 9999);
@@ -63,10 +63,22 @@ public abstract class Combatant : MonoBehaviour
     [SerializeField] private int fendBase;
     [SerializeField] private int maxHP;
     [SerializeField] private int currentHP;
+
     [Tooltip("Set by code. Leave as 0.")]
-    public int attackTotal;
+    private int attackTotal = 0;
+    public int AttackTotal
+    { 
+        get => attackTotal;
+        set => attackTotal = Mathf.Clamp(value, 0, 9999);
+    }
+
     [Tooltip("Set by code. Leave as 0.")]
-    public int fendTotal = 0;
+    private int fendTotal = 0;
+    public int FendTotal
+    {
+        get => fendTotal;
+        set => fendTotal = Mathf.Clamp(value, 0, 9999);
+    }
 
     private void OnEnable()
     {
@@ -104,6 +116,12 @@ public abstract class Combatant : MonoBehaviour
 
             elapsedTime += Time.deltaTime;
             yield return null;
+        }
+
+        if (CurrentHP == 0)
+        {
+            combatantUI.statsDisplay.statsDisplayContainerAnimator.Play("StatsDisplayOnDefeat");
+            movementScript.animator.Play("Fall");
         }
 
         yield return new WaitForSeconds(0.5f);

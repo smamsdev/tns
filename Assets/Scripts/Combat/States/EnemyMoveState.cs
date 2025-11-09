@@ -13,36 +13,15 @@ public class EnemyMoveState : State
             yield break;
         }
 
-        for (int i = 0; i < combatManager.enemies.Count;) //gotta manage an iterator here as the enemy list count may change mid loop
+        for (int i = 0; i < combatManager.enemies.Count;) //manage an iterator not a foreach as the enemy list count may change mid loop
         {
-            //reset narrator focus camera on enemy to act and wait
-            CombatEvents.UpdateNarrator.Invoke("");
-            combatManager.cameraFollow.transformToFollow = combatManager.enemies[i].transform;
-            yield return new WaitForSeconds(0.5f);
-
-            var targetCombatantUI = combatManager.enemies[i].targetCombatant.GetComponentInChildren<CombatantUI>();
-
-            if (combatManager.enemies[i].targetCombatant.fendTotal > 0)
-            {
-                targetCombatantUI.fendScript.ShowFendDisplay(combatManager.enemies[i].targetCombatant, true);
-                targetCombatantUI.statsDisplay.ShowStatsDisplay(true);
-            }
-
-            yield return combatManager.enemies[i].moveSelected.ApplyMove(combatManager.enemies[i], combatManager.enemies[i].targetCombatant);
+            yield return ApplyEnemyMove(combatManager.enemies[i]);
 
             //check for player defeat
             if (combatManager.defeat.playerDefeated)
             {
                 Debug.Log("player defeated");
                 yield break;
-            }
-
-            //return target to original pos if still alive
-            if (combatManager.enemies[i].targetCombatant.CurrentHP != 0)
-            {
-                yield return new WaitForSeconds(0.5f);
-                yield return combatManager.PositionCombatant(combatManager.enemies[i].targetCombatant.gameObject, combatManager.enemies[i].targetCombatant.fightingPosition.transform.position);
-                targetCombatantUI.fendScript.ShowFendDisplay(combatManager.enemies[i].targetCombatant, false);
             }
 
             //check that enemy to act did not die mid turn and iterate
@@ -55,6 +34,15 @@ public class EnemyMoveState : State
                 i++;
             }
         }
+
         combatManager.SetState(combatManager.roundReset);
+    }
+
+    IEnumerator ApplyEnemyMove(Combatant enemyIteration)
+    { 
+        combatManager.cameraFollow.transformToFollow = enemyIteration.transform;
+        CombatEvents.UpdateNarrator.Invoke(enemyIteration.moveSelected.moveSO.MoveName);
+        yield return new WaitForSeconds(0.5f);
+        yield return enemyIteration.moveSelected.ApplyMove(enemyIteration, enemyIteration.targetCombatant);
     }
 }

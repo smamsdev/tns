@@ -13,12 +13,12 @@ public class FendScript : MonoBehaviour
 
     public void ShowFendDisplay(Combatant combatantToShow, bool on)
     {
-        if (combatantToShow.fendTotal > 0)
+        if (combatantToShow.FendTotal > 0)
         {
             if (on)
             {
                 fendAnimator.Play("FendAppear");
-                fendTextMeshProUGUI.text = combatantToShow.fendTotal.ToString();
+                fendTextMeshProUGUI.text = combatantToShow.FendTotal.ToString();
             }
 
             else
@@ -35,18 +35,18 @@ public class FendScript : MonoBehaviour
 
     public IEnumerator ApplyAttackToCombatant(Combatant combatantApplying, Combatant target)
     {
-        int backStabBonus = target.isBackstabbed ? combatantApplying.attackTotal : 0;
+        int backStabBonus = target.isBackstabbed ? combatantApplying.AttackTotal : 0;
 
         if (target.isBackstabbed)
         {
             backStabAnimator.Play("BackStabShowAndFade");
         }
 
-        int attackCombinedTotal = combatantApplying.attackTotal + backStabBonus;
-        int attackRemainder = attackCombinedTotal - target.fendTotal;
+        int attackCombinedTotal = combatantApplying.AttackTotal + backStabBonus;
+        int attackRemainder = attackCombinedTotal - target.FendTotal;
         target.GetComponent<Animator>().Play("Pain");
 
-        if (target.fendTotal == 0)
+        if (target.FendTotal == 0)
         {
             yield return PushBack();
             yield return DamageTaken();
@@ -57,17 +57,17 @@ public class FendScript : MonoBehaviour
 
         float elapsedTime = 0f;
         float lerpDuration = 1f;
-        int startNumber = target.fendTotal;
-        int endValue = target.fendTotal - attackCombinedTotal;
+        int startNumber = target.FendTotal;
+        int endValue = target.FendTotal - attackCombinedTotal;
 
-        while (elapsedTime < lerpDuration && target.fendTotal > 0)
+        while (elapsedTime < lerpDuration && target.FendTotal > 0)
         {
             float t = Mathf.Clamp01(elapsedTime / lerpDuration);
-            target.fendTotal = Mathf.RoundToInt(Mathf.Lerp(startNumber, endValue, t));
-            fendTextMeshProUGUI.text = target.fendTotal.ToString();
+            target.FendTotal = Mathf.RoundToInt(Mathf.Lerp(startNumber, endValue, t));
+            fendTextMeshProUGUI.text = target.FendTotal.ToString();
             elapsedTime += Time.deltaTime;
 
-            if (target.fendTotal == 0)
+            if (target.FendTotal == 0)
             {
                 fendAnimator.Play("FendBreak", 0, 0);
                 fendTextMeshProUGUI.text = "";

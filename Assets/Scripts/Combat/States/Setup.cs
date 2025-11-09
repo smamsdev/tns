@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Setup : State
 {
@@ -11,20 +12,22 @@ public class Setup : State
 
     public override IEnumerator StartState()
     {
-        yield return new WaitForSeconds(0.01f);
-        combatManager.playerCombat.fightingPosition = combatManager.battleScheme.playerFightingPosition;
+        playerCombat = combatManager.playerCombat;
+
+        yield return new WaitForSeconds(0.01f); //why?
         CombatEvents.isBattleMode = true;
         combatManager.cameraFollow.transformToFollow = combatManager.battleScheme.battleCenterPosition;
-        playerCombat = combatManager.playerCombat;
 
         //position player
         MovementScript playerMovementScript = playerCombat.movementScript;
         playerMovementScript.rigidBody2d.bodyType = RigidbodyType2D.Kinematic;
+        playerCombat.fightingPosition = GetOrCreateFightingPosition(playerCombat, 0);
+
         yield return combatManager.PositionCombatant(playerCombat.gameObject, playerCombat.fightingPosition.transform.position);
         playerMovementScript.movementSpeed = playerMovementScript.defaultMovementspeed * 1;
 
         //set up player stance and UI
-        playerMovementScript.lookDirection = combatManager.battleScheme.playerDefaultLookDirection;
+        playerMovementScript.animator.SetFloat("CombatLookDirX", playerCombat.CombatLookDirX);
         var playerAnimator = playerCombat.GetComponent<Animator>();
         playerAnimator.SetTrigger("CombatIdle");
         InitializePermanentStatsAndGear();
@@ -34,21 +37,36 @@ public class Setup : State
         yield return new WaitForSeconds(0.1f);
 
         //position allies
-        foreach (Ally ally in combatManager.allies)
+        for (int i = 0; i < combatManager.allies.Count;)
         {
+            var ally = combatManager.allies[i];
+
+            ally.fightingPosition = GetOrCreateFightingPosition(ally, i);
             combatManager.SetRigidBodyType(ally, RigidbodyType2D.Kinematic);
+
             yield return combatManager.PositionCombatant(ally.gameObject, ally.fightingPosition.transform.position);
+
             ally.movementScript.movementSpeed = ally.movementScript.defaultMovementspeed * 1;
+            ally.movementScript.animator.SetFloat("CombatLookDirX", ally.CombatLookDirX);
             ally.movementScript.animator.SetTrigger("CombatIdle");
+
+            i++;
         }
 
         //position enemies
-        foreach (Enemy enemy in combatManager.enemies)
+        for (int i = 0; i < combatManager.enemies.Count;)
         {
+            var enemy = combatManager.enemies[i];
+
+            enemy.fightingPosition = GetOrCreateFightingPosition(enemy, i);
             combatManager.SetRigidBodyType(enemy, RigidbodyType2D.Kinematic);
+
             yield return combatManager.PositionCombatant(enemy.gameObject, enemy.fightingPosition.transform.position);
             enemy.movementScript.movementSpeed = enemy.movementScript.defaultMovementspeed * 1;
+            enemy.movementScript.animator.SetFloat("CombatLookDirX", enemy.CombatLookDirX);
             enemy.movementScript.animator.SetTrigger("CombatIdle");
+
+            i++;
         }
 
         //set enemy ui and attack
@@ -137,5 +155,22 @@ public class Setup : State
         playerCombat.AttackBase = playerCombat.playerPermanentStats.attackBase;
         playerCombat.FendBase = playerCombat.playerPermanentStats.fendBase;
         playerCombat.focusBase = playerCombat.playerPermanentStats.focusBase;
+    }
+
+    GameObject GetOrCreateFightingPosition(Combatant ally, int index)
+    {
+        if (ally.fightingPosition != null)
+        {
+            return ally.fightingPosition;
+        }
+
+        string posName = $"{ally.combatantName}_{index}_DefaultFightingPosition";
+        GameObject defaultFightingPosition = new GameObject(posName);
+
+        defaultFightingPosition.transform.SetParent(combatManager.battleScheme.transform);
+        defaultFightingPosition.transform.position = ally.transform.position;
+
+        ally.fightingPosition = defaultFightingPosition;
+        return defaultFightingPosition;
     }
 }

@@ -83,8 +83,6 @@ public class CombatManager : MonoBehaviour
 
     IEnumerator CombatantDefeatedAnimations(Combatant defeatedCombatant)
     {
-        defeatedCombatant.combatantUI.statsDisplay.statsDisplayContainerAnimator.Play("StatsDisplayOnDefeat");
-        defeatedCombatant.movementScript.animator.Play("Fall");
         yield return new WaitForSeconds(1);
         defeatedCombatant.combatantUI.statsDisplay.ShowStatsDisplay(false);
     }

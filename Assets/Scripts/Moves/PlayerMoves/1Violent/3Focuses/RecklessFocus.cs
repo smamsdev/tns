@@ -6,12 +6,12 @@ public class RecklessFocus : Move
 {
     public override void CalculateMoveStats()
     {
-        combatantToAct.attackTotal = (combatantToAct.MaxHP / 4);
+        combatantToAct.AttackTotal = (combatantToAct.MaxHP / 4);
 
         //leave at least 1 HP
-        if (combatantToAct.attackTotal >= combatantToAct.CurrentHP)
+        if (combatantToAct.AttackTotal >= combatantToAct.CurrentHP)
         {
-            combatantToAct.attackTotal = combatantToAct.CurrentHP - 1;
+            combatantToAct.AttackTotal = combatantToAct.CurrentHP - 1;
         }
     }
 

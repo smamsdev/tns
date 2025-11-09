@@ -21,7 +21,7 @@ public class ApplyPlayerMove : State
             yield break;
         }
 
-        if (player.fendTotal > 0)
+        if (player.FendTotal > 0)
         {
             player.combatantUI.fendScript.ShowFendDisplay(player, true);
             yield return new WaitForSeconds(1f);
@@ -74,17 +74,17 @@ public class ApplyPlayerMove : State
     IEnumerator ApplyMove()
     {
         //reset narrator focus camera on allyToAct and wait
-        CombatEvents.UpdateNarrator("");
         combatManager.cameraFollow.transformToFollow = player.transform;
+
         var moveSelected = combatManager.playerCombat.moveSelected;
-        combatManager.playerCombat.TotalPlayerAttackPower(moveSelected.moveSO.AttackMoveModPercent);
         moveSelected.LoadMoveReferences(player, combatManager);
         CombatEvents.UpdateNarrator(moveSelected.moveSO.MoveName);
+
         ApplyPotentialChange();
         yield return new WaitForSeconds(0.5f);
+        moveSelected.CalculateMoveStats();
 
         //rock out
-        moveSelected.CalculateMoveStats();
         yield return moveSelected.ApplyMove(player, player.targetCombatant);
         CombatEvents.UpdateNarrator("");
     }

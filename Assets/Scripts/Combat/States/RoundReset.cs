@@ -42,8 +42,8 @@ public class RoundReset : State
         combatManager.roundCount++;
         combatManager.playerCombat.playerMoveManager.firstMoveIs = 0;
         combatManager.playerCombat.playerMoveManager.secondMoveIs = 0;
-        combatManager.playerCombat.attackTotal = 0;
-        combatManager.playerCombat.fendTotal = 0;
+        combatManager.playerCombat.AttackTotal = 0;
+        combatManager.playerCombat.FendTotal = 0;
         combatManager.playerCombat.combatantUI.fendScript.fendTextMeshProUGUI.text = "0";
         combatManager.SetState(combatManager.firstMove);
         yield break;

@@ -292,7 +292,6 @@ public class Encounter : ToTrigger
         SpaceCombatants(allAllies, false, 0, Vector2.right);
         SpaceCombatants(battle.enemies, true, -2.5f, Vector2.right);
 
-        battle.playerDefaultLookDirection = Vector2.right;
         battle.isAllyFlanked = true;
 
         foreach (Combatant combatant in allAllies)

@@ -10,7 +10,6 @@ public class Battle : ToTrigger
     public Transform battleCenterPosition;
     public GameObject playerFightingPosition;
     public CombatManager combatManager;
-    public Vector2 playerDefaultLookDirection;
     public bool isEnemyFlanked =false;
     public bool isAllyFlanked = false;
     public bool isRandomEnounter;

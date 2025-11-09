@@ -50,12 +50,13 @@ public abstract class Move : MonoBehaviour
 
     public virtual void CalculateMoveStats()
     {
-        combatantToAct.attackTotal = Mathf.RoundToInt(combatantToAct.AttackBase * moveSO.AttackMoveModPercent);
-        combatantToAct.fendTotal = Mathf.RoundToInt(combatantToAct.FendBase * moveSO.FendMoveModPercent);
+        Debug.Log(combatantToAct.name + combatantToAct.AttackBase);
+        combatantToAct.AttackTotal = Mathf.RoundToInt(combatantToAct.AttackBase * moveSO.AttackMoveModPercent);
+        combatantToAct.FendTotal = Mathf.RoundToInt(combatantToAct.FendBase * moveSO.FendMoveModPercent);
 
-        var rng = Mathf.RoundToInt(combatantToAct.attackTotal * Random.Range(-0.3f, 0.3f));
+        var rng = Mathf.RoundToInt(combatantToAct.AttackTotal * Random.Range(-0.3f, 0.3f));
 
-        combatantToAct.attackTotal = Mathf.RoundToInt(combatantToAct.attackTotal + rng);
+        combatantToAct.AttackTotal = Mathf.RoundToInt(combatantToAct.AttackTotal + rng);
     }
 
     public virtual IEnumerator ApplyMove(Combatant combatantToAct, Combatant targetCombatant)

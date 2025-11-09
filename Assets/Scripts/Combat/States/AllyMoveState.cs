@@ -48,7 +48,7 @@ public class AllyMoveState : State
 
             var targetCombatantUI = combatManager.allies[i].targetCombatant.GetComponentInChildren<CombatantUI>();
 
-            if (combatManager.allies[i].targetCombatant.fendTotal > 0)
+            if (combatManager.allies[i].targetCombatant.FendTotal > 0)
             {
                 targetCombatantUI.fendScript.ShowFendDisplay(combatManager.allies[i].targetCombatant, true);
                 targetCombatantUI.statsDisplay.ShowStatsDisplay(true);

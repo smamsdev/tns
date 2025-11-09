@@ -47,6 +47,7 @@ public class VictoryRewards : MonoBehaviour
 
     public IEnumerator ShowRewards()
     {
+        combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
         XPRewardsDistributeParent.SetActive(false);
         
         partyToLoop = 0;

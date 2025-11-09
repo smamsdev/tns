@@ -12,11 +12,11 @@ public class AttackDisplay : MonoBehaviour
 
     public void ShowAttackDisplay(Combatant combatant, bool on)
     {
-        if (combatant.attackTotal > 0)
+        if (combatant.AttackTotal > 0)
         {
             if (on)
             {
-                allyAttackDamageTextMeshProUI.text = combatant.attackTotal.ToString();
+                allyAttackDamageTextMeshProUI.text = combatant.AttackTotal.ToString();
                 attackDisplayTextGO.SetActive(on);
                 attackDisplayAnimator.Play("CombatantAttackDamageFadeUp");
             }

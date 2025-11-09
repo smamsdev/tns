@@ -22,14 +22,14 @@ public class VictoryState : State
 
     public IEnumerator EndBattle()
     {
-        yield return (victoryRewards.AnimateRewardsPage(1, 0, .5f));
+        combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
 
-        CombatEvents.isBattleMode = true;
+        CombatEvents.isBattleMode = false;
         var playerCombat = combatManager.playerCombat;
         var playerAnimator = playerCombat.GetComponent<Animator>();
-        playerAnimator.SetBool("isCombat", false);
         playerAnimator.Play("Idle");
-        combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
+        playerAnimator.SetFloat("lookDirectionX", combatManager.playerCombat.CombatLookDirX);
+        yield return (victoryRewards.AnimateRewardsPage(1, 0, .5f));
 
         if (combatManager.battleScheme.isRandomEnounter)
         {
