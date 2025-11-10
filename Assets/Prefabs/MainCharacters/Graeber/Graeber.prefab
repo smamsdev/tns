@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 22396338650520861}
-  - component: {fileID: 9083476781079440043}
   m_Layer: 8
   m_Name: Basic
   m_TagString: Untagged
@@ -32,34 +31,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6095635523497377144}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9083476781079440043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2872206334284636046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc2a5e7713735284b977a53e437c169d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveName: Dissect
-  moveDescription: Dissect
-  isEquipped: 0
-  moveWeighting: 1
-  attackPushStrength: 0
-  attackMoveModPercent: 1
-  fendMoveModPercent: 0
-  moveAnimationFloat: 0
-  targetPositionHorizontalOffset: 0
-  offsetFromSelf: 0
-  applyMoveToSelfOnly: 0
-  combatManager: {fileID: 0}
-  combatantToActAnimator: {fileID: 0}
-  combatantToActMovementScript: {fileID: 0}
-  combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
 --- !u!1 &5746981344557934553
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,12 +399,10 @@ MonoBehaviour:
   fendBase: 12
   maxHP: 12
   currentHP: 12
-  attackTotal: 12
-  fendTotal: 0
-  targetToAttack: {fileID: 0}
+  targetCombatant: {fileID: 0}
   moveSelected: {fileID: 0}
-  moves:
-  - {fileID: 0}
+  moveList: []
+  movesFolderGO: {fileID: 0}
   partyMemberSO: {fileID: 11400000, guid: bf592b4488a0521429ec46f17d0a52b8, type: 2}
 --- !u!1 &8679503915426022358
 GameObject:

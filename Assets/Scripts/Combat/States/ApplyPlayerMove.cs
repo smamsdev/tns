@@ -81,8 +81,9 @@ public class ApplyPlayerMove : State
         CombatEvents.UpdateNarrator(moveSelected.moveSO.MoveName);
 
         ApplyPotentialChange();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         moveSelected.CalculateMoveStats();
+        CombatEvents.UpdateNarrator("");
 
         //rock out
         yield return moveSelected.ApplyMove(player, player.targetCombatant);

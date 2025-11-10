@@ -33,7 +33,7 @@ public abstract class Move : MonoBehaviour
         else
         {
             targetPosition = new Vector3(combatant.targetCombatant.transform.position.x - (moveSO.TargetPositionHorizontalOffset * attackDirX),
-                                         combatant.targetCombatant.transform.position.y);
+                                         combatant.targetCombatant.transform.position.y -0.005f); //slightly lower than even so the sprite sort point is in front
         }
 
         return targetPosition;
@@ -50,7 +50,6 @@ public abstract class Move : MonoBehaviour
 
     public virtual void CalculateMoveStats()
     {
-        Debug.Log(combatantToAct.name + combatantToAct.AttackBase);
         combatantToAct.AttackTotal = Mathf.RoundToInt(combatantToAct.AttackBase * moveSO.AttackMoveModPercent);
         combatantToAct.FendTotal = Mathf.RoundToInt(combatantToAct.FendBase * moveSO.FendMoveModPercent);
 
@@ -109,12 +108,15 @@ public abstract class Move : MonoBehaviour
 
         yield return TriggerMoveAnimation();
         yield return targetCombatant.combatantUI.fendScript.ApplyAttackToCombatant(combatantToAct, combatantToAct.targetCombatant);
+        targetCombatant.combatantUI.fendScript.ShowFendDisplay(targetCombatant, false);
 
         combatantToActAnimator.Play("Back");
 
         //return combatantToAct to fightingpos
         yield return MoveToPosition(combatantToAct, combatantToAct.fightingPosition.transform.position);
         combatantToActAnimator.SetTrigger("CombatIdle");
+
+
 
         yield return ReturnTargetToFightingPos();
         targetCombatant.isBackstabbed = false;

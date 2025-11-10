@@ -37,7 +37,6 @@ public class CombatManager : MonoBehaviour
     public CameraFollow cameraFollow;
     public CombatMenuManager combatMenuManager;
     public int roundCount;
-    public Combatant lastCombatantTargeted;
 
     private void OnEnable()
     {
@@ -113,8 +112,6 @@ public class CombatManager : MonoBehaviour
 
         allAlliesToTarget = new List<Combatant> { playerCombat }; //create a new list and add player do it, this is the pool of allies enemies can attack
         allAlliesToTarget.AddRange(allies);
-
-        //SetState(victory);
         SetState(setup);
     }
 

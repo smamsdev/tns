@@ -74,7 +74,6 @@ public class Setup : State
         {
             SetcombatantUI(enemy);
             enemy.InstantiateMoves();
-            yield return new WaitForSeconds(0.1f); //i cant remember why u have to wait but attack ui wont appear if you dont
 
             if (!combatManager.battleScheme.isEnemyFlanked)
             {
@@ -103,8 +102,6 @@ public class Setup : State
                 partyMember.MaxHP = partyMember.partyMemberSO.MaxHP;
                 partyMember.CurrentHP = partyMember.partyMemberSO.CurrentHP;
             }
-
-            yield return new WaitForSeconds(0.1f); //i cant remember why u have to wait but attack ui wont appear if you dont
 
             if (!combatManager.battleScheme.isAllyFlanked)
             {

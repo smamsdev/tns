@@ -78,6 +78,8 @@ public class FendScript : MonoBehaviour
             yield return null;
         }
 
+        yield return new WaitForSeconds(.5f);
+
         IEnumerator PushBack()
         {
             var stepBackPos = new Vector2
