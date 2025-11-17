@@ -18,7 +18,11 @@ public class CameraFollow : MonoBehaviour
 
     private void Start()
     {
-        transform.position = new Vector3(transformToFollow.position.x, transformToFollow.position.y, (transformToFollow.position.z - 10));
+        if (transformToFollow == null)
+
+        { transformToFollow = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>(); }
+
+        transform.position = new Vector3(transformToFollow.position.x, transformToFollow.position.y, (transformToFollow.position.z ));
         FieldEvents.isCameraFollow = true;
     }
 

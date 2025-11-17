@@ -22,16 +22,16 @@ public abstract class Move : MonoBehaviour
     {
         Vector3 targetPosition;
 
-        Vector3 direction = (combatant.targetCombatant.transform.position - combatant.transform.position).normalized;
-        float attackDirX = Mathf.Sign(direction.x);
-
-        if (moveSO.OffsetFromSelf)
+        if (moveSO.TargetPosSelfOffset)
         {
-            targetPosition = new Vector3(combatant.transform.position.x + (moveSO.TargetPositionHorizontalOffset * attackDirX),
+            targetPosition = new Vector3(combatant.transform.position.x + (moveSO.TargetPositionHorizontalOffset * combatant.CombatLookDirX),
                                          combatant.transform.position.y);
         }
         else
         {
+            Vector3 direction = (combatant.targetCombatant.transform.position - combatant.transform.position).normalized;
+            float attackDirX = Mathf.Sign(direction.x);
+
             targetPosition = new Vector3(combatant.targetCombatant.transform.position.x - (moveSO.TargetPositionHorizontalOffset * attackDirX),
                                          combatant.targetCombatant.transform.position.y -0.005f); //slightly lower than even so the sprite sort point is in front
         }
@@ -62,6 +62,7 @@ public abstract class Move : MonoBehaviour
     {
         if (moveSO.ApplyMoveToSelfOnly)
         {
+            combatantToAct.targetCombatant = combatantToAct;
             yield return ApplyMoveToSelf();
         }
 
@@ -70,6 +71,14 @@ public abstract class Move : MonoBehaviour
             Vector3 direction = (combatantToAct.targetCombatant.transform.position - combatantToAct.transform.position).normalized;
             combatantToAct.CombatLookDirX = (int)Mathf.Sign(direction.x);
             yield return ApplyMoveToEnemy();
+        }
+
+        if (combatantToAct.FendTotal > 0)
+        {
+            combatantToAct.combatantUI.fendScript.ShowFendDisplay(combatantToAct, true);
+            yield return new WaitForSeconds(1f);
+            combatantToAct.combatantUI.fendScript.ShowFendDisplay(combatantToAct, false);
+            yield return new WaitForSeconds(.2f);
         }
     }
 
@@ -82,10 +91,16 @@ public abstract class Move : MonoBehaviour
 
     public virtual IEnumerator ApplyMoveToSelf()
     {
+        //move to pos
+        combatantToActAnimator.Play("Advance");
+        yield return MoveToPosition(combatantToAct, AttackPositionLocation(combatantToAct));
         yield return TriggerMoveAnimation();
+
         yield return new WaitForSeconds(0.5f);
+        //return combatantToAct to fightingpos
+        combatantToActAnimator.Play("Back");
+        yield return MoveToPosition(combatantToAct, combatantToAct.fightingPosition.transform.position);
         combatantToActAnimator.SetTrigger("CombatIdle");
-        yield return new WaitForSeconds(1f);
     }
 
     public virtual IEnumerator ApplyMoveToEnemy()
@@ -107,19 +122,21 @@ public abstract class Move : MonoBehaviour
         combatManager.cameraFollow.transformToFollow = targetCombatant.transform;
 
         yield return TriggerMoveAnimation();
-        yield return targetCombatant.combatantUI.fendScript.ApplyAttackToCombatant(combatantToAct, combatantToAct.targetCombatant);
+        yield return ApplyAttackToTarget();
         targetCombatant.combatantUI.fendScript.ShowFendDisplay(targetCombatant, false);
 
-        combatantToActAnimator.Play("Back");
-
         //return combatantToAct to fightingpos
+        combatantToActAnimator.Play("Back");
         yield return MoveToPosition(combatantToAct, combatantToAct.fightingPosition.transform.position);
         combatantToActAnimator.SetTrigger("CombatIdle");
 
-
-
         yield return ReturnTargetToFightingPos();
         targetCombatant.isBackstabbed = false;
+    }
+
+    public virtual IEnumerator ApplyAttackToTarget()
+    {
+        yield return targetCombatant.combatantUI.fendScript.ApplyAttackToCombatant(combatantToAct, combatantToAct.targetCombatant);
     }
 
     public virtual IEnumerator ReturnTargetToFightingPos()

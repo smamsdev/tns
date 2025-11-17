@@ -21,15 +21,6 @@ public class ApplyPlayerMove : State
             yield break;
         }
 
-        if (player.FendTotal > 0)
-        {
-            player.combatantUI.fendScript.ShowFendDisplay(player, true);
-            yield return new WaitForSeconds(1f);
-            player.combatantUI.fendScript.ShowFendDisplay(player, false);
-            yield return new WaitForSeconds(.2f);
-
-        }
-
         if (combatManager.allies.Count > 0 && combatManager.enemies.Count > 0)
         {
             combatManager.SetState(combatManager.allyMoveState);

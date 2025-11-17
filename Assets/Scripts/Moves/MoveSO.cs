@@ -15,7 +15,7 @@ public class MoveSO : ScriptableObject
     [SerializeField] private float fendMoveModPercent;
     [SerializeField] private float moveAnimationFloat = 0;
     [SerializeField] private float targetPositionHorizontalOffset;
-    [SerializeField] private bool offsetFromSelf;
+    [SerializeField] private bool targetPosSelfOffset;
     [SerializeField] private bool applyMoveToSelfOnly;
 
     [Header("Player Specific")]
@@ -33,7 +33,7 @@ public class MoveSO : ScriptableObject
     [HideInInspector] public float FendMoveModPercent => fendMoveModPercent;
     [HideInInspector] public float MoveAnimationFloat => moveAnimationFloat;
     [HideInInspector] public float TargetPositionHorizontalOffset => targetPositionHorizontalOffset;
-    [HideInInspector] public bool OffsetFromSelf => offsetFromSelf;
+    [HideInInspector] public bool TargetPosSelfOffset => targetPosSelfOffset;
     [HideInInspector] public bool ApplyMoveToSelfOnly => applyMoveToSelfOnly;
     [HideInInspector] public int PotentialChange => potentialChange;
     [HideInInspector] public bool IsFlaw => isFlaw;

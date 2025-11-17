@@ -14,6 +14,7 @@ public class ChangeCameraFollow : ToTrigger
         FieldEvents.isCameraFollow = false;
         CombatEvents.LockPlayerMovement();
 
+        Debug.Log("update camera.main");
         cameraFollow = GameObject.FindWithTag("MainCamera").GetComponent<CameraFollow>();
 
         yield return new WaitForSeconds(delaybeforeTransitionDuration);

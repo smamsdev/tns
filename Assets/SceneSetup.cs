@@ -4,7 +4,6 @@ using UnityEngine;
 public class SceneSetup : MonoBehaviour
 {
     public Transform transformToFollow;
-    public GameObject mainCamera;
     public bool useEntryCoordinates;
     public Vector2 forceLook;
     public Vector3 forcedEntryCoordinates;
@@ -57,7 +56,8 @@ public class SceneSetup : MonoBehaviour
 
             playerGO.transform.position = FieldEvents.entryCoordinates;
         }
-        mainCamera.transform.position = new Vector3(transformToFollow.position.x, transformToFollow.transform.position.y, transformToFollow.transform.position.z - 10);
+
+        Camera.main.transform.position = new Vector3(transformToFollow.position.x, transformToFollow.transform.position.y, transformToFollow.transform.position.z - 10);
     }
 
     private void OnDisable()
@@ -82,6 +82,11 @@ public class SceneSetup : MonoBehaviour
 
     IEnumerator DefaultSceneStart()
     {
+        if (defaultFaderAnimator == null)
+        {
+            defaultFaderAnimator = GameObject.FindGameObjectWithTag("DefaultFader").GetComponent<Animator>();
+        }
+
         defaultFaderAnimator.SetBool("start", true);
         yield return new WaitForSeconds(0.5f);
         CombatEvents.UnlockPlayerMovement();
