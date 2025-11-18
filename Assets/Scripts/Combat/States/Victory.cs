@@ -33,8 +33,7 @@ public class VictoryState : State
 
         if (combatManager.battleScheme.isRandomEnounter)
         {
-            FieldEvents.isReturningFromEncounter = true;
-            SceneManager.LoadScene(FieldEvents.sceneBeforeEncounterName);
+            Debug.Log("do some scene entry/exit stuff here i dunno dude");
         }
 
         else

@@ -6,6 +6,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Linq;
+using TMPro;
 
 public static class FieldEvents
 {
@@ -22,12 +24,6 @@ public static class FieldEvents
     public static bool isSequenceRunning;
 
     public static bool movementLocked;
-
-    public static Vector3 entryCoordinates;
-    public static Vector3 coordinatesBeforeEncounter;
-    public static string sceneBeforeEncounterName;
-    public static bool isReturningFromEncounter;
-    public static Vector2 lookDirBeforeEncounter;
 
     public static float movementSpeedMultiplier;
     public static bool isMovementSpeedMultiplier;
@@ -53,6 +49,11 @@ public static class FieldEvents
     {
         TimeSpan timeSpan = TimeSpan.FromSeconds(Time.time);
         FieldEvents.duration = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+    }
+
+    public static TextMeshProUGUI FindLongestText(List<TextMeshProUGUI> textElementsToSort)
+    {
+        return textElementsToSort.OrderByDescending(text => text.preferredWidth).First();
     }
 
     public static void LerpValues(float initialValue, float finalValue, float lerpDuration, Action<float> callback)

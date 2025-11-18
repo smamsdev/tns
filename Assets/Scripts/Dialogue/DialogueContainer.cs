@@ -17,7 +17,7 @@ public class DialogueContainer : ToTrigger
             dialogue[i].dialogueGameObject = gameObject; //wtf is this
         }
 
-        dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
+        dialogueManager = GameObject.FindGameObjectWithTag("DialogManager").GetComponent<DialogueManager>();
     }
 
     public void OpenDialogue()

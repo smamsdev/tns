@@ -27,11 +27,6 @@ public class VictoryRewards : MonoBehaviour
 
     float lastRewardWidth = 0f;
 
-    TextMeshProUGUI FindLongestText(List<TextMeshProUGUI> textElementsToSort)
-    {
-        return textElementsToSort.OrderByDescending(text => text.preferredWidth).First();
-    }
-
     void TotalXPEarned()
     {
         XPEarned = 0;
@@ -59,7 +54,7 @@ public class VictoryRewards : MonoBehaviour
         ShowXPReward();
         ShowItemReward();
         
-        float preferredWidth = FindLongestText(rewardTextElements).preferredWidth;
+        float preferredWidth = FieldEvents.FindLongestText(rewardTextElements).preferredWidth;
         Vector2 newCellSize = totalXPgridLayout.cellSize;
         newCellSize.x = preferredWidth;
         totalXPgridLayout.cellSize = newCellSize;
@@ -82,7 +77,7 @@ public class VictoryRewards : MonoBehaviour
 
     void UpdateXPGainLayout()
     {
-        float preferredWidth = FindLongestText(distributeXPTextElements).preferredWidth;
+        float preferredWidth = FieldEvents.FindLongestText(distributeXPTextElements).preferredWidth;
         if (Mathf.Approximately(preferredWidth, lastRewardWidth)) return;
         lastRewardWidth = preferredWidth;
 

@@ -1,5 +1,6 @@
 using Microsoft.Unity.VisualStudio.Editor;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,10 +10,8 @@ public class DialogueBox : MonoBehaviour
 {
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI nameText;
-    [SerializeField] TextMeshProUGUI nameFieldBackground;
-    [SerializeField] TextMeshProUGUI dialogueFieldBackground;
+    public GridLayoutGroup gridLayoutSizer;
     public Animator animator;
-    GameObject playerObj;
     SpriteRenderer speakerSpriteRenderer;
 
     Vector2 actorPos;
@@ -20,40 +19,30 @@ public class DialogueBox : MonoBehaviour
 
     public Dialogue dialogueElement;
 
-    public void DisplayMessage(Dialogue _dialogueElement)
-
+    public void DisplayMessage(Dialogue dialogueElement)
     {
-        playerObj = GameObject.Find("Player");
-        dialogueElement = _dialogueElement;
+        this.dialogueElement = dialogueElement;
         speakerSpriteRenderer = dialogueElement.actorGameObject.GetComponent<SpriteRenderer>();
+
+        SetupTextBox();
 
         SetFinalPosition();
         animator.SetTrigger("OpenDialogue");
-        SetTextBackgroundAndName();
+
         StartCoroutine(AnimateDialoguePositionCoRoutine(dialogueFinalPosition)); ;
         StartCoroutine(AnimateLetters(dialogueElement.dialoguetext, dialogueText, 0.02f));
     }
 
     void SetFinalPosition()
-
     {
         actorPos = dialogueElement.actorGameObject.transform.position;
 
-        // if there is no Optional end position set in the inspector...
-        if (dialogueElement.optionalDialogueFinalPosition == Vector3.zero)
-
-        {
-            dialogueFinalPosition.x = actorPos.x - 0.00f;
-            dialogueFinalPosition.y = actorPos.y + speakerSpriteRenderer.bounds.size.y + 0.3f;
-        }
-
-        else
-        {
-            dialogueFinalPosition = dialogueElement.optionalDialogueFinalPosition;
-        }
+        dialogueFinalPosition.x = actorPos.x - 0.00f;
+        //0.3 above the speakers highest sprite point
+        dialogueFinalPosition.y = actorPos.y + speakerSpriteRenderer.bounds.size.y + 0.3f;
     }
 
-    void SetTextBackgroundAndName()
+    void SetupTextBox()
     //set the name instantly, and instantiate the background of the dialog box to be the correct size BEFORE the text appears
     {
         string actorname = dialogueElement.actorGameObject.name;
@@ -63,35 +52,16 @@ public class DialogueBox : MonoBehaviour
             actorname = "Liam"; 
         }
 
-        //if there is no Gameobject set in inspector, then hide the name
-        if (dialogueElement.actorGameObject == null)
-        {
-            nameText.text = "";
-        }
+        nameText.text = actorname;
 
-        else 
-        {
-            nameText.text = actorname;
-        }
+        dialogueText.text = dialogueElement.dialoguetext;
 
-        // pray that this works
+        var tmps = new List<TextMeshProUGUI> { dialogueText, nameText };
+        var longestTMP = FieldEvents.FindLongestText(tmps);
 
-        int paddingLength = 3;
-        string padding = new string(' ', paddingLength);
-
-        if (dialogueElement.dialoguetext.Length < (dialogueElement.actorGameObject.name.Length))
-
-        {
-            nameFieldBackground.text = actorname + "X";
-            dialogueFieldBackground.text = actorname + "X";
-        }
-
-        else
-        {
-            nameFieldBackground.text = dialogueElement.dialoguetext;
-            dialogueFieldBackground.text = dialogueElement.dialoguetext;
-        }
-
+        Vector2 newCellSize = gridLayoutSizer.cellSize;
+        newCellSize = new Vector2(longestTMP.preferredWidth, dialogueText.preferredHeight + nameText.preferredHeight);
+        gridLayoutSizer.cellSize = newCellSize;
     }
 
     IEnumerator AnimateLetters(string dialoguetext, TextMeshProUGUI textToUpdate, float time)

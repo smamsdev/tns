@@ -58,9 +58,6 @@ public class RandomEncounter : MonoBehaviour
 
     IEnumerator EncounterTransition()
     {
-        FieldEvents.sceneBeforeEncounterName = SceneManager.GetActiveScene().name;
-        FieldEvents.coordinatesBeforeEncounter = playerMovementScript.transform.position;
-        FieldEvents.lookDirBeforeEncounter = playerMovementScript.lookDirection;
         GameObject mainCam = GameObject.FindGameObjectWithTag("MainCamera");
         CombatEvents.LockPlayerMovement();
 

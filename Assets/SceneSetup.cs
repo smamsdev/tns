@@ -4,10 +4,6 @@ using UnityEngine;
 public class SceneSetup : MonoBehaviour
 {
     public Transform transformToFollow;
-    public bool useEntryCoordinates;
-    public Vector2 forceLook;
-    public Vector3 forcedEntryCoordinates;
-    public bool forceEntryCoorinates;
     public string sceneName;
 
     [SerializeField] Animator defaultFaderAnimator;
@@ -16,48 +12,13 @@ public class SceneSetup : MonoBehaviour
     private void OnEnable()
     {
         FieldEvents.SceneChanging += FadeDown;
-
-        if (sceneName == "")
-        {
-            Debug.Log("scene name is blank!");
-        }
-
         FieldEvents.sceneName = sceneName;
 
-        var playerGO = GameObject.Find("Player");
-
-        if (FieldEvents.isReturningFromEncounter)
+        var playerGO = GameObject.FindGameObjectWithTag("Player");
+        if (transformToFollow == null)
         { 
-            useEntryCoordinates = true;
-            forceEntryCoorinates = true;
-            forcedEntryCoordinates = FieldEvents.coordinatesBeforeEncounter;
-            forceLook = FieldEvents.lookDirBeforeEncounter;
-            FieldEvents.isReturningFromEncounter = false;
+            transformToFollow = playerGO.transform;
         }
-
-        if (forceLook != Vector2.zero)
-        {
-            var playerMovementScript = playerGO.GetComponent<PlayerMovementScript>();
-            playerMovementScript.lookDirection = forceLook;
-        }
-
-        if (forceLook != Vector2.zero && !FieldEvents.isReturningFromEncounter)
-        {
-            var playerMovementScript = playerGO.GetComponent<PlayerMovementScript>();
-            playerMovementScript.lookDirection = forceLook;
-        }
-
-        if (useEntryCoordinates)
-        {
-            if (forceEntryCoorinates)
-            {
-                FieldEvents.entryCoordinates = forcedEntryCoordinates;
-            }
-
-            playerGO.transform.position = FieldEvents.entryCoordinates;
-        }
-
-        Camera.main.transform.position = new Vector3(transformToFollow.position.x, transformToFollow.transform.position.y, transformToFollow.transform.position.z - 10);
     }
 
     private void OnDisable()
@@ -68,6 +29,7 @@ public class SceneSetup : MonoBehaviour
     private void Start()
     {
         CombatEvents.LockPlayerMovement();
+        Camera.main.transform.position = new Vector3(transformToFollow.position.x, transformToFollow.transform.position.y, transformToFollow.transform.position.z - 10);
 
         if (!isCustomSceneStart)
         {
