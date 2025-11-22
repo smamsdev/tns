@@ -10,7 +10,7 @@ public class Shift : ToTrigger
     Vector2 endPos;
     int i;
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         for (i = 0; i < actorShift.Length;)
         {
@@ -38,7 +38,8 @@ public class Shift : ToTrigger
 
                 if (i == actorShift.Length)
                 {
-                    FieldEvents.HasCompleted.Invoke(this.gameObject);
+                    Debug.Log("i might have broken this");
+                    //FieldEvents.HasCompleted.Invoke(this.gameObject);
 
                 }
             }
@@ -58,6 +59,7 @@ public class Shift : ToTrigger
 
                 if (i == actorShift.Length)
                 {
+                    Debug.Log("broken>?");
                     FieldEvents.HasCompleted.Invoke(this.gameObject);
 
                 }

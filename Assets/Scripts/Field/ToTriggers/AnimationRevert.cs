@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class AnimationRevert : ToTrigger
 {
-    [SerializeField] AnimationOverride overrideToRevert;
+    [SerializeField] CustomAnimationOverride overrideToRevert;
     public Vector2 optionalUpdateLookDirection;
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         yield return(overrideToRevert.RevertToOriginalAnimator());
 
@@ -18,7 +18,5 @@ public class AnimationRevert : ToTrigger
             overrideToRevert.animator.SetFloat("lookDirectionX", movementScript.lookDirection.x);
             overrideToRevert.animator.SetFloat("lookDirectionY", movementScript.lookDirection.y);
         }
-
-        FieldEvents.HasCompleted.Invoke(this.gameObject);
     }
 }

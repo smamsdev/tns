@@ -10,7 +10,7 @@ public class DescendTrigger : ToTrigger
     public float duration;
     MovementScript movementScript;
 
-        public override IEnumerator DoAction()
+        public override IEnumerator TriggerFunction()
         {
             CombatEvents.LockPlayerMovement();
 

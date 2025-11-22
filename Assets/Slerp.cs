@@ -9,7 +9,7 @@ public class Slerp : ToTrigger
     int i;
     public float overTime;
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         for (i = 0; i < actorJump.Length;)
         {

@@ -17,7 +17,7 @@ public class DisableObject : ToTrigger
         FieldEvents.PlayerRayCastHit -= PlayerRayCastHit;
     }
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
 
     {
         GameObjectToEnable.SetActive(false);
@@ -32,7 +32,7 @@ public class DisableObject : ToTrigger
         if (raycastHit2D.collider.gameObject == this.gameObject && !FieldEvents.isCooldown())
         {
             StartCoroutine(FieldEvents.CoolDown(0.3f));
-           StartCoroutine(DoAction());
+           StartCoroutine(Triggered());
         }
     }
 }

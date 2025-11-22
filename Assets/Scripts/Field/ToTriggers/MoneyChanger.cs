@@ -7,7 +7,7 @@ public class MoneyChanger : ToTrigger
 
     public int moneyChange;
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         PlayerPermanentStats playerPermanentStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>().playerPermanentStats;
 

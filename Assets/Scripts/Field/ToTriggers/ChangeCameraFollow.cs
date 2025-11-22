@@ -9,7 +9,7 @@ public class ChangeCameraFollow : ToTrigger
     public float delaybeforeTransitionDuration;
     public float transitionDuration;
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         FieldEvents.isCameraFollow = false;
         CombatEvents.LockPlayerMovement();

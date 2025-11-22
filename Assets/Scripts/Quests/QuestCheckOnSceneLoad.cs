@@ -15,13 +15,13 @@ public class QuestCheckOnSceneLoad : ToTrigger
             {
                 if (quest.completed)
                 {
-                    StartCoroutine(DoAction());
+                    StartCoroutine(Triggered());
                 }
             }
         }
     }
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         FieldEvents.HasCompleted.Invoke(this.gameObject);
         yield return null;

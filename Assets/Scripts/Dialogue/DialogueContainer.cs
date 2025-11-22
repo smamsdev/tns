@@ -20,16 +20,7 @@ public class DialogueContainer : ToTrigger
         dialogueManager = GameObject.FindGameObjectWithTag("DialogManager").GetComponent<DialogueManager>();
     }
 
-    public void OpenDialogue()
-
-    {
-        FieldEvents.isDialogueActive = true;
-        dialogueManager.OpenDialogue(dialogue);
-        dialogueLaunched = true;
-    }
-
-
-   public override IEnumerator DoAction()
+   public override IEnumerator TriggerFunction()
 
    {
         CombatEvents.LockPlayerMovement?.Invoke();
@@ -41,6 +32,11 @@ public class DialogueContainer : ToTrigger
         dialogueManager.OpenDialogue(dialogue);
        dialogueLaunched = true;
    }
+
+    protected override void TriggerComplete()
+    {
+        //
+    }
 
 }
 

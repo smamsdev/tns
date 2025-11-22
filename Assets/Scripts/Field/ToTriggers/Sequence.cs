@@ -19,14 +19,13 @@ public class Sequence : ToTrigger
         FieldEvents.HasCompleted -= TriggerAction;
     }
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         isSequenceRunning = true;
         if (i < toTrigger.Length)
         {
-            StartCoroutine(toTrigger[i].DoAction());
+            yield return (toTrigger[i].Triggered());
         }
-
         yield return null;
     }
 
@@ -47,7 +46,7 @@ public class Sequence : ToTrigger
 
                 if (i < toTrigger.Length)
                 {
-                    StartCoroutine(toTrigger[i].DoAction());
+                    StartCoroutine(toTrigger[i].Triggered());
                 }
             }
         }
@@ -59,7 +58,9 @@ public class Sequence : ToTrigger
         {
             toTrigger[i - 1] = null;
         }
+
         isSequenceRunning = false;
         FieldEvents.HasCompleted.Invoke(this.gameObject);
     }
+
 }

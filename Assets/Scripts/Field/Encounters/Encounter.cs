@@ -20,7 +20,7 @@ public class Encounter : ToTrigger
         playerCombat = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>();
     }
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         InitialiseBattle();
         SelectLayoutType();

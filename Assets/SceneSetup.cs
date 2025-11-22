@@ -24,6 +24,7 @@ public class SceneSetup : MonoBehaviour
     private void OnDisable()
     {
         FieldEvents.SceneChanging -= FadeDown;
+        CrossSceneReferences.Clear();
     }
 
     private void Start()
@@ -70,5 +71,20 @@ public class SceneSetup : MonoBehaviour
     void FadeDown()
     {
         defaultFaderAnimator.SetTrigger("Trigger2");
+    }
+
+    void OnValidate()
+    {
+#if UNITY_EDITOR
+        var all = FindObjectsOfType<SceneSetup>(true);
+
+        if (all.Length > 1)
+        {
+            Debug.LogError(
+                $"Only ONE {nameof(SceneSetup)} is allowed in this scene!",
+                this
+            );
+        }
+#endif
     }
 }

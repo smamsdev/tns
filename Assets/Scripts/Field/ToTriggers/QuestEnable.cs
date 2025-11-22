@@ -7,7 +7,7 @@ public class QuestEnable : ToTrigger
     public string questNameChange;
     public QuestStatusSO QuestStatus;
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         foreach (Quest quest in QuestStatus.Quests)
         {

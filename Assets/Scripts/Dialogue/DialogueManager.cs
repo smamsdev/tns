@@ -32,7 +32,6 @@ public class DialogueManager : MonoBehaviour
 
     {
         prefabToUse = dialogueBoxPrefab;
-
         dialogue = _dialogue;
         dialogueElement = 0;
         dialogueLength = dialogue.Length;

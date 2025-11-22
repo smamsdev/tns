@@ -10,7 +10,7 @@ public class MoveTo : ToTrigger
 
     public static int ActiveMoveToCount => activeMoveToCount;
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         activeMoveToCount++;
 

@@ -7,7 +7,7 @@ public class Wait : ToTrigger
 
     public float waitTime;
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         CombatEvents.LockPlayerMovement();
         yield return new WaitForSeconds(waitTime);

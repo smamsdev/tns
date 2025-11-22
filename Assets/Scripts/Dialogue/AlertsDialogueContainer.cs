@@ -14,7 +14,7 @@ public class AlertsDialogueContainer : DialogueContainer
         dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
     }
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
 
     {
         CombatEvents.LockPlayerMovement?.Invoke();

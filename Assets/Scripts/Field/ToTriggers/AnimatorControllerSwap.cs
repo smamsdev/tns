@@ -8,13 +8,9 @@ public class AnimatorControllerSwap : ToTrigger
     public AnimatorOverrideController animatorOverrideController;
     public float delay;
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         yield return new WaitForSeconds(delay);
-
         animator.runtimeAnimatorController = animatorOverrideController;
-
-        FieldEvents.HasCompleted.Invoke(this.gameObject);
-        yield return null;
     }
 }

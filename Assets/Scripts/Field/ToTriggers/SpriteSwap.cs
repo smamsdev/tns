@@ -8,7 +8,7 @@ public class SpriteSwap : ToTrigger
     public Sprite newSprite;
     public float delay;
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         yield return new WaitForSeconds(delay);
         spriteRenderer.sprite = newSprite;

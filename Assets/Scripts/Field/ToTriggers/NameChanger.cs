@@ -7,7 +7,7 @@ public class NameChanger : ToTrigger
     public string nameToChange;
     [SerializeField] GameObject GameObjectToChange;
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         GameObjectToChange.name = nameToChange;
         FieldEvents.HasCompleted.Invoke(this.gameObject);

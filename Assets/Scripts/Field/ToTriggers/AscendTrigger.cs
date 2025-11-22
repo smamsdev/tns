@@ -9,7 +9,7 @@ public class AscendTrigger : ToTrigger
     public float duration;
     MovementScript movementScript;
 
-        public override IEnumerator DoAction()
+        public override IEnumerator TriggerFunction()
         {
             CombatEvents.LockPlayerMovement();
 
@@ -39,6 +39,5 @@ public class AscendTrigger : ToTrigger
             GOToAscend.transform.position = end;
             GOToAscend.GetComponent<LayerChanger>().ChangeLayer("Actors");
             CombatEvents.UnlockPlayerMovement();
-            FieldEvents.HasCompleted.Invoke(this.gameObject);
         }
     }

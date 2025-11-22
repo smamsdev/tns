@@ -16,11 +16,11 @@ public class MultiTrigger : ToTrigger
         FieldEvents.HasCompleted -= TriggerAction;
     }
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         foreach (var trigger in toMultiTrigger)
         {
-            StartCoroutine(trigger.DoAction());
+            StartCoroutine(trigger.Triggered());
         }
 
         yield return null;

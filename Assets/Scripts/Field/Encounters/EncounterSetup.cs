@@ -6,10 +6,10 @@ public class EncounterSetup : ToTrigger
 {
     public EncounterProfile[] encounterProfiles;
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         Encounter encounterToTrigger = SelectEncounter();
-        StartCoroutine(encounterToTrigger.DoAction());
+        StartCoroutine(encounterToTrigger.Triggered());
         yield return null;
     }
 

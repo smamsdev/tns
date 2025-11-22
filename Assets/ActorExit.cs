@@ -23,16 +23,14 @@ public class ActorExit : ToTrigger
         if (optionalTriggerToLeave != null && optionalTriggerToLeave.gameObject == gameObject)
 
         {
-            StartCoroutine(DoAction());
+            StartCoroutine(Triggered());
         } 
     }
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
 
     {
         actorToLeave.position = new Vector3(1000, 1000, 0);
-        FieldEvents.HasCompleted.Invoke(this.gameObject);
-
         yield return null;
     }
 }

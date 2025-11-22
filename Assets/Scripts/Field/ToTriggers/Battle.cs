@@ -20,13 +20,10 @@ public class Battle : ToTrigger
         combatManager = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>();
     }
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         combatManager.battleScheme = this;
         combatManager.StartBattle();
-
-        FieldEvents.HasCompleted.Invoke(this.gameObject);
-
         yield return null;
     }
 }

@@ -96,7 +96,7 @@ public class PlayerMovementScript : MovementScript
         distanceTravelled += delta.magnitude;
         previousRigidPosition = rigidBody2d.position;
 
-        if (input.sqrMagnitude > 0.1f)
+        if (input.sqrMagnitude > 0.01f)
         {
             lookDirection = input.normalized;
             animator.SetFloat("lookDirectionX", lookDirection.x);

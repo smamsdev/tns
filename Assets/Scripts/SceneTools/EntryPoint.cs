@@ -8,27 +8,16 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Animator))]
 
-public class EntryPoint : ToTrigger
+//can be used as a trigger or collider interactive
+public class EntryPoint : ColliderInteractableAbstract
 {
     public SceneEntry sceneEntrySO;
-    public Vector3 entryCoordinates;
-    public Animator animator;
-    private Collider2D playerInTrigger;
-    bool isCollision;
-    public TextMeshProUGUI signPostTMP;
-
-    public SceneCombination sceneCombination;
 
     void Reset()
     {
         animator = GetComponent<Animator>();
         playerInTrigger = GetComponent<Collider2D>();
         if (playerInTrigger != true) playerInTrigger.isTrigger = true;
-    }
-
-    private void Start()
-    {
-        signPostTMP.text = sceneEntrySO.sceneNameToDisplay;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -49,7 +38,7 @@ public class EntryPoint : ToTrigger
         }
     }
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         var sceneCombo = sceneEntrySO.sceneCombinationToEnter;
 
@@ -60,8 +49,9 @@ public class EntryPoint : ToTrigger
 
     public IEnumerator LoadScene(String newBaseSceneName, String newAdditiveSceneName)
     {
+        playerInTrigger.enabled = false;
         FadeOut();
-        SceneManager.LoadScene(sceneCombination.baseScene.name, LoadSceneMode.Single);
+        SceneManager.LoadScene(newBaseSceneName, LoadSceneMode.Single);
         SceneManager.LoadScene(newAdditiveSceneName, LoadSceneMode.Additive);
         yield return null;
     }
@@ -75,8 +65,7 @@ public class EntryPoint : ToTrigger
     {
         if (playerInTrigger && Input.GetKeyDown(KeyCode.Space))
         {
-            //StartCoroutine(DoAction());
-            Debug.Log("test");
+            StartCoroutine(Triggered());
         }
     }
 }

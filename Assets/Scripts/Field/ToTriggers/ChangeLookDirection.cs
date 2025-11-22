@@ -7,7 +7,7 @@ public class ChangeLookDirection : ToTrigger
     public Vector2 newLookDirection;
     public GameObject ActorGameObject;
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         var movementScript = ActorGameObject.GetComponent<MovementScript>();
         movementScript.lookDirection = newLookDirection;

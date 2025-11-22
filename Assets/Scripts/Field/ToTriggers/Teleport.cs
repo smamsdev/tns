@@ -7,7 +7,7 @@ public class Teleport : ToTrigger
     public ActorJump[] actorJump;
     int i;
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         for (i = 0; i < actorJump.Length;)
         {

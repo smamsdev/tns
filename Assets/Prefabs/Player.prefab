@@ -1076,7 +1076,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstMoveIs: 0
   secondMoveIs: 0
-  playerEquippedMovesSO: {fileID: 11400000, guid: df34d5de6f4dd2c4d94126931bcdd52e, type: 2}
   playerMoveInventorySO: {fileID: 11400000, guid: 4658aa4d7d4f0c24fb16a242861b273c, type: 2}
   ViolentAttacksFolder: {fileID: 7181943373128863204}
   VioletFendsFolder: {fileID: 0}
@@ -1088,60 +1087,15 @@ MonoBehaviour:
   PreciseFendsFolder: {fileID: 0}
   PreciseFocusesFolder: {fileID: 0}
   playerCombat: {fileID: 8916189207439800493}
-  violentAttackSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  violentFendSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  violentFocusSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  cautiousAttackSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  cautiousFendSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  cautiousFocusSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  preciseAttackSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  preciseFendSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  preciseFocusSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  violentAttackInstances: []
+  violentFendInstances: []
+  violentFocusInstances: []
+  cautiousAttackInstances: []
+  cautiousFendInstances: []
+  cautiousFocusInstances: []
+  preciseAttackInstances: []
+  preciseFendInstances: []
+  preciseFocusInstances: []
 --- !u!1 &4645553439046408796
 GameObject:
   m_ObjectHideFlags: 0
@@ -1756,15 +1710,15 @@ SpriteRenderer:
   m_SortingLayerID: 627291665
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3990043726132597592, guid: 13c6eb5774d73bf42ae3b3d8b94f927b, type: 3}
+  m_Sprite: {fileID: -5589216068684474, guid: 13c6eb5774d73bf42ae3b3d8b94f927b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.3, y: 0.54}
+  m_Size: {x: 0.19, y: 0.53}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
 --- !u!50 &4400780416818078350
@@ -1934,11 +1888,10 @@ MonoBehaviour:
   fendBase: 55
   maxHP: 0
   currentHP: 0
-  attackTotal: 0
-  fendTotal: 0
-  targetToAttack: {fileID: 0}
+  targetCombatant: {fileID: 0}
   moveSelected: {fileID: 0}
-  moves: []
+  moveList: []
+  movesFolderGO: {fileID: 0}
   playerMoveManager: {fileID: 5232138969718999026}
   playerPermanentStats: {fileID: 11400000, guid: 891a8d8bd88cd9a45acd6a5ac406be03, type: 2}
   party: {fileID: 11400000, guid: 7b54538dd0515b34c937ff6de93a275f, type: 2}

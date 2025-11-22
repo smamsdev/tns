@@ -12,7 +12,7 @@ public class StatChange : ToTrigger
 
     PlayerPermanentStats permanentStatsSO;
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         permanentStatsSO = GameObject.FindWithTag("CombatManager").GetComponent<PlayerCombat>().playerPermanentStats;
 

@@ -17,11 +17,11 @@ public class BooleanCheckTrigger : ToTrigger
         FieldEvents.HasCompleted -= TriggerAction;
     }
 
-    public override IEnumerator DoAction()
+    public override IEnumerator TriggerFunction()
     {
         if (conditionMet)
         {
-            StartCoroutine(toTriggerOnCheck.DoAction());
+            StartCoroutine(toTriggerOnCheck.Triggered());
         }
 
         else
