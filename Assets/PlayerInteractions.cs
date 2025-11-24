@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerInteractions : MonoBehaviour
 {
     public LayerMask layerMask;  
-    public float rayDistance = 0.10f;  
+    public float rayDistance;  
     public PlayerMovementScript playerMovementScript;
 
     void Update()
@@ -21,6 +21,11 @@ public class PlayerInteractions : MonoBehaviour
             {
                 FieldEvents.PlayerRayCastHit?.Invoke(hit);
             }
+
+           //if (hit.collider == null)
+           //{
+           //    Debug.Log("null");
+           //}
         }
     }
 }

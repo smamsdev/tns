@@ -1,41 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &981058299810393959
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5489845661201191429}
-  m_Layer: 0
-  m_Name: Fades
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &5489845661201191429
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 981058299810393959}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5365571141719992375}
-  m_Father: {fileID: 3203464326901901176}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3203464326901901179
 GameObject:
   m_ObjectHideFlags: 0
@@ -49,7 +13,7 @@ GameObject:
   - component: {fileID: 3203464326901901182}
   - component: {fileID: 6972499752236059494}
   - component: {fileID: 5009585112503694955}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -70,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5669580724185729961}
-  - {fileID: 5489845661201191429}
+  - {fileID: 5365571141719992375}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &3203464326901901177
@@ -139,9 +103,7 @@ MonoBehaviour:
   transformToFollow: {fileID: 0}
   cameraSpeed: 10
   xOffset: 0
-  yOffset: 0.3
-  battleModeOn: 0
-  newPos: {x: 0, y: 0, z: 0}
+  yOffset: 0.25
 --- !u!114 &6972499752236059494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,9 +185,9 @@ GameObject:
   - component: {fileID: 2055493695234607127}
   - component: {fileID: 438852553561096339}
   - component: {fileID: 3153619107460022657}
-  m_Layer: 0
-  m_Name: BlackFade
-  m_TagString: DefaultFader
+  m_Layer: 5
+  m_Name: Fader
+  m_TagString: Fader
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -242,12 +204,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5489845661201191429}
+  m_Father: {fileID: 3203464326901901176}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.00012207031, y: 0.000061035156}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2722065635121835223
 CanvasRenderer:
@@ -342,7 +304,7 @@ GameObject:
   - component: {fileID: 6134726726379131205}
   - component: {fileID: 2304350935136367885}
   - component: {fileID: 3219929560543684169}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: framecounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}

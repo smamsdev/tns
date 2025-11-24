@@ -11,7 +11,6 @@ public class ChangeCameraFollow : ToTrigger
 
     public override IEnumerator TriggerFunction()
     {
-        FieldEvents.isCameraFollow = false;
         CombatEvents.LockPlayerMovement();
 
         Debug.Log("update camera.main");
@@ -34,9 +33,7 @@ public class ChangeCameraFollow : ToTrigger
         }
 
         cameraFollow.transform.position = newPos;
-
         cameraFollow.transformToFollow = newTransformToFollow;
-        FieldEvents.isCameraFollow = true;
         CombatEvents.UnlockPlayerMovement();
         FieldEvents.HasCompleted.Invoke(this.gameObject);
 

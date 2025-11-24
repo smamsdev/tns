@@ -41,30 +41,30 @@ public class EntryPoint : ColliderInteractableAbstract
     public override IEnumerator TriggerFunction()
     {
         var sceneCombo = sceneEntrySO.sceneCombinationToEnter;
+        var defaultFaderAnimator = GameObject.FindGameObjectWithTag("Fader").GetComponent<Animator>();
+        defaultFaderAnimator.Play("DissolveToBlack");
+
+        yield return new WaitForSeconds(0.5f);
 
         yield return LoadScene(sceneCombo.baseScene.name, sceneCombo.additiveScenes[sceneCombo.activeAdditiveIteration].name);
-        FieldEvents.HasCompleted.Invoke(this.gameObject);
-
+        var playerGO = GameObject.FindGameObjectWithTag("Player");
     }
 
     public IEnumerator LoadScene(String newBaseSceneName, String newAdditiveSceneName)
     {
-        playerInTrigger.enabled = false;
-        FadeOut();
         SceneManager.LoadScene(newBaseSceneName, LoadSceneMode.Single);
         SceneManager.LoadScene(newAdditiveSceneName, LoadSceneMode.Additive);
         yield return null;
-    }
-
-    private void FadeOut()
-    {
-        FieldEvents.SceneChanging();
     }
 
     private void Update()
     {
         if (playerInTrigger && Input.GetKeyDown(KeyCode.Space))
         {
+            CombatEvents.LockPlayerMovement();
+            playerInTrigger.enabled = false;
+            FieldEvents.positionOnEntry = sceneEntrySO.positionOnEntry;
+            FieldEvents.fromEntryPoint = true;
             StartCoroutine(Triggered());
         }
     }

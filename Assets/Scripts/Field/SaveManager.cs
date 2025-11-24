@@ -35,7 +35,6 @@ public class SaveManager : MonoBehaviour
     {
         FieldEvents.UpdateTime();
 
-        saveDataSlot.sceneName = FieldEvents.sceneName;
         saveDataSlot.fendBase = permanentStatsSO.fendBase;
         saveDataSlot.attackBase = permanentStatsSO.attackBase;
         saveDataSlot.focusBase = permanentStatsSO.focusBase;

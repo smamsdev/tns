@@ -13,24 +13,17 @@ public static class FieldEvents
 {
     public static Action<GameObject> HasCompleted;
 
-    public static Action SceneChanging;
-    public static Action StartScene;
-
     public static Action<RaycastHit2D> PlayerRayCastHit;
+    public static bool fromEntryPoint;
+    public static Vector3 positionOnEntry;
 
-    public static bool isCameraFollow = true;
     public static bool isCoolDownBool;
     public static bool isDialogueActive;
     public static bool isSequenceRunning;
 
     public static bool movementLocked;
 
-    public static float movementSpeedMultiplier;
-    public static bool isMovementSpeedMultiplier;
-
-    //Stats for saving
     public static string duration;
-    public static string sceneName;
 
     public static bool isCooldown()
 

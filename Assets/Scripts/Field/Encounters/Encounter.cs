@@ -29,7 +29,6 @@ public class Encounter : ToTrigger
 
         SpawnBattle();
         yield return new WaitForSeconds(0.2f);
-        sceneSetup.FadeUp();
         yield return null;
     }
 

@@ -28,11 +28,6 @@ public class DialogueTrigger : MonoBehaviour
             StartCoroutine(FieldEvents.CoolDown(0.3f));
             StartCoroutine(dialogueToPlay.Triggered());
         }
-
-        else if (FieldEvents.isDialogueActive)
-        { 
-            Debug.Log("FieldEvents.isDialogueActive");
-        }
     }
 
     public void ReloadDialogue(GameObject gameObject)

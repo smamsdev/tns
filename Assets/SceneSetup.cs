@@ -3,76 +3,63 @@ using UnityEngine;
 
 public class SceneSetup : MonoBehaviour
 {
-    public Transform transformToFollow;
-    public string sceneName;
-
-    [SerializeField] Animator defaultFaderAnimator;
-    public bool isCustomSceneStart;
-
-    private void OnEnable()
-    {
-        FieldEvents.SceneChanging += FadeDown;
-        FieldEvents.sceneName = sceneName;
-
-        var playerGO = GameObject.FindGameObjectWithTag("Player");
-        if (transformToFollow == null)
-        { 
-            transformToFollow = playerGO.transform;
-        }
-    }
+    public CustomSceneStart customSceneStart;
+    CameraFollow cameraFollow;
+    Animator fader;
+    GameObject playerGO;
 
     private void OnDisable()
     {
-        FieldEvents.SceneChanging -= FadeDown;
         CrossSceneReferences.Clear();
     }
 
     private void Start()
     {
-        CombatEvents.LockPlayerMovement();
-        Camera.main.transform.position = new Vector3(transformToFollow.position.x, transformToFollow.transform.position.y, transformToFollow.transform.position.z - 10);
+        playerGO = GameObject.FindGameObjectWithTag("Player");
+        cameraFollow = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
+        fader = GameObject.FindGameObjectWithTag("Fader").GetComponent<Animator>();
 
-        if (!isCustomSceneStart)
+        if (cameraFollow.transformToFollow == null)
         {
-            StartCoroutine(DefaultSceneStart());
+            cameraFollow.transformToFollow = playerGO.transform;
+        }
+
+        CheckForEntryCoords();
+        if (customSceneStart != null)
+        {
+            customSceneStart.StartScene();
         }
 
         else
-        { 
-            FieldEvents.StartScene();
+        {
+            StartCoroutine(DefaultSceneStart());
+        }
+    }
+
+    void CheckForEntryCoords()
+    {
+        if (FieldEvents.fromEntryPoint != false)
+        {
+            playerGO.transform.position = FieldEvents.positionOnEntry;
+            FieldEvents.fromEntryPoint = false;
+            return;
         }
     }
 
     IEnumerator DefaultSceneStart()
     {
-        if (defaultFaderAnimator == null)
-        {
-            defaultFaderAnimator = GameObject.FindGameObjectWithTag("DefaultFader").GetComponent<Animator>();
-        }
+        CombatEvents.LockPlayerMovement();
+        cameraFollow.transform.position = new(
+            cameraFollow.transformToFollow.position.x + cameraFollow.xOffset, 
+            cameraFollow.transformToFollow.position.y + cameraFollow.yOffset, 
+            -10f);
 
-        defaultFaderAnimator.SetBool("start", true);
-        yield return new WaitForSeconds(0.5f);
+        fader.Play("Dissolve");
+        yield return new WaitForSeconds(0.2f);
         CombatEvents.UnlockPlayerMovement();
-
-        StartScene();
     }
 
-    public void FadeUp()
-    {
-        defaultFaderAnimator.SetBool("start", true);
-    }
-
-    public void StartScene()
-
-    {
-        FieldEvents.StartScene();
-    }
-
-    void FadeDown()
-    {
-        defaultFaderAnimator.SetTrigger("Trigger2");
-    }
-
+    //can be really annoying to debug if you accidentally have 2 
     void OnValidate()
     {
 #if UNITY_EDITOR

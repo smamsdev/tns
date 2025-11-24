@@ -11,14 +11,12 @@ public class SceneTriggers : MonoBehaviour
 
     private void OnEnable()
     {
-        FieldEvents.HasCompleted += TriggerAction;
-        FieldEvents.StartScene += StartScene;    
+        FieldEvents.HasCompleted += TriggerAction;  
     }
 
     private void OnDisable()
     {
         FieldEvents.HasCompleted -= TriggerAction;
-        FieldEvents.StartScene -= StartScene;
     }
 
     private void StartScene()

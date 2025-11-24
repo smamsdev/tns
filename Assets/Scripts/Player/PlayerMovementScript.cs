@@ -33,7 +33,6 @@ public class PlayerMovementScript : MovementScript
     {
         previousRigidPosition = rigidBody2d.position;
         movementSpeed = defaultMovementspeed;
-        FieldEvents.movementSpeedMultiplier = 1;
         rigidBody2d.bodyType = RigidbodyType2D.Dynamic;
         movementLocked = FieldEvents.movementLocked;
         distanceTravelled = 0;
@@ -54,16 +53,13 @@ public class PlayerMovementScript : MovementScript
         if (Input.GetKeyDown(KeyCode.LeftShift))
 
         {
-            FieldEvents.movementSpeedMultiplier = 3;
-            FieldEvents.isMovementSpeedMultiplier = true;
+            movementSpeed = defaultMovementspeed * 4;
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift))
 
         {
-            FieldEvents.movementSpeedMultiplier = 1;
             movementSpeed = defaultMovementspeed;
-            FieldEvents.isMovementSpeedMultiplier = false;
         }
 
         if (Input.GetKeyDown(KeyCode.KeypadPlus))

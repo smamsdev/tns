@@ -52,7 +52,6 @@ public class RandomEncounter : MonoBehaviour
 
     void LoadScene(string sceneName)
     {
-        FieldEvents.SceneChanging();
         SceneManager.LoadScene(sceneName);
     }
 
