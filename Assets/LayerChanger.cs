@@ -8,7 +8,7 @@ public class LayerChanger : MonoBehaviour
 
     public void ChangeLayer(string layerNameToChangeTo)
 
-    {
+    {//
         foreach (SpriteRenderer i in spritesLayersToChange)
         i.sortingLayerName = layerNameToChangeTo;
     }

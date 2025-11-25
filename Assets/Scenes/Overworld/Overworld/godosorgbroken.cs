@@ -98,10 +98,10 @@ public class bkuop : MonoBehaviour
         if (moveDir.sqrMagnitude > 1f) moveDir.Normalize();
 
         // Keep gravity part of velocity
-        Vector3 gravityVelocity = Vector3.Project(rb.velocity, up);
+        Vector3 gravityVelocity = Vector3.Project(rb.linearVelocity, up);
 
         // Apply final velocity
-        rb.velocity = moveDir * moveSpeed + gravityVelocity;
+        rb.linearVelocity = moveDir * moveSpeed + gravityVelocity;
     }
 
 

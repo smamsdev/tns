@@ -1,26 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
     public Transform transformToFollow;
-    public float cameraSpeed;
+    public float smoothTime = 0.15f; // how quickly camera catches up
     public float xOffset;
     public float yOffset;
 
-    //dont forget about z -10, it's important!
+    private Vector3 velocity = Vector3.zero;
+
     private void Awake()
     {
         if (transformToFollow == null)
-        { 
-            transformToFollow = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        {
+            transformToFollow = GameObject.FindGameObjectWithTag("Player").transform;
         }
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
-        var newPos = new Vector3(transformToFollow.position.x + xOffset, transformToFollow.position.y + yOffset, -10f);
-        transform.position = Vector3.Slerp(transform.position, newPos, cameraSpeed * Time.deltaTime);
+        Vector3 targetPos = new Vector3(transformToFollow.position.x + xOffset, transformToFollow.position.y + yOffset, -10f);
+        transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, smoothTime);
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4603510060094619080}
   - component: {fileID: 8524157694805311256}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Inventory
   m_TagString: PlayerInventory
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 8088262132899306759}
   - component: {fileID: 5358913232191880447}
   - component: {fileID: 2947267426782114021}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: DamageTakenText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &8088262132899306759
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -100,6 +100,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -176,15 +177,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -211,7 +214,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7435000722401256818}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Alerts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +245,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 26374758005752300}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Cautious
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +282,7 @@ GameObject:
   - component: {fileID: 5448525359647572290}
   - component: {fileID: 7451799450445645147}
   - component: {fileID: 5628073045649337421}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: FendAndDamage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -308,7 +311,7 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &5448525359647572290
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -322,6 +325,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -375,7 +379,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1563491251910990309}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: OffsetContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -413,7 +417,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3252737667842996636}
   - component: {fileID: 2969041268363397244}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DamageTaken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -464,7 +468,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8159414347565183003}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Attacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -498,7 +502,7 @@ GameObject:
   - component: {fileID: 8658279641288820745}
   - component: {fileID: 3806247342547371097}
   - component: {fileID: 1173022359103221663}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PlayerHPText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -595,15 +599,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -623,7 +629,7 @@ MonoBehaviour:
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!95 &1173022359103221663
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -637,6 +643,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -651,7 +658,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4169335082367769718}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Focuses
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -683,7 +690,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7480956048217281426}
   - component: {fileID: 7883207155541732718}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PlayerUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -737,7 +744,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6389420471579786166}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CombatUIContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -774,7 +781,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6419265074929225717}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: EquippedMoves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -810,7 +817,7 @@ GameObject:
   - component: {fileID: 3041716751231014038}
   - component: {fileID: 2366890552180192551}
   - component: {fileID: 2308428023159947773}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: FendText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -907,15 +914,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -942,7 +951,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6960183902106157929}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Precise
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -976,7 +985,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4261002244110847713}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Fends
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1007,7 +1016,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2661925978988653310}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Fends
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1039,7 +1048,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4385107063098349603}
   - component: {fileID: 5232138969718999026}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: MoveManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1109,7 +1118,7 @@ GameObject:
   - component: {fileID: 599132153884361718}
   - component: {fileID: 8738535906526857765}
   - component: {fileID: 1170908821512508967}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: StatsDisplayContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1201,7 +1210,7 @@ MonoBehaviour:
   m_ConstraintCount: 1
 --- !u!95 &1170908821512508967
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1215,6 +1224,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -1232,7 +1242,7 @@ GameObject:
   - component: {fileID: 8944229070128876351}
   - component: {fileID: 2805487330885409026}
   - component: {fileID: 9030049615023655470}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: BackStabBonus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1329,15 +1339,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -1357,7 +1369,7 @@ MonoBehaviour:
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!95 &9030049615023655470
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1371,6 +1383,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -1388,7 +1401,7 @@ GameObject:
   - component: {fileID: 9160837376896640787}
   - component: {fileID: 5776708279045501393}
   - component: {fileID: 4258209580507206534}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PlayerPotentialText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1485,15 +1498,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -1513,7 +1528,7 @@ MonoBehaviour:
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!95 &4258209580507206534
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1527,6 +1542,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -1541,7 +1557,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 972705000245337443}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Fends
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1572,7 +1588,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 834806428857336761}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Attacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1603,7 +1619,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2450750237231077823}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Focuses
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1686,6 +1702,11 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1707,6 +1728,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 627291665
   m_SortingLayer: 3
   m_SortingOrder: 0
@@ -1723,7 +1745,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 1
 --- !u!50 &4400780416818078350
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1734,8 +1756,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.001
+  m_LinearDamping: 0
+  m_AngularDamping: 0.001
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -1780,7 +1802,7 @@ MonoBehaviour:
   delta: {x: 0, y: 0}
 --- !u!95 &8879681757372781048
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1794,6 +1816,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -1807,6 +1830,7 @@ CapsuleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6457784655243026927}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -1830,7 +1854,8 @@ CapsuleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: -0.01, y: 0.03}
   m_Size: {x: 0.19, y: 0.06}
   m_Direction: 1
@@ -1910,7 +1935,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5736814738980272509}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Violent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1944,7 +1969,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7349081639722867715}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Attacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1976,7 +2001,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6720233661347898246}
   - component: {fileID: 182437311951407182}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: reflection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2015,6 +2040,11 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2036,6 +2066,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 472431825
   m_SortingLayer: 2
   m_SortingOrder: -1
@@ -2059,7 +2090,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4825622786820253410}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Focuses
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2092,7 +2123,7 @@ GameObject:
   - component: {fileID: 3745466680923996017}
   - component: {fileID: 2338749530758829956}
   - component: {fileID: 8138265330558510827}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: FendIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2168,7 +2199,7 @@ GameObject:
   - component: {fileID: 1707678062937891107}
   - component: {fileID: 6549844398531048373}
   - component: {fileID: 2600038062933993359}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: StatsDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}

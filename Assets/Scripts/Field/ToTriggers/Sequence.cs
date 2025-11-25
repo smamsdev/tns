@@ -22,9 +22,10 @@ public class Sequence : ToTrigger
     public override IEnumerator TriggerFunction()
     {
         isSequenceRunning = true;
+
         if (i < toTrigger.Length)
         {
-            yield return (toTrigger[i].Triggered());
+            StartCoroutine(toTrigger[i].Triggered());
         }
         yield return null;
     }
@@ -63,4 +64,8 @@ public class Sequence : ToTrigger
         FieldEvents.HasCompleted.Invoke(this.gameObject);
     }
 
+    protected override void TriggerComplete()
+    {
+        //Do nothing, EndSequence will manage
+    }
 }

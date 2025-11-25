@@ -6,7 +6,7 @@ using UnityEngine;
 
 [CreateAssetMenu]
 public class SceneCombination : ScriptableObject
-{
+{//
     public SceneAsset baseScene;
     public SceneAsset[] additiveScenes;
     public int activeAdditiveIteration;

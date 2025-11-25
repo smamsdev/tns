@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 using UnityEngine.SceneManagement;
 
 public class RandomEncounter : MonoBehaviour
@@ -65,7 +65,7 @@ public class RandomEncounter : MonoBehaviour
             mainCam.transform.rotation = Quaternion.Euler(0, 0, output);
         });
 
-        var ppc = mainCam.GetComponent<UnityEngine.Experimental.Rendering.Universal.PixelPerfectCamera>();
+        var ppc = mainCam.GetComponent<UnityEngine.Rendering.Universal.PixelPerfectCamera>();
 
         FieldEvents.LerpValues(150, 0, 1f, output =>
         {
