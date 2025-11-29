@@ -1,94 +1,89 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Shift : ToTrigger
 {
-    public ActorShift[] actorShift;
-    Vector2 startingPos;
-    Vector2 endPos;
-    int i;
+    [System.Serializable]
+    public class ShiftData
+    {
+        public Transform goToShift;
+        public Direction direction;
+        public float distance;
+        public float optionalOverSeconds;
+        public float speed;              
+    }
+
+    public ShiftData[] actorShift;
+    private int i;
+
+    public enum Direction
+    {
+        Left,
+        Right,
+        Up,
+        Down
+    }
+
+    private Vector2 CalculateEndPos(ShiftData shiftData)
+    {
+        Vector2 basePos = shiftData.goToShift.position;
+
+        Vector2 dir = shiftData.direction switch
+        {
+            Direction.Left => Vector2.left,
+            Direction.Right => Vector2.right,
+            Direction.Up => Vector2.up,
+            Direction.Down => Vector2.down,
+            _ => throw new System.ArgumentOutOfRangeException()
+        };
+
+        return basePos + dir * shiftData.distance;
+    }
 
     public override IEnumerator TriggerFunction()
     {
-        for (i = 0; i < actorShift.Length;)
+        CombatEvents.LockPlayerMovement();
+
+        for (i = 0; i < actorShift.Length; i++)
         {
-            CombatEvents.LockPlayerMovement();
-            actorShift[i].actorRB = transform.parent.transform.parent.gameObject.GetComponent<Rigidbody2D>();
-            CalculateDistance();
+            ShiftData shiftData = actorShift[i];
+            Vector3 startPos = shiftData.goToShift.position;
+            Vector3 targetPos = CalculateEndPos(shiftData);
 
-            float elapsedTime = 0;
-            startingPos = actorShift[i].actorRB.position;
-
-            //if seconds value in inspector is above 0 use this method. Fixed Time method.
-            if (actorShift[i].optionalOverSeconds > 0)
+            // Use timed Lerp if optionalOverSeconds > 0
+            if (shiftData.optionalOverSeconds > 0f)
             {
-                while (elapsedTime < actorShift[i].optionalOverSeconds)
+                float elapsedTime = 0f;
+
+                while (elapsedTime < shiftData.optionalOverSeconds)
                 {
-                    actorShift[i].actorRB.position = Vector2.Lerp(startingPos, endPos, (elapsedTime / actorShift[i].optionalOverSeconds));
+                    float t = elapsedTime / shiftData.optionalOverSeconds;
+                    shiftData.goToShift.position = Vector3.Lerp(startPos, targetPos, t);
+
                     elapsedTime += Time.deltaTime;
-                    yield return new WaitForEndOfFrame();
+                    yield return null;
                 }
 
-                CombatEvents.UnlockPlayerMovement();
-
-                actorShift[i].actorRB.position = endPos;
-                i++;
-
-                if (i == actorShift.Length)
-                {
-                    Debug.Log("i might have broken this");
-                    //FieldEvents.HasCompleted.Invoke(this.gameObject);
-
-                }
+                shiftData.goToShift.position = targetPos;
             }
 
-            // if seconds is null us this method. Fixed speed method, inifite time.
+            // Otherwise, move with fixed speed until target is reached
             else
             {
-                while (Vector3.Distance(actorShift[i].actorRB.position, endPos) > 0)
+                while (Vector3.Distance(shiftData.goToShift.position, targetPos) > 0.01f)
                 {
-                    actorShift[i].actorRB.position = Vector3.MoveTowards(actorShift[i].actorRB.position, endPos, Time.deltaTime * actorShift[i].speed);
-                    elapsedTime += Time.deltaTime;
-                    yield return new WaitForEndOfFrame();
-                }
-                actorShift[i].actorRB.position = endPos;
-                i++;
-                CombatEvents.UnlockPlayerMovement();
+                    shiftData.goToShift.position = Vector3.MoveTowards(
+                        shiftData.goToShift.position,
+                        targetPos,
+                        shiftData.speed * Time.deltaTime
+                    );
 
-                if (i == actorShift.Length)
-                {
-                    Debug.Log("broken>?");
-                    FieldEvents.HasCompleted.Invoke(this.gameObject);
-
+                    yield return null;
                 }
+
+                shiftData.goToShift.position = targetPos;
             }
-
-
         }
+        CombatEvents.UnlockPlayerMovement();
     }
-
-    void CalculateDistance()
-    {
-        switch (actorShift[i].direction)
-        {
-            case Direction.Left: endPos = new Vector2((actorShift[i].actorRB.position.x - actorShift[i].distance), actorShift[i].actorRB.position.y); break;
-            case Direction.Up: endPos = new Vector2(actorShift[i].actorRB.position.x, (actorShift[i].actorRB.position.y + actorShift[i].distance)); break;
-            case Direction.Down: endPos = new Vector2(actorShift[i].actorRB.position.x, (actorShift[i].actorRB.position.y - actorShift[i].distance)); break;
-            case Direction.Right: endPos = new Vector2((actorShift[i].actorRB.position.x + actorShift[i].distance), actorShift[i].actorRB.position.y); break;
-        }
-    }
-}
-
-public enum Direction { Left, Up, Down, Right };
-[System.Serializable]
-
-public class ActorShift
-{
-    [HideInInspector] public Rigidbody2D actorRB;
-    public Direction direction;
-    public float distance;
-    public float speed;
-    public float optionalOverSeconds;
 }

@@ -7,6 +7,8 @@ public class SceneSetup : MonoBehaviour
     CameraFollow cameraFollow;
     Animator fader;
     GameObject playerGO;
+    public bool isTriggerOnLoad;
+    public ToTrigger triggerOnLoad;
 
     private void OnDisable()
     {
@@ -34,6 +36,8 @@ public class SceneSetup : MonoBehaviour
         {
             StartCoroutine(DefaultSceneStart());
         }
+
+        StartSceneTrigger();
     }
 
     void CheckForEntryCoords()
@@ -59,19 +63,26 @@ public class SceneSetup : MonoBehaviour
         CombatEvents.UnlockPlayerMovement();
     }
 
+
+    private void StartSceneTrigger()
+    {
+        if (isTriggerOnLoad)
+        {
+            StartCoroutine(triggerOnLoad.Triggered());
+        }
+    }
+
+
+#if UNITY_EDITOR
     //can be really annoying to debug if you accidentally have 2 
     void OnValidate()
     {
-#if UNITY_EDITOR
-        var all = FindObjectsOfType<SceneSetup>(true);
+        var all = GameObject.FindObjectsByType<SceneSetup>(UnityEngine.FindObjectsInactive.Include,UnityEngine.FindObjectsSortMode.None);
 
         if (all.Length > 1)
         {
-            Debug.LogError(
-                $"Only ONE {nameof(SceneSetup)} is allowed in this scene!",
-                this
-            );
+            Debug.LogError($"Only ONE {nameof(SceneSetup)} is allowed in this scene!", this);
         }
-#endif
     }
+#endif
 }

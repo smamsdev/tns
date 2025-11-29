@@ -14,7 +14,6 @@ public abstract class ToTrigger : MonoBehaviour
 
     protected virtual void TriggerComplete()
     {
-        //Debug.Log($"{GetType().Name} fired this on {gameObject.name}");
         FieldEvents.HasCompleted.Invoke(this.gameObject);
     }
 }

@@ -1,10 +1,21 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DialogueContainer : ToTrigger
 {
-    [HideInInspector] public DialogueManager dialogueManager;
+    private static DialogueManager _cachedDialogueManager;
+
+    private DialogueManager DialogueManager
+    {
+        get
+        {
+            if (_cachedDialogueManager == null)
+            {
+                _cachedDialogueManager = GameObject.FindGameObjectWithTag("DialogManager").GetComponent<DialogueManager>();
+            }
+            return _cachedDialogueManager;
+        }
+    }
 
     public Dialogue[] dialogue;
     public bool dialogueLaunched;
@@ -12,31 +23,23 @@ public class DialogueContainer : ToTrigger
 
     private void Start()
     {
-        for (int i = 0; i < dialogue.Length; i++)
-        {
-            dialogue[i].dialogueGameObject = gameObject; //wtf is this
-        }
-
-        dialogueManager = GameObject.FindGameObjectWithTag("DialogManager").GetComponent<DialogueManager>();
+        dialogue[0].dialogueGameObject = gameObject;
     }
 
-   public override IEnumerator TriggerFunction()
-
-   {
+    public override IEnumerator TriggerFunction()
+    {
         CombatEvents.LockPlayerMovement?.Invoke();
-
         FieldEvents.isDialogueActive = true;
 
         yield return new WaitForSeconds(0.3f);
 
-        dialogueManager.OpenDialogue(dialogue);
-       dialogueLaunched = true;
-   }
+        DialogueManager.OpenDialogue(dialogue);
+        dialogueLaunched = true;
+    }
 
     protected override void TriggerComplete()
     {
-        //
+        //Not in use
+        //FieldEvents.HasCompleted invoked elsewhere
     }
-
 }
-

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class CustomAnimationOverride : ToTrigger
@@ -9,50 +8,62 @@ public class CustomAnimationOverride : ToTrigger
     [SerializeField] private AnimationClip customAnimation;
     [SerializeField] private string stateName = "Custom";
     public bool isOneShotThenRevert;
-    public Vector2 optionalUpdateLookDirection;
-    RuntimeAnimatorController original;
+    public bool isPlayingOverride;
+    public Vector2 optionalLookDirOnExit;
 
-[Header("Will populate once triggered")]
-    public AnimatorOverrideController newControllerToCreate;
-    public bool readyToRevert;
+    private RuntimeAnimatorController original;
+    private AnimatorOverrideController overrideController;
+
+    private void Awake()
+    {
+        original = animator.runtimeAnimatorController;
+        overrideController = new AnimatorOverrideController(original);
+    }
 
     public override IEnumerator TriggerFunction()
     {
-        readyToRevert = true;
+        if (isPlayingOverride)
+        {
+            yield return RevertToOriginalAnimator();
+            if (optionalLookDirOnExit != Vector2.zero)
+            {
+                var movementScript = animator.GetComponent<MovementScript>();
+                movementScript.lookDirection = optionalLookDirOnExit;
+                animator.SetFloat("lookDirectionX", optionalLookDirOnExit.x);
+                animator.SetFloat("lookDirectionY", optionalLookDirOnExit.y);
+            }
+            yield break;
+        }
 
-        original = animator.runtimeAnimatorController;
-        newControllerToCreate = new AnimatorOverrideController(animator.runtimeAnimatorController);
-        newControllerToCreate[animationToOverride] = customAnimation;
-        animator.runtimeAnimatorController = newControllerToCreate;
+        isPlayingOverride = true;
 
-        animator.Play(stateName);  // Play the state name, not the clip name
+        overrideController[animationToOverride] = customAnimation;
+        animator.runtimeAnimatorController = overrideController;
 
-        if (optionalUpdateLookDirection != Vector2.zero)
+        if (optionalLookDirOnExit != Vector2.zero)
         {
             var movementScript = animator.GetComponent<MovementScript>();
-            movementScript.lookDirection = optionalUpdateLookDirection;
-            animator.SetFloat("lookDirectionX", movementScript.lookDirection.x);
-            animator.SetFloat("lookDirectionY", movementScript.lookDirection.y);
+            movementScript.lookDirection = optionalLookDirOnExit;
+            animator.SetFloat("lookDirectionX", optionalLookDirOnExit.x);
+            animator.SetFloat("lookDirectionY", optionalLookDirOnExit.y);
         }
+
+        animator.Play(stateName, -1, 0f);
 
         if (isOneShotThenRevert)
         {
             yield return new WaitForSeconds(customAnimation.length);
-            animator.Play("Idle");
-            animator.runtimeAnimatorController = original;
+            yield return RevertToOriginalAnimator();
         }
     }
 
     public IEnumerator RevertToOriginalAnimator()
     {
-        if (!readyToRevert)
-        {
-            Debug.Log("animation hasn't trigered yet");
-        }
+        if (!animator) yield break;
 
         animator.runtimeAnimatorController = original;
-        animator.Play("Idle");
-        readyToRevert = false;
+        animator.Play("Idle", -1, 0f);
+        isPlayingOverride = false;
         yield return null;
     }
 }

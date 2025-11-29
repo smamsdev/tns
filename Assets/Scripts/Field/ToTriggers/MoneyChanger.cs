@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MoneyChanger : ToTrigger
 {
-
     public int moneyChange;
 
     public override IEnumerator TriggerFunction()

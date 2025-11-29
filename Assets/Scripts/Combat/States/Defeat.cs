@@ -16,6 +16,7 @@ public class Defeat : State
         //defeated animation
         combatUIContainer.SetActive(false);
         yield return new WaitForSeconds(1f);
+
         FieldEvents.HasCompleted(this.gameObject);
 
         yield return null;

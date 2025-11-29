@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class SceneTriggers : MonoBehaviour
 {
-    public bool isTriggerOnLoad;
-    public ToTrigger triggerOnLoad;
     public Trigger[] trigger;
 
     private void OnEnable()
@@ -17,14 +15,6 @@ public class SceneTriggers : MonoBehaviour
     private void OnDisable()
     {
         FieldEvents.HasCompleted -= TriggerAction;
-    }
-
-    private void StartScene()
-    {
-        if (isTriggerOnLoad) 
-        {
-        StartCoroutine(triggerOnLoad.Triggered());
-        }
     }
 
     void TriggerAction(GameObject gameObject)

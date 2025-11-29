@@ -36,36 +36,33 @@ public class DialogueBox : MonoBehaviour
     void SetFinalPosition()
     {
         actorPos = dialogueElement.actorGameObject.transform.position;
+        dialogueFinalPosition.x = actorPos.x;
 
-        dialogueFinalPosition.x = actorPos.x - 0.00f;
         //0.3 above the speakers highest sprite point
         dialogueFinalPosition.y = actorPos.y + speakerSpriteRenderer.bounds.size.y + 0.3f;
     }
 
     void SetupTextBox()
-    //set the name instantly, and instantiate the background of the dialog box to be the correct size BEFORE the text appears
     {
-        string actorname = dialogueElement.actorGameObject.name;
+        string actorName = dialogueElement.actorGameObject.name;
 
-        if (actorname == "Player") 
-        { 
-            actorname = "Liam"; 
-        }
+        if (actorName == "Player") actorName = "Liam";
 
-        nameText.text = actorname;
+        bool isAlert = actorName == "Alerts";
+        nameText.gameObject.SetActive(!isAlert);
+        if (isAlert) actorName = null;
 
+        nameText.text = actorName;
         dialogueText.text = dialogueElement.dialoguetext;
 
-        var tmps = new List<TextMeshProUGUI> { dialogueText, nameText };
+        var tmps = new List<TextMeshProUGUI> {dialogueText, nameText};
         var longestTMP = FieldEvents.FindLongestText(tmps);
 
-        Vector2 newCellSize = gridLayoutSizer.cellSize;
-        newCellSize = new Vector2(longestTMP.preferredWidth, dialogueText.preferredHeight + nameText.preferredHeight);
+        Vector2 newCellSize = new Vector2(longestTMP.preferredWidth,dialogueText.preferredHeight + (isAlert ? 0 : nameText.preferredHeight));
         gridLayoutSizer.cellSize = newCellSize;
     }
 
     IEnumerator AnimateLetters(string dialoguetext, TextMeshProUGUI textToUpdate, float time)
-
     {
         textToUpdate.text = "";
         yield return new WaitForSeconds(0.5f);
