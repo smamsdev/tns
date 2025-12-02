@@ -55,17 +55,17 @@ public class PlayerCombat : Ally
             potentialMod = -0.1f;
         }
 
-        if (currentPotential == playerPermanentStats.maxPotential)
+        if (currentPotential == playerPermanentStats.MaxPotential)
         {
             potentialMod = 2;
         }
 
-        if (currentPotential > 0 && currentPotential < ( (float) (playerPermanentStats.maxPotential /2) ))
+        if (currentPotential > 0 && currentPotential < ( (float) (playerPermanentStats.MaxPotential /2) ))
         {   
-            potentialMod = ((float)currentPotential / playerPermanentStats.maxPotential) * 2.5f;
+            potentialMod = ((float)currentPotential / playerPermanentStats.MaxPotential) * 2.5f;
         }
 
-        if (currentPotential< playerPermanentStats.maxPotential && currentPotential >= ((float)(playerPermanentStats.maxPotential / 2)))
+        if (currentPotential< playerPermanentStats.MaxPotential && currentPotential >= ((float)(playerPermanentStats.MaxPotential / 2)))
         {
             potentialMod = 1;
         }

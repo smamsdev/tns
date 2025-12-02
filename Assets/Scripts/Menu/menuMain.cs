@@ -15,6 +15,7 @@ public class menuMain : Menu
     
     public MenuSave menuSave;
     public MenuGear menuGear;
+    public PlayerCombat playerCombat;
 
     private bool isMenuOn = false;
 
@@ -33,6 +34,8 @@ public class menuMain : Menu
 
     public override void EnterMenu()
     {
+        playerCombat = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>();
+
         isMenuOn = true;
         menuGO.SetActive(true);
         animator.SetBool("Open", true);
@@ -41,8 +44,7 @@ public class menuMain : Menu
         menuSave.UpdateSaveSlotUI();
         menuGear.InstantiateUIGearSlots();
 
-        var playerPermanentStats = menuManagerUI.playerGO.GetComponent<PlayerCombat>().playerPermanentStats; 
-        smamsValue.text = $"{playerPermanentStats.smams}";
+        smamsValue.text = $"{playerCombat.playerPermanentStats.Smams}";
 
         StartCoroutine(LockMovementAfterDelay());
     }

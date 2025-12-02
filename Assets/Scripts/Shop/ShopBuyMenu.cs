@@ -83,8 +83,8 @@ public class ShopBuyMenu : ShopMenu
         Debug.Log("fix this");
 
         var main = menuManagerUI.mainMenu;
-        main.playerPermanentStats.smams -= gearToBuy.value;
-        main.smamsValue.text = $"{main.playerPermanentStats.smams}";
+        main.playerPermanentStats.Smams -= gearToBuy.value;
+        main.smamsValue.text = $"{main.playerPermanentStats.Smams}";
         menuManagerUI.smamsColorAnimator.SetTrigger("minus");
 
         DisableAllSlots();

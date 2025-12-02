@@ -60,14 +60,14 @@ public class RandomEncounter : MonoBehaviour
         GameObject mainCam = GameObject.FindGameObjectWithTag("MainCamera");
         CombatEvents.LockPlayerMovement();
 
-        FieldEvents.LerpValues(0, 359, 1, output =>
+        FieldEvents.LerpValuesCoRo(0, 359, 1, output =>
         {
             mainCam.transform.rotation = Quaternion.Euler(0, 0, output);
         });
 
         var ppc = mainCam.GetComponent<UnityEngine.Rendering.Universal.PixelPerfectCamera>();
 
-        FieldEvents.LerpValues(150, 0, 1f, output =>
+        FieldEvents.LerpValuesCoRo(150, 0, 1f, output =>
         {
             ppc.assetsPPU = Mathf.RoundToInt(output);
         });

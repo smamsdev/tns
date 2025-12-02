@@ -92,8 +92,8 @@ public class ShopMenuSell : ShopMenu
         LoadInventory();
 
         var main = menuManagerUI.mainMenu;
-        main.playerPermanentStats.smams += gearToSell.value / 2;
-        main.smamsValue.text = $"{main.playerPermanentStats.smams}";
+        main.playerPermanentStats.Smams += gearToSell.value / 2;
+        main.smamsValue.text = $"{main.playerPermanentStats.Smams}";
         menuManagerUI.smamsColorAnimator.SetTrigger("plus");
 
         if (gearToSell.quantityInInventory == 0)

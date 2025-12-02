@@ -59,10 +59,9 @@ public class SceneSetup : MonoBehaviour
             -10f);
 
         fader.Play("Dissolve");
-        yield return new WaitForSeconds(0.2f);
         CombatEvents.UnlockPlayerMovement();
+        yield return null;
     }
-
 
     private void StartSceneTrigger()
     {

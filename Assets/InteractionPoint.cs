@@ -6,14 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class InteractionPoint : ColliderInteractableAbstract
 {
-    public bool disableColliderAfterTrigger;
+    public bool disableColliderAfterAction;
+    public ToTrigger optionalTriggerOnAction;
 
     public override IEnumerator TriggerFunction()
     {
         animator.Play("Close");
         playerInTrigger = null;
 
-        if (disableColliderAfterTrigger)
+        if (disableColliderAfterAction)
         {
             GetComponent<Collider2D>().enabled = false;
         }
@@ -25,7 +26,14 @@ public class InteractionPoint : ColliderInteractableAbstract
     {
         if (playerInTrigger && Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(Triggered());
+            if (optionalTriggerOnAction != null)
+            {
+                StartCoroutine(TriggerFunction());
+                StartCoroutine(optionalTriggerOnAction.Triggered());
+                return;
+            }
+
+            StartCoroutine(this.Triggered());
         }
     }
 }

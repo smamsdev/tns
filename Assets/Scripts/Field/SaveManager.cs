@@ -34,20 +34,21 @@ public class SaveManager : MonoBehaviour
     public void SaveGame(SaveData saveDataSlot)
     {
         FieldEvents.UpdateTime();
+        Debug.Log("good luck w this");
 
-        saveDataSlot.fendBase = permanentStatsSO.fendBase;
-        saveDataSlot.attackBase = permanentStatsSO.attackBase;
-        saveDataSlot.focusBase = permanentStatsSO.focusBase;
-        saveDataSlot.maxPotential = permanentStatsSO.maxPotential;
-        saveDataSlot.currentPotential = permanentStatsSO.currentPotential;
-        saveDataSlot.maxHP = permanentStatsSO.maxHP;
-        saveDataSlot.currentHP = permanentStatsSO.currentHP;
-        saveDataSlot.level = permanentStatsSO.level;
-        saveDataSlot.XP = permanentStatsSO.XP;
-        saveDataSlot.XPThreshold = permanentStatsSO.XPThreshold;
-        //saveDataSlot.XPremainder = permanentStatsSO.XPremainder;
-        //saveDataSlot.defaultXPThreshold = permanentStatsSO.defaultXPThreshold;
-        saveDataSlot.smams = permanentStatsSO.smams;
+        //saveDataSlot.fendBase = permanentStatsSO.fendBase;
+        //saveDataSlot.attackBase = permanentStatsSO.attackBase;
+        //saveDataSlot.focusBase = permanentStatsSO.focusBase;
+        //saveDataSlot.maxPotential = permanentStatsSO.maxPotential;
+        //saveDataSlot.currentPotential = permanentStatsSO.currentPotential;
+        //saveDataSlot.maxHP = permanentStatsSO.maxHP;
+        //saveDataSlot.currentHP = permanentStatsSO.currentHP;
+        //saveDataSlot.level = permanentStatsSO.level;
+        //saveDataSlot.XP = permanentStatsSO.XP;
+        //saveDataSlot.XPThreshold = permanentStatsSO.XPThreshold;
+        ////saveDataSlot.XPremainder = permanentStatsSO.XPremainder;
+        ////saveDataSlot.defaultXPThreshold = permanentStatsSO.defaultXPThreshold;
+        //saveDataSlot.smams = permanentStatsSO.smams;
         saveDataSlot.duration = FieldEvents.duration;
         saveDataSlot.date = System.DateTime.Now.ToString("yyyy/MM/dd");
         saveDataSlot.time = System.DateTime.Now.ToString("HH:mm:ss");
@@ -137,17 +138,18 @@ public class SaveManager : MonoBehaviour
     {
         if (saveData != null)
         {
-            permanentStatsSO.attackBase = saveData.attackBase;
-            permanentStatsSO.focusBase = saveData.focusBase;
-            permanentStatsSO.maxPotential = saveData.maxPotential;
-            permanentStatsSO.currentPotential = saveData.currentPotential;
-            permanentStatsSO.maxHP = saveData.maxHP;
-            permanentStatsSO.currentHP = saveData.currentHP;
-            permanentStatsSO.level = saveData.level;
-            permanentStatsSO.XP = saveData.XP;
-            permanentStatsSO.XPThreshold = saveData.XPThreshold;
-            //permanentStatsSO.XPremainder = saveData.XPremainder;
-            // permanentStatsSO.defaultXPThreshold = saveData.defaultXPThreshold;
+            Debug.Log("enjoy this take a deep breath");
+           // permanentStatsSO.attackBase = saveData.attackBase;
+           // permanentStatsSO.focusBase = saveData.focusBase;
+           // permanentStatsSO.maxPotential = saveData.maxPotential;
+           // permanentStatsSO.currentPotential = saveData.currentPotential;
+           // permanentStatsSO.maxHP = saveData.maxHP;
+           // permanentStatsSO.currentHP = saveData.currentHP;
+           // permanentStatsSO.level = saveData.level;
+           // permanentStatsSO.XP = saveData.XP;
+           // permanentStatsSO.XPThreshold = saveData.XPThreshold;
+           // //permanentStatsSO.XPremainder = saveData.XPremainder;
+           // // permanentStatsSO.defaultXPThreshold = saveData.defaultXPThreshold;
         }
     }
 }

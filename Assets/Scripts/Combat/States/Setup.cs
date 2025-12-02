@@ -145,13 +145,14 @@ public class Setup : State
     {
         playerCombat.playerInventory.InstantiateAllEquippedGear(combatManager);
 
-        playerCombat.MaxHP = playerCombat.playerPermanentStats.maxHP;
-        playerCombat.CurrentHP = playerCombat.playerPermanentStats.currentHP;
-        playerCombat.MaxPotential = playerCombat.playerPermanentStats.maxPotential;
-        playerCombat.CurrentPotential = playerCombat.playerPermanentStats.currentPotential;
-        playerCombat.AttackBase = playerCombat.playerPermanentStats.attackBase;
-        playerCombat.FendBase = playerCombat.playerPermanentStats.fendBase;
-        playerCombat.focusBase = playerCombat.playerPermanentStats.focusBase;
+        Debug.Log(" mix this with aprty members");
+        //playerCombat.MaxHP = playerCombat.playerPermanentStats.maxHP;
+        //playerCombat.CurrentHP = playerCombat.playerPermanentStats.currentHP;
+        //playerCombat.MaxPotential = playerCombat.playerPermanentStats.maxPotential;
+        //playerCombat.CurrentPotential = playerCombat.playerPermanentStats.currentPotential;
+        //playerCombat.AttackBase = playerCombat.playerPermanentStats.attackBase;
+        //playerCombat.FendBase = playerCombat.playerPermanentStats.fendBase;
+        //playerCombat.focusBase = playerCombat.playerPermanentStats.focusBase;
     }
 
     GameObject GetOrCreateFightingPosition(Combatant ally, int index)

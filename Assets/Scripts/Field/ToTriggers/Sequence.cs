@@ -5,13 +5,17 @@ using UnityEngine;
 public class Sequence : ToTrigger
 {
     public ToTrigger[] toTrigger;
-    int i = 0;
     bool isSequenceRunning;
+    public bool isLoopable;
+
+    public ToTrigger[] reload;
+    int i = 0;
 
     private void OnEnable()
     {
         FieldEvents.HasCompleted += TriggerAction;
         isSequenceRunning = false;
+        reload = (ToTrigger[])toTrigger.Clone();
     }
 
     private void OnDisable()
@@ -32,6 +36,7 @@ public class Sequence : ToTrigger
 
     void TriggerAction(GameObject gameObject)
     {
+
         if (isSequenceRunning)
         {
             if (i < toTrigger.Length && toTrigger[i].gameObject == gameObject)
@@ -55,9 +60,10 @@ public class Sequence : ToTrigger
 
     void EndSequence()
     {
-        if (i > 0)
+        if (isLoopable)
         {
-            toTrigger[i - 1] = null;
+            toTrigger = (ToTrigger[])reload.Clone();
+            i = 0;
         }
 
         isSequenceRunning = false;

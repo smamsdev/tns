@@ -1,59 +1,46 @@
 using UnityEngine;
 
-[CreateAssetMenu]
-
-public class PlayerPermanentStats : ScriptableObject
+public class PlayerPermanentStats : PartyMemberSO
 {
-    [Header("Base Stats")]
-    public int focusBase;
-    public int maxPotential;
-    public int currentPotential;
-    public int smams;
-
-    public int attackBase;
-    public int fendBase;
-    public int maxHP;
-    public int currentHP;
-
-    [Header("Exp")]
-    public int level;
-    public int XP;
-    public int XPThreshold;
-    public int attackBaseGrowth;
-    public int fendBaseGrowth;
-    public int focusBaseGrowth;
-
-    [Header("Misc")]
-    public float weaponEquipped;
-
-    public virtual void LevelUp()
+    public int MaxPotential
     {
-        XPThreshold = NextLevelThreshold();
-        attackBase += StatGrowth(attackBaseGrowth);
-        fendBase += StatGrowth(fendBaseGrowth);
-        focusBase += StatGrowth(focusBaseGrowth);
-        level++;
+        get { return maxPotential; }
+        set
+        {
+            maxPotential = Mathf.Clamp(value, 1, 999);
+        }
     }
 
-    int StatGrowth(int growthFactor)
+    public int CurrentPotential
     {
-        int rawStatGrowth;
-        int roundedStatGrowth;
-
-        rawStatGrowth = (growthFactor * level) / 10;
-        roundedStatGrowth = Mathf.CeilToInt(rawStatGrowth);
-        return roundedStatGrowth;
+        get { return currentPotential; }
+        set
+        {
+            currentPotential = Mathf.Clamp(value, 0, 999);
+        }
     }
 
-    public int NextLevelThreshold()
+    public int Smams
     {
-        int rawXP = 100 + (level * level * level) * 2;
-        int roundedXP = Mathf.RoundToInt(rawXP / 25f) * 25;
-        return roundedXP;
+        get { return smams; }
+        set
+        {
+            smams = Mathf.Clamp(value, 0, 1000000);
+        }
     }
 
-    public void UpdateThreshold()
+    public int FocusBase
     {
-        XPThreshold = NextLevelThreshold();
+        get { return focusBase; }
+        set
+        {
+            focusBase = Mathf.Clamp(value, 1, 999);
+        }
     }
+
+    [SerializeField] private int maxPotential;
+    [SerializeField] private int currentPotential;
+    [SerializeField] private int focusBase;
+    [SerializeField] private int smams;
+
 }

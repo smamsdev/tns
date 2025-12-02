@@ -12,7 +12,7 @@ public class PartyMemberSO : ScriptableObject
         get { return attackBase; }
         set
         {
-            attackBase = Mathf.Clamp(value, 0, 999);
+            attackBase = Mathf.Clamp(value, 1, 999);
         }
     }
 
@@ -21,7 +21,7 @@ public class PartyMemberSO : ScriptableObject
         get { return fendBase; }
         set
         {
-            fendBase = Mathf.Clamp(value, 0, 999);
+            fendBase = Mathf.Clamp(value, 1, 999);
         }
     }
 
@@ -30,7 +30,7 @@ public class PartyMemberSO : ScriptableObject
         get { return maxHP; }
         set
         {
-            maxHP = Mathf.Clamp(value, 0, 9999);
+            maxHP = Mathf.Clamp(value, 1, 9999);
         }
     }
 
@@ -43,19 +43,44 @@ public class PartyMemberSO : ScriptableObject
         }
     }
 
+    public int Level
+    {
+        get { return level; }
+        set
+        {
+            level = Mathf.Clamp(value, 0, 100);
+        }
+    }
+
+    public int XP
+    {
+        get { return xP; }
+        set
+        {
+            xP = Mathf.Clamp(value, 0, 100);
+        }
+    }
+
+    public int XPThreshold
+    {
+        get { return xPThreshold; }
+        set
+        {
+            XPThreshold = Mathf.Clamp(value, 0, 100);
+        }
+    }
+
     [SerializeField] private int attackBase;
     [SerializeField] private int fendBase;
     [SerializeField] private int maxHP;
     [SerializeField] private int currentHP;
+    [SerializeField] int level;
+    [SerializeField] int xP;
+    [SerializeField] int xPThreshold;
 
 
-
-    [Header("Exp")]
-    public int level;
-    public int XP;
-    public int XPThreshold;
-    public int attackBaseGrowth;
-    public int fendBaseGrowth;
+    [SerializeField] int attackBaseGrowth;
+    [SerializeField] int fendBaseGrowth;
 
     public virtual void LevelUp()
     {

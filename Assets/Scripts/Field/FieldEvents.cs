@@ -49,30 +49,22 @@ public static class FieldEvents
         return textElementsToSort.OrderByDescending(text => text.preferredWidth).First();
     }
 
-    public static void LerpValues(float initialValue, float finalValue, float lerpDuration, Action<float> callback)
+    public static IEnumerator LerpValuesCoRo(float initialValue, float finalValue, float duration, Action<float> callback)
     {
-        var go = new GameObject("Runner");
-        var coRoutineRunner = go.AddComponent<FieldEvents.CoroutineRunner>();
-        coRoutineRunner.StartCoroutine(LerpValuesCoro(initialValue, finalValue, lerpDuration, callback, go));
-    }
-
-    public static IEnumerator LerpValuesCoro(float initialValue, float finalValue, float lerpDuration, Action<float> callback, GameObject coRoutineRunnerGO)
-    {
+        Debug.Log("not sure if i broke this, this needs to be called by a monobehaviour");
         float elapsedTime = 0f;
 
-        while (elapsedTime < lerpDuration)
+        while (elapsedTime < duration)
         {
-            float t = Mathf.Clamp01(elapsedTime / lerpDuration);
-            float valueToOutput = Mathf.Lerp(initialValue, finalValue, t);
-
-            callback(valueToOutput);
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            float value = Mathf.Lerp(initialValue, finalValue, t);
+            callback(value);
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         callback(finalValue);
-        GameObject.Destroy(coRoutineRunnerGO);
     }
 
     public class CoroutineRunner : MonoBehaviour { }

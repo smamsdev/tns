@@ -67,7 +67,7 @@ public class VictoryRewards : MonoBehaviour
         var rewardsRect = this.transform as RectTransform;
         var scale = rewardsRect.localScale;
 
-        FieldEvents.LerpValues(start, end, duration, animateScale =>
+        FieldEvents.LerpValuesCoRo(start, end, duration, animateScale =>
         {
             rewardsRect.localScale = new Vector3(animateScale, animateScale, animateScale);
         });
@@ -93,6 +93,7 @@ public class VictoryRewards : MonoBehaviour
 
     public void CyclePartyMemberXPGain()
     {
+        Debug.Log("REWORK THIS SINCE PALYER STATS NO IHERITS PLARTYNEMBVERS");
         if (!XPRewardsDistributeParent.activeSelf) { XPRewardsDistributeParent.SetActive(true); }
         
         if (partyToLoop >= combatManager.allAlliesToTarget.Count)
@@ -115,12 +116,12 @@ public class VictoryRewards : MonoBehaviour
 
                 PlayerPermanentStats playerStats = playerCombat.playerPermanentStats;
 
-                playerFocusTMP.text = playerStats.focusBase.ToString();
+                playerFocusTMP.text = playerStats.FocusBase.ToString();
                 playerStats.UpdateThreshold();
                 allyNameTMP.text = combatant.combatantName;
-                allyLevelTMP.text = playerStats.level.ToString();
-                allyAttackTMP.text = playerStats.attackBase.ToString();
-                allyFendTMP.text = playerStats.fendBase.ToString();
+                allyLevelTMP.text = playerStats.Level.ToString();
+                allyAttackTMP.text = playerStats.AttackBase.ToString();
+                allyFendTMP.text = playerStats.FendBase.ToString();
 
                 var previousXP = playerStats.XP;
                 var targetXP = previousXP + XPEarned;
@@ -128,7 +129,7 @@ public class VictoryRewards : MonoBehaviour
 
                 UpdateXPGainLayout();
 
-                FieldEvents.LerpValues(previousXP, targetXP, 1, value =>
+                FieldEvents.LerpValuesCoRo(previousXP, targetXP, 1, value =>
                 {
                     playerStats.XP = Mathf.RoundToInt(value);
                     allyXPTMP.text = playerStats.XP.ToString();
@@ -139,10 +140,10 @@ public class VictoryRewards : MonoBehaviour
                     if (playerStats.XP >= playerStats.XPThreshold)
                     {
                         playerStats.LevelUp();
-                        allyLevelTMP.text = playerStats.level.ToString();
-                        allyAttackTMP.text = playerStats.attackBase.ToString();
-                        allyFendTMP.text = playerStats.fendBase.ToString();
-                        playerFocusTMP.text = playerStats.focusBase.ToString();
+                        allyLevelTMP.text = playerStats.Level.ToString();
+                        allyAttackTMP.text = playerStats.AttackBase.ToString();
+                        allyFendTMP.text = playerStats.FendBase.ToString();
+                        playerFocusTMP.text = playerStats.FocusBase.ToString();
                     }
                 });
             }
@@ -159,7 +160,7 @@ public class VictoryRewards : MonoBehaviour
 
                 partyMemberSO.UpdateThreshold();
                 allyNameTMP.text = combatant.combatantName;
-                allyLevelTMP.text = partyMemberSO.level.ToString();
+                allyLevelTMP.text = partyMemberSO.Level.ToString();
                 allyAttackTMP.text = partyMemberSO.AttackBase.ToString();
                 allyFendTMP.text = partyMemberSO.FendBase.ToString();
 
@@ -169,7 +170,7 @@ public class VictoryRewards : MonoBehaviour
 
                 UpdateXPGainLayout();
 
-                FieldEvents.LerpValues(previousXP, targetXP, 1, value =>
+                FieldEvents.LerpValuesCoRo(previousXP, targetXP, 1, value =>
                 {
                     partyMemberSO.XP = Mathf.RoundToInt(value);
                     allyXPTMP.text = partyMemberSO.XP.ToString();
@@ -180,7 +181,7 @@ public class VictoryRewards : MonoBehaviour
                     if (partyMemberSO.XP >= partyMemberSO.XPThreshold)
                     {
                         partyMemberSO.LevelUp();
-                        allyLevelTMP.text = partyMemberSO.level.ToString();
+                        allyLevelTMP.text = partyMemberSO.Level.ToString();
                         allyAttackTMP.text = partyMemberSO.AttackBase.ToString();
                         allyFendTMP.text = partyMemberSO.FendBase.ToString();
                     }

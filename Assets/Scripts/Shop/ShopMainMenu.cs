@@ -23,7 +23,7 @@ public class ShopMainMenu : ShopMenu
         {
             isMenuOn = true;
             displayContainer.SetActive(true);
-            smamsValue.text = $"{playerPermanentStats.smams}";
+            smamsValue.text = $"{playerPermanentStats.Smams}";
             firstMenuButton.Select(); //Ihandler uses this to trigger DisplayMenu method 
             menuManagerUI.DisplayMenu(menuManagerUI.buy);
 
