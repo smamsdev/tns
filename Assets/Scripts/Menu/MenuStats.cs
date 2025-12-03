@@ -10,18 +10,22 @@ public class MenuStats : Menu
     [SerializeField] Button firstButtonToSelect;
     [SerializeField] menuMain menuMain;
     [SerializeField] GameObject arrowGO;
+    [SerializeField] List<Button> characterButtons = new List<Button>();
 
-    [Header("Combat Stats UI Elements")]
-    [SerializeField] private TextMeshProUGUI hpValue;
-    [SerializeField] private TextMeshProUGUI potentialValue;
-    [SerializeField] private TextMeshProUGUI strengthValue;
-    [SerializeField] private TextMeshProUGUI defenceValue;
-    [SerializeField] private TextMeshProUGUI focusValue;
+    [SerializeField] TextMeshProUGUI hpValue;
+    [SerializeField] TextMeshProUGUI potentialValue;
+    [SerializeField] TextMeshProUGUI strengthValue;
+    [SerializeField] TextMeshProUGUI defenceValue;
+    [SerializeField] TextMeshProUGUI focusValue;
 
-    [Header("XP Stats UI Elements")]
-    [SerializeField] private TextMeshProUGUI[] levelValues;
-    [SerializeField] private TextMeshProUGUI experienceValue;
-    [SerializeField] private TextMeshProUGUI nextLevelValue;
+    [SerializeField] GameObject[] partyMemberHeaderGOs;
+    [SerializeField] TextMeshProUGUI[] partyMemberLevelTMPs;
+    [SerializeField] TextMeshProUGUI[] partyMemberNameTMPs;
+    [SerializeField] RawImage[] partyMemberPortraitImages;
+
+    [SerializeField] TextMeshProUGUI experienceValue;
+    [SerializeField] TextMeshProUGUI nextLevelValue;
+
 
     public GameObject[] playerSpecificStatGOs;
     public GameObject[] spacers;
@@ -32,16 +36,41 @@ public class MenuStats : Menu
         arrowGO.SetActive(false);
         partySO = menuMain.playerCombat.party;
 
+        foreach (var gameObject in partyMemberHeaderGOs)
+        {
+            gameObject.SetActive(false);
+        }
+
+        foreach (var rawImage in partyMemberPortraitImages)
+        {
+            rawImage.enabled = false;
+        }
+
+        List<Button> characterButtonInstances = new List<Button>();
+
+        for (int i = 0; i < partySO.partyMembers.Count; i++ )
+        {
+            PartyMemberCombat partyMemberCombat = partySO.partyMembers[i].prefab.GetComponent<PartyMemberCombat>();
+
+            characterButtonInstances.Add(characterButtons[i]);
+            partyMemberHeaderGOs[i].SetActive(true);
+            partyMemberNameTMPs[i].text = partyMemberCombat.combatantName;
+            partyMemberPortraitImages[i].enabled = true;
+            partyMemberPortraitImages[i].texture = partyMemberCombat.portraitImage;
+            partyMemberPortraitImages[i].SetNativeSize();
+            partyMemberLevelTMPs[i].text = $"Level: {partySO.partyMembers[i].Level}";
+        }
+
+        FieldEvents.SetGridNavigationWrapAround(characterButtonInstances, 1);
+
         InitializeStats();
-        levelValues[0].text = $"Level: {partySO.partyMembers[0].Level}";
-        levelValues[1].text = $"Level: {partySO.partyMembers[1].Level}";
-        levelValues[2].text = $"Level: {partySO.partyMembers[2].Level}";
         displayContainer.SetActive(on);
     }
 
     public override void EnterMenu()
     {
-        arrowGO.SetActive(true);
+        if (partySO.partyMembers.Count > 1) arrowGO.SetActive(true);
+
         partyMemberSlot = 0;
         menuButtonHighlighted.SetButtonColor(menuButtonHighlighted.highlightedColor);
         menuButtonHighlighted.enabled = false; //this removes the blue underline

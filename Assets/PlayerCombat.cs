@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Cinemachine.DocumentationSortingAttribute;
 
-public class PlayerCombat : Ally
+public class PlayerCombat : PartyMemberCombat
 {
     public PlayerMoveManager playerMoveManager;
     public PlayerPermanentStats playerPermanentStats;

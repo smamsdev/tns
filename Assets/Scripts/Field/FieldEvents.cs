@@ -67,8 +67,6 @@ public static class FieldEvents
         callback(finalValue);
     }
 
-    public class CoroutineRunner : MonoBehaviour { }
-
     public static void SetGridNavigationWrapAround(List<Button> buttons, int maxRows)
     {
         int buttonCount = buttons.Count;
