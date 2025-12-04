@@ -10,9 +10,10 @@ public class menuMain : Menu
     public Button firstMenuButton;
     public Animator animator;
 
+    [SerializeField] TextMeshProUGUI locationTMP;
     [SerializeField] TextMeshProUGUI smamsValue;
     [SerializeField] TextMeshProUGUI durationDisplay;
-    
+
     public MenuSave menuSave;
     public MenuGear menuGear;
     public PlayerCombat playerCombat;
@@ -29,12 +30,14 @@ public class menuMain : Menu
 
     public override void DisplayMenu(bool on)
     {
-        return;
+        displayContainer.SetActive(on);
     }
 
     public override void EnterMenu()
     {
         playerCombat = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>();
+        locationTMP.text = FieldEvents.sceneName;
+
 
         isMenuOn = true;
         menuGO.SetActive(true);
@@ -42,7 +45,6 @@ public class menuMain : Menu
         firstMenuButton.Select(); // Ihandler uses this to trigger DisplayMenu method
 
         menuSave.UpdateSaveSlotUI();
-        menuGear.InstantiateUIGearSlots();
 
         smamsValue.text = $"{playerCombat.playerPermanentStats.Smams}";
 
@@ -60,7 +62,6 @@ public class menuMain : Menu
     public override void ExitMenu()
     {
         isMenuOn = false;
-        menuGear.DeleteAllInventoryUI();
         StartCoroutine(CloseMenuAnimation());
     }
 

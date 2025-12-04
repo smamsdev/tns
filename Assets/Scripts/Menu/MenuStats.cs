@@ -33,6 +33,11 @@ public class MenuStats : Menu
 
     public override void DisplayMenu(bool on)
     {
+        displayContainer.SetActive(on);
+    }
+
+    public override void EnterMenu()
+    {
         arrowGO.SetActive(false);
         partySO = menuMain.playerCombat.party;
 
@@ -48,7 +53,7 @@ public class MenuStats : Menu
 
         List<Button> characterButtonInstances = new List<Button>();
 
-        for (int i = 0; i < partySO.partyMembers.Count; i++ )
+        for (int i = 0; i < partySO.partyMembers.Count; i++)
         {
             PartyMemberCombat partyMemberCombat = partySO.partyMembers[i].prefab.GetComponent<PartyMemberCombat>();
 
@@ -64,11 +69,8 @@ public class MenuStats : Menu
         FieldEvents.SetGridNavigationWrapAround(characterButtonInstances, 1);
 
         InitializeStats();
-        displayContainer.SetActive(on);
-    }
 
-    public override void EnterMenu()
-    {
+
         if (partySO.partyMembers.Count > 1) arrowGO.SetActive(true);
 
         partyMemberSlot = 0;
@@ -82,8 +84,8 @@ public class MenuStats : Menu
         arrowGO.SetActive(false);
         menuButtonHighlighted.enabled = true;
         menuButtonHighlighted.SetButtonColor(Color.white);
+        menuManagerUI.EnterMenu(menuManagerUI.main);
         mainButtonToRevert.Select();
-        menuManagerUI.menuUpdateMethod = menuManagerUI.main;
     }
 
     public override void StateUpdate()

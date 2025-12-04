@@ -66,7 +66,7 @@ public class MenuSlotSelect : Menu
         {
             moveSlotHighlighted = moveSlot;
             menuMoveInventory.moveSlotToEquipTo = moveSlot;
-            menuManagerUI.EnterSubMenu(menuMoveInventory);
+            menuManagerUI.EnterMenu(menuMoveInventory);
         }
     }
 

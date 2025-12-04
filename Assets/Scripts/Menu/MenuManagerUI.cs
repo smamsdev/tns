@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,14 +16,16 @@ public class MenuManagerUI : MonoBehaviour
     private void Start()
     {
         menuUpdateMethod = main;
+        DisplayMenuContainer(main);
         foreach (GameObject go in subPageGOs) 
         { 
             go.SetActive(true);
         }
     }
 
-    public void DisplayMenu(Menu menuScript) //used by main buttons onSelect to display currently highlighted
+    public void DisplayMenuContainer(Menu menuScript) //used by main buttons onSelect to display currently highlighted
     {
+        main.DisplayMenu(false);
         statsPage.DisplayMenu(false);
         gearPage.DisplayMenu(false);
         movesPage.DisplayMenu(false);
@@ -30,11 +33,13 @@ public class MenuManagerUI : MonoBehaviour
         //configPage.DisplayMenu(false);
         savePage.DisplayMenu(false);
         exitPage.DisplayMenu(false);
+
         menuScript.DisplayMenu(true);
     }
 
-    public void EnterSubMenu(Menu menuScript)
+    public void EnterMenu(Menu menuScript)
     {
+        DisplayMenuContainer(menuScript);
         menuScript.EnterMenu();
         menuUpdateMethod = menuScript;
     }

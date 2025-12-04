@@ -9,6 +9,7 @@ public class SceneSetup : MonoBehaviour
     GameObject playerGO;
     public bool isTriggerOnLoad;
     public ToTrigger triggerOnLoad;
+    public string optionalSceneNameForMenu = "default";
 
     private void OnDisable()
     {
@@ -37,6 +38,7 @@ public class SceneSetup : MonoBehaviour
             StartCoroutine(DefaultSceneStart());
         }
 
+        if (FieldEvents.sceneName == null) FieldEvents.sceneName = optionalSceneNameForMenu;
         StartSceneTrigger();
     }
 

@@ -20,7 +20,6 @@ public class IMenuButtonHighlighted : MonoBehaviour, ISelectHandler, IDeselectHa
     public void OnSelect(BaseEventData eventData)
     {
         blueUnderLine.SetActive(true);
-        menuManager.DisplayMenu(menuToDisplay);
     }
 
     public void OnDeselect(BaseEventData eventData)

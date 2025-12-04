@@ -54,6 +54,7 @@ public class EntryPoint : ColliderInteractableAbstract
     {
         SceneManager.LoadScene(newBaseSceneName, LoadSceneMode.Single);
         SceneManager.LoadScene(newAdditiveSceneName, LoadSceneMode.Additive);
+        FieldEvents.sceneName = sceneEntrySO.sceneCombinationToEnter.sceneName;
         yield return null;
     }
 

@@ -25,21 +25,18 @@ public class MenuGear : Menu
     public GameObject inventorySlotsParent;
     public Dictionary<GearSO, InventorySlot> gearToSlot = new Dictionary<GearSO, InventorySlot>();
 
+    private void Start()
+    {
+        playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>().playerInventory;
+    }
 
     public override void DisplayMenu(bool on)
     {
-        if (on)
-        {
-            gearPropertiesDisplayGO.SetActive(false);
-        }
-
         displayContainer.SetActive(on);
     }
 
     public void InstantiateUIGearSlots()
     {
-        playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>().playerInventory;
-
         gearSlots.Clear();
         slotButtons.Clear();
         gearToSlot.Clear();
@@ -86,14 +83,14 @@ public class MenuGear : Menu
 
     public override void EnterMenu()
     {
+        InstantiateUIGearSlots();
+
         if (firstButtonToSelect == null) { firstButtonToSelect = gearSlots[0].button; }
 
         menuButtonHighlighted.SetButtonColor(menuButtonHighlighted.highlightedColor);
         menuButtonHighlighted.enabled = false;
         firstButtonToSelect.Select();
         gearPropertiesDisplayGO.SetActive(true);
-        timeDisplayGO.SetActive(false);
-        smamsDisplayGO.SetActive(false);
     }
 
     public void InventorySlotSelected(InventorySlot inventorySlot)
@@ -107,7 +104,7 @@ public class MenuGear : Menu
         }
 
         firstButtonToSelect = inventorySlot.button;
-        menuManagerUI.EnterSubMenu(menuManagerUI.gearEquipPage);
+        menuManagerUI.EnterMenu(menuManagerUI.gearEquipPage);
     }
 
     public void GearSlotHighlighted(InventorySlot inventorySlot)
@@ -149,12 +146,12 @@ public class MenuGear : Menu
     }
 
     public override void ExitMenu()
-
     {
         menuButtonHighlighted.enabled = true;
         menuButtonHighlighted.SetButtonColor(Color.white);
+        DeleteAllInventoryUI();
+        menuManagerUI.EnterMenu(menuManagerUI.main);
         mainButtonToRevert.Select();
-        menuManagerUI.menuUpdateMethod = menuManagerUI.main;
     }
 
     public override void StateUpdate()

@@ -12,10 +12,10 @@ using TMPro;
 public static class FieldEvents
 {
     public static Action<GameObject> HasCompleted;
-
     public static Action<RaycastHit2D> PlayerRayCastHit;
     public static bool fromEntryPoint;
     public static Vector3 positionOnEntry;
+    public static string sceneName;
 
     public static bool isCoolDownBool;
     public static bool isDialogueActive;

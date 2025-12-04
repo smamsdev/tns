@@ -51,7 +51,6 @@ public class MenuSave : Menu
     }
 
     public void DeclineSave()
-
     {
         areYouSureGO.SetActive(false);
         menuSaveSlotHighlighteds[slotNumberToSave].GetComponent<Button>().Select();
@@ -93,8 +92,8 @@ public class MenuSave : Menu
     {
         menuButtonHighlighted.SetButtonColor(Color.white);
         menuButtonHighlighted.enabled = true; //this keeps the blue underline
+        menuManagerUI.EnterMenu(menuManagerUI.main);
         mainButtonToRevert.Select();
-        menuManagerUI.menuUpdateMethod = menuManagerUI.main;
     }
 
     public override void StateUpdate()

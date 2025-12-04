@@ -142,8 +142,8 @@ public class MenuGearEquip : Menu
 
     public override void ExitMenu()
     {
-        menuManagerUI.DisplayMenu(menuManagerUI.gearPage);
-        menuManagerUI.EnterSubMenu(menuManagerUI.gearPage);
+        menuManagerUI.DisplayMenuContainer(menuManagerUI.gearPage);
+        menuManagerUI.EnterMenu(menuManagerUI.gearPage);
     }
 
     public override void StateUpdate()

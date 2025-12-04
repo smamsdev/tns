@@ -47,7 +47,7 @@ public class MenuMoveInventory : Menu
     {
         previousDisplayContainerToHide.SetActive(true);
         displayContainer.SetActive(false);
-        menuManagerUI.EnterSubMenu(menuToRevertTo);
+        menuManagerUI.EnterMenu(menuToRevertTo);
     }
 
     public override void StateUpdate()
