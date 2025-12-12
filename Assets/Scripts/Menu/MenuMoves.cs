@@ -10,6 +10,11 @@ public class MenuMoves : Menu
     public bool isSelectingMove;
     IMenuMoveTypeHighlighted buttonTypeToReturnTo;
     public PlayerMoveManager playerMoveManager;
+    public MenuMoveInventory menuMoveInventory;
+
+    public TextMeshProUGUI moveDescriptions;
+    public TextMeshProUGUI movePropertyTMP;
+
 
     public MoveSlot[] violentAttackSlots = new MoveSlot[5];
     public MoveSlot[] violentFendSlots = new MoveSlot[5];
@@ -24,6 +29,7 @@ public class MenuMoves : Menu
     private void OnEnable()
     {
         playerMoveManager = GameObject.Find("Player").GetComponentInChildren<PlayerMoveManager>();
+        menuMoveInventory.playerMoveManager = playerMoveManager;
     }
 
     public override void DisplayMenu(bool on)
@@ -34,6 +40,7 @@ public class MenuMoves : Menu
 
     public override void EnterMenu()
     {
+        menuManagerUI.DisplayMenuContainer(this);
         menuButtonHighlighted.SetButtonColor(menuButtonHighlighted.highlightedColor);
         menuButtonHighlighted.enabled = false; //this removes the blue underline
         firstButtonToSelect.Select();
@@ -68,18 +75,18 @@ public class MenuMoves : Menu
                slots[i].moveSO.isEquipped = true;
                slots[i].slotText.text = $"Slot {i + 1}: {equippedMovesOfType[i].MoveName}";
        
-               // Set alpha of the TextMeshProUGUI element based on whether the move is a flaw
-               menuManagerUI.SetTextAlpha(slots[i].slotText, slots[i].moveSO.IsFlaw ? 0.5f : 1f);
+               // Set alpha of the TextMeshProUGUI element based on whether the move is a flaw or is eqipped
+               menuManagerUI.SetTextAlpha(slots[i].slotText, slots[i].moveSO.IsFlaw ? 0.75f : 1f);
            }
            else
            {
                slots[i].slotText.text = $"Slot {i + 1}: Empty";
-               menuManagerUI.SetTextAlpha(slots[i].slotText, 1f); // Default alpha for empty slots
+               menuManagerUI.SetTextAlpha(slots[i].slotText, .75f);
            }
        }
     }
 
-    public void LoadAllEquippedMovesToUISlots() //rework
+    public void LoadAllEquippedMovesToUISlots()
     {
         LoadMoveList(playerMoveManager.playerMoveInventorySO.violentAttacksEquipped, violentAttackSlots);
         LoadMoveList(playerMoveManager.playerMoveInventorySO.violentFendsEquipped, violentFendSlots);

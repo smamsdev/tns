@@ -8,9 +8,8 @@ public class MoveSlot : MonoBehaviour, ISelectHandler
 {
     public MoveSO moveSO;
     public TextMeshProUGUI slotText;
-    public TextMeshProUGUI movePropertyTMP;
-    public TextMeshProUGUI moveDescriptions;
     public MenuSlotSelect menuSlotSelect;
+    public MenuMoves menuMoves;
 
     void ISelectHandler.OnSelect(BaseEventData eventData)
     {
@@ -23,21 +22,21 @@ public class MoveSlot : MonoBehaviour, ISelectHandler
        {
            if (moveSO.IsFlaw)
            {
-               movePropertyTMP.text = "Flaw - Cannot unassign";
-               moveDescriptions.text = moveSO.MoveDescription;
+                menuMoves.movePropertyTMP.text = "Flaw - Cannot unassign";
+                menuMoves.moveDescriptions.text = moveSO.MoveDescription;
            }
        
            else
            {
-               movePropertyTMP.text = "Press CTRL to unassign";
-               moveDescriptions.text = moveSO.MoveDescription;
+                menuMoves.movePropertyTMP.text = "Press CTRL to unassign";
+                menuMoves.moveDescriptions.text = moveSO.MoveDescription;
            }
        }
-
+      
         if (moveSO == null)
         {
-            moveDescriptions.text = "";
-            movePropertyTMP.text = "Select to assign a move";
+            menuMoves.moveDescriptions.text = "";
+            menuMoves.movePropertyTMP.text = "Select to assign a move";
         }
     }
 }

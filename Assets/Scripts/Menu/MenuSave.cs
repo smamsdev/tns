@@ -26,7 +26,6 @@ public class MenuSave : Menu
     int slotNumberToSave;
 
     public override void DisplayMenu(bool on)
-
     {
         areYouSureGO.SetActive(false);
         displayContainer.SetActive(on);
@@ -34,16 +33,14 @@ public class MenuSave : Menu
     }
 
     public void SelectSlotToSave(int slotNumber)
-
     {
         areYouSureGO.SetActive(true);
-        yes.Select();
+        no.Select();
         slotNumberToSave = slotNumber;
         menuSaveSlotHighlighteds[slotNumberToSave].TextYellow();
     }
 
     public void ConfirmSlotToSave()
-
     {
         StartCoroutine(SelectSlotToSaveCoRo(slotNumberToSave));
         areYouSureGO.SetActive(false);
@@ -83,6 +80,7 @@ public class MenuSave : Menu
 
     public override void EnterMenu()
     {
+        menuManagerUI.DisplayMenuContainer(this);
         menuButtonHighlighted.SetButtonColor(menuButtonHighlighted.highlightedColor);
         menuButtonHighlighted.enabled = false;
         firstButtonToSelect.Select();

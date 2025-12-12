@@ -16,7 +16,7 @@ public class MenuMoveType : Menu
 
     public override void DisplayMenu(bool on)
     {
-        throw new System.NotImplementedException();
+//
     }
 
     public override void EnterMenu()

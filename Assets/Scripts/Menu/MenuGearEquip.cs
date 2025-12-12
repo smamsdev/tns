@@ -65,7 +65,7 @@ public class MenuGearEquip : Menu
 
     public override void EnterMenu()
     {
-        pageHeaderTMP.text = "Equip " + inventorySlotSelected.gear.gearID + "?";
+        pageHeaderTMP.text = "Equip " + inventorySlotSelected.gear.gearName + "?";
         DisplayEquipSlots();
         menuManagerUI.gearPage.displayContainer.SetActive(false);
         DisplayMenu(true);
@@ -85,7 +85,7 @@ public class MenuGearEquip : Menu
         {
             if (menuGear.playerInventory.inventorySO.equippedGear[i] == null)
             {
-                uIGearEquipSlots[i].buttonTMP.text = "EQUIPPED SLOT " + (i + 1) + ": " + "EMPTY";
+                uIGearEquipSlots[i].buttonTMP.text = "GEAR SLOT " + (i + 1) + ": " + "EMPTY";
                 uIGearEquipSlots[i].gameObject.SetActive(true);
             }
 
@@ -93,7 +93,7 @@ public class MenuGearEquip : Menu
             {
                 GearSO gearToLoad = menuGear.playerInventory.inventorySO.equippedGear[i];
                 uIGearEquipSlots[i].gearEquipped = gearToLoad;
-                uIGearEquipSlots[i].buttonTMP.text = "EQUIPPED SLOT " + (i + 1) + ": " + gearToLoad.gearName;
+                uIGearEquipSlots[i].buttonTMP.text = "GEAR SLOT " + (i + 1) + ": " + gearToLoad.gearName;
                 uIGearEquipSlots[i].gameObject.SetActive(true);
             }
         }

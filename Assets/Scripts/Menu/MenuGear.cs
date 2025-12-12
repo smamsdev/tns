@@ -24,6 +24,7 @@ public class MenuGear : Menu
     public GameObject UIFieldMenuGearSlotPrefab;
     public GameObject inventorySlotsParent;
     public Dictionary<GearSO, InventorySlot> gearToSlot = new Dictionary<GearSO, InventorySlot>();
+    bool initialized = false;
 
     private void Start()
     {
@@ -37,10 +38,6 @@ public class MenuGear : Menu
 
     public void InstantiateUIGearSlots()
     {
-        gearSlots.Clear();
-        slotButtons.Clear();
-        gearToSlot.Clear();
-
         foreach (GearSO gear in playerInventory.inventorySO.gearInventory)
         {
             if (!gearToSlot.ContainsKey(gear))
@@ -75,6 +72,10 @@ public class MenuGear : Menu
 
     public void DeleteAllInventoryUI()
     {
+        gearSlots.Clear();
+        slotButtons.Clear();
+        gearToSlot.Clear();
+
         for (int i = inventorySlotsParent.transform.childCount - 1; i >= 0; i--)
         {
             Destroy(inventorySlotsParent.transform.GetChild(i).gameObject);
@@ -83,7 +84,13 @@ public class MenuGear : Menu
 
     public override void EnterMenu()
     {
-        InstantiateUIGearSlots();
+        menuManagerUI.DisplayMenuContainer(this);
+
+        if (initialized == false)
+        {
+            initialized = true;
+            InstantiateUIGearSlots();
+        }
 
         if (firstButtonToSelect == null) { firstButtonToSelect = gearSlots[0].button; }
 
@@ -91,6 +98,16 @@ public class MenuGear : Menu
         menuButtonHighlighted.enabled = false;
         firstButtonToSelect.Select();
         gearPropertiesDisplayGO.SetActive(true);
+    }
+
+    public override void ExitMenu()
+    {
+        initialized = false;
+        menuButtonHighlighted.enabled = true;
+        menuButtonHighlighted.SetButtonColor(Color.white);
+        DeleteAllInventoryUI();
+        menuManagerUI.EnterMenu(menuManagerUI.main);
+        mainButtonToRevert.Select();
     }
 
     public void InventorySlotSelected(InventorySlot inventorySlot)
@@ -112,7 +129,6 @@ public class MenuGear : Menu
         gearValueTMP.text = "Value: " + inventorySlot.gear.value.ToString() + " $MAMS";
         inventorySlotHighlighted = inventorySlot;
 
-
         if (!inventorySlot.gear.isConsumable)
         {
             gearTypeTMP.text = "Type: Accessory";
@@ -126,12 +142,12 @@ public class MenuGear : Menu
         if (inventorySlot.gear.isCurrentlyEquipped)
         {
             gearDescriptionTMP.text = inventorySlot.gear.gearDescription;
-            gearEquipStatusTMP.text = "Equipped to Slot " + playerInventory.inventorySO.equippedGear.IndexOf(inventorySlot.gear) + 1 + ". PRESS CTRL TO REMOVE";
+            gearEquipStatusTMP.text = "Equipped to Slot " + (playerInventory.inventorySO.equippedGear.IndexOf(inventorySlot.gear) + 1) + ". PRESS CTRL TO REMOVE";
         }
         else
         {
             gearDescriptionTMP.text = inventorySlot.gear.gearDescription;
-            gearEquipStatusTMP.text = "Unequipped";
+            gearEquipStatusTMP.text = "SELECT to equip";
         }
     }
 
@@ -140,18 +156,10 @@ public class MenuGear : Menu
         playerInventory.UnequipGearFromSlot(gear);
 
         var slot = gearToSlot[gear];
+        gearEquipStatusTMP.text = "Unequipped";
         menuManagerUI.SetTextAlpha(slot.itemName, 1f);
         menuManagerUI.SetTextAlpha(slot.itemQuantity, 1f);
         slot.itemQuantity.text = "x" + gear.quantityInInventory.ToString();
-    }
-
-    public override void ExitMenu()
-    {
-        menuButtonHighlighted.enabled = true;
-        menuButtonHighlighted.SetButtonColor(Color.white);
-        DeleteAllInventoryUI();
-        menuManagerUI.EnterMenu(menuManagerUI.main);
-        mainButtonToRevert.Select();
     }
 
     public override void StateUpdate()

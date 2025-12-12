@@ -22,7 +22,6 @@ public class IMenuSaveSlotHighlighted : MonoBehaviour, ISelectHandler, IDeselect
 
     {
         menuSave.saveSceneNameTMPs[saveSlot].color = Color.white;
-        menuSave.saveSceneNameTMPs[saveSlot].color = Color.white;
         menuSave.saveLevelTMPs[saveSlot].color = Color.white;
         menuSave.saveDurationTMPs[saveSlot].color = Color.white;
         menuSave.saveDateTMPs[saveSlot].color = Color.white;
@@ -34,12 +33,10 @@ public class IMenuSaveSlotHighlighted : MonoBehaviour, ISelectHandler, IDeselect
 
     {
         menuSave.saveSceneNameTMPs[saveSlot].color = Color.yellow;
-        menuSave.saveSceneNameTMPs[saveSlot].color = Color.yellow;
         menuSave.saveLevelTMPs[saveSlot].color = Color.yellow;
         menuSave.saveDurationTMPs[saveSlot].color = Color.yellow;
         menuSave.saveDateTMPs[saveSlot].color = Color.yellow;
         menuSave.saveTimeTMPs[saveSlot].color = Color.yellow;
         menuSave.saveSmamsTMPs[saveSlot].color = Color.yellow;
     }
-
 }

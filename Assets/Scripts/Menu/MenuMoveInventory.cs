@@ -12,13 +12,16 @@ public class MenuMoveInventory : Menu
     public Menu menuToRevertTo;
     public TextMeshProUGUI moveInventoryHeaderTMP;
 
-    public List<MoveSO> moveTypeInventoryToDisplay;
-    //MoveInventory moveInventory;
-    public MoveSlot[] menuMoveInventorySlots;
+    public List<MoveSO> moveInventory;
+    public List<MoveSlot> instantiatedMoveSlots =  new List<MoveSlot>();
+    public List<Button> instantiatedMoveSlotButtons = new List<Button>();
+
     public MoveSlot moveSlotToEquipTo;
 
     public PlayerMoveManager playerMoveManager;
-    public string[] stringArrayToUpdateInSO;
+
+    [SerializeField] GameObject moveSlotPrefab, moveSlotsParent;
+    public TextMeshProUGUI moveDescriptionTMP, movePropertiesTMP;
 
     private void Start()
     {
@@ -27,14 +30,14 @@ public class MenuMoveInventory : Menu
 
     public override void DisplayMenu(bool on)
     {
-        throw new System.NotImplementedException();
+        displayContainer.SetActive(on);
     }
 
     public override void EnterMenu()
     {
+        menuManagerUI.DisplayMenuContainer(this);
         previousDisplayContainerToHide.SetActive(false);
         LoadInventoryToButtonSlots();
-        displayContainer.SetActive(true);
         firstButtonToSelect.Select();
     }
 
@@ -60,31 +63,52 @@ public class MenuMoveInventory : Menu
 
     public void LoadInventoryToButtonSlots()
     {
-        for (int i = 0; i < menuMoveInventorySlots.Length; i++)
-        {
-            if (i < moveTypeInventoryToDisplay.Count)
-            {
-                menuMoveInventorySlots[i].gameObject.SetActive(true);
-                menuMoveInventorySlots[i].moveSO = moveTypeInventoryToDisplay[i];
-                menuMoveInventorySlots[i].slotText.text = moveTypeInventoryToDisplay[i].MoveName;
+        instantiatedMoveSlots.Clear();
 
-                Color currentColor = menuMoveInventorySlots[i].slotText.color; 
-                currentColor.a = 1f;
-                menuMoveInventorySlots[i].slotText.color = currentColor;
+        foreach (MoveSO moveSO in moveInventory)
 
-                if (menuMoveInventorySlots[i].moveSO.isEquipped)
-                {
-                    currentColor = menuMoveInventorySlots[i].slotText.color; 
-                    currentColor.a = 0.7f; 
-                    menuMoveInventorySlots[i].slotText.color = currentColor;
-                }
+        { 
+            GameObject moveSlotGO = Instantiate(moveSlotPrefab);
+            moveSlotGO.transform.SetParent(moveSlotsParent.transform);
 
-            }
-            else
-            {
-                menuMoveInventorySlots[i].gameObject.SetActive(false);
-            }
+            MoveInventorySlot moveInventorySlot = moveSlotGO.GetComponent<MoveInventorySlot>();
+            moveInventorySlot.moveSO = moveSO;
+            moveInventorySlot.menuMoveInventory = this;
+            moveInventorySlot.slotText.text = moveInventorySlot.moveSO.MoveName;
+            moveSlotGO.name = moveInventorySlot.moveSO.name;
+
+            instantiatedMoveSlots.Add(moveInventorySlot);
+            instantiatedMoveSlotButtons.Add(moveInventorySlot.button);
         }
+
+        FieldEvents.SetGridNavigationWrapAroundHorizontal(instantiatedMoveSlotButtons, 3);
+        firstButtonToSelect = instantiatedMoveSlotButtons[0];
+
+        //for (int i = 0; i < menuMoveInventorySlots.Length; i++)
+        //{
+        //    if (i < moveTypeInventoryToDisplay.Count)
+        //    {
+        //        menuMoveInventorySlots[i].gameObject.SetActive(true);
+        //        menuMoveInventorySlots[i].moveSO = moveTypeInventoryToDisplay[i];
+        //        menuMoveInventorySlots[i].slotText.text = moveTypeInventoryToDisplay[i].MoveName;
+        //
+        //        Color currentColor = menuMoveInventorySlots[i].slotText.color; 
+        //        currentColor.a = 1f;
+        //        menuMoveInventorySlots[i].slotText.color = currentColor;
+        //
+        //        if (menuMoveInventorySlots[i].moveSO.isEquipped)
+        //        {
+        //            currentColor = menuMoveInventorySlots[i].slotText.color; 
+        //            currentColor.a = 0.7f; 
+        //            menuMoveInventorySlots[i].slotText.color = currentColor;
+        //        }
+        //
+        //    }
+        //    else
+        //    {
+        //        menuMoveInventorySlots[i].gameObject.SetActive(false);
+        //    }
+        //}
     }
 
     public void EquipMoveFromInventoryToSlot(MoveSlot moveInventorySlot) //reworkk
@@ -99,7 +123,7 @@ public class MenuMoveInventory : Menu
             moveSlotToEquipTo.moveSO = moveInventorySlot.moveSO;
             moveInventorySlot.moveSO.isEquipped = true;
             moveSlotToEquipTo.slotText.text = "Slot " + (int.Parse(moveSlotToEquipTo.name) + 1) + ": " + moveInventorySlot.moveSO.MoveName;
-            stringArrayToUpdateInSO[int.Parse(moveSlotToEquipTo.name)] = moveInventorySlot.moveSO.MoveName;
+            //stringArrayToUpdateInSO[int.Parse(moveSlotToEquipTo.name)] = moveInventorySlot.moveSO.MoveName;
             //playerMoveManager.LoadEquippedMoveListFromSO();
 
             ExitMenu();
@@ -119,8 +143,8 @@ public class MenuMoveInventory : Menu
 
     public void SetInventoryMoveTypeViolentAttacks()
     {
-       // moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.violentAttacksInventory);
-      //  stringArrayToUpdateInSO = playerEquippedMovesSO.violentAttacksListString;
+        moveInventory = playerMoveManager.playerMoveInventorySO.violentAttacksInventory;
+      //stringArrayToUpdateInSO = playerEquippedMovesSO.violentAttacksListString;
     }
 
     public void SetInventoryMoveTypeViolentFends()

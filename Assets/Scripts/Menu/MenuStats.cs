@@ -38,6 +38,7 @@ public class MenuStats : Menu
 
     public override void EnterMenu()
     {
+        menuManagerUI.DisplayMenuContainer(this);
         arrowGO.SetActive(false);
         partySO = menuMain.playerCombat.party;
 

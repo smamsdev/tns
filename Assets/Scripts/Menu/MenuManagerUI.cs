@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class MenuManagerUI : MonoBehaviour
 {
-    public Menu statsPage, gearPage, gearEquipPage, movesPage, configPage, savePage, exitPage, main;
+    public Menu statsPage, gearPage, gearEquipPage, movesPage, moveEquipPage, configPage, savePage, exitPage, main;
     [Header("")]
     public Menu menuUpdateMethod;
     public GameObject[] subPageGOs;
@@ -23,13 +23,14 @@ public class MenuManagerUI : MonoBehaviour
         }
     }
 
-    public void DisplayMenuContainer(Menu menuScript) //used by main buttons onSelect to display currently highlighted
+    public void DisplayMenuContainer(Menu menuScript)
     {
         main.DisplayMenu(false);
         statsPage.DisplayMenu(false);
         gearPage.DisplayMenu(false);
         movesPage.DisplayMenu(false);
-        gearEquipPage.DisplayMenu(false);
+        moveEquipPage.DisplayMenu(false);
+
         //configPage.DisplayMenu(false);
         savePage.DisplayMenu(false);
         exitPage.DisplayMenu(false);
@@ -39,7 +40,7 @@ public class MenuManagerUI : MonoBehaviour
 
     public void EnterMenu(Menu menuScript)
     {
-        DisplayMenuContainer(menuScript);
+        //DisplayMenuContainer(menuScript);
         menuScript.EnterMenu();
         menuUpdateMethod = menuScript;
     }

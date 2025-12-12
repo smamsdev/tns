@@ -26,4 +26,52 @@ public class PlayerMoveInventorySO : ScriptableObject
     public MoveSO[] preciseAttacksEquipped = new MoveSO[5];
     public MoveSO[] preciseFendsEquipped = new MoveSO[5];
     public MoveSO[] preciseFocusesEquipped = new MoveSO[5];
+
+    public MoveSO[][] allEquippedMoveArrays;
+
+    public void BuildEquippedReferences()
+    {
+        allEquippedMoveArrays = new MoveSO[][]
+        {
+        violentAttacksEquipped,
+        violentFendsEquipped,
+        violentFocusesEquipped,
+
+        cautiousAttacksEquipped,
+        cautiousFendsEquipped,
+        cautiousFocusesEquipped,
+
+        preciseAttacksEquipped,
+        preciseFendsEquipped,
+        preciseFocusesEquipped
+        };
+    }
+
+    public void EquipSlot(List<MoveSO> equippedMovesOfType, int moveEquipSlot)
+    {
+
+    }
+
+    public void UnquipMove(MoveSO moveSO)
+    {
+        BuildEquippedReferences();
+
+        for (int i = 0; i < allEquippedMoveArrays.Length; i++)
+        {
+            int index = System.Array.IndexOf(allEquippedMoveArrays[i], moveSO);
+
+            if (index != -1)
+            {
+                MoveSO[] equippedMoveArray = allEquippedMoveArrays[i];
+                int equippedSlot = index;
+
+                equippedMoveArray[equippedSlot] = null;
+                moveSO.isEquipped = false;
+
+                return; 
+            }
+        }
+
+        Debug.Log($"{moveSO.name} unable to locate.");
+    }
 }

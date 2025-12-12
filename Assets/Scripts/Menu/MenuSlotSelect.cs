@@ -11,8 +11,10 @@ public class MenuSlotSelect : Menu
     public Color colourForSelectedParent;
     public MenuMoveType menuMoveTypeScript;
     public MoveSlot moveSlotHighlighted;
+    public MenuMoves menuMoves;
     public MenuMoveInventory menuMoveInventory;
     public IMenuMoveStyleHighlighted iMenuMoveStyleHighlighted;
+    public List<MoveSO> equippedMoveListOfType;
 
     public override void DisplayMenu(bool on)
     {
@@ -76,16 +78,15 @@ public class MenuSlotSelect : Menu
 
         MoveSlot moveSlotToRemove = moveSlotHighlighted;
 
-        if (moveSlotToRemove.moveSO == null)
+        if (moveSlotToRemove.moveSO == null || moveSlotToRemove.moveSO.IsFlaw)
         {
             return;
         }
 
-        moveSlotToRemove.moveSO.isEquipped = false;
+        menuMoves.playerMoveManager.playerMoveInventorySO.UnquipMove(moveSlotToRemove.moveSO);
         moveSlotToRemove.moveSO = null;
-        moveSlotToRemove.slotText.text = "Slot " + (int.Parse(moveSlotHighlighted.name) + 1) + ": Free";
-        menuMoveInventory.stringArrayToUpdateInSO[int.Parse(moveSlotHighlighted.name)] = null;
         movesPage.LoadAllEquippedMovesToUISlots();
+        moveSlotToRemove.UpdateMoveDescriptionText();
     }
 
     public override void StateUpdate()

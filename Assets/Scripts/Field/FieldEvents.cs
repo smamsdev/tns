@@ -67,6 +67,7 @@ public static class FieldEvents
         callback(finalValue);
     }
 
+    //assumes a vertical button axis
     public static void SetGridNavigationWrapAround(List<Button> buttons, int maxRows)
     {
         int buttonCount = buttons.Count;
@@ -82,6 +83,13 @@ public static class FieldEvents
 
             int col = i / rows;
             int row = i % rows;
+
+            nav.selectOnUp = buttons[WrapIndex(row - 1, col)];
+            nav.selectOnDown = buttons[WrapIndex(row + 1, col)];
+            nav.selectOnLeft = buttons[WrapIndex(row, col - 1)];
+            nav.selectOnRight = buttons[WrapIndex(row, col + 1)];
+
+            button.navigation = nav;
 
             int WrapIndex(int r, int c)
             {
@@ -99,13 +107,57 @@ public static class FieldEvents
 
                 return index;
             }
+        }
+    }
 
-            nav.selectOnUp = buttons[WrapIndex(row - 1, col)];
-            nav.selectOnDown = buttons[WrapIndex(row + 1, col)];
-            nav.selectOnLeft = buttons[WrapIndex(row, col - 1)];
-            nav.selectOnRight = buttons[WrapIndex(row, col + 1)];
+    // Assumes a horizontal button axis (wraps left/right and up/down)
+    public static void SetGridNavigationWrapAroundHorizontal(List<Button> buttons, int maxColumns)
+    {
+        int buttonCount = buttons.Count;
+        int columns = Mathf.Min(buttonCount, maxColumns);
+        int rows = Mathf.CeilToInt((float)buttonCount / columns);
+
+        for (int i = 0; i < buttonCount; i++)
+        {
+            Button button = buttons[i];
+            Navigation nav = button.navigation;
+            nav.mode = Navigation.Mode.Explicit;
+
+            int row = i / columns;
+            int col = i % columns;
+
+            nav.selectOnLeft = buttons[WrapHorizontal(row, col - 1)];
+            nav.selectOnRight = buttons[WrapHorizontal(row, col + 1)];
+            nav.selectOnUp = buttons[WrapVertical(row - 1, col)];
+            nav.selectOnDown = buttons[WrapVertical(row + 1, col)];
 
             button.navigation = nav;
         }
+
+        int WrapHorizontal(int row, int col)
+        {
+            int rowStart = row * columns;
+            int rowEnd = Mathf.Min(rowStart + columns, buttonCount);
+
+            if (col < 0) col = rowEnd - rowStart - 1; 
+            if (col >= rowEnd - rowStart) col = 0;    
+
+            return rowStart + col;
+        }
+
+        int WrapVertical(int row, int col)
+        {
+            if (row < 0) row = rows - 1;      
+            if (row >= rows) row = 0;         
+
+            int rowStart = row * columns;
+            int rowEnd = Mathf.Min(rowStart + columns, buttonCount);
+
+            if (col >= rowEnd - rowStart) col = rowEnd - rowStart - 1; // stay in bounds
+            if (col < 0) col = 0;
+
+            return rowStart + col;
+        }
     }
+
 }
