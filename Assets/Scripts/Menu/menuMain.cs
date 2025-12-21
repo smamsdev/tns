@@ -37,12 +37,11 @@ public class menuMain : Menu
     {
         playerCombat = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>();
         locationTMP.text = FieldEvents.sceneName;
-
-
         isMenuOn = true;
+
         menuGO.SetActive(true);
         animator.SetBool("Open", true);
-        firstMenuButton.Select(); // Ihandler uses this to trigger DisplayMenu method
+        firstMenuButton.Select();
 
         menuSave.UpdateSaveSlotUI();
 

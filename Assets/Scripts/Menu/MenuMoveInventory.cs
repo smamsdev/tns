@@ -16,7 +16,7 @@ public class MenuMoveInventory : Menu
     public List<MoveSlot> instantiatedMoveSlots =  new List<MoveSlot>();
     public List<Button> instantiatedMoveSlotButtons = new List<Button>();
 
-    public MoveSlot moveSlotToEquipTo;
+    MoveSlot moveSlotToEquipTo;
 
     public PlayerMoveManager playerMoveManager;
 
@@ -35,7 +35,7 @@ public class MenuMoveInventory : Menu
 
     public override void EnterMenu()
     {
-        menuManagerUI.DisplayMenuContainer(this);
+        menuManagerUI.DisplayMenuContainer(menuManagerUI.moveInventory);
         previousDisplayContainerToHide.SetActive(false);
         LoadInventoryToButtonSlots();
         firstButtonToSelect.Select();
@@ -44,6 +44,11 @@ public class MenuMoveInventory : Menu
     public void ChangeMenuToRevertTo(Menu _menuToRevertTo)
     { 
         menuToRevertTo = _menuToRevertTo;
+    }
+
+    public void MoveSlotToEquipTo(MoveSlot moveSlotToEquipTo)
+    { 
+        this.moveSlotToEquipTo = moveSlotToEquipTo;
     }
 
     public override void ExitMenu()
@@ -66,7 +71,6 @@ public class MenuMoveInventory : Menu
         instantiatedMoveSlots.Clear();
 
         foreach (MoveSO moveSO in moveInventory)
-
         { 
             GameObject moveSlotGO = Instantiate(moveSlotPrefab);
             moveSlotGO.transform.SetParent(moveSlotsParent.transform);
@@ -77,12 +81,26 @@ public class MenuMoveInventory : Menu
             moveInventorySlot.slotText.text = moveInventorySlot.moveSO.MoveName;
             moveSlotGO.name = moveInventorySlot.moveSO.name;
 
-            instantiatedMoveSlots.Add(moveInventorySlot);
+            if (moveInventorySlot.moveSO.isEquipped) 
+            {
+                Color currentColor = moveInventorySlot.slotText.color;
+                currentColor.a = 1f;
+                moveInventorySlot.slotText.color = currentColor;
+
+                currentColor = moveInventorySlot.slotText.color; 
+                currentColor.a = 0.7f;
+                moveInventorySlot.slotText.color = currentColor;
+            }
+
             instantiatedMoveSlotButtons.Add(moveInventorySlot.button);
+
+            moveInventorySlot.button.onClick.AddListener(() => EquipMoveFromInventoryToSlot(moveInventorySlot));
+            instantiatedMoveSlots.Add(moveInventorySlot);
         }
 
         FieldEvents.SetGridNavigationWrapAroundHorizontal(instantiatedMoveSlotButtons, 3);
         firstButtonToSelect = instantiatedMoveSlotButtons[0];
+
 
         //for (int i = 0; i < menuMoveInventorySlots.Length; i++)
         //{
@@ -111,26 +129,25 @@ public class MenuMoveInventory : Menu
         //}
     }
 
-    public void EquipMoveFromInventoryToSlot(MoveSlot moveInventorySlot) //reworkk
+    public void EquipMoveFromInventoryToSlot(MoveSlot moveFromInventorySlot)
     {
-        if (!moveInventorySlot.moveSO.isEquipped)
+        if (!moveFromInventorySlot.moveSO.isEquipped)
         {
             if (moveSlotToEquipTo.moveSO != null)
             {
                 moveSlotToEquipTo.moveSO.isEquipped = false;
             } 
 
-            moveSlotToEquipTo.moveSO = moveInventorySlot.moveSO;
-            moveInventorySlot.moveSO.isEquipped = true;
-            moveSlotToEquipTo.slotText.text = "Slot " + (int.Parse(moveSlotToEquipTo.name) + 1) + ": " + moveInventorySlot.moveSO.MoveName;
+            moveSlotToEquipTo.moveSO = moveFromInventorySlot.moveSO;
+            moveFromInventorySlot.moveSO.isEquipped = true;
+            moveSlotToEquipTo.slotText.text = "Slot " + (int.Parse(moveSlotToEquipTo.name) + 1) + ": " + moveFromInventorySlot.moveSO.MoveName;
             //stringArrayToUpdateInSO[int.Parse(moveSlotToEquipTo.name)] = moveInventorySlot.moveSO.MoveName;
             //playerMoveManager.LoadEquippedMoveListFromSO();
 
             ExitMenu();
         }
 
-        if (moveInventorySlot.moveSO.isEquipped)
-
+        if (moveFromInventorySlot.moveSO.isEquipped)
         {
             return;
         }

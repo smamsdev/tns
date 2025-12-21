@@ -57,17 +57,16 @@ public class MenuSlotSelect : Menu
     }
 
     void MoveSlotHighlighted(MoveSlot moveSlot)
-
     { 
         moveSlotHighlighted = moveSlot;
     }
 
-    public void MoveSlotSelected(MoveSlot moveSlot)
+    public void MoveSlotSelected(MoveSlot moveSlotToEquipTo)
     {
-        if (moveSlot.moveSO == null || !moveSlot.moveSO.IsFlaw)
+        if (moveSlotToEquipTo.moveSO == null || !moveSlotToEquipTo.moveSO.IsFlaw)
         {
-            moveSlotHighlighted = moveSlot;
-            menuMoveInventory.moveSlotToEquipTo = moveSlot;
+            moveSlotHighlighted = moveSlotToEquipTo;
+            menuMoveInventory.MoveSlotToEquipTo(moveSlotToEquipTo);
             menuManagerUI.EnterMenu(menuMoveInventory);
         }
     }

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class MenuManagerUI : MonoBehaviour
 {
-    public Menu statsPage, gearPage, gearEquipPage, movesPage, moveEquipPage, configPage, savePage, exitPage, main;
+    public Menu statsPage, gearPage, gearEquipPage, movesPage, moveInventory, configPage, savePage, exitPage, main;
     [Header("")]
     public Menu menuUpdateMethod;
     public GameObject[] subPageGOs;
@@ -29,8 +29,7 @@ public class MenuManagerUI : MonoBehaviour
         statsPage.DisplayMenu(false);
         gearPage.DisplayMenu(false);
         movesPage.DisplayMenu(false);
-        moveEquipPage.DisplayMenu(false);
-
+        moveInventory.DisplayMenu(false);
         //configPage.DisplayMenu(false);
         savePage.DisplayMenu(false);
         exitPage.DisplayMenu(false);
