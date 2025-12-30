@@ -11,14 +11,13 @@ public class MenuMoveInventory : Menu
     public GameObject previousDisplayContainerToHide;
     public Menu menuToRevertTo;
     public TextMeshProUGUI moveInventoryHeaderTMP;
+    public MenuMoves menuMoves;
 
     public List<MoveSO> moveInventory;
     public List<MoveSlot> instantiatedMoveSlots =  new List<MoveSlot>();
     public List<Button> instantiatedMoveSlotButtons = new List<Button>();
 
     MoveSlot moveSlotToEquipTo;
-
-    public PlayerMoveManager playerMoveManager;
 
     [SerializeField] GameObject moveSlotPrefab, moveSlotsParent;
     public TextMeshProUGUI moveDescriptionTMP, movePropertiesTMP;
@@ -129,27 +128,66 @@ public class MenuMoveInventory : Menu
         //}
     }
 
-    public void EquipMoveFromInventoryToSlot(MoveSlot moveFromInventorySlot)
+    public void EquipMoveFromInventoryToSlot(MoveSlot selectedInventorySlot)
     {
-        if (!moveFromInventorySlot.moveSO.isEquipped)
+        if (selectedInventorySlot.moveSO.isEquipped)
+        {
+            return;
+        }
+
+        if (!selectedInventorySlot.moveSO.isEquipped)
         {
             if (moveSlotToEquipTo.moveSO != null)
             {
-                moveSlotToEquipTo.moveSO.isEquipped = false;
-            } 
+                menuMoves.playerMoveManager.playerMoveInventorySO.UnequipMove(moveSlotToEquipTo.moveSO);
+            }
 
-            moveSlotToEquipTo.moveSO = moveFromInventorySlot.moveSO;
-            moveFromInventorySlot.moveSO.isEquipped = true;
-            moveSlotToEquipTo.slotText.text = "Slot " + (int.Parse(moveSlotToEquipTo.name) + 1) + ": " + moveFromInventorySlot.moveSO.MoveName;
-            //stringArrayToUpdateInSO[int.Parse(moveSlotToEquipTo.name)] = moveInventorySlot.moveSO.MoveName;
-            //playerMoveManager.LoadEquippedMoveListFromSO();
+            menuMoves.playerMoveManager.playerMoveInventorySO.EquipMoveToSlot(SelectedMoveArray(), moveSlotToEquipTo.equipSlotNumber, selectedInventorySlot.moveSO);
 
             ExitMenu();
         }
 
-        if (moveFromInventorySlot.moveSO.isEquipped)
+
+        MoveSO[] SelectedMoveArray()
         {
-            return;
+            MoveSO[] selectedMoveArrayOfType;
+
+            if (moveSlotToEquipTo.moveArrayType == MoveSlot.MoveArrayType.ViolentAttacks)
+                selectedMoveArrayOfType = menuMoves.playerMoveManager.playerMoveInventorySO.violentAttacksEquipped;
+
+            else
+
+                selectedMoveArrayOfType = null;
+
+            switch (selectedInventorySlot.moveArrayType)
+            {
+                case MoveSlot.MoveArrayType.ViolentAttacks:
+                    Debug.Log("set gear as a move, update this");
+                    break;
+
+                case 1: // Violent stance
+                    switch (secondMoveIs)
+                    {
+                        case 1: SelectMove(violentAttackInstances); break;
+                        case 2: SelectMove(violentFendInstances); break;
+                        case 3: SelectMove(violentFocusInstances); break;
+                    }
+                    break;
+
+                case 2: // Cautious stance
+                    switch (secondMoveIs)
+                    {
+                        case 1: SelectMove(cautiousAttackInstances); break;
+                        case 2: SelectMove(cautiousFendInstances); break;
+                        case 3: SelectMove(cautiousFocusInstances); break;
+                    }
+                    break;
+
+
+
+
+
+                    return selectedMoveArrayOfType;
         }
     }
 
@@ -160,7 +198,7 @@ public class MenuMoveInventory : Menu
 
     public void SetInventoryMoveTypeViolentAttacks()
     {
-        moveInventory = playerMoveManager.playerMoveInventorySO.violentAttacksInventory;
+        moveInventory = menuMoves.playerMoveManager.playerMoveInventorySO.violentAttacksInventory;
       //stringArrayToUpdateInSO = playerEquippedMovesSO.violentAttacksListString;
     }
 

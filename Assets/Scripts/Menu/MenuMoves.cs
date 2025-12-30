@@ -29,7 +29,6 @@ public class MenuMoves : Menu
     private void OnEnable()
     {
         playerMoveManager = GameObject.Find("Player").GetComponentInChildren<PlayerMoveManager>();
-        menuMoveInventory.playerMoveManager = playerMoveManager;
     }
 
     public override void DisplayMenu(bool on)

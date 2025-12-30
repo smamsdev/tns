@@ -47,12 +47,12 @@ public class PlayerMoveInventorySO : ScriptableObject
         };
     }
 
-    public void EquipSlot(List<MoveSO> equippedMovesOfType, int moveEquipSlot)
+    public void EquipMoveToSlot(MoveSO[] equippedMoveArrayOfType, int moveEquipSlot, MoveSO moveSO)
     {
-
+        equippedMoveArrayOfType[moveEquipSlot] = moveSO;
     }
 
-    public void UnquipMove(MoveSO moveSO)
+    public void UnequipMove(MoveSO moveSO)
     {
         BuildEquippedReferences();
 

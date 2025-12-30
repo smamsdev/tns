@@ -82,7 +82,7 @@ public class MenuSlotSelect : Menu
             return;
         }
 
-        menuMoves.playerMoveManager.playerMoveInventorySO.UnquipMove(moveSlotToRemove.moveSO);
+        menuMoves.playerMoveManager.playerMoveInventorySO.UnequipMove(moveSlotToRemove.moveSO);
         moveSlotToRemove.moveSO = null;
         movesPage.LoadAllEquippedMovesToUISlots();
         moveSlotToRemove.UpdateMoveDescriptionText();

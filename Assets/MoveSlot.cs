@@ -6,10 +6,13 @@ using UnityEngine.EventSystems;
 
 public class MoveSlot : MonoBehaviour, ISelectHandler
 {
+    public enum MoveArrayType {NotSelected, ViolentAttacks, ViolentFends, ViolentFocuses, CautiousAttacks, CautiousFends, CautiousFocuses, PreciseAttacks, PrecisesFends, PrecisesFocuses};
+
     public MoveSO moveSO;
     public TextMeshProUGUI slotText;
-    public MenuSlotSelect menuSlotSelect;
     public MenuMoves menuMoves;
+    public int equipSlotNumber = -1;
+    public MoveArrayType moveArrayType = MoveArrayType.NotSelected;
 
     void ISelectHandler.OnSelect(BaseEventData eventData)
     {
