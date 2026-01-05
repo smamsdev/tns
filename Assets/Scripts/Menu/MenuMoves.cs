@@ -39,9 +39,7 @@ public class MenuMoves : Menu
 
     public override void EnterMenu()
     {
-        menuManagerUI.DisplayMenuContainer(this);
-        menuButtonHighlighted.SetButtonColor(menuButtonHighlighted.highlightedColor);
-        menuButtonHighlighted.enabled = false; //this removes the blue underline
+        menuManagerUI.ClearThenDisplayMenu(this);
         firstButtonToSelect.Select();
         moveDescriptionGO.SetActive(true);
 
@@ -50,10 +48,7 @@ public class MenuMoves : Menu
 
     public override void ExitMenu()
     {
-        menuButtonHighlighted.SetButtonColor(Color.white);
-        menuButtonHighlighted.enabled = true; //this keeps the blue underline
         menuManagerUI.EnterMenu(menuManagerUI.main);
-        mainButtonToRevert.Select();
     }
 
     public override void StateUpdate()

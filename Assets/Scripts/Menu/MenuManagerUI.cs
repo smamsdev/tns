@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 
 public class MenuManagerUI : MonoBehaviour
 {
-    public Menu statsPage, gearPage, gearEquipPage, movesPage, moveInventory, configPage, savePage, exitPage, main;
+    public Menu statsPage, gearPageSelection, gearEquipSubPage, gearInventorySubPage, movesPage, moveInventory, configPage, savePage, exitPage, main;
     [Header("")]
     public Menu menuUpdateMethod;
     public GameObject[] subPageGOs;
@@ -16,18 +17,21 @@ public class MenuManagerUI : MonoBehaviour
     private void Start()
     {
         menuUpdateMethod = main;
-        DisplayMenuContainer(main);
+        ClearThenDisplayMenu(main);
         foreach (GameObject go in subPageGOs) 
         { 
             go.SetActive(true);
         }
     }
 
-    public void DisplayMenuContainer(Menu menuScript)
+    public void ClearThenDisplayMenu (Menu menuScript)
     {
         main.DisplayMenu(false);
         statsPage.DisplayMenu(false);
-        gearPage.DisplayMenu(false);
+        gearPageSelection.DisplayMenu(false);
+        gearEquipSubPage.DisplayMenu(false);
+        gearInventorySubPage.DisplayMenu(false);
+
         movesPage.DisplayMenu(false);
         moveInventory.DisplayMenu(false);
         //configPage.DisplayMenu(false);
@@ -37,9 +41,13 @@ public class MenuManagerUI : MonoBehaviour
         menuScript.DisplayMenu(true);
     }
 
+    public void SetLastButtonSelected(MenuButtonHighlighted menuButton)
+    {
+        menuUpdateMethod.lastParentButtonSelected = menuButton;
+    }
+
     public void EnterMenu(Menu menuScript)
     {
-        //DisplayMenuContainer(menuScript);
         menuScript.EnterMenu();
         menuUpdateMethod = menuScript;
     }

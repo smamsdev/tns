@@ -38,7 +38,7 @@ public class MenuStats : Menu
 
     public override void EnterMenu()
     {
-        menuManagerUI.DisplayMenuContainer(this);
+        menuManagerUI.ClearThenDisplayMenu(this);
         arrowGO.SetActive(false);
         partySO = menuMain.playerCombat.party;
 
@@ -75,18 +75,15 @@ public class MenuStats : Menu
         if (partySO.partyMembers.Count > 1) arrowGO.SetActive(true);
 
         partyMemberSlot = 0;
-        menuButtonHighlighted.SetButtonColor(menuButtonHighlighted.highlightedColor);
-        menuButtonHighlighted.enabled = false; //this removes the blue underline
         firstButtonToSelect.Select();
     }
 
     public override void ExitMenu()
     {
         arrowGO.SetActive(false);
-        menuButtonHighlighted.enabled = true;
-        menuButtonHighlighted.SetButtonColor(Color.white);
         menuManagerUI.EnterMenu(menuManagerUI.main);
-        mainButtonToRevert.Select();
+        menuManagerUI.menuUpdateMethod.lastParentButtonSelected.SetButtonNormalColor(Color.white);
+        menuManagerUI.menuUpdateMethod.lastParentButtonSelected.button.Select();
     }
 
     public override void StateUpdate()

@@ -1,27 +1,49 @@
-using System;
+﻿using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class menuMain : Menu
 {
-    public GameObject menuGO;
     public Button firstMenuButton;
     public Animator animator;
+
+    public GameObject[] blueUnderlines;
+    public MenuButtonHighlighted[] sideButtonsHighlighted;
 
     [SerializeField] TextMeshProUGUI locationTMP;
     [SerializeField] TextMeshProUGUI smamsValue;
     [SerializeField] TextMeshProUGUI durationDisplay;
 
     public MenuSave menuSave;
-    public MenuGear menuGear;
+    public MenuGearInventorySubPage menuGearInventorySubPage;
     public PlayerCombat playerCombat;
 
     private bool isMenuOn = false;
 
+    void WireButtons()
+    {
+        for (int i = 0; i < sideButtonsHighlighted.Length; i++)
+        {
+            int index = i;
+
+            sideButtonsHighlighted[i].onHighlighed = () =>
+            {
+                blueUnderlines[index].SetActive(true);
+            };
+
+            sideButtonsHighlighted[i].onUnHighlighed = () =>
+            {
+                blueUnderlines[index].SetActive(false);
+            };
+        }
+    }
+
     private IEnumerator CaptureScreenshotAndEnter()
     {
+        displayContainer.SetActive(true);
         yield return new WaitForEndOfFrame();
         menuSave.tempScreenshot = ScreenCapture.CaptureScreenshotAsTexture();
 
@@ -35,11 +57,20 @@ public class menuMain : Menu
 
     public override void EnterMenu()
     {
+        WireButtons();
+
+        menuManagerUI.ClearThenDisplayMenu(this);
+
+        if (EventSystem.current == null)
+        {
+            Debug.LogError("🚨 you are missing your EventSystem 🚨\nButtons will not work.");
+        }
+
         playerCombat = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>();
         locationTMP.text = FieldEvents.sceneName;
         isMenuOn = true;
 
-        menuGO.SetActive(true);
+        //menuGO.SetActive(true);
         animator.SetBool("Open", true);
         firstMenuButton.Select();
 
@@ -54,7 +85,7 @@ public class menuMain : Menu
     {
         animator.SetBool("Open", false);
         yield return new WaitForSeconds(0.25f);
-        menuGO.SetActive(false);
+        //menuGO.SetActive(false);
         CombatEvents.UnlockPlayerMovement();
     }
 
@@ -64,24 +95,16 @@ public class menuMain : Menu
         StartCoroutine(CloseMenuAnimation());
     }
 
-    private void Start()
-    {
-        menuGO.SetActive(false);
-    }
-
-    void Update()
-    {
-        if (isMenuOn)
-        {
-            FieldEvents.UpdateTime();
-            durationDisplay.text = FieldEvents.duration;
-        }
-    }
-
     void ToggleMainMenu(bool on)
     {
-        if (on == isMenuOn) return;
-        if (on) StartCoroutine(CaptureScreenshotAndEnter()) ; else ExitMenu();
+        if (on == isMenuOn) 
+            return;
+
+        if (on) 
+            StartCoroutine(CaptureScreenshotAndEnter()) ; 
+        
+        else 
+            ExitMenu();
     }
 
     public override void StateUpdate()
@@ -89,7 +112,16 @@ public class menuMain : Menu
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!isMenuOn && FieldEvents.movementLocked) return;
+
             ToggleMainMenu(!isMenuOn);
+
+            if (isMenuOn)
+            {
+                TimeSpan timeSpan = TimeSpan.FromSeconds(Time.time);
+                string playTimeDuration = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+
+                durationDisplay.text = playTimeDuration;
+            }
         }
     }
 

@@ -6,14 +6,14 @@ using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuGear : Menu
+public class MenuGearInventorySubPage : Menu
 {
     public Button firstButtonToSelect;
     public PlayerInventory playerInventory;
-    public GameObject gearPropertiesDisplayGO;
+    public MenuGearPageSelection menuGearPageSelection;
     public List<InventorySlot> gearSlots = new List<InventorySlot>();
     List<Button> slotButtons = new List<Button>();
-    public MenuGearEquip menuGearEquip;
+    public MenuGearEquipSubPage menuGearEquip;
     public TextMeshProUGUI gearDescriptionTMP;
     public TextMeshProUGUI gearTypeTMP;
     public TextMeshProUGUI gearValueTMP;
@@ -36,8 +36,10 @@ public class MenuGear : Menu
         displayContainer.SetActive(on);
     }
 
-    public void InstantiateUIGearSlots()
+    public void InstantiateUIInventorySlots()
     {
+        DeleteAllInventoryUI();
+
         foreach (GearSO gear in playerInventory.inventorySO.gearInventory)
         {
             if (!gearToSlot.ContainsKey(gear))
@@ -47,7 +49,7 @@ public class MenuGear : Menu
 
                 InventorySlot inventorySlot = UIgearSlot.GetComponent<InventorySlot>();
                 inventorySlot.gear = gear;
-                inventorySlot.menuGear = this;
+                inventorySlot.menuGearInventorySubPage = this;
                 inventorySlot.menuManagerUI = menuManagerUI;
 
                 inventorySlot.itemName.text = gear.gearName;
@@ -84,44 +86,28 @@ public class MenuGear : Menu
 
     public override void EnterMenu()
     {
-        menuManagerUI.DisplayMenuContainer(this);
-
-        if (initialized == false)
-        {
-            initialized = true;
-            InstantiateUIGearSlots();
-        }
-
+        Debug.Log("est");
         if (firstButtonToSelect == null) { firstButtonToSelect = gearSlots[0].button; }
 
-        menuButtonHighlighted.SetButtonColor(menuButtonHighlighted.highlightedColor);
-        menuButtonHighlighted.enabled = false;
+        DisplayMenu(true);
         firstButtonToSelect.Select();
-        gearPropertiesDisplayGO.SetActive(true);
     }
 
     public override void ExitMenu()
     {
         initialized = false;
-        menuButtonHighlighted.enabled = true;
-        menuButtonHighlighted.SetButtonColor(Color.white);
-        DeleteAllInventoryUI();
-        menuManagerUI.EnterMenu(menuManagerUI.main);
-        mainButtonToRevert.Select();
+        menuManagerUI.EnterMenu(menuManagerUI.gearPageSelection);
+        menuGearPageSelection.inventoryHighlightedButton.button.Select();
+        menuGearPageSelection.inventoryHighlightedButton.SetButtonNormalColor(Color.white);
+
     }
 
     public void InventorySlotSelected(InventorySlot inventorySlot)
     {
-        menuGearEquip.transplantingSlot = null;
         menuGearEquip.inventorySlotSelected = inventorySlot;
 
-        if (inventorySlot.gear.isCurrentlyEquipped)
-        {
-            menuGearEquip.transplantingSlot = inventorySlot;
-        }
-
         firstButtonToSelect = inventorySlot.button;
-        menuManagerUI.EnterMenu(menuManagerUI.gearEquipPage);
+        menuManagerUI.EnterMenu(menuManagerUI.gearEquipSubPage);
     }
 
     public void GearSlotHighlighted(InventorySlot inventorySlot)
@@ -174,7 +160,6 @@ public class MenuGear : Menu
             if (inventorySlotHighlighted.gear.isCurrentlyEquipped)
             {
                 DisplayMenu(true);
-                gearPropertiesDisplayGO.SetActive(true);
                 GearSlotHighlighted(inventorySlotHighlighted);
                 UnequipHighlightedGear(inventorySlotHighlighted.gear);
             }

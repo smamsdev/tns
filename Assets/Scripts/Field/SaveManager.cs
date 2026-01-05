@@ -33,7 +33,7 @@ public class SaveManager : MonoBehaviour
 
     public void SaveGame(SaveData saveDataSlot)
     {
-        FieldEvents.UpdateTime();
+        //save playtime somehow
         Debug.Log("good luck w this");
 
         //saveDataSlot.fendBase = permanentStatsSO.fendBase;
@@ -49,7 +49,6 @@ public class SaveManager : MonoBehaviour
         ////saveDataSlot.XPremainder = permanentStatsSO.XPremainder;
         ////saveDataSlot.defaultXPThreshold = permanentStatsSO.defaultXPThreshold;
         //saveDataSlot.smams = permanentStatsSO.smams;
-        saveDataSlot.duration = FieldEvents.duration;
         saveDataSlot.date = System.DateTime.Now.ToString("yyyy/MM/dd");
         saveDataSlot.time = System.DateTime.Now.ToString("HH:mm:ss");
         saveDataSlot.screenshotPath = Path.Combine(Application.persistentDataPath, $"save-data-slot-{saveDataSlot.slotNumber}-screenshot.png");

@@ -11,12 +11,12 @@ public class InventorySlot : MonoBehaviour, ISelectHandler, IDeselectHandler
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI itemQuantity;
     public MenuManagerUI menuManagerUI;
-    public MenuGear menuGear;
+    public MenuGearInventorySubPage menuGearInventorySubPage;
     public Button button;
 
     public virtual void OnSelect(BaseEventData eventData)
     {
-        menuGear.GearSlotHighlighted(this);
+        menuGearInventorySubPage.GearSlotHighlighted(this);
         itemQuantity.color = Color.yellow;
         menuManagerUI.SetTextAlpha(itemQuantity, gear.isCurrentlyEquipped ? 0.5f : 1f);
     }

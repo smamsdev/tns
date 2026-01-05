@@ -34,9 +34,6 @@ public class MenuExit : Menu
 
     public override void ExitMenu()
     {
-        menuButtonHighlighted.SetButtonColor(Color.white);
-        menuButtonHighlighted.enabled = true; //this keeps the blue underline
-        mainButtonToRevert.Select();
         menuManagerUI.menuUpdateMethod = menuManagerUI.main;
     }
 

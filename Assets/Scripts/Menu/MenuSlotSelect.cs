@@ -37,9 +37,7 @@ public class MenuSlotSelect : Menu
         ToggleHighlightMenu(false); //have to toggle this damn thing off because of the deselecter
         displayContainer.SetActive(true);
 
-        ColorBlock colors = mainButtonToRevert.colors;
-        colors.normalColor = colourForSelectedParent;
-        mainButtonToRevert.colors = colors;
+
 
         firstButtonToHighlight = moveSlotHighlighted.GetComponent<Button>();
         firstButtonToHighlight.Select();
@@ -47,12 +45,10 @@ public class MenuSlotSelect : Menu
 
     public override void ExitMenu()
     {
-        ColorBlock colors = mainButtonToRevert.colors;
-        colors.normalColor = Color.white;
-        mainButtonToRevert.colors = colors;
+
 
         ToggleHighlightMenu(true);
-        mainButtonToRevert.Select();
+
         menuManagerUI.menuUpdateMethod = menuMoveTypeScript;
     }
 

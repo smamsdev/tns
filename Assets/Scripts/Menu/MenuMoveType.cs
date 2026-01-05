@@ -24,9 +24,6 @@ public class MenuMoveType : Menu
         displayContainer.SetActive(true);
         firstButtonToHighlight.Select();
 
-        ColorBlock colors = mainButtonToRevert.colors;
-        colors.normalColor = colourForSelectedParent;
-        mainButtonToRevert.colors = colors;
         parentSymbolImage.SetActive(true);
     }
 
@@ -34,11 +31,7 @@ public class MenuMoveType : Menu
     {
         displayContainer.SetActive(false);
 
-        ColorBlock colors = mainButtonToRevert.colors;
-        colors.normalColor = Color.white;
-        mainButtonToRevert.colors = colors;
 
-        mainButtonToRevert.Select();
         menuManagerUI.menuUpdateMethod = menuManagerUI.movesPage;
     }
 

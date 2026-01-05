@@ -34,7 +34,7 @@ public class MenuMoveInventory : Menu
 
     public override void EnterMenu()
     {
-        menuManagerUI.DisplayMenuContainer(menuManagerUI.moveInventory);
+        menuManagerUI.ClearThenDisplayMenu(menuManagerUI.moveInventory);
         previousDisplayContainerToHide.SetActive(false);
         LoadInventoryToButtonSlots();
         firstButtonToSelect.Select();
@@ -147,47 +147,45 @@ public class MenuMoveInventory : Menu
             ExitMenu();
         }
 
-
         MoveSO[] SelectedMoveArray()
         {
-            MoveSO[] selectedMoveArrayOfType;
+            MoveSO[] selectedMoveArrayOfType = new MoveSO[1];
 
-            if (moveSlotToEquipTo.moveArrayType == MoveSlot.MoveArrayType.ViolentAttacks)
-                selectedMoveArrayOfType = menuMoves.playerMoveManager.playerMoveInventorySO.violentAttacksEquipped;
+            //if (moveSlotToEquipTo.moveArrayType == MoveSlot.MoveArrayType.ViolentAttacks)
+            //    selectedMoveArrayOfType = menuMoves.playerMoveManager.playerMoveInventorySO.violentAttacksEquipped;
+            //
+            //else
+            //
+            //    selectedMoveArrayOfType = null;
+            //
+            //switch (selectedInventorySlot.moveArrayType)
+            //{
+            //    case MoveSlot.MoveArrayType.ViolentAttacks:
+            //        Debug.Log("set gear as a move, update this");
+            //        break;
+            //
+            //    case 1: // Violent stance
+            //        switch (secondMoveIs)
+            //        {
+            //            case 1: SelectMove(violentAttackInstances); break;
+            //            case 2: SelectMove(violentFendInstances); break;
+            //            case 3: SelectMove(violentFocusInstances); break;
+            //        }
+            //        break;
+            //
+            //    case 2: // Cautious stance
+            //        switch (secondMoveIs)
+            //        {
+            //            case 1: SelectMove(cautiousAttackInstances); break;
+            //            case 2: SelectMove(cautiousFendInstances); break;
+            //            case 3: SelectMove(cautiousFocusInstances); break;
+            //        }
+            //        break;
+            //}
 
-            else
+            Debug.Log("fix");
 
-                selectedMoveArrayOfType = null;
-
-            switch (selectedInventorySlot.moveArrayType)
-            {
-                case MoveSlot.MoveArrayType.ViolentAttacks:
-                    Debug.Log("set gear as a move, update this");
-                    break;
-
-                case 1: // Violent stance
-                    switch (secondMoveIs)
-                    {
-                        case 1: SelectMove(violentAttackInstances); break;
-                        case 2: SelectMove(violentFendInstances); break;
-                        case 3: SelectMove(violentFocusInstances); break;
-                    }
-                    break;
-
-                case 2: // Cautious stance
-                    switch (secondMoveIs)
-                    {
-                        case 1: SelectMove(cautiousAttackInstances); break;
-                        case 2: SelectMove(cautiousFendInstances); break;
-                        case 3: SelectMove(cautiousFocusInstances); break;
-                    }
-                    break;
-
-
-
-
-
-                    return selectedMoveArrayOfType;
+            return selectedMoveArrayOfType;
         }
     }
 

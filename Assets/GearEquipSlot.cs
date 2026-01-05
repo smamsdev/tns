@@ -9,7 +9,7 @@ public class UIGearEquipSlot : MonoBehaviour, ISelectHandler, IDeselectHandler
     public GearSO gearEquipped;
     public TextMeshProUGUI buttonTMP;
     public int equipSlotNumber;
-    public MenuGearEquip menuGearEquip;
+    public MenuGearEquipSubPage menuGearEquip;
 
     public virtual void OnSelect(BaseEventData eventData)
     {

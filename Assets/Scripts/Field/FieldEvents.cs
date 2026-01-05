@@ -23,8 +23,6 @@ public static class FieldEvents
 
     public static bool movementLocked;
 
-    public static string duration;
-
     public static bool isCooldown()
 
     {
@@ -36,12 +34,6 @@ public static class FieldEvents
         isCoolDownBool = true;
         yield return new WaitForSeconds(seconds);
         isCoolDownBool = false;
-    }
-
-    public static void UpdateTime()
-    {
-        TimeSpan timeSpan = TimeSpan.FromSeconds(Time.time);
-        FieldEvents.duration = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
     }
 
     public static TextMeshProUGUI FindLongestText(List<TextMeshProUGUI> textElementsToSort)

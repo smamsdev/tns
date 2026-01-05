@@ -80,18 +80,14 @@ public class MenuSave : Menu
 
     public override void EnterMenu()
     {
-        menuManagerUI.DisplayMenuContainer(this);
-        menuButtonHighlighted.SetButtonColor(menuButtonHighlighted.highlightedColor);
-        menuButtonHighlighted.enabled = false;
+        menuManagerUI.ClearThenDisplayMenu(this);
+
         firstButtonToSelect.Select();
     }
 
     public override void ExitMenu()
     {
-        menuButtonHighlighted.SetButtonColor(Color.white);
-        menuButtonHighlighted.enabled = true; //this keeps the blue underline
         menuManagerUI.EnterMenu(menuManagerUI.main);
-        mainButtonToRevert.Select();
     }
 
     public override void StateUpdate()
