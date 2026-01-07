@@ -70,12 +70,12 @@ public class MenuMoves : Menu
                slots[i].slotText.text = $"Slot {i + 1}: {equippedMovesOfType[i].MoveName}";
        
                // Set alpha of the TextMeshProUGUI element based on whether the move is a flaw or is eqipped
-               menuManagerUI.SetTextAlpha(slots[i].slotText, slots[i].moveSO.IsFlaw ? 0.75f : 1f);
+               FieldEvents.SetTextAlpha(slots[i].slotText, slots[i].moveSO.IsFlaw ? 0.75f : 1f);
            }
            else
            {
                slots[i].slotText.text = $"Slot {i + 1}: Empty";
-               menuManagerUI.SetTextAlpha(slots[i].slotText, .75f);
+                FieldEvents.SetTextAlpha(slots[i].slotText, .75f);
            }
        }
     }

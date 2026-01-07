@@ -62,9 +62,9 @@ public class ShopManagerUI : MonoBehaviour
     {
         descriptionFieldTMP.text = gear.gearDescription;
 
-        if (!gear.isConsumable)
+        if (gear is EquipmentSO)
         {
-            itemTypeTMP.text = "Equipment";
+            itemTypeTMP.text = "Type: Equipment";
         }
 
         else

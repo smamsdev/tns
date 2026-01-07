@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu]
 
-public class Equipment : GearSO
+public class EquipmentSO : GearSO
 {
     public int Potential
     {

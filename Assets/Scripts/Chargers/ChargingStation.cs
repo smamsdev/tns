@@ -20,7 +20,7 @@ public class ChargingStation : ToTrigger
         }
     }
 
-    public void LoadToChargeSlot(Equipment equipment, int slot)
+    public void LoadToChargeSlot(EquipmentSO equipment, int slot)
     {
         equipment.StartCharging();
     }

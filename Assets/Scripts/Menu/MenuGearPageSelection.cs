@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class MenuGearPageSelection : Menu
 {
-    [SerializeField] Button firstButtonToSelect;
     [SerializeField] GameObject equippedDisplayContainer, inventoryDisplayContainer, gearPropertiesDisplay;
 
     public MenuButtonHighlighted equippedHighlightedButton, inventoryHighlightedButton;
@@ -25,6 +24,10 @@ public class MenuGearPageSelection : Menu
 
     public override void EnterMenu()
     {
+        menuGearInventorySubPage.playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>().playerInventory;
+
+        displayContainer.SetActive(true);
+        menuGearEquipSubPage.equipPageHeaderGO.SetActive(false);
         WireButton(equippedHighlightedButton, equippedDisplayContainer);
         WireButton(inventoryHighlightedButton, inventoryDisplayContainer);
 
@@ -33,7 +36,9 @@ public class MenuGearPageSelection : Menu
 
         menuGearEquipSubPage.InitialiseEquipSlots();
         menuGearInventorySubPage.InstantiateUIInventorySlots();
-        firstButtonToSelect.Select();
+
+        if (lastParentButtonSelected ==null) { lastParentButtonSelected = equippedHighlightedButton; }
+        lastParentButtonSelected.button.Select();
     }
 
     public override void ExitMenu()
@@ -45,6 +50,7 @@ public class MenuGearPageSelection : Menu
 
     public void EnterEquipSubPage()
     {
+        equippedHighlightedButton.ButtonSelectedAndDisabled();
         menuGearInventorySubPage.displayContainer.SetActive(false);
         gearPropertiesDisplay.SetActive(true);
         menuManagerUI.EnterMenu(menuManagerUI.gearEquipSubPage);
@@ -52,15 +58,20 @@ public class MenuGearPageSelection : Menu
 
     public void EnterInventorySubPage()
     {
-        menuGearEquipSubPage.displayContainer.SetActive(false);
-        gearPropertiesDisplay.SetActive(true);
-        menuManagerUI.EnterMenu(menuManagerUI.gearInventorySubPage);
+        if (menuGearInventorySubPage.playerInventory.inventorySO.gearInventory.Count > 0)
+        {
+            inventoryHighlightedButton.ButtonSelectedAndDisabled();
+            menuGearEquipSubPage.displayContainer.SetActive(false);
+            gearPropertiesDisplay.SetActive(true);
+            menuManagerUI.EnterMenu(menuManagerUI.gearInventorySubPage);
+        }
     }
 
     public override void StateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            menuGearEquipSubPage.isEquipping = false;
             ExitMenu();
         }
     }

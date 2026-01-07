@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
-public class WeightedVest : Gear
+public class FlakVest : Gear
 {
     public override IEnumerator ApplyGear()
     {

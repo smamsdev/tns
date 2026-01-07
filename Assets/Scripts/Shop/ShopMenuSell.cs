@@ -82,10 +82,13 @@ public class ShopMenuSell : ShopMenu
     }
 
     public void SellGearInSlot(InventorySlot slotPressed)
-
     { 
         GearSO gearToSell = slotPressed.gear;
-        gearToSell.quantityInInventory--;
+
+        Debug.Log("fix"); //only the player inventory should maange this data
+        //gearToSell.quantityInInventory--;
+
+
         //menuManagerUI.playerInventory.inventorySO.inventoryString.Remove(gearToSell.name);
         //menuManagerUI.playerInventory.LoadInventoryFromSO();
         Debug.Log("fix this");
@@ -96,19 +99,19 @@ public class ShopMenuSell : ShopMenu
         main.smamsValue.text = $"{main.playerPermanentStats.Smams}";
         menuManagerUI.smamsColorAnimator.SetTrigger("plus");
 
-        if (gearToSell.quantityInInventory == 0)
-
-        {
-            if (slotPressed == inventorySlot[0])
-            {
-                return;
-            }
-
-            else 
-            {
-                inventorySlot[(int.Parse(slotPressed.name) - 1)].GetComponent<Button>().Select();
-            }
-        }
+       //if (gearToSell.quantityInInventory == 0)
+       //
+       //{
+       //    if (slotPressed == inventorySlot[0])
+       //    {
+       //        return;
+       //    }
+       //
+       //    else 
+       //    {
+       //        inventorySlot[(int.Parse(slotPressed.name) - 1)].GetComponent<Button>().Select();
+       //    }
+       //}
     }
 
     public override void StateUpdate()

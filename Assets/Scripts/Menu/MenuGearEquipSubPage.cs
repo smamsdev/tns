@@ -9,8 +9,7 @@ using UnityEngine.UI;
 
 public class MenuGearEquipSubPage : Menu
 {
-    [SerializeField] Button firstButtonToSelect;
-    public InventorySlot inventorySlotSelected;
+    public Button firstButtonToSelect;
     public MenuGearPageSelection menuGearPageSelection;
     public MenuGearInventorySubPage menuGearInventorySubPage;
     public UIGearEquipSlot[] uIGearEquipSlots;
@@ -20,6 +19,7 @@ public class MenuGearEquipSubPage : Menu
     public TextMeshProUGUI gearValueTMP;
     public TextMeshProUGUI gearEquipStatusTMP;
     public UIGearEquipSlot gearEquipSlotHighlighted;
+    public GameObject equipPageHeaderGO;
     public TextMeshProUGUI pageHeaderTMP;
     public bool isEquipping = false;
 
@@ -35,38 +35,69 @@ public class MenuGearEquipSubPage : Menu
 
     public void EquipSlotSelected(UIGearEquipSlot gearEquipSlotSelected)
     {
-        EventSystem.current.SetSelectedGameObject(null);
+        if (gearEquipSlotHighlighted.gearEquipped != null) 
+        return;
 
-        ExitMenu();
-        menuGearPageSelection.inventoryHighlightedButton.button.Select();
-        menuGearPageSelection.inventoryHighlightedButton.button.onClick.Invoke();
+        else if (!isEquipping)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            ExitMenu();
+            firstButtonToSelect = gearEquipSlotHighlighted.GetComponent<Button>();
+            menuGearPageSelection.inventoryHighlightedButton.button.Select();
+            menuGearPageSelection.inventoryHighlightedButton.button.onClick.Invoke();
+        }
 
-        // GearSO gearGettingReplaced = menuGearInventorySubPage.playerInventory.inventorySO.equippedGear[gearEquipSlotSelected.equipSlotNumber];
+        else
+        {
+            // GearSO gearGettingReplaced = menuGearInventorySubPage.playerInventory.inventorySO.equippedGear[gearEquipSlotSelected.equipSlotNumber];
 
-        //if (gearGettingReplaced != null)
-        //{
-        //    menuGearInventorySubPage.playerInventory.UnequipGearFromSlot(gearGettingReplaced);
-        //
-        //    InventorySlot slot = menuGearInventorySubPage.gearToSlot[gearGettingReplaced];
-        //    menuManagerUI.SetTextAlpha(slot.itemName, 1f);
-        //    menuManagerUI.SetTextAlpha(slot.itemQuantity, 1f);
-        //    slot.itemQuantity.text = "x" + gearGettingReplaced.quantityInInventory.ToString();
-        //}
+            //if (gearGettingReplaced != null)
+            //{
+            //    menuGearInventorySubPage.playerInventory.UnequipGearFromSlot(gearGettingReplaced);
+            //
+            //    InventorySlot slot = menuGearInventorySubPage.gearToSlot[gearGettingReplaced];
+            //    menuManagerUI.SetTextAlpha(slot.itemName, 1f);
+            //    menuManagerUI.SetTextAlpha(slot.itemQuantity, 1f);
+            //    slot.itemQuantity.text = "x" + gearGettingReplaced.quantityInInventory.ToString();
+            //}
 
-        //GearSO geartoEquip = inventorySlotSelected.gear;
-        //menuGearInventorySubPage.playerInventory.EquipGearToSlot(geartoEquip, gearEquipSlotSelected.equipSlotNumber);
-        //
-        //menuManagerUI.SetTextAlpha(inventorySlotSelected.itemName, 0.5f);
-        //menuManagerUI.SetTextAlpha(inventorySlotSelected.itemQuantity, 0.5f);
-        //inventorySlotSelected.itemQuantity.text = "x" + geartoEquip.quantityInInventory.ToString();
+            var inventorySlot = menuGearInventorySubPage.inventorySlotSelected;
 
+            GearSO geartoEquip = inventorySlot.gear;
+            menuGearInventorySubPage.playerInventory.EquipGearToSlot(geartoEquip, gearEquipSlotSelected.equipSlotNumber);
+            
+            FieldEvents.SetTextAlpha(inventorySlot.itemNameTMP, 0.5f);
+            FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, 0.5f);
 
+            if (inventorySlot.gear is EquipmentSO equipment)
+            {
+                inventorySlot.itemQuantityTMP.text = equipment.Potential + "%";
+            }
+
+            else if (inventorySlot.gear is ConsumbableSO consumable)
+            {
+                inventorySlot.itemQuantityTMP.text = "x" + consumable.quantityInInventory;
+            }
+
+            InitialiseEquipSlots();
+            gearEquipSlotHighlighted.GetComponent<Button>().Select();
+            menuGearPageSelection.displayContainer.SetActive(true);
+            equipPageHeaderGO.SetActive(false);
+            menuGearPageSelection.lastParentButtonSelected = menuGearPageSelection.equippedHighlightedButton;
+            firstButtonToSelect = gearEquipSlotHighlighted.GetComponent<Button>();
+            menuGearPageSelection.lastParentButtonSelected.button.onClick.Invoke();
+            menuGearPageSelection.inventoryHighlightedButton.SetButtonNormalColor(Color.white);
+            menuGearInventorySubPage.InstantiateUIInventorySlots();
+
+            isEquipping = false;
+        }
     }
 
     public override void EnterMenu()
     {
-        //pageHeaderTMP.text = "Equip " + inventorySlotSelected.gear.gearName + "?";
         DisplayMenu(true);
+        if (!isEquipping) { firstButtonToSelect = uIGearEquipSlots[0].GetComponent<Button>(); };
+
         firstButtonToSelect.Select();
     }
 
@@ -93,6 +124,11 @@ public class MenuGearEquipSubPage : Menu
                 GearSO gearToLoad = inventorySO.equippedGear[i];
                 uIGearEquipSlots[i].gearEquipped = gearToLoad;
                 uIGearEquipSlots[i].buttonTMP.text = "GEAR SLOT " + (i + 1) + ": " + gearToLoad.gearName;
+                if (gearToLoad is EquipmentSO equipment)
+                {
+                    uIGearEquipSlots[i].buttonTMP.text += " " + equipment.Potential + "%";
+                }
+
                 uIGearEquipSlots[i].gameObject.SetActive(true);
             }
         }
@@ -115,9 +151,9 @@ public class MenuGearEquipSubPage : Menu
         else
         
         {
-            if (!gearEquipSlot.gearEquipped.isConsumable)
+            if (gearEquipSlot.gearEquipped is EquipmentSO)
             {
-                gearTypeTMP.text = "Type: Accessory";
+                gearTypeTMP.text = "Type: Equipment";
             }
 
             else
@@ -135,7 +171,7 @@ public class MenuGearEquipSubPage : Menu
                 gearDescriptionTMP.text = gearEquipSlot.gearEquipped.gearDescription;
             }
 
-            gearValueTMP.text = gearEquipSlot.gearEquipped.value.ToString();
+            gearValueTMP.text = "$MAMS: " + gearEquipSlot.gearEquipped.value.ToString();
         }
     }
 

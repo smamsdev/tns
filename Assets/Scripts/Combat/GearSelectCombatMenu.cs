@@ -29,34 +29,37 @@ public class GearSelectCombatMenu : MonoBehaviour
 
         ClearSlots();
 
-        foreach (GearSO gear in playerInventory.inventorySO.gearInventory)
-        {
-            if (!gearToSlot.ContainsKey(gear))
-            {
-                GameObject UICombatgearSlot = Instantiate(UICombatGearSlotPrefab);
-                UICombatgearSlot.transform.SetParent(inventorySlotsParent.transform, false);
-
-                UICombatGearSlot inventorySlot = UICombatgearSlot.GetComponent<UICombatGearSlot>();
-                UICombatgearSlot.name = gear.gearID;
-                inventorySlot.gearSO = gear;
-                inventorySlot.combatMenuManager = combatManager.combatMenuManager;
-                inventorySlot.gearSelectCombatMenu = this;
-                inventorySlot.itemName.text = gear.gearName;
-                inventorySlot.itemQuantity.text = "x" + gear.quantityInInventory;
-
-                float alpha = gear.isCurrentlyEquipped ? 0.5f : 1f;
-                combatManager.combatMenuManager.SetTextAlpha(inventorySlot.itemName, alpha);
-                combatManager.combatMenuManager.SetTextAlpha(inventorySlot.itemQuantity, alpha);
-
-                inventorySlot.button.onClick.AddListener(() => gearSelectCombatState.EquipSelectedGear(inventorySlot));
-                gearSlots.Add(inventorySlot);
-                slotButtons.Add(inventorySlot.button);
-                gearToSlot[gear] = inventorySlot;
-            }
-        }
+        Debug.Log("fix");
+        //foreach (GearSO gear in playerInventory.inventorySO.gearInventory)
+        //{
+        //    if (!gearToSlot.ContainsKey(gear))
+        //    {
+        //
+        //
+        //        GameObject UICombatgearSlot = Instantiate(UICombatGearSlotPrefab);
+        //        UICombatgearSlot.transform.SetParent(inventorySlotsParent.transform, false);
+        //
+        //        UICombatGearSlot inventorySlot = UICombatgearSlot.GetComponent<UICombatGearSlot>();
+        //        UICombatgearSlot.name = gear.gearID;
+        //        inventorySlot.gearSO = gear;
+        //        inventorySlot.combatMenuManager = combatManager.combatMenuManager;
+        //        inventorySlot.gearSelectCombatMenu = this;
+        //        inventorySlot.itemName.text = gear.gearName;
+        //        inventorySlot.itemQuantity.text = "x" + gear.quantityInInventory;
+        //
+        //        float alpha = gear.isCurrentlyEquipped ? 0.5f : 1f;
+        //        combatManager.combatMenuManager.SetTextAlpha(inventorySlot.itemName, alpha);
+        //        combatManager.combatMenuManager.SetTextAlpha(inventorySlot.itemQuantity, alpha);
+        //
+        //        inventorySlot.button.onClick.AddListener(() => gearSelectCombatState.EquipSelectedGear(inventorySlot));
+        //        gearSlots.Add(inventorySlot);
+        //        slotButtons.Add(inventorySlot.button);
+        //        gearToSlot[gear] = inventorySlot;
+        //    }
+        //}
 
         FieldEvents.SetGridNavigationWrapAround(slotButtons, 5);
-        combatManager.combatMenuManager.gearSelectMenuDefaultButton = gearSlots[0].button;
+        //combatManager.combatMenuManager.gearSelectMenuDefaultButton = gearSlots[0].button;
     }
 
     public void ClearSlots()

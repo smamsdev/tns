@@ -61,11 +61,4 @@ public class MenuManagerUI : MonoBehaviour
     {
         menuUpdateMethod.StateUpdate();
     }
-
-    public void SetTextAlpha(TextMeshProUGUI textMeshProUGUI, float alpha) //other classes to want to use this a bunch so put it here
-    {
-        Color color = textMeshProUGUI.color;
-        color.a = alpha;
-        textMeshProUGUI.color = color;
-    }
 }

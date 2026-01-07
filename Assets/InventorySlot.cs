@@ -8,22 +8,23 @@ using UnityEngine.EventSystems;
 public class InventorySlot : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     public GearSO gear;
-    public TextMeshProUGUI itemName;
-    public TextMeshProUGUI itemQuantity;
-    public MenuManagerUI menuManagerUI;
+    public TextMeshProUGUI itemNameTMP;
+    public TextMeshProUGUI itemQuantityTMP;
     public MenuGearInventorySubPage menuGearInventorySubPage;
     public Button button;
 
     public virtual void OnSelect(BaseEventData eventData)
     {
         menuGearInventorySubPage.GearSlotHighlighted(this);
-        itemQuantity.color = Color.yellow;
-        menuManagerUI.SetTextAlpha(itemQuantity, gear.isCurrentlyEquipped ? 0.5f : 1f);
+        itemQuantityTMP.color = Color.yellow;
+        FieldEvents.SetTextAlpha(itemNameTMP, gear.isCurrentlyEquipped ? 0.5f : 1f);
+        FieldEvents.SetTextAlpha(itemQuantityTMP, gear.isCurrentlyEquipped ? 0.5f : 1f);
     }
 
     public virtual void OnDeselect(BaseEventData eventData)
     {
-        itemQuantity.color = Color.white;
-        menuManagerUI.SetTextAlpha(itemQuantity, gear.isCurrentlyEquipped ? 0.5f : 1f);
+        itemQuantityTMP.color = Color.white;
+        FieldEvents.SetTextAlpha(itemNameTMP, gear.isCurrentlyEquipped ? 0.5f : 1f);
+        FieldEvents.SetTextAlpha(itemQuantityTMP, gear.isCurrentlyEquipped ? 0.5f : 1f);
     }
 }
