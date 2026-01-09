@@ -6,12 +6,16 @@ using TMPro;
 
 public class IShopGearItemHighlighted : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
-    [SerializeField] ShopManagerUI shopManagerUI;
+
+    //fuckin delete this
+
+
+    [SerializeField] ShopMenuManagerUI shopManagerUI;
     public TextMeshProUGUI inventorySlotQuantityTMP;
 
     public void OnSelect(BaseEventData eventData)
     {
-        InventorySlot combatInventorySlot = GetComponent<InventorySlot>();
+        InventorySlotUI combatInventorySlot = GetComponent<InventorySlotUI>();
         shopManagerUI.UpdateDescriptionField(combatInventorySlot.gear);
         inventorySlotQuantityTMP.color = Color.yellow;
     }

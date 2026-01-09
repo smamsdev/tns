@@ -5,25 +5,25 @@ using UnityEngine.UI;
 
 public class MenuButtonHighlighted : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
-    public Action onHighlighed;
-    public Action onUnHighlighed;
+    public Action onHighlighted;
+    public Action onUnHighlighted;
     public Button button;
 
     public void OnSelect(BaseEventData eventData)
     {
-        onHighlighed?.Invoke();
+        onHighlighted?.Invoke();
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        onUnHighlighed?.Invoke();
+        onUnHighlighted?.Invoke();
     }
 
     public void ButtonSelectedAndDisabled()
     {
         SetButtonNormalColor(Color.yellow);
-        onHighlighed = null;
-        onUnHighlighed = null;
+        onHighlighted = null;
+        onUnHighlighted = null;
     }
 
     public void SetButtonNormalColor(Color color)

@@ -12,18 +12,18 @@ public class MenuGearInventorySubPage : Menu
     public PlayerInventory playerInventory;
     public MenuGearPageSelection menuGearPageSelection;
     public MenuGearEquipSubPage menuGearEquipSubPage;
-    public List<InventorySlot> gearSlots = new List<InventorySlot>();
+    public List<InventorySlotUI> gearSlots = new List<InventorySlotUI>();
     List<Button> slotButtons = new List<Button>();
 
     public TextMeshProUGUI gearDescriptionTMP;
     public TextMeshProUGUI gearTypeTMP;
     public TextMeshProUGUI gearValueTMP;
     public TextMeshProUGUI gearEquipStatusTMP;
-    public InventorySlot inventorySlotHighlighted;
+    public InventorySlotUI inventorySlotHighlighted;
     public GameObject UIFieldMenuGearSlotPrefab, noneGO;
     public GameObject inventorySlotsParent;
-    public InventorySlot inventorySlotSelected;
-    public Dictionary<GearSO, InventorySlot> gearToSlot = new Dictionary<GearSO, InventorySlot>();
+    public InventorySlotUI inventorySlotSelected;
+    public Dictionary<GearSO, InventorySlotUI> gearToSlot = new Dictionary<GearSO, InventorySlotUI>();
 
     public override void DisplayMenu(bool on)
     {
@@ -44,34 +44,43 @@ public class MenuGearInventorySubPage : Menu
    
         foreach (GearSO gear in playerInventory.inventorySO.gearInventory)
         {
+            GameObject UIgearSlot = Instantiate(UIFieldMenuGearSlotPrefab);
+            UIgearSlot.transform.SetParent(inventorySlotsParent.transform, false);
 
-            if (!gearToSlot.ContainsKey(gear))
+            InventorySlotUI inventorySlot = UIgearSlot.GetComponent<InventorySlotUI>();
+            inventorySlot.gear = gear;
+            inventorySlot.menuGearInventorySubPage = this;
+
+            inventorySlot.itemNameTMP.text = gear.gearName;
+
+            inventorySlot.itemQuantityTMP.text = ItemQuantityRemaining(inventorySlot.gear);
+
+            float alpha = gear.isCurrentlyEquipped ? 0.5f : 1f;
+            FieldEvents.SetTextAlpha(inventorySlot.itemNameTMP, alpha);
+            FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, alpha);
+
+            inventorySlot.button.onClick.AddListener(() => InventorySlotSelected(inventorySlot));
+
+            inventorySlot.onHighlighted = () => 
             {
-                GameObject UIgearSlot = Instantiate(UIFieldMenuGearSlotPrefab);
-                UIgearSlot.transform.SetParent(inventorySlotsParent.transform, false);
+                GearSlotHighlighted(inventorySlot);
+                inventorySlot.itemQuantityTMP.color = Color.yellow;
+                FieldEvents.SetTextAlpha(inventorySlot.itemNameTMP, gear.isCurrentlyEquipped ? 0.5f : 1f);
+                FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, gear.isCurrentlyEquipped ? 0.5f : 1f);
+            };
 
-                InventorySlot inventorySlot = UIgearSlot.GetComponent<InventorySlot>();
-                inventorySlot.gear = gear;
-                inventorySlot.menuGearInventorySubPage = this;
+            inventorySlot.onUnHighlighted = () =>
+            {
+                inventorySlot.itemQuantityTMP.color = Color.white;
+                FieldEvents.SetTextAlpha(inventorySlot.itemNameTMP, gear.isCurrentlyEquipped ? 0.5f : 1f);
+                FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, gear.isCurrentlyEquipped ? 0.5f : 1f);
+            };
 
-                inventorySlot.itemNameTMP.text = gear.gearName;
+            UIgearSlot.name = gear.gearName;
 
-                inventorySlot.itemQuantityTMP.text = ItemQuantityRemaining(inventorySlot.gear);
-
-                float alpha = gear.isCurrentlyEquipped ? 0.5f : 1f;
-                FieldEvents.SetTextAlpha(inventorySlot.itemNameTMP, alpha);
-                FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, alpha);
-
-                inventorySlot.button.onClick.AddListener(() => InventorySlotSelected(inventorySlot));
-
-                UIgearSlot.name = gear.gearName;
-
-                gearSlots.Add(inventorySlot);
-                slotButtons.Add(inventorySlot.button);
-                gearToSlot[gear] = inventorySlot;
-            }
-
-
+            gearSlots.Add(inventorySlot);
+            slotButtons.Add(inventorySlot.button);
+            gearToSlot[gear] = inventorySlot;
         }
 
         FieldEvents.SetGridNavigationWrapAround(slotButtons, 5);
@@ -79,7 +88,7 @@ public class MenuGearInventorySubPage : Menu
 
     public string ItemQuantityRemaining(GearSO gearSO)
     {
-        string itemQuantity;
+        string itemQuantity = "";
 
         if (gearSO is EquipmentSO equipment)
         {
@@ -88,7 +97,7 @@ public class MenuGearInventorySubPage : Menu
 
         else if (gearSO is ConsumbableSO consumable)
         {
-            itemQuantity = "x" + consumable.quantityInInventory;
+            itemQuantity = "x " + consumable.quantityAvailable;
         }
 
         else itemQuantity = null;
@@ -123,7 +132,7 @@ public class MenuGearInventorySubPage : Menu
         menuGearPageSelection.inventoryHighlightedButton.SetButtonNormalColor(Color.white);
     }
 
-    public void InventorySlotSelected(InventorySlot inventorySlot)
+    public void InventorySlotSelected(InventorySlotUI inventorySlot)
     {
         if (inventorySlot.gear.isCurrentlyEquipped) return;
 
@@ -139,7 +148,7 @@ public class MenuGearInventorySubPage : Menu
         menuManagerUI.EnterMenu(menuManagerUI.gearEquipSubPage);
     }
 
-    public void GearSlotHighlighted(InventorySlot inventorySlot)
+    public void GearSlotHighlighted(InventorySlotUI inventorySlot)
     {
         gearValueTMP.text = "Value: " + inventorySlot.gear.value.ToString() + " $MAMS";
         inventorySlotHighlighted = inventorySlot;
@@ -170,11 +179,12 @@ public class MenuGearInventorySubPage : Menu
     {
         playerInventory.UnequipGearFromSlot(gear);
 
-        var slot = gearToSlot[gear];
+        var inventorySlot = gearToSlot[gear];
+        Debug.Log(gearToSlot[gear]);
         gearEquipStatusTMP.text = "Unequipped";
-        FieldEvents.SetTextAlpha(slot.itemNameTMP, 1f);
-        FieldEvents.SetTextAlpha(slot.itemQuantityTMP, 1f);
-        slot.itemQuantityTMP.text = "x" + ItemQuantityRemaining(gear);
+        FieldEvents.SetTextAlpha(inventorySlot.itemNameTMP, 1f);
+        FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, 1f);
+        inventorySlot.itemQuantityTMP.text = ItemQuantityRemaining(inventorySlot.gear);
     }
 
     public override void StateUpdate()
@@ -191,7 +201,7 @@ public class MenuGearInventorySubPage : Menu
                 DisplayMenu(true);
                 GearSlotHighlighted(inventorySlotHighlighted);
                 UnequipHighlightedGear(inventorySlotHighlighted.gear);
-                menuGearEquipSubPage.InitialiseEquipSlots();
+                //menuGearEquipSubPage.InitialiseEquipSlots();
             }
         }
     }

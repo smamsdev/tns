@@ -1,95 +1,93 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ShopBuyMenu : ShopMenu
 {
-    [SerializeField] GameObject descriptionGO;
-    public InventorySlot[] inventorySlot;
     [SerializeField] Button firstButtonToSelect;
-    public List<Gear> shopDynamicInventory = new List<Gear>();
+    public GameObject UIInventorySlotPrefab, inventorySlotsParent;
+    List<Button> slotButtons = new List<Button>();
+    public Shop shop;
 
     public override void DisplayMenu(bool on)
     {
         displayContainer.SetActive(on);
-        descriptionGO.SetActive(false);
-        DisableAllSlots();
-        LoadInventoryStringFromSO();
-        DisplayInventoryToSlot();
     }
 
-    void DisplayInventoryToSlot()
+    public void InstantiateUIShopInventorySlots()
     {
-        for (int i = 0; i < shopDynamicInventory.Count; i++)
+        DeleteAllInventoryUI();
 
+        if (shop.shopGearInventory == null || shop.shopGearInventory.Count == 0)
         {
-            Debug.Log("fix this");
-            //GearSO gearToLoad = shopDynamicInventory[i].GetComponent<Gear>();
-            //inventorySlot[i].gear = gearToLoad;
-            //inventorySlot[i].itemName.text = gearToLoad.gearID;
-            //inventorySlot[i].itemQuantity.text = " x " + gearToLoad.quantityInInventory;
-            //inventorySlot[i].gameObject.SetActive(true);
+            Debug.Log("shop has no items to sell");
+            return;
         }
-    }
 
-    public void LoadInventoryStringFromSO()
-
-    {
-        Debug.Log("fix this");
-        //var gearParent = menuManagerUI.playerInventory.GearParent;
-        ShopMainMenu main = menuManagerUI.mainMenu;
-
-        shopDynamicInventory.Clear();
-
-        Debug.Log("fix");
-        // for (int i = 0; i < main.shopInventorySO.inventoryString.Count; i++)
-        // {
-        //     shopDynamicInventory.Add(gearParent.Find(main.shopInventorySO.inventoryString[i]).GetComponent<Gear>()); ;
-        // }
-    }
-
-    void DisableAllSlots()
-    {
-        for (int i = 0; i < inventorySlot.Length; i++)
+        foreach (GearSO gear in shop.shopGearInventory)
         {
-            inventorySlot[i].gameObject.SetActive(false);
+            GameObject UIInventorySlot = Instantiate(UIInventorySlotPrefab);
+            UIInventorySlot.transform.SetParent(inventorySlotsParent.transform, false);
+
+            InventorySlotUI inventorySlot = UIInventorySlot.GetComponent<InventorySlotUI>();
+            inventorySlot.gear = gear;
+            inventorySlot.itemNameTMP.text = gear.gearName;
+            inventorySlot.itemQuantityTMP.enabled = false;
+
+            inventorySlot.button.onClick.AddListener(() => BuyGear(inventorySlot.gear));
+
+            inventorySlot.onHighlighted = () =>
+            {
+                shopMenuManagerUI.UpdateDescriptionField(inventorySlot.gear);
+            };
+
+            inventorySlot.onUnHighlighted = () =>
+            {
+                //
+            };
+
+            UIInventorySlot.name = "shop item " + gear.gearName;
+
+            slotButtons.Add(inventorySlot.button);
+        }
+
+        FieldEvents.SetGridNavigationWrapAround(slotButtons, 5);
+        firstButtonToSelect = slotButtons[0];
+    }
+
+    public void BuyGear(GearSO gearToBuy)
+    {
+        var smams = shopMenuManagerUI.player.GetComponent<PlayerCombat>().playerPermanentStats.Smams;
+        smams -= gearToBuy.value;
+
+        shopMenuManagerUI.mainMenu.smamsValue.text = smams.ToString(); ;
+        shopMenuManagerUI.smamsColorAnimator.SetTrigger("minus");
+    }
+
+
+    public void DeleteAllInventoryUI()
+    {
+        slotButtons.Clear();
+
+        for (int i = inventorySlotsParent.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(inventorySlotsParent.transform.GetChild(i).gameObject);
         }
     }
 
     public override void EnterMenu()
     {
-        shopButtonHighlighted.SetButtonColor(shopButtonHighlighted.highlightedColor);
-        shopButtonHighlighted.enabled = false;
-        descriptionGO.SetActive(true);
+        shopMenuManagerUI.GearDescriptionGO.SetActive(true);
         firstButtonToSelect.Select();
     }
 
     public override void ExitMenu()
     {
-        shopButtonHighlighted.enabled = true;
-        shopButtonHighlighted.SetButtonColor(Color.white);
-        mainButtonToRevert.Select();
-        menuManagerUI.menuUpdateMethod = menuManagerUI.main;
-    }
-
-    public void BuyGearInSlot(InventorySlot inventorySlot)
-    {
-        GearSO gearToBuy = inventorySlot.gear;
-        //menuManagerUI.playerInventory.inventorySO.inventoryString.Add(gearToBuy.name);
-        //menuManagerUI.playerInventory.LoadInventoryFromSO();
-        Debug.Log("fix this");
-
-        var main = menuManagerUI.mainMenu;
-        main.playerPermanentStats.Smams -= gearToBuy.value;
-        main.smamsValue.text = $"{main.playerPermanentStats.Smams}";
-        menuManagerUI.smamsColorAnimator.SetTrigger("minus");
-
-        DisableAllSlots();
-        LoadInventoryStringFromSO();
-        DisplayInventoryToSlot();
+        Debug.Log("fix");
+        //shopButtonHighlighted.enabled = true;
+        //shopButtonHighlighted.SetButtonColor(Color.white);
+        //mainButtonToRevert.Select();
+        shopMenuManagerUI.menuUpdateMethod = shopMenuManagerUI.mainMenu;
     }
 
     public override void StateUpdate()

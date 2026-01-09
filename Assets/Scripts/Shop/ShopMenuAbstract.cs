@@ -8,9 +8,8 @@ using UnityEngine.UI;
 public abstract class ShopMenu : MonoBehaviour
 {
     public GameObject displayContainer;
-    public Button mainButtonToRevert;
-    public IShopButtonHighlighted shopButtonHighlighted;
-    public ShopManagerUI menuManagerUI;
+    public ShopMenuManagerUI shopMenuManagerUI;
+    public MenuButtonHighlighted lastParentButtonSelected;
 
     public abstract void EnterMenu();
     public abstract void ExitMenu();

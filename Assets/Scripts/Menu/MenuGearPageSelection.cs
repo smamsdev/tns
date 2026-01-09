@@ -16,8 +16,8 @@ public class MenuGearPageSelection : Menu
 
     private void WireButton(MenuButtonHighlighted button, GameObject container)
     {
-        button.onHighlighed = () => container.SetActive(true);
-        button.onUnHighlighed = () => container.SetActive(false);
+        button.onHighlighted = () => container.SetActive(true);
+        button.onUnHighlighted = () => container.SetActive(false);
 
         container.SetActive(false);
     }

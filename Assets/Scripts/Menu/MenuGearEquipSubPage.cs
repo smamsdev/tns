@@ -49,23 +49,11 @@ public class MenuGearEquipSubPage : Menu
 
         else
         {
-            // GearSO gearGettingReplaced = menuGearInventorySubPage.playerInventory.inventorySO.equippedGear[gearEquipSlotSelected.equipSlotNumber];
-
-            //if (gearGettingReplaced != null)
-            //{
-            //    menuGearInventorySubPage.playerInventory.UnequipGearFromSlot(gearGettingReplaced);
-            //
-            //    InventorySlot slot = menuGearInventorySubPage.gearToSlot[gearGettingReplaced];
-            //    menuManagerUI.SetTextAlpha(slot.itemName, 1f);
-            //    menuManagerUI.SetTextAlpha(slot.itemQuantity, 1f);
-            //    slot.itemQuantity.text = "x" + gearGettingReplaced.quantityInInventory.ToString();
-            //}
-
             var inventorySlot = menuGearInventorySubPage.inventorySlotSelected;
 
             GearSO geartoEquip = inventorySlot.gear;
             menuGearInventorySubPage.playerInventory.EquipGearToSlot(geartoEquip, gearEquipSlotSelected.equipSlotNumber);
-            
+
             FieldEvents.SetTextAlpha(inventorySlot.itemNameTMP, 0.5f);
             FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, 0.5f);
 
@@ -76,7 +64,7 @@ public class MenuGearEquipSubPage : Menu
 
             else if (inventorySlot.gear is ConsumbableSO consumable)
             {
-                inventorySlot.itemQuantityTMP.text = "x" + consumable.quantityInInventory;
+                inventorySlot.itemQuantityTMP.text = "x" + consumable.quantityAvailable;
             }
 
             InitialiseEquipSlots();
@@ -91,6 +79,25 @@ public class MenuGearEquipSubPage : Menu
 
             isEquipping = false;
         }
+    }
+
+    public string ItemQuantityRemaining(GearSO gearSO)
+    {
+        string itemQuantity = "";
+
+        if (gearSO is EquipmentSO equipment)
+        {
+            itemQuantity = equipment.Potential + "%";
+        }
+
+        else if (gearSO is ConsumbableSO consumable)
+        {
+            itemQuantity = "x " + consumable.quantityAvailable;
+        }
+
+        else itemQuantity = null;
+
+        return itemQuantity;
     }
 
     public override void EnterMenu()

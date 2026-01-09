@@ -29,12 +29,12 @@ public class menuMain : Menu
         {
             int index = i;
 
-            sideButtonsHighlighted[i].onHighlighed = () =>
+            sideButtonsHighlighted[i].onHighlighted = () =>
             {
                 blueUnderlines[index].SetActive(true);
             };
 
-            sideButtonsHighlighted[i].onUnHighlighed = () =>
+            sideButtonsHighlighted[i].onUnHighlighted = () =>
             {
                 blueUnderlines[index].SetActive(false);
             };

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class ConsumbableSO : GearSO
 {
-    public int quantityInInventory;
+    public int quantityAvailable;
 }

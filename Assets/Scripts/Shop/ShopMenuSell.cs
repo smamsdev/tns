@@ -5,23 +5,21 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopMenuSell : ShopMenu
+public class ShopSellMenu : ShopMenu
 {
     [SerializeField] Button firstButtonToSelect;
     public GameObject itemDescriptionGO;
-    public InventorySlot[] inventorySlot;
+    public InventorySlotUI[] inventorySlot;
     public GameObject noItemsDisplay;
 
     public override void DisplayMenu(bool on)
-
     {
-        itemDescriptionGO.SetActive(false);
-        LoadInventory();
+        //itemDescriptionGO.SetActive(false);
+        //LoadInventory();
         displayContainer.SetActive(on);
     }
 
-    void LoadInventory()
-
+    public void InstantiateUIInventorySlots()
     {
         DisableAllSlots();
 
@@ -73,15 +71,16 @@ public class ShopMenuSell : ShopMenu
     }
 
     public override void ExitMenu()
-
     {
-        shopButtonHighlighted.enabled = true;
-        shopButtonHighlighted.SetButtonColor(Color.white);
-        mainButtonToRevert.Select();
-        menuManagerUI.menuUpdateMethod = menuManagerUI.main;
+        Debug.Log("fix this");
+
+        //shopButtonHighlighted.enabled = true;
+        //shopButtonHighlighted.SetButtonColor(Color.white);
+        //mainButtonToRevert.Select();
+        shopMenuManagerUI.menuUpdateMethod = shopMenuManagerUI.mainMenu;
     }
 
-    public void SellGearInSlot(InventorySlot slotPressed)
+    public void SellGearInSlot(InventorySlotUI slotPressed)
     { 
         GearSO gearToSell = slotPressed.gear;
 
@@ -92,12 +91,12 @@ public class ShopMenuSell : ShopMenu
         //menuManagerUI.playerInventory.inventorySO.inventoryString.Remove(gearToSell.name);
         //menuManagerUI.playerInventory.LoadInventoryFromSO();
         Debug.Log("fix this");
-        LoadInventory();
+        InstantiateUIInventorySlots();
 
-        var main = menuManagerUI.mainMenu;
-        main.playerPermanentStats.Smams += gearToSell.value / 2;
-        main.smamsValue.text = $"{main.playerPermanentStats.Smams}";
-        menuManagerUI.smamsColorAnimator.SetTrigger("plus");
+        //var main = menuManagerUI.mainMenu;
+        //main.playerPermanentStats.Smams += gearToSell.value / 2;
+        //main.smamsValue.text = $"{main.playerPermanentStats.Smams}";
+        //menuManagerUI.smamsColorAnimator.SetTrigger("plus");
 
        //if (gearToSell.quantityInInventory == 0)
        //

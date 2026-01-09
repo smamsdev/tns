@@ -5,12 +5,14 @@ using UnityEngine.EventSystems;
 
 public class IShopButtonHighlighted : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
+    //delete
+
     [SerializeField] ShopMenu menuToDisplay;
     [SerializeField] GameObject blueUnderLine;
     public Color highlightedColor;
     public Button button;
 
-    [SerializeField] ShopManagerUI shopManagerUI;
+    [SerializeField] ShopMenuManagerUI shopManagerUI;
 
     private void OnEnable()
     {

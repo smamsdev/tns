@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class ShopMenuExit : ShopMenu
+public class ShopExitMenu : ShopMenu
 {
     public override void DisplayMenu(bool on)
     {

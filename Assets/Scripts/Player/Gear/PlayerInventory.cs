@@ -66,23 +66,34 @@ public class PlayerInventory : MonoBehaviour
 
     public void AddGearToInventory(GearSO gearSO)
     {
-        inventorySO.gearInventory.Add(gearSO);
-
-        if (gearSO is ConsumbableSO consumable)
+        if (gearSO is EquipmentSO equipment)
         {
-            consumable.quantityInInventory++;
+            inventorySO.gearInventory.Add(equipment);
         }
+
+        else if (gearSO is ConsumbableSO consumable)
+        {
+            if (inventorySO.gearInventory.Contains(consumable))
+                consumable.quantityAvailable++;
+
+            else
+                inventorySO.gearInventory.Add(consumable);
+        }
+
+        inventorySO.gearInventory.Sort((a, b) => a.name.CompareTo(b.name));
     }
 
     public void RemoveGearFromInventory(GearSO gearSO)
     {
-        Debug.Log("fix this for stacks");
-        //inventorySO.gearInventory.Remove(gearSO);
-
         if (gearSO is ConsumbableSO consumable)
         {
-            consumable.quantityInInventory--;
+            consumable.quantityAvailable--;
+            if (consumable.quantityAvailable == 0 )
+                inventorySO.gearInventory.Remove(consumable);   
         }
+
+        else if (gearSO is EquipmentSO equipment)
+            inventorySO.gearInventory.Remove(equipment);
     }
 
     public void EquipGearToSlot(GearSO gearSlOToEquip, int equipSlotNumber)
@@ -93,16 +104,25 @@ public class PlayerInventory : MonoBehaviour
         }
 
         gearSlOToEquip.isCurrentlyEquipped = true;
-        RemoveGearFromInventory(gearSlOToEquip);
+
+        if (gearSlOToEquip is ConsumbableSO consumable)
+        {
+            consumable.quantityAvailable--;
+        }
+
         inventorySO.equippedGear[equipSlotNumber] = gearSlOToEquip;
     }
-        
+
     public void UnequipGearFromSlot(GearSO gearToUnequip)
     {
         gearToUnequip.isCurrentlyEquipped = false;
-        AddGearToInventory(gearToUnequip);
         int index = inventorySO.equippedGear.IndexOf(gearToUnequip);
         inventorySO.equippedGear[index] = null;
+
+        if (gearToUnequip is ConsumbableSO consumable)
+        {
+            consumable.quantityAvailable++;
+        }
     }
 
     public void GearConsumed(GearSO gearToUnequip)

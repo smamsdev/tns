@@ -9,7 +9,6 @@ using UnityEngine.InputSystem;
 public class ShopMainMenu : ShopMenu
 {
     [Header("")]
-    public InventorySO shopInventorySO;
     [HideInInspector] public PlayerPermanentStats playerPermanentStats;
     [HideInInspector] public PlayerInventory playerInventory;
     public TextMeshProUGUI smamsValue;
@@ -24,8 +23,9 @@ public class ShopMainMenu : ShopMenu
             isMenuOn = true;
             displayContainer.SetActive(true);
             smamsValue.text = $"{playerPermanentStats.Smams}";
+            shopMenuManagerUI.GearDescriptionGO.SetActive(false);
             firstMenuButton.Select(); //Ihandler uses this to trigger DisplayMenu method 
-            menuManagerUI.DisplayMenu(menuManagerUI.buy);
+            //menuManagerUI.DisplayMenu(menuManagerUI.buy);
 
             CombatEvents.LockPlayerMovement();
             return;
