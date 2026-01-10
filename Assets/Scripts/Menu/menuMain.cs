@@ -21,6 +21,8 @@ public class menuMain : Menu
     public MenuGearInventorySubPage menuGearInventorySubPage;
     public PlayerCombat playerCombat;
 
+    public GameObject masterMenuContainer;
+
     private bool isMenuOn = false;
 
     void WireButtons()
@@ -70,7 +72,7 @@ public class menuMain : Menu
         locationTMP.text = FieldEvents.sceneName;
         isMenuOn = true;
 
-        //menuGO.SetActive(true);
+        masterMenuContainer.SetActive(true);
         animator.SetBool("Open", true);
         firstMenuButton.Select();
 
@@ -111,7 +113,7 @@ public class menuMain : Menu
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!isMenuOn && FieldEvents.movementLocked) return;
+            if (!isMenuOn && FieldEvents.movementLocked || FieldEvents.isShopping) return;
 
             ToggleMainMenu(!isMenuOn);
 

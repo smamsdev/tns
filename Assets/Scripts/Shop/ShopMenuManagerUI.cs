@@ -19,6 +19,7 @@ public class ShopMenuManagerUI : MonoBehaviour
 
     public GameObject player;
     public PlayerInventory playerInventory;
+    public PlayerPermanentStats playerPermanentStats;
 
     [Header("MENUS")]
     public ShopMainMenu mainMenu;
@@ -34,29 +35,28 @@ public class ShopMenuManagerUI : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerInventory = player.GetComponentInChildren<PlayerInventory>();
+        playerPermanentStats = player.GetComponentInChildren<PlayerCombat>().playerPermanentStats;
 
         buyMenu.InstantiateUIShopInventorySlots();
-        //sellMenu.InstantiateUIInventorySlots();
+        sellMenu.InstantiateUIInventorySlots();
         WireAllMainButtons();
-
+        mainMenu.OpenShop();
         DisplayMenu(mainMenu);
-        menuUpdateMethod = mainMenu;
+        EnterSubMenu(mainMenu);
         mainShopMenuButtons[0].onHighlighted();
     }
 
-    void WireAllMainButtons()
+    public void WireAllMainButtons()
     {
-        WireButtonHighlightContainerDisplays(mainShopMenuButtons[0], mainShopDisplayContainers[0]);
-        WireButtonHighlightContainerDisplays(mainShopMenuButtons[1], mainShopDisplayContainers[1]);
-        WireButtonHighlightContainerDisplays(mainShopMenuButtons[2], mainShopDisplayContainers[2]);
+        WireButtonHighlightContainerDisplays(mainShopMenuButtons[0], buyMenu);
+        WireButtonHighlightContainerDisplays(mainShopMenuButtons[1], sellMenu);
+        WireButtonHighlightContainerDisplays(mainShopMenuButtons[2], exitMenu);
     }
 
-    void WireButtonHighlightContainerDisplays(MenuButtonHighlighted button, GameObject container)
+    void WireButtonHighlightContainerDisplays(MenuButtonHighlighted button, ShopMenu shopMenuToDisplay)
     {
-        button.onHighlighted = () => container.SetActive(true);
-        button.onUnHighlighted = () => container.SetActive(false);
-
-        container.SetActive(false);
+        button.onHighlighted = () => DisplayMenu(shopMenuToDisplay);
+        button.onUnHighlighted = () => { };
     }
 
     public void DisplayMenu(ShopMenu shopMenuToDisplay)

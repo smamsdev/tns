@@ -73,11 +73,10 @@ public class PlayerInventory : MonoBehaviour
 
         else if (gearSO is ConsumbableSO consumable)
         {
-            if (inventorySO.gearInventory.Contains(consumable))
-                consumable.quantityAvailable++;
-
-            else
+            if (!inventorySO.gearInventory.Contains(consumable))
                 inventorySO.gearInventory.Add(consumable);
+
+            consumable.quantityAvailable++;
         }
 
         inventorySO.gearInventory.Sort((a, b) => a.name.CompareTo(b.name));
@@ -88,7 +87,7 @@ public class PlayerInventory : MonoBehaviour
         if (gearSO is ConsumbableSO consumable)
         {
             consumable.quantityAvailable--;
-            if (consumable.quantityAvailable == 0 )
+            if (consumable.quantityAvailable <= 0 )
                 inventorySO.gearInventory.Remove(consumable);   
         }
 

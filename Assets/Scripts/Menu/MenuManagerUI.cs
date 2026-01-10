@@ -17,7 +17,6 @@ public class MenuManagerUI : MonoBehaviour
     private void Start()
     {
         menuUpdateMethod = main;
-        ClearThenDisplayMenu(main);
         foreach (GameObject go in subPageGOs) 
         { 
             go.SetActive(true);

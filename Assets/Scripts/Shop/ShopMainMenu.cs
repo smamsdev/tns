@@ -9,39 +9,36 @@ using UnityEngine.InputSystem;
 public class ShopMainMenu : ShopMenu
 {
     [Header("")]
-    [HideInInspector] public PlayerPermanentStats playerPermanentStats;
-    [HideInInspector] public PlayerInventory playerInventory;
     public TextMeshProUGUI smamsValue;
     public Button firstMenuButton;
 
-    public bool isMenuOn;
+    private void OnEnable()
+    {
+        FieldEvents.isShopping = false;
+    }
 
     public override void DisplayMenu(bool on)
     {
-        if (!isMenuOn)
-        {
-            isMenuOn = true;
-            displayContainer.SetActive(true);
-            smamsValue.text = $"{playerPermanentStats.Smams}";
-            shopMenuManagerUI.GearDescriptionGO.SetActive(false);
-            firstMenuButton.Select(); //Ihandler uses this to trigger DisplayMenu method 
-            //menuManagerUI.DisplayMenu(menuManagerUI.buy);
+        //
+    }
 
-            CombatEvents.LockPlayerMovement();
-            return;
-        }
-
-        if (isMenuOn)
-        {
-            CombatEvents.UnlockPlayerMovement();
-            displayContainer.SetActive(false);
-            isMenuOn = false;
-        }
+    public void OpenShop()
+    {
+        CombatEvents.LockPlayerMovement();
+        FieldEvents.isShopping = true;
+        UpdateSmamsUI();
+        EnterMenu();
     }
 
     public override void EnterMenu()
     {
-        throw new System.NotImplementedException();
+            shopMenuManagerUI.GearDescriptionGO.SetActive(false);
+            firstMenuButton.Select(); 
+    }
+
+    public void UpdateSmamsUI()
+    {
+        smamsValue.text = shopMenuManagerUI.playerPermanentStats.Smams.ToString("N0");
     }
 
     public override void ExitMenu()

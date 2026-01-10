@@ -7,110 +7,144 @@ using UnityEngine.UI;
 
 public class ShopSellMenu : ShopMenu
 {
-    [SerializeField] Button firstButtonToSelect;
-    public GameObject itemDescriptionGO;
-    public InventorySlotUI[] inventorySlot;
-    public GameObject noItemsDisplay;
+    public Button firstButtonToSelect;
+    public GameObject UIInventorySlotPrefab, inventorySlotsParent, noneGO;
+    public List<Button> inventorySlotButtons = new List<Button>();
+    int highlightedButtonIndex;
 
     public override void DisplayMenu(bool on)
     {
-        //itemDescriptionGO.SetActive(false);
-        //LoadInventory();
         displayContainer.SetActive(on);
     }
 
     public void InstantiateUIInventorySlots()
     {
-        DisableAllSlots();
+        DeleteAllInventoryUI();
 
-        Debug.Log("fix this");
-        //for (int i = 0; i < menuManagerUI.playerInventory.inventory.Count; i++)
-        //
-        //{
-        //    Gear gearToLoad = menuManagerUI.playerInventory.inventory[i].GetComponent<Gear>();
-        //    inventorySlot[i].gear = gearToLoad;
-        //    inventorySlot[i].itemName.text = gearToLoad.gearID;
-        //    inventorySlot[i].itemQuantity.text = " x " + gearToLoad.quantityInInventory;
-        //    inventorySlot[i].gameObject.SetActive(true);
-        //}
-        //
-        //if (menuManagerUI.playerInventory.inventory.Count == 0)
-        //
-        //{
-        //    ExitMenu();
-        //    noItemsDisplay.SetActive(true);
-        //}
+        var gearInventory = shopMenuManagerUI.playerInventory.inventorySO.gearInventory;
+
+        if (gearInventory == null || gearInventory.Count == 0)
+        {
+            noneGO.SetActive(true);
+            return;
+        }
+
+        noneGO.SetActive(false);
+
+        foreach (GearSO gear in gearInventory)
+        {
+            GameObject UIInventorySlotGO = Instantiate(UIInventorySlotPrefab);
+            UIInventorySlotGO.transform.SetParent(inventorySlotsParent.transform, false);
+
+            InventorySlotUI inventorySlot = UIInventorySlotGO.GetComponent<InventorySlotUI>();
+            inventorySlot.gear = gear;
+            inventorySlot.itemNameTMP.text = gear.gearName;
+            inventorySlot.itemQuantityTMP.text = ItemQuantityRemaining(gear);
+
+            bool isEquipment = gear is EquipmentSO;
+            SetInventorySlotColor(inventorySlot, isEquipment ? inventorySlot.equipmentColor : inventorySlot.consumableColor);
+
+            inventorySlotButtons.Add(inventorySlot.button);
+
+            inventorySlot.button.onClick.AddListener(() => SellGearInSlot(gear));
+
+            inventorySlot.onHighlighted = () =>
+            {
+                shopMenuManagerUI.UpdateDescriptionField(gear);
+                SetInventorySlotColor(inventorySlot, Color.yellow);
+                highlightedButtonIndex = inventorySlotButtons.IndexOf(inventorySlot.button);
+            };
+
+            inventorySlot.onUnHighlighted = () =>
+            {
+                SetInventorySlotColor(inventorySlot, isEquipment ? inventorySlot.equipmentColor : inventorySlot.consumableColor);
+            };
+
+            UIInventorySlotGO.name = gear.gearName;
+        }
+
+        FieldEvents.SetGridNavigationWrapAround(inventorySlotButtons, 5);
     }
 
-    void DisableAllSlots()
+    void SetInventorySlotColor(InventorySlotUI inventorySlot, Color normalColor)
     {
-        for (int i = 0; i < inventorySlot.Length; i++)
+        inventorySlot.itemNameTMP.color = normalColor;
+        inventorySlot.itemQuantityTMP.color = normalColor;
+
+        float alpha = inventorySlot.gear.isCurrentlyEquipped ? 0.7f : 1f;
+        FieldEvents.SetTextAlpha(inventorySlot.itemNameTMP, alpha);
+        FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, alpha);
+    }
+
+    string ItemQuantityRemaining(GearSO gearSO)
+    {
+        if (gearSO is EquipmentSO equipment)
+            return ": " + equipment.Potential + "%";
+        if (gearSO is ConsumbableSO consumable)
+            return "x " + consumable.quantityAvailable;
+        return "";
+    }
+
+    public void DeleteAllInventoryUI()
+    {
+        inventorySlotButtons.Clear();
+
+        for (int i = inventorySlotsParent.transform.childCount - 1; i >= 0; i--)
         {
-            inventorySlot[i].gameObject.SetActive(false);
+            Destroy(inventorySlotsParent.transform.GetChild(i).gameObject);
         }
-        noItemsDisplay.SetActive(false);
     }
 
     public override void EnterMenu()
     {
-        Debug.Log("fix this");
-        //if (menuManagerUI.playerInventory.inventory.Count != 0)
-        //
-        //{
-        //    shopButtonHighlighted.SetButtonColor(shopButtonHighlighted.highlightedColor);
-        //    shopButtonHighlighted.enabled = false;
-        //    itemDescriptionGO.SetActive(true);
-        //    firstButtonToSelect.Select();
-        //}
-        //
-        //if (menuManagerUI.playerInventory.inventory.Count == 0) 
-        //
-        //{
-        //    return;
-        //}
+        if (shopMenuManagerUI.playerInventory.inventorySO.gearInventory.Count > 0)
+        {
+            shopMenuManagerUI.mainShopMenuButtons[1].ButtonSelectedAndDisabled();
+            shopMenuManagerUI.GearDescriptionGO.SetActive(true);
+            shopMenuManagerUI.mainMenu.firstMenuButton = shopMenuManagerUI.mainShopMenuButtons[1].button;
+            if (!firstButtonToSelect) { firstButtonToSelect = inventorySlotButtons[0]; }
+            firstButtonToSelect.Select();
+        }
     }
 
     public override void ExitMenu()
     {
-        Debug.Log("fix this");
-
-        //shopButtonHighlighted.enabled = true;
-        //shopButtonHighlighted.SetButtonColor(Color.white);
-        //mainButtonToRevert.Select();
+        shopMenuManagerUI.WireAllMainButtons();
         shopMenuManagerUI.menuUpdateMethod = shopMenuManagerUI.mainMenu;
+        shopMenuManagerUI.EnterSubMenu(shopMenuManagerUI.mainMenu);
+        shopMenuManagerUI.mainShopMenuButtons[1].SetButtonNormalColor(Color.white);
     }
 
-    public void SellGearInSlot(InventorySlotUI slotPressed)
+    public void SellGearInSlot(GearSO gearToSell)
     { 
-        GearSO gearToSell = slotPressed.gear;
-
-        Debug.Log("fix"); //only the player inventory should maange this data
-        //gearToSell.quantityInInventory--;
-
-
-        //menuManagerUI.playerInventory.inventorySO.inventoryString.Remove(gearToSell.name);
-        //menuManagerUI.playerInventory.LoadInventoryFromSO();
-        Debug.Log("fix this");
+        shopMenuManagerUI.playerInventory.RemoveGearFromInventory(gearToSell);
         InstantiateUIInventorySlots();
 
-        //var main = menuManagerUI.mainMenu;
-        //main.playerPermanentStats.Smams += gearToSell.value / 2;
-        //main.smamsValue.text = $"{main.playerPermanentStats.Smams}";
-        //menuManagerUI.smamsColorAnimator.SetTrigger("plus");
+        if (inventorySlotButtons.Count == 0)
+        {
+            ExitMenu();
+            return;
+        }
 
-       //if (gearToSell.quantityInInventory == 0)
-       //
-       //{
-       //    if (slotPressed == inventorySlot[0])
-       //    {
-       //        return;
-       //    }
-       //
-       //    else 
-       //    {
-       //        inventorySlot[(int.Parse(slotPressed.name) - 1)].GetComponent<Button>().Select();
-       //    }
-       //}
+        if (highlightedButtonIndex >= inventorySlotButtons.Count)
+        {
+            highlightedButtonIndex = inventorySlotButtons.Count - 1;
+        }
+
+        highlightedButtonIndex = Mathf.Clamp(
+            highlightedButtonIndex,
+            0,
+            inventorySlotButtons.Count - 1
+        );
+
+        firstButtonToSelect = inventorySlotButtons[highlightedButtonIndex];
+        firstButtonToSelect.Select();
+
+        var stats = shopMenuManagerUI.player.GetComponent<PlayerCombat>().playerPermanentStats;
+
+        stats.Smams += gearToSell.value;
+        shopMenuManagerUI.mainMenu.smamsValue.text = stats.Smams.ToString();
+        shopMenuManagerUI.smamsColorAnimator.SetTrigger("plus");
     }
 
     public override void StateUpdate()

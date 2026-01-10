@@ -55,25 +55,20 @@ public class MenuGearInventorySubPage : Menu
 
             inventorySlot.itemQuantityTMP.text = ItemQuantityRemaining(inventorySlot.gear);
 
-            float alpha = gear.isCurrentlyEquipped ? 0.5f : 1f;
-            FieldEvents.SetTextAlpha(inventorySlot.itemNameTMP, alpha);
-            FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, alpha);
+            bool isEquipment = gear is EquipmentSO;
+            SetInventorySlotColor(inventorySlot, isEquipment ? inventorySlot.equipmentColor : inventorySlot.consumableColor);
 
             inventorySlot.button.onClick.AddListener(() => InventorySlotSelected(inventorySlot));
 
             inventorySlot.onHighlighted = () => 
             {
                 GearSlotHighlighted(inventorySlot);
-                inventorySlot.itemQuantityTMP.color = Color.yellow;
-                FieldEvents.SetTextAlpha(inventorySlot.itemNameTMP, gear.isCurrentlyEquipped ? 0.5f : 1f);
-                FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, gear.isCurrentlyEquipped ? 0.5f : 1f);
+                SetInventorySlotColor(inventorySlot, Color.yellow);
             };
 
             inventorySlot.onUnHighlighted = () =>
             {
-                inventorySlot.itemQuantityTMP.color = Color.white;
-                FieldEvents.SetTextAlpha(inventorySlot.itemNameTMP, gear.isCurrentlyEquipped ? 0.5f : 1f);
-                FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, gear.isCurrentlyEquipped ? 0.5f : 1f);
+                SetInventorySlotColor(inventorySlot, isEquipment ? inventorySlot.equipmentColor : inventorySlot.consumableColor);
             };
 
             UIgearSlot.name = gear.gearName;
@@ -86,23 +81,23 @@ public class MenuGearInventorySubPage : Menu
         FieldEvents.SetGridNavigationWrapAround(slotButtons, 5);
     }
 
-    public string ItemQuantityRemaining(GearSO gearSO)
+    void SetInventorySlotColor(InventorySlotUI inventorySlot, Color normalColor)
     {
-        string itemQuantity = "";
+        inventorySlot.itemNameTMP.color = normalColor;
+        inventorySlot.itemQuantityTMP.color = normalColor;
 
+        float alpha = inventorySlot.gear.isCurrentlyEquipped ? 0.7f : 1f;
+        FieldEvents.SetTextAlpha(inventorySlot.itemNameTMP, alpha);
+        FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, alpha);
+    }
+
+    string ItemQuantityRemaining(GearSO gearSO)
+    {
         if (gearSO is EquipmentSO equipment)
-        {
-            itemQuantity = equipment.Potential + "%";
-        }
-
-        else if (gearSO is ConsumbableSO consumable)
-        {
-            itemQuantity = "x " + consumable.quantityAvailable;
-        }
-
-        else itemQuantity = null;
-
-        return itemQuantity;
+            return ": " + equipment.Potential + "%";
+        if (gearSO is ConsumbableSO consumable)
+            return "x " + consumable.quantityAvailable;
+        return "";
     }
 
     public void DeleteAllInventoryUI()

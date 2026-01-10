@@ -14,6 +14,8 @@ public class InventorySlotUI : MonoBehaviour, ISelectHandler, IDeselectHandler
     public TextMeshProUGUI itemQuantityTMP;
     public MenuGearInventorySubPage menuGearInventorySubPage;
     public Button button;
+    public Color equipmentColor;
+    public Color consumableColor;
 
     public virtual void OnSelect(BaseEventData eventData)
     {

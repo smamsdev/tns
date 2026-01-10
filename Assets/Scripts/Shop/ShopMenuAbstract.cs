@@ -9,7 +9,6 @@ public abstract class ShopMenu : MonoBehaviour
 {
     public GameObject displayContainer;
     public ShopMenuManagerUI shopMenuManagerUI;
-    public MenuButtonHighlighted lastParentButtonSelected;
 
     public abstract void EnterMenu();
     public abstract void ExitMenu();

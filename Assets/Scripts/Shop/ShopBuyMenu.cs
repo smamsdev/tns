@@ -57,13 +57,20 @@ public class ShopBuyMenu : ShopMenu
 
     public void BuyGear(GearSO gearToBuy)
     {
-        var smams = shopMenuManagerUI.player.GetComponent<PlayerCombat>().playerPermanentStats.Smams;
-        smams -= gearToBuy.value;
+        var stats = shopMenuManagerUI.player.GetComponent<PlayerCombat>().playerPermanentStats;
 
-        shopMenuManagerUI.mainMenu.smamsValue.text = smams.ToString(); ;
-        shopMenuManagerUI.smamsColorAnimator.SetTrigger("minus");
+        if (stats.Smams >= gearToBuy.value)
+        {
+            stats.Smams -= gearToBuy.value;
+
+            shopMenuManagerUI.playerInventory.AddGearToInventory(gearToBuy);
+
+            shopMenuManagerUI.mainMenu.smamsValue.text = stats.Smams.ToString(); ;
+            shopMenuManagerUI.smamsColorAnimator.SetTrigger("minus");
+            shopMenuManagerUI.sellMenu.InstantiateUIInventorySlots();
+            shopMenuManagerUI.sellMenu.firstButtonToSelect = shopMenuManagerUI.sellMenu.inventorySlotButtons[0];
+        }
     }
-
 
     public void DeleteAllInventoryUI()
     {
@@ -77,17 +84,18 @@ public class ShopBuyMenu : ShopMenu
 
     public override void EnterMenu()
     {
+        shopMenuManagerUI.mainShopMenuButtons[0].ButtonSelectedAndDisabled();
         shopMenuManagerUI.GearDescriptionGO.SetActive(true);
+        shopMenuManagerUI.mainMenu.firstMenuButton = shopMenuManagerUI.mainShopMenuButtons[0].button;
         firstButtonToSelect.Select();
     }
 
     public override void ExitMenu()
     {
-        Debug.Log("fix");
-        //shopButtonHighlighted.enabled = true;
-        //shopButtonHighlighted.SetButtonColor(Color.white);
-        //mainButtonToRevert.Select();
+        shopMenuManagerUI.WireAllMainButtons();
         shopMenuManagerUI.menuUpdateMethod = shopMenuManagerUI.mainMenu;
+        shopMenuManagerUI.EnterSubMenu(shopMenuManagerUI.mainMenu);
+        shopMenuManagerUI.mainShopMenuButtons[0].SetButtonNormalColor(Color.white);
     }
 
     public override void StateUpdate()
