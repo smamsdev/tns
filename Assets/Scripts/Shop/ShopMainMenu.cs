@@ -9,7 +9,8 @@ using UnityEngine.InputSystem;
 public class ShopMainMenu : ShopMenu
 {
     [Header("")]
-    public TextMeshProUGUI smamsValue;
+    public TextMeshProUGUI shopnameTMP;
+    public TextMeshProUGUI smamsInventoryTMP;
     public Button firstMenuButton;
 
     private void OnEnable()
@@ -38,7 +39,7 @@ public class ShopMainMenu : ShopMenu
 
     public void UpdateSmamsUI()
     {
-        smamsValue.text = shopMenuManagerUI.playerPermanentStats.Smams.ToString("N0");
+        smamsInventoryTMP.text = shopMenuManagerUI.playerPermanentStats.Smams.ToString("N0");
     }
 
     public override void ExitMenu()

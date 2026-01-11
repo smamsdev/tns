@@ -63,9 +63,14 @@ public class ShopBuyMenu : ShopMenu
         {
             stats.Smams -= gearToBuy.value;
 
+            GearSO gearSOCopy = Instantiate(gearToBuy);
+
             shopMenuManagerUI.playerInventory.AddGearToInventory(gearToBuy);
 
-            shopMenuManagerUI.mainMenu.smamsValue.text = stats.Smams.ToString(); ;
+            TestDynamicInventory inventory = GameObject.FindGameObjectWithTag("TDI").GetComponent<TestDynamicInventory>();
+            inventory.AddGear(gearSOCopy);
+
+            shopMenuManagerUI.mainMenu.smamsInventoryTMP.text = stats.Smams.ToString(); ;
             shopMenuManagerUI.smamsColorAnimator.SetTrigger("minus");
             shopMenuManagerUI.sellMenu.InstantiateUIInventorySlots();
             shopMenuManagerUI.sellMenu.firstButtonToSelect = shopMenuManagerUI.sellMenu.inventorySlotButtons[0];

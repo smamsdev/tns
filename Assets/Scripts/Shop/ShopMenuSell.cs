@@ -143,7 +143,7 @@ public class ShopSellMenu : ShopMenu
         var stats = shopMenuManagerUI.player.GetComponent<PlayerCombat>().playerPermanentStats;
 
         stats.Smams += gearToSell.value;
-        shopMenuManagerUI.mainMenu.smamsValue.text = stats.Smams.ToString();
+        shopMenuManagerUI.mainMenu.smamsInventoryTMP.text = stats.Smams.ToString();
         shopMenuManagerUI.smamsColorAnimator.SetTrigger("plus");
     }
 

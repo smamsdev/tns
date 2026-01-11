@@ -7,6 +7,19 @@ public class PlayerInventory : MonoBehaviour
 {
     public InventorySO inventorySO;
 
+    public GearSO testGear;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+            {
+                GearInstance test = new GearInstance();
+            test.gearSO = testGear;
+            test.charges = 69;
+            inventorySO.gearInstances.Add(test);
+            }
+    }
+
     private void OnEnable()
     {
         foreach (GearSO gear in inventorySO.gearInventory)
