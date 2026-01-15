@@ -9,7 +9,7 @@ public class InventorySlotUI : MonoBehaviour, ISelectHandler, IDeselectHandler
     public Action onHighlighted;
     public Action onUnHighlighted;
 
-    public GearSO gear;
+    public GearInstance gearInstance;
     public TextMeshProUGUI itemNameTMP;
     public TextMeshProUGUI itemQuantityTMP;
     public MenuGearInventorySubPage menuGearInventorySubPage;

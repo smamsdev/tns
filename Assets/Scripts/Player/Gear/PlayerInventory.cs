@@ -1,3 +1,4 @@
+using NUnit.Framework.Internal;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -7,53 +8,28 @@ public class PlayerInventory : MonoBehaviour
 {
     public InventorySO inventorySO;
 
-    public GearSO testGear;
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-            {
-                GearInstance test = new GearInstance();
-            test.gearSO = testGear;
-            test.charges = 69;
-            inventorySO.gearInstances.Add(test);
-            }
-    }
-
-    private void OnEnable()
-    {
-        foreach (GearSO gear in inventorySO.gearInventory)
-        {
-            if (gear != null) gear.isCurrentlyEquipped = false;
-        }
-
-        foreach (GearSO gear in inventorySO.equippedGear)
-        {
-            if (gear != null)
-            {
-                gear.isCurrentlyEquipped = true;
-            }
-        }
-    }
+    public EquipmentSO testGear;
 
     public void InstantiateAllEquippedGear(CombatManager combatManager)
     {
-        foreach (GearSO gearSO in inventorySO.equippedGear)
+        foreach (GearInstance gearInstance in inventorySO.gearInstanceEquipped)
         {
-            if (gearSO != null)
-            { 
-                GameObject gearInstanceGO = Instantiate(gearSO.gearPrefab);
-                gearInstanceGO.name = gearSO.gearName + "Instance";
-                gearInstanceGO.transform.SetParent(this.transform, false);
+            Debug.Log("fix");
 
-                Gear gearInstance = gearInstanceGO.GetComponent<Gear>();
-                gearSO.gearInstance = gearInstance;
-                gearInstance.combatManager = combatManager;
-                gearInstance.OnEquipGear();
-
-                if (gearSO is ConsumbableSO)
-                { gearInstance.turnsUntilConsumed = -1; }
-            }
+          //  if (gearInstance != null)
+          //  { 
+          //      GameObject gearInstanceGO = Instantiate(gearInstance.gearPrefab);
+          //      gearInstanceGO.name = gearInstance.gearName + "Instance";
+          //      gearInstanceGO.transform.SetParent(this.transform, false);
+          //
+          //      Gear gearInstance = gearInstanceGO.GetComponent<Gear>();
+          //      gearSO.gearInstance = gearInstance;
+          //      gearInstance.combatManager = combatManager;
+          //      gearInstance.OnEquipGear();
+          //
+          //      if (gearSO is ConsumbableSO)
+          //      { gearInstance.turnsUntilConsumed = -1; }
+          //  }
         }
     }
 
@@ -77,70 +53,61 @@ public class PlayerInventory : MonoBehaviour
         gearSO.gearInstance = null;
     }
 
-    public void AddGearToInventory(GearSO gearSO)
+    public void AddGearToInventory(GearInstance gearInstanceToAdd)
     {
-        if (gearSO is EquipmentSO equipment)
-        {
-            inventorySO.gearInventory.Add(equipment);
-        }
-
-        else if (gearSO is ConsumbableSO consumable)
-        {
-            if (!inventorySO.gearInventory.Contains(consumable))
-                inventorySO.gearInventory.Add(consumable);
-
-            consumable.quantityAvailable++;
-        }
-
-        inventorySO.gearInventory.Sort((a, b) => a.name.CompareTo(b.name));
+        inventorySO.gearInstanceInventory.Add(gearInstanceToAdd);
+        //inventorySO.gearInstanceInventory.Sort((a, b) => a.name.CompareTo(b.name));
     }
 
-    public void RemoveGearFromInventory(GearSO gearSO)
-    {
-        if (gearSO is ConsumbableSO consumable)
-        {
-            consumable.quantityAvailable--;
-            if (consumable.quantityAvailable <= 0 )
-                inventorySO.gearInventory.Remove(consumable);   
-        }
 
-        else if (gearSO is EquipmentSO equipment)
-            inventorySO.gearInventory.Remove(equipment);
+    //         if (gearSO is EquipmentSO equipment)
+    //     {
+    //         inventorySO.gearInventory.Add(equipment);
+    //     }
+    //
+    //     else if (gearSO is ConsumbableSO consumable)
+    //
+    // if (!inventorySO.gearInventory.Contains(consumable))
+    //     inventorySO.gearInventory.Add(consumable);
+    //
+    // consumable.quantityAvailable++;
+
+
+    public void RemoveGearFromInventory(GearInstance gearInstanceToRemove)
+    {
+        inventorySO.gearInstanceInventory.Remove(gearInstanceToRemove);
     }
 
-    public void EquipGearToSlot(GearSO gearSlOToEquip, int equipSlotNumber)
+    public void EquipGearToSlot(GearInstance gearInstanceToEquip, int equipSlotNumber)
     {
-        if (inventorySO.equippedGear[equipSlotNumber] != null)
+        if (inventorySO.gearInstanceEquipped[equipSlotNumber].gearSO != null)
         {
-            UnequipGearFromSlot(inventorySO.equippedGear[equipSlotNumber]);
+            UnequipGearFromSlot(inventorySO.gearInstanceEquipped[equipSlotNumber]);
         }
 
-        gearSlOToEquip.isCurrentlyEquipped = true;
+        gearInstanceToEquip.isCurrentlyEquipped = true;
 
-        if (gearSlOToEquip is ConsumbableSO consumable)
+        if (gearInstanceToEquip.gearSO is ConsumbableSO consumable)
         {
             consumable.quantityAvailable--;
         }
 
-        inventorySO.equippedGear[equipSlotNumber] = gearSlOToEquip;
+        inventorySO.gearInstanceEquipped[equipSlotNumber] = gearInstanceToEquip;
     }
 
-    public void UnequipGearFromSlot(GearSO gearToUnequip)
+    public void UnequipGearFromSlot(GearInstance gearSlotToUnequip)
     {
-        gearToUnequip.isCurrentlyEquipped = false;
-        int index = inventorySO.equippedGear.IndexOf(gearToUnequip);
-        inventorySO.equippedGear[index] = null;
-
-        if (gearToUnequip is ConsumbableSO consumable)
-        {
-            consumable.quantityAvailable++;
-        }
+        gearSlotToUnequip.isCurrentlyEquipped= false;
+        int i = inventorySO.gearInstanceEquipped.IndexOf(gearSlotToUnequip);
+        inventorySO.gearInstanceEquipped[i] = null;
     }
 
     public void GearConsumed(GearSO gearToUnequip)
     {
-        gearToUnequip.isCurrentlyEquipped = false;
-        int index = inventorySO.equippedGear.IndexOf(gearToUnequip);
-        inventorySO.equippedGear[index] = null;
+        //gearToUnequip.isCurrentlyEquipped = false;
+        //int index = inventorySO.equippedGear.IndexOf(gearToUnequip);
+        //inventorySO.equippedGear[index] = null;
+
+        Debug.Log("fix");
     }
 }

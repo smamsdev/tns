@@ -24,21 +24,38 @@ public class ShopBuyMenu : ShopMenu
             return;
         }
 
-        foreach (GearSO gear in shop.shopGearInventory)
+        foreach (GearSO gearSOToBuy in shop.shopGearInventory)
         {
             GameObject UIInventorySlot = Instantiate(UIInventorySlotPrefab);
             UIInventorySlot.transform.SetParent(inventorySlotsParent.transform, false);
 
             InventorySlotUI inventorySlot = UIInventorySlot.GetComponent<InventorySlotUI>();
-            inventorySlot.gear = gear;
-            inventorySlot.itemNameTMP.text = gear.gearName;
+
+            if (gearSOToBuy is EquipmentSO)
+            {
+                EquipmentInstance equipmentInstanceToBuy = new EquipmentInstance();
+                inventorySlot.gearInstance = equipmentInstanceToBuy;
+            }
+
+            else
+
+            { 
+                ConsumableInstance consumableInstanceToBuy = new ConsumableInstance();
+                inventorySlot.gearInstance = consumableInstanceToBuy;
+            }
+
+            bool isEquipment = inventorySlot.gearInstance is EquipmentInstance;
+            SetInventorySlotColor(inventorySlot, isEquipment ? inventorySlot.equipmentColor : inventorySlot.consumableColor);
+
+            inventorySlot.gearInstance.gearSO = gearSOToBuy;
+            inventorySlot.itemNameTMP.text = gearSOToBuy.gearName;
             inventorySlot.itemQuantityTMP.enabled = false;
 
-            inventorySlot.button.onClick.AddListener(() => BuyGear(inventorySlot.gear));
+            inventorySlot.button.onClick.AddListener(() => BuyGear(inventorySlot.gearInstance));
 
             inventorySlot.onHighlighted = () =>
             {
-                shopMenuManagerUI.UpdateDescriptionField(inventorySlot.gear);
+                shopMenuManagerUI.UpdateDescriptionField(inventorySlot.gearInstance.gearSO);
             };
 
             inventorySlot.onUnHighlighted = () =>
@@ -46,7 +63,7 @@ public class ShopBuyMenu : ShopMenu
                 //
             };
 
-            UIInventorySlot.name = "shop item " + gear.gearName;
+            UIInventorySlot.name = "shop item " + gearSOToBuy.gearName;
 
             slotButtons.Add(inventorySlot.button);
         }
@@ -55,20 +72,35 @@ public class ShopBuyMenu : ShopMenu
         firstButtonToSelect = slotButtons[0];
     }
 
-    public void BuyGear(GearSO gearToBuy)
+    void SetInventorySlotColor(InventorySlotUI inventorySlot, Color normalColor)
+    {
+        inventorySlot.itemNameTMP.color = normalColor;
+        inventorySlot.itemQuantityTMP.color = normalColor;
+    }
+
+    public void BuyGear(GearInstance gearInstanceToBuy)
     {
         var stats = shopMenuManagerUI.player.GetComponent<PlayerCombat>().playerPermanentStats;
 
-        if (stats.Smams >= gearToBuy.value)
+        if (stats.Smams >= gearInstanceToBuy.gearSO.value)
         {
-            stats.Smams -= gearToBuy.value;
+            stats.Smams -= gearInstanceToBuy.gearSO.value;
 
-            GearSO gearSOCopy = Instantiate(gearToBuy);
 
-            shopMenuManagerUI.playerInventory.AddGearToInventory(gearToBuy);
+            if (gearInstanceToBuy is EquipmentInstance equipmentInstance)
+            {
+                EquipmentInstance clonedGear = new EquipmentInstance(equipmentInstance);
+                shopMenuManagerUI.playerInventory.AddGearToInventory(clonedGear);
+            }
 
-            TestDynamicInventory inventory = GameObject.FindGameObjectWithTag("TDI").GetComponent<TestDynamicInventory>();
-            inventory.AddGear(gearSOCopy);
+            if (gearInstanceToBuy is ConsumableInstance consumableInstance)
+            {
+                ConsumableInstance clonedGear = new ConsumableInstance(consumableInstance);
+                shopMenuManagerUI.playerInventory.AddGearToInventory(clonedGear);
+            }
+
+            else
+                Debug.Log("something weird is going on");
 
             shopMenuManagerUI.mainMenu.smamsInventoryTMP.text = stats.Smams.ToString(); ;
             shopMenuManagerUI.smamsColorAnimator.SetTrigger("minus");

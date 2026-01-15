@@ -8,6 +8,7 @@ public class MenuGearPageSelection : Menu
     public MenuButtonHighlighted equippedHighlightedButton, inventoryHighlightedButton;
     public MenuGearEquipSubPage menuGearEquipSubPage;
     public MenuGearInventorySubPage menuGearInventorySubPage;
+    bool isInitialized = false;
 
     public override void DisplayMenu(bool on)
     {
@@ -34,8 +35,12 @@ public class MenuGearPageSelection : Menu
         menuManagerUI.ClearThenDisplayMenu(this);
         gearPropertiesDisplay.SetActive(false);
 
-        menuGearEquipSubPage.InitialiseEquipSlots();
-        menuGearInventorySubPage.InstantiateUIInventorySlots();
+        if (!isInitialized)
+        {
+            menuGearEquipSubPage.InitialiseEquipSlots();
+            menuGearInventorySubPage.InstantiateUIInventorySlots();
+            isInitialized = true;
+        }
 
         if (lastParentButtonSelected ==null) { lastParentButtonSelected = equippedHighlightedButton; }
         lastParentButtonSelected.button.Select();
@@ -43,6 +48,7 @@ public class MenuGearPageSelection : Menu
 
     public override void ExitMenu()
     {
+        isInitialized = false;
         menuManagerUI.EnterMenu(menuManagerUI.main);
         menuManagerUI.menuUpdateMethod.lastParentButtonSelected.SetButtonNormalColor(Color.white);
         menuManagerUI.menuUpdateMethod.lastParentButtonSelected.button.Select();
@@ -58,7 +64,7 @@ public class MenuGearPageSelection : Menu
 
     public void EnterInventorySubPage()
     {
-        if (menuGearInventorySubPage.playerInventory.inventorySO.gearInventory.Count > 0)
+        if (menuGearInventorySubPage.playerInventory.inventorySO.gearInstanceInventory.Count > 0)
         {
             inventoryHighlightedButton.ButtonSelectedAndDisabled();
             menuGearEquipSubPage.displayContainer.SetActive(false);

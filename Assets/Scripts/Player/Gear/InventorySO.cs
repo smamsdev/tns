@@ -6,9 +6,8 @@ using UnityEngine;
 
 public class InventorySO : ScriptableObject
 {
-    public List<GearSO> gearInventory = new List<GearSO>();
-    public List<GearSO> equippedGear = new List<GearSO>();
+    [SerializeReference]
+    public List<GearInstance> gearInstanceInventory = new List<GearInstance>();
+    public List<GearInstance> gearInstanceEquipped = new List<GearInstance>();
     public int equipSlotsAvailable;
-
-    public List<GearInstance> gearInstances = new List<GearInstance>();
 }

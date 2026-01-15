@@ -36,14 +36,15 @@ public class ApplyPlayerMove : State
 
     IEnumerator ApplyGear()
     {
-        var equipped = player.playerInventory.inventorySO.equippedGear;
-        for (int i = equipped.Count - 1; i >= 0; i--)
-        {
-            GearSO gearSO = equipped[i];
-            if (gearSO == null) continue;
-
-            yield return gearSO.gearInstance.ApplyGear();
-
+        //var equipped = player.playerInventory.inventorySO.equippedGear;
+        // for (int i = equipped.Count - 1; i >= 0; i--)
+        // {
+        //     GearSO gearSO = equipped[i];
+        //     if (gearSO == null) continue;
+        //
+        //     yield return gearSO.gearInstance.ApplyGear();
+        //
+        yield return null;
             Debug.Log("fiox");
            // if (!gearSO.isConsumable)
            // {
@@ -60,7 +61,7 @@ public class ApplyPlayerMove : State
            //     player.playerInventory.DestroyGearInstance(gearSO);
            //     player.playerInventory.GearConsumed(gearSO);
            // }
-        }
+        
     }
 
     IEnumerator ApplyMove()

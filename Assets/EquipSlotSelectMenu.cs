@@ -9,45 +9,46 @@ public class EquipSlotSelectMenu : MonoBehaviour
 {
     public CombatManager combatManager;
     PlayerInventory playerInventory;
-    public List<UIGearEquipSlot> uIGearEquipSlots = new List<UIGearEquipSlot>();
+    //public List<UIGearEquipSlot> uIGearEquipSlots = new List<UIGearEquipSlot>();
     public List<Button> uIGearEquipSlotButtons = new List<Button>();
-    public UIGearEquipSlot equipSlotSelected;
+    //public UIGearEquipSlot equipSlotSelected;
 
     public void DisplayEquipSlots()
     {
-        playerInventory = combatManager.playerCombat.playerInventory;
-
-        foreach (UIGearEquipSlot gearEquipSlot in uIGearEquipSlots)
-        {
-            gearEquipSlot.gearEquipped = null;
-            gearEquipSlot.gameObject.SetActive(false);
-        }
-
-        for (int i = 0; i < playerInventory.inventorySO.equipSlotsAvailable; i++)
-        {
-            if (playerInventory.inventorySO.equippedGear[i] == null)
-            {
-                uIGearEquipSlots[i].buttonTMP.text = "SLOT " + (i + 1) + ": " + "EMPTY";
-                uIGearEquipSlots[i].gameObject.SetActive(true);
-            }
-
-            else
-            {
-                GearSO gearToLoad = playerInventory.inventorySO.equippedGear[i];
-                uIGearEquipSlots[i].gearEquipped = gearToLoad;
-                uIGearEquipSlots[i].buttonTMP.text = "SLOT " + (i + 1) + ": " + gearToLoad.gearName;
-                uIGearEquipSlots[i].gameObject.SetActive(true);
-            }
-        }
+        Debug.Log("redo this whole thing");
+      //  playerInventory = combatManager.playerCombat.playerInventory;
+      //
+      //  foreach (UIGearEquipSlot gearEquipSlot in uIGearEquipSlots)
+      //  {
+      //      gearEquipSlot.gearEquipped = null;
+      //      gearEquipSlot.gameObject.SetActive(false);
+      //  }
+      //
+      //  for (int i = 0; i < playerInventory.inventorySO.equipSlotsAvailable; i++)
+      //  {
+      //      if (playerInventory.inventorySO.equippedGearInstances[i] == null)
+      //      {
+      //          uIGearEquipSlots[i].buttonTMP.text = "SLOT " + (i + 1) + ": " + "EMPTY";
+      //          uIGearEquipSlots[i].gameObject.SetActive(true);
+      //      }
+      //
+      //      else
+      //      {
+      //          GearSO gearToLoad = playerInventory.inventorySO.equippedGearInstances[i];
+      //          uIGearEquipSlots[i].gearEquipped = gearToLoad;
+      //          uIGearEquipSlots[i].buttonTMP.text = "SLOT " + (i + 1) + ": " + gearToLoad.gearName;
+      //          uIGearEquipSlots[i].gameObject.SetActive(true);
+      //      }
+      //  }
 
         FieldEvents.SetGridNavigationWrapAround(uIGearEquipSlotButtons, playerInventory.inventorySO.equipSlotsAvailable);
     }
 
-    public void EquipSlotSelected(UIGearEquipSlot gearEquipSlot)
-    {
-        equipSlotSelected = gearEquipSlot;
-        combatManager.SetState(combatManager.gearSelectCombatState);
-        CombatEvents.UpdateNarrator.Invoke("");
-    }
+    //public void EquipSlotSelected(UIGearEquipSlot gearEquipSlot)
+    //{
+    //    //equipSlotSelected = gearEquipSlot;
+    //    //combatManager.SetState(combatManager.gearSelectCombatState);
+    //    //CombatEvents.UpdateNarrator.Invoke("");
+    //}
 }
 

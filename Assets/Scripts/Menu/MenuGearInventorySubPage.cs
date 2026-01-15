@@ -23,7 +23,6 @@ public class MenuGearInventorySubPage : Menu
     public GameObject UIFieldMenuGearSlotPrefab, noneGO;
     public GameObject inventorySlotsParent;
     public InventorySlotUI inventorySlotSelected;
-    public Dictionary<GearSO, InventorySlotUI> gearToSlot = new Dictionary<GearSO, InventorySlotUI>();
 
     public override void DisplayMenu(bool on)
     {
@@ -34,7 +33,7 @@ public class MenuGearInventorySubPage : Menu
     {
         DeleteAllInventoryUI();
 
-        if (playerInventory.inventorySO.gearInventory == null || playerInventory.inventorySO.gearInventory.Count == 0)
+        if (playerInventory.inventorySO.gearInstanceInventory == null || playerInventory.inventorySO.gearInstanceInventory.Count == 0)
         {
             noneGO.SetActive(true);
             return;
@@ -42,20 +41,20 @@ public class MenuGearInventorySubPage : Menu
 
         noneGO.SetActive(false);
    
-        foreach (GearSO gear in playerInventory.inventorySO.gearInventory)
+        foreach (GearInstance gearInstance in playerInventory.inventorySO.gearInstanceInventory)
         {
             GameObject UIgearSlot = Instantiate(UIFieldMenuGearSlotPrefab);
             UIgearSlot.transform.SetParent(inventorySlotsParent.transform, false);
 
             InventorySlotUI inventorySlot = UIgearSlot.GetComponent<InventorySlotUI>();
-            inventorySlot.gear = gear;
+            inventorySlot.gearInstance = gearInstance;
             inventorySlot.menuGearInventorySubPage = this;
 
-            inventorySlot.itemNameTMP.text = gear.gearName;
+            inventorySlot.itemNameTMP.text = gearInstance.gearSO.gearName;
 
-            inventorySlot.itemQuantityTMP.text = ItemQuantityRemaining(inventorySlot.gear);
+            inventorySlot.itemQuantityTMP.text = ItemQuantityRemaining(inventorySlot.gearInstance.gearSO);
 
-            bool isEquipment = gear is EquipmentSO;
+            bool isEquipment = gearInstance.gearSO is EquipmentSO;
             SetInventorySlotColor(inventorySlot, isEquipment ? inventorySlot.equipmentColor : inventorySlot.consumableColor);
 
             inventorySlot.button.onClick.AddListener(() => InventorySlotSelected(inventorySlot));
@@ -71,32 +70,31 @@ public class MenuGearInventorySubPage : Menu
                 SetInventorySlotColor(inventorySlot, isEquipment ? inventorySlot.equipmentColor : inventorySlot.consumableColor);
             };
 
-            UIgearSlot.name = gear.gearName;
+            UIgearSlot.name = gearInstance.gearSO.gearName;
 
             gearSlots.Add(inventorySlot);
             slotButtons.Add(inventorySlot.button);
-            gearToSlot[gear] = inventorySlot;
         }
 
         FieldEvents.SetGridNavigationWrapAround(slotButtons, 5);
     }
 
-    void SetInventorySlotColor(InventorySlotUI inventorySlot, Color normalColor)
+    public void SetInventorySlotColor(InventorySlotUI inventorySlot, Color normalColor)
     {
         inventorySlot.itemNameTMP.color = normalColor;
         inventorySlot.itemQuantityTMP.color = normalColor;
 
-        float alpha = inventorySlot.gear.isCurrentlyEquipped ? 0.7f : 1f;
+        float alpha = inventorySlot.gearInstance.isCurrentlyEquipped ? 0.7f : 1f;
         FieldEvents.SetTextAlpha(inventorySlot.itemNameTMP, alpha);
         FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, alpha);
     }
 
     string ItemQuantityRemaining(GearSO gearSO)
     {
-        if (gearSO is EquipmentSO equipment)
-            return ": " + equipment.Potential + "%";
-        if (gearSO is ConsumbableSO consumable)
-            return "x " + consumable.quantityAvailable;
+        if (gearSO is EquipmentSO equipmentInstance)
+            return ": " + equipmentInstance.Potential + "%";
+        if (gearSO is ConsumbableSO consumableInstance)
+            return "x " + consumableInstance.quantityAvailable;
         return "";
     }
 
@@ -104,7 +102,6 @@ public class MenuGearInventorySubPage : Menu
     {
         gearSlots.Clear();
         slotButtons.Clear();
-        gearToSlot.Clear();
 
         for (int i = inventorySlotsParent.transform.childCount - 1; i >= 0; i--)
         {
@@ -129,14 +126,14 @@ public class MenuGearInventorySubPage : Menu
 
     public void InventorySlotSelected(InventorySlotUI inventorySlot)
     {
-        if (inventorySlot.gear.isCurrentlyEquipped) return;
+        if (inventorySlot.gearInstance.isCurrentlyEquipped) return;
 
         inventorySlotSelected = inventorySlot;
 
         firstButtonToSelect = inventorySlot.button;
 
         menuGearEquipSubPage.isEquipping = true;
-        menuGearEquipSubPage.pageHeaderTMP.text = "Equip " + inventorySlot.gear.gearName + "?";
+        menuGearEquipSubPage.pageHeaderTMP.text = "Equip " + inventorySlot.gearInstance.gearSO.gearName + "?";
         menuGearEquipSubPage.equipPageHeaderGO.SetActive(true);
         displayContainer.SetActive(false);
         menuGearPageSelection.displayContainer.SetActive(false);
@@ -145,41 +142,37 @@ public class MenuGearInventorySubPage : Menu
 
     public void GearSlotHighlighted(InventorySlotUI inventorySlot)
     {
-        gearValueTMP.text = "Value: " + inventorySlot.gear.value.ToString() + " $MAMS";
+        gearValueTMP.text = "Value: " + inventorySlot.gearInstance.gearSO.value.ToString() + " $MAMS";
         inventorySlotHighlighted = inventorySlot;
 
-        if (inventorySlot.gear is EquipmentSO)
+        if (inventorySlot.gearInstance.gearSO is EquipmentSO)
         {
             gearTypeTMP.text = "Type: Equipment";
         }
 
-        else if (inventorySlot.gear is ConsumbableSO)
+        else if (inventorySlot.gearInstance.gearSO is ConsumbableSO)
         {
             gearTypeTMP.text = "Type: Consumable";
         }
 
-        if (inventorySlot.gear.isCurrentlyEquipped)
+        if (inventorySlot.gearInstance.isCurrentlyEquipped)
         {
-            gearDescriptionTMP.text = inventorySlot.gear.gearDescription;
-            gearEquipStatusTMP.text = "Equipped to Slot " + (playerInventory.inventorySO.equippedGear.IndexOf(inventorySlot.gear) + 1) + ". PRESS CTRL TO REMOVE";
+            gearDescriptionTMP.text = inventorySlot.gearInstance.gearSO.gearDescription;
+            gearEquipStatusTMP.text = "Equipped to Slot " + (playerInventory.inventorySO.gearInstanceEquipped.IndexOf(inventorySlot.gearInstance) + 1) + ". PRESS CTRL TO REMOVE";
         }
         else
         {
-            gearDescriptionTMP.text = inventorySlot.gear.gearDescription;
+            gearDescriptionTMP.text = inventorySlot.gearInstance.gearSO.gearDescription;
             gearEquipStatusTMP.text = "SELECT to equip";
         }
     }
 
-    public void UnequipHighlightedGear(GearSO gear)
+    public void UnequipHighlightedGearInstance(GearInstance gearInstance)
     {
-        playerInventory.UnequipGearFromSlot(gear);
+        int i = playerInventory.inventorySO.gearInstanceEquipped.IndexOf(gearInstance);
 
-        var inventorySlot = gearToSlot[gear];
-        Debug.Log(gearToSlot[gear]);
-        gearEquipStatusTMP.text = "Unequipped";
-        FieldEvents.SetTextAlpha(inventorySlot.itemNameTMP, 1f);
-        FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, 1f);
-        inventorySlot.itemQuantityTMP.text = ItemQuantityRemaining(inventorySlot.gear);
+        playerInventory.UnequipGearFromSlot(playerInventory.inventorySO.gearInstanceEquipped[i]);
+        InstantiateUIInventorySlots();
     }
 
     public override void StateUpdate()
@@ -191,11 +184,11 @@ public class MenuGearInventorySubPage : Menu
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            if (inventorySlotHighlighted.gear.isCurrentlyEquipped)
+            if (inventorySlotHighlighted.gearInstance.isCurrentlyEquipped)
             {
                 DisplayMenu(true);
                 GearSlotHighlighted(inventorySlotHighlighted);
-                UnequipHighlightedGear(inventorySlotHighlighted.gear);
+                UnequipHighlightedGearInstance(inventorySlotHighlighted.gearInstance);
                 //menuGearEquipSubPage.InitialiseEquipSlots();
             }
         }

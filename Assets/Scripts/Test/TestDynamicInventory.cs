@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class TestDynamicInventory : MonoBehaviour
 {
+    //fuck this delete
     // Runtime inventory stores clones of GearSO items
     public List<GearSO> gearInventory = new List<GearSO>();
 

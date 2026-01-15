@@ -6,5 +6,5 @@ using UnityEngine;
 
 public class ChargerSO : ScriptableObject
 {
-    public EquipmentSO[] chargingSlots = new EquipmentSO[3];
+    public EquipmentInstance[] chargingSlots = new EquipmentInstance[3];
 }

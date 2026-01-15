@@ -4,25 +4,11 @@ using UnityEngine;
 public class ChargingStation : ToTrigger
 {
     [SerializeField] ChargerSO charger;
+    public InventorySO playerinv;
 
-    private void Update()
+    public void LoadToChargeSlot(EquipmentInstance equipmentInstance, int slot)
     {
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            charger.chargingSlots[0].StartCharging();
-
-        }
-
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            charger.chargingSlots[0].UpdateCharge();
-
-        }
-    }
-
-    public void LoadToChargeSlot(EquipmentSO equipment, int slot)
-    {
-        equipment.StartCharging();
+        equipmentInstance.StartCharging();
     }
 
     public override IEnumerator TriggerFunction()

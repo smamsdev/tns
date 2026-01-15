@@ -114,6 +114,7 @@ public class menuMain : Menu
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!isMenuOn && FieldEvents.movementLocked || FieldEvents.isShopping) return;
+            //
 
             ToggleMainMenu(!isMenuOn);
 
