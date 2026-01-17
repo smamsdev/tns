@@ -52,7 +52,7 @@ public class MenuGearInventorySubPage : Menu
 
             inventorySlot.itemNameTMP.text = gearInstance.gearSO.gearName;
 
-            inventorySlot.itemQuantityTMP.text = ItemQuantityRemaining(inventorySlot.gearInstance.gearSO);
+            inventorySlot.itemQuantityTMP.text = ItemQuantityRemaining(inventorySlot.gearInstance);
 
             bool isEquipment = gearInstance.gearSO is EquipmentSO;
             SetInventorySlotColor(inventorySlot, isEquipment ? inventorySlot.equipmentColor : inventorySlot.consumableColor);
@@ -89,11 +89,11 @@ public class MenuGearInventorySubPage : Menu
         FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, alpha);
     }
 
-    string ItemQuantityRemaining(GearSO gearSO)
+    string ItemQuantityRemaining(GearInstance gearInstance)
     {
-        if (gearSO is EquipmentSO equipmentInstance)
-            return ": " + equipmentInstance.Potential + "%";
-        if (gearSO is ConsumbableSO consumableInstance)
+        if (gearInstance is EquipmentInstance equipmentInstance)
+            return ": " + equipmentInstance.charge + "%";
+        if (gearInstance is ConsumableInstance consumableInstance)
             return "x " + consumableInstance.quantityAvailable;
         return "";
     }

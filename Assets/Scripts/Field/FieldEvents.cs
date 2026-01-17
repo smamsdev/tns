@@ -20,12 +20,11 @@ public static class FieldEvents
     public static bool isCoolDownBool;
     public static bool isDialogueActive;
     public static bool isSequenceRunning;
-    public static bool isShopping;
 
-    public static bool movementLocked;
+    public static bool menuAvailable = false;
+    public static bool movementLocked = false;
 
     public static bool isCooldown()
-
     {
         return isCoolDownBool; 
     }

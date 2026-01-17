@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public abstract class ShopMenu : MonoBehaviour
 {
     public GameObject displayContainer;
-    public ShopMenuManagerUI shopMenuManagerUI;
+    public ShopMenuManager shopMenuManager;
 
     public abstract void EnterMenu();
     public abstract void ExitMenu();

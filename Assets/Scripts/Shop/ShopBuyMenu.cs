@@ -55,7 +55,7 @@ public class ShopBuyMenu : ShopMenu
 
             inventorySlot.onHighlighted = () =>
             {
-                shopMenuManagerUI.UpdateDescriptionField(inventorySlot.gearInstance.gearSO);
+                shopMenuManager.mainMenu.UpdateDescriptionField(inventorySlot.gearInstance.gearSO);
             };
 
             inventorySlot.onUnHighlighted = () =>
@@ -80,7 +80,7 @@ public class ShopBuyMenu : ShopMenu
 
     public void BuyGear(GearInstance gearInstanceToBuy)
     {
-        var stats = shopMenuManagerUI.player.GetComponent<PlayerCombat>().playerPermanentStats;
+        var stats = shopMenuManager.mainMenu.player.GetComponent<PlayerCombat>().playerPermanentStats;
 
         if (stats.Smams >= gearInstanceToBuy.gearSO.value)
         {
@@ -90,22 +90,22 @@ public class ShopBuyMenu : ShopMenu
             if (gearInstanceToBuy is EquipmentInstance equipmentInstance)
             {
                 EquipmentInstance clonedGear = new EquipmentInstance(equipmentInstance);
-                shopMenuManagerUI.playerInventory.AddGearToInventory(clonedGear);
+                shopMenuManager.mainMenu.playerInventory.AddGearToInventory(clonedGear);
             }
 
-            if (gearInstanceToBuy is ConsumableInstance consumableInstance)
+            else if (gearInstanceToBuy is ConsumableInstance consumableInstance)
             {
                 ConsumableInstance clonedGear = new ConsumableInstance(consumableInstance);
-                shopMenuManagerUI.playerInventory.AddGearToInventory(clonedGear);
+                shopMenuManager.mainMenu.playerInventory.AddGearToInventory(clonedGear);
             }
 
             else
                 Debug.Log("something weird is going on");
 
-            shopMenuManagerUI.mainMenu.smamsInventoryTMP.text = stats.Smams.ToString(); ;
-            shopMenuManagerUI.smamsColorAnimator.SetTrigger("minus");
-            shopMenuManagerUI.sellMenu.InstantiateUIInventorySlots();
-            shopMenuManagerUI.sellMenu.firstButtonToSelect = shopMenuManagerUI.sellMenu.inventorySlotButtons[0];
+            shopMenuManager.mainMenu.smamsInventoryTMP.text = stats.Smams.ToString("N0");
+            shopMenuManager.mainMenu.smamsColorAnimator.SetTrigger("minus");
+            shopMenuManager.sellMenu.InstantiateUIInventorySlots();
+            shopMenuManager.sellMenu.firstButtonToSelect = shopMenuManager.sellMenu.inventorySlotButtons[0];
         }
     }
 
@@ -121,18 +121,17 @@ public class ShopBuyMenu : ShopMenu
 
     public override void EnterMenu()
     {
-        shopMenuManagerUI.mainShopMenuButtons[0].ButtonSelectedAndDisabled();
-        shopMenuManagerUI.GearDescriptionGO.SetActive(true);
-        shopMenuManagerUI.mainMenu.firstMenuButton = shopMenuManagerUI.mainShopMenuButtons[0].button;
+        shopMenuManager.mainMenu.mainShopMenuButtons[0].ButtonSelectedAndDisabled();
+        shopMenuManager.mainMenu.GearDescriptionGO.SetActive(true);
+        shopMenuManager.mainMenu.firstMenuButton = shopMenuManager.mainMenu.mainShopMenuButtons[0].button;
         firstButtonToSelect.Select();
     }
 
     public override void ExitMenu()
     {
-        shopMenuManagerUI.WireAllMainButtons();
-        shopMenuManagerUI.menuUpdateMethod = shopMenuManagerUI.mainMenu;
-        shopMenuManagerUI.EnterSubMenu(shopMenuManagerUI.mainMenu);
-        shopMenuManagerUI.mainShopMenuButtons[0].SetButtonNormalColor(Color.white);
+        shopMenuManager.menuUpdateMethod = shopMenuManager.mainMenu;
+        shopMenuManager.EnterMenu(shopMenuManager.mainMenu);
+        shopMenuManager.mainMenu.mainShopMenuButtons[0].SetButtonNormalColor(Color.white);
     }
 
     public override void StateUpdate()

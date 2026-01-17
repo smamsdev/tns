@@ -23,7 +23,13 @@ public class menuMain : Menu
 
     public GameObject masterMenuContainer;
 
-    private bool isMenuOn = false;
+    public bool isMenuOn = false;
+
+    private void Start()
+    {
+        masterMenuContainer.SetActive(false);
+        animator.enabled = false;
+    }
 
     void WireButtons()
     {
@@ -60,7 +66,6 @@ public class menuMain : Menu
     public override void EnterMenu()
     {
         WireButtons();
-
         menuManagerUI.ClearThenDisplayMenu(this);
 
         if (EventSystem.current == null)
@@ -73,64 +78,52 @@ public class menuMain : Menu
         isMenuOn = true;
 
         masterMenuContainer.SetActive(true);
-        animator.SetBool("Open", true);
-        firstMenuButton.Select();
 
         menuSave.UpdateSaveSlotUI();
 
         smamsValue.text = $"{playerCombat.playerPermanentStats.Smams}";
 
-        StartCoroutine(LockMovementAfterDelay());
+        CombatEvents.LockPlayerMovement();
+
+        animator.Play("MenuOpen");
+        animator.enabled = true;
+
+        firstMenuButton.Select();
     }
 
-    IEnumerator CloseMenuAnimation()
+    public override void ExitMenu() //triggered via animation transition event
     {
-        animator.SetBool("Open", false);
-        yield return new WaitForSeconds(0.25f);
-        //menuGO.SetActive(false);
-        CombatEvents.UnlockPlayerMovement();
-    }
-
-    public override void ExitMenu()
-    {
-        isMenuOn = false;
-        StartCoroutine(CloseMenuAnimation());
+        animator.enabled = false;
     }
 
     void ToggleMainMenu(bool on)
     {
-        if (on == isMenuOn) 
-            return;
+        StartCoroutine(FieldEvents.CoolDown(.1f));
 
-        if (on) 
-            StartCoroutine(CaptureScreenshotAndEnter()) ; 
-        
-        else 
-            ExitMenu();
+        if (on)
+            StartCoroutine(CaptureScreenshotAndEnter());
+
+        else
+        {
+            animator.Play("MenuClose"); //this will trigger close state via animation event
+            CombatEvents.UnlockPlayerMovement();
+        }
     }
 
     public override void StateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !FieldEvents.isCoolDownBool && FieldEvents.menuAvailable)
         {
-            if (!isMenuOn && FieldEvents.movementLocked || FieldEvents.isShopping) return;
-            //
-
-            ToggleMainMenu(!isMenuOn);
-
-            if (isMenuOn)
-            {
-                TimeSpan timeSpan = TimeSpan.FromSeconds(Time.time);
-                string playTimeDuration = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
-
-                durationDisplay.text = playTimeDuration;
-            }
+            isMenuOn = !isMenuOn;
+            ToggleMainMenu(isMenuOn);
         }
-    }
 
-    IEnumerator LockMovementAfterDelay()
-    {
-        yield return new WaitForSeconds(.75f);
-        CombatEvents.LockPlayerMovement();
+        if (isMenuOn)
+        {
+            TimeSpan timeSpan = TimeSpan.FromSeconds(Time.time);
+            string playTimeDuration = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+
+            durationDisplay.text = playTimeDuration;
+        }
     }
 }

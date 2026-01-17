@@ -45,21 +45,11 @@ public class MenuGearEquipSubPage : Menu
             int i = equipSlots.IndexOf(gearEquipSlotHighlighted);
 
             menuGearInventorySubPage.playerInventory.EquipGearToSlot(inventorySlot.gearInstance, equipSlots.IndexOf(gearEquipSlotSelected));
-
-            if (inventorySlot.gearInstance.gearSO is EquipmentSO equipment)
-            {
-                inventorySlot.itemQuantityTMP.text = equipment.Potential + "%";
-            }
-
-            else if (inventorySlot.gearInstance.gearSO is ConsumbableSO consumable)
-            {
-                inventorySlot.itemQuantityTMP.text = "x" + consumable.quantityAvailable;
-            }
-
             InitialiseEquipSlots();
+            menuGearInventorySubPage.InstantiateUIInventorySlots();
+
             gearEquipSlotHighlighted = equipSlots[i];
             firstButtonToSelect = gearEquipSlotHighlighted.button;
-
 
             menuGearPageSelection.displayContainer.SetActive(true);
             equipPageHeaderGO.SetActive(false);
@@ -67,7 +57,6 @@ public class MenuGearEquipSubPage : Menu
 
             menuGearPageSelection.lastParentButtonSelected.button.onClick.Invoke();
             menuGearPageSelection.inventoryHighlightedButton.SetButtonNormalColor(Color.white);
-            menuGearInventorySubPage.InstantiateUIInventorySlots();
 
             isEquipping = false;
         }
@@ -82,29 +71,10 @@ public class MenuGearEquipSubPage : Menu
         }
     }
 
-    public string ItemQuantityRemaining(GearSO gearSO)
-    {
-        string itemQuantity = "";
-
-        if (gearSO is EquipmentSO equipment)
-        {
-            itemQuantity = equipment.Potential + "%";
-        }
-
-        else if (gearSO is ConsumbableSO consumable)
-        {
-            itemQuantity = "x " + consumable.quantityAvailable;
-        }
-
-        else itemQuantity = null;
-
-        return itemQuantity;
-    }
-
     public override void EnterMenu()
     {
         DisplayMenu(true);
-        if (!isEquipping)
+        if (firstButtonToSelect == null)
             firstButtonToSelect = equipSlotButtons[0];
 
         firstButtonToSelect.Select();
@@ -129,11 +99,12 @@ public class MenuGearEquipSubPage : Menu
             equipSlot.onHighlighted = () =>
             {
                 EquipSlotHighlighted(equipSlot);
+                SetEquipSlotColor(equipSlot, Color.yellow);
             };
 
             equipSlot.onUnHighlighted = () =>
             {
-                //
+                SetEquipSlotColor(equipSlot, Color.white);
             };
 
             equipSlot.itemQuantityTMP.text = "";
@@ -150,15 +121,6 @@ public class MenuGearEquipSubPage : Menu
 
                 equipSlot.itemQuantityTMP.text = ItemQuantityRemaining(equipSlot.gearInstance);
 
-                string ItemQuantityRemaining(GearInstance gearInstance)
-                {
-                    if (gearInstance is EquipmentInstance equipmentInstance)
-                        return ": " + equipmentInstance.charge + "%";
-                    if (gearInstance is ConsumableInstance consumableInstance)
-                        return "x " + consumableInstance.quantityAvailable;
-                    return "";
-                }
-
                 bool isEquipment = equipSlot.gearInstance is EquipmentInstance;
             }
 
@@ -167,6 +129,25 @@ public class MenuGearEquipSubPage : Menu
         }
 
         FieldEvents.SetGridNavigationWrapAround(equipSlotButtons, 5);
+    }
+
+    public void SetEquipSlotColor(InventorySlotUI inventorySlot, Color normalColor)
+    {
+        inventorySlot.itemNameTMP.color = normalColor;
+        inventorySlot.itemQuantityTMP.color = normalColor;
+    }
+
+    string ItemQuantityRemaining(GearInstance gearInstance)
+    {
+        if (gearInstance is EquipmentInstance equipmentInstance)
+            return ": " + equipmentInstance.charge + "%";
+        else if (gearInstance is ConsumableInstance consumableInstance)
+            return "";
+        else
+        { 
+            Debug.Log("something broke");
+            return "";
+        }
     }
 
     public void DeleteAllInventoryUI()
@@ -230,12 +211,13 @@ public class MenuGearEquipSubPage : Menu
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            gearEquipSlotHighlighted.onUnHighlighted();
             ExitMenu();
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-           if (gearEquipSlotHighlighted.gearInstance != null)
+           if (gearEquipSlotHighlighted.gearInstance.gearSO != null)
             {
                 menuGearInventorySubPage.UnequipHighlightedGearInstance(gearEquipSlotHighlighted.gearInstance);
                 int i = equipSlots.IndexOf(gearEquipSlotHighlighted);

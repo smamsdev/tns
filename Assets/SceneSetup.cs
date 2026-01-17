@@ -62,6 +62,7 @@ public class SceneSetup : MonoBehaviour
 
         fader.Play("Dissolve");
         CombatEvents.UnlockPlayerMovement();
+        FieldEvents.menuAvailable = true;
         yield return null;
     }
 

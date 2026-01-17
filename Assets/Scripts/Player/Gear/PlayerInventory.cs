@@ -55,27 +55,50 @@ public class PlayerInventory : MonoBehaviour
 
     public void AddGearToInventory(GearInstance gearInstanceToAdd)
     {
-        inventorySO.gearInstanceInventory.Add(gearInstanceToAdd);
-        //inventorySO.gearInstanceInventory.Sort((a, b) => a.name.CompareTo(b.name));
+        if (gearInstanceToAdd is EquipmentInstance equipmentInstance)
+        {
+            inventorySO.gearInstanceInventory.Add(equipmentInstance);
+        }
+
+        else if (gearInstanceToAdd is ConsumableInstance consumableInstance)
+        {
+            foreach (GearInstance gearInstanceToCheck in inventorySO.gearInstanceInventory)
+            {
+                if (gearInstanceToCheck.gearSO == consumableInstance.gearSO)
+                {
+                    ConsumableInstance existingConsumableInstance = gearInstanceToCheck as ConsumableInstance;
+                    existingConsumableInstance.quantityAvailable++;
+                    return;
+                }
+            }
+
+            consumableInstance.quantityAvailable = 1;
+            inventorySO.gearInstanceInventory.Add(consumableInstance);
+        }
+
+        else
+            Debug.Log("something went wrong");
+
+        inventorySO.gearInstanceInventory.Sort((a, b) => a.gearSO.gearName.CompareTo(b.gearSO.gearName));
     }
-
-
-    //         if (gearSO is EquipmentSO equipment)
-    //     {
-    //         inventorySO.gearInventory.Add(equipment);
-    //     }
-    //
-    //     else if (gearSO is ConsumbableSO consumable)
-    //
-    // if (!inventorySO.gearInventory.Contains(consumable))
-    //     inventorySO.gearInventory.Add(consumable);
-    //
-    // consumable.quantityAvailable++;
-
 
     public void RemoveGearFromInventory(GearInstance gearInstanceToRemove)
     {
-        inventorySO.gearInstanceInventory.Remove(gearInstanceToRemove);
+        if (gearInstanceToRemove is EquipmentInstance equipmentInstance)
+        {
+            inventorySO.gearInstanceInventory.Remove(equipmentInstance);
+        }
+
+        else if (gearInstanceToRemove is ConsumableInstance consumableInstance)
+        {
+            consumableInstance.quantityAvailable--;
+
+            if (consumableInstance.quantityAvailable == 0)
+                inventorySO.gearInstanceInventory.Remove(consumableInstance);
+        }
+
+        else
+            Debug.Log("something went wrong");
     }
 
     public void EquipGearToSlot(GearInstance gearInstanceToEquip, int equipSlotNumber)
@@ -87,19 +110,22 @@ public class PlayerInventory : MonoBehaviour
 
         gearInstanceToEquip.isCurrentlyEquipped = true;
 
-        if (gearInstanceToEquip.gearSO is ConsumbableSO consumable)
+        if (gearInstanceToEquip is ConsumableInstance consumableInstance)
         {
-            consumable.quantityAvailable--;
+            consumableInstance.quantityAvailable--;
         }
 
         inventorySO.gearInstanceEquipped[equipSlotNumber] = gearInstanceToEquip;
     }
 
-    public void UnequipGearFromSlot(GearInstance gearSlotToUnequip)
+    public void UnequipGearFromSlot(GearInstance gearInstnaceToUnequip)
     {
-        gearSlotToUnequip.isCurrentlyEquipped= false;
-        int i = inventorySO.gearInstanceEquipped.IndexOf(gearSlotToUnequip);
+        gearInstnaceToUnequip.isCurrentlyEquipped = false;
+        int i = inventorySO.gearInstanceEquipped.IndexOf(gearInstnaceToUnequip);
         inventorySO.gearInstanceEquipped[i] = null;
+
+        if (gearInstnaceToUnequip is ConsumableInstance consumableInstance) 
+            consumableInstance.quantityAvailable++;
     }
 
     public void GearConsumed(GearSO gearToUnequip)
