@@ -10,6 +10,11 @@ public class PlayerInventory : MonoBehaviour
 
     public EquipmentSO testGear;
 
+    void AddEquipSlot()
+    {
+        inventorySO.gearInstanceEquipped.Add(new GearInstance());
+    }
+
     public void InstantiateAllEquippedGear(CombatManager combatManager)
     {
         foreach (GearInstance gearInstance in inventorySO.gearInstanceEquipped)
@@ -113,18 +118,25 @@ public class PlayerInventory : MonoBehaviour
         if (gearInstanceToEquip is ConsumableInstance consumableInstance)
         {
             consumableInstance.quantityAvailable--;
+            inventorySO.gearInstanceEquipped[equipSlotNumber] = consumableInstance;
         }
 
-        inventorySO.gearInstanceEquipped[equipSlotNumber] = gearInstanceToEquip;
+        else if (gearInstanceToEquip is EquipmentInstance equipmentInstance)
+        {
+            inventorySO.gearInstanceEquipped[equipSlotNumber] = gearInstanceToEquip;
+        }
+
+        else
+            Debug.Log("something went wrong");
     }
 
-    public void UnequipGearFromSlot(GearInstance gearInstnaceToUnequip)
+    public void UnequipGearFromSlot(GearInstance gearInstanceToUnequip)
     {
-        gearInstnaceToUnequip.isCurrentlyEquipped = false;
-        int i = inventorySO.gearInstanceEquipped.IndexOf(gearInstnaceToUnequip);
-        inventorySO.gearInstanceEquipped[i] = null;
+        gearInstanceToUnequip.isCurrentlyEquipped = false;
+        int i = inventorySO.gearInstanceEquipped.IndexOf(gearInstanceToUnequip);
+        inventorySO.gearInstanceEquipped[i] = new GearInstance();
 
-        if (gearInstnaceToUnequip is ConsumableInstance consumableInstance) 
+        if (gearInstanceToUnequip is ConsumableInstance consumableInstance) 
             consumableInstance.quantityAvailable++;
     }
 

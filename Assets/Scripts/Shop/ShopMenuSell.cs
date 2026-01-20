@@ -71,7 +71,7 @@ public class ShopSellMenu : ShopMenu
             UIInventorySlotGO.name = gearInstance.gearSO.gearName;
         }
 
-        FieldEvents.SetGridNavigationWrapAround(inventorySlotButtons, 5);
+        FieldEvents.SetGridNavigationWrapAroundHorizontal(inventorySlotButtons, 3);
     }
 
     void SetInventorySlotColor(InventorySlotUI inventorySlot, Color normalColor)
@@ -124,6 +124,9 @@ public class ShopSellMenu : ShopMenu
 
     public void SellGearInSlot(GearInstance gearInstanceToSell)
     {
+        if (gearInstanceToSell.isCurrentlyEquipped)
+            return;
+
         shopMenuManager.mainMenu.playerInventory.RemoveGearFromInventory(gearInstanceToSell);
         InstantiateUIInventorySlots();
 

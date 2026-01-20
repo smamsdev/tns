@@ -131,15 +131,13 @@ public class ShopMainMenu : ShopMenu
         }
 
         if (shopMenuManager.menuUpdateMethod == shopMenuManager.buyMenu)
-
         {
-            itemValueTMP.text = "$MAMS to buy: " + gear.value;
+            itemValueTMP.text = "Buy: " + gear.value.ToString("N0") + " $MAMS";
         }
 
         if (shopMenuManager.menuUpdateMethod == shopMenuManager.sellMenu)
-
         {
-            itemValueTMP.text = "$MAMS to sell: " + gear.value / 2;
+            itemValueTMP.text = "Sell: " + (gear.value / 2).ToString("N0") + " $MAMS";
         }
     }
 }

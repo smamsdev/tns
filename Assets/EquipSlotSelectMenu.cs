@@ -41,7 +41,7 @@ public class EquipSlotSelectMenu : MonoBehaviour
       //      }
       //  }
 
-        FieldEvents.SetGridNavigationWrapAround(uIGearEquipSlotButtons, playerInventory.inventorySO.equipSlotsAvailable);
+        FieldEvents.SetGridNavigationWrapAround(uIGearEquipSlotButtons, playerInventory.inventorySO.gearInstanceEquipped.Count);
     }
 
     //public void EquipSlotSelected(UIGearEquipSlot gearEquipSlot)

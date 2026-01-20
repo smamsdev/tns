@@ -8,7 +8,7 @@ public class InventorySO : ScriptableObject
 {
     [SerializeReference]
     public List<GearInstance> gearInstanceInventory = new List<GearInstance>();
+    [SerializeReference]
     public List<GearInstance> gearInstanceEquipped = new List<GearInstance>();
     public int inventorySlotsAvailable;
-    public int equipSlotsAvailable;
 }

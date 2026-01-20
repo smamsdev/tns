@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class ChargingStation : ToTrigger
 {
-    [SerializeField] ChargerSO charger;
+    [SerializeField] ChargerSO chargerSO;
     public InventorySO playerinv;
+    public ChargingMenuManager chargingMenuManager;
 
     public void LoadToChargeSlot(EquipmentInstance equipmentInstance, int slot)
     {
@@ -13,7 +14,9 @@ public class ChargingStation : ToTrigger
 
     public override IEnumerator TriggerFunction()
     {
-        Debug.Log("test");
+        chargingMenuManager.gameObject.SetActive(true);
+        chargingMenuManager.chargingMainMenu.chargerSO = chargerSO;
+        chargingMenuManager.OpenChargingStation();
         yield return null;
     }
 }

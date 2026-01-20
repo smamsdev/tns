@@ -12,6 +12,18 @@ public class Shop : ToTrigger
     private void OnEnable()
     {
         shopGearInventory.Sort((a, b) => a.name.CompareTo(b.name));
+
+        for (int i = 1; i < shopGearInventory.Count; i++)
+        {
+            if (shopGearInventory[i] == shopGearInventory[i - 1])
+            {
+                Debug.LogWarning(
+                    $"Duplicate GearSO in shop inventory: {shopGearInventory[i].name}",
+                    this
+                );
+            }
+        }
+
         shopContainerDisplay.SetActive(false);
 
         if (shopName == "")

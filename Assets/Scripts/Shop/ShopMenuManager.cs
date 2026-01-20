@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class ShopMenuManager : MonoBehaviour
 {
-    [Header("MENUS")]
+    [Header("SHOP MENUS")]
     public ShopMainMenu mainMenu;
     public ShopBuyMenu buyMenu;
     public ShopSellMenu sellMenu;

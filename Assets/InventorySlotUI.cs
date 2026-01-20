@@ -12,7 +12,6 @@ public class InventorySlotUI : MonoBehaviour, ISelectHandler, IDeselectHandler
     public GearInstance gearInstance;
     public TextMeshProUGUI itemNameTMP;
     public TextMeshProUGUI itemQuantityTMP;
-    public MenuGearInventorySubPage menuGearInventorySubPage;
     public Button button;
     public Color equipmentColor;
     public Color consumableColor;

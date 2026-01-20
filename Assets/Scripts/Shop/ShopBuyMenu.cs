@@ -68,7 +68,7 @@ public class ShopBuyMenu : ShopMenu
             slotButtons.Add(inventorySlot.button);
         }
 
-        FieldEvents.SetGridNavigationWrapAround(slotButtons, 5);
+        FieldEvents.SetGridNavigationWrapAroundHorizontal(slotButtons, 3);
         firstButtonToSelect = slotButtons[0];
     }
 

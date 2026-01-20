@@ -12,13 +12,14 @@ public class MenuGearEquipSubPage : Menu
     public Button firstButtonToSelect;
     public MenuGearPageSelection menuGearPageSelection;
     public MenuGearInventorySubPage menuGearInventorySubPage;
-    public List<Button> equipSlotButtons = new List<Button>();
-    List<InventorySlotUI> equipSlots = new List<InventorySlotUI>();
+    public List<InventorySlotUI> equipSlots = new List<InventorySlotUI>();
     public TextMeshProUGUI gearDescriptionTMP;
     public TextMeshProUGUI gearTypeTMP;
     public TextMeshProUGUI gearValueTMP;
     public TextMeshProUGUI gearEquipStatusTMP;
-    public InventorySlotUI gearEquipSlotHighlighted;
+    public int highlightedButtonIndex;
+
+
     public GameObject equipPageHeaderGO;
     public TextMeshProUGUI pageHeaderTMP;
     public GameObject UIInventorySlotPrefab, equipSlotsParent;
@@ -36,27 +37,25 @@ public class MenuGearEquipSubPage : Menu
 
     public void EquipSlotSelected(InventorySlotUI gearEquipSlotSelected)
     {
-        if (gearEquipSlotHighlighted.gearInstance.gearSO != null) 
+        if (equipSlots[highlightedButtonIndex].gearInstance.gearSO != null) 
         return;
 
         else if (isEquipping)
         {
-            var inventorySlot = menuGearInventorySubPage.inventorySlotSelected;
-            int i = equipSlots.IndexOf(gearEquipSlotHighlighted);
+            InventorySlotUI inventorySlot = menuGearInventorySubPage.inventorySlots[menuGearInventorySubPage.highlightedButtonIndex];
 
             menuGearInventorySubPage.playerInventory.EquipGearToSlot(inventorySlot.gearInstance, equipSlots.IndexOf(gearEquipSlotSelected));
             InitialiseEquipSlots();
             menuGearInventorySubPage.InstantiateUIInventorySlots();
-
-            gearEquipSlotHighlighted = equipSlots[i];
-            firstButtonToSelect = gearEquipSlotHighlighted.button;
-
             menuGearPageSelection.displayContainer.SetActive(true);
             equipPageHeaderGO.SetActive(false);
             menuGearPageSelection.lastParentButtonSelected = menuGearPageSelection.equippedHighlightedButton;
 
             menuGearPageSelection.lastParentButtonSelected.button.onClick.Invoke();
             menuGearPageSelection.inventoryHighlightedButton.SetButtonNormalColor(Color.white);
+
+            firstButtonToSelect = equipSlots[highlightedButtonIndex].button;
+            firstButtonToSelect.Select();
 
             isEquipping = false;
         }
@@ -65,7 +64,6 @@ public class MenuGearEquipSubPage : Menu
         {
             EventSystem.current.SetSelectedGameObject(null);
             ExitMenu();
-            firstButtonToSelect = gearEquipSlotHighlighted.GetComponent<Button>();
             menuGearPageSelection.inventoryHighlightedButton.button.Select();
             menuGearPageSelection.inventoryHighlightedButton.button.onClick.Invoke();
         }
@@ -75,7 +73,7 @@ public class MenuGearEquipSubPage : Menu
     {
         DisplayMenu(true);
         if (firstButtonToSelect == null)
-            firstButtonToSelect = equipSlotButtons[0];
+            firstButtonToSelect = equipSlots[0].button;
 
         firstButtonToSelect.Select();
     }
@@ -124,9 +122,12 @@ public class MenuGearEquipSubPage : Menu
                 bool isEquipment = equipSlot.gearInstance is EquipmentInstance;
             }
 
-            equipSlotButtons.Add(equipSlot.button);
             equipSlots.Add(equipSlot);
         }
+
+        List<Button> equipSlotButtons = new List<Button>();
+        foreach (var equipSlot in equipSlots)
+            equipSlotButtons.Add(equipSlot.button);
 
         FieldEvents.SetGridNavigationWrapAround(equipSlotButtons, 5);
     }
@@ -152,7 +153,6 @@ public class MenuGearEquipSubPage : Menu
 
     public void DeleteAllInventoryUI()
     {
-        equipSlotButtons.Clear();
         equipSlots.Clear();
 
         for (int i = equipSlotsParent.transform.childCount - 1; i >= 0; i--)
@@ -163,7 +163,7 @@ public class MenuGearEquipSubPage : Menu
 
     public void EquipSlotHighlighted(InventorySlotUI gearEquipSlot)
     {
-        gearEquipSlotHighlighted = gearEquipSlot;
+        highlightedButtonIndex = equipSlots.IndexOf(gearEquipSlot);
 
         if (gearEquipSlot.gearInstance.gearSO == null)
         {
@@ -196,7 +196,7 @@ public class MenuGearEquipSubPage : Menu
                 gearDescriptionTMP.text = gearEquipSlot.gearInstance.gearSO.gearDescription;
             }
 
-            gearValueTMP.text = "$MAMS: " + gearEquipSlot.gearInstance.gearSO.value.ToString();
+            gearValueTMP.text = "Sell Value: " + gearEquipSlot.gearInstance.gearSO.value.ToString("N0") + " $MAMS";
         }
     }
 
@@ -211,18 +211,17 @@ public class MenuGearEquipSubPage : Menu
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            gearEquipSlotHighlighted.onUnHighlighted();
+            equipSlots[highlightedButtonIndex].onUnHighlighted();
             ExitMenu();
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-           if (gearEquipSlotHighlighted.gearInstance.gearSO != null)
+           if (equipSlots[highlightedButtonIndex].gearInstance.gearSO != null)
             {
-                menuGearInventorySubPage.UnequipHighlightedGearInstance(gearEquipSlotHighlighted.gearInstance);
-                int i = equipSlots.IndexOf(gearEquipSlotHighlighted);
+                menuGearInventorySubPage.UnequipHighlightedGearInstance(equipSlots[highlightedButtonIndex].gearInstance);
                 InitialiseEquipSlots();
-                equipSlots[i].button.Select();
+                equipSlots[highlightedButtonIndex].button.Select();
             }
         }
     }

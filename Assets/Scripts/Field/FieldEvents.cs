@@ -59,7 +59,7 @@ public static class FieldEvents
         callback(finalValue);
     }
 
-    //assumes a vertical button axis
+    //assumes a vertical major button axis
     public static void SetGridNavigationWrapAround(List<Button> buttons, int maxRows)
     {
         int buttonCount = buttons.Count;
@@ -102,7 +102,7 @@ public static class FieldEvents
         }
     }
 
-    // Assumes a horizontal button axis (wraps left/right and up/down)
+    // Assumes a horizontal major button axis (wraps left/right and up/down)
     public static void SetGridNavigationWrapAroundHorizontal(List<Button> buttons, int maxColumns)
     {
         int buttonCount = buttons.Count;
@@ -111,28 +111,30 @@ public static class FieldEvents
 
         for (int i = 0; i < buttonCount; i++)
         {
-            Button button = buttons[i];
-            Navigation nav = button.navigation;
+            Button buttonToSet = buttons[i];
+            Navigation nav = buttonToSet.navigation;
             nav.mode = Navigation.Mode.Explicit;
 
             int row = i / columns;
             int col = i % columns;
 
-            nav.selectOnLeft = buttons[WrapHorizontal(row, col - 1)];
-            nav.selectOnRight = buttons[WrapHorizontal(row, col + 1)];
+            nav.selectOnLeft = buttons[WrapHorizontal(row, (col - 1), buttonToSet)];
+            nav.selectOnRight = buttons[WrapHorizontal(row, (col + 1), buttonToSet)];
             nav.selectOnUp = buttons[WrapVertical(row - 1, col)];
             nav.selectOnDown = buttons[WrapVertical(row + 1, col)];
 
-            button.navigation = nav;
+            buttonToSet.navigation = nav;
         }
 
-        int WrapHorizontal(int row, int col)
+        //
+        int WrapHorizontal(int row, int col, Button buttonToSet)
         {
             int rowStart = row * columns;
             int rowEnd = Mathf.Min(rowStart + columns, buttonCount);
 
             if (col < 0) col = rowEnd - rowStart - 1; 
-            if (col >= rowEnd - rowStart) col = 0;    
+            if (col >= rowEnd - rowStart) col = 0;
+
 
             return rowStart + col;
         }
