@@ -7,4 +7,5 @@ using UnityEngine;
 public class ChargerSO : ScriptableObject
 {
     public EquipmentInstance[] chargingSlots = new EquipmentInstance[3];
+    public int costPerCharge;
 }

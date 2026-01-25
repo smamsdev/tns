@@ -13,14 +13,9 @@ public class ChargingMainMenu : ChargingMenu
     public Button firstButtonToSelect;
     public MenuButtonHighlighted[] menuButtonHighlighteds;
 
-    public TextMeshProUGUI smamsInventoryTMP;
-    public TextMeshProUGUI durationDisplayTMP;
-    bool isMenuOn;
-
     public void InitializeChargingStationMenu()
     {
         firstButtonToSelect = menuButtonHighlighteds[0].button;
-        isMenuOn = true;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         playerInventory = player.GetComponentInChildren<PlayerInventory>();
         playerPermanentStats = player.GetComponentInChildren<PlayerCombat>().playerPermanentStats;
@@ -33,11 +28,13 @@ public class ChargingMainMenu : ChargingMenu
         FieldEvents.menuAvailable = false;
         CombatEvents.LockPlayerMovement();
 
-        //instaiotn slots
-        chargingMenuManager.ChargingSlotSelectMenu.InitialiseEquipSlots();
-        //shopMenuManager.buyMenu.InstantiateUIShopInventorySlots();
-        //shopMenuManager.sellMenu.InstantiateUIInventorySlots();
-        UpdateSmamsUI();
+        chargingMenuManager.ChargingSlotSelectMenu.gameObject.SetActive(true);
+        chargingMenuManager.chargingEquipmentSelectMenu.gameObject.SetActive(true);
+        chargingMenuManager.chargingExitMenu.gameObject.SetActive(true);
+
+
+        chargingMenuManager.ChargingSlotSelectMenu.InitialiseChargingSlots();
+        chargingMenuManager.chargingEquipmentSelectMenu.InitialiseInventoryUI();
     }
 
     void WireMainButtons()
@@ -64,11 +61,6 @@ public class ChargingMainMenu : ChargingMenu
         inventorySlot.itemQuantityTMP.color = normalColor;
     }
 
-    public void UpdateSmamsUI()
-    {
-        smamsInventoryTMP.text = playerPermanentStats.Smams.ToString("N0");
-    }
-
     public override void DisplayMenu(bool on)
     {
         //
@@ -86,12 +78,9 @@ public class ChargingMainMenu : ChargingMenu
 
     public override void StateUpdate()
     {
-        if (isMenuOn)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            TimeSpan timeSpan = TimeSpan.FromSeconds(Time.time);
-            string playTimeDuration = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
-
-            durationDisplayTMP.text = playTimeDuration;
+            ExitMenu();
         }
     }
 }

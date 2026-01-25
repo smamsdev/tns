@@ -18,7 +18,7 @@ public class MenuGearInventorySubPage : Menu
     public TextMeshProUGUI gearTypeTMP;
     public TextMeshProUGUI gearValueTMP;
     public TextMeshProUGUI gearEquipStatusTMP;
-    public GameObject UIFieldMenuGearSlotPrefab, noneGO;
+    public GameObject inventorySlotUIPrefab, noneGO;
     public GameObject inventorySlotsParent;
     public int highlightedButtonIndex;
 
@@ -41,7 +41,7 @@ public class MenuGearInventorySubPage : Menu
    
         foreach (GearInstance gearInstance in playerInventory.inventorySO.gearInstanceInventory)
         {
-            GameObject UIgearSlot = Instantiate(UIFieldMenuGearSlotPrefab);
+            GameObject UIgearSlot = Instantiate(inventorySlotUIPrefab);
             UIgearSlot.transform.SetParent(inventorySlotsParent.transform, false);
 
             InventorySlotUI inventorySlot = UIgearSlot.GetComponent<InventorySlotUI>();
@@ -55,7 +55,7 @@ public class MenuGearInventorySubPage : Menu
             bool isEquipment = gearInstance.gearSO is EquipmentSO;
             SetInventorySlotColor(inventorySlot, isEquipment ? inventorySlot.equipmentColor : inventorySlot.consumableColor);
 
-            inventorySlot.button.onClick.AddListener(() => InventorySlotSelected(inventorySlot));
+            inventorySlot.button.onClick.AddListener(() => OnInventorySlotSelected(inventorySlot));
 
             inventorySlot.onHighlighted = () => 
             {
@@ -124,7 +124,7 @@ public class MenuGearInventorySubPage : Menu
         menuGearPageSelection.inventoryHighlightedButton.SetButtonNormalColor(Color.white);
     }
 
-    public void InventorySlotSelected(InventorySlotUI inventorySlot)
+    public void OnInventorySlotSelected(InventorySlotUI inventorySlot)
     {
         if (inventorySlot.gearInstance.isCurrentlyEquipped) return;
 

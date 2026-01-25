@@ -165,7 +165,7 @@ public class MenuGearEquipSubPage : Menu
     {
         highlightedButtonIndex = equipSlots.IndexOf(gearEquipSlot);
 
-        if (gearEquipSlot.gearInstance.gearSO == null)
+        if (gearEquipSlot.gearInstance == null || gearEquipSlot.gearInstance.gearSO == null)
         {
             gearDescriptionTMP.text = "Slot free";
             gearTypeTMP.text = "";

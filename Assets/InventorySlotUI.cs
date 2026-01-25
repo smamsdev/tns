@@ -9,6 +9,7 @@ public class InventorySlotUI : MonoBehaviour, ISelectHandler, IDeselectHandler
     public Action onHighlighted;
     public Action onUnHighlighted;
 
+    [SerializeReference]
     public GearInstance gearInstance;
     public TextMeshProUGUI itemNameTMP;
     public TextMeshProUGUI itemQuantityTMP;

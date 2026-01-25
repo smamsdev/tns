@@ -13,6 +13,13 @@ MonoBehaviour:
   m_Name: TestCharger
   m_EditorClassIdentifier: Assembly-CSharp::ChargerSO
   chargingSlots:
-  - {fileID: 11400000, guid: 61659de40aca88444870f9a1ce99dbca, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
+  - gearSO: {fileID: 0}
+    isCurrentlyEquipped: 0
+    charge: 25
+  - gearSO: {fileID: 11400000, guid: 61659de40aca88444870f9a1ce99dbca, type: 2}
+    isCurrentlyEquipped: 0
+    charge: 0
+  - gearSO: {fileID: 11400000, guid: ecfcac85a3c930441afbbf7dba187cc9, type: 2}
+    isCurrentlyEquipped: 0
+    charge: 0
+  costPerCharge: 5
