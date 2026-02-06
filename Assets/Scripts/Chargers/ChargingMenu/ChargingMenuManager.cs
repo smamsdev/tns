@@ -7,7 +7,7 @@ public class ChargingMenuManager : MonoBehaviour
     public ChargingMainMenu chargingMainMenu;
     public ChargingSlotMenu ChargingSlotSelectMenu;
     public ChargingEquipmentSelectMenu chargingEquipmentSelectMenu;
-    public ChargingExitMenu chargingExitMenu;
+    public GameObject subMenuPanel;
 
     [Header("Debug")]
     public ChargingMenu menuUpdateMethod;
@@ -24,7 +24,6 @@ public class ChargingMenuManager : MonoBehaviour
     {
         ChargingSlotSelectMenu.DisplayMenu(false);
         chargingEquipmentSelectMenu.DisplayMenu(false);
-        chargingExitMenu.DisplayMenu(false);
 
         menuToDisplay.DisplayMenu(true);
     }

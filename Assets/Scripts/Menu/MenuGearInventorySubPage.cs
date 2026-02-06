@@ -77,7 +77,7 @@ public class MenuGearInventorySubPage : Menu
         foreach (var inventorySlot in inventorySlots)
             inventorySlotButtons.Add(inventorySlot.button);
 
-        FieldEvents.SetGridNavigationWrapAround(inventorySlotButtons, 5);
+        FieldEvents.SetGridNavigationWrapAroundHorizontal(inventorySlotButtons, 3);
     }
 
     public void SetInventorySlotColor(InventorySlotUI inventorySlot, Color normalColor)
@@ -93,7 +93,7 @@ public class MenuGearInventorySubPage : Menu
     string ItemQuantityRemaining(GearInstance gearInstance)
     {
         if (gearInstance is EquipmentInstance equipmentInstance)
-            return ": " + equipmentInstance.charge + "%";
+            return ": " + equipmentInstance.ChargePercentage() + "%";
         if (gearInstance is ConsumableInstance consumableInstance)
             return "x " + consumableInstance.quantityAvailable;
         return "";
@@ -142,27 +142,31 @@ public class MenuGearInventorySubPage : Menu
 
     public void GearSlotHighlighted(InventorySlotUI inventorySlot)
     {
-        gearValueTMP.text = "Sell Value: " + inventorySlot.gearInstance.gearSO.value.ToString("N0") + " $MAMS";
+        var gearInstance = inventorySlot.gearInstance;
+        var gearSO = gearInstance.gearSO;
+
         highlightedButtonIndex = inventorySlots.IndexOf(inventorySlot);
 
-        if (inventorySlot.gearInstance.gearSO is EquipmentSO)
-        {
+        gearValueTMP.text =
+            $"Sell Value: {gearSO.value:N0} $MAMS";
+
+        gearDescriptionTMP.text = gearSO.gearDescription;
+
+        // Gear type
+        if (gearSO is EquipmentSO)
             gearTypeTMP.text = "Type: Equipment";
-        }
-
-        else if (inventorySlot.gearInstance.gearSO is ConsumbableSO)
-        {
+        else if (gearSO is ConsumbableSO)
             gearTypeTMP.text = "Type: Consumable";
-        }
 
-        if (inventorySlot.gearInstance.isCurrentlyEquipped)
+        // Equip status
+        if (gearInstance.isCurrentlyEquipped)
         {
-            gearDescriptionTMP.text = inventorySlot.gearInstance.gearSO.gearDescription;
-            gearEquipStatusTMP.text = "Equipped to Slot " + (playerInventory.inventorySO.gearInstanceEquipped.IndexOf(inventorySlot.gearInstance) + 1) + ". PRESS CTRL TO REMOVE";
+            int slotIndex = playerInventory.inventorySO.gearInstanceEquipped.IndexOf(gearInstance) + 1;
+
+            gearEquipStatusTMP.text = $"Equipped to Slot {slotIndex}. CTRL to unequip";
         }
         else
         {
-            gearDescriptionTMP.text = inventorySlot.gearInstance.gearSO.gearDescription;
             gearEquipStatusTMP.text = "SELECT to equip";
         }
     }

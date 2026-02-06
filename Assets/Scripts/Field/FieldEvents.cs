@@ -43,7 +43,6 @@ public static class FieldEvents
 
     public static IEnumerator LerpValuesCoRo(float initialValue, float finalValue, float duration, Action<float> callback)
     {
-        Debug.Log("not sure if i broke this, this needs to be called by a monobehaviour");
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)

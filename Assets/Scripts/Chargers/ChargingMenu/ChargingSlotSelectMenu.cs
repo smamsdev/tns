@@ -1,17 +1,22 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 
 public class ChargingSlotMenu : ChargingMenu
 {
     public InventorySlotUI[] chargingSlotUIs;
+    public Animator[] charingSlotTMPanimators;
     public ChargingMainMenu chargingMainMenu;
     public TextMeshProUGUI pageHeaderTMP;
 
     public GameObject propertiesDisplay;
+    public float chargeTimer;
+    public int rotatingChargerIndex = 0;
 
-    public TextMeshProUGUI feeTMP, gearDescriptionTMP, durationDisplayTMP, smamsInventoryTMP;
+    public TextMeshProUGUI feeTMP, gearDescriptionTMP, gearTypeTMP, smamsInventoryTMP;
 
     public int slotSelectedIndex;
     public bool isEquipping;
@@ -40,6 +45,7 @@ public class ChargingSlotMenu : ChargingMenu
         for (int i = 0; i < chargingSlots.Length; i++)
         {
             InventorySlotUI slotUI = chargingSlotUIs[i];
+            chargingMainMenu.chargerSO.ApplyChargeToSlot(i);
 
             slotUI.onHighlighted = () =>
             {
@@ -52,14 +58,15 @@ public class ChargingSlotMenu : ChargingMenu
                 chargingMainMenu.SetEquipSlotColor(slotUI, Color.white);
             };
 
-            if (chargingSlots[i].gearSO == null)
+            if (chargingSlots[i] == null || chargingSlots[i].gearSO == null)
             {
                 slotUI.itemNameTMP.text = "CHARGING SLOT " + (i + 1) + ": EMPTY";
+                slotUI.itemQuantityTMP.text = "";
             }
             else
             {
                 slotUI.itemNameTMP.text = chargingSlots[i].gearSO.name;
-                slotUI.itemQuantityTMP.text = ": " + chargingSlots[i].charge.ToString() + "%";
+                slotUI.itemQuantityTMP.text = ": " + chargingSlots[i].ChargePercentage() + "%";
             }
 
             slotUI.gearInstance = chargingSlots[i];
@@ -72,47 +79,99 @@ public class ChargingSlotMenu : ChargingMenu
     {
         feeTMP.text = "";
         gearDescriptionTMP.text = "";
-        durationDisplayTMP.text = "";
-        smamsInventoryTMP.text = "";
     }
 
     void ChargingSlotHighlighted(InventorySlotUI inventorySlotUI)
     {
-        //.ToString("N0") + " $MAMS";
+        slotSelectedIndex = Array.IndexOf(chargingSlotUIs, inventorySlotUI);
 
-        if (inventorySlotUI.gearInstance.gearSO == null)
-            gearDescriptionTMP.text =
-                $"SELECT to choose Equipment\n" +
-                $"Charging Fee: {chargingMainMenu.chargerSO.costPerCharge} $MAMS per charge";
+        if (inventorySlotUI.gearInstance == null || inventorySlotUI.gearInstance.gearSO == null)
+        {
+            feeTMP.text = $"Charging Fee: {chargingMainMenu.chargerSO.costPerCharge} $MAMS per charge";
+            gearDescriptionTMP.text = $"SELECT to choose Equipment";
+            gearTypeTMP.text = "";
+        }
 
         else
+        {
+            int chargesAccrued = ((EquipmentInstance)inventorySlotUI.gearInstance).ChargesAccrued;
+            int costPerCharge = chargingMainMenu.chargerSO.costPerCharge;
+
+            feeTMP.text = "Charging Fee: " + (chargesAccrued * costPerCharge) + " $MAMS";
             gearDescriptionTMP.text = $"Description: {inventorySlotUI.gearInstance.gearSO.gearDescription}";
+
+            EquipmentInstance equipmentInstance = inventorySlotUI.gearInstance as EquipmentInstance;
+            EquipmentSO equipmentSO = equipmentInstance.gearSO as EquipmentSO;
+
+            gearTypeTMP.text = "Charge " + equipmentInstance.Charge + " / " + equipmentSO.maxPotential;
+        }
     }
 
     public void ChargingSlotSelected(InventorySlotUI chargingSlotSelected)
     {
-        slotSelectedIndex = Array.IndexOf(chargingSlotUIs, chargingSlotSelected);
-
         if (isEquipping)
         {
+            if (chargingSlotSelected.gearInstance != null && chargingSlotSelected.gearInstance.gearSO != null)
+                return;
+
             var gearInstanceInventory = chargingMainMenu.playerInventory.inventorySO.gearInstanceInventory;
             EquipmentInstance gearInstanceToCharge = chargingMenuManager.chargingEquipmentSelectMenu.equipmentInstanceToCharge;
             var chargingSlots = chargingMenuManager.chargingMainMenu.chargerSO.chargingSlots;
 
             chargingSlots[slotSelectedIndex] = gearInstanceToCharge;
+            gearInstanceToCharge.StartCharging();
             gearInstanceInventory.Remove(gearInstanceToCharge);
 
             chargingMenuManager.ChargingSlotSelectMenu.InitialiseChargingSlots();
             chargingMenuManager.chargingEquipmentSelectMenu.InitialiseInventoryUI();
+
+            pageHeaderTMP.text = "Select Charging Slot:";
+
             isEquipping = false;
+            ChargingSlotHighlighted(chargingSlotUIs[slotSelectedIndex]);
         }
 
-        else 
+        else
         {
-            ExitMenu();
-            chargingMenuManager.DisplaySubMenu(chargingMenuManager.chargingEquipmentSelectMenu);
-            chargingMenuManager.EnterMenu(chargingMenuManager.chargingEquipmentSelectMenu);
+            if (chargingSlotSelected.gearInstance == null || chargingSlotSelected.gearInstance.gearSO == null)
+            {
+                ExitMenu();
+                chargingMenuManager.DisplaySubMenu(chargingMenuManager.chargingEquipmentSelectMenu);
+                chargingMenuManager.EnterMenu(chargingMenuManager.chargingEquipmentSelectMenu);
+            }
+
+            else
+            {
+                RetrieveGear(chargingSlotSelected);
+            }
         }
+    }
+
+    void RetrieveGear(InventorySlotUI chargingSlotSelected)
+    {
+        int chargesAccrued = ((EquipmentInstance)chargingSlotSelected.gearInstance).ChargesAccrued;
+        int costPerCharge = chargingMainMenu.chargerSO.costPerCharge;
+        int fee = chargesAccrued * costPerCharge;
+        var stats = chargingMainMenu.playerPermanentStats;
+
+        if (fee > stats.Smams)
+        {
+            smamsInventoryTMP.GetComponent<Animator>().Play("SmamsRedText");
+            return;
+        }
+
+        smamsInventoryTMP.GetComponent<Animator>().Play("SmamsRedText");
+
+        StartCoroutine(FieldEvents.LerpValuesCoRo(stats.Smams, stats.Smams -= fee, .2f,
+            smamsValue =>
+            {
+                smamsInventoryTMP.text = "$MAMS: " + Mathf.RoundToInt(smamsValue).ToString("N0");
+            }));
+
+        chargingMainMenu.playerInventory.AddGearToInventory(chargingSlotSelected.gearInstance);
+        chargingMainMenu.chargerSO.chargingSlots[slotSelectedIndex] = null;
+        InitialiseChargingSlots();
+        chargingMenuManager.chargingEquipmentSelectMenu.InitialiseInventoryUI();
     }
 
     public void UpdateSmamsUI()
@@ -133,6 +192,33 @@ public class ChargingSlotMenu : ChargingMenu
         chargingMenuManager.EnterMenu(chargingMenuManager.chargingMainMenu);
     }
 
+    public void CheckCharges()
+    {
+        chargeTimer += Time.deltaTime;
+
+        if (chargeTimer < .5f)
+            return;
+
+        // Preserve leftover time
+        chargeTimer -= .5f;
+
+        var slot = chargingSlotUIs[rotatingChargerIndex];
+
+        if (slot.gearInstance != null && slot.gearInstance.gearSO != null)
+        {
+            if (((EquipmentInstance)slot.gearInstance).ChargePercentage() < 100)
+            {
+                chargingMainMenu.chargerSO.ApplyChargeToSlot(rotatingChargerIndex);
+                slot.itemQuantityTMP.text = ": " + ((EquipmentInstance)slot.gearInstance).ChargePercentage() + "%";
+                ChargingSlotHighlighted(chargingSlotUIs[slotSelectedIndex]);
+
+                charingSlotTMPanimators[rotatingChargerIndex].Play("ChargingSlotTMPAnimation");
+            }
+        }
+
+        rotatingChargerIndex = (rotatingChargerIndex + 1) % chargingSlotUIs.Length;
+    }
+
     public override void StateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -140,9 +226,6 @@ public class ChargingSlotMenu : ChargingMenu
             ExitMenu();
         }
 
-        TimeSpan timeSpan = TimeSpan.FromSeconds(Time.time);
-        string playTimeDuration = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
-
-        durationDisplayTMP.text = playTimeDuration;
+        CheckCharges();
     }
 }

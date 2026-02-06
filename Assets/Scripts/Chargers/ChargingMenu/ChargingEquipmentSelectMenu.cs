@@ -95,9 +95,11 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
     string ItemQuantityRemaining(GearInstance gearInstance)
     {
         if (gearInstance is EquipmentInstance equipmentInstance)
-            return ": " + equipmentInstance.charge + "%";
+            return ": " + equipmentInstance.ChargePercentage() + "%";
+
         if (gearInstance is ConsumableInstance consumableInstance)
             return "x " + consumableInstance.quantityAvailable;
+
         return "";
     }
 
@@ -106,8 +108,10 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
         inventorySlot.itemNameTMP.color = normalColor;
         inventorySlot.itemQuantityTMP.color = normalColor;
 
-        float alpha = inventorySlot.gearInstance.isCurrentlyEquipped || inventorySlot.gearInstance is ConsumableInstance
-                ? 0.7f : 1f;
+        float alpha = 0.7f;
+
+        if (inventorySlot.gearInstance is EquipmentInstance && ((EquipmentInstance)inventorySlot.gearInstance).ChargePercentage() != 100)
+            alpha = 1f;
 
         FieldEvents.SetTextAlpha(inventorySlot.itemNameTMP, alpha);
         FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, alpha);
@@ -132,7 +136,7 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
 
     public void OnInventorySlotSelected(InventorySlotUI inventorySlot)
     {
-        if (inventorySlot.gearInstance.isCurrentlyEquipped || inventorySlot.gearInstance is ConsumableInstance) 
+        if (inventorySlot.gearInstance.isCurrentlyEquipped || inventorySlot.gearInstance is ConsumableInstance || ((EquipmentInstance)inventorySlot.gearInstance).ChargePercentage() == 100) 
             return;
 
         highlightedButtonIndex = inventorySlots.IndexOf(inventorySlot);
@@ -140,10 +144,14 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
         equipmentInstanceToCharge = inventorySlot.gearInstance as EquipmentInstance;
 
         chargingSlotMenu.isEquipping = true;
-        chargingSlotMenu.pageHeaderTMP.text = "Equip " + inventorySlot.gearInstance.gearSO.gearName + "?";
-        
+        ExitMenu();
+
+        chargingSlotMenu.pageHeaderTMP.text = "Start charging " + inventorySlot.gearInstance.gearSO.gearName + "?";
+        chargingMenuManager.EnterMenu(chargingMenuManager.ChargingSlotSelectMenu);
+
         chargingMenuManager.DisplaySubMenu(chargingMenuManager.ChargingSlotSelectMenu);
         chargingMenuManager.ChargingSlotSelectMenu.chargingSlotUIs[0].button.Select();
+        chargingMenuManager.ChargingSlotSelectMenu.chargingSlotUIs[0].onHighlighted();
     }
 
     public void OnInventorySlotHighlighted(InventorySlotUI inventorySlot)
@@ -153,25 +161,35 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
         gearDescriptionTMP.text = "Description: " + inventorySlot.gearInstance.gearSO.gearDescription;
 
         //Gear Type
-        if (inventorySlot.gearInstance is EquipmentInstance)
-            gearTypeTMP.text = "Type: Equipment";
+        if (inventorySlot.gearInstance is EquipmentInstance equipmentInstance)
+        { 
+            gearTypeTMP.text = "Charge " + equipmentInstance.Charge + " / " + ((EquipmentSO)equipmentInstance.gearSO).maxPotential;
+        }
 
         else
-            gearTypeTMP.text = "Type: Consumable";
+            gearTypeTMP.text = "Consumable";
 
         //Availability
 
         if (inventorySlot.gearInstance is ConsumableInstance)
             gearEquipStatusTMP.text = "";
 
-        else if (inventorySlot.gearInstance.isCurrentlyEquipped)
-        {
-            gearEquipStatusTMP.text = "Equipped to Slot " + (chargingMainMenu.playerInventory.inventorySO.gearInstanceEquipped.IndexOf(inventorySlot.gearInstance) + 1) + ". PRESS CTRL TO REMOVE";
-        }
-
         else
         {
-            gearEquipStatusTMP.text = "SELECT to Charge";
+            if (inventorySlot.gearInstance.isCurrentlyEquipped)
+            {
+                gearEquipStatusTMP.text = "Equipped to Slot " + (chargingMainMenu.playerInventory.inventorySO.gearInstanceEquipped.IndexOf(inventorySlot.gearInstance) + 1) + ". PRESS CTRL TO REMOVE";
+            }
+
+            if (((EquipmentInstance)inventorySlot.gearInstance).ChargePercentage() == 100)
+            {
+                gearEquipStatusTMP.text = "Fully charged";
+            }
+
+            else
+            {
+                gearEquipStatusTMP.text = "SELECT to Charge";
+            }
         }
     }
 

@@ -33,10 +33,27 @@ public class ConsumableInstance : GearInstance
 [System.Serializable]
 public class EquipmentInstance : GearInstance
 {
-    public int charge;
-    int maxCharge;
+    [SerializeField] float charge;
+    public int Charge
+    {
+        get{return Mathf.RoundToInt(charge);}
 
-    float startChargeTimeStamp;
+        set{charge = Charge; }
+    }
+
+    [SerializeField] float chargesAccrued;
+    public int ChargesAccrued
+    {
+        get { return Mathf.RoundToInt(chargesAccrued); }
+
+        set { chargesAccrued = ChargesAccrued;}
+    }
+
+    public int lastAppliedCharge;
+
+
+
+    public float startChargeTimeStamp;
 
     public EquipmentInstance(EquipmentInstance sourceToClone)
     {
@@ -55,22 +72,26 @@ public class EquipmentInstance : GearInstance
     public void StartCharging()
     {
         startChargeTimeStamp = Time.time;
-        maxCharge = ((EquipmentSO)gearSO).maxPotential;
+        chargesAccrued = 0;
     }
 
+    // apply the amount of charge based on the last playtime the function was called
     public void UpdateCharge()
     {
-        if (startChargeTimeStamp == 0)
-        {
-            Debug.Log(this + " has not been loaded to charge");
-            return;
-        }
-
         float elapsed = Time.time - startChargeTimeStamp;
-        int chargeChange = Mathf.RoundToInt(elapsed);
-        chargeChange = Mathf.Clamp(chargeChange, 0, maxCharge - charge);
-        charge += chargeChange;
 
-        startChargeTimeStamp = Time.time; 
+        charge += elapsed;
+        chargesAccrued += elapsed;
+
+        charge = Mathf.Min(charge, ((EquipmentSO)gearSO).maxPotential);
+
+        startChargeTimeStamp = Time.time;
+    }
+
+    public float ChargePercentage()
+    {
+        float chargePer = charge / ((EquipmentSO)gearSO).maxPotential * 100;
+        chargePer = Mathf.RoundToInt(chargePer);
+        return chargePer;
     }
 }

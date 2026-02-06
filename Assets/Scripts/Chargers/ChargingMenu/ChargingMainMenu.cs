@@ -22,19 +22,21 @@ public class ChargingMainMenu : ChargingMenu
 
         WireMainButtons();
 
-        animator.enabled = true;
+        this.gameObject.SetActive(true);
+        displayContainer.SetActive(true);
         animator.Play("OpenShop");
 
         FieldEvents.menuAvailable = false;
         CombatEvents.LockPlayerMovement();
 
+        chargingMenuManager.ChargingSlotSelectMenu.rotatingChargerIndex = 0;
         chargingMenuManager.ChargingSlotSelectMenu.gameObject.SetActive(true);
         chargingMenuManager.chargingEquipmentSelectMenu.gameObject.SetActive(true);
-        chargingMenuManager.chargingExitMenu.gameObject.SetActive(true);
-
 
         chargingMenuManager.ChargingSlotSelectMenu.InitialiseChargingSlots();
         chargingMenuManager.chargingEquipmentSelectMenu.InitialiseInventoryUI();
+
+        EnterMenu();
     }
 
     void WireMainButtons()
@@ -51,7 +53,12 @@ public class ChargingMainMenu : ChargingMenu
 
         menuButtonHighlighteds[2].onHighlighted = () =>
         {
-            chargingMenuManager.DisplaySubMenu(chargingMenuManager.chargingExitMenu);
+            chargingMenuManager.subMenuPanel.gameObject.SetActive(false);
+        };
+
+        menuButtonHighlighteds[2].onUnHighlighted = () =>
+        {
+            chargingMenuManager.subMenuPanel.gameObject.SetActive(true);
         };
     }
 
@@ -69,11 +76,14 @@ public class ChargingMainMenu : ChargingMenu
     public override void EnterMenu()
     {
         firstButtonToSelect.Select();
+        chargingMenuManager.ChargingSlotSelectMenu.propertiesDisplay.SetActive(false);
     }
 
     public override void ExitMenu()
     {
-        throw new System.NotImplementedException();
+        chargingMenuManager.chargingEquipmentSelectMenu.DeleteAllInventoryUI();
+        animator.Play("CloseShop"); //animator has a Function to disable this GO once finished
+        CombatEvents.UnlockPlayerMovement();
     }
 
     public override void StateUpdate()
@@ -82,5 +92,8 @@ public class ChargingMainMenu : ChargingMenu
         {
             ExitMenu();
         }
+
+        if (chargingMenuManager.ChargingSlotSelectMenu.displayContainer.activeInHierarchy)
+        chargingMenuManager.ChargingSlotSelectMenu.CheckCharges();
     }
 }

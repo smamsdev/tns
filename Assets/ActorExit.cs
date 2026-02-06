@@ -34,7 +34,7 @@ public class ActorExit : ToTrigger
         CombatEvents.LockPlayerMovement();
         var sr = actorToLeave.GetComponent<SpriteRenderer>();
 
-        yield return StartCoroutine(FieldEvents.LerpValuesCoRo(1f, 0f, 1f, 
+        yield return (FieldEvents.LerpValuesCoRo(1f, 0f, 1f, 
             alpha =>
             {
                 var color = sr.color;

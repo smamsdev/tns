@@ -87,7 +87,7 @@ public class ShopSellMenu : ShopMenu
     string ItemQuantityRemaining(GearInstance gearInstance)
     {
         if (gearInstance is EquipmentInstance equipmentInstance)
-            return ": " + equipmentInstance.charge + "%";
+            return ": " + equipmentInstance.ChargePercentage() + "%";
         if (gearInstance is ConsumableInstance consumableInstance)
             return "x " + consumableInstance.quantityAvailable;
         return "";
