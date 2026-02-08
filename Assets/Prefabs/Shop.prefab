@@ -1687,7 +1687,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4656006539673966407
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2002,7 +2002,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3100661185725154321}
   - component: {fileID: 1334937051912915897}
-  - component: {fileID: 2144629111407727285}
   m_Layer: 0
   m_Name: ShopMainMenu
   m_TagString: Untagged
@@ -2047,7 +2046,7 @@ MonoBehaviour:
   shopnameTMP: {fileID: 537160911863123483}
   smamsInventoryTMP: {fileID: 6110026496317516311}
   firstMenuButton: {fileID: 281721514164342523}
-  animator: {fileID: 2144629111407727285}
+  animator: {fileID: 2036520011960879726}
   smamsColorAnimator: {fileID: 8585398809724698400}
   GearDescriptionGO: {fileID: 8067245246088569980}
   descriptionFieldTMP: {fileID: 7707604475086571869}
@@ -2060,28 +2059,6 @@ MonoBehaviour:
   - {fileID: 798722773880549930}
   - {fileID: 851747326935994307}
   - {fileID: 5735825786488260232}
---- !u!95 &2144629111407727285
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5532715868073868785}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a51692ce3f16f844b93970f2c57fc3ca, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5694769151359243091
 GameObject:
   m_ObjectHideFlags: 0
@@ -2167,13 +2144,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8546913061088310969}
+  - component: {fileID: 2036520011960879726}
+  - component: {fileID: 4676104352800764531}
   m_Layer: 0
-  m_Name: MainShopContainer
+  m_Name: MenuContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8546913061088310969
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2195,6 +2174,41 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &2036520011960879726
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5763242322336593694}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a51692ce3f16f844b93970f2c57fc3ca, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4676104352800764531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5763242322336593694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ab41dfb6b58529428fadd10e39e71d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  menuGameObject: {fileID: 3629548343054105957}
 --- !u!1 &5891260123119553689
 GameObject:
   m_ObjectHideFlags: 0
@@ -2255,7 +2269,7 @@ MonoBehaviour:
   gearTypeTMP: {fileID: 0}
   gearValueTMP: {fileID: 0}
   gearEquipStatusTMP: {fileID: 0}
-  UIFieldMenuGearSlotPrefab: {fileID: 0}
+  inventorySlotUIPrefab: {fileID: 0}
   noneGO: {fileID: 0}
   inventorySlotsParent: {fileID: 0}
   highlightedButtonIndex: 0
@@ -2317,7 +2331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9254902, g: 0.09411765, b: 0.74509805, a: 1}
+  m_Color: {r: 0.35233602, g: 0.488, b: 0.400187, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

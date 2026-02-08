@@ -33,11 +33,6 @@ public class ShopMainMenu : ShopMenu
         displayContainer.SetActive(true);
     }
 
-    private void OnEnable()
-    {
-        animator.enabled = false;
-    }
-
     public void WireAllMainButtons()
     {
         WireButtonHighlightContainerDisplays(mainShopMenuButtons[0], shopMenuManager.buyMenu);
@@ -53,12 +48,13 @@ public class ShopMainMenu : ShopMenu
 
     public void InitialiseShop()
     {
+        displayContainer.SetActive(true);
+        this.gameObject.SetActive(true);
+
         player = GameObject.FindGameObjectWithTag("Player");
         playerInventory = player.GetComponentInChildren<PlayerInventory>();
         playerPermanentStats = player.GetComponentInChildren<PlayerCombat>().playerPermanentStats;
 
-        animator.enabled = true;
-        //StartCoroutine(OpenShopAnimation());
         animator.Play("OpenShop");
 
         FieldEvents.menuAvailable = false;
@@ -79,15 +75,10 @@ public class ShopMainMenu : ShopMenu
     {
         animator.Play("CloseShop", 0, 0f);
         FieldEvents.menuAvailable = true;
-        //DisableShop will be triggered via animation event once completed
+        CombatEvents.UnlockPlayerMovement();
+        //Manager GO will be disabled via animation event once completed
     }
 
-    public void DisableShop()
-    {
-        animator.enabled = false;
-        shopMenuManager.gameObject.SetActive(false);
-        CombatEvents.UnlockPlayerMovement();
-    }
 
     public override void EnterMenu()
     {

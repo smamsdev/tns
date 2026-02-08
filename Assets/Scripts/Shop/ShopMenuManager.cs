@@ -21,7 +21,6 @@ public class ShopMenuManager : MonoBehaviour
     {
         mainMenu.InitialiseShop();
         menuUpdateMethod = mainMenu;
-        mainMenu.DisplayMenu(true);
         mainMenu.EnterMenu();
     }
 

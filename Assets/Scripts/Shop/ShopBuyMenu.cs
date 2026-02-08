@@ -35,6 +35,7 @@ public class ShopBuyMenu : ShopMenu
             {
                 EquipmentInstance equipmentInstanceToBuy = new EquipmentInstance();
                 inventorySlot.gearInstance = equipmentInstanceToBuy;
+                inventorySlot.icon.sprite = inventorySlot.equipmentIcon;
             }
 
             else
@@ -42,6 +43,7 @@ public class ShopBuyMenu : ShopMenu
             { 
                 ConsumableInstance consumableInstanceToBuy = new ConsumableInstance();
                 inventorySlot.gearInstance = consumableInstanceToBuy;
+                inventorySlot.icon.sprite= inventorySlot.consumableIcon;
             }
 
             bool isEquipment = inventorySlot.gearInstance is EquipmentInstance;

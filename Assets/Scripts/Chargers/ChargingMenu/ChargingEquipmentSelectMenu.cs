@@ -66,7 +66,8 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
 
             bool isEquipment = gearInstance.gearSO is EquipmentSO;
             SetInventorySlotColor(inventorySlot, isEquipment ? inventorySlot.equipmentColor : inventorySlot.consumableColor);
-
+            inventorySlot.icon.sprite = isEquipment ? inventorySlot.equipmentIcon : inventorySlot.consumableIcon;
+            
             inventorySlot.button.onClick.AddListener(() => OnInventorySlotSelected(inventorySlot));
 
             inventorySlot.onHighlighted = () =>

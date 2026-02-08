@@ -54,6 +54,7 @@ public class MenuGearInventorySubPage : Menu
 
             bool isEquipment = gearInstance.gearSO is EquipmentSO;
             SetInventorySlotColor(inventorySlot, isEquipment ? inventorySlot.equipmentColor : inventorySlot.consumableColor);
+            inventorySlot.icon.sprite = isEquipment ? inventorySlot.equipmentIcon : inventorySlot.consumableIcon;
 
             inventorySlot.button.onClick.AddListener(() => OnInventorySlotSelected(inventorySlot));
 
@@ -85,7 +86,7 @@ public class MenuGearInventorySubPage : Menu
         inventorySlot.itemNameTMP.color = normalColor;
         inventorySlot.itemQuantityTMP.color = normalColor;
 
-        float alpha = inventorySlot.gearInstance.isCurrentlyEquipped ? 0.7f : 1f;
+        float alpha = inventorySlot.gearInstance.isCurrentlyEquipped ? 0.6f : 1f;
         FieldEvents.SetTextAlpha(inventorySlot.itemNameTMP, alpha);
         FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, alpha);
     }

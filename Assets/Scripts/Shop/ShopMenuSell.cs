@@ -51,6 +51,7 @@ public class ShopSellMenu : ShopMenu
 
             bool isEquipment = gearInstance.gearSO is EquipmentSO;
             SetInventorySlotColor(inventorySlot, isEquipment ? inventorySlot.equipmentColor : inventorySlot.consumableColor);
+            inventorySlot.icon.sprite = isEquipment ? inventorySlot.equipmentIcon : inventorySlot.consumableIcon;
 
             inventorySlotButtons.Add(inventorySlot.button);
 

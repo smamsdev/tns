@@ -95,7 +95,7 @@ public class MenuGearEquipSubPage : Menu
             InventorySlotUI equipSlot = UIEquipSlotGO.GetComponent<InventorySlotUI>();
 
             equipSlot.button.onClick.AddListener(() => EquipSlotSelected(equipSlot));
-
+            equipSlot.icon.sprite = equipSlot.equipmentIcon;
 
             if (gearInstanceEquipped[i] == null || gearInstanceEquipped[i].gearSO == null)
             {

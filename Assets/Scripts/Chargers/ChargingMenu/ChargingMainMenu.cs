@@ -84,6 +84,7 @@ public class ChargingMainMenu : ChargingMenu
         chargingMenuManager.chargingEquipmentSelectMenu.DeleteAllInventoryUI();
         animator.Play("CloseShop"); //animator has a Function to disable this GO once finished
         CombatEvents.UnlockPlayerMovement();
+        FieldEvents.menuAvailable = true;
     }
 
     public override void StateUpdate()
