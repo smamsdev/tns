@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8560423e2bd1fe84f9ff0ea9c709a38c, type: 3}
+  m_Name: TestLocker
+  m_EditorClassIdentifier: Assembly-CSharp::InventorySO
+  debugGearToAddAsInstance: {fileID: 11400000, guid: 61659de40aca88444870f9a1ce99dbca, type: 2}
+  gearInstanceInventory:
+  - rid: 5945244365007355986
+  - rid: 5945244365007355987
+  inventorySlotsAvailable: 0
+  gearInstanceEquipped: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 5945244365007355986
+      type: {class: EquipmentInstance, ns: , asm: Assembly-CSharp}
+      data:
+        gearSO: {fileID: 11400000, guid: ecfcac85a3c930441afbbf7dba187cc9, type: 2}
+        isCurrentlyEquipped: 0
+        charge: 25
+        chargesAccrued: 0
+        lastAppliedCharge: 0
+        startChargeTimeStamp: 0
+    - rid: 5945244365007355987
+      type: {class: EquipmentInstance, ns: , asm: Assembly-CSharp}
+      data:
+        gearSO: {fileID: 11400000, guid: 61659de40aca88444870f9a1ce99dbca, type: 2}
+        isCurrentlyEquipped: 0
+        charge: 55
+        chargesAccrued: 0
+        lastAppliedCharge: 0
+        startChargeTimeStamp: 0

@@ -11,7 +11,6 @@ public class ShopMenuManager : MonoBehaviour
     public ShopMainMenu mainMenu;
     public ShopBuyMenu buyMenu;
     public ShopSellMenu sellMenu;
-    public ShopExitMenu exitMenu;
 
     [Header("Debug")]
     public ShopMenu menuUpdateMethod;
@@ -28,7 +27,6 @@ public class ShopMenuManager : MonoBehaviour
     {
         buyMenu.DisplayMenu(false);
         sellMenu.DisplayMenu(false);
-        exitMenu.DisplayMenu(false);
 
         shopMenuToDisplay.DisplayMenu(true);
         menuToDisplay = shopMenuToDisplay;

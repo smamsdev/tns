@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuExit : Menu
+public class MenuExit : PauseMenu
 {
     public GameObject exitToMainMenuGo;
     public Button yes, no;
@@ -34,7 +34,7 @@ public class MenuExit : Menu
 
     public override void ExitMenu()
     {
-        menuManagerUI.menuUpdateMethod = menuManagerUI.main;
+        pauseMenuManager.menuUpdateMethod = pauseMenuManager.main;
     }
 
     public override void StateUpdate()

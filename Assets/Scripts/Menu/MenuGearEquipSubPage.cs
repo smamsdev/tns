@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class MenuGearEquipSubPage : Menu
+public class MenuGearEquipSubPage : PauseMenu
 {
     public Button firstButtonToSelect;
     public MenuGearPageSelection menuGearPageSelection;
@@ -209,9 +209,9 @@ public class MenuGearEquipSubPage : Menu
 
     public override void ExitMenu()
     {
-        menuManagerUI.EnterMenu(menuManagerUI.gearPageSelection);
-        menuManagerUI.menuUpdateMethod.lastParentButtonSelected.SetButtonNormalColor(Color.white);
-        menuManagerUI.menuUpdateMethod.lastParentButtonSelected.button.Select();
+        pauseMenuManager.EnterMenu(pauseMenuManager.gearPageSelection);
+        pauseMenuManager.menuUpdateMethod.lastParentButtonSelected.SetButtonNormalColor(Color.white);
+        pauseMenuManager.menuUpdateMethod.lastParentButtonSelected.button.Select();
     }
 
     public override void StateUpdate()

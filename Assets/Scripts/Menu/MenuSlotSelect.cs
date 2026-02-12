@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using TMPro;
 
-public class MenuSlotSelect : Menu
+public class MenuSlotSelect : PauseMenu
 {
     public Button firstButtonToHighlight;
     public Color colourForSelectedParent;
@@ -49,7 +49,7 @@ public class MenuSlotSelect : Menu
 
         ToggleHighlightMenu(true);
 
-        menuManagerUI.menuUpdateMethod = menuMoveTypeScript;
+        pauseMenuManager.menuUpdateMethod = menuMoveTypeScript;
     }
 
     void MoveSlotHighlighted(MoveSlot moveSlot)
@@ -63,13 +63,13 @@ public class MenuSlotSelect : Menu
         {
             moveSlotHighlighted = moveSlotToEquipTo;
             menuMoveInventory.MoveSlotToEquipTo(moveSlotToEquipTo);
-            menuManagerUI.EnterMenu(menuMoveInventory);
+            pauseMenuManager.EnterMenu(menuMoveInventory);
         }
     }
 
     public void UnassignSlot()
     {
-        var movesPage = (MenuMoves)menuManagerUI.movesPage;
+        var movesPage = (MenuMoves)pauseMenuManager.movesPage;
 
         MoveSlot moveSlotToRemove = moveSlotHighlighted;
 

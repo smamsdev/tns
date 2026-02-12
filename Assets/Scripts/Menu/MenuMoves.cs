@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 
-public class MenuMoves : Menu
+public class MenuMoves : PauseMenu
 {
     [SerializeField] Button firstButtonToSelect;
     public GameObject moveDescriptionGO;
@@ -39,7 +39,7 @@ public class MenuMoves : Menu
 
     public override void EnterMenu()
     {
-        menuManagerUI.ClearThenDisplayMenu(this);
+        pauseMenuManager.ClearThenDisplayMenu(this);
         firstButtonToSelect.Select();
         moveDescriptionGO.SetActive(true);
 
@@ -48,7 +48,7 @@ public class MenuMoves : Menu
 
     public override void ExitMenu()
     {
-        menuManagerUI.EnterMenu(menuManagerUI.main);
+        pauseMenuManager.EnterMenu(pauseMenuManager.main);
     }
 
     public override void StateUpdate()

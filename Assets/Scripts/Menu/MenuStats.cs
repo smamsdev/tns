@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuStats : Menu
+public class MenuStats : PauseMenu
 {
     [SerializeField] PartySO partySO;
     [SerializeField] Button firstButtonToSelect;
@@ -38,7 +38,7 @@ public class MenuStats : Menu
 
     public override void EnterMenu()
     {
-        menuManagerUI.ClearThenDisplayMenu(this);
+        pauseMenuManager.ClearThenDisplayMenu(this);
         arrowGO.SetActive(false);
         partySO = menuMain.playerCombat.party;
 
@@ -81,9 +81,9 @@ public class MenuStats : Menu
     public override void ExitMenu()
     {
         arrowGO.SetActive(false);
-        menuManagerUI.EnterMenu(menuManagerUI.main);
-        menuManagerUI.menuUpdateMethod.lastParentButtonSelected.SetButtonNormalColor(Color.white);
-        menuManagerUI.menuUpdateMethod.lastParentButtonSelected.button.Select();
+        pauseMenuManager.EnterMenu(pauseMenuManager.main);
+        pauseMenuManager.menuUpdateMethod.lastParentButtonSelected.SetButtonNormalColor(Color.white);
+        pauseMenuManager.menuUpdateMethod.lastParentButtonSelected.button.Select();
     }
 
     public override void StateUpdate()

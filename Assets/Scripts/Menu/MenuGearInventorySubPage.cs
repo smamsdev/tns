@@ -6,7 +6,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuGearInventorySubPage : Menu
+public class MenuGearInventorySubPage : PauseMenu
 {
     public Button firstButtonToSelect;
     public PlayerInventory playerInventory;
@@ -120,7 +120,7 @@ public class MenuGearInventorySubPage : Menu
 
     public override void ExitMenu()
     {
-        menuManagerUI.EnterMenu(menuManagerUI.gearPageSelection);
+        pauseMenuManager.EnterMenu(pauseMenuManager.gearPageSelection);
         menuGearPageSelection.inventoryHighlightedButton.button.Select();
         menuGearPageSelection.inventoryHighlightedButton.SetButtonNormalColor(Color.white);
     }
@@ -138,7 +138,7 @@ public class MenuGearInventorySubPage : Menu
         menuGearEquipSubPage.equipPageHeaderGO.SetActive(true);
         displayContainer.SetActive(false);
         menuGearPageSelection.displayContainer.SetActive(false);
-        menuManagerUI.EnterMenu(menuManagerUI.gearEquipSubPage);
+        pauseMenuManager.EnterMenu(pauseMenuManager.gearEquipSubPage);
     }
 
     public void GearSlotHighlighted(InventorySlotUI inventorySlot)

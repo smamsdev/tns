@@ -1,0 +1,2 @@
+using UnityEngine;public class LockerMainMenu : LockerMenu{    public InventorySO inventory;    public void InitializeMenu()    {        lockerMenuManager.lockerBayMenu.InstantiateUIBays();
+    }    public override void DisplayMenu(bool on)    {        displayContainer.SetActive(on);    }    public override void EnterMenu()    {        //    }    public override void ExitMenu()    {        throw new System.NotImplementedException();    }    public override void StateUpdate()    {//    }}

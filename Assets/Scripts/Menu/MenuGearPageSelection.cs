@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuGearPageSelection : Menu
+public class MenuGearPageSelection : PauseMenu
 {
     [SerializeField] GameObject equippedDisplayContainer, inventoryDisplayContainer, gearPropertiesDisplay;
 
@@ -32,7 +32,7 @@ public class MenuGearPageSelection : Menu
         WireButton(equippedHighlightedButton, equippedDisplayContainer);
         WireButton(inventoryHighlightedButton, inventoryDisplayContainer);
 
-        menuManagerUI.ClearThenDisplayMenu(this);
+        pauseMenuManager.ClearThenDisplayMenu(this);
         gearPropertiesDisplay.SetActive(false);
 
         if (!isInitialized)
@@ -49,9 +49,9 @@ public class MenuGearPageSelection : Menu
     public override void ExitMenu()
     {
         isInitialized = false;
-        menuManagerUI.EnterMenu(menuManagerUI.main);
-        menuManagerUI.menuUpdateMethod.lastParentButtonSelected.SetButtonNormalColor(Color.white);
-        menuManagerUI.menuUpdateMethod.lastParentButtonSelected.button.Select();
+        pauseMenuManager.EnterMenu(pauseMenuManager.main);
+        pauseMenuManager.menuUpdateMethod.lastParentButtonSelected.SetButtonNormalColor(Color.white);
+        pauseMenuManager.menuUpdateMethod.lastParentButtonSelected.button.Select();
     }
 
     public void EnterEquipSubPage()
@@ -59,7 +59,7 @@ public class MenuGearPageSelection : Menu
         equippedHighlightedButton.ButtonSelectedAndDisabled();
         menuGearInventorySubPage.displayContainer.SetActive(false);
         gearPropertiesDisplay.SetActive(true);
-        menuManagerUI.EnterMenu(menuManagerUI.gearEquipSubPage);
+        pauseMenuManager.EnterMenu(pauseMenuManager.gearEquipSubPage);
     }
 
     public void EnterInventorySubPage()
@@ -69,7 +69,7 @@ public class MenuGearPageSelection : Menu
             inventoryHighlightedButton.ButtonSelectedAndDisabled();
             menuGearEquipSubPage.displayContainer.SetActive(false);
             gearPropertiesDisplay.SetActive(true);
-            menuManagerUI.EnterMenu(menuManagerUI.gearInventorySubPage);
+            pauseMenuManager.EnterMenu(pauseMenuManager.gearInventorySubPage);
         }
     }
 

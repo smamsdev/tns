@@ -1,13 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
-public class ShopExitMenu : ShopMenu
+public class LockerGearMenu : LockerMenu
 {
+    public GameObject inventorySlotPrefab; 
+
     public override void DisplayMenu(bool on)
     {
-        displayContainer.SetActive(on);
+        throw new System.NotImplementedException();
     }
 
     public override void EnterMenu()

@@ -13,7 +13,7 @@ public class InventorySO : ScriptableObject
     public List<GearInstance> gearInstanceInventory = new List<GearInstance>();
     public int inventorySlotsAvailable;
 
-
+    [Header("For Actors")]
     [SerializeReference]
     public List<GearInstance> gearInstanceEquipped = new List<GearInstance>();
 

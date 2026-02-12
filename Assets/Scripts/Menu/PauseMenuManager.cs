@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuManagerUI : MonoBehaviour
+public class PauseMenuManager : MonoBehaviour
 {
     public Menu statsPage, gearPageSelection, gearEquipSubPage, gearInventorySubPage, movesPage, moveInventory, configPage, savePage, exitPage, main;
     [Header("")]

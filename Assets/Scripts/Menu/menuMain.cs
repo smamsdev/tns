@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class menuMain : Menu
+public class menuMain : PauseMenu
 {
     public Button firstMenuButton;
     public Animator animator;
@@ -66,7 +66,7 @@ public class menuMain : Menu
     public override void EnterMenu()
     {
         WireButtons();
-        menuManagerUI.ClearThenDisplayMenu(this);
+        pauseMenuManager.ClearThenDisplayMenu(this);
 
         if (EventSystem.current == null)
         {

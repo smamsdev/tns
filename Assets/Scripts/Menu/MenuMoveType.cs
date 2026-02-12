@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class MenuMoveType : Menu
+public class MenuMoveType : PauseMenu
 {
     public Button firstButtonToHighlight;
     public Color colourForSelectedParent;
@@ -32,7 +32,7 @@ public class MenuMoveType : Menu
         displayContainer.SetActive(false);
 
 
-        menuManagerUI.menuUpdateMethod = menuManagerUI.movesPage;
+        pauseMenuManager.menuUpdateMethod = pauseMenuManager.movesPage;
     }
 
     public override void StateUpdate()

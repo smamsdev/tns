@@ -37,7 +37,6 @@ public class ShopMainMenu : ShopMenu
     {
         WireButtonHighlightContainerDisplays(mainShopMenuButtons[0], shopMenuManager.buyMenu);
         WireButtonHighlightContainerDisplays(mainShopMenuButtons[1], shopMenuManager.sellMenu);
-        WireButtonHighlightContainerDisplays(mainShopMenuButtons[2], shopMenuManager.exitMenu);
     }
 
     void WireButtonHighlightContainerDisplays(MenuButtonHighlighted button, ShopMenu shopMenuToDisplay)

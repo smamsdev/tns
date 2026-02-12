@@ -5,7 +5,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuMoveInventory : Menu
+public class MenuMoveInventory : PauseMenu
 {
     [SerializeField] Button firstButtonToSelect;
     public GameObject previousDisplayContainerToHide;
@@ -34,7 +34,7 @@ public class MenuMoveInventory : Menu
 
     public override void EnterMenu()
     {
-        menuManagerUI.ClearThenDisplayMenu(menuManagerUI.moveInventory);
+        pauseMenuManager.ClearThenDisplayMenu(pauseMenuManager.moveInventory);
         previousDisplayContainerToHide.SetActive(false);
         LoadInventoryToButtonSlots();
         firstButtonToSelect.Select();
@@ -54,7 +54,7 @@ public class MenuMoveInventory : Menu
     {
         previousDisplayContainerToHide.SetActive(true);
         displayContainer.SetActive(false);
-        menuManagerUI.EnterMenu(menuToRevertTo);
+        pauseMenuManager.EnterMenu(menuToRevertTo);
     }
 
     public override void StateUpdate()

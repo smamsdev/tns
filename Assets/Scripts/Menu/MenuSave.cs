@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuSave : Menu
+public class MenuSave : PauseMenu
 {
     [SerializeField] Button firstButtonToSelect;
 
@@ -80,14 +80,14 @@ public class MenuSave : Menu
 
     public override void EnterMenu()
     {
-        menuManagerUI.ClearThenDisplayMenu(this);
+        pauseMenuManager.ClearThenDisplayMenu(this);
 
         firstButtonToSelect.Select();
     }
 
     public override void ExitMenu()
     {
-        menuManagerUI.EnterMenu(menuManagerUI.main);
+        pauseMenuManager.EnterMenu(pauseMenuManager.main);
     }
 
     public override void StateUpdate()
