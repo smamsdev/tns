@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class LockerMenuManager : MonoBehaviour
@@ -18,7 +19,7 @@ public class LockerMenuManager : MonoBehaviour
         lockerMainMenu.EnterMenu();
     }
     
-    public void DisplaySubMenu(ChargingMenu menuToDisplay)
+    public void DisplaySubMenu(Menu menuToDisplay)
     {
         lockerBayMenu.DisplayMenu(false);
         lockerGearMenu.DisplayMenu(false);
@@ -26,7 +27,7 @@ public class LockerMenuManager : MonoBehaviour
         menuToDisplay.DisplayMenu(true);
     }
     
-    public void EnterMenu(ChargingMenu chargingMenu)
+    public void EnterMenu(Menu chargingMenu)
     {
         menuUpdateMethod = chargingMenu;
         chargingMenu.EnterMenu();

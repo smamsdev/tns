@@ -83,12 +83,9 @@ public class MenuGearInventorySubPage : PauseMenu
 
     public void SetInventorySlotColor(InventorySlotUI inventorySlot, Color normalColor)
     {
-        inventorySlot.itemNameTMP.color = normalColor;
-        inventorySlot.itemQuantityTMP.color = normalColor;
-
         float alpha = inventorySlot.gearInstance.isCurrentlyEquipped ? 0.6f : 1f;
-        FieldEvents.SetTextAlpha(inventorySlot.itemNameTMP, alpha);
-        FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, alpha);
+        FieldEvents.SetTextColor(inventorySlot.itemNameTMP, normalColor, alpha);
+        FieldEvents.SetTextColor(inventorySlot.itemQuantityTMP, normalColor,  alpha);
     }
 
     string ItemQuantityRemaining(GearInstance gearInstance)
@@ -176,7 +173,7 @@ public class MenuGearInventorySubPage : PauseMenu
     {
         int i = playerInventory.inventorySO.gearInstanceEquipped.IndexOf(gearInstance);
 
-        playerInventory.UnequipGearFromSlot(playerInventory.inventorySO.gearInstanceEquipped[i]);
+        playerInventory.inventorySO.UnequipGearFromSlot(playerInventory.inventorySO.gearInstanceEquipped[i]);
         InstantiateUIInventorySlots();
         menuGearEquipSubPage.InitialiseEquipSlots();
     }

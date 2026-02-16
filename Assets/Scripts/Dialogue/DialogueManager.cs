@@ -4,21 +4,13 @@ using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
-
     Dialogue[] dialogue;
-
     public string dialogueCurrentlyInPlay;
-
     [SerializeField] GameObject dialogueBoxPrefab;
-
     public GameObject prefabToUse;
-
     DialogueBox dialogueBox;
-
     GameObject dialogueBoxGameObject;
-
     public int dialogueElement;
-
     public bool dialogueIsActive;
     public int dialogueLength;
 

@@ -39,7 +39,6 @@ public class ShopBuyMenu : ShopMenu
             }
 
             else
-
             { 
                 ConsumableInstance consumableInstanceToBuy = new ConsumableInstance();
                 inventorySlot.gearInstance = consumableInstanceToBuy;
@@ -92,13 +91,13 @@ public class ShopBuyMenu : ShopMenu
             if (gearInstanceToBuy is EquipmentInstance equipmentInstance)
             {
                 EquipmentInstance clonedGear = new EquipmentInstance(equipmentInstance);
-                shopMenuManager.mainMenu.playerInventory.AddGearToInventory(clonedGear);
+                shopMenuManager.mainMenu.playerInventory.inventorySO.AddGearToInventory(clonedGear);
             }
 
             else if (gearInstanceToBuy is ConsumableInstance consumableInstance)
             {
                 ConsumableInstance clonedGear = new ConsumableInstance(consumableInstance);
-                shopMenuManager.mainMenu.playerInventory.AddGearToInventory(clonedGear);
+                shopMenuManager.mainMenu.playerInventory.inventorySO.AddGearToInventory(clonedGear);
             }
 
             else

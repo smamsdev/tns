@@ -46,7 +46,7 @@ public class MenuGearEquipSubPage : PauseMenu
         {
             InventorySlotUI inventorySlot = menuGearInventorySubPage.inventorySlots[menuGearInventorySubPage.highlightedButtonIndex];
 
-            menuGearInventorySubPage.playerInventory.EquipGearToSlot(inventorySlot.gearInstance, equipSlots.IndexOf(gearEquipSlotSelected));
+            menuGearInventorySubPage.playerInventory.inventorySO.EquipGearToSlot(inventorySlot.gearInstance, equipSlots.IndexOf(gearEquipSlotSelected));
             InitialiseEquipSlots();
             menuGearInventorySubPage.InstantiateUIInventorySlots();
             menuGearPageSelection.displayContainer.SetActive(true);

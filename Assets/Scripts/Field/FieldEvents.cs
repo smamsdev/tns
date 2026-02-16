@@ -153,11 +153,21 @@ public static class FieldEvents
         }
     }
 
-    public static void SetTextAlpha(TextMeshProUGUI textMeshProUGUI, float alpha) //other classes to want to use this a bunch so put it here
+    public static void SetTextColor(TextMeshProUGUI textMeshProUGUI, Color color, float alpha) //other classes to want to use this a bunch so put it here
     {
-        Color color = textMeshProUGUI.color;
         color.a = alpha;
         textMeshProUGUI.color = color;
+    }
+
+    public static string ItemQuantityRemaining(GearInstance gearInstance)
+    {
+        if (gearInstance is EquipmentInstance equipmentInstance)
+            return equipmentInstance.ChargePercentage() + "%";
+
+        if (gearInstance is ConsumableInstance consumableInstance)
+            return "x " + consumableInstance.quantityAvailable;
+
+        return "";
     }
 
 }

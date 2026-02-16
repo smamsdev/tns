@@ -77,12 +77,9 @@ public class ShopSellMenu : ShopMenu
 
     void SetInventorySlotColor(InventorySlotUI inventorySlot, Color normalColor)
     {
-        inventorySlot.itemNameTMP.color = normalColor;
-        inventorySlot.itemQuantityTMP.color = normalColor;
-
         float alpha = inventorySlot.gearInstance.isCurrentlyEquipped ? 0.7f : 1f;
-        FieldEvents.SetTextAlpha(inventorySlot.itemNameTMP, alpha);
-        FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, alpha);
+        FieldEvents.SetTextColor(inventorySlot.itemNameTMP, normalColor, alpha);
+        FieldEvents.SetTextColor(inventorySlot.itemQuantityTMP, normalColor, alpha);
     }
 
     string ItemQuantityRemaining(GearInstance gearInstance)
@@ -128,7 +125,7 @@ public class ShopSellMenu : ShopMenu
         if (gearInstanceToSell.isCurrentlyEquipped)
             return;
 
-        shopMenuManager.mainMenu.playerInventory.RemoveGearFromInventory(gearInstanceToSell);
+        shopMenuManager.mainMenu.playerInventory.inventorySO.RemoveGearFromInventory(gearInstanceToSell);
         InstantiateUIInventorySlots();
 
         if (inventorySlotButtons.Count == 0)

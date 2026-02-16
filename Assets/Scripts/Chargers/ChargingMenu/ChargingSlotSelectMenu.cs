@@ -168,7 +168,7 @@ public class ChargingSlotMenu : ChargingMenu
                 smamsInventoryTMP.text = "$MAMS: " + Mathf.RoundToInt(smamsValue).ToString("N0");
             }));
 
-        chargingMainMenu.playerInventory.AddGearToInventory(chargingSlotSelected.gearInstance);
+        chargingMainMenu.playerInventory.inventorySO.AddGearToInventory(chargingSlotSelected.gearInstance);
         chargingMainMenu.chargerSO.chargingSlots[slotSelectedIndex] = null;
         InitialiseChargingSlots();
         chargingMenuManager.chargingEquipmentSelectMenu.InitialiseInventoryUI();

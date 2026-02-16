@@ -106,16 +106,13 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
 
     public void SetInventorySlotColor(InventorySlotUI inventorySlot, Color normalColor)
     {
-        inventorySlot.itemNameTMP.color = normalColor;
-        inventorySlot.itemQuantityTMP.color = normalColor;
-
         float alpha = 0.7f;
 
         if (inventorySlot.gearInstance is EquipmentInstance && ((EquipmentInstance)inventorySlot.gearInstance).ChargePercentage() != 100)
             alpha = 1f;
 
-        FieldEvents.SetTextAlpha(inventorySlot.itemNameTMP, alpha);
-        FieldEvents.SetTextAlpha(inventorySlot.itemQuantityTMP, alpha);
+        FieldEvents.SetTextColor(inventorySlot.itemNameTMP, normalColor, alpha);
+        FieldEvents.SetTextColor(inventorySlot.itemQuantityTMP, normalColor, alpha);
     }
 
     public void DeleteAllInventoryUI()
@@ -198,7 +195,7 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
     {
         int i = chargingMainMenu.playerInventory.inventorySO.gearInstanceEquipped.IndexOf(gearInstance);
 
-        chargingMainMenu.playerInventory.UnequipGearFromSlot(chargingMainMenu.playerInventory.inventorySO.gearInstanceEquipped[i]);
+        chargingMainMenu.playerInventory.inventorySO.UnequipGearFromSlot(chargingMainMenu.playerInventory.inventorySO.gearInstanceEquipped[i]);
         InitialiseInventoryUI();
     }
 
