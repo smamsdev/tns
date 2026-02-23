@@ -6,7 +6,18 @@ public class LockerBayMenu : LockerMenu
 {
     public GameObject inventorySlotPrefab, lockerBorderPrefab, inventoryUIParent;
     public List<InventorySlotUI> inventorySlots = new List<InventorySlotUI>();
-    public int highlightedButtonIndex = 0;
+
+    private int highlightedButtonIndex = 0;
+
+    public int HighlightedButtonIndex
+    {
+        get => highlightedButtonIndex;
+        set
+        {
+            highlightedButtonIndex = value;
+            Debug.Log($"HighlightedButtonIndex changed to {value}");
+        }
+    }
 
     public override void DisplayMenu(bool on)
     {
@@ -15,6 +26,8 @@ public class LockerBayMenu : LockerMenu
 
     public override void EnterMenu()
     {
+        lockerMenuManager.lockerGearMenu.highlightedButtonIndex = 0;
+        highlightedButtonIndex = 0;
         inventorySlots[highlightedButtonIndex].button.Select();
         lockerMenuManager.lockerMainMenu.mainMenuButtons[1].SetButtonNormalColor(Color.yellow);
     }
@@ -63,6 +76,7 @@ public class LockerBayMenu : LockerMenu
 
                 inventorySlotUI.itemNameTMP.text = lockerInstanceSlot.gearSO.gearName.ToUpper();
                 inventorySlotUI.name = "Bay Slot " + lockerInstanceSlot.gearSO.gearName;
+
             }
 
             int magicNumberBuffer = 190;
@@ -71,6 +85,7 @@ public class LockerBayMenu : LockerMenu
             lockerBorderGO.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, totalHeight);
 
             inventorySlotUI.button.onClick.AddListener(() => BaySelected(inventorySlotUI));
+
             inventorySlotUI.onHighlighted = () =>
            {
                SlotHighlighted(inventorySlotUI);
@@ -94,7 +109,7 @@ public class LockerBayMenu : LockerMenu
     {
         inventorySlotUI.itemNameTMP.color = Color.yellow;
         inventorySlotUI.itemQuantityTMP.color = Color.yellow;
-        highlightedButtonIndex = inventorySlots.IndexOf(inventorySlotUI);
+        HighlightedButtonIndex = inventorySlots.IndexOf(inventorySlotUI);
     }
 
     void SlotUnHighlighted(InventorySlotUI inventorySlotUI)
@@ -105,20 +120,45 @@ public class LockerBayMenu : LockerMenu
 
     void BaySelected(InventorySlotUI inventorySlotUI)
     {
-        if (lockerMenuManager.lockerGearMenu.isCaching)
-            lockerMenuManager.lockerGearMenu.CacheGear(inventorySlotUI);        
-    }
-
-    void RetrieveGear(InventorySlotUI inventorySlotUI)
-    {
         var lockerInventorySO = lockerMenuManager.lockerMainMenu.lockerInventorySO;
-        var playerInventory = lockerMenuManager.lockerMainMenu.playerInventory;
 
-        playerInventory.inventorySO.AddGearToInventory(inventorySlotUI.gearInstance);
-        lockerInventorySO.gearInstanceInventory[highlightedButtonIndex] = null;
+        if (lockerMenuManager.lockerGearMenu.isCaching)
+        {
 
-        InstantiateUIBays();
+            var instanceToCache = lockerMenuManager.lockerGearMenu.selectedGearInstanceToCache;
 
+            if (instanceToCache is ConsumableInstance)
+                lockerMenuManager.lockerGearMenu.CacheConsumable(lockerInventorySO.gearInstanceInventory[highlightedButtonIndex]);
+
+            if (instanceToCache is EquipmentInstance)
+                lockerMenuManager.lockerGearMenu.CacheEquipment(lockerInventorySO.gearInstanceInventory[highlightedButtonIndex]);
+        }
+
+        else
+        {
+            if (inventorySlotUI.gearInstance == null)
+                return;
+
+            bool inventorySpaceAvailable = lockerMenuManager.lockerMainMenu.playerInventory.inventorySO.AttemptAddGearToInventory(inventorySlotUI.gearInstance);
+
+            if (!inventorySpaceAvailable)
+                return;
+
+            lockerInventorySO.RemoveGearFromInventory(lockerInventorySO.gearInstanceInventory[highlightedButtonIndex]);
+            InstantiateUIBays();
+            lockerMenuManager.lockerGearMenu.InitialiseInventoryUI();
+            inventorySlots[HighlightedButtonIndex].button.Select();
+
+            //if (lockerInventory[highlightedButtonIndex] is ConsumableInstance consumableInstanceToRetrieve)
+            //{
+            //    consumableInstanceToRetrieve.quantityAvailable--;
+            //    if (consumableInstanceToRetrieve.quantityAvailable <= 0)
+            //        lockerInventory[highlightedButtonIndex] = null;
+            //} 
+            //
+            //else
+            //    lockerInventory[highlightedButtonIndex] = null;
+        }
     }
 
     void SetEquipSlotColor(InventorySlotUI inventorySlot, Color normalColor)

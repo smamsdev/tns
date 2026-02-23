@@ -168,10 +168,14 @@ public class ChargingSlotMenu : ChargingMenu
                 smamsInventoryTMP.text = "$MAMS: " + Mathf.RoundToInt(smamsValue).ToString("N0");
             }));
 
-        chargingMainMenu.playerInventory.inventorySO.AddGearToInventory(chargingSlotSelected.gearInstance);
-        chargingMainMenu.chargerSO.chargingSlots[slotSelectedIndex] = null;
-        InitialiseChargingSlots();
-        chargingMenuManager.chargingEquipmentSelectMenu.InitialiseInventoryUI();
+        bool inventorySpaceAvailable = chargingMainMenu.playerInventory.inventorySO.AttemptAddGearToInventory(chargingSlotSelected.gearInstance);
+
+        if (inventorySpaceAvailable)
+        {
+            chargingMainMenu.chargerSO.chargingSlots[slotSelectedIndex] = null;
+            InitialiseChargingSlots();
+            chargingMenuManager.chargingEquipmentSelectMenu.InitialiseInventoryUI();
+        }
     }
 
     public void UpdateSmamsUI()

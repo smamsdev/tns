@@ -17,38 +17,79 @@ public class InventorySO : ScriptableObject
     [SerializeReference]
     public List<GearInstance> gearInstanceEquipped = new List<GearInstance>();
 
-
     void AddEquipSlot()
     {
         gearInstanceEquipped.Add(new GearInstance());
     }
 
-    public void AddGearToInventory(GearInstance gearInstanceToAdd)
+    public bool AttemptAddGearToInventory(GearInstance gearInstanceToAdd)
     {
         if (gearInstanceToAdd is EquipmentInstance equipmentInstance)
         {
+            if (gearInstanceInventory.Count >= inventorySlotsAvailable)
+                return false;
+
             gearInstanceInventory.Add(equipmentInstance);
+            SortInventory();
+            return true;
+
         }
 
         else if (gearInstanceToAdd is ConsumableInstance consumableInstance)
         {
-            foreach (GearInstance gearInstanceToCheck in gearInstanceInventory)
+            Debug.Log("consumable detected");
+
+            for (int i = 0; i < gearInstanceInventory.Count; i++)
             {
-                if (gearInstanceToCheck.gearSO == consumableInstance.gearSO)
+
+                Debug.Log("looping" + gearInstanceInventory[i].gearSO);
+                // check if this consumable exists in inventory
+                if (gearInstanceInventory[i].gearSO == consumableInstance.gearSO)
                 {
-                    ConsumableInstance existingConsumableInstance = gearInstanceToCheck as ConsumableInstance;
-                    existingConsumableInstance.quantityAvailable++;
-                    return;
+                    Debug.Log("match detected");
+                    ConsumableInstance existingConsumableInstance = gearInstanceInventory[i] as ConsumableInstance;
+
+                    //if the stack limit is not exceeded, +1 to existing stack
+                    if (existingConsumableInstance.quantityAvailable < 9)
+                    {
+                        Debug.Log("available to add to stack");
+                        existingConsumableInstance.quantityAvailable++;
+                        return true;
+                    }
                 }
+
             }
 
+
+            if (gearInstanceInventory.Count >= inventorySlotsAvailable)
+            {
+                Debug.Log("no slots available");
+                return false;
+            }
+
+
+            Debug.Log("fresh instance created");
             consumableInstance.quantityAvailable = 1;
             gearInstanceInventory.Add(consumableInstance);
+            SortInventory();
+            return true;
         }
 
         else
+        {
             Debug.Log("something went wrong");
+            return false;
+        }
 
+
+
+
+
+
+    }
+
+    public void SortInventory()
+    {
         gearInstanceInventory.Sort((a, b) => a.gearSO.gearName.CompareTo(b.gearSO.gearName));
     }
 
@@ -106,7 +147,7 @@ public class InventorySO : ScriptableObject
         {
             consumableInstance.quantityAvailable--;
 
-            if (consumableInstance.quantityAvailable == 0)
+            if (consumableInstance.quantityAvailable <= 0)
                 gearInstanceInventory.Remove(consumableInstance);
         }
 

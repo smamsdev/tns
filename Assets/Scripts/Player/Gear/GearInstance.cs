@@ -19,7 +19,7 @@ public class ConsumableInstance : GearInstance
     {
         gearSO = sourceToClone.gearSO;
         isCurrentlyEquipped = sourceToClone.isCurrentlyEquipped;
-        quantityAvailable = sourceToClone.quantityAvailable;
+        quantityAvailable = 1;
     }
 
     public ConsumableInstance()

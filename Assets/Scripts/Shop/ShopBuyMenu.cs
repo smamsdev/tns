@@ -87,17 +87,34 @@ public class ShopBuyMenu : ShopMenu
         {
             stats.Smams -= gearInstanceToBuy.gearSO.value;
 
-
+            Debug.Log("not sure i need to seperate these out necessarily");
             if (gearInstanceToBuy is EquipmentInstance equipmentInstance)
             {
                 EquipmentInstance clonedGear = new EquipmentInstance(equipmentInstance);
-                shopMenuManager.mainMenu.playerInventory.inventorySO.AddGearToInventory(clonedGear);
+                bool inventorySpaceAvailable = shopMenuManager.mainMenu.playerInventory.inventorySO.AttemptAddGearToInventory(clonedGear);
+
+                if (inventorySpaceAvailable)
+                {
+
+                    shopMenuManager.mainMenu.smamsInventoryTMP.text = stats.Smams.ToString("N0");
+                    shopMenuManager.mainMenu.smamsColorAnimator.SetTrigger("minus");
+                    shopMenuManager.sellMenu.InstantiateUIInventorySlots();
+                    shopMenuManager.sellMenu.firstButtonToSelect = shopMenuManager.sellMenu.inventorySlotButtons[0];
+                }
             }
 
             else if (gearInstanceToBuy is ConsumableInstance consumableInstance)
             {
                 ConsumableInstance clonedGear = new ConsumableInstance(consumableInstance);
-                shopMenuManager.mainMenu.playerInventory.inventorySO.AddGearToInventory(clonedGear);
+                bool inventorySpaceAvailable = shopMenuManager.mainMenu.playerInventory.inventorySO.AttemptAddGearToInventory(clonedGear);
+                if (inventorySpaceAvailable)
+                {
+
+                    shopMenuManager.mainMenu.smamsInventoryTMP.text = stats.Smams.ToString("N0");
+                    shopMenuManager.mainMenu.smamsColorAnimator.SetTrigger("minus");
+                    shopMenuManager.sellMenu.InstantiateUIInventorySlots();
+                    shopMenuManager.sellMenu.firstButtonToSelect = shopMenuManager.sellMenu.inventorySlotButtons[0];
+                }
             }
 
             else
