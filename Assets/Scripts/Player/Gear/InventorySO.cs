@@ -16,6 +16,7 @@ public class InventorySO : ScriptableObject
     [Header("For Actors")]
     [SerializeReference]
     public List<GearInstance> gearInstanceEquipped = new List<GearInstance>();
+    public List<TrenchStructure> TrenchStructureInventory = new List<TrenchStructure>();
 
     void AddEquipSlot()
     {

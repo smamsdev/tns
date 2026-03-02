@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 [CreateAssetMenu]
 
@@ -11,5 +10,7 @@ public class TrenchStructure : ScriptableObject
     public int structureArmor;
     public Sprite structureSprite;
     public string structureDescription;
+    public string type;
     public GameObject structureGOSpawn;
+    public TrenchManager.SpawnPosition playerSide = TrenchManager.SpawnPosition.Left;
 }

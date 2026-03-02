@@ -1,40 +1,70 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
+using TMPro;
 
 public class TrenchManager : MonoBehaviour
 {
-    public GameObject meleePrefab, playerBase, enemyBase, rangedPrefab, structureSlotPrefab;
+    public enum SpawnPosition {Left, Right};
+
+    public GameObject meleePrefab, playerBase, enemyBase, rangedPrefab, emptyStructurePrefab;
     int playerArmyCount = 1;
     int enemyArmyCount = 1;
     public List<TrenchFrontLine> frontLines;
+    public SpawnPosition playerSide = SpawnPosition.Left;
+    public int frontLineInPlay;
+    public List<TrenchStructure> activeStructures;
 
-    private void Update()//
+    [Header ("Timer")]
+    public TextMeshProUGUI durationTMP;
+    public float spawnInterval = 5;
+    public float totalGameTime;
+    public float intervalTimer;
+    int lastDisplayedSecond = -1;
+
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-            SpawnPlayerArmy(meleePrefab);
+        totalGameTime += Time.deltaTime;
+        intervalTimer += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.O))
-            SpawnEnemyArmy(meleePrefab);
+        if (intervalTimer >= spawnInterval)
+        {
+            intervalTimer = 0;
+            Debug.Log("trigger");
+        }
 
-        if (Input.GetKeyDown(KeyCode.R))
-            SpawnPlayerArmy(rangedPrefab);
+        // Update clock display once per second
+        int currentSecond = (int)totalGameTime;
+        if (currentSecond != lastDisplayedSecond)
+        {
+            lastDisplayedSecond = currentSecond;
 
-        if (Input.GetKeyDown(KeyCode.T))
-            SpawnEnemyArmy(rangedPrefab);
+            TimeSpan t = TimeSpan.FromSeconds(currentSecond);
+            durationTMP.text = t.ToString(@"mm\:ss");
+        }
     }
 
     private void Start()
     {
-        foreach (TrenchFrontLine frontLine in frontLines)
-        {
-            frontLine.leftBase.trenchManager = this;
-            frontLine.leftBase.InitializeBase();
-            frontLine.rightBase.trenchManager = this;
-            frontLine.rightBase.InitializeBase();
+        FieldEvents.movementLocked = true;
 
-            FieldEvents.SetGridNavigationWrapAroundHorizontal(frontLine.leftBase.structureSlotButtons, 4);
-            frontLine.leftBase.structureSlots[0].menuButtonHighlighted.button.Select();
+        playerSide = SpawnPosition.Left;
+        frontLineInPlay = 0;
+
+        foreach (TrenchFrontLine trenchFrontLine in frontLines)
+        {
+            trenchFrontLine.InstantiateConstructSlots(trenchFrontLine.leftStructures, emptyStructurePrefab, trenchFrontLine.leftBaseGO);
+            trenchFrontLine.InstantiateConstructSlots(trenchFrontLine.rightStructures, emptyStructurePrefab, trenchFrontLine.rightBaseGO);
         }
+    }
+
+    public TrenchStructureIcon[] currentBase()
+    {
+        if (playerSide == SpawnPosition.Left)
+            return frontLines[frontLineInPlay].leftStructures;
+
+        return frontLines[frontLineInPlay].rightStructures;
     }
 
     void SpawnPlayerArmy(GameObject prefab)
