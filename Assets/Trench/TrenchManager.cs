@@ -6,15 +6,11 @@ using TMPro;
 
 public class TrenchManager : MonoBehaviour
 {
-    public enum SpawnPosition {Left, Right};
+    public enum Team {Left, Right }
 
-    public GameObject meleePrefab, playerBase, enemyBase, rangedPrefab, emptyStructurePrefab;
-    int playerArmyCount = 1;
-    int enemyArmyCount = 1;
+    public GameObject meleePrefab, rangedPrefab, emptyStructurePrefab;
     public List<TrenchFrontLine> frontLines;
-    public SpawnPosition playerSide = SpawnPosition.Left;
-    public int frontLineInPlay;
-    public List<TrenchStructure> activeStructures;
+    public List<TrenchStructureInstance> activeStructures;
 
     [Header ("Timer")]
     public TextMeshProUGUI durationTMP;
@@ -22,6 +18,9 @@ public class TrenchManager : MonoBehaviour
     public float totalGameTime;
     public float intervalTimer;
     int lastDisplayedSecond = -1;
+
+    public TrenchStructureSO testPrefab;
+    int i = 0;
 
     void Update()
     {
@@ -31,7 +30,7 @@ public class TrenchManager : MonoBehaviour
         if (intervalTimer >= spawnInterval)
         {
             intervalTimer = 0;
-            Debug.Log("trigger");
+            SpawnAll();
         }
 
         // Update clock display once per second
@@ -43,49 +42,59 @@ public class TrenchManager : MonoBehaviour
             TimeSpan t = TimeSpan.FromSeconds(currentSecond);
             durationTMP.text = t.ToString(@"mm\:ss");
         }
+
+        if (Input.GetKeyDown(KeyCode.Tab)) 
+            SpawnEnemyStructure();
+    }
+
+    void SpawnAll()
+    {
+        foreach (TrenchStructureInstance trenchStructureInstance in activeStructures)
+        {
+            trenchStructureInstance.SpawnUnit();
+        }
+    }
+
+    public void ConstructStructure(Team team, int frontLineIndex, TrenchStructureInstance newStructureInstance, TrenchStructureSO structureSOToConstruct)
+    {
+        newStructureInstance.structureSO = structureSOToConstruct;
+        newStructureInstance.team = team;
+        newStructureInstance.targetTag = GetTag();
+        newStructureInstance.spriteRenderer.sprite = newStructureInstance.structureSO.StructureSprite;
+        newStructureInstance.spriteRenderer.enabled = true;
+
+        activeStructures.Add(newStructureInstance);
+    }
+
+    public TrenchStructureInstance[] GetBaseStructureList(Team team, int frontLineIndex)
+    {
+        if (team == Team.Left)
+            return frontLines[frontLineIndex].leftStructures;
+
+        return frontLines[frontLineIndex].rightStructures;
+    }
+
+    void SpawnEnemyStructure()
+    {
+        ConstructStructure(Team.Right, 0, frontLines[0].rightStructures[i], testPrefab);
+        i++;
+    }
+
+    public String GetTag()
+    {
+        Debug.Log("todo");
+        string tag = "";
+        return tag;
     }
 
     private void Start()
     {
         FieldEvents.movementLocked = true;
 
-        playerSide = SpawnPosition.Left;
-        frontLineInPlay = 0;
-
         foreach (TrenchFrontLine trenchFrontLine in frontLines)
         {
-            trenchFrontLine.InstantiateConstructSlots(trenchFrontLine.leftStructures, emptyStructurePrefab, trenchFrontLine.leftBaseGO);
-            trenchFrontLine.InstantiateConstructSlots(trenchFrontLine.rightStructures, emptyStructurePrefab, trenchFrontLine.rightBaseGO);
+            trenchFrontLine.InstantiateConstructSlots(Team.Left, trenchFrontLine.leftStructures, emptyStructurePrefab, trenchFrontLine.leftBaseGO);
+            trenchFrontLine.InstantiateConstructSlots(Team.Right, trenchFrontLine.rightStructures, emptyStructurePrefab, trenchFrontLine.rightBaseGO);
         }
-    }
-
-    public TrenchStructureIcon[] currentBase()
-    {
-        if (playerSide == SpawnPosition.Left)
-            return frontLines[frontLineInPlay].leftStructures;
-
-        return frontLines[frontLineInPlay].rightStructures;
-    }
-
-    void SpawnPlayerArmy(GameObject prefab)
-    {
-        GameObject newPawnGO = Instantiate(prefab, playerBase.transform);
-        newPawnGO.name = "Player" + prefab.name + "" + playerArmyCount;
-        playerArmyCount++;
-        Pawn pawn = newPawnGO.GetComponent<Pawn>();
-        pawn.team = Pawn.Team.Player;
-        pawn.targetFortress = enemyBase;
-        pawn.EnterState(pawn.advancing);
-    }
-
-    void SpawnEnemyArmy(GameObject prefab)
-    {
-        GameObject newPawnGO = Instantiate(prefab, enemyBase.transform);
-        newPawnGO.name = "Enemy" + prefab.name + "" + enemyArmyCount;
-        enemyArmyCount++;
-        Pawn pawn = newPawnGO.GetComponent<Pawn>();
-        pawn.team = Pawn.Team.Enemy;
-        pawn.targetFortress = playerBase;
-        pawn.EnterState(pawn.advancing);
     }
 }

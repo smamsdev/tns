@@ -4,19 +4,11 @@ public class PawnStateAdvancing : PawnState
 {
     void MoveToTarget()
     {
-        Vector2 direction = (TargetPosition() - pawn.rb.position).normalized;
+        Vector2 direction = pawn.defaultAdvanceVector;
         Vector2 nudge = new Vector2(0, pawn.verticalNudge);
 
         pawn.rb.linearVelocity = direction * pawn.moveSpeed + nudge;
         pawn.rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-    }
-
-    Vector2 TargetPosition()
-    {
-        Vector3 targetPosition;
-            targetPosition = new Vector3(pawn.targetFortress.transform.position.x, this.transform.position.y);
-
-        return targetPosition;
     }
 
     public override void EnterState()
@@ -34,6 +26,4 @@ public class PawnStateAdvancing : PawnState
     {
         MoveToTarget();
     }
-
-
 }

@@ -3,95 +3,108 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static TrenchManager;
 
 public class TrenchConstructState : TrenchMenuState
 {
-    public TrenchStructure structureToConstruct;
+    public TrenchStructureSO structureSOToConstruct; //selected by InventoryState button
     public List<Button> structureSlotButtons;
     public GameObject structuresGO;
     public Sprite emptyStructureSprite;
     public int buttonSelectedIndex = 0;
+    TrenchManager.Team team;
+    int frontLineIndex;
 
     public override void EnterState()
     {
-        InitializeConstructUI(trenchManager.currentBase());
-        ShowEmptySlots(trenchManager.currentBase(), true);
+        team = TrenchManager.Team.Left;
+        frontLineIndex = 0;
+        InitializeConstructUI(trenchManager.GetBaseStructureList(TrenchManager.Team.Left, 0));
+        ShowEmptySlots(trenchManager.GetBaseStructureList(TrenchManager.Team.Left, 0), true);
+
         structureSlotButtons[buttonSelectedIndex].Select();
     }
 
-    public void InitializeConstructUI(TrenchStructureIcon[] structures)
+    public void InitializeConstructUI(TrenchStructureInstance[] structures)
     {
-        foreach (TrenchStructureIcon trenchStructureIcon in structures)
+        foreach (TrenchStructureInstance trenchStructureInstance in structures)
         {
-            trenchStructureIcon.menuButtonHighlighted.onHighlighted = () =>
+            trenchStructureInstance.menuButtonHighlighted.onHighlighted = () =>
             {
-                SlotHighlighted(trenchStructureIcon);
+                SlotHighlighted(trenchStructureInstance);
             };
 
-            trenchStructureIcon.menuButtonHighlighted.onUnHighlighted = () =>
+            trenchStructureInstance.menuButtonHighlighted.onUnHighlighted = () =>
             {
-                SlotUnHighlighted(trenchStructureIcon);
+                SlotUnHighlighted(trenchStructureInstance);
             };
 
-            structureSlotButtons.Add(trenchStructureIcon.menuButtonHighlighted.button);
+            structureSlotButtons.Add(trenchStructureInstance.menuButtonHighlighted.button);
 
-            trenchStructureIcon.menuButtonHighlighted.button.onClick.AddListener(() => SlotSelected(trenchStructureIcon));
+            trenchStructureInstance.menuButtonHighlighted.button.onClick.AddListener(() => SlotSelected(trenchStructureInstance));
         }
 
-    FieldEvents.SetGridNavigationWrapAroundHorizontal(structureSlotButtons, 4);
+        if (team == TrenchManager.Team.Left)
+            FieldEvents.SetGridNavigationWrapAroundMirrored(structureSlotButtons, 4);
+
+        else
+            FieldEvents.SetGridNavigationWrapAround(structureSlotButtons, 4);
     }
 
-    public void ShowEmptySlots(TrenchStructureIcon[] structures, bool on)
+    public void ShowEmptySlots(TrenchStructureInstance[] structures, bool on)
     {
         if (on)
         {
-            foreach (TrenchStructureIcon trenchStructureIcon in structures)
-                if (trenchStructureIcon.trenchStructure == null)
+            foreach (TrenchStructureInstance trenchStructureIcon in structures)
+                if (trenchStructureIcon.structureSO == null)
                     trenchStructureIcon.spriteRenderer.enabled = true;
             return;
         }
 
-        foreach (TrenchStructureIcon trenchStructureIcon in structures)
-            if (trenchStructureIcon.trenchStructure == null)
+        foreach (TrenchStructureInstance trenchStructureIcon in structures)
+            if (trenchStructureIcon.structureSO == null)
                 trenchStructureIcon.spriteRenderer.enabled = false;
     }
 
-    void SlotSelected(TrenchStructureIcon trenchStructureIcon)
+    void SlotSelected(TrenchStructureInstance emptyInstanceSelected)
     {
-        if (trenchStructureIcon.trenchStructure != null)
+        if (emptyInstanceSelected.structureSO != null)
             return;
 
-        trenchStructureIcon.trenchStructure = structureToConstruct;
-        trenchStructureIcon.spriteRenderer.sprite = trenchStructureIcon.trenchStructure.structureSprite;
-        ShowEmptySlots(trenchManager.currentBase(), false);
+        trenchManager.ConstructStructure(TrenchManager.Team.Left, 0, emptyInstanceSelected, structureSOToConstruct);
+
+        ShowEmptySlots(trenchManager.GetBaseStructureList(TrenchManager.Team.Left, 0), false);
         menuManager.mainState.WireButtons();
         menuManager.ChangeState(menuManager.mainState);
     }
 
-    void SlotHighlighted(TrenchStructureIcon trenchStructureIcon)
+    void SlotHighlighted(TrenchStructureInstance structureInstance)
     {
-        trenchStructureIcon.animator.enabled = true;
-        trenchStructureIcon.spriteRenderer.sprite = structureToConstruct.structureSprite;
-        buttonSelectedIndex = Array.IndexOf(trenchManager.currentBase(), trenchStructureIcon);
+        structureInstance.animator.enabled = true;
+        buttonSelectedIndex = Array.IndexOf(trenchManager.GetBaseStructureList(TrenchManager.Team.Left, 0), structureInstance);
+
+        //if slot if empty, show preview
+        if (structureInstance.structureSO == null)
+            structureInstance.spriteRenderer.sprite = structureSOToConstruct.StructureSprite;
     }
 
-    void SlotUnHighlighted(TrenchStructureIcon trenchStructureIcon)
+    void SlotUnHighlighted(TrenchStructureInstance trenchStructureInstance)
     {
-        trenchStructureIcon.animator.enabled = false;
-        trenchStructureIcon.spriteRenderer.color = Color.white;
+        trenchStructureInstance.animator.enabled = false;
+        trenchStructureInstance.spriteRenderer.color = Color.white;
 
-        if (trenchStructureIcon.trenchStructure != null)
+        if (trenchStructureInstance.structureSO != null)
         {
-            trenchStructureIcon.spriteRenderer.sprite = trenchStructureIcon.trenchStructure.structureSprite;
             return;
         }
 
-        trenchStructureIcon.spriteRenderer.sprite = emptyStructureSprite;
+        //if slot is still empty show the empty space again
+        trenchStructureInstance.spriteRenderer.sprite = emptyStructureSprite;
     }
 
     public override void ExitState()
     {
-        ShowEmptySlots(trenchManager.currentBase(), false);
+        ShowEmptySlots(trenchManager.GetBaseStructureList(TrenchManager.Team.Left, 0), false);
     }
 
     public override void StateUpdate()

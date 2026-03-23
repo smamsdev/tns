@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class PawnStateEngaging : PawnState
+public class PawnStateHoning : PawnState
 {
     public override void EnterState()
     {
-
+        pawn.rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     void MoveToTarget()
@@ -19,7 +19,14 @@ public class PawnStateEngaging : PawnState
         Vector2 nudge = new Vector2(0, pawn.verticalNudge);
 
         pawn.rb.linearVelocity = direction * pawn.moveSpeed + nudge;
-        pawn.rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.GetComponent<Pawn>() == pawn.enemyPawnTarget)
+        {
+            pawn.TargetLost();
+        }
     }
 
     public override void PawnUpdate()

@@ -26,15 +26,19 @@ public class TrenchStructureInventoryState : TrenchMenuState
 
     void initializeMenu()
     {
+        if (menuManager.playerInventorySO.trenchStructuresInventory.Count <= 0)
+            Debug.LogError("inventoryblank");
+
         List<Button> buttons = new List<Button>();
 
-        foreach (TrenchStructure trenchStructure in menuManager.playerInventorySO.TrenchStructureInventory)
+        foreach (TrenchStructureSO trenchStructureSO in menuManager.playerInventorySO.trenchStructuresInventory)
         {
             GameObject structureSlotUIGO = Instantiate(inventoryUIPrefab, inventoryDisplayGO.transform);
             TrenchStructureSlotUI trenchStructureSlotUI = structureSlotUIGO.GetComponent<TrenchStructureSlotUI>();
-            trenchStructureSlotUI.trenchStructure = trenchStructure;
-            trenchStructureSlotUI.textMeshProUGUI.text = trenchStructure.structurePrice.ToString();
-            trenchStructureSlotUI.image.sprite = trenchStructureSlotUI.trenchStructure.structureSprite;
+
+            trenchStructureSlotUI.structureSO = trenchStructureSO;
+            trenchStructureSlotUI.textMeshProUGUI.text = trenchStructureSlotUI.structureSO.StructurePrice.ToString();
+            trenchStructureSlotUI.image.sprite = trenchStructureSlotUI.structureSO.StructureSprite;
 
             trenchStructureSlotUI.menuButtonHighlighted.onHighlighted = () => inventoryHighlighted(trenchStructureSlotUI);
             trenchStructureSlotUI.menuButtonHighlighted.onUnHighlighted = () => inventoryUnHighlighted(trenchStructureSlotUI);
@@ -51,7 +55,7 @@ public class TrenchStructureInventoryState : TrenchMenuState
     {
         buttonSelectedIndex = slots.IndexOf(trenchStructureSlotUI);
         trenchStructureSlotUI.image.color = Color.yellow;
-        UpdateDescriptionArea(trenchStructureSlotUI);
+        UpdateDescriptionArea(trenchStructureSlotUI.structureSO);
     }
 
     void inventoryUnHighlighted(TrenchStructureSlotUI trenchStructureSlotUI)
@@ -59,18 +63,16 @@ public class TrenchStructureInventoryState : TrenchMenuState
         trenchStructureSlotUI.image.color = Color.white;
     }
 
-    void UpdateDescriptionArea(TrenchStructureSlotUI trenchStructureSlotUI)
+    void UpdateDescriptionArea(TrenchStructureSO structureSO)
     {
-        TrenchStructure structure = trenchStructureSlotUI.trenchStructure;
-
-        nameTMP.text = structure.structureName;
-        descTMP.text = structure.structureDescription;
-        typeTMP.text = structure.type;
+      nameTMP.text = structureSO.StructureName;
+      descTMP.text = structureSO.StructureDescription;
+      typeTMP.text = structureSO.Type;
     }
 
     void InventorySelected(TrenchStructureSlotUI trenchStructureSlotUI)
     {
-        menuManager.constructState.structureToConstruct = trenchStructureSlotUI.trenchStructure;
+        menuManager.constructState.structureSOToConstruct = trenchStructureSlotUI.structureSO;
         ExitState();
         menuManager.ChangeState(menuManager.constructState);
     }

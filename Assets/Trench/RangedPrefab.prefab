@@ -67,7 +67,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.73356533, y: 0.115804076}
+  m_Offset: {x: 0.8353183, y: 0.072037935}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -77,7 +77,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.6198349, y: 0.61761725}
+  m_Size: {x: 1.7341523, y: 2.4633555}
   m_EdgeRadius: 0
 --- !u!114 &1561238074181370950
 MonoBehaviour:
@@ -236,13 +236,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pawn
   team: 0
+  defaultAdvanceVector: {x: 0, y: 0}
   state: {fileID: 0}
-  targetFortress: {fileID: 0}
   enemyPawnTarget: {fileID: 0}
   moveSpeed: 0.5
   animator: {fileID: 329803128658219255}
   rb: {fileID: 0}
   verticalNudge: 0
+  defeated: 0
   physicalCollider: {fileID: 8097209298745739282}
   hp: 15
   attackPower: 5
@@ -300,7 +301,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 4854365724870318037, guid: 9679c48bba1066445b5be022aaa356c7, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.04722631, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -442,7 +443,7 @@ GameObject:
   - component: {fileID: 8152380384814004355}
   - component: {fileID: 4182307663032705194}
   m_Layer: 0
-  m_Name: Engaging
+  m_Name: Honing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -543,7 +544,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.8353183, y: 0.15703791}
+  m_Offset: {x: 0.8353183, y: 0.072037935}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -553,7 +554,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.7341523, y: 0.49335563}
+  m_Size: {x: 1.7341523, y: 2.4633555}
   m_EdgeRadius: 0
 --- !u!114 &2073954408780772694
 MonoBehaviour:

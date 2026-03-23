@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class TrenchStructureSlotUI : MonoBehaviour
 {
-    public TrenchStructure trenchStructure;
+    public TrenchStructureSO structureSO;
     public MenuButtonHighlighted menuButtonHighlighted;
     public TextMeshProUGUI textMeshProUGUI;
     public Image image;

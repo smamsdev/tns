@@ -101,6 +101,49 @@ public static class FieldEvents
         }
     }
 
+    //assumes a vertical major button axis / mirrored
+    public static void SetGridNavigationWrapAroundMirrored(List<Button> buttons, int maxRows)
+    {
+        int buttonCount = buttons.Count;
+
+        int rows = Mathf.Min(buttonCount, maxRows);
+        int columns = Mathf.CeilToInt((float)buttonCount / rows);
+
+        for (int i = 0; i < buttonCount; i++)
+        {
+            Button button = buttons[i];
+            Navigation nav = button.navigation;
+            nav.mode = Navigation.Mode.Explicit;
+
+            int col = i / rows;
+            int row = i % rows;
+
+            nav.selectOnUp = buttons[WrapIndex(row - 1, col)];
+            nav.selectOnDown = buttons[WrapIndex(row + 1, col)];
+
+            // horizontal navigation flipped
+            nav.selectOnLeft = buttons[WrapIndex(row, col + 1)];
+            nav.selectOnRight = buttons[WrapIndex(row, col - 1)];
+
+            button.navigation = nav;
+
+            int WrapIndex(int r, int c)
+            {
+                if (c < 0) c = columns - 1;
+                if (c >= columns) c = 0;
+
+                int colStart = c * rows;
+                int colEnd = Mathf.Min(colStart + rows, buttonCount);
+                int index = colStart + r;
+
+                if (index >= colEnd) index = colStart;
+                if (index < colStart) index = colEnd - 1;
+
+                return index;
+            }
+        }
+    }
+
     // Assumes a horizontal major button axis (wraps left/right and up/down)
     public static void SetGridNavigationWrapAroundHorizontal(List<Button> buttons, int maxColumns)
     {

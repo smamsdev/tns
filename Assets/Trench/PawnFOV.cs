@@ -14,7 +14,17 @@ public class PawnFOV : MonoBehaviour
         if (pawnCollision.team != pawn.team)
         {
             pawn.TargetDetected(pawnCollision);
-            pawn.fov.enabled = false;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        //if target is outside FOV remove target and change state
+        if (collision.CompareTag("PawnBody") && collision.GetComponent<Pawn>() == pawn.enemyPawnTarget)
+        {
+            Debug.Log("leaving" + collision.gameObject.name);
+            pawn.enemyPawnTarget = null;
+            pawn.EnterState(pawn.advancing);
         }
     }
 }

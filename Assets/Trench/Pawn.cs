@@ -3,15 +3,9 @@ using UnityEngine;
 
 public class Pawn : MonoBehaviour
 {
-    public enum Team
-    {
-        Player,
-        Enemy
-    }
-
-    public Team team;
+    public TrenchManager.Team team;
+    public Vector2 defaultAdvanceVector;
     [SerializeField] PawnState state;
-    public GameObject targetFortress;
     public Pawn enemyPawnTarget;
     public float moveSpeed = 5f;
     public Animator animator;
@@ -44,20 +38,17 @@ public class Pawn : MonoBehaviour
     {
         newState.EnterState();
         state = newState;
-
-        //if (team == Team.Player)
-        //Debug.Log(this.gameObject.name + "state changed to " + state.name);
     }
 
+    //try to go around stuff in the way
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("TrenchBoundary"))
             return;
 
-        float movementDirectionX = Mathf.Sign(targetFortress.transform.position.x - transform.position.x);
         float deltaX = collision.transform.position.x - transform.position.x;
 
-        if (deltaX * movementDirectionX > 0f)
+        if (deltaX * defaultAdvanceVector.x > 0f)
         {
             verticalNudge = collision.transform.position.y > transform.position.y ? -0.5f : 0.5f;
         }
@@ -74,6 +65,12 @@ public class Pawn : MonoBehaviour
         EnterState(engaging);
     }
 
+    public void TargetLost()
+    { 
+        enemyPawnTarget = null;
+        EnterState(advancing);
+    }
+
     public void CombatDetected(Pawn newTarget)
     {
         enemyPawnTarget = newTarget;
@@ -88,14 +85,13 @@ public class Pawn : MonoBehaviour
             enemyPawnTarget.hp -= attackPower;
             enemyPawnTarget.CheckForDeath();
 
-            if (enemyPawnTarget.hp <= 0)
-            {
-                enemyPawnTarget = null;
-                EnterState(advancing);
-            }
+            //if (enemyPawnTarget.hp <= 0)
+            //{
+            //    enemyPawnTarget = null;
+            //    EnterState(advancing);
+            //}
         }
     }
-
 
     public void CheckForDeath()
     {
@@ -127,22 +123,8 @@ public class Pawn : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    private void Update()
-    {
-
-       // if (Input.GetKeyDown(KeyCode.Escape))
-       // {
-       //     Vector3 direction = (targetFortress.transform.position - this.transform.position).normalized;
-       //     float attackDirX = Mathf.Sign(direction.x);
-       //
-       //     Debug.Log(attackDirX);
-       //
-       // }
-    }
-
     void FixedUpdate()
     {
         state.PawnUpdate();
-
     }
 }

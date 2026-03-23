@@ -16,7 +16,14 @@ public class PawnCombatCollision : MonoBehaviour
         if (pawnCollision.team != pawn.team)
         {
             pawn.CombatDetected(pawnCollision);
-            pawn.combatRange.enabled = false;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.GetComponent<Pawn>() == pawn.enemyPawnTarget)
+        {
+            pawn.TargetLost();
         }
     }
 }
