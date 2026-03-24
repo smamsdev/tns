@@ -13,9 +13,9 @@ public class LockerMenuManager : MonoBehaviour
 
     public void OpenLocker()
     {
+        lockerMainMenu.DisplayMenu(true);
         lockerMainMenu.InitializeMenu();
         menuUpdateMethod = lockerMainMenu;
-        lockerMainMenu.DisplayMenu(true);
         lockerMainMenu.EnterMenu();
     }
     

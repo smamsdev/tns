@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,7 +16,7 @@ public class LockerBayMenu : LockerMenu
         set
         {
             highlightedButtonIndex = value;
-            Debug.Log($"HighlightedButtonIndex changed to {value}");
+            //Debug.Log($"HighlightedButtonIndex changed to {value}");
         }
     }
 
@@ -28,6 +29,8 @@ public class LockerBayMenu : LockerMenu
     {
         lockerMenuManager.lockerGearMenu.highlightedButtonIndex = 0;
         highlightedButtonIndex = 0;
+        SetBaySlotsAlpha(.7f, 1);
+
         inventorySlots[highlightedButtonIndex].button.Select();
         lockerMenuManager.lockerMainMenu.mainMenuButtons[1].SetButtonNormalColor(Color.yellow);
     }
@@ -46,7 +49,7 @@ public class LockerBayMenu : LockerMenu
             InventorySlotUI inventorySlotUI = InventorySlotUIGO.GetComponent<InventorySlotUI>();
             inventorySlots.Add(inventorySlotUI);
 
-            GameObject lockerBorderGO = Instantiate(lockerBorderPrefab,InventorySlotUIGO.transform);
+            //GameObject lockerBorderGO = Instantiate(lockerBorderPrefab,InventorySlotUIGO.transform);
 
             if (lockerInstanceSlot == null || lockerInstanceSlot.gearSO == null)
             {
@@ -76,13 +79,11 @@ public class LockerBayMenu : LockerMenu
 
                 inventorySlotUI.itemNameTMP.text = lockerInstanceSlot.gearSO.gearName.ToUpper();
                 inventorySlotUI.name = "Bay Slot " + lockerInstanceSlot.gearSO.gearName;
-
             }
 
-            int magicNumberBuffer = 190;
-            var totalHeight = inventorySlotUI.itemNameTMP.preferredHeight + magicNumberBuffer;
+            ResizeBorder(inventorySlotUI);
 
-            lockerBorderGO.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, totalHeight);
+
 
             inventorySlotUI.button.onClick.AddListener(() => BaySelected(inventorySlotUI));
 
@@ -95,34 +96,53 @@ public class LockerBayMenu : LockerMenu
            {
                SlotUnHighlighted(inventorySlotUI);
            };
-
         }
 
         foreach (var inventorySlot in inventorySlots)
             inventorySlotButtons.Add(inventorySlot.button);
 
         FieldEvents.SetGridNavigationWrapAroundHorizontal(inventorySlotButtons, inventory.gearInstanceInventory.Count);
+    }
 
+    public void SetBaySlotsAlpha(float alphaIfEmpty, float alphaIfOccupied)
+    {
+        foreach (InventorySlotUI inventorySlotUI in inventorySlots)
+        {
+            bool isSlotOccupied = inventorySlotUI.gearInstance == null;
+
+            FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.white, isSlotOccupied ? alphaIfEmpty : alphaIfOccupied);
+            FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.white, isSlotOccupied ? alphaIfEmpty : alphaIfOccupied);
+        }
+    }
+
+    void ResizeBorder(InventorySlotUI inventorySlotUI)
+    {
+        int magicNumberBuffer = 190;
+        var totalHeight = inventorySlotUI.itemNameTMP.preferredHeight + magicNumberBuffer;
+
+        GameObject lockerBorderGO = Instantiate(lockerBorderPrefab, inventorySlotUI.gameObject.transform);
+        lockerBorderGO.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, totalHeight);
     }
 
     void SlotHighlighted(InventorySlotUI inventorySlotUI)
     {
-        inventorySlotUI.itemNameTMP.color = Color.yellow;
-        inventorySlotUI.itemQuantityTMP.color = Color.yellow;
+        FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.yellow, inventorySlotUI.itemNameTMP.alpha);
+        FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.yellow, inventorySlotUI.itemNameTMP.alpha);
+
         HighlightedButtonIndex = inventorySlots.IndexOf(inventorySlotUI);
     }
-
+     
     void SlotUnHighlighted(InventorySlotUI inventorySlotUI)
     {
-        inventorySlotUI.itemNameTMP.color = Color.white;
-        inventorySlotUI.itemQuantityTMP.color = Color.white;
+        FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.white, inventorySlotUI.itemNameTMP.alpha);
+        FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.white, inventorySlotUI.itemNameTMP.alpha);
     }
 
     void BaySelected(InventorySlotUI inventorySlotUI)
     {
         var lockerInventorySO = lockerMenuManager.lockerMainMenu.lockerInventorySO;
 
-        if (lockerMenuManager.lockerGearMenu.isCaching)
+        if (lockerMenuManager.lockerGearMenu.isGearSelectedForCache)
         {
 
             var instanceToCache = lockerMenuManager.lockerGearMenu.selectedGearInstanceToCache;
@@ -148,16 +168,7 @@ public class LockerBayMenu : LockerMenu
             InstantiateUIBays();
             lockerMenuManager.lockerGearMenu.InitialiseInventoryUI();
             inventorySlots[HighlightedButtonIndex].button.Select();
-
-            //if (lockerInventory[highlightedButtonIndex] is ConsumableInstance consumableInstanceToRetrieve)
-            //{
-            //    consumableInstanceToRetrieve.quantityAvailable--;
-            //    if (consumableInstanceToRetrieve.quantityAvailable <= 0)
-            //        lockerInventory[highlightedButtonIndex] = null;
-            //} 
-            //
-            //else
-            //    lockerInventory[highlightedButtonIndex] = null;
+            SetBaySlotsAlpha(.7f, 1);
         }
     }
 

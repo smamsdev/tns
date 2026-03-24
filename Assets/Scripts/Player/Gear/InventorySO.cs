@@ -13,7 +13,7 @@ public class InventorySO : ScriptableObject
     public List<GearInstance> gearInstanceInventory = new List<GearInstance>();
     public int inventorySlotsAvailable;
 
-    [Header("For Actors")]
+    [Header("For Player")]
     [SerializeReference]
     public List<GearInstance> gearInstanceEquipped = new List<GearInstance>();
     public List<TrenchStructureSO> trenchStructuresInventory = new List<TrenchStructureSO>();

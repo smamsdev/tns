@@ -94,6 +94,7 @@ public class menuMain : PauseMenu
     public override void ExitMenu() //triggered via animation transition event
     {
         animator.enabled = false;
+        masterMenuContainer.SetActive(false);
     }
 
     void ToggleMainMenu(bool on)

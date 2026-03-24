@@ -13,12 +13,12 @@ public class TrenchConstructState : TrenchMenuState
     public Sprite emptyStructureSprite;
     public int buttonSelectedIndex = 0;
     TrenchManager.Team team;
-    int frontLineIndex;
+    //int frontLineIndex;
 
     public override void EnterState()
     {
         team = TrenchManager.Team.Left;
-        frontLineIndex = 0;
+        //frontLineIndex = 0;
         InitializeConstructUI(trenchManager.GetBaseStructureList(TrenchManager.Team.Left, 0));
         ShowEmptySlots(trenchManager.GetBaseStructureList(TrenchManager.Team.Left, 0), true);
 
