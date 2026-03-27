@@ -83,8 +83,6 @@ public class LockerBayMenu : LockerMenu
 
             ResizeBorder(inventorySlotUI);
 
-
-
             inventorySlotUI.button.onClick.AddListener(() => BaySelected(inventorySlotUI));
 
             inventorySlotUI.onHighlighted = () =>
@@ -112,6 +110,33 @@ public class LockerBayMenu : LockerMenu
 
             FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.white, isSlotOccupied ? alphaIfEmpty : alphaIfOccupied);
             FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.white, isSlotOccupied ? alphaIfEmpty : alphaIfOccupied);
+        }
+    }
+
+    public void SetBaySlotsAlphaUICachingMode(float alphaIfAvailableToCache, float alphaIfUnavailableToCache)
+    {
+        foreach (InventorySlotUI inventorySlotUI in inventorySlots)
+        {
+            bool availableToCache = false;
+            GearInstance gearToCache = lockerMenuManager.lockerGearMenu.selectedGearInstanceToCache;
+
+            if (inventorySlotUI.gearInstance == null)
+            {
+                availableToCache = true;
+            }
+
+            else if (inventorySlotUI.gearInstance is ConsumableInstance slotConsumable &&
+                     gearToCache is ConsumableInstance cacheConsumable &&
+                     cacheConsumable.gearSO == slotConsumable.gearSO &&
+                     slotConsumable.quantityAvailable < 9)
+            {
+                availableToCache = true;
+            }
+
+            float alpha = availableToCache ? alphaIfAvailableToCache : alphaIfUnavailableToCache;
+
+            FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.white, alpha);
+            FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.white, alpha);
         }
     }
 

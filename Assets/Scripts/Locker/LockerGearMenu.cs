@@ -7,7 +7,7 @@ public class LockerGearMenu : LockerMenu
 {
     public GameObject inventorySlotUIPrefab, noneGO, inventorySlotsParent;
     public TextMeshProUGUI gearDescriptionTMP, gearTypeTMP, gearEquipStatusTMP;
-    public List<InventorySlotUI> inventorySlots = new List<InventorySlotUI>();
+    public List<InventorySlotUI> inventorySlots = new();
     public int highlightedButtonIndex = 0;
     public bool isGearSelectedForCache;
     public GearInstance selectedGearInstanceToCache;
@@ -78,7 +78,7 @@ public class LockerGearMenu : LockerMenu
 
             inventorySlotUI.onHighlighted = () =>
             {
-                OnInventorySlotHighlighted(inventorySlotUI, isCurrentlyEquipped);
+                OnInventorySlotHighlighted(inventorySlotUI);
             };
 
             inventorySlotUI.onUnHighlighted = () =>
@@ -90,7 +90,7 @@ public class LockerGearMenu : LockerMenu
             inventorySlots.Add(inventorySlotUI);
         }
 
-        List<Button> inventorySlotButtons = new List<Button>();
+        List<Button> inventorySlotButtons = new();
         foreach (var inventorySlot in inventorySlots)
             inventorySlotButtons.Add(inventorySlot.button);
 
@@ -114,6 +114,7 @@ public class LockerGearMenu : LockerMenu
         lockerMenuManager.lockerMainMenu.SetHeaderTMP("Select CACHE bay:");
 
         selectedGearInstanceToCache = inventorySlotUI.gearInstance;
+        lockerMenuManager.lockerBayMenu.SetBaySlotsAlphaUICachingMode(1, .7f);
         lockerMenuManager.lockerBayMenu.inventorySlots[lockerMenuManager.lockerBayMenu.HighlightedButtonIndex].button.Select();
         FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.yellow, 1);
         FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.yellow, 1);
@@ -128,7 +129,7 @@ public class LockerGearMenu : LockerMenu
             var lockerGearInstanceInventory = lockerMenuManager.lockerMainMenu.lockerInventorySO.gearInstanceInventory;
             var selectedBay = lockerMenuManager.lockerBayMenu.HighlightedButtonIndex;
 
-            ConsumableInstance newConsumableInstance = new ConsumableInstance(selectedConsumableToCache);
+            ConsumableInstance newConsumableInstance = new(selectedConsumableToCache);
             lockerGearInstanceInventory[selectedBay] = newConsumableInstance;
 
             lockerMenuManager.lockerMainMenu.playerInventory.inventorySO.RemoveGearFromInventory(selectedConsumableToCache);
@@ -171,6 +172,7 @@ public class LockerGearMenu : LockerMenu
             lockerMenuManager.lockerMainMenu.playerInventory.inventorySO.RemoveGearFromInventory(selectedGearInstanceToCache);
 
             lockerMenuManager.lockerBayMenu.InstantiateUIBays();
+            lockerMenuManager.lockerBayMenu.SetBaySlotsAlpha(1, .7f);
             InitialiseInventoryUI();
 
             highlightedButtonIndex = Mathf.Clamp(highlightedButtonIndex, 0, inventorySlots.Count - 1);
@@ -186,7 +188,7 @@ public class LockerGearMenu : LockerMenu
         }
     }
 
-    public void OnInventorySlotHighlighted(InventorySlotUI inventorySlot, bool isCurrentlyEquipped)
+    public void OnInventorySlotHighlighted(InventorySlotUI inventorySlot)
     {
         FieldEvents.SetTextColor(inventorySlot.itemNameTMP, Color.yellow, inventorySlot.itemNameTMP.alpha);
         FieldEvents.SetTextColor(inventorySlot.itemQuantityTMP, Color.yellow, inventorySlot.itemNameTMP.alpha);
@@ -232,6 +234,7 @@ public class LockerGearMenu : LockerMenu
     {
         lockerMenuManager.lockerMainMenu.DisplayMainButtons(true);
         lockerMenuManager.lockerMainMenu.SetHeaderTMP(null);
+        SetGearSlotsAlpha(.7f, .7f);
 
         isGearSelectedForCache  = false;
         lockerMenuManager.EnterMenu(lockerMenuManager.lockerMainMenu);
@@ -264,11 +267,8 @@ public class LockerGearMenu : LockerMenu
         }
     }
 
-
     public void UnequipHighlightedGearInstance(GearInstance gearInstance)
     {
-        int i = lockerMenuManager.lockerMainMenu.playerInventory.inventorySO.gearInstanceEquipped.IndexOf(gearInstance);
-
         lockerMenuManager.lockerMainMenu.playerInventory.inventorySO.UnequipGearFromSlot(gearInstance);
         InitialiseInventoryUI();
     }
