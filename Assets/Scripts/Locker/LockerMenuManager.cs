@@ -4,7 +4,7 @@ using UnityEngine;
 public class LockerMenuManager : MonoBehaviour
 {
     public LockerMainMenu lockerMainMenu;
-    public LockerBayMenu lockerBayMenu;
+    public LockerCacheMenu lockerCacheMenu;
     public LockerGearMenu lockerGearMenu;
 
 
@@ -21,7 +21,7 @@ public class LockerMenuManager : MonoBehaviour
     
     public void DisplaySubMenu(Menu menuToDisplay)
     {
-        lockerBayMenu.DisplayMenu(false);
+        lockerCacheMenu.DisplayMenu(false);
         lockerGearMenu.DisplayMenu(false);
     
         menuToDisplay.DisplayMenu(true);

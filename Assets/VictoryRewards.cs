@@ -219,7 +219,7 @@ public class VictoryRewards : MonoBehaviour
                 GearInstance gearInstance = new GearInstance();
                 gearInstance.gearSO = drop;
 
-                combatManager.playerCombat.playerInventory.inventorySO.AttemptAddGearToInventory(gearInstance);
+                combatManager.playerCombat.playerInventory.inventorySO.AttemptAddGearToInventory(gearInstance, true);
                 Debug.Log("fix this for inventory maangement later");
                 i++;
                 GameObject rewardItemSlotGO = Instantiate(uiRewardSlotPrefab);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LockerBayMenu : LockerMenu
+public class LockerCacheMenu : LockerMenu
 {
     public GameObject inventorySlotPrefab, lockerBorderPrefab, inventoryUIParent;
     public List<InventorySlotUI> inventorySlots = new List<InventorySlotUI>();
@@ -40,66 +40,57 @@ public class LockerBayMenu : LockerMenu
         DeleteAllInventoryUI();
 
         List<Button> inventorySlotButtons = new List<Button>();
-        var inventory = lockerMenuManager.lockerMainMenu.lockerInventorySO;
+        var inventorySO = lockerMenuManager.lockerMainMenu.lockerInventorySO;
 
-        foreach (GearInstance lockerInstanceSlot in inventory.gearInstanceInventory)
+        for (int i = 0; i < inventorySO.gearInstanceInventory.Count; i++)
         {
             GameObject InventorySlotUIGO = Instantiate(inventorySlotPrefab, inventoryUIParent.transform);
-
             InventorySlotUI inventorySlotUI = InventorySlotUIGO.GetComponent<InventorySlotUI>();
+
             inventorySlots.Add(inventorySlotUI);
+            inventorySlotUI.name = "Bay Slot Free";
+            inventorySlotUI.itemNameTMP.text = "FREE";
+            inventorySlotUI.itemQuantityTMP.text = "";
+            inventorySlotUI.icon.enabled = false;
 
-            //GameObject lockerBorderGO = Instantiate(lockerBorderPrefab,InventorySlotUIGO.transform);
-
-            if (lockerInstanceSlot == null || lockerInstanceSlot.gearSO == null)
+            if (inventorySO.gearInstanceInventory[i] != null)
             {
-                inventorySlotUI.name = "Bay Slot Free";
-                inventorySlotUI.itemNameTMP.text = "FREE";
-                inventorySlotUI.itemQuantityTMP.text = "";
-                inventorySlotUI.icon.enabled = false;
-            }
-
-            else
-            {
-                inventorySlotUI.gearInstance = lockerInstanceSlot;
+                inventorySlotUI.gearInstance = inventorySO.gearInstanceInventory[i];
                 inventorySlotUI.icon.enabled = true;
-
-                if (lockerInstanceSlot is EquipmentInstance equipmentInstance)
+            
+                if (inventorySO.gearInstanceInventory[i] is EquipmentInstance equipmentInstance)
                 {
                     inventorySlotUI.icon.sprite = inventorySlotUI.equipmentIcon;
                     inventorySlotUI.itemQuantityTMP.text = FieldEvents.ItemQuantityRemaining(inventorySlotUI.gearInstance);
-
                 }
-
-                if (lockerInstanceSlot is ConsumableInstance consumableInstance)
+            
+                if (inventorySO.gearInstanceInventory[i] is ConsumableInstance consumableInstance)
                 {
                     inventorySlotUI.icon.sprite = inventorySlotUI.consumableIcon;
                     inventorySlotUI.itemQuantityTMP.text = FieldEvents.ItemQuantityRemaining(inventorySlotUI.gearInstance);
                 }
-
-                inventorySlotUI.itemNameTMP.text = lockerInstanceSlot.gearSO.gearName.ToUpper();
-                inventorySlotUI.name = "Bay Slot " + lockerInstanceSlot.gearSO.gearName;
+            
+                inventorySlotUI.itemNameTMP.text = inventorySO.gearInstanceInventory[i].gearSO.gearName.ToUpper();
+                inventorySlotUI.name = "Bay Slot " + inventorySO.gearInstanceInventory[i].gearSO.gearName;
             }
 
-            ResizeBorder(inventorySlotUI);
-
-            inventorySlotUI.button.onClick.AddListener(() => BaySelected(inventorySlotUI));
-
-            inventorySlotUI.onHighlighted = () =>
-           {
-               SlotHighlighted(inventorySlotUI);
-           };
+                ResizeBorder(inventorySlotUI);
+                inventorySlotUI.button.onClick.AddListener(() => BaySelected(inventorySlotUI));
+                inventorySlotUI.onHighlighted = () =>
+               {
+                   SlotHighlighted(inventorySlotUI);
+               };
            
-           inventorySlotUI.onUnHighlighted = () =>
-           {
-               SlotUnHighlighted(inventorySlotUI);
-           };
+               inventorySlotUI.onUnHighlighted = () =>
+               {
+                   SlotUnHighlighted(inventorySlotUI);
+               };
         }
 
         foreach (var inventorySlot in inventorySlots)
             inventorySlotButtons.Add(inventorySlot.button);
 
-        FieldEvents.SetGridNavigationWrapAroundHorizontal(inventorySlotButtons, inventory.gearInstanceInventory.Count);
+        FieldEvents.SetGridNavigationWrapAroundHorizontal(inventorySlotButtons, inventorySO.gearInstanceInventory.Count);
     }
 
     public void SetBaySlotsAlpha(float alphaIfEmpty, float alphaIfOccupied)
@@ -169,7 +160,6 @@ public class LockerBayMenu : LockerMenu
 
         if (lockerMenuManager.lockerGearMenu.isGearSelectedForCache)
         {
-
             var instanceToCache = lockerMenuManager.lockerGearMenu.selectedGearInstanceToCache;
 
             if (instanceToCache is ConsumableInstance)
@@ -181,15 +171,12 @@ public class LockerBayMenu : LockerMenu
 
         else
         {
-            if (inventorySlotUI.gearInstance == null)
-                return;
+            if (inventorySlotUI.gearInstance == null) return;
 
-            bool inventorySpaceAvailable = lockerMenuManager.lockerMainMenu.playerInventory.inventorySO.AttemptAddGearToInventory(inventorySlotUI.gearInstance);
+            bool inventorySpaceAvailable = lockerMenuManager.lockerMainMenu.playerInventory.inventorySO.AttemptAddGearToInventory(inventorySlotUI.gearInstance, true);
+            if (!inventorySpaceAvailable) return;
 
-            if (!inventorySpaceAvailable)
-                return;
-
-            lockerInventorySO.RemoveGearFromInventory(lockerInventorySO.gearInstanceInventory[highlightedButtonIndex]);
+            lockerInventorySO.RemoveGearFromInventory(lockerInventorySO.gearInstanceInventory[highlightedButtonIndex], false);
             InstantiateUIBays();
             lockerMenuManager.lockerGearMenu.InitialiseInventoryUI();
             inventorySlots[HighlightedButtonIndex].button.Select();
@@ -217,6 +204,7 @@ public class LockerBayMenu : LockerMenu
     {
         lockerMenuManager.EnterMenu(lockerMenuManager.lockerMainMenu);
         lockerMenuManager.lockerMainMenu.mainMenuButtons[1].SetButtonNormalColor(Color.white);
+        lockerMenuManager.lockerCacheMenu.SetBaySlotsAlpha(.7f, .7f);
         lockerMenuManager.lockerMainMenu.mainMenuButtons[1].button.Select();
     }
 

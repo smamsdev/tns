@@ -4,10 +4,14 @@ using TMPro;using UnityEngine;public class LockerMainMenu : LockerMenu{    
         playerInventory = player.GetComponentInChildren<PlayerInventory>();
 
         FieldEvents.menuAvailable = false;
-        CombatEvents.LockPlayerMovement();        lockerMenuManager.lockerBayMenu.InstantiateUIBays();
-        lockerMenuManager.lockerBayMenu.SetBaySlotsAlpha(.7f, .7f);
+        CombatEvents.LockPlayerMovement();        lockerMenuManager.lockerCacheMenu.InstantiateUIBays();
+        lockerMenuManager.lockerCacheMenu.SetBaySlotsAlpha(.7f, .7f);
         lockerMenuManager.lockerGearMenu.InitialiseInventoryUI();
-        lockerMenuManager.lockerGearMenu.SetGearSlotsAlpha(.7f, .7f);
+
+        foreach (InventorySlotUI inventorySlotUI in lockerMenuManager.lockerGearMenu.inventorySlots)
+        {
+            lockerMenuManager.lockerGearMenu.SetGearSlotsAlpha(inventorySlotUI, 1);
+        }
 
         mainMenuButtons[0].button.Select();
     }
@@ -34,6 +38,6 @@ using TMPro;using UnityEngine;public class LockerMainMenu : LockerMenu{    
 
         mainMenuButtons[1].onHighlighted = () =>
         {
-            lockerMenuManager.DisplaySubMenu(lockerMenuManager.lockerBayMenu);
+            lockerMenuManager.DisplaySubMenu(lockerMenuManager.lockerCacheMenu);
         };
     }    public override void DisplayMenu(bool on)    {        displayContainer.SetActive(on);    }    public override void EnterMenu()    {        //    }    public override void ExitMenu()    {        throw new System.NotImplementedException();    }    public override void StateUpdate()    {//    }}

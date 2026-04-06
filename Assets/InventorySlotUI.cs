@@ -16,7 +16,7 @@ public class InventorySlotUI : MonoBehaviour, ISelectHandler, IDeselectHandler
     public Button button;
     public Color equipmentColor;
     public Color consumableColor;
-    public Sprite equipmentIcon, consumableIcon;
+    public Sprite equipmentIcon, consumableIcon, freeIcon;
     public Image icon;
 
     public virtual void OnSelect(BaseEventData eventData)

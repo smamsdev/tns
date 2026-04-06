@@ -125,7 +125,7 @@ public class ShopSellMenu : ShopMenu
         if (gearInstanceToSell.isCurrentlyEquipped)
             return;
 
-        shopMenuManager.mainMenu.playerInventory.inventorySO.RemoveGearFromInventory(gearInstanceToSell);
+        shopMenuManager.mainMenu.playerInventory.inventorySO.RemoveGearFromInventory(gearInstanceToSell, true);
         InstantiateUIInventorySlots();
 
         if (inventorySlotButtons.Count == 0)

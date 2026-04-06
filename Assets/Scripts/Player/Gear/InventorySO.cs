@@ -11,7 +11,6 @@ public class InventorySO : ScriptableObject
 
     [SerializeReference]
     public List<GearInstance> gearInstanceInventory = new List<GearInstance>();
-    public int inventorySlotsAvailable;
 
     [Header("For Player")]
     [SerializeReference]
@@ -23,17 +22,22 @@ public class InventorySO : ScriptableObject
         gearInstanceEquipped.Add(new GearInstance());
     }
 
-    public bool AttemptAddGearToInventory(GearInstance gearInstanceToAdd)
+    public bool AttemptAddGearToInventory(GearInstance gearInstanceToAdd, bool isSorted)
     {
         if (gearInstanceToAdd is EquipmentInstance equipmentInstance)
         {
-            if (gearInstanceInventory.Count >= inventorySlotsAvailable)
-                return false;
+            for (int i = 0; i < gearInstanceInventory.Count; i++)
+            {
+                if (gearInstanceInventory[i] == null)
+                {
+                    gearInstanceInventory[i] = equipmentInstance;
+                    if (isSorted) SortInventory();
 
-            gearInstanceInventory.Add(equipmentInstance);
-            SortInventory();
-            return true;
+                    return true;
+                }
+            }
 
+            return false;
         }
 
         else if (gearInstanceToAdd is ConsumableInstance consumableInstance)
@@ -42,9 +46,6 @@ public class InventorySO : ScriptableObject
 
             for (int i = 0; i < gearInstanceInventory.Count; i++)
             {
-
-                Debug.Log("looping" + gearInstanceInventory[i].gearSO);
-                // check if this consumable exists in inventory
                 if (gearInstanceInventory[i].gearSO == consumableInstance.gearSO)
                 {
                     Debug.Log("match detected");
@@ -58,22 +59,20 @@ public class InventorySO : ScriptableObject
                         return true;
                     }
                 }
-
             }
 
-
-            if (gearInstanceInventory.Count >= inventorySlotsAvailable)
+            //if no stacks are detected, try to create a fresh stack
+            for (int i = 0; i < gearInstanceInventory.Count; i++)
             {
-                Debug.Log("no slots available");
-                return false;
+                if (gearInstanceInventory[i] == null)
+                {
+                    gearInstanceInventory[i] = consumableInstance;
+                    if (isSorted) SortInventory();
+                    return true;
+                }
             }
 
-
-            Debug.Log("fresh instance created");
-            consumableInstance.quantityAvailable = 1;
-            gearInstanceInventory.Add(consumableInstance);
-            SortInventory();
-            return true;
+            return false;
         }
 
         else
@@ -81,17 +80,17 @@ public class InventorySO : ScriptableObject
             Debug.Log("something went wrong");
             return false;
         }
-
-
-
-
-
-
     }
 
     public void SortInventory()
     {
-        gearInstanceInventory.Sort((a, b) => a.gearSO.gearName.CompareTo(b.gearSO.gearName));
+        gearInstanceInventory.Sort((a, b) =>
+        {
+            if (a == null) return 1;
+            if (b == null) return -1;
+
+            return a.gearSO.gearName.CompareTo(b.gearSO.gearName);
+        });
     }
 
     public void EquipGearToSlot(GearInstance gearInstanceToEquip, int equipSlotNumber)
@@ -137,11 +136,12 @@ public class InventorySO : ScriptableObject
         Debug.Log("fix");
     }
 
-    public void RemoveGearFromInventory(GearInstance gearInstanceToRemove)
+    public void RemoveGearFromInventory(GearInstance gearInstanceToRemove, bool isSorted)
     {
         if (gearInstanceToRemove is EquipmentInstance equipmentInstance)
         {
-            gearInstanceInventory.Remove(equipmentInstance);
+            gearInstanceInventory[gearInstanceInventory.IndexOf(equipmentInstance)] = null;
+            if (isSorted) SortInventory();
         }
 
         else if (gearInstanceToRemove is ConsumableInstance consumableInstance)
@@ -149,11 +149,12 @@ public class InventorySO : ScriptableObject
             consumableInstance.quantityAvailable--;
 
             if (consumableInstance.quantityAvailable <= 0)
-                gearInstanceInventory.Remove(consumableInstance);
+                gearInstanceInventory[gearInstanceInventory.IndexOf(consumableInstance)] = null;
+
+            if (isSorted) SortInventory();
         }
 
         else
             Debug.Log("something went wrong");
     }
-
 }

@@ -91,7 +91,7 @@ public class ShopBuyMenu : ShopMenu
             if (gearInstanceToBuy is EquipmentInstance equipmentInstance)
             {
                 EquipmentInstance clonedGear = new EquipmentInstance(equipmentInstance);
-                bool inventorySpaceAvailable = shopMenuManager.mainMenu.playerInventory.inventorySO.AttemptAddGearToInventory(clonedGear);
+                bool inventorySpaceAvailable = shopMenuManager.mainMenu.playerInventory.inventorySO.AttemptAddGearToInventory(clonedGear, true);
 
                 if (inventorySpaceAvailable)
                 {
@@ -106,7 +106,7 @@ public class ShopBuyMenu : ShopMenu
             else if (gearInstanceToBuy is ConsumableInstance consumableInstance)
             {
                 ConsumableInstance clonedGear = new ConsumableInstance(consumableInstance);
-                bool inventorySpaceAvailable = shopMenuManager.mainMenu.playerInventory.inventorySO.AttemptAddGearToInventory(clonedGear);
+                bool inventorySpaceAvailable = shopMenuManager.mainMenu.playerInventory.inventorySO.AttemptAddGearToInventory(clonedGear, true);
                 if (inventorySpaceAvailable)
                 {
 
