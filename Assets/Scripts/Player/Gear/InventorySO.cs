@@ -42,31 +42,33 @@ public class InventorySO : ScriptableObject
 
         else if (gearInstanceToAdd is ConsumableInstance consumableInstance)
         {
-            Debug.Log("consumable detected");
+           // Debug.Log("consumable detected");
 
             for (int i = 0; i < gearInstanceInventory.Count; i++)
             {
-                if (gearInstanceInventory[i].gearSO == consumableInstance.gearSO)
+                if (gearInstanceInventory[i] != null && gearInstanceInventory[i].gearSO == consumableInstance.gearSO)
                 {
-                    Debug.Log("match detected");
+                   // Debug.Log("match detected");
                     ConsumableInstance existingConsumableInstance = gearInstanceInventory[i] as ConsumableInstance;
 
                     //if the stack limit is not exceeded, +1 to existing stack
                     if (existingConsumableInstance.quantityAvailable < 9)
                     {
-                        Debug.Log("available to add to stack");
+                       // Debug.Log("available to add to stack");
                         existingConsumableInstance.quantityAvailable++;
                         return true;
                     }
                 }
             }
 
-            //if no stacks are detected, try to create a fresh stack
+            //Debug.Log("attempt create fresh instance");
+            //if no stacks are detected, try to create a fresh stack if there is inventory space
             for (int i = 0; i < gearInstanceInventory.Count; i++)
             {
                 if (gearInstanceInventory[i] == null)
                 {
-                    gearInstanceInventory[i] = consumableInstance;
+                    //Debug.Log("create fresh instance");
+                    gearInstanceInventory[i] = new ConsumableInstance(consumableInstance);
                     if (isSorted) SortInventory();
                     return true;
                 }
@@ -84,6 +86,8 @@ public class InventorySO : ScriptableObject
 
     public void SortInventory()
     {
+        MergeConsumableStacks();
+
         gearInstanceInventory.Sort((a, b) =>
         {
             if (a == null) return 1;
@@ -91,6 +95,36 @@ public class InventorySO : ScriptableObject
 
             return a.gearSO.gearName.CompareTo(b.gearSO.gearName);
         });
+    }
+
+    public void MergeConsumableStacks()
+    {
+        int maxStack = 9;
+
+        for (int i = 0; i < gearInstanceInventory.Count; i++)
+        {
+            var a = gearInstanceInventory[i] as ConsumableInstance;
+            if (a == null) continue;
+
+            for (int j = i + 1; j < gearInstanceInventory.Count; j++)
+            {
+                var b = gearInstanceInventory[j] as ConsumableInstance;
+                if (b == null) continue;
+
+                if (a.gearSO != b.gearSO) continue;
+
+                int space = maxStack - a.quantityAvailable;
+                if (space <= 0) break;
+
+                int transfer = Mathf.Min(space, b.quantityAvailable);
+
+                a.quantityAvailable += transfer;
+                b.quantityAvailable -= transfer;
+
+                if (b.quantityAvailable <= 0)
+                    gearInstanceInventory[j] = null;
+            }
+        }
     }
 
     public void EquipGearToSlot(GearInstance gearInstanceToEquip, int equipSlotNumber)

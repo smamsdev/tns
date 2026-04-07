@@ -12,15 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8560423e2bd1fe84f9ff0ea9c709a38c, type: 3}
   m_Name: TestLocker
   m_EditorClassIdentifier: Assembly-CSharp::InventorySO
-  debugGearToAddAsInstance: {fileID: 11400000, guid: 895d7e7a430508d449345250b883aa58, type: 2}
+  debugGearToAddAsInstance: {fileID: 11400000, guid: 61659de40aca88444870f9a1ce99dbca, type: 2}
   gearInstanceInventory:
-  - rid: 4989509146068123812
   - rid: -2
-  - rid: 4989509146068123813
   - rid: -2
-  - rid: 4989509146068123799
+  - rid: 4989509162323935457
+  - rid: 4989509162323935478
   - rid: -2
-  - rid: 4989509146068123814
+  - rid: 4989509162323935456
   gearInstanceEquipped: []
   trenchStructuresInventory: []
   references:
@@ -28,39 +27,24 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 4989509146068123799
+    - rid: 4989509162323935456
+      type: {class: ConsumableInstance, ns: , asm: Assembly-CSharp}
+      data:
+        gearSO: {fileID: 11400000, guid: 895d7e7a430508d449345250b883aa58, type: 2}
+        isCurrentlyEquipped: 0
+        quantityAvailable: 4
+    - rid: 4989509162323935457
       type: {class: EquipmentInstance, ns: , asm: Assembly-CSharp}
       data:
-        gearSO: {fileID: 11400000, guid: ecfcac85a3c930441afbbf7dba187cc9, type: 2}
+        gearSO: {fileID: 11400000, guid: 61659de40aca88444870f9a1ce99dbca, type: 2}
         isCurrentlyEquipped: 0
         charge: 0
         chargesAccrued: 0
         lastAppliedCharge: 0
         startChargeTimeStamp: 0
-    - rid: 4989509146068123812
-      type: {class: EquipmentInstance, ns: , asm: Assembly-CSharp}
+    - rid: 4989509162323935478
+      type: {class: ConsumableInstance, ns: , asm: Assembly-CSharp}
       data:
-        gearSO: {fileID: 11400000, guid: ecfcac85a3c930441afbbf7dba187cc9, type: 2}
+        gearSO: {fileID: 11400000, guid: 895d7e7a430508d449345250b883aa58, type: 2}
         isCurrentlyEquipped: 0
-        charge: 0
-        chargesAccrued: 0
-        lastAppliedCharge: 0
-        startChargeTimeStamp: 0
-    - rid: 4989509146068123813
-      type: {class: EquipmentInstance, ns: , asm: Assembly-CSharp}
-      data:
-        gearSO: {fileID: 11400000, guid: ecfcac85a3c930441afbbf7dba187cc9, type: 2}
-        isCurrentlyEquipped: 0
-        charge: 0
-        chargesAccrued: 0
-        lastAppliedCharge: 0
-        startChargeTimeStamp: 0
-    - rid: 4989509146068123814
-      type: {class: EquipmentInstance, ns: , asm: Assembly-CSharp}
-      data:
-        gearSO: {fileID: 11400000, guid: ecfcac85a3c930441afbbf7dba187cc9, type: 2}
-        isCurrentlyEquipped: 0
-        charge: 0
-        chargesAccrued: 0
-        lastAppliedCharge: 0
-        startChargeTimeStamp: 0
+        quantityAvailable: 1

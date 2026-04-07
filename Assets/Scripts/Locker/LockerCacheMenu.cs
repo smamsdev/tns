@@ -33,6 +33,9 @@ public class LockerCacheMenu : LockerMenu
 
         inventorySlots[highlightedButtonIndex].button.Select();
         lockerMenuManager.lockerMainMenu.mainMenuButtons[1].SetButtonNormalColor(Color.yellow);
+
+        lockerMenuManager.lockerMainMenu.DisplayMainButtons(false);
+        lockerMenuManager.lockerMainMenu.SetHeaderTMP("Select GEAR to retrieve:");
     }
 
     public void InstantiateUIBays()
@@ -99,8 +102,8 @@ public class LockerCacheMenu : LockerMenu
         {
             bool isSlotOccupied = inventorySlotUI.gearInstance == null;
 
-            FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.white, isSlotOccupied ? alphaIfEmpty : alphaIfOccupied);
-            FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.white, isSlotOccupied ? alphaIfEmpty : alphaIfOccupied);
+            FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, inventorySlotUI.itemNameTMP.color, isSlotOccupied ? alphaIfEmpty : alphaIfOccupied);
+            FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, inventorySlotUI.itemQuantityTMP.color, isSlotOccupied ? alphaIfEmpty : alphaIfOccupied);
         }
     }
 
@@ -142,6 +145,12 @@ public class LockerCacheMenu : LockerMenu
 
     void SlotHighlighted(InventorySlotUI inventorySlotUI)
     {
+        if (!lockerMenuManager.lockerGearMenu.isGearSelectedForCache)
+            lockerMenuManager.lockerMainMenu.SetHeaderTMP("Select GEAR to retrieve:");
+
+        if (lockerMenuManager.lockerGearMenu.isGearSelectedForCache)
+            lockerMenuManager.lockerMainMenu.SetHeaderTMP("Select CACHE bay:");
+
         FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.yellow, inventorySlotUI.itemNameTMP.alpha);
         FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.yellow, inventorySlotUI.itemNameTMP.alpha);
 
@@ -174,7 +183,11 @@ public class LockerCacheMenu : LockerMenu
             if (inventorySlotUI.gearInstance == null) return;
 
             bool inventorySpaceAvailable = lockerMenuManager.lockerMainMenu.playerInventory.inventorySO.AttemptAddGearToInventory(inventorySlotUI.gearInstance, true);
-            if (!inventorySpaceAvailable) return;
+            if (!inventorySpaceAvailable)
+            {
+                lockerMenuManager.lockerMainMenu.SetHeaderTMP("No slot available");
+                return;
+            }
 
             lockerInventorySO.RemoveGearFromInventory(lockerInventorySO.gearInstanceInventory[highlightedButtonIndex], false);
             InstantiateUIBays();
@@ -202,6 +215,9 @@ public class LockerCacheMenu : LockerMenu
 
     public override void ExitMenu()
     {
+        lockerMenuManager.lockerMainMenu.DisplayMainButtons(true);
+        lockerMenuManager.lockerMainMenu.SetHeaderTMP(null);
+
         lockerMenuManager.EnterMenu(lockerMenuManager.lockerMainMenu);
         lockerMenuManager.lockerMainMenu.mainMenuButtons[1].SetButtonNormalColor(Color.white);
         lockerMenuManager.lockerCacheMenu.SetBaySlotsAlpha(.7f, .7f);
