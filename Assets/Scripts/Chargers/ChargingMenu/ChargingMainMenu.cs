@@ -24,7 +24,7 @@ public class ChargingMainMenu : ChargingMenu
 
         this.gameObject.SetActive(true);
         displayContainer.SetActive(true);
-        animator.Play("OpenShop");
+        animator.Play("OpenMenu");
 
         FieldEvents.menuAvailable = false;
         CombatEvents.LockPlayerMovement();
@@ -82,7 +82,7 @@ public class ChargingMainMenu : ChargingMenu
     public override void ExitMenu()
     {
         chargingMenuManager.chargingEquipmentSelectMenu.DeleteAllInventoryUI();
-        animator.Play("CloseShop"); //animator has a Function to disable this GO once finished
+        animator.Play("CloseMenu"); //animator has a Function to disable this GO once finished
         CombatEvents.UnlockPlayerMovement();
         FieldEvents.menuAvailable = true;
     }

@@ -16,7 +16,7 @@ public class ShopMenuManager : MonoBehaviour
     public ShopMenu menuUpdateMethod;
     public ShopMenu menuToDisplay;
 
-    public void OpenShop()
+    public void OpenMenu()
     {
         mainMenu.InitialiseShop();
         menuUpdateMethod = mainMenu;

@@ -36,7 +36,7 @@ public class Shop : ToTrigger
     public override IEnumerator TriggerFunction()
     {
         shopMenuManager.gameObject.SetActive(true);
-        shopMenuManager.OpenShop();
+        shopMenuManager.OpenMenu();
         yield return null;
     }
 }

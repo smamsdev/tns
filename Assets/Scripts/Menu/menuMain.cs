@@ -85,7 +85,7 @@ public class menuMain : PauseMenu
 
         CombatEvents.LockPlayerMovement();
 
-        animator.Play("MenuOpen");
+        animator.Play("OpenMenu");
         animator.enabled = true;
 
         firstMenuButton.Select();
@@ -106,7 +106,7 @@ public class menuMain : PauseMenu
 
         else
         {
-            animator.Play("MenuClose"); //this will trigger close state via animation event
+            animator.Play("CloseMenu"); //this will trigger close state via animation event
             CombatEvents.UnlockPlayerMovement();
         }
     }

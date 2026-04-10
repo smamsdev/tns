@@ -9,7 +9,6 @@ public class Locker : ToTrigger
     public override IEnumerator TriggerFunction()
     {
         lockerMenuManager.gameObject.SetActive(true);
-        //lockerMenuManager.lockerMainMenu.inventory = inventory;
         lockerMenuManager.lockerMainMenu.lockerInventorySO = lockerInventorySO;
         lockerMenuManager.OpenLocker();
         yield return null;

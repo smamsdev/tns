@@ -15,6 +15,7 @@ public class ShopMainMenu : ShopMenu
     public Button firstMenuButton;
     public Animator animator;
     public Animator smamsColorAnimator;
+    public TextMeshProUGUI headerTMP;
 
     public GameObject GearDescriptionGO;
 
@@ -54,30 +55,29 @@ public class ShopMainMenu : ShopMenu
         playerInventory = player.GetComponentInChildren<PlayerInventory>();
         playerPermanentStats = player.GetComponentInChildren<PlayerCombat>().playerPermanentStats;
 
-        animator.Play("OpenShop");
+        animator.Play("OpenMenu");
 
         FieldEvents.menuAvailable = false;
         CombatEvents.LockPlayerMovement();
 
         shopMenuManager.buyMenu.InstantiateUIShopInventorySlots();
-        shopMenuManager.sellMenu.InstantiateUIInventorySlots();
+        shopMenuManager.sellMenu.InitialiseInventoryUI();
         UpdateSmamsUI();
     }
 
-    IEnumerator OpenShopAnimation()
+    IEnumerator OpenMenuAnimation()
     {
         yield return null;
-        animator.Play("OpenShop");
+        animator.Play("OpenMenu");
     }
 
-    public void CloseShop()
+    public void DisplayMainButtons(bool on)
     {
-        animator.Play("CloseShop", 0, 0f);
-        FieldEvents.menuAvailable = true;
-        CombatEvents.UnlockPlayerMovement();
-        //Manager GO will be disabled via animation event once completed
+        foreach (MenuButtonHighlighted menuButtonHighlighted in mainShopMenuButtons)
+        {
+            menuButtonHighlighted.gameObject.SetActive(on);
+        }
     }
-
 
     public override void EnterMenu()
     {
@@ -94,16 +94,21 @@ public class ShopMainMenu : ShopMenu
 
     public override void ExitMenu()
     {
-        animator.Play("CloseShop");
+        animator.Play("CloseMenu", 0, 0f);
+        FieldEvents.menuAvailable = true;
+        CombatEvents.UnlockPlayerMovement();
+        //Manager GO will be disabled via attached MenuAnimationFunctions script event once completed
     }
 
     public override void StateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
+            ExitMenu();
+    }
 
-        {
-            CloseShop();
-        }
+    public void SetHeaderTMP(string text)
+    {
+        headerTMP.text = text;
     }
 
     public void UpdateDescriptionField(GearSO gear)

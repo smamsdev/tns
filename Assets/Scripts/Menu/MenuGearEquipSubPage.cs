@@ -144,9 +144,11 @@ public class MenuGearEquipSubPage : PauseMenu
             return Color.white;
 
         if (equipSlot.gearInstance is ConsumableInstance)
-            return equipSlot.consumableColor;
+            Debug.Log("fix");
+        // return equipSlot.consumableColor;
 
-        else return equipSlot.equipmentColor;
+        //else return equipSlot.equipmentColor;
+        return Color.white;
     }
 
     public void SetEquipSlotColor(InventorySlotUI inventorySlot, Color normalColor)

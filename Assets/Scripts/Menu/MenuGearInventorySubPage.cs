@@ -53,7 +53,8 @@ public class MenuGearInventorySubPage : PauseMenu
             inventorySlot.itemQuantityTMP.text = ItemQuantityRemaining(inventorySlot.gearInstance);
 
             bool isEquipment = gearInstance.gearSO is EquipmentSO;
-            SetInventorySlotColor(inventorySlot, isEquipment ? inventorySlot.equipmentColor : inventorySlot.consumableColor);
+            Debug.Log("fix");
+            //SetInventorySlotColor(inventorySlot, isEquipment ? inventorySlot.equipmentColor : inventorySlot.consumableColor);
             inventorySlot.icon.sprite = isEquipment ? inventorySlot.equipmentIcon : inventorySlot.consumableIcon;
 
             inventorySlot.button.onClick.AddListener(() => OnInventorySlotSelected(inventorySlot));
@@ -66,7 +67,8 @@ public class MenuGearInventorySubPage : PauseMenu
 
             inventorySlot.onUnHighlighted = () =>
             {
-                SetInventorySlotColor(inventorySlot, isEquipment ? inventorySlot.equipmentColor : inventorySlot.consumableColor);
+                Debug.Log("fix");
+                //SetInventorySlotColor(inventorySlot, isEquipment ? inventorySlot.equipmentColor : inventorySlot.consumableColor);
             };
 
             UIgearSlot.name = gearInstance.gearSO.gearName;

@@ -40,7 +40,6 @@ public class LockerGearMenu : LockerMenu
         }
 
         inventorySlots[highlightedButtonIndex].button.Select();
-        //inventorySlots[highlightedButtonIndex].onHighlighted.Invoke();
     }
 
     public void InitialiseInventoryUI()

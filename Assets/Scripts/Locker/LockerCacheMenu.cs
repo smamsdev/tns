@@ -16,7 +16,6 @@ public class LockerCacheMenu : LockerMenu
         set
         {
             highlightedButtonIndex = value;
-            //Debug.Log($"HighlightedButtonIndex changed to {value}");
         }
     }
 

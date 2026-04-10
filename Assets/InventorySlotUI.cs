@@ -14,8 +14,6 @@ public class InventorySlotUI : MonoBehaviour, ISelectHandler, IDeselectHandler
     public TextMeshProUGUI itemNameTMP;
     public TextMeshProUGUI itemQuantityTMP;
     public Button button;
-    public Color equipmentColor;
-    public Color consumableColor;
     public Sprite equipmentIcon, consumableIcon, freeIcon;
     public Image icon;
 
