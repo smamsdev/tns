@@ -141,6 +141,23 @@ public class ShopSellMenu : ShopMenu
         shopMenuManager.mainMenu.playerInventory.inventorySO.RemoveGearFromInventory(inventorySlotUI.gearInstance, true);
         InitialiseInventoryUI();
 
+        var stats = shopMenuManager.mainMenu.playerPermanentStats;
+
+        int smamsInitialValue = stats.Smams;
+        int smamsFinalValue = stats.Smams += inventorySlotUI.gearInstance.gearSO.value;
+
+        stats.Smams = smamsFinalValue;
+
+        StartCoroutine(FieldEvents.LerpValuesCoRo(smamsInitialValue, smamsFinalValue, .2f, UpdateSmamsText));
+
+        void UpdateSmamsText(float smamsValue)
+        {
+            shopMenuManager.mainMenu.smamsInventoryTMP.text = Mathf.RoundToInt(smamsValue).ToString("N0");
+        }
+
+        shopMenuManager.mainMenu.smamsColorAnimator.Play("SmamsYellowText");
+        shopMenuManager.sellMenu.InitialiseInventoryUI();
+
         var inventorySO = shopMenuManager.mainMenu.playerInventory.inventorySO;
         if (inventorySO.gearInstanceInventory.TrueForAll(x => x == null))
         {
@@ -152,12 +169,6 @@ public class ShopSellMenu : ShopMenu
 
         firstButtonToSelect = inventorySlots[highlightedButtonIndex].button;
         firstButtonToSelect.Select();
-
-        var stats = shopMenuManager.mainMenu.playerPermanentStats;
-
-        stats.Smams += inventorySlotUI.gearInstance.gearSO.value;
-        shopMenuManager.mainMenu.smamsInventoryTMP.text = stats.Smams.ToString("N0");
-        shopMenuManager.mainMenu.smamsColorAnimator.SetTrigger("plus");
     }
 
     public override void StateUpdate()

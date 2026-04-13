@@ -41,7 +41,7 @@ public static class FieldEvents
         return textElementsToSort.OrderByDescending(text => text.preferredWidth).First();
     }
 
-    public static IEnumerator LerpValuesCoRo(float initialValue, float finalValue, float duration, Action<float> callback)
+    public static IEnumerator LerpValuesCoRo(float initialValue, float finalValue, float duration, Action<float> onValueChanged)
     {
         float elapsedTime = 0f;
 
@@ -49,13 +49,13 @@ public static class FieldEvents
         {
             float t = Mathf.Clamp01(elapsedTime / duration);
             float value = Mathf.Lerp(initialValue, finalValue, t);
-            callback(value);
+            onValueChanged(value);
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        callback(finalValue);
+        onValueChanged(finalValue);
     }
 
     //assumes a vertical major button axis

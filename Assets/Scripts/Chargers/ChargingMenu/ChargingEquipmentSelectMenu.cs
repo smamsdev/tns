@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class ChargingEquipmentSelectMenu : ChargingMenu
 {
-    public GameObject inventorySlotUIPrefab, noneGO, inventorySlotsParent, propertiesGO;
+    public GameObject inventorySlotUIPrefab, inventorySlotUIsParent, propertiesGO;
     public ChargingMainMenu chargingMainMenu;
     public ChargingSlotMenu chargingSlotMenu;
     public TextMeshProUGUI gearDescriptionTMP, gearTypeTMP, gearEquipStatusTMP;
 
     [Header("Dynamic")]
 
-    public List<InventorySlotUI> inventorySlots = new List<InventorySlotUI>();
+    public List<InventorySlotUI> inventorySlotUIs = new List<InventorySlotUI>();
     public int highlightedButtonIndex;
     public EquipmentInstance equipmentInstanceToCharge;
 
@@ -23,18 +23,16 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
 
     public override void EnterMenu()
     {
-        if (inventorySlots.Count <= 0) 
-        {
-            ExitMenu();
+        var inventorySO = chargingMainMenu.playerInventory.inventorySO;
+        if (inventorySO.gearInstanceInventory.TrueForAll(x => x == null))
             return;
-        }
-            
+
         chargingMainMenu.menuButtonHighlighteds[1].SetButtonNormalColor(Color.yellow);
         chargingMainMenu.menuButtonHighlighteds[1].button.interactable = false;
 
         propertiesGO.SetActive(true);
 
-        inventorySlots[0].button.Select();
+        inventorySlotUIs[0].button.Select();
     }
 
     public void InitialiseInventoryUI()
@@ -42,55 +40,57 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
         DeleteAllInventoryUI();
         ClearText();
 
-        var gearInstanceInventory = chargingMainMenu.playerInventory.inventorySO.gearInstanceInventory;
+        var inventorySO = chargingMainMenu.playerInventory.inventorySO;
 
-        if (gearInstanceInventory == null || gearInstanceInventory.Count == 0)
+        for (int i = 0; i < inventorySO.gearInstanceInventory.Count; i++)
         {
-            noneGO.SetActive(true);
-            return;
-        }
+            GameObject UIgearSlotGO = Instantiate(inventorySlotUIPrefab);
+            UIgearSlotGO.transform.SetParent(inventorySlotUIsParent.transform, false);
 
-        noneGO.SetActive(false);
+            UIgearSlotGO.name = "gear slot " + i;
+            InventorySlotUI inventorySlotUI = UIgearSlotGO.GetComponent<InventorySlotUI>();
 
-        foreach (GearInstance gearInstance in gearInstanceInventory)
-        {
-            GameObject UIgearSlot = Instantiate(inventorySlotUIPrefab);
-            UIgearSlot.transform.SetParent(inventorySlotsParent.transform, false);
+            inventorySlotUI.itemNameTMP.text = "";
+            inventorySlotUI.itemQuantityTMP.text = "";
+            inventorySlotUI.icon.sprite = inventorySlotUI.freeIcon;
+            inventorySlotUI.name = "gear slot " + i;
 
-            InventorySlotUI inventorySlot = UIgearSlot.GetComponent<InventorySlotUI>();
-            inventorySlot.gearInstance = gearInstance;
-
-            inventorySlot.itemNameTMP.text = gearInstance.gearSO.gearName;
-
-            inventorySlot.itemQuantityTMP.text = ItemQuantityRemaining(inventorySlot.gearInstance);
-
-            bool isEquipment = gearInstance.gearSO is EquipmentSO;
-            Debug.Log("fix");
-            //SetInventorySlotColor(inventorySlot, isEquipment ? inventorySlot.equipmentColor : inventorySlot.consumableColor);
-            inventorySlot.icon.sprite = isEquipment ? inventorySlot.equipmentIcon : inventorySlot.consumableIcon;
-            
-            inventorySlot.button.onClick.AddListener(() => OnInventorySlotSelected(inventorySlot));
-
-            inventorySlot.onHighlighted = () =>
+            if (i < inventorySO.gearInstanceInventory.Count && inventorySO.gearInstanceInventory[i] != null)
             {
-                OnInventorySlotHighlighted(inventorySlot);
-                SetInventorySlotColor(inventorySlot, Color.yellow);
-            };
+                var gearInstance = inventorySO.gearInstanceInventory[i];
 
-            inventorySlot.onUnHighlighted = () =>
-            {
-                Debug.Log("fix");
+                inventorySlotUI.gearInstance = gearInstance;
+                inventorySlotUI.itemNameTMP.text = gearInstance.gearSO.gearName;
+                inventorySlotUI.itemQuantityTMP.text = FieldEvents.ItemQuantityRemaining(inventorySlotUI.gearInstance);
+                inventorySlotUI.name = "gear slot " + i + "" + inventorySlotUI.gearInstance.gearSO.gearName;
 
-                //SetInventorySlotColor(inventorySlot, isEquipment ? inventorySlot.equipmentColor : inventorySlot.consumableColor);
-            };
+                bool isEquipment = gearInstance.gearSO is EquipmentSO;
 
-            UIgearSlot.name = gearInstance.gearSO.gearName;
+                inventorySlotUI.icon.sprite = isEquipment ? inventorySlotUI.equipmentIcon : inventorySlotUI.consumableIcon;
 
-            inventorySlots.Add(inventorySlot);
+                bool isCurrentlyEquipped = gearInstance.isCurrentlyEquipped;
+                FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.white, isCurrentlyEquipped ? .7f : 1);
+                FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.white, isCurrentlyEquipped ? .7f : 1);
+
+                inventorySlotUI.button.onClick.AddListener(() => OnInventorySlotSelected(inventorySlotUI));
+
+                inventorySlotUI.onHighlighted = () =>
+                {
+                    OnInventorySlotHighlighted(inventorySlotUI);
+                };
+
+                inventorySlotUI.onUnHighlighted = () =>
+                {
+                    FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.white, inventorySlotUI.itemNameTMP.alpha);
+                    FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.white, inventorySlotUI.itemNameTMP.alpha);
+                };
+
+                inventorySlotUIs.Add(inventorySlotUI);
+            }
         }
 
         List<Button> inventorySlotButtons = new List<Button>();
-        foreach (var inventorySlot in inventorySlots)
+        foreach (var inventorySlot in inventorySlotUIs)
             inventorySlotButtons.Add(inventorySlot.button);
 
         FieldEvents.SetGridNavigationWrapAroundHorizontal(inventorySlotButtons, 3);
@@ -120,11 +120,11 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
 
     public void DeleteAllInventoryUI()
     {
-        inventorySlots.Clear();
+        inventorySlotUIs.Clear();
 
-        for (int i = inventorySlotsParent.transform.childCount - 1; i >= 0; i--)
+        for (int i = inventorySlotUIsParent.transform.childCount - 1; i >= 0; i--)
         {
-            Destroy(inventorySlotsParent.transform.GetChild(i).gameObject);
+            Destroy(inventorySlotUIsParent.transform.GetChild(i).gameObject);
         }
     }
 
@@ -140,7 +140,7 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
         if (inventorySlot.gearInstance.isCurrentlyEquipped || inventorySlot.gearInstance is ConsumableInstance || ((EquipmentInstance)inventorySlot.gearInstance).ChargePercentage() == 100) 
             return;
 
-        highlightedButtonIndex = inventorySlots.IndexOf(inventorySlot);
+        highlightedButtonIndex = inventorySlotUIs.IndexOf(inventorySlot);
 
         equipmentInstanceToCharge = inventorySlot.gearInstance as EquipmentInstance;
 
@@ -155,14 +155,16 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
         chargingMenuManager.ChargingSlotSelectMenu.chargingSlotUIs[0].onHighlighted();
     }
 
-    public void OnInventorySlotHighlighted(InventorySlotUI inventorySlot)
+    public void OnInventorySlotHighlighted(InventorySlotUI inventorySlotUI)
     {
-        highlightedButtonIndex = inventorySlots.IndexOf(inventorySlot);
+        SetInventorySlotColor(inventorySlotUI, Color.yellow);
 
-        gearDescriptionTMP.text = "Description: " + inventorySlot.gearInstance.gearSO.gearDescription;
+        highlightedButtonIndex = inventorySlotUIs.IndexOf(inventorySlotUI);
+
+        gearDescriptionTMP.text = "Description: " + inventorySlotUI.gearInstance.gearSO.gearDescription;
 
         //Gear Type
-        if (inventorySlot.gearInstance is EquipmentInstance equipmentInstance)
+        if (inventorySlotUI.gearInstance is EquipmentInstance equipmentInstance)
         { 
             gearTypeTMP.text = "Charge " + equipmentInstance.Charge + " / " + ((EquipmentSO)equipmentInstance.gearSO).maxPotential;
         }
@@ -172,17 +174,17 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
 
         //Availability
 
-        if (inventorySlot.gearInstance is ConsumableInstance)
+        if (inventorySlotUI.gearInstance is ConsumableInstance)
             gearEquipStatusTMP.text = "";
 
         else
         {
-            if (inventorySlot.gearInstance.isCurrentlyEquipped)
+            if (inventorySlotUI.gearInstance.isCurrentlyEquipped)
             {
-                gearEquipStatusTMP.text = "Equipped to Slot " + (chargingMainMenu.playerInventory.inventorySO.gearInstanceEquipped.IndexOf(inventorySlot.gearInstance) + 1) + ". PRESS CTRL TO REMOVE";
+                gearEquipStatusTMP.text = "Equipped to Slot " + (chargingMainMenu.playerInventory.inventorySO.gearInstanceEquipped.IndexOf(inventorySlotUI.gearInstance) + 1) + ". PRESS CTRL TO REMOVE";
             }
 
-            if (((EquipmentInstance)inventorySlot.gearInstance).ChargePercentage() == 100)
+            if (((EquipmentInstance)inventorySlotUI.gearInstance).ChargePercentage() == 100)
             {
                 gearEquipStatusTMP.text = "Fully charged";
             }
@@ -208,8 +210,8 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
 
         chargingMenuManager.ChargingSlotSelectMenu.pageHeaderTMP.text = "Select Charging Slot:";
 
-        if (inventorySlots.Count > 0)
-            inventorySlots[highlightedButtonIndex].onUnHighlighted();
+        if (inventorySlotUIs.Count > 0)
+            inventorySlotUIs[highlightedButtonIndex].onUnHighlighted();
 
         chargingMainMenu.menuButtonHighlighteds[1].button.interactable = true;
         chargingMainMenu.menuButtonHighlighteds[1].SetButtonNormalColor(Color.white);
@@ -227,11 +229,11 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            if (inventorySlots[highlightedButtonIndex].gearInstance.isCurrentlyEquipped)
+            if (inventorySlotUIs[highlightedButtonIndex].gearInstance.isCurrentlyEquipped)
             {
                 DisplayMenu(true);
-                UnequipHighlightedGearInstance(inventorySlots[highlightedButtonIndex].gearInstance);
-                inventorySlots[highlightedButtonIndex].button.Select();
+                UnequipHighlightedGearInstance(inventorySlotUIs[highlightedButtonIndex].gearInstance);
+                inventorySlotUIs[highlightedButtonIndex].button.Select();
             }
         }
     }

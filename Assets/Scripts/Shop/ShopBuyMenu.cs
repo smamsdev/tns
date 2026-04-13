@@ -54,6 +54,7 @@ public class ShopBuyMenu : ShopMenu
             inventorySlot.onHighlighted = () =>
             {
                 shopMenuManager.mainMenu.UpdateDescriptionField(inventorySlot.gearInstance.gearSO);
+                shopMenuManager.mainMenu.SetHeaderTMP("Select GEAR to purchase:");
             };
 
             inventorySlot.onUnHighlighted = () =>
@@ -86,15 +87,30 @@ public class ShopBuyMenu : ShopMenu
 
             if (inventorySpaceAvailable)
             {
-                shopMenuManager.mainMenu.smamsInventoryTMP.text = stats.Smams.ToString("N0");
-                shopMenuManager.mainMenu.smamsColorAnimator.SetTrigger("minus");
+                int smamsInitialValue = stats.Smams;
+                int smamsFinalValue = stats.Smams -= gearInstanceToBuy.gearSO.value;
+
+                stats.Smams = smamsFinalValue;
+
+                StartCoroutine(FieldEvents.LerpValuesCoRo(smamsInitialValue, smamsFinalValue, .2f, UpdateSmamsText));
+
+                void UpdateSmamsText(float smamsValue)
+                {
+                    shopMenuManager.mainMenu.smamsInventoryTMP.text = Mathf.RoundToInt(smamsValue).ToString("N0");
+                }
+
+                shopMenuManager.mainMenu.smamsColorAnimator.Play("SmamsRedText");
                 shopMenuManager.sellMenu.InitialiseInventoryUI();
-                shopMenuManager.sellMenu.firstButtonToSelect = shopMenuManager.sellMenu.inventorySlots[0].button;
             }
         }
 
+
         else
-            Debug.Log("something weird is going on");
+        {
+            shopMenuManager.mainMenu.SetHeaderTMP("Insufficient $MAMS");
+            shopMenuManager.mainMenu.smamsColorAnimator.SetTrigger("SmamsRedText");
+        }
+
     }
 
     public void DeleteAllInventoryUI()

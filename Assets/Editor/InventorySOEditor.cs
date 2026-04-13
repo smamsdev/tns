@@ -12,6 +12,7 @@ public class InventorySOEditor : Editor
         if (GUILayout.Button("Add gearSO as Instance"))
         {
             AddNewGearAsInstance(inventorySO);
+            inventorySO.SortInventory();
         }
 
         DrawDefaultInspector();
@@ -32,6 +33,7 @@ public class InventorySOEditor : Editor
 
         {
             ConsumableInstance consumableInstanceToAdd = new ConsumableInstance();
+            consumableInstanceToAdd.quantityAvailable = 1;
             consumableInstanceToAdd.gearSO = gearSOToAdd;
             inventorySO.gearInstanceInventory.Add(consumableInstanceToAdd);
         }
