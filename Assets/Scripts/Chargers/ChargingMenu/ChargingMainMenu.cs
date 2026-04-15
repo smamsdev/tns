@@ -33,7 +33,7 @@ public class ChargingMainMenu : ChargingMenu
         chargingMenuManager.ChargingSlotSelectMenu.gameObject.SetActive(true);
         chargingMenuManager.chargingEquipmentSelectMenu.gameObject.SetActive(true);
 
-        chargingMenuManager.ChargingSlotSelectMenu.InitialiseChargingSlots();
+        chargingMenuManager.ChargingSlotSelectMenu.InstantiateAllChargingSlots();
         chargingMenuManager.chargingEquipmentSelectMenu.InitialiseInventoryUI();
 
         EnterMenu();

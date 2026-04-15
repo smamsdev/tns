@@ -8,7 +8,7 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
     public GameObject inventorySlotUIPrefab, inventorySlotUIsParent, propertiesGO;
     public ChargingMainMenu chargingMainMenu;
     public ChargingSlotMenu chargingSlotMenu;
-    public TextMeshProUGUI gearDescriptionTMP, gearTypeTMP, gearEquipStatusTMP;
+    public TextMeshProUGUI gearDescriptionTMP, gearTypeTMP, gearEquipStatusTMP, headerTMP;
 
     [Header("Dynamic")]
 
@@ -68,9 +68,10 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
 
                 inventorySlotUI.icon.sprite = isEquipment ? inventorySlotUI.equipmentIcon : inventorySlotUI.consumableIcon;
 
-                bool isCurrentlyEquipped = gearInstance.isCurrentlyEquipped;
-                FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.white, isCurrentlyEquipped ? .7f : 1);
-                FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.white, isCurrentlyEquipped ? .7f : 1);
+                bool isChargeable = !gearInstance.isCurrentlyEquipped && gearInstance is EquipmentInstance && ((EquipmentInstance)gearInstance).ChargePercentage() != 100;
+                
+                FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.white, isChargeable ? 1 : .5f);
+                FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.white, isChargeable ? 1 : .5f);
 
                 inventorySlotUI.button.onClick.AddListener(() => OnInventorySlotSelected(inventorySlotUI));
 
@@ -109,13 +110,8 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
 
     public void SetInventorySlotColor(InventorySlotUI inventorySlot, Color normalColor)
     {
-        float alpha = 0.7f;
-
-        if (inventorySlot.gearInstance is EquipmentInstance && ((EquipmentInstance)inventorySlot.gearInstance).ChargePercentage() != 100)
-            alpha = 1f;
-
-        FieldEvents.SetTextColor(inventorySlot.itemNameTMP, normalColor, alpha);
-        FieldEvents.SetTextColor(inventorySlot.itemQuantityTMP, normalColor, alpha);
+        FieldEvents.SetTextColor(inventorySlot.itemNameTMP, normalColor, inventorySlot.itemNameTMP.alpha);
+        FieldEvents.SetTextColor(inventorySlot.itemQuantityTMP, normalColor, inventorySlot.itemQuantityTMP.alpha);
     }
 
     public void DeleteAllInventoryUI()
@@ -158,42 +154,46 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
     public void OnInventorySlotHighlighted(InventorySlotUI inventorySlotUI)
     {
         SetInventorySlotColor(inventorySlotUI, Color.yellow);
-
         highlightedButtonIndex = inventorySlotUIs.IndexOf(inventorySlotUI);
 
-        gearDescriptionTMP.text = "Description: " + inventorySlotUI.gearInstance.gearSO.gearDescription;
+        var gear = inventorySlotUI.gearInstance;
 
-        //Gear Type
-        if (inventorySlotUI.gearInstance is EquipmentInstance equipmentInstance)
-        { 
-            gearTypeTMP.text = "Charge " + equipmentInstance.Charge + " / " + ((EquipmentSO)equipmentInstance.gearSO).maxPotential;
-        }
+        gearDescriptionTMP.text = "Description: " + gear.gearSO.gearDescription;
 
-        else
-            gearTypeTMP.text = "Consumable";
+        EquipmentInstance equipment = null;
 
-        //Availability
-
-        if (inventorySlotUI.gearInstance is ConsumableInstance)
-            gearEquipStatusTMP.text = "";
-
-        else
+        switch (gear)
         {
-            if (inventorySlotUI.gearInstance.isCurrentlyEquipped)
-            {
-                gearEquipStatusTMP.text = "Equipped to Slot " + (chargingMainMenu.playerInventory.inventorySO.gearInstanceEquipped.IndexOf(inventorySlotUI.gearInstance) + 1) + ". PRESS CTRL TO REMOVE";
-            }
+            case EquipmentInstance equipmentInstance:
+                equipment = equipmentInstance;
+                gearTypeTMP.text = "Charge " + equipmentInstance.Charge + " / " + ((EquipmentSO)equipmentInstance.gearSO).maxPotential;
+                break;
 
-            if (((EquipmentInstance)inventorySlotUI.gearInstance).ChargePercentage() == 100)
-            {
-                gearEquipStatusTMP.text = "Fully charged";
-            }
-
-            else
-            {
-                gearEquipStatusTMP.text = "SELECT to Charge";
-            }
+            case ConsumableInstance:
+                gearTypeTMP.text = "";
+                gearEquipStatusTMP.text = "";
+                headerTMP.text = "CONSUMABLE unable to charge";
+                return;
         }
+
+        if (gear.isCurrentlyEquipped)
+        {
+            headerTMP.text = "GEAR is equipped to Slot " +
+                (chargingMainMenu.playerInventory.inventorySO.gearInstanceEquipped.IndexOf(gear) + 1);
+
+            gearEquipStatusTMP.text = "Ctrl to unequip";
+            return;
+        }
+
+        if (equipment.ChargePercentage() == 100)
+        {
+            headerTMP.text = "EQUIPMENT at max charge";
+            gearEquipStatusTMP.text = "";
+            return;
+        }
+
+        headerTMP.text = "Select EQUIPMENT to charge:";
+        gearEquipStatusTMP.text = "";
     }
 
     public void UnequipHighlightedGearInstance(GearInstance gearInstance)
