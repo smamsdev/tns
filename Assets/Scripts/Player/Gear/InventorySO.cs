@@ -93,7 +93,15 @@ public class InventorySO : ScriptableObject
             if (a == null) return 1;
             if (b == null) return -1;
 
-            return a.gearSO.gearName.CompareTo(b.gearSO.gearName);
+            int nameCompare = a.gearSO.gearName.CompareTo(b.gearSO.gearName);
+            if (nameCompare != 0)
+            return nameCompare;
+
+            float aCharge = (a is EquipmentInstance aEquip) ? aEquip.ChargePercentage() : 0f;
+            float bCharge = (b is EquipmentInstance bEquip) ? bEquip.ChargePercentage() : 0f;
+
+            //sort charge by descending
+            return bCharge.CompareTo(aCharge);
         });
     }
 

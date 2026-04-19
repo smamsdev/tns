@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using static Cinemachine.DocumentationSortingAttribute;
 using static Unity.VisualScripting.Member;
 using static UnityEngine.Rendering.DebugUI;
@@ -33,65 +33,63 @@ public class ConsumableInstance : GearInstance
 [System.Serializable]
 public class EquipmentInstance : GearInstance
 {
-    [SerializeField] float charge;
-    public int Charge
-    {
-        get{return Mathf.RoundToInt(charge);}
+    [SerializeField] private float charge;
+    [SerializeField] private int payableChargesAccrued;
 
-        set{charge = Charge; }
+    public float Charge
+    {
+        get => Mathf.RoundToInt(charge);
+        private set => charge = Mathf.Max(0f, value);
     }
 
-    [SerializeField] float chargesAccrued;
-    public int ChargesAccrued
+    public int PayableChargesAccrued
     {
-        get { return Mathf.RoundToInt(chargesAccrued); }
-
-        set { chargesAccrued = ChargesAccrued;}
+        get => Mathf.RoundToInt(payableChargesAccrued);
+        private set => payableChargesAccrued = value;
     }
 
-    public int lastAppliedCharge;
-
-
-
-    public float startChargeTimeStamp;
-
-    public EquipmentInstance(EquipmentInstance sourceToClone)
+    public float ChargePercentage()
     {
-        gearSO = sourceToClone.gearSO;
-        isCurrentlyEquipped = sourceToClone.isCurrentlyEquipped;
-        charge = sourceToClone.charge;
+        float max = ((EquipmentSO)gearSO).maxPotential;
+
+        if (max <= 0f)
+            return 0f;
+
+        return Mathf.RoundToInt((charge / max) * 100f);
+    }
+
+    public void AddCharge(float amount)
+    {
+        charge += amount;
+    }
+
+    public void AddAccruedCharge(int amount)
+    {
+        payableChargesAccrued += amount;
+    }
+
+    public void SetCharge(float value)
+    {
+        charge = Mathf.Max(0f, value);
+    }
+
+    public void ResetPayableChargesAccrued()
+    {
+        PayableChargesAccrued = 0;
     }
 
     public EquipmentInstance()
     {
         gearSO = null;
         isCurrentlyEquipped = false;
-        charge = 0;
+        charge = 0f;
+        payableChargesAccrued = 0;
     }
 
-    public void StartCharging()
+    public EquipmentInstance(EquipmentInstance source)
     {
-        startChargeTimeStamp = Time.time;
-        chargesAccrued = 0;
-    }
-
-    // apply the amount of charge based on the last playtime the function was called
-    public void UpdateCharge()
-    {
-        float elapsed = Time.time - startChargeTimeStamp;
-
-        charge += elapsed;
-        chargesAccrued += elapsed;
-
-        charge = Mathf.Min(charge, ((EquipmentSO)gearSO).maxPotential);
-
-        startChargeTimeStamp = Time.time;
-    }
-
-    public float ChargePercentage()
-    {
-        float chargePer = charge / ((EquipmentSO)gearSO).maxPotential * 100;
-        chargePer = Mathf.RoundToInt(chargePer);
-        return chargePer;
+        gearSO = source.gearSO;
+        isCurrentlyEquipped = source.isCurrentlyEquipped;
+        charge = source.charge;
     }
 }

@@ -1,15 +1,16 @@
 using System.Collections;
 using UnityEngine;
 
-public class ChargingStation : ToTrigger
+public class ChargingStationToTrigger : ToTrigger
 {
     [SerializeField] ChargerSO chargerSO;
     public InventorySO playerinv;
     public ChargingMenuManager chargingMenuManager;
 
-    public void LoadToChargeSlot(EquipmentInstance equipmentInstance, int slot)
+    private void OnEnable()
     {
-        equipmentInstance.StartCharging();
+        if (chargerSO.chargingSlots.Length > 5)
+            Debug.LogError("Charger exceeds limit of 5");
     }
 
     public override IEnumerator TriggerFunction()

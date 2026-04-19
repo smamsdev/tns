@@ -76,7 +76,6 @@ public class ChargingMainMenu : ChargingMenu
     public override void EnterMenu()
     {
         firstButtonToSelect.Select();
-        chargingMenuManager.ChargingSlotSelectMenu.propertiesDisplay.SetActive(false);
     }
 
     public override void ExitMenu()

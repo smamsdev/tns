@@ -133,7 +133,7 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
 
     public void OnInventorySlotSelected(InventorySlotUI inventorySlot)
     {
-        if (inventorySlot.gearInstance.isCurrentlyEquipped || inventorySlot.gearInstance is ConsumableInstance || ((EquipmentInstance)inventorySlot.gearInstance).ChargePercentage() == 100) 
+        if (inventorySlot.gearInstance.isCurrentlyEquipped || inventorySlot.gearInstance is ConsumableInstance || ((EquipmentInstance)inventorySlot.gearInstance).ChargePercentage() == 100)
             return;
 
         highlightedButtonIndex = inventorySlotUIs.IndexOf(inventorySlot);
@@ -143,12 +143,10 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
         chargingSlotMenu.isEquipping = true;
         ExitMenu();
 
-        chargingSlotMenu.pageHeaderTMP.text = "Start charging " + inventorySlot.gearInstance.gearSO.gearName + "?";
         chargingMenuManager.EnterMenu(chargingMenuManager.ChargingSlotSelectMenu);
-
         chargingMenuManager.DisplaySubMenu(chargingMenuManager.ChargingSlotSelectMenu);
-        chargingMenuManager.ChargingSlotSelectMenu.chargingSlotUIs[0].button.Select();
-        chargingMenuManager.ChargingSlotSelectMenu.chargingSlotUIs[0].onHighlighted();
+        chargingMenuManager.ChargingSlotSelectMenu.chargingSlotUIs[chargingMenuManager.ChargingSlotSelectMenu.slotSelectedIndex].button.Select();
+        chargingMenuManager.ChargingSlotSelectMenu.chargingSlotUIs[chargingMenuManager.ChargingSlotSelectMenu.slotSelectedIndex].onHighlighted.Invoke();
     }
 
     public void OnInventorySlotHighlighted(InventorySlotUI inventorySlotUI)
@@ -187,12 +185,12 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
 
         if (equipment.ChargePercentage() == 100)
         {
-            headerTMP.text = "EQUIPMENT at max charge";
+            headerTMP.text = gear.gearSO.gearName + " at max charge";
             gearEquipStatusTMP.text = "";
             return;
         }
 
-        headerTMP.text = "Select EQUIPMENT to charge:";
+        headerTMP.text = "Charge " + gear.gearSO.gearName + "?";
         gearEquipStatusTMP.text = "";
     }
 

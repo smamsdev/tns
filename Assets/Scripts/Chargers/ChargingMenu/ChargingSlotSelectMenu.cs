@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +18,10 @@ public class ChargingSlotMenu : ChargingMenu
     public TextMeshProUGUI pageHeaderTMP;
     public GameObject ChargingSlotUIsParent, chargingSlotPrefab;
 
-    public GameObject propertiesDisplay;
     public float chargeTimer;
     public int rotatingChargerIndex = 0;
 
-    public TextMeshProUGUI feeTMP, gearDescriptionTMP, gearTypeTMP, smamsInventoryTMP, headerTMP;
+    public TextMeshProUGUI feeTMP, gearDescriptionTMP, chargeAmountTMP, smamsInventoryTMP, headerTMP;
 
     public int slotSelectedIndex;
     public bool isEquipping;
@@ -30,15 +29,16 @@ public class ChargingSlotMenu : ChargingMenu
     public override void DisplayMenu(bool on)
     {
         displayContainer.SetActive(on);
-        headerTMP.text = "Charger status";
+        headerTMP.text = "Select charging slot:";
+        feeTMP.text = $"{chargingMainMenu.chargerSO.costPerCharge} $MAMS per charge";
+        chargeAmountTMP.text = "";
+        gearDescriptionTMP.text = "";
     }
 
     public override void EnterMenu()
     {
         chargingMainMenu.menuButtonHighlighteds[0].SetButtonNormalColor(Color.yellow);
         chargingMainMenu.menuButtonHighlighteds[0].button.interactable = false;
-
-        propertiesDisplay.SetActive(true);
 
         chargingSlotUIs[0].button.Select();
     }
@@ -65,17 +65,16 @@ public class ChargingSlotMenu : ChargingMenu
 
         for (int i = 0; i < chargingSlots.Length; i++)
         {
-            InstantiateSlotUIGO(i);
-            UpdateSlotDisplay(chargingSlotUIs[i]);
+            InstantiateEmptySlotUIGO(i);
+            SyncSlotFromSO(chargingSlotUIs[i]);
         }
 
         FieldEvents.SetGridNavigationWrapAround(chargingSlotButtons, chargingSlots.Length);
         UpdateSmamsUI();
     }
 
-    void InstantiateSlotUIGO(int slotIndex)
+    void InstantiateEmptySlotUIGO(int slotIndex)
     {
-        var chargerSOGearInstanceSlots = chargingMainMenu.chargerSO.chargingSlots;
         GameObject ChargingSlotGO = Instantiate(chargingSlotPrefab, ChargingSlotUIsParent.transform);
         InventorySlotUI inventorySlotUI = ChargingSlotGO.GetComponent<InventorySlotUI>();
 
@@ -87,6 +86,7 @@ public class ChargingSlotMenu : ChargingMenu
         {
             ChargingSlotHighlighted(inventorySlotUI);
             UpdateHeader(inventorySlotUI);
+            UpdateEquipmentChargeDisplay(inventorySlotUI);
             chargingMainMenu.SetEquipSlotColor(inventorySlotUI, Color.yellow);
         };
 
@@ -100,14 +100,14 @@ public class ChargingSlotMenu : ChargingMenu
         chargingSlotButtons.Add(inventorySlotUI.button);
     }
 
-    void UpdateSlotDisplay(InventorySlotUI inventorySlotUI)
+    void SyncSlotFromSO(InventorySlotUI inventorySlotUI)
     {
         int index = chargingSlotUIs.IndexOf(inventorySlotUI);
         var slot = chargingMainMenu.chargerSO.chargingSlots[index];
 
-        if (slot == null || slot.gearSO == null)
+        if (slot.gearSO == null)
         {
-            inventorySlotUI.gearInstance = null;
+            inventorySlotUI.gearInstance = new EquipmentInstance();
             inventorySlotUI.itemNameTMP.text = $"Charging Slot {index + 1}: Empty";
             inventorySlotUI.itemQuantityTMP.text = "";
             return;
@@ -128,91 +128,87 @@ public class ChargingSlotMenu : ChargingMenu
     {
         slotSelectedIndex = chargingSlotUIs.IndexOf(inventorySlotUI);
 
-        if (inventorySlotUI.gearInstance == null || inventorySlotUI.gearInstance.gearSO == null)
+        if (inventorySlotUI.gearInstance.gearSO == null)
         {
-            feeTMP.text = $"Charging Fee: {chargingMainMenu.chargerSO.costPerCharge} $MAMS per charge";
-            headerTMP.text = $"Select EQUIPMENT to charge";
-            gearTypeTMP.text = "";
+            chargeAmountTMP.text = "";
+            gearDescriptionTMP.text = "";
         }
 
         else
         {
-            UpdateEquipmentChargeDisplay(inventorySlotUI);
+            gearDescriptionTMP.text = $"Description: {inventorySlotUI.gearInstance.gearSO.gearDescription}";
         }
     }
 
     void UpdateHeader(InventorySlotUI inventorySlotUI)
     {
-        if (inventorySlotUI.gearInstance == null || inventorySlotUI.gearInstance.gearSO == null)
+        if (isEquipping && (inventorySlotUI.gearInstance.gearSO == null))
         {
-            feeTMP.text = $"Charging Fee: {chargingMainMenu.chargerSO.costPerCharge} $MAMS per charge";
-            headerTMP.text = $"Select EQUIPMENT to charge";
-            gearTypeTMP.text = "";
+            EquipmentInstance gearInstanceToCharge = chargingMenuManager.chargingEquipmentSelectMenu.equipmentInstanceToCharge;
+
+            headerTMP.text = "Charge " + gearInstanceToCharge.gearSO.gearName + " in slot " + (slotSelectedIndex+1) + "?";
             return;
         }
 
-        int chargesAccrued = ((EquipmentInstance)inventorySlotUI.gearInstance).ChargesAccrued;
-        int costPerCharge = chargingMainMenu.chargerSO.costPerCharge;
-        int fee = chargesAccrued * costPerCharge;
-        var stats = chargingMainMenu.playerPermanentStats;
-
-        feeTMP.text = "Charging Fee: " + (chargesAccrued * costPerCharge) + " $MAMS";
-
-        gearDescriptionTMP.text = $"Description: {inventorySlotUI.gearInstance.gearSO.gearDescription}";
+        if (inventorySlotUI.gearInstance.gearSO == null)
+        {
+            headerTMP.text = $"Select EQUIPMENT to charge";
+            return;
+        }
 
         EquipmentInstance equipmentInstance = inventorySlotUI.gearInstance as EquipmentInstance;
-        EquipmentSO equipmentSO = equipmentInstance.gearSO as EquipmentSO;
 
-        gearTypeTMP.text = "Charge " + equipmentInstance.Charge + " / " + equipmentSO.maxPotential;
-
-        if (fee > stats.Smams)
-            headerTMP.text = "Unable to retrieve, Insufficient $MAMS";
-
-        else
-            headerTMP.text = $"Retrieve EQUIPMENT from charger";
+        headerTMP.text = $"Retrieve {equipmentInstance.gearSO.name}?";
     }
 
     void UpdateEquipmentChargeDisplay(InventorySlotUI inventorySlotUI)
     {
-        int chargesAccrued = ((EquipmentInstance)inventorySlotUI.gearInstance).ChargesAccrued;
+        if (inventorySlotUI.gearInstance.gearSO == null)
+        {
+            chargeAmountTMP.text = "";
+            feeTMP.text = $"{chargingMainMenu.chargerSO.costPerCharge} $MAMS per charge";
+            return;
+        }
+
+        int chargesAccrued = ((EquipmentInstance)inventorySlotUI.gearInstance).PayableChargesAccrued;
         int costPerCharge = chargingMainMenu.chargerSO.costPerCharge;
-
-        feeTMP.text = "Charging Fee: " + (chargesAccrued * costPerCharge) + " $MAMS";
-
-        gearDescriptionTMP.text = $"Description: {inventorySlotUI.gearInstance.gearSO.gearDescription}";
-
         EquipmentInstance equipmentInstance = inventorySlotUI.gearInstance as EquipmentInstance;
         EquipmentSO equipmentSO = equipmentInstance.gearSO as EquipmentSO;
 
-        gearTypeTMP.text = "Charge " + equipmentInstance.Charge + " / " + equipmentSO.maxPotential;
+        feeTMP.text = "Charging Fee: " + (chargesAccrued * costPerCharge) + " $MAMS";
+        chargeAmountTMP.text = "Charge: " + equipmentInstance.Charge + " / " + equipmentSO.maxPotential;
     }
 
     public void ChargingSlotSelected(InventorySlotUI chargingSlotSelected)
     {
         if (isEquipping)
         {
-            if (chargingSlotSelected.gearInstance != null && chargingSlotSelected.gearInstance.gearSO != null)
-                return;
-
             EquipmentInstance gearInstanceToCharge = chargingMenuManager.chargingEquipmentSelectMenu.equipmentInstanceToCharge;
+
+            if (chargingSlotSelected.gearInstance.gearSO != null)
+            {
+                if (TryRetrieveGear(chargingSlotSelected))
+                    headerTMP.text = "Charge " + gearInstanceToCharge.gearSO.gearName + " in slot " + (slotSelectedIndex + 1) + "?";
+                return;
+            }
+
             var chargingSlots = chargingMenuManager.chargingMainMenu.chargerSO.chargingSlots;
 
             chargingSlots[slotSelectedIndex] = gearInstanceToCharge;
-            gearInstanceToCharge.StartCharging();
             chargingMainMenu.playerInventory.inventorySO.RemoveGearFromInventory(gearInstanceToCharge, true);
 
-            UpdateSlotDisplay(chargingSlotSelected);
+            SyncSlotFromSO(chargingSlotSelected);
             chargingMenuManager.chargingEquipmentSelectMenu.InitialiseInventoryUI();
 
-            pageHeaderTMP.text = "Select Charging Slot:";
+            UpdateHeader(chargingSlotSelected);
 
             isEquipping = false;
-            ChargingSlotHighlighted(chargingSlotUIs[slotSelectedIndex]);
+            chargingSlotUIs[slotSelectedIndex].onHighlighted();
         }
 
         else
         {
-            if (chargingSlotSelected.gearInstance == null || chargingSlotSelected.gearInstance.gearSO == null)
+            if (chargingSlotSelected.gearInstance.gearSO == null)
             {
                 ExitMenu();
                 chargingMenuManager.DisplaySubMenu(chargingMenuManager.chargingEquipmentSelectMenu);
@@ -221,14 +217,15 @@ public class ChargingSlotMenu : ChargingMenu
 
             else
             {
-                RetrieveGear(chargingSlotSelected);
+                if (TryRetrieveGear(chargingSlotSelected))
+                    chargingSlotSelected.onHighlighted();
             }
         }
     }
 
-    void RetrieveGear(InventorySlotUI chargingSlotSelected)
+    bool TryRetrieveGear(InventorySlotUI chargingSlotSelected)
     {
-        int chargesAccrued = ((EquipmentInstance)chargingSlotSelected.gearInstance).ChargesAccrued;
+        int chargesAccrued = ((EquipmentInstance)chargingSlotSelected.gearInstance).PayableChargesAccrued;
         int costPerCharge = chargingMainMenu.chargerSO.costPerCharge;
         int fee = chargesAccrued * costPerCharge;
         var stats = chargingMainMenu.playerPermanentStats;
@@ -236,29 +233,39 @@ public class ChargingSlotMenu : ChargingMenu
         if (fee > stats.Smams)
         { 
             smamsInventoryTMP.GetComponent<Animator>().Play("SmamsRedText");
-            return;
+            headerTMP.text = "Unable to retrieve, Insufficient $MAMS";
+            return false;
         }
 
         bool inventorySpaceAvailable = chargingMainMenu.playerInventory.inventorySO.AttemptAddGearToInventory(chargingSlotSelected.gearInstance, true);
 
         if (inventorySpaceAvailable)
         {
-            chargingMainMenu.chargerSO.chargingSlots[slotSelectedIndex] = null;
-            UpdateSlotDisplay(chargingSlotSelected);
-            chargingMenuManager.chargingEquipmentSelectMenu.InitialiseInventoryUI();
             smamsInventoryTMP.GetComponent<Animator>().Play("SmamsRedText");
 
-            StartCoroutine(FieldEvents.LerpValuesCoRo(stats.Smams, stats.Smams -= fee, .2f,
+            int smamsInitialValue = stats.Smams;
+            int smamsFinalValue = stats.Smams -= fee;
+
+            stats.Smams = smamsFinalValue;
+
+            StartCoroutine(FieldEvents.LerpValuesCoRo(smamsInitialValue, smamsFinalValue, .5f,
                 smamsValue =>
                 {
                     smamsInventoryTMP.text = "$MAMS: " + Mathf.RoundToInt(smamsValue).ToString("N0");
                 }));
+
+            ((EquipmentInstance)chargingSlotSelected.gearInstance).ResetPayableChargesAccrued();
+            chargingMainMenu.chargerSO.chargingSlots[slotSelectedIndex] = new EquipmentInstance();
+            SyncSlotFromSO(chargingSlotSelected);
+            chargingMenuManager.chargingEquipmentSelectMenu.InitialiseInventoryUI();
+
+            return true;
         }
 
         else
         {
             headerTMP.text = $"Unable to retrieve, Inventory full";
-            return;
+            return false;
         }
     }
 
@@ -273,6 +280,9 @@ public class ChargingSlotMenu : ChargingMenu
 
         pageHeaderTMP.text = "Select Charging Slot:";
 
+        chargeAmountTMP.text = "";
+        gearDescriptionTMP.text = "";
+
         chargingMainMenu.menuButtonHighlighteds[0].button.interactable = true;
         chargingMainMenu.menuButtonHighlighteds[0].SetButtonNormalColor(Color.white);
         chargingMenuManager.chargingMainMenu.firstButtonToSelect = chargingMenuManager.chargingMainMenu.menuButtonHighlighteds[0].button;
@@ -284,34 +294,45 @@ public class ChargingSlotMenu : ChargingMenu
     {
         chargeTimer += Time.deltaTime;
 
-        if (chargeTimer < .5f)
+        if (chargeTimer < 0.5f)
             return;
 
-        // Preserve leftover time
-        chargeTimer -= .5f;
+        chargeTimer -= 0.5f;
 
-        var slot = chargingSlotUIs[rotatingChargerIndex];
+        TickCharge();
+    }
 
-        if (slot.gearInstance != null && slot.gearInstance.gearSO != null)
+    void TickCharge()
+    {
+        var slots = chargingMainMenu.chargerSO.chargingSlots;
+
+        var slot = slots[rotatingChargerIndex];
+
+        if (slot.gearSO == null || slot.ChargePercentage() >= 100)
         {
-            if (((EquipmentInstance)slot.gearInstance).ChargePercentage() < 100)
-            {
-                chargingMainMenu.chargerSO.ApplyChargeToSlot(rotatingChargerIndex);
-                slot.itemQuantityTMP.text = ": " + ((EquipmentInstance)slot.gearInstance).ChargePercentage() + "%";
-                charingSlotTMPanimators[rotatingChargerIndex].Play("ChargingSlotTMPAnimation");
-
-                if (chargingMenuManager.menuUpdateMethod == this)
-                    ChargingSlotHighlighted(chargingSlotUIs[slotSelectedIndex]);
-            }
+            rotatingChargerIndex = (rotatingChargerIndex + 1) % chargingSlotUIs.Count;
+            return;
         }
 
+        slot.AddCharge(1f);
+        slot.AddAccruedCharge(1);
+
+        var slotUI = chargingSlotUIs[rotatingChargerIndex];
+
+        slotUI.itemQuantityTMP.text = ": " + slot.ChargePercentage() + "%";
+        charingSlotTMPanimators[rotatingChargerIndex].Play("ChargingSlotTMPAnimation");
         rotatingChargerIndex = (rotatingChargerIndex + 1) % chargingSlotUIs.Count;
+
+        if (chargingMenuManager.menuUpdateMethod == this)
+            UpdateEquipmentChargeDisplay(chargingSlotUIs[slotSelectedIndex]);
     }
 
     public override void StateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            slotSelectedIndex = 0; //don't merge with ExitMenu func as it's used elsewhere
+            isEquipping = false;
             ExitMenu();
         }
 

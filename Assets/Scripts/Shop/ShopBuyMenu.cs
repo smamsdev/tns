@@ -92,7 +92,7 @@ public class ShopBuyMenu : ShopMenu
 
                 stats.Smams = smamsFinalValue;
 
-                StartCoroutine(FieldEvents.LerpValuesCoRo(smamsInitialValue, smamsFinalValue, .2f, UpdateSmamsText));
+                StartCoroutine(FieldEvents.LerpValuesCoRo(smamsInitialValue, smamsFinalValue, .5f, UpdateSmamsText));
 
                 void UpdateSmamsText(float smamsValue)
                 {
