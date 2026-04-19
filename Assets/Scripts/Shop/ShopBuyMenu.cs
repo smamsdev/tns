@@ -104,7 +104,6 @@ public class ShopBuyMenu : ShopMenu
             }
         }
 
-
         else
         {
             shopMenuManager.mainMenu.SetHeaderTMP("Insufficient $MAMS");

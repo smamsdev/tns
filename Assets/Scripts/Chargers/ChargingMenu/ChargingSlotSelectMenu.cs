@@ -294,10 +294,13 @@ public class ChargingSlotMenu : ChargingMenu
     {
         chargeTimer += Time.deltaTime;
 
-        if (chargeTimer < 0.5f)
+        float magicNumber = 1.5f;
+        float timerDuration = magicNumber / chargingMainMenu.chargerSO.chargingSlots.Length;
+
+        if (chargeTimer < timerDuration)
             return;
 
-        chargeTimer -= 0.5f;
+        chargeTimer -= timerDuration;
 
         TickCharge();
     }
