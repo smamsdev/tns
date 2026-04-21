@@ -63,13 +63,13 @@ public class LockerCacheMenu : LockerMenu
                 if (inventorySO.gearInstanceInventory[i] is EquipmentInstance equipmentInstance)
                 {
                     inventorySlotUI.icon.sprite = inventorySlotUI.equipmentIcon;
-                    inventorySlotUI.itemQuantityTMP.text = FieldEvents.ItemQuantityRemaining(inventorySlotUI.gearInstance);
+                    inventorySlotUI.itemQuantityTMP.text = inventorySlotUI.gearInstance.GearQuantityRemainingString();
                 }
             
                 if (inventorySO.gearInstanceInventory[i] is ConsumableInstance consumableInstance)
                 {
                     inventorySlotUI.icon.sprite = inventorySlotUI.consumableIcon;
-                    inventorySlotUI.itemQuantityTMP.text = FieldEvents.ItemQuantityRemaining(inventorySlotUI.gearInstance);
+                    inventorySlotUI.itemQuantityTMP.text = inventorySlotUI.gearInstance.GearQuantityRemainingString();
                 }
             
                 inventorySlotUI.itemNameTMP.text = inventorySO.gearInstanceInventory[i].gearSO.gearName.ToUpper();

@@ -9,6 +9,19 @@ public class InventorySOEditor : Editor
     {
         InventorySO inventorySO = (InventorySO)target;
 
+        if (GUILayout.Button("Create empty Equip slot"))
+        {
+            var emptyInstance = new GearInstance();
+
+            inventorySO.gearInstanceEquipped.Add(emptyInstance);
+        }
+
+        if (GUILayout.Button("Equip inventory Gear to specific Equip slot"))
+        {
+            var instanceToEquip = inventorySO.gearInstanceInventory[inventorySO.debugInventorySlotToEquip];
+            inventorySO.EquipGearToSlot(instanceToEquip, inventorySO.debugEquipSlotToAddTo);
+        }
+
         if (GUILayout.Button("Add gearSO as Instance"))
         {
             AddNewGearAsInstance(inventorySO);
@@ -30,7 +43,6 @@ public class InventorySOEditor : Editor
         }
 
         else
-
         {
             ConsumableInstance consumableInstanceToAdd = new ConsumableInstance();
             consumableInstanceToAdd.quantityAvailable = 1;

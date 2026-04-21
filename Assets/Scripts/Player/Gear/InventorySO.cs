@@ -8,6 +8,8 @@ public class InventorySO : ScriptableObject
 {
     [Header("Debug")]
     public GearSO debugGearToAddAsInstance;
+    public int debugInventorySlotToEquip;
+    public int debugEquipSlotToAddTo;
 
     [SerializeReference]
     public List<GearInstance> gearInstanceInventory = new List<GearInstance>();

@@ -8,6 +8,17 @@ public class GearInstance
 {
     public GearSO gearSO;
     public bool isCurrentlyEquipped = false;
+
+    public string GearQuantityRemainingString()
+    {
+        if (this is EquipmentInstance equipmentInstance)
+            return equipmentInstance.ChargePercentage() + "%";
+
+        if (this is ConsumableInstance consumableInstance)
+            return "x " + consumableInstance.quantityAvailable;
+
+        return "";
+    }
 }
 
 [System.Serializable]
@@ -56,6 +67,16 @@ public class EquipmentInstance : GearInstance
             return 0f;
 
         return Mathf.RoundToInt((charge / max) * 100f);
+    }
+
+    public string ChargeTotalString()
+    {
+        return "Charge: " + Charge + " / " + MaxPotential();
+    }
+
+    public int MaxPotential()
+    {
+        return ((EquipmentSO)gearSO).maxPotential;
     }
 
     public void AddCharge(float amount)

@@ -61,7 +61,7 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
 
                 inventorySlotUI.gearInstance = gearInstance;
                 inventorySlotUI.itemNameTMP.text = gearInstance.gearSO.gearName;
-                inventorySlotUI.itemQuantityTMP.text = FieldEvents.ItemQuantityRemaining(inventorySlotUI.gearInstance);
+                inventorySlotUI.itemQuantityTMP.text = inventorySlotUI.gearInstance.GearQuantityRemainingString();
                 inventorySlotUI.name = "gear slot " + i + "" + inventorySlotUI.gearInstance.gearSO.gearName;
 
                 bool isEquipment = gearInstance.gearSO is EquipmentSO;

@@ -43,7 +43,7 @@ public class ShopSellMenu : ShopMenu
 
                 inventorySlotUI.gearInstance = gearInstance;
                 inventorySlotUI.itemNameTMP.text = gearInstance.gearSO.gearName;
-                inventorySlotUI.itemQuantityTMP.text = FieldEvents.ItemQuantityRemaining(inventorySlotUI.gearInstance);
+                inventorySlotUI.itemQuantityTMP.text = inventorySlotUI.gearInstance.GearQuantityRemainingString();
 
                 bool isEquipment = gearInstance.gearSO is EquipmentSO;
                 inventorySlotUI.icon.sprite = isEquipment ? inventorySlotUI.equipmentIcon : inventorySlotUI.consumableIcon;

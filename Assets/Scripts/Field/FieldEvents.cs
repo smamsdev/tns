@@ -201,16 +201,4 @@ public static class FieldEvents
         color.a = alpha;
         textMeshProUGUI.color = color;
     }
-
-    public static string ItemQuantityRemaining(GearInstance gearInstance)
-    {
-        if (gearInstance is EquipmentInstance equipmentInstance)
-            return equipmentInstance.ChargePercentage() + "%";
-
-        if (gearInstance is ConsumableInstance consumableInstance)
-            return "x " + consumableInstance.quantityAvailable;
-
-        return "";
-    }
-
 }

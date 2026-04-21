@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuGearPageSelection : PauseMenu
+public class MenuGearMainPage : PauseMenu
 {
     [SerializeField] GameObject equippedDisplayContainer, inventoryDisplayContainer, gearPropertiesDisplay;
 
     public MenuButtonHighlighted equippedHighlightedButton, inventoryHighlightedButton;
     public MenuGearEquipSubPage menuGearEquipSubPage;
     public MenuGearInventorySubPage menuGearInventorySubPage;
+    public PlayerInventory playerInventory;
     bool isInitialized = false;
 
     public override void DisplayMenu(bool on)
@@ -25,7 +26,7 @@ public class MenuGearPageSelection : PauseMenu
 
     public override void EnterMenu()
     {
-        menuGearInventorySubPage.playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>().playerInventory;
+        playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>().playerInventory;
 
         displayContainer.SetActive(true);
         menuGearEquipSubPage.equipPageHeaderGO.SetActive(false);
@@ -38,7 +39,7 @@ public class MenuGearPageSelection : PauseMenu
         if (!isInitialized)
         {
             menuGearEquipSubPage.InitialiseEquipSlots();
-            menuGearInventorySubPage.InstantiateUIInventorySlots();
+            menuGearInventorySubPage.InitialiseInventoryUI();
             isInitialized = true;
         }
 
@@ -64,7 +65,7 @@ public class MenuGearPageSelection : PauseMenu
 
     public void EnterInventorySubPage()
     {
-        if (menuGearInventorySubPage.playerInventory.inventorySO.gearInstanceInventory.Count > 0)
+        if (playerInventory.inventorySO.gearInstanceInventory.Count > 0)
         {
             inventoryHighlightedButton.ButtonSelectedAndDisabled();
             menuGearEquipSubPage.displayContainer.SetActive(false);
