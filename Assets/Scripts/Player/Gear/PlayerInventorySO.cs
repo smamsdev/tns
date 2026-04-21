@@ -19,7 +19,6 @@ public class PlayerInventorySO : InventorySO
         gearInstanceEquipped.Add(new GearInstance());
     }
 
-
     public void EquipGearToSlot(GearInstance gearInstanceToEquip, int equipSlotNumber)
     {
         if (gearInstanceEquipped[equipSlotNumber].gearSO != null)

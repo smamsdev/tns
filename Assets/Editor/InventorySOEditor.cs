@@ -9,6 +9,12 @@ public class InventorySOEditor : Editor
     {
         InventorySO inventorySO = (InventorySO)target;
 
+        if (GUILayout.Button("Add empty Inventory Slot"))
+        {
+            GearInstance newEmptyInstance = new GearInstance();
+            inventorySO.gearInstanceInventory.Add(newEmptyInstance);
+        }
+
         if (GUILayout.Button("Add gearSO as Instance"))
         {
             AddNewGearAsInstance(inventorySO);
@@ -20,17 +26,21 @@ public class InventorySOEditor : Editor
     private void AddNewGearAsInstance(InventorySO inventorySO)
     {
         var gearSOToAdd = inventorySO.debugGearToAddAsInstance;
+        bool test;
 
         if (gearSOToAdd is EquipmentSO)
         {
             EquipmentInstance equipmentInstanceToAdd = new EquipmentInstance(gearSOToAdd);
-            bool test = inventorySO.AttemptAddGearToInventory(equipmentInstanceToAdd, false);
+            test = inventorySO.AttemptAddGearToInventory(equipmentInstanceToAdd, false);
         }
 
         else
         {
             ConsumableInstance consumableInstanceToAdd = new ConsumableInstance(gearSOToAdd);
-            inventorySO.AttemptAddGearToInventory(consumableInstanceToAdd, false);
+            test = inventorySO.AttemptAddGearToInventory(consumableInstanceToAdd, false);
         }
+
+        if (!test)
+            Debug.Log("unable to add new Gear Instance, no slots available?");
     }
 }

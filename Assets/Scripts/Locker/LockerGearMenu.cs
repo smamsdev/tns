@@ -30,15 +30,10 @@ public class LockerGearMenu : LockerMenu
         lockerMenuManager.lockerCacheMenu.HighlightedButtonIndex = 0;
         highlightedButtonIndex = 0;
         lockerMenuManager.lockerMainMenu.mainMenuButtons[0].SetButtonNormalColor(Color.yellow);
-        lockerMenuManager.lockerCacheMenu.SetBaySlotsAlpha(.7f, .7f);
+        lockerMenuManager.lockerCacheMenu.SetBaySlotsAlpha(.5f, .5f);
+        SetAllGearSlotsAlpha(1, .5f);
         lockerMenuManager.lockerMainMenu.DisplayMainButtons(false);
-        lockerMenuManager.lockerMainMenu.SetHeaderTMP("Select GEAR to cache:");
-
-        foreach (InventorySlotUI inventorySlotUI in inventorySlots)
-        {
-            SetGearSlotsAlpha(inventorySlotUI,1);
-        }
-
+        lockerMenuManager.lockerMainMenu.SetHeaderTMP("");
         inventorySlots[highlightedButtonIndex].button.Select();
     }
 
@@ -62,7 +57,7 @@ public class LockerGearMenu : LockerMenu
             inventorySlotUI.itemQuantityTMP.text = "";
             inventorySlotUI.icon.sprite = inventorySlotUI.freeIcon;
 
-            if (i < inventorySO.gearInstanceInventory.Count && inventorySO.gearInstanceInventory[i] != null)
+            if (i < inventorySO.gearInstanceInventory.Count && inventorySO.gearInstanceInventory[i].gearSO != null)
             {
                 var gearInstance = inventorySO.gearInstanceInventory[i];
 
@@ -74,8 +69,8 @@ public class LockerGearMenu : LockerMenu
                 inventorySlotUI.icon.sprite = isEquipment ? inventorySlotUI.equipmentIcon : inventorySlotUI.consumableIcon;
            
                 bool isCurrentlyEquipped = gearInstance.isCurrentlyEquipped;
-                FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.white, isCurrentlyEquipped ? .7f : 1);
-                FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.white, isCurrentlyEquipped ? .7f : 1);
+                FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.white, .5f);
+                FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.white, .5f);
 
                 if (!isCurrentlyEquipped)
                     inventorySlotUI.button.onClick.AddListener(() => OnInventorySlotSelected(inventorySlotUI));
@@ -102,19 +97,22 @@ public class LockerGearMenu : LockerMenu
         FieldEvents.SetGridNavigationWrapAroundHorizontal(inventorySlotButtons, 3);
     }
 
-    public void SetGearSlotsAlpha(InventorySlotUI inventorySlotUI, float alpha)
+    public void SetAllGearSlotsAlpha(float alphaIfAvailable, float alphaIfEquipped)
     {
-        FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.white, alpha);
-        FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.white, alpha);
+        foreach (InventorySlotUI inventorySlotUI in inventorySlots)
+        {
+            bool isNotEquipped = !inventorySlotUI.gearInstance.isCurrentlyEquipped;
+
+            FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, inventorySlotUI.itemNameTMP.color, isNotEquipped ? alphaIfAvailable : alphaIfEquipped);
+            FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, inventorySlotUI.itemQuantityTMP.color, isNotEquipped ? alphaIfAvailable : alphaIfEquipped);
+        }
     }
 
     public void OnInventorySlotSelected(InventorySlotUI inventorySlotUI)
     {
         isGearSelectedForCache = true;
-        lockerMenuManager.lockerMainMenu.SetHeaderTMP("Select CACHE bay:");
-
         selectedGearInstanceToCache = inventorySlotUI.gearInstance;
-        lockerMenuManager.lockerCacheMenu.SetBaySlotsAlphaUICachingMode(1, .7f);
+        lockerMenuManager.lockerCacheMenu.SetBaySlotsAlphaUICachingMode(1, .5f);
         lockerMenuManager.lockerCacheMenu.inventorySlots[lockerMenuManager.lockerCacheMenu.HighlightedButtonIndex].button.Select();
         FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.yellow, 1);
         FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.yellow, 1);
@@ -124,7 +122,7 @@ public class LockerGearMenu : LockerMenu
     {
         ConsumableInstance selectedConsumableToCache = selectedGearInstanceToCache as ConsumableInstance;
 
-        if (lockerInventorySlot == null)
+        if (lockerInventorySlot.gearSO == null)
         {
             var lockerGearInstanceInventory = lockerMenuManager.lockerMainMenu.lockerInventorySO.gearInstanceInventory;
             var selectedBay = lockerMenuManager.lockerCacheMenu.HighlightedButtonIndex;
@@ -136,16 +134,21 @@ public class LockerGearMenu : LockerMenu
 
             lockerMenuManager.lockerCacheMenu.InstantiateUIBays();
             InitialiseInventoryUI();
+            SetAllGearSlotsAlpha(1, .5f);
+
+            var inventory = lockerMenuManager.lockerMainMenu.playerInventorySO.gearInstanceInventory;
+
+            if (inventory.TrueForAll(x => x.gearSO == null))
+            {
+                ExitMenu();
+                return;
+            }
 
             highlightedButtonIndex = Mathf.Clamp(highlightedButtonIndex, 0, inventorySlots.Count - 1);
-
-            if (inventorySlots.Count > 0)
-                inventorySlots[highlightedButtonIndex].button.Select();
-
-            lockerMenuManager.lockerMainMenu.SetHeaderTMP("Select GEAR to cache:");
+            inventorySlots[highlightedButtonIndex].button.Select();
         }
 
-        if (lockerInventorySlot != null && lockerInventorySlot.gearSO == selectedConsumableToCache.gearSO &&
+        else if (lockerInventorySlot.gearSO == selectedConsumableToCache.gearSO &&
             ((ConsumableInstance)lockerInventorySlot).quantityAvailable < 9)
         {
             ((ConsumableInstance)lockerInventorySlot).quantityAvailable++;
@@ -155,24 +158,29 @@ public class LockerGearMenu : LockerMenu
 
             lockerMenuManager.lockerCacheMenu.InstantiateUIBays();
             InitialiseInventoryUI();
+            SetAllGearSlotsAlpha(1, .5f);
+
+            var inventory = lockerMenuManager.lockerMainMenu.playerInventorySO.gearInstanceInventory;
+
+            if (inventory.TrueForAll(x => x.gearSO == null))
+            {
+                ExitMenu();
+                return;
+            }
 
             highlightedButtonIndex = Mathf.Clamp(highlightedButtonIndex, 0, inventorySlots.Count - 1);
-
-            if (inventorySlots.Count > 0)
-                inventorySlots[highlightedButtonIndex].button.Select();
-
-            lockerMenuManager.lockerMainMenu.SetHeaderTMP("Select GEAR to cache:");
+            inventorySlots[highlightedButtonIndex].button.Select();
         }
 
         else
         {
-            lockerMenuManager.lockerMainMenu.SetHeaderTMP("Bay is full");
+            lockerMenuManager.lockerMainMenu.SetHeaderTMP("Bay " + (highlightedButtonIndex+1) + " is occupied");
         }
     }
 
     public void CacheEquipment(GearInstance lockerInventorySlot)
     {
-        if (lockerInventorySlot == null)
+        if (lockerInventorySlot.gearSO == null)
         {
             var lockerGearInstanceInventory = lockerMenuManager.lockerMainMenu.lockerInventorySO.gearInstanceInventory;
             var selectedBay = lockerMenuManager.lockerCacheMenu.HighlightedButtonIndex;
@@ -181,27 +189,19 @@ public class LockerGearMenu : LockerMenu
             lockerMenuManager.lockerMainMenu.playerInventorySO.RemoveGearFromInventory(selectedGearInstanceToCache, true);
 
             lockerMenuManager.lockerCacheMenu.InstantiateUIBays();
-            lockerMenuManager.lockerCacheMenu.SetBaySlotsAlpha(1, .7f);
+            lockerMenuManager.lockerCacheMenu.SetBaySlotsAlpha(1, .5f);
             InitialiseInventoryUI();
-
-            highlightedButtonIndex = Mathf.Clamp(highlightedButtonIndex, 0, inventorySlots.Count - 1);
-
-            if (lockerMenuManager.lockerMainMenu.playerInventorySO.gearInstanceInventory.Count == 0)
-            {
-                ExitMenu();
-                return;
-            }
-
-
-            lockerMenuManager.lockerMainMenu.SetHeaderTMP("Select GEAR to cache:");
+            SetAllGearSlotsAlpha(1, .5f);
 
             var inventory = lockerMenuManager.lockerMainMenu.playerInventorySO.gearInstanceInventory;
-            if (inventory.TrueForAll(x => x == null))
+
+            if (inventory.TrueForAll(x => x.gearSO == null))
             {
                 ExitMenu();
                 return;
             }
 
+            highlightedButtonIndex = Mathf.Clamp(highlightedButtonIndex, 0, inventorySlots.Count - 1);
             inventorySlots[highlightedButtonIndex].button.Select();
         }
 
@@ -218,10 +218,13 @@ public class LockerGearMenu : LockerMenu
 
         highlightedButtonIndex = inventorySlots.IndexOf(inventorySlot);
 
-        gearDescriptionTMP.text = "Description: " + inventorySlot.gearInstance.gearSO.gearDescription;
+        var gearInstance = inventorySlot.gearInstance;
+
+        gearDescriptionTMP.text = "Description: " + gearInstance.gearSO.gearDescription;
+        lockerMenuManager.lockerMainMenu.SetHeaderTMP("Cache " + gearInstance.gearSO.gearName + "?");
 
         //Gear Type
-        if (inventorySlot.gearInstance is EquipmentInstance equipmentInstance)
+        if (gearInstance is EquipmentInstance equipmentInstance)
         {
             gearTypeTMP.text = "Charge " + equipmentInstance.Charge + " / " + ((EquipmentSO)equipmentInstance.gearSO).maxPotential;
         }
@@ -239,7 +242,6 @@ public class LockerGearMenu : LockerMenu
         else 
         {
             gearEquipStatusTMP.text = "Select to CACHE";
-
         }
     }
 
@@ -259,7 +261,7 @@ public class LockerGearMenu : LockerMenu
         lockerMenuManager.lockerMainMenu.SetHeaderTMP(null);
 
         foreach (InventorySlotUI inventorySlotUI in inventorySlots)   
-        SetGearSlotsAlpha(inventorySlotUI, .7f);
+        SetAllGearSlotsAlpha(5f, .5f);
 
         isGearSelectedForCache  = false;
         lockerMenuManager.EnterMenu(lockerMenuManager.lockerMainMenu);
@@ -273,8 +275,7 @@ public class LockerGearMenu : LockerMenu
         {
            if (isGearSelectedForCache)
            {
-                lockerMenuManager.lockerCacheMenu.SetBaySlotsAlpha(.7f, .7f);
-                lockerMenuManager.lockerMainMenu.SetHeaderTMP("Select GEAR to cache:");
+                lockerMenuManager.lockerCacheMenu.SetBaySlotsAlpha(1, .7f);
                 inventorySlots[highlightedButtonIndex].button.Select();
                 isGearSelectedForCache = false;
                 return;

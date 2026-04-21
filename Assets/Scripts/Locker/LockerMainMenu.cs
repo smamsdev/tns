@@ -12,12 +12,7 @@ using TMPro;using UnityEngine;public class LockerMainMenu : LockerMenu{    
         CombatEvents.LockPlayerMovement();        lockerMenuManager.lockerCacheMenu.InstantiateUIBays();
         lockerMenuManager.lockerCacheMenu.SetBaySlotsAlpha(.7f, .7f);
         lockerMenuManager.lockerGearMenu.InitialiseInventoryUI();
-
-        foreach (InventorySlotUI inventorySlotUI in lockerMenuManager.lockerGearMenu.inventorySlots)
-        {
-            lockerMenuManager.lockerGearMenu.SetGearSlotsAlpha(inventorySlotUI, 1);
-        }
-
+        lockerMenuManager.lockerGearMenu.SetAllGearSlotsAlpha(.5f, .5f);
         mainMenuButtons[0].button.Select();
     }
 

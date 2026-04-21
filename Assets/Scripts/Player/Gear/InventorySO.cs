@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.AI;
 
 [CreateAssetMenu]
 
@@ -18,9 +19,8 @@ public class InventorySO : ScriptableObject
         {
             for (int i = 0; i < gearInstanceInventory.Count; i++)
             {
-                if (gearInstanceInventory[i] == null || gearInstanceInventory[i].gearSO == null)
+                if (gearInstanceInventory[i].gearSO == null)
                 {
-                    gearInstanceInventory[i] = null;
                     gearInstanceInventory[i] = equipmentInstance;
                     if (isSorted) SortInventory();
 
@@ -37,7 +37,7 @@ public class InventorySO : ScriptableObject
 
             for (int i = 0; i < gearInstanceInventory.Count; i++)
             {
-                if (gearInstanceInventory[i] != null && gearInstanceInventory[i].gearSO == consumableInstance.gearSO)
+                if (gearInstanceInventory[i].gearSO == consumableInstance.gearSO)
                 {
                     // Debug.Log("match detected");
                     ConsumableInstance existingConsumableInstance = gearInstanceInventory[i] as ConsumableInstance;
@@ -56,7 +56,7 @@ public class InventorySO : ScriptableObject
             //if no stacks are detected, try to create a fresh stack if there is inventory space
             for (int i = 0; i < gearInstanceInventory.Count; i++)
             {
-                if (gearInstanceInventory[i] == null || gearInstanceInventory[i].gearSO == null)
+                if (gearInstanceInventory[i].gearSO == null)
                 {
                     //Debug.Log("create fresh instance");
                     gearInstanceInventory[i] = new ConsumableInstance(consumableInstance);
@@ -79,7 +79,7 @@ public class InventorySO : ScriptableObject
     {
         if (gearInstanceToRemove is EquipmentInstance equipmentInstance)
         {
-            gearInstanceInventory[gearInstanceInventory.IndexOf(equipmentInstance)] = null;
+            gearInstanceInventory[gearInstanceInventory.IndexOf(equipmentInstance)] = new GearInstance();
             if (isSorted) SortInventory();
         }
 
@@ -88,7 +88,7 @@ public class InventorySO : ScriptableObject
             consumableInstance.quantityAvailable--;
 
             if (consumableInstance.quantityAvailable <= 0)
-                gearInstanceInventory[gearInstanceInventory.IndexOf(consumableInstance)] = null;
+                gearInstanceInventory[gearInstanceInventory.IndexOf(consumableInstance)] = new GearInstance();
 
             if (isSorted) SortInventory();
         }
@@ -103,8 +103,8 @@ public class InventorySO : ScriptableObject
 
         gearInstanceInventory.Sort((a, b) =>
         {
-            if (a == null) return 1;
-            if (b == null) return -1;
+            if (a.gearSO == null) return 1;
+            if (b.gearSO == null) return -1;
 
             int nameCompare = a.gearSO.gearName.CompareTo(b.gearSO.gearName);
             if (nameCompare != 0)
