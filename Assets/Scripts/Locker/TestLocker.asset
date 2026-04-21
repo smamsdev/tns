@@ -14,37 +14,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventorySO
   debugGearToAddAsInstance: {fileID: 11400000, guid: 61659de40aca88444870f9a1ce99dbca, type: 2}
   gearInstanceInventory:
-  - rid: -2
-  - rid: -2
-  - rid: 4989509162323935457
-  - rid: 4989509162323935478
-  - rid: -2
-  - rid: 4989509162323935456
-  gearInstanceEquipped: []
-  trenchStructuresInventory: []
+  - rid: 4989509486059716891
+  - rid: 4989509486059716888
+  - rid: 4989509486059716889
+  - rid: 4989509486059716798
+  - rid: 4989509486059716799
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 4989509162323935456
-      type: {class: ConsumableInstance, ns: , asm: Assembly-CSharp}
+    - rid: 4989509486059716798
+      type: {class: GearInstance, ns: , asm: Assembly-CSharp}
       data:
-        gearSO: {fileID: 11400000, guid: 895d7e7a430508d449345250b883aa58, type: 2}
+        gearSO: {fileID: 0}
         isCurrentlyEquipped: 0
-        quantityAvailable: 4
-    - rid: 4989509162323935457
+    - rid: 4989509486059716799
+      type: {class: GearInstance, ns: , asm: Assembly-CSharp}
+      data:
+        gearSO: {fileID: 0}
+        isCurrentlyEquipped: 0
+    - rid: 4989509486059716888
+      type: {class: EquipmentInstance, ns: , asm: Assembly-CSharp}
+      data:
+        gearSO: {fileID: 11400000, guid: ecfcac85a3c930441afbbf7dba187cc9, type: 2}
+        isCurrentlyEquipped: 0
+        charge: 0
+        payableChargesAccrued: 0
+    - rid: 4989509486059716889
       type: {class: EquipmentInstance, ns: , asm: Assembly-CSharp}
       data:
         gearSO: {fileID: 11400000, guid: 61659de40aca88444870f9a1ce99dbca, type: 2}
         isCurrentlyEquipped: 0
         charge: 0
-        chargesAccrued: 0
-        lastAppliedCharge: 0
-        startChargeTimeStamp: 0
-    - rid: 4989509162323935478
+        payableChargesAccrued: 0
+    - rid: 4989509486059716891
       type: {class: ConsumableInstance, ns: , asm: Assembly-CSharp}
       data:
         gearSO: {fileID: 11400000, guid: 895d7e7a430508d449345250b883aa58, type: 2}
         isCurrentlyEquipped: 0
-        quantityAvailable: 1
+        quantityAvailable: 4
