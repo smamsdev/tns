@@ -33,6 +33,12 @@ public class ConsumableInstance : GearInstance
         quantityAvailable = 1;
     }
 
+    public ConsumableInstance(GearSO sourceSO)
+    {
+        gearSO = sourceSO;
+        quantityAvailable = 1;
+    }
+
     public ConsumableInstance()
     {
         gearSO = null;
@@ -112,5 +118,10 @@ public class EquipmentInstance : GearInstance
         gearSO = source.gearSO;
         isCurrentlyEquipped = source.isCurrentlyEquipped;
         charge = source.charge;
+    }
+
+    public EquipmentInstance(GearSO sourceSO)
+    {
+        gearSO = sourceSO;
     }
 }

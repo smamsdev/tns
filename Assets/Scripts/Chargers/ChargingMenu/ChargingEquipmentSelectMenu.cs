@@ -23,9 +23,13 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
 
     public override void EnterMenu()
     {
-        var inventorySO = chargingMainMenu.playerInventory.inventorySO;
+        var inventorySO = chargingMainMenu.playerInventorySO;
         if (inventorySO.gearInstanceInventory.TrueForAll(x => x == null))
+        {
+            chargingMenuManager.menuUpdateMethod = chargingMenuManager.chargingMainMenu;
             return;
+        }
+
 
         chargingMainMenu.menuButtonHighlighteds[1].SetButtonNormalColor(Color.yellow);
         chargingMainMenu.menuButtonHighlighteds[1].button.interactable = false;
@@ -40,7 +44,7 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
         DeleteAllInventoryUI();
         ClearText();
 
-        var inventorySO = chargingMainMenu.playerInventory.inventorySO;
+        var inventorySO = chargingMainMenu.playerInventorySO;
 
         for (int i = 0; i < inventorySO.gearInstanceInventory.Count; i++)
         {
@@ -177,7 +181,7 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
         if (gear.isCurrentlyEquipped)
         {
             headerTMP.text = "GEAR is equipped to Slot " +
-                (chargingMainMenu.playerInventory.inventorySO.gearInstanceEquipped.IndexOf(gear) + 1);
+                (chargingMainMenu.playerInventorySO.gearInstanceEquipped.IndexOf(gear) + 1);
 
             gearEquipStatusTMP.text = "Ctrl to unequip";
             return;
@@ -196,9 +200,9 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
 
     public void UnequipHighlightedGearInstance(GearInstance gearInstance)
     {
-        int i = chargingMainMenu.playerInventory.inventorySO.gearInstanceEquipped.IndexOf(gearInstance);
+        int i = chargingMainMenu.playerInventorySO.gearInstanceEquipped.IndexOf(gearInstance);
 
-        chargingMainMenu.playerInventory.inventorySO.UnequipGearFromSlot(chargingMainMenu.playerInventory.inventorySO.gearInstanceEquipped[i]);
+        chargingMainMenu.playerInventorySO.UnequipGearFromSlot(chargingMainMenu.playerInventorySO.gearInstanceEquipped[i]);
         InitialiseInventoryUI();
     }
 

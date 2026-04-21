@@ -8,7 +8,7 @@ public class MenuGearMainPage : PauseMenu
     public MenuButtonHighlighted equippedHighlightedButton, inventoryHighlightedButton;
     public MenuGearEquipSubPage menuGearEquipSubPage;
     public MenuGearInventorySubPage menuGearInventorySubPage;
-    public PlayerInventory playerInventory;
+    public PlayerInventorySO playerInventorySO;
     bool isInitialized = false;
 
     public override void DisplayMenu(bool on)
@@ -26,7 +26,7 @@ public class MenuGearMainPage : PauseMenu
 
     public override void EnterMenu()
     {
-        playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>().playerInventory;
+        playerInventorySO = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>().playerInventorySO;
 
         displayContainer.SetActive(true);
         menuGearEquipSubPage.equipPageHeaderGO.SetActive(false);
@@ -65,7 +65,7 @@ public class MenuGearMainPage : PauseMenu
 
     public void EnterInventorySubPage()
     {
-        if (playerInventory.inventorySO.gearInstanceInventory.Count > 0)
+        if (playerInventorySO.gearInstanceInventory.Count > 0)
         {
             inventoryHighlightedButton.ButtonSelectedAndDisabled();
             menuGearEquipSubPage.displayContainer.SetActive(false);

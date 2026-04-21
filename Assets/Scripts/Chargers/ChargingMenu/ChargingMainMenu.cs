@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ChargingMainMenu : ChargingMenu
 {
-    public PlayerInventory playerInventory;
+    public PlayerInventorySO playerInventorySO;
     public PlayerPermanentStats playerPermanentStats;
     public ChargerSO chargerSO;
 
@@ -17,8 +17,8 @@ public class ChargingMainMenu : ChargingMenu
     {
         firstButtonToSelect = menuButtonHighlighteds[0].button;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        playerInventory = player.GetComponentInChildren<PlayerInventory>();
-        playerPermanentStats = player.GetComponentInChildren<PlayerCombat>().playerPermanentStats;
+        playerInventorySO = player.GetComponent<PlayerCombat>().playerInventorySO;
+        playerPermanentStats = player.GetComponent<PlayerCombat>().playerPermanentStats;
 
         WireMainButtons();
 

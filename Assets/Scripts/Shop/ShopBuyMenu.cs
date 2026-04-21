@@ -83,7 +83,7 @@ public class ShopBuyMenu : ShopMenu
 
         if (stats.Smams >= gearInstanceToBuy.gearSO.value)
         {
-            bool inventorySpaceAvailable = shopMenuManager.mainMenu.playerInventory.inventorySO.AttemptAddGearToInventory(gearInstanceToBuy, true);
+            bool inventorySpaceAvailable = shopMenuManager.mainMenu.playerInventorySO.AttemptAddGearToInventory(gearInstanceToBuy, true);
 
             if (inventorySpaceAvailable)
             {

@@ -44,7 +44,7 @@ public class MenuGearEquipSubPage : PauseMenu
         {
             InventorySlotUI inventorySlot = menuGearInventorySubPage.inventorySlots[menuGearInventorySubPage.highlightedButtonIndex];
 
-            menuGearMainPage.playerInventory.inventorySO.EquipGearToSlot(inventorySlot.gearInstance, equipSlots.IndexOf(gearEquipSlotSelected));
+            menuGearMainPage.playerInventorySO.EquipGearToSlot(inventorySlot.gearInstance, equipSlots.IndexOf(gearEquipSlotSelected));
             InitialiseEquipSlots();
             menuGearInventorySubPage.InitialiseInventoryUI();
             menuGearMainPage.displayContainer.SetActive(true);
@@ -82,7 +82,7 @@ public class MenuGearEquipSubPage : PauseMenu
     {
         DeleteAllInventoryUI();
 
-        var gearInstanceEquipped = menuGearMainPage.playerInventory.inventorySO.gearInstanceEquipped;
+        var gearInstanceEquipped = menuGearMainPage.playerInventorySO.gearInstanceEquipped;
 
         for (int i = 0; i < gearInstanceEquipped.Count ; i++)
         {

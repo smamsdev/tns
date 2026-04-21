@@ -1,8 +1,8 @@
 using TMPro;using UnityEngine;public class LockerMainMenu : LockerMenu{    public InventorySO lockerInventorySO;
-    public PlayerInventory playerInventory;    public MenuButtonHighlighted[] mainMenuButtons;    public TextMeshProUGUI headerTMP;
+    public PlayerInventorySO playerInventorySO;    public MenuButtonHighlighted[] mainMenuButtons;    public TextMeshProUGUI headerTMP;
     public Animator animator;    public void InitializeMenu()    {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        playerInventory = player.GetComponentInChildren<PlayerInventory>();
+        playerInventorySO = player.GetComponent<PlayerCombat>().playerInventorySO;
 
         displayContainer.SetActive(true);
         this.gameObject.SetActive(true);

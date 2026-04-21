@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class EquipSlotSelectMenu : MonoBehaviour
 {
     public CombatManager combatManager;
-    PlayerInventory playerInventory;
+    PlayerInventorySO playerInventorySO;
     //public List<UIGearEquipSlot> uIGearEquipSlots = new List<UIGearEquipSlot>();
     public List<Button> uIGearEquipSlotButtons = new List<Button>();
     //public UIGearEquipSlot equipSlotSelected;
@@ -16,7 +16,7 @@ public class EquipSlotSelectMenu : MonoBehaviour
     public void DisplayEquipSlots()
     {
         Debug.Log("redo this whole thing");
-      //  playerInventory = combatManager.playerCombat.playerInventory;
+      //  playerInventorySO = combatManager.playerCombat.playerInventorySO;
       //
       //  foreach (UIGearEquipSlot gearEquipSlot in uIGearEquipSlots)
       //  {
@@ -24,9 +24,9 @@ public class EquipSlotSelectMenu : MonoBehaviour
       //      gearEquipSlot.gameObject.SetActive(false);
       //  }
       //
-      //  for (int i = 0; i < playerInventory.inventorySO.equipSlotsAvailable; i++)
+      //  for (int i = 0; i < playerInventorySO.equipSlotsAvailable; i++)
       //  {
-      //      if (playerInventory.inventorySO.equippedGearInstances[i] == null)
+      //      if (playerInventorySO.equippedGearInstances[i] == null)
       //      {
       //          uIGearEquipSlots[i].buttonTMP.text = "SLOT " + (i + 1) + ": " + "EMPTY";
       //          uIGearEquipSlots[i].gameObject.SetActive(true);
@@ -34,14 +34,14 @@ public class EquipSlotSelectMenu : MonoBehaviour
       //
       //      else
       //      {
-      //          GearSO gearToLoad = playerInventory.inventorySO.equippedGearInstances[i];
+      //          GearSO gearToLoad = playerInventorySO.equippedGearInstances[i];
       //          uIGearEquipSlots[i].gearEquipped = gearToLoad;
       //          uIGearEquipSlots[i].buttonTMP.text = "SLOT " + (i + 1) + ": " + gearToLoad.gearName;
       //          uIGearEquipSlots[i].gameObject.SetActive(true);
       //      }
       //  }
 
-        FieldEvents.SetGridNavigationWrapAround(uIGearEquipSlotButtons, playerInventory.inventorySO.gearInstanceEquipped.Count);
+        FieldEvents.SetGridNavigationWrapAround(uIGearEquipSlotButtons, playerInventorySO.gearInstanceEquipped.Count);
     }
 
     //public void EquipSlotSelected(UIGearEquipSlot gearEquipSlot)

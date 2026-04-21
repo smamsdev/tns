@@ -36,7 +36,7 @@ public class ApplyPlayerMove : State
 
     IEnumerator ApplyGear()
     {
-        //var equipped = player.playerInventory.inventorySO.equippedGear;
+        //var equipped = player.playerInventorySO.equippedGear;
         // for (int i = equipped.Count - 1; i >= 0; i--)
         // {
         //     GearSO gearSO = equipped[i];
@@ -58,8 +58,8 @@ public class ApplyPlayerMove : State
            //
            // if (gearSO.gearInstance.turnsUntilConsumed == 0)
            // {
-           //     player.playerInventory.DestroyGearInstance(gearSO);
-           //     player.playerInventory.GearConsumed(gearSO);
+           //     player.playerInventorySO.DestroyGearInstance(gearSO);
+           //     player.playerInventorySO.GearConsumed(gearSO);
            // }
         
     }

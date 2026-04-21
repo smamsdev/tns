@@ -7,7 +7,7 @@ public class TrenchMenuManager : MonoBehaviour
     public TrenchMainState mainState;
     public TrenchStructureInventoryState inventoryState;
     public TrenchConstructState constructState;
-    public InventorySO playerInventorySO;
+    public PlayerInventorySO playerInventorySO;
 
     public void ChangeState(TrenchMenuState menuState)
     {
@@ -18,7 +18,7 @@ public class TrenchMenuManager : MonoBehaviour
     private void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        playerInventorySO = player.GetComponentInChildren<PlayerInventory>().inventorySO;
+        playerInventorySO = player.GetComponent<PlayerCombat>().playerInventorySO;
 
         InitiliazeMenu();
 

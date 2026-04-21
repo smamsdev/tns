@@ -2,30 +2,16 @@ using UnityEditor.SceneManagement;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(InventorySO))]
+[CustomEditor(typeof(InventorySO), true)]
 public class InventorySOEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         InventorySO inventorySO = (InventorySO)target;
 
-        if (GUILayout.Button("Create empty Equip slot"))
-        {
-            var emptyInstance = new GearInstance();
-
-            inventorySO.gearInstanceEquipped.Add(emptyInstance);
-        }
-
-        if (GUILayout.Button("Equip inventory Gear to specific Equip slot"))
-        {
-            var instanceToEquip = inventorySO.gearInstanceInventory[inventorySO.debugInventorySlotToEquip];
-            inventorySO.EquipGearToSlot(instanceToEquip, inventorySO.debugEquipSlotToAddTo);
-        }
-
         if (GUILayout.Button("Add gearSO as Instance"))
         {
             AddNewGearAsInstance(inventorySO);
-            inventorySO.SortInventory();
         }
 
         DrawDefaultInspector();
@@ -37,17 +23,14 @@ public class InventorySOEditor : Editor
 
         if (gearSOToAdd is EquipmentSO)
         {
-            EquipmentInstance equipmentInstanceToAdd = new EquipmentInstance();
-            equipmentInstanceToAdd.gearSO = gearSOToAdd;
-            inventorySO.gearInstanceInventory.Add(equipmentInstanceToAdd);
+            EquipmentInstance equipmentInstanceToAdd = new EquipmentInstance(gearSOToAdd);
+            bool test = inventorySO.AttemptAddGearToInventory(equipmentInstanceToAdd, false);
         }
 
         else
         {
-            ConsumableInstance consumableInstanceToAdd = new ConsumableInstance();
-            consumableInstanceToAdd.quantityAvailable = 1;
-            consumableInstanceToAdd.gearSO = gearSOToAdd;
-            inventorySO.gearInstanceInventory.Add(consumableInstanceToAdd);
+            ConsumableInstance consumableInstanceToAdd = new ConsumableInstance(gearSOToAdd);
+            inventorySO.AttemptAddGearToInventory(consumableInstanceToAdd, false);
         }
     }
 }

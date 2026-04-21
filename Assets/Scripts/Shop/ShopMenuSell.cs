@@ -21,7 +21,7 @@ public class ShopSellMenu : ShopMenu
 
     public void InitialiseInventoryUI()
     {
-        var inventorySO = shopMenuManager.mainMenu.playerInventory.inventorySO;
+        var inventorySO = shopMenuManager.mainMenu.playerInventorySO;
 
         DeleteAllInventoryUI();
 
@@ -107,9 +107,14 @@ public class ShopSellMenu : ShopMenu
 
     public override void EnterMenu()
     {
-        var inventory = shopMenuManager.mainMenu.playerInventory.inventorySO.gearInstanceInventory;
-        if (inventory.TrueForAll(x => x == null))
+        var gearInstanceInventory = shopMenuManager.mainMenu.playerInventorySO.gearInstanceInventory;
+
+        if (gearInstanceInventory.TrueForAll(x => x == null))
+        {
+            shopMenuManager.menuUpdateMethod = shopMenuManager.mainMenu;
             return;
+        }
+
 
         shopMenuManager.mainMenu.DisplayMainButtons(false);
         shopMenuManager.mainMenu.SetHeaderTMP("Select GEAR to sell");
@@ -138,7 +143,7 @@ public class ShopSellMenu : ShopMenu
         if (inventorySlotUI.gearInstance.isCurrentlyEquipped)
             return;
 
-        shopMenuManager.mainMenu.playerInventory.inventorySO.RemoveGearFromInventory(inventorySlotUI.gearInstance, true);
+        shopMenuManager.mainMenu.playerInventorySO.RemoveGearFromInventory(inventorySlotUI.gearInstance, true);
         InitialiseInventoryUI();
 
         var stats = shopMenuManager.mainMenu.playerPermanentStats;
@@ -158,7 +163,7 @@ public class ShopSellMenu : ShopMenu
         shopMenuManager.mainMenu.smamsColorAnimator.Play("SmamsYellowText");
         shopMenuManager.sellMenu.InitialiseInventoryUI();
 
-        var inventorySO = shopMenuManager.mainMenu.playerInventory.inventorySO;
+        var inventorySO = shopMenuManager.mainMenu.playerInventorySO;
         if (inventorySO.gearInstanceInventory.TrueForAll(x => x == null))
         {
             ExitMenu();

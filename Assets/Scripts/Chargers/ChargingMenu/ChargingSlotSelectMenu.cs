@@ -195,7 +195,7 @@ public class ChargingSlotMenu : ChargingMenu
             var chargingSlots = chargingMenuManager.chargingMainMenu.chargerSO.chargingSlots;
 
             chargingSlots[slotSelectedIndex] = gearInstanceToCharge;
-            chargingMainMenu.playerInventory.inventorySO.RemoveGearFromInventory(gearInstanceToCharge, true);
+            chargingMainMenu.playerInventorySO.RemoveGearFromInventory(gearInstanceToCharge, true);
 
             SyncSlotFromSO(chargingSlotSelected);
             chargingMenuManager.chargingEquipmentSelectMenu.InitialiseInventoryUI();
@@ -237,7 +237,7 @@ public class ChargingSlotMenu : ChargingMenu
             return false;
         }
 
-        bool inventorySpaceAvailable = chargingMainMenu.playerInventory.inventorySO.AttemptAddGearToInventory(chargingSlotSelected.gearInstance, true);
+        bool inventorySpaceAvailable = chargingMainMenu.playerInventorySO.AttemptAddGearToInventory(chargingSlotSelected.gearInstance, true);
 
         if (inventorySpaceAvailable)
         {

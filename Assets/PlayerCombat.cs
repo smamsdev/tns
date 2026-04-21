@@ -8,7 +8,7 @@ public class PlayerCombat : PartyMemberCombat
     public PlayerMoveManager playerMoveManager;
     public PlayerPermanentStats playerPermanentStats;
     public PartySO party;
-    public PlayerInventory playerInventory;
+    public PlayerInventorySO playerInventorySO;
 
     public int MaxPotential
     {

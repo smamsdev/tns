@@ -39,11 +39,11 @@ public class GearSelectCombatState : State
 
         Debug.Log("rewordk");
        // var geartoEquip = uICombatGearSlot.gearSO;
-       // var playerInventory = combatManager.playerCombat.playerInventory;
+       // var playerInventorySO = combatManager.playerCombat.playerInventorySO;
        //
        // if (geartoEquip.isCurrentlyEquipped)
        // {
-       //     int index = playerInventory.inventorySO.equippedGear.IndexOf(geartoEquip);
+       //     int index = playerInventorySO.equippedGear.IndexOf(geartoEquip);
        //
        //     if (index == equipSlotSelectMenu.equipSlotSelected.equipSlotNumber) //if a gear selected is already equipped in the currently selected slot, do nothing
        //     {
@@ -52,19 +52,19 @@ public class GearSelectCombatState : State
        //
        //     else 
        //     {
-       //         playerInventory.UnequipGearFromSlot(geartoEquip); //if the gear to equip is already in another slot, remove it first
-       //         playerInventory.DestroyGearInstance(geartoEquip);
+       //         playerInventorySO.UnequipGearFromSlot(geartoEquip); //if the gear to equip is already in another slot, remove it first
+       //         playerInventorySO.DestroyGearInstance(geartoEquip);
        //     }
        // }
        //
        // if (equipSlotSelectMenu.equipSlotSelected.gearEquipped != null) //if a gear already exists in that slot remove it before equipping a new one
        // {
-       //     playerInventory.UnequipGearFromSlot(equipSlotSelectMenu.equipSlotSelected.gearEquipped);
-       //     playerInventory.DestroyGearInstance(equipSlotSelectMenu.equipSlotSelected.gearEquipped);
+       //     playerInventorySO.UnequipGearFromSlot(equipSlotSelectMenu.equipSlotSelected.gearEquipped);
+       //     playerInventorySO.DestroyGearInstance(equipSlotSelectMenu.equipSlotSelected.gearEquipped);
        // }
        //
-       // playerInventory.EquipGearToSlot(geartoEquip, equipSlotSelectMenu.equipSlotSelected.equipSlotNumber);
-       // playerInventory.InstantiateNewEquippedGear(combatManager, geartoEquip);
+       // playerInventorySO.EquipGearToSlot(geartoEquip, equipSlotSelectMenu.equipSlotSelected.equipSlotNumber);
+       // playerInventorySO.InstantiateNewEquippedGear(combatManager, geartoEquip);
        // combatManager.combatMenuManager.SetButtonNormalColor(equipSlotSelectMenu.equipSlotSelected.GetComponent<Button>(), Color.white);
        // gearSelectCombatMenu.ClearSlots();
        // gearSelectCombatMenu.isGearSlotsInitialized = false;

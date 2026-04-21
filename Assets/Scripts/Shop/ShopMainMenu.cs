@@ -24,7 +24,7 @@ public class ShopMainMenu : ShopMenu
     [SerializeField] TextMeshProUGUI itemValueTMP;
 
     public GameObject player;
-    public PlayerInventory playerInventory;
+    public PlayerInventorySO playerInventorySO;
     public PlayerPermanentStats playerPermanentStats;
 
     public MenuButtonHighlighted[] mainShopMenuButtons;
@@ -52,8 +52,8 @@ public class ShopMainMenu : ShopMenu
         this.gameObject.SetActive(true);
 
         player = GameObject.FindGameObjectWithTag("Player");
-        playerInventory = player.GetComponentInChildren<PlayerInventory>();
-        playerPermanentStats = player.GetComponentInChildren<PlayerCombat>().playerPermanentStats;
+        playerInventorySO = player.GetComponent<PlayerCombat>().playerInventorySO;
+        playerPermanentStats = player.GetComponent<PlayerCombat>().playerPermanentStats;
 
         animator.Play("OpenMenu");
 

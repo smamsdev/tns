@@ -143,7 +143,8 @@ public class Setup : State
 
     void InitializePermanentStatsAndGear()
     {
-        playerCombat.playerInventory.InstantiateAllEquippedGear(combatManager);
+        //playerCombat.playerInventorySO.InstantiateAllEquippedGear(combatManager);
+        Debug.Log("instnatiate all gear fix");
 
         Debug.Log(" mix this with aprty members");
         //playerCombat.MaxHP = playerCombat.playerPermanentStats.maxHP;

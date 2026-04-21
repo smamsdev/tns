@@ -53,12 +53,11 @@ public class LockerCacheMenu : LockerMenu
             inventorySlotUI.name = "Bay Slot Free";
             inventorySlotUI.itemNameTMP.text = "FREE";
             inventorySlotUI.itemQuantityTMP.text = "";
-            inventorySlotUI.icon.enabled = false;
+            inventorySlotUI.icon.sprite = inventorySlotUI.freeIcon;
 
             if (inventorySO.gearInstanceInventory[i] != null)
             {
                 inventorySlotUI.gearInstance = inventorySO.gearInstanceInventory[i];
-                inventorySlotUI.icon.enabled = true;
             
                 if (inventorySO.gearInstanceInventory[i] is EquipmentInstance equipmentInstance)
                 {
@@ -135,7 +134,8 @@ public class LockerCacheMenu : LockerMenu
 
     void ResizeBorder(InventorySlotUI inventorySlotUI)
     {
-        int magicNumberBuffer = 190;
+        int magicNumberBuffer = inventorySlotUI.gearInstance != null? 190: 130;
+
         var totalHeight = inventorySlotUI.itemNameTMP.preferredHeight + magicNumberBuffer;
 
         GameObject lockerBorderGO = Instantiate(lockerBorderPrefab, inventorySlotUI.gameObject.transform);
@@ -181,7 +181,7 @@ public class LockerCacheMenu : LockerMenu
         {
             if (inventorySlotUI.gearInstance == null) return;
 
-            bool inventorySpaceAvailable = lockerMenuManager.lockerMainMenu.playerInventory.inventorySO.AttemptAddGearToInventory(inventorySlotUI.gearInstance, true);
+            bool inventorySpaceAvailable = lockerMenuManager.lockerMainMenu.playerInventorySO.AttemptAddGearToInventory(inventorySlotUI.gearInstance, true);
             if (!inventorySpaceAvailable)
             {
                 lockerMenuManager.lockerMainMenu.SetHeaderTMP("No slot available");

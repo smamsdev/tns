@@ -19,17 +19,17 @@ public class LockerGearMenu : LockerMenu
 
     public override void EnterMenu()
     {
-        var inventory = lockerMenuManager.lockerMainMenu.playerInventory.inventorySO.gearInstanceInventory;
+        var inventory = lockerMenuManager.lockerMainMenu.playerInventorySO.gearInstanceInventory;
         if (inventory.TrueForAll(x => x == null))
+        {
+            lockerMenuManager.menuUpdateMethod = lockerMenuManager.lockerMainMenu;
             return;
+        }
 
         isGearSelectedForCache = false;
         lockerMenuManager.lockerCacheMenu.HighlightedButtonIndex = 0;
         highlightedButtonIndex = 0;
-
         lockerMenuManager.lockerMainMenu.mainMenuButtons[0].SetButtonNormalColor(Color.yellow);
-
-
         lockerMenuManager.lockerCacheMenu.SetBaySlotsAlpha(.7f, .7f);
         lockerMenuManager.lockerMainMenu.DisplayMainButtons(false);
         lockerMenuManager.lockerMainMenu.SetHeaderTMP("Select GEAR to cache:");
@@ -46,7 +46,7 @@ public class LockerGearMenu : LockerMenu
     {
         DeleteAllInventoryUI();
 
-        var inventorySO = lockerMenuManager.lockerMainMenu.playerInventory.inventorySO;
+        var inventorySO = lockerMenuManager.lockerMainMenu.playerInventorySO;
 
         for (int i = 0; i < inventorySO.gearInstanceInventory.Count; i++)
         {
@@ -132,7 +132,7 @@ public class LockerGearMenu : LockerMenu
             ConsumableInstance newConsumableInstance = new(selectedConsumableToCache);
             lockerGearInstanceInventory[selectedBay] = newConsumableInstance;
 
-            lockerMenuManager.lockerMainMenu.playerInventory.inventorySO.RemoveGearFromInventory(selectedConsumableToCache, true);
+            lockerMenuManager.lockerMainMenu.playerInventorySO.RemoveGearFromInventory(selectedConsumableToCache, true);
 
             lockerMenuManager.lockerCacheMenu.InstantiateUIBays();
             InitialiseInventoryUI();
@@ -150,7 +150,7 @@ public class LockerGearMenu : LockerMenu
         {
             ((ConsumableInstance)lockerInventorySlot).quantityAvailable++;
 
-            lockerMenuManager.lockerMainMenu.playerInventory.inventorySO
+            lockerMenuManager.lockerMainMenu.playerInventorySO
                 .RemoveGearFromInventory(selectedConsumableToCache, true);
 
             lockerMenuManager.lockerCacheMenu.InstantiateUIBays();
@@ -178,7 +178,7 @@ public class LockerGearMenu : LockerMenu
             var selectedBay = lockerMenuManager.lockerCacheMenu.HighlightedButtonIndex;
 
             lockerGearInstanceInventory[selectedBay] = selectedGearInstanceToCache;
-            lockerMenuManager.lockerMainMenu.playerInventory.inventorySO.RemoveGearFromInventory(selectedGearInstanceToCache, true);
+            lockerMenuManager.lockerMainMenu.playerInventorySO.RemoveGearFromInventory(selectedGearInstanceToCache, true);
 
             lockerMenuManager.lockerCacheMenu.InstantiateUIBays();
             lockerMenuManager.lockerCacheMenu.SetBaySlotsAlpha(1, .7f);
@@ -186,7 +186,7 @@ public class LockerGearMenu : LockerMenu
 
             highlightedButtonIndex = Mathf.Clamp(highlightedButtonIndex, 0, inventorySlots.Count - 1);
 
-            if (lockerMenuManager.lockerMainMenu.playerInventory.inventorySO.gearInstanceInventory.Count == 0)
+            if (lockerMenuManager.lockerMainMenu.playerInventorySO.gearInstanceInventory.Count == 0)
             {
                 ExitMenu();
                 return;
@@ -195,7 +195,7 @@ public class LockerGearMenu : LockerMenu
 
             lockerMenuManager.lockerMainMenu.SetHeaderTMP("Select GEAR to cache:");
 
-            var inventory = lockerMenuManager.lockerMainMenu.playerInventory.inventorySO.gearInstanceInventory;
+            var inventory = lockerMenuManager.lockerMainMenu.playerInventorySO.gearInstanceInventory;
             if (inventory.TrueForAll(x => x == null))
             {
                 ExitMenu();
@@ -232,7 +232,7 @@ public class LockerGearMenu : LockerMenu
         //Availability
         if (inventorySlot.gearInstance.isCurrentlyEquipped)
         {
-            var inventorySO = lockerMenuManager.lockerMainMenu.playerInventory.inventorySO;
+            var inventorySO = lockerMenuManager.lockerMainMenu.playerInventorySO;
             gearEquipStatusTMP.text = "Equipped to Slot " + (inventorySO.gearInstanceEquipped.IndexOf(inventorySlot.gearInstance) + 1) + ". PRESS CTRL TO REMOVE";
         }
 
@@ -295,7 +295,7 @@ public class LockerGearMenu : LockerMenu
 
     public void UnequipHighlightedGearInstance(GearInstance gearInstance)
     {
-        lockerMenuManager.lockerMainMenu.playerInventory.inventorySO.UnequipGearFromSlot(gearInstance);
+        lockerMenuManager.lockerMainMenu.playerInventorySO.UnequipGearFromSlot(gearInstance);
         InitialiseInventoryUI();
     }
 }

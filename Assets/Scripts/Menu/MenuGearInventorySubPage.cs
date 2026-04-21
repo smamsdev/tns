@@ -27,7 +27,7 @@ public class MenuGearInventorySubPage : PauseMenu
 
     public void InitialiseInventoryUI()
     {
-        var inventorySO = menuGearMainPage.playerInventory.inventorySO;
+        var inventorySO = menuGearMainPage.playerInventorySO;
 
             DeleteAllInventoryUI();
 
@@ -112,7 +112,9 @@ public class MenuGearInventorySubPage : PauseMenu
 
     public override void EnterMenu()
     {
-        if (firstButtonToSelect == null) { firstButtonToSelect = inventorySlots[0].button; }
+        var inventory = menuGearMainPage.playerInventorySO.gearInstanceInventory;
+        if (inventory.TrueForAll(x => x == null))
+            return;
 
         DisplayMenu(true);
         firstButtonToSelect.Select();
@@ -161,7 +163,7 @@ public class MenuGearInventorySubPage : PauseMenu
         // Equip status
         if (gearInstance.isCurrentlyEquipped)
         {
-            int slotIndex = menuGearMainPage.playerInventory.inventorySO.gearInstanceEquipped.IndexOf(gearInstance) + 1;
+            int slotIndex = menuGearMainPage.playerInventorySO.gearInstanceEquipped.IndexOf(gearInstance) + 1;
             gearEquipStatusTMP.text = $"Equipped to Slot {slotIndex}. CTRL to unequip";
         }
 
@@ -171,9 +173,9 @@ public class MenuGearInventorySubPage : PauseMenu
 
     public void UnequipHighlightedGearInstance(GearInstance gearInstance)
     {
-        int i = menuGearMainPage.playerInventory.inventorySO.gearInstanceEquipped.IndexOf(gearInstance);
+        int i = menuGearMainPage.playerInventorySO.gearInstanceEquipped.IndexOf(gearInstance);
 
-        menuGearMainPage.playerInventory.inventorySO.UnequipGearFromSlot(menuGearMainPage.playerInventory.inventorySO.gearInstanceEquipped[i]);
+        menuGearMainPage.playerInventorySO.UnequipGearFromSlot(menuGearMainPage.playerInventorySO.gearInstanceEquipped[i]);
         InitialiseInventoryUI();
         menuGearEquipSubPage.InitialiseEquipSlots();
     }

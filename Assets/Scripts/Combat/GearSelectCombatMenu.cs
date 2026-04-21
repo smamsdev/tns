@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GearSelectCombatMenu : MonoBehaviour
 {
     public CombatManager combatManager;
-    PlayerInventory playerInventory;
+    PlayerInventorySO playerInventorySO;
     public GameObject UICombatGearSlotPrefab, inventorySlotsParent;
     public GearSelectCombatState gearSelectCombatState;
 
@@ -25,12 +25,12 @@ public class GearSelectCombatMenu : MonoBehaviour
 
         isGearSlotsInitialized = true;
 
-        playerInventory = combatManager.playerCombat.playerInventory;
+        playerInventorySO = combatManager.playerCombat.playerInventorySO;
 
         ClearSlots();
 
         Debug.Log("fix");
-        //foreach (GearSO gear in playerInventory.inventorySO.gearInventory)
+        //foreach (GearSO gear in playerInventorySO.gearInventory)
         //{
         //    if (!gearToSlot.ContainsKey(gear))
         //    {
