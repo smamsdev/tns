@@ -43,7 +43,7 @@ public class MenuGearInventorySubPage : PauseMenu
             inventorySlotUI.itemQuantityTMP.text = "";
             inventorySlotUI.icon.sprite = inventorySlotUI.freeIcon;
 
-            if (i < inventorySO.gearInstanceInventory.Count && inventorySO.gearInstanceInventory[i] != null)
+            if (i < inventorySO.gearInstanceInventory.Count && inventorySO.gearInstanceInventory[i].gearSO != null)
             {
                 var gearInstance = inventorySO.gearInstanceInventory[i];
 
@@ -113,10 +113,13 @@ public class MenuGearInventorySubPage : PauseMenu
     public override void EnterMenu()
     {
         var inventory = menuGearMainPage.playerInventorySO.gearInstanceInventory;
-        if (inventory.TrueForAll(x => x == null))
+        if (inventory.TrueForAll(x => x.gearSO == null))
             return;
 
         DisplayMenu(true);
+        if (firstButtonToSelect == null)
+            firstButtonToSelect = inventorySlots[0].button;
+
         firstButtonToSelect.Select();
     }
 

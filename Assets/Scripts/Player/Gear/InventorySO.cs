@@ -43,7 +43,7 @@ public class InventorySO : ScriptableObject
                     ConsumableInstance existingConsumableInstance = gearInstanceInventory[i] as ConsumableInstance;
 
                     //if the stack limit is not exceeded, +1 to existing stack
-                    if (existingConsumableInstance.quantityAvailable < 9)
+                    if (existingConsumableInstance.quantityAvailable < 3)
                     {
                         // Debug.Log("available to add to stack");
                         existingConsumableInstance.quantityAvailable++;
@@ -120,7 +120,7 @@ public class InventorySO : ScriptableObject
 
     public void MergeConsumableStacks()
     {
-        int maxStack = 9;
+        int maxStack = 3;
 
         for (int i = 0; i < gearInstanceInventory.Count; i++)
         {

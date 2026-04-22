@@ -59,7 +59,7 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
             inventorySlotUI.icon.sprite = inventorySlotUI.freeIcon;
             inventorySlotUI.name = "gear slot " + i;
 
-            if (i < inventorySO.gearInstanceInventory.Count && inventorySO.gearInstanceInventory[i] != null)
+            if (i < inventorySO.gearInstanceInventory.Count && inventorySO.gearInstanceInventory[i].gearSO != null)
             {
                 var gearInstance = inventorySO.gearInstanceInventory[i];
 

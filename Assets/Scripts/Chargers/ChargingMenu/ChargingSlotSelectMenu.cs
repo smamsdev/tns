@@ -110,12 +110,14 @@ public class ChargingSlotMenu : ChargingMenu
             inventorySlotUI.gearInstance = new EquipmentInstance();
             inventorySlotUI.itemNameTMP.text = $"Charging Slot {index + 1}: Empty";
             inventorySlotUI.itemQuantityTMP.text = "";
+            inventorySlotUI.icon.sprite = inventorySlotUI.freeIcon;
             return;
         }
 
         inventorySlotUI.gearInstance = slot;
         inventorySlotUI.itemNameTMP.text = slot.gearSO.name;
         inventorySlotUI.itemQuantityTMP.text = $": {slot.ChargePercentage()}%";
+        inventorySlotUI.icon.sprite = inventorySlotUI.equipmentIcon;
     }
 
     void ClearText()

@@ -122,7 +122,7 @@ public class LockerCacheMenu : LockerMenu
             else if (inventorySlotUI.gearInstance is ConsumableInstance slotConsumable &&
                      gearToCache is ConsumableInstance cacheConsumable &&
                      cacheConsumable.gearSO == slotConsumable.gearSO &&
-                     slotConsumable.quantityAvailable < 9)
+                     slotConsumable.quantityAvailable < 3)
             {
                 availableToCache = true;
             }
@@ -174,7 +174,7 @@ public class LockerCacheMenu : LockerMenu
             else if (inventorySlotUI.gearInstance is ConsumableInstance slotConsumable &&
                      gearToCache is ConsumableInstance cacheConsumable &&
                      cacheConsumable.gearSO == slotConsumable.gearSO &&
-                     slotConsumable.quantityAvailable < 9)
+                     slotConsumable.quantityAvailable < 3)
             {
                 string toCache = gearToCache.gearSO.gearName;
                 lockerMenuManager.lockerMainMenu.SetHeaderTMP("Cache " + toCache + " in bay " + (highlightedButtonIndex + 1) + "?");

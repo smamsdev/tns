@@ -37,7 +37,7 @@ public class ShopSellMenu : ShopMenu
             inventorySlotUI.itemQuantityTMP.text = "";
             inventorySlotUI.icon.sprite = inventorySlotUI.freeIcon;
 
-            if (i < inventorySO.gearInstanceInventory.Count && inventorySO.gearInstanceInventory[i] != null)
+            if (i < inventorySO.gearInstanceInventory.Count && inventorySO.gearInstanceInventory[i].gearSO != null)
             {
                 var gearInstance = inventorySO.gearInstanceInventory[i];
 
