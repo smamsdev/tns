@@ -12,12 +12,7 @@ public class MenuGearInventorySubPage : PauseMenu
     public MenuGearMainPage menuGearMainPage;
     public MenuGearEquipSubPage menuGearEquipSubPage;
     public List<InventorySlotUI> inventorySlots = new List<InventorySlotUI>();
-    public TextMeshProUGUI gearDescriptionTMP;
-    public TextMeshProUGUI equipmentCharge;
-    public TextMeshProUGUI gearValueTMP;
-    public TextMeshProUGUI gearEquipStatusTMP;
-    public GameObject inventorySlotUIPrefab, noneGO;
-    public GameObject inventorySlotsParent;
+    public GameObject inventorySlotUIPrefab, noneGO, inventorySlotsParent;
     public int highlightedButtonIndex;
 
     public override void DisplayMenu(bool on)
@@ -52,11 +47,9 @@ public class MenuGearInventorySubPage : PauseMenu
                 inventorySlotUI.itemQuantityTMP.text = inventorySlotUI.gearInstance.GearQuantityRemainingString();
 
                 bool isEquipment = gearInstance.gearSO is EquipmentSO;
-                inventorySlotUI.icon.sprite = isEquipment ? inventorySlotUI.equipmentIcon : inventorySlotUI.consumableIcon;
-
                 bool isCurrentlyEquipped = gearInstance.isCurrentlyEquipped;
-                FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.white, isCurrentlyEquipped ? .7f : 1);
-                FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.white, isCurrentlyEquipped ? .7f : 1);
+
+                inventorySlotUI.icon.sprite = isEquipment ? inventorySlotUI.equipmentIcon : inventorySlotUI.consumableIcon;
 
                 if (!isCurrentlyEquipped)
                     inventorySlotUI.button.onClick.AddListener(() => OnInventorySlotSelected(inventorySlotUI));
@@ -68,8 +61,7 @@ public class MenuGearInventorySubPage : PauseMenu
 
                 inventorySlotUI.onUnHighlighted = () =>
                 {
-                    FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.white, inventorySlotUI.itemNameTMP.alpha);
-                    FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.white, inventorySlotUI.itemNameTMP.alpha);
+                    menuGearMainPage.SetSlotColor(inventorySlotUI, Color.white);
                 };
 
                 inventorySlots.Add(inventorySlotUI);
@@ -82,13 +74,6 @@ public class MenuGearInventorySubPage : PauseMenu
             if (inventorySlot.gearInstance != null) inventorySlotButtons.Add(inventorySlot.button);
 
         FieldEvents.SetGridNavigationWrapAroundHorizontal(inventorySlotButtons, 3);
-    }
-
-    public void SetInventorySlotColor(InventorySlotUI inventorySlot, Color normalColor)
-    {
-        float alpha = inventorySlot.gearInstance.isCurrentlyEquipped ? 0.6f : 1f;
-        FieldEvents.SetTextColor(inventorySlot.itemNameTMP, normalColor, alpha);
-        FieldEvents.SetTextColor(inventorySlot.itemQuantityTMP, normalColor,  alpha);
     }
 
     string ItemQuantityRemaining(GearInstance gearInstance)
@@ -116,7 +101,12 @@ public class MenuGearInventorySubPage : PauseMenu
         if (inventory.TrueForAll(x => x.gearSO == null))
             return;
 
+        menuGearMainPage.ShowMainButtons(false);
         DisplayMenu(true);
+
+        foreach (var slot in inventorySlots)
+            menuGearMainPage.SetSlotAlpha(slot, !slot.gearInstance.isCurrentlyEquipped);
+
         if (firstButtonToSelect == null)
             firstButtonToSelect = inventorySlots[0].button;
 
@@ -134,44 +124,24 @@ public class MenuGearInventorySubPage : PauseMenu
     {
         if (inventorySlot.gearInstance.isCurrentlyEquipped) return;
 
-        highlightedButtonIndex = inventorySlots.IndexOf(inventorySlot);
-
         firstButtonToSelect = inventorySlot.button;
-
         menuGearEquipSubPage.isEquipping = true;
-        menuGearEquipSubPage.pageHeaderTMP.text = "Equip " + inventorySlot.gearInstance.gearSO.gearName + "?";
-        menuGearEquipSubPage.equipPageHeaderGO.SetActive(true);
+
+        foreach (var slot in menuGearEquipSubPage.equipSlots)
+            menuGearMainPage.SetSlotAlpha(slot, !slot.gearInstance.isCurrentlyEquipped);
+
         displayContainer.SetActive(false);
-        menuGearMainPage.displayContainer.SetActive(false);
         pauseMenuManager.EnterMenu(pauseMenuManager.gearEquipSubPage);
     }
 
     public void OnInventorySlotHighlighted(InventorySlotUI inventorySlot)
     {
-        SetInventorySlotColor(inventorySlot, Color.yellow);
-        UpdateGearPropertiesTMPs(inventorySlot);
+        var gi = inventorySlot.gearInstance;
+
         highlightedButtonIndex = inventorySlots.IndexOf(inventorySlot);
-    }
-
-    void UpdateGearPropertiesTMPs(InventorySlotUI inventorySlot)
-    {
-        var gearInstance = inventorySlot.gearInstance;
-
-        gearValueTMP.text = $"Sell Value: {gearInstance.gearSO.value:N0} $MAMS";
-        gearDescriptionTMP.text = gearInstance.gearSO.gearDescription;
-
-        if (gearInstance is EquipmentInstance equipmentInstance) equipmentCharge.text = equipmentInstance.ChargeTotalString();
-        else equipmentCharge.text = "";
-
-        // Equip status
-        if (gearInstance.isCurrentlyEquipped)
-        {
-            int slotIndex = menuGearMainPage.playerInventorySO.gearInstanceEquipped.IndexOf(gearInstance) + 1;
-            gearEquipStatusTMP.text = $"Equipped to Slot {slotIndex}. CTRL to unequip";
-        }
-
-        else
-            gearEquipStatusTMP.text = "SELECT to equip";
+        menuGearMainPage.SetSlotColor(inventorySlot, Color.yellow);
+        menuGearMainPage.UpdateGearDescriptionTMPs(gi);
+        menuGearMainPage.UpdateHeaderTMP(gi.isCurrentlyEquipped? gi.gearSO.gearName + " already equipped" : "Equip " + gi.gearSO.gearName + "?");
     }
 
     public void UnequipHighlightedGearInstance(GearInstance gearInstance)
@@ -195,7 +165,6 @@ public class MenuGearInventorySubPage : PauseMenu
         {
             if (inventorySlots[highlightedButtonIndex].gearInstance.isCurrentlyEquipped)
             {
-                DisplayMenu(true);
                 UnequipHighlightedGearInstance(inventorySlots[highlightedButtonIndex].gearInstance);
                 inventorySlots[highlightedButtonIndex].button.Select();
             }

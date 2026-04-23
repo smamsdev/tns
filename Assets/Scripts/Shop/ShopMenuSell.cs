@@ -81,6 +81,7 @@ public class ShopSellMenu : ShopMenu
     void OnInventorySlotHighlighted(InventorySlotUI inventorySlotUI)
     {
         shopMenuManager.mainMenu.UpdateDescriptionField(inventorySlotUI.gearInstance.gearSO);
+        shopMenuManager.mainMenu.SetHeaderTMP("Sell " + inventorySlotUI.gearInstance.gearSO.gearName + " ?");
         FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.yellow, inventorySlotUI.itemNameTMP.alpha);
         FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.yellow, inventorySlotUI.itemNameTMP.alpha);
         highlightedButtonIndex = inventorySlots.IndexOf(inventorySlotUI);
@@ -115,12 +116,10 @@ public class ShopSellMenu : ShopMenu
             return;
         }
 
-
         shopMenuManager.mainMenu.DisplayMainButtons(false);
-        shopMenuManager.mainMenu.SetHeaderTMP("Select GEAR to sell");
-
         shopMenuManager.mainMenu.GearDescriptionGO.SetActive(true);
         shopMenuManager.mainMenu.firstMenuButton = shopMenuManager.mainMenu.mainShopMenuButtons[1].button;
+
         if (!firstButtonToSelect)
             firstButtonToSelect = inventorySlots[0].button;
 

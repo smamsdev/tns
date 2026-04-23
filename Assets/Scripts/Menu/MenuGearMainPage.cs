@@ -1,10 +1,11 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MenuGearMainPage : PauseMenu
 {
     [SerializeField] GameObject equippedDisplayContainer, inventoryDisplayContainer, gearPropertiesDisplay;
-
+    public TextMeshProUGUI headerTMP, chargeAmountTMP, gearDescriptionTMP, gearValueTMP, gearEquipStatusTMP;
     public MenuButtonHighlighted equippedHighlightedButton, inventoryHighlightedButton;
     public MenuGearEquipSubPage menuGearEquipSubPage;
     public MenuGearInventorySubPage menuGearInventorySubPage;
@@ -14,6 +15,12 @@ public class MenuGearMainPage : PauseMenu
     public override void DisplayMenu(bool on)
     {
         displayContainer.SetActive(on);
+    }
+
+    public void ShowMainButtons(bool on)
+    {
+        equippedHighlightedButton.gameObject.SetActive(on);
+        inventoryHighlightedButton.gameObject.SetActive(on);
     }
 
     private void WireButton(MenuButtonHighlighted button, GameObject container)
@@ -27,21 +34,21 @@ public class MenuGearMainPage : PauseMenu
     public override void EnterMenu()
     {
         playerInventorySO = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>().playerInventorySO;
-
+        UpdateHeaderTMP("");
         displayContainer.SetActive(true);
-        menuGearEquipSubPage.equipPageHeaderGO.SetActive(false);
+        ShowMainButtons(true);
         WireButton(equippedHighlightedButton, equippedDisplayContainer);
         WireButton(inventoryHighlightedButton, inventoryDisplayContainer);
-
         pauseMenuManager.ClearThenDisplayMenu(this);
         gearPropertiesDisplay.SetActive(false);
+        menuGearEquipSubPage.InitialiseEquipSlots();
+        menuGearInventorySubPage.InitialiseInventoryUI();
 
-        if (!isInitialized)
-        {
-            menuGearEquipSubPage.InitialiseEquipSlots();
-            menuGearInventorySubPage.InitialiseInventoryUI();
-            isInitialized = true;
-        }
+        foreach (var slot in menuGearEquipSubPage.equipSlots)
+            SetSlotAlpha(slot, false);
+
+        foreach (var slot in menuGearInventorySubPage.inventorySlots)
+            SetSlotAlpha(slot, false);
 
         if (lastParentButtonSelected ==null) { lastParentButtonSelected = equippedHighlightedButton; }
         lastParentButtonSelected.button.Select();
@@ -72,6 +79,52 @@ public class MenuGearMainPage : PauseMenu
             gearPropertiesDisplay.SetActive(true);
             pauseMenuManager.EnterMenu(pauseMenuManager.gearInventorySubPage);
         }
+    }
+
+    public void UpdateGearDescriptionTMPs(GearInstance gearInstance)
+    {
+        if (gearInstance.gearSO == null)
+        {
+            gearDescriptionTMP.text = "";
+            chargeAmountTMP.text = "";
+            gearEquipStatusTMP.text = "";
+            gearValueTMP.text = "";
+            return;
+        }
+
+        //charge
+        if (gearInstance is EquipmentInstance equipmentInstance) chargeAmountTMP.text = equipmentInstance.ChargeTotalString();
+        else chargeAmountTMP.text = "";
+
+        //desc
+        gearDescriptionTMP.text = gearInstance.gearSO.gearDescription;
+
+        //value
+        gearValueTMP.text = $"Sell Value: {gearInstance.gearSO.value:N0} $MAMS";
+
+
+        if (gearInstance.isCurrentlyEquipped)
+            gearEquipStatusTMP.text = "CTRL to unequip";
+
+        else
+            gearEquipStatusTMP.text = "";
+    }
+
+    public void UpdateHeaderTMP(string text)
+    { 
+        headerTMP.text = text;
+    }
+
+    public void SetSlotColor(InventorySlotUI inventorySlot, Color normalColor)
+    {
+        FieldEvents.SetTextColor(inventorySlot.itemNameTMP, normalColor, inventorySlot.itemNameTMP.alpha);
+        FieldEvents.SetTextColor(inventorySlot.itemQuantityTMP, normalColor, inventorySlot.itemQuantityTMP.alpha);
+    }
+
+    public void SetSlotAlpha(InventorySlotUI inventorySlotUI, bool alphaCondition)
+    {
+        inventorySlotUI.itemNameTMP.alpha = alphaCondition ? 1 : 0.6f;
+        inventorySlotUI.itemQuantityTMP.alpha = alphaCondition ? 1 : 0.6f;
     }
 
     public override void StateUpdate()

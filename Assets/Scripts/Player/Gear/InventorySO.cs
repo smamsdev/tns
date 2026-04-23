@@ -124,28 +124,32 @@ public class InventorySO : ScriptableObject
 
         for (int i = 0; i < gearInstanceInventory.Count; i++)
         {
-            var a = gearInstanceInventory[i] as ConsumableInstance;
-            if (a == null) continue;
+            if (gearInstanceInventory[i] is not ConsumableInstance current || current.gearSO == null)
+                continue;
 
-            for (int j = i + 1; j < gearInstanceInventory.Count; j++)
+            for (int j = 0; j < i; j++)
             {
-                var b = gearInstanceInventory[j] as ConsumableInstance;
-                if (b == null) continue;
+                if (gearInstanceInventory[j] is not ConsumableInstance target)
+                    continue;
 
-                if (a.gearSO != b.gearSO) continue;
+                if (target.gearSO != current.gearSO)
+                    continue;
 
-                int space = maxStack - a.quantityAvailable;
-                if (space <= 0) break;
+                if (target.quantityAvailable >= maxStack)
+                    continue;
 
-                int transfer = Mathf.Min(space, b.quantityAvailable);
+                int space = maxStack - target.quantityAvailable;
+                int transfer = Mathf.Min(space, current.quantityAvailable);
 
-                a.quantityAvailable += transfer;
-                b.quantityAvailable -= transfer;
+                target.quantityAvailable += transfer;
+                current.quantityAvailable -= transfer;
 
-                if (b.quantityAvailable <= 0)
-                    gearInstanceInventory[j] = null;
+                if (current.quantityAvailable <= 0)
+                {
+                    gearInstanceInventory[i] = new GearInstance();
+                    break;
+                }
             }
         }
     }
-
 }

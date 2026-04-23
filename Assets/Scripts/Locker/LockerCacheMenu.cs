@@ -155,10 +155,12 @@ public class LockerCacheMenu : LockerMenu
             if (inventorySlotUI.gearInstance.gearSO == null)
             {
                 lockerMenuManager.lockerMainMenu.SetHeaderTMP("Bay " + (highlightedButtonIndex + 1) + " empty");
+                lockerMenuManager.lockerMainMenu.ClearAllDescriptionTMPs();
                 return;
             }
 
             lockerMenuManager.lockerMainMenu.SetHeaderTMP("Retrieve " + inventorySlotUI.gearInstance.gearSO.gearName + "?");
+            lockerMenuManager.lockerMainMenu.UpdateDescriptionDisplayTMPs(inventorySlotUI.gearInstance);
         }
 
         if (lockerMenuManager.lockerGearMenu.isGearSelectedForCache)
@@ -213,7 +215,7 @@ public class LockerCacheMenu : LockerMenu
             bool inventorySpaceAvailable = lockerMenuManager.lockerMainMenu.playerInventorySO.AttemptAddGearToInventory(inventorySlotUI.gearInstance, true);
             if (!inventorySpaceAvailable)
             {
-                lockerMenuManager.lockerMainMenu.SetHeaderTMP("No slot available");
+                lockerMenuManager.lockerMainMenu.SetHeaderTMP("Inventory full");
                 return;
             }
 
@@ -245,6 +247,7 @@ public class LockerCacheMenu : LockerMenu
     {
         lockerMenuManager.lockerMainMenu.DisplayMainButtons(true);
         lockerMenuManager.lockerMainMenu.SetHeaderTMP(null);
+        lockerMenuManager.lockerMainMenu.ClearAllDescriptionTMPs();
 
         lockerMenuManager.EnterMenu(lockerMenuManager.lockerMainMenu);
         lockerMenuManager.lockerMainMenu.mainMenuButtons[1].SetButtonNormalColor(Color.white);

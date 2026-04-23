@@ -638,6 +638,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2858414934575303564, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3806044827229114904, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 484.63068
@@ -678,11 +682,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4623258980299700208, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5043618956859665751, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
       propertyPath: m_Name
       value: CombatManager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6935284713030644483, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789035329508012095, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8958022037905805985, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6555850414955925450, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+    - {fileID: 8403534877825124814, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+    - {fileID: 9101969443125718075, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+    - {fileID: 1008415756980297605, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+    - {fileID: 540367864952748264, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2170,7 +2195,8 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5282479558742396857, guid: 0b946a15c451b95428b5cf2d496b9b52, type: 3}
     m_RemovedGameObjects:
     - {fileID: 938539513556160877, guid: 0b946a15c451b95428b5cf2d496b9b52, type: 3}
     m_AddedGameObjects:
@@ -3338,10 +3364,10 @@ RectTransform:
   - {fileID: 2412846115729246024}
   m_Father: {fileID: 1920714703879807532}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 300, y: -50}
-  m_SizeDelta: {x: 600, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &188860387337952980
 MonoBehaviour:
@@ -3810,10 +3836,6 @@ MonoBehaviour:
   menuGearMainPage: {fileID: 0}
   menuGearEquipSubPage: {fileID: 0}
   inventorySlots: []
-  gearDescriptionTMP: {fileID: 0}
-  equipmentCharge: {fileID: 0}
-  gearValueTMP: {fileID: 0}
-  gearEquipStatusTMP: {fileID: 0}
   inventorySlotUIPrefab: {fileID: 0}
   noneGO: {fileID: 0}
   inventorySlotsParent: {fileID: 0}
@@ -6051,13 +6073,7 @@ MonoBehaviour:
   menuGearMainPage: {fileID: 4088734373878414078}
   menuGearInventorySubPage: {fileID: 8355599553291225926}
   equipSlots: []
-  gearDescriptionTMP: {fileID: 369919964158116930}
-  chargeAmountTMP: {fileID: 7519327733798580931}
-  gearValueTMP: {fileID: 504312033686487836}
-  gearEquipStatusTMP: {fileID: 4271709342962907976}
   highlightedButtonIndex: 0
-  equipPageHeaderGO: {fileID: 2350313149904668143}
-  pageHeaderTMP: {fileID: 3255760824194241620}
   UIInventorySlotPrefab: {fileID: 5235220362748008573, guid: 4c8d2634bd5481d4497144ce900af339, type: 3}
   equipSlotsParent: {fileID: 8650017297571842982}
   isEquipping: 0
@@ -7204,7 +7220,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 367.75, y: 100}
+  m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!224 &1157746436217846600
 RectTransform:
@@ -7689,12 +7705,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4962024447006396551}
-  m_Father: {fileID: 1465142082068324028}
+  m_Father: {fileID: 1920714703879807532}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.89100003}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.14013672, y: -0.51708984}
-  m_SizeDelta: {x: 0.30004883, y: 1.0339966}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1274813011113180883
 GameObject:
@@ -8052,7 +8068,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 271.39, y: 100}
+  m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!224 &1378661921647394198
 RectTransform:
@@ -8216,22 +8232,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1431295151704446900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9061567276315959581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8d88631692cbba4f81e65ff94abf808, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveDescriptionFieldTMP: {fileID: 3262864660297920608}
-  textToUpdate: Change your Violent Move List
-  button: {fileID: 0}
-  symbol: {fileID: 8454064094798137876}
 --- !u!1 &1438544956578233815
 GameObject:
   m_ObjectHideFlags: 0
@@ -8304,7 +8304,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1272722638419531054}
   - {fileID: 1086697356058509272}
   m_Father: {fileID: 1419101458896058319}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9974,6 +9973,7 @@ RectTransform:
   m_Children:
   - {fileID: 187165902124924215}
   - {fileID: 7044793674065703746}
+  - {fileID: 1272722638419531054}
   m_Father: {fileID: 1488101813509997522}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -10792,10 +10792,10 @@ RectTransform:
   - {fileID: 3958944799946519626}
   m_Father: {fileID: 2454685108724728119}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: -785}
-  m_SizeDelta: {x: 350, y: 160}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &2147649352924352439
 GameObject:
@@ -11673,13 +11673,34 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1272722638419531054}
+  - component: {fileID: 2350313149904668144}
   m_Layer: 5
   m_Name: GearPageHeader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
+--- !u!114 &2350313149904668144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2350313149904668143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 1
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &2358855571331063475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11760,10 +11781,10 @@ RectTransform:
   - {fileID: 476306109353213981}
   m_Father: {fileID: 2454685108724728119}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: -1105}
-  m_SizeDelta: {x: 350, y: 160}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2372255845416095280
 MonoBehaviour:
@@ -12211,10 +12232,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2454685108724728119}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 205, y: -705}
-  m_SizeDelta: {x: 350, y: 160}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &2454685108724728119
 RectTransform:
@@ -13354,7 +13375,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 276.46, y: 100}
+  m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!224 &2767361855423500253
 RectTransform:
@@ -15571,7 +15592,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Select Slot To Equip:'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 649e90157f87b334a8e0857cad166b68, type: 2}
   m_sharedMaterial: {fileID: 6935995173413385345, guid: 649e90157f87b334a8e0857cad166b68, type: 2}
@@ -19605,6 +19626,11 @@ MonoBehaviour:
   equippedDisplayContainer: {fileID: 1179009235485662026}
   inventoryDisplayContainer: {fileID: 1442673510921569222}
   gearPropertiesDisplay: {fileID: 3944499319648131067}
+  headerTMP: {fileID: 3255760824194241620}
+  chargeAmountTMP: {fileID: 7519327733798580931}
+  gearDescriptionTMP: {fileID: 369919964158116930}
+  gearValueTMP: {fileID: 504312033686487836}
+  gearEquipStatusTMP: {fileID: 4271709342962907976}
   equippedHighlightedButton: {fileID: 2863351741187024118}
   inventoryHighlightedButton: {fileID: 2984456415650443997}
   menuGearEquipSubPage: {fileID: 845758785255390197}
@@ -22053,10 +22079,10 @@ RectTransform:
   - {fileID: 1860457229324807209}
   m_Father: {fileID: 2454685108724728119}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: -305}
-  m_SizeDelta: {x: 350, y: 160}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &4658933893612468388
 MonoBehaviour:
@@ -23040,10 +23066,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2454685108724728119}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 205, y: -545}
-  m_SizeDelta: {x: 350, y: 160}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4880499949517462756
 MonoBehaviour:
@@ -24606,7 +24632,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 100}
+  m_SizeDelta: {x: 507.25, y: 100}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!1 &5173605448973507420
 GameObject:
@@ -26417,10 +26443,10 @@ RectTransform:
   - {fileID: 1486740524709011031}
   m_Father: {fileID: 2454685108724728119}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: 15}
-  m_SizeDelta: {x: 350, y: 160}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &5564401919179322764
 RectTransform:
@@ -26478,7 +26504,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 231.78, y: 100}
+  m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!224 &5583797862842183501
 RectTransform:
@@ -27099,10 +27125,10 @@ RectTransform:
   - {fileID: 1916391504368739786}
   m_Father: {fileID: 2454685108724728119}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: -145}
-  m_SizeDelta: {x: 350, y: 160}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &5734001179914706073
 MonoBehaviour:
@@ -29784,8 +29810,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7044793674065703746}
-  - component: {fileID: 8879303779626124229}
   - component: {fileID: 2984456415650443997}
+  - component: {fileID: 8879303779626124229}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -30456,7 +30482,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 392.12, y: 100}
+  m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &6645121831063124665
 MonoBehaviour:
@@ -31257,10 +31283,10 @@ RectTransform:
   - {fileID: 4405509055056381394}
   m_Father: {fileID: 2454685108724728119}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: -945}
-  m_SizeDelta: {x: 350, y: 160}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &6805727474953311198
 GameObject:
@@ -32571,7 +32597,7 @@ GameObject:
   - component: {fileID: 1488101813509997522}
   - component: {fileID: 4088734373878414078}
   m_Layer: 5
-  m_Name: GearPageSelection
+  m_Name: GearMainPage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32819,10 +32845,10 @@ RectTransform:
   - {fileID: 1662458495932259202}
   m_Father: {fileID: 1920714703879807532}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1100, y: -50}
-  m_SizeDelta: {x: 600, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7045841350067604093
 MonoBehaviour:
@@ -34729,7 +34755,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 341.98, y: 100}
+  m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!1 &7345880206040900185
 GameObject:
@@ -34791,10 +34817,10 @@ MonoBehaviour:
   - {fileID: 5049356026791946870}
   - {fileID: 188860387337952980}
   headerTMP: {fileID: 1707947619}
-  chargeTMP: {fileID: 0}
-  gearDescriptionTMP: {fileID: 0}
-  gearValueTMP: {fileID: 0}
-  gearEquipStatusTMP: {fileID: 0}
+  chargeTMP: {fileID: 7559915946469662658}
+  gearDescriptionTMP: {fileID: 2878259494632837377}
+  gearValueTMP: {fileID: 787725284288202600}
+  gearEquipStatusTMP: {fileID: 1247698048}
   animator: {fileID: 5855915939905950258}
 --- !u!224 &7355383092877858146
 RectTransform:
@@ -39093,10 +39119,6 @@ MonoBehaviour:
   menuGearMainPage: {fileID: 4088734373878414078}
   menuGearEquipSubPage: {fileID: 845758785255390197}
   inventorySlots: []
-  gearDescriptionTMP: {fileID: 369919964158116930}
-  equipmentCharge: {fileID: 7519327733798580931}
-  gearValueTMP: {fileID: 504312033686487836}
-  gearEquipStatusTMP: {fileID: 4271709342962907976}
   inventorySlotUIPrefab: {fileID: 5235220362748008573, guid: 4c8d2634bd5481d4497144ce900af339, type: 3}
   noneGO: {fileID: 0}
   inventorySlotsParent: {fileID: 3158636872888942102}
@@ -39697,7 +39719,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8446264147127654070
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41703,10 +41725,6 @@ MonoBehaviour:
   menuGearMainPage: {fileID: 0}
   menuGearEquipSubPage: {fileID: 0}
   inventorySlots: []
-  gearDescriptionTMP: {fileID: 0}
-  equipmentCharge: {fileID: 0}
-  gearValueTMP: {fileID: 0}
-  gearEquipStatusTMP: {fileID: 0}
   inventorySlotUIPrefab: {fileID: 0}
   noneGO: {fileID: 0}
   inventorySlotsParent: {fileID: 0}
@@ -42265,9 +42283,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 187165902124924215}
-  - component: {fileID: 1431295151704446900}
-  - component: {fileID: 6115846929155618376}
   - component: {fileID: 2863351741187024118}
+  - component: {fileID: 6115846929155618376}
   m_Layer: 5
   m_Name: Equipped
   m_TagString: Untagged
@@ -42397,7 +42414,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &9176636542030685498
 MonoBehaviour:
   m_ObjectHideFlags: 0

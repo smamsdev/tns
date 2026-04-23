@@ -13,13 +13,7 @@ public class MenuGearEquipSubPage : PauseMenu
     public MenuGearMainPage menuGearMainPage;
     public MenuGearInventorySubPage menuGearInventorySubPage;
     public List<InventorySlotUI> equipSlots = new List<InventorySlotUI>();
-    public TextMeshProUGUI gearDescriptionTMP;
-    public TextMeshProUGUI chargeAmountTMP;
-    public TextMeshProUGUI gearValueTMP;
-    public TextMeshProUGUI gearEquipStatusTMP;
     public int highlightedButtonIndex;
-    public GameObject equipPageHeaderGO;
-    public TextMeshProUGUI pageHeaderTMP;
     public GameObject UIInventorySlotPrefab, equipSlotsParent;
     public bool isEquipping = false;
 
@@ -33,47 +27,15 @@ public class MenuGearEquipSubPage : PauseMenu
         displayContainer.SetActive(on);
     }
 
-    public void EquipSlotSelected(InventorySlotUI gearEquipSlotSelected)
-    {
-        var slot = equipSlots[highlightedButtonIndex];
-
-        if (slot.gearInstance != null && slot.gearInstance.gearSO != null)
-            return;
-
-        else if (isEquipping)
-        {
-            InventorySlotUI inventorySlot = menuGearInventorySubPage.inventorySlots[menuGearInventorySubPage.highlightedButtonIndex];
-
-            menuGearMainPage.playerInventorySO.EquipGearToSlot(inventorySlot.gearInstance, equipSlots.IndexOf(gearEquipSlotSelected));
-            InitialiseEquipSlots();
-            menuGearInventorySubPage.InitialiseInventoryUI();
-            menuGearMainPage.displayContainer.SetActive(true);
-            equipPageHeaderGO.SetActive(false);
-            menuGearMainPage.lastParentButtonSelected = menuGearMainPage.equippedHighlightedButton;
-
-            menuGearMainPage.lastParentButtonSelected.button.onClick.Invoke();
-            menuGearMainPage.inventoryHighlightedButton.SetButtonNormalColor(Color.white);
-
-            firstButtonToSelect = equipSlots[highlightedButtonIndex].button;
-            firstButtonToSelect.Select();
-
-            isEquipping = false;
-        }
-
-        else
-        {
-            EventSystem.current.SetSelectedGameObject(null);
-            ExitMenu();
-            menuGearMainPage.inventoryHighlightedButton.button.Select();
-            menuGearMainPage.inventoryHighlightedButton.button.onClick.Invoke();
-        }
-    }
-
     public override void EnterMenu()
     {
+        menuGearMainPage.ShowMainButtons(false);
         DisplayMenu(true);
         if (firstButtonToSelect == null)
             firstButtonToSelect = equipSlots[0].button;
+
+        foreach (var slot in equipSlots)
+            menuGearMainPage.SetSlotAlpha(slot, alphaCondition: slot.gearInstance.gearSO == null);
 
         firstButtonToSelect.Select();
     }
@@ -97,7 +59,7 @@ public class MenuGearEquipSubPage : PauseMenu
 
             if (gearInstanceEquipped[i] == null || gearInstanceEquipped[i].gearSO == null)
             {
-                equipSlot.itemNameTMP.text = "GEAR SLOT " + (i + 1) + ": " + "EMPTY";
+                equipSlot.itemNameTMP.text = "Slot " + (i + 1) + ": " + "EMPTY";
                 equipSlot.itemQuantityTMP.text = "";
                 equipSlot.icon.sprite = equipSlot.freeIcon;
                 equipSlot.gearInstance = new GearInstance();
@@ -121,7 +83,7 @@ public class MenuGearEquipSubPage : PauseMenu
 
             equipSlot.onUnHighlighted = () =>
             {
-                SetEquipSlotColor(equipSlot, Color.white);
+                menuGearMainPage.SetSlotColor(equipSlot, Color.white);
             };
 
             equipSlots.Add(equipSlot);
@@ -132,12 +94,6 @@ public class MenuGearEquipSubPage : PauseMenu
             equipSlotButtons.Add(equipSlot.button);
 
         FieldEvents.SetGridNavigationWrapAround(equipSlotButtons, gearInstanceEquipped.Count);
-    }
-
-    public void SetEquipSlotColor(InventorySlotUI inventorySlot, Color normalColor)
-    {
-        inventorySlot.itemNameTMP.color = normalColor;
-        inventorySlot.itemQuantityTMP.color = normalColor;
     }
 
     public void DeleteAllInventoryUI()
@@ -152,28 +108,66 @@ public class MenuGearEquipSubPage : PauseMenu
 
     public void EquipSlotHighlighted(InventorySlotUI inventorySlotUI)
     {
-        SetEquipSlotColor(inventorySlotUI, Color.yellow);
-        highlightedButtonIndex = equipSlots.IndexOf(inventorySlotUI);
-
         var gearInstance = inventorySlotUI.gearInstance;
 
-        if (gearInstance.gearSO == null)
+        highlightedButtonIndex = equipSlots.IndexOf(inventorySlotUI);
+        menuGearMainPage.SetSlotColor(inventorySlotUI, Color.yellow);
+        menuGearMainPage.UpdateGearDescriptionTMPs(gearInstance);
+
+        bool slotOccupied = inventorySlotUI.gearInstance.gearSO != null;
+
+        if (slotOccupied)
         {
-            gearDescriptionTMP.text = "";
-            chargeAmountTMP.text = "";
-            gearEquipStatusTMP.text = "Select to equip to Slot " + (highlightedButtonIndex+1);
-            gearValueTMP.text = "";
+            menuGearMainPage.UpdateHeaderTMP("Slot occupied");
             return;
         }
 
-        gearDescriptionTMP.text = "Description: " + gearInstance.gearSO.gearDescription;
-        gearValueTMP.text = "Sell Value: " + gearInstance.gearSO.value.ToString("N0") + " $MAMS";
+        if (!isEquipping)
+        {
+            menuGearMainPage.UpdateHeaderTMP("Equip to slot " + (highlightedButtonIndex + 1) + "?");
+            return;
+        }
 
-        if (gearInstance is EquipmentInstance equipmentInstance) chargeAmountTMP.text = equipmentInstance.ChargeTotalString();
-        else chargeAmountTMP.text = "";
+        var gear = menuGearInventorySubPage.inventorySlots[menuGearInventorySubPage.highlightedButtonIndex].gearInstance;
 
-        if (inventorySlotUI.gearInstance.isCurrentlyEquipped)
-            gearEquipStatusTMP.text = "CTRL to unequip";
+        menuGearMainPage.UpdateHeaderTMP("Equip " + gear.gearSO.gearName + " to Slot " + (highlightedButtonIndex + 1) + "?");
+    }
+
+    public void EquipSlotSelected(InventorySlotUI gearEquipSlotSelected)
+    {
+        var slot = equipSlots[highlightedButtonIndex];
+
+        if (slot.gearInstance != null && slot.gearInstance.gearSO != null)
+            return;
+
+        else if (isEquipping)
+        {
+            GearInstance gearInstanceToEquip = menuGearInventorySubPage.inventorySlots[menuGearInventorySubPage.highlightedButtonIndex].gearInstance;
+
+            menuGearMainPage.playerInventorySO.EquipGearToSlot(gearInstanceToEquip, equipSlots.IndexOf(gearEquipSlotSelected));
+            menuGearMainPage.playerInventorySO.SortInventory();
+            InitialiseEquipSlots();
+            menuGearInventorySubPage.InitialiseInventoryUI();
+            menuGearMainPage.lastParentButtonSelected = menuGearMainPage.equippedHighlightedButton;
+
+            menuGearMainPage.lastParentButtonSelected.button.onClick.Invoke();
+            menuGearMainPage.inventoryHighlightedButton.SetButtonNormalColor(Color.white);
+
+            firstButtonToSelect = equipSlots[highlightedButtonIndex].button;
+            isEquipping = false;
+
+            firstButtonToSelect.Select();
+        }
+
+        else
+        {
+            //do i need this?
+            EventSystem.current.SetSelectedGameObject(null);
+            ExitMenu();
+            menuGearMainPage.inventoryHighlightedButton.button.Select();
+            //do i need this?
+            menuGearMainPage.inventoryHighlightedButton.button.onClick.Invoke();
+        }
     }
 
     public override void ExitMenu()
@@ -189,6 +183,14 @@ public class MenuGearEquipSubPage : PauseMenu
         {
             equipSlots[highlightedButtonIndex].onUnHighlighted();
             ExitMenu();
+
+            if (isEquipping)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+                menuGearMainPage.inventoryHighlightedButton.button.Select();
+                menuGearMainPage.inventoryHighlightedButton.button.onClick.Invoke();
+                isEquipping = false;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl))

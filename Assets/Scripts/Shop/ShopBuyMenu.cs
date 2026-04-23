@@ -54,7 +54,7 @@ public class ShopBuyMenu : ShopMenu
             inventorySlot.onHighlighted = () =>
             {
                 shopMenuManager.mainMenu.UpdateDescriptionField(inventorySlot.gearInstance.gearSO);
-                shopMenuManager.mainMenu.SetHeaderTMP("Select GEAR to purchase:");
+                shopMenuManager.mainMenu.SetHeaderTMP("Purchase " + inventorySlot.gearInstance.gearSO.gearName + " ?");
             };
 
             inventorySlot.onUnHighlighted = () =>
@@ -102,6 +102,9 @@ public class ShopBuyMenu : ShopMenu
                 shopMenuManager.mainMenu.smamsColorAnimator.Play("SmamsRedText");
                 shopMenuManager.sellMenu.InitialiseInventoryUI();
             }
+
+            else
+                shopMenuManager.mainMenu.SetHeaderTMP("Inventory full");
         }
 
         else

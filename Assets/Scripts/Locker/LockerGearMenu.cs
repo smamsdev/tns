@@ -112,6 +112,7 @@ public class LockerGearMenu : LockerMenu
         isGearSelectedForCache = true;
         selectedGearInstanceToCache = inventorySlotUI.gearInstance;
         lockerMenuManager.lockerCacheMenu.SetBaySlotsAlphaUICachingMode(1, .5f);
+        lockerMenuManager.lockerMainMenu.ClearAllDescriptionTMPs();
         lockerMenuManager.lockerCacheMenu.inventorySlots[lockerMenuManager.lockerCacheMenu.HighlightedButtonIndex].button.Select();
         FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.yellow, 1);
         FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.yellow, 1);
@@ -229,6 +230,7 @@ public class LockerGearMenu : LockerMenu
     {
         lockerMenuManager.lockerMainMenu.DisplayMainButtons(true);
         lockerMenuManager.lockerMainMenu.SetHeaderTMP(null);
+        lockerMenuManager.lockerMainMenu.ClearAllDescriptionTMPs();
 
         foreach (InventorySlotUI inventorySlotUI in inventorySlots)   
         SetAllGearSlotsAlpha(.5f, .5f);
@@ -268,5 +270,6 @@ public class LockerGearMenu : LockerMenu
     {
         lockerMenuManager.lockerMainMenu.playerInventorySO.UnequipGearFromSlot(gearInstance);
         InitialiseInventoryUI();
+        SetAllGearSlotsAlpha(1, .5f);
     }
 }

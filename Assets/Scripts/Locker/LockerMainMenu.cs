@@ -9,8 +9,7 @@ using TMPro;using UnityEngine;public class LockerMainMenu : LockerMenu{    
         animator.Play("OpenMenu");
 
         FieldEvents.menuAvailable = false;
-        CombatEvents.LockPlayerMovement();        gearDescriptionTMP.text = "";        gearValueTMP.text = "";
-        chargeTMP.text = "";        gearEquipStatusTMP.text = "";        lockerMenuManager.lockerCacheMenu.InstantiateUIBays();
+        CombatEvents.LockPlayerMovement();        ClearAllDescriptionTMPs();        lockerMenuManager.lockerCacheMenu.InstantiateUIBays();
         lockerMenuManager.lockerCacheMenu.SetBaySlotsAlpha(.7f, .7f);
         lockerMenuManager.lockerGearMenu.InitialiseInventoryUI();
         lockerMenuManager.lockerGearMenu.SetAllGearSlotsAlpha(.5f, .5f);
@@ -40,13 +39,19 @@ using TMPro;using UnityEngine;public class LockerMainMenu : LockerMenu{    
         if (gearInstance.isCurrentlyEquipped)
         {
             var inventorySO = lockerMenuManager.lockerMainMenu.playerInventorySO;
-            gearEquipStatusTMP.text = "Equipped to Slot " + (inventorySO.gearInstanceEquipped.IndexOf(gearInstance) + 1) + ". PRESS CTRL TO REMOVE";
+            gearEquipStatusTMP.text = "Equipped to Slot " + (inventorySO.gearInstanceEquipped.IndexOf(gearInstance) + 1) + ". Press CTRL to unequip";
         }
 
         else
         {
-            gearEquipStatusTMP.text = "Select to CACHE";
+            gearEquipStatusTMP.text = "";
         }
+    }
+
+    public void ClearAllDescriptionTMPs()
+    {
+        gearDescriptionTMP.text = "";        gearValueTMP.text = "";
+        chargeTMP.text = "";        gearEquipStatusTMP.text = "";
     }
 
     public void DisplayMainButtons(bool on)
