@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -5,17 +6,54 @@ using UnityEngine;
 
 public class wheelRotation : MonoBehaviour
 {
-    float x = 0;
-    float angle;
+    public float horizontalSpin;
+
+    public float verticalSpinFrame;
 
     [SerializeField] GameObject lWheel;
     [SerializeField] GameObject rWheel;
+    [SerializeField] Animator lAnim, rAnim;
+    public Action rotationMethod;
+
+    float lastY;
+    float lastX;
+
+    void Awake()
+    {
+        lastY = transform.position.y;
+        lastX = transform.position.x;
+
+        rotationMethod = HorizontalRotation;
+    }
 
     void FixedUpdate()
     {
-        angle = (x - this.transform.position.x)*80;
+        rotationMethod.Invoke();
+       // Debug.Log(this.gameObject.name);
+    }
 
-        lWheel.transform.rotation = Quaternion.Euler(0, 0, angle);
-        rWheel.transform.rotation = Quaternion.Euler(0, 0, angle);
+    void HorizontalRotation()
+    {
+        float deltaX = transform.position.x - lastX;
+        lastX = transform.position.x;
+
+        horizontalSpin = Mathf.Repeat(horizontalSpin - (deltaX * 400), 360f);
+
+        lWheel.transform.rotation = Quaternion.Euler(0, 0, horizontalSpin);
+        rWheel.transform.rotation = Quaternion.Euler(0, 0, horizontalSpin);
+    }
+
+    void VerticalRotation()
+    {
+        float deltaY = transform.position.y - lastY;
+        lastY = transform.position.y;
+
+        verticalSpinFrame = Mathf.Repeat(verticalSpinFrame + (deltaY * 8), 1f);
+
+        lAnim.speed = 0f;
+        rAnim.speed = 0f;
+
+        lAnim.Play("WheelVerticalFwd_Clip", 0, verticalSpinFrame);
+        rAnim.Play("WheelVerticalFwd_Clip", 0, verticalSpinFrame);
     }
 }

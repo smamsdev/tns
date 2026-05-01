@@ -15,13 +15,13 @@ public class InventorySO : ScriptableObject
 
     public bool AttemptAddGearToInventory(GearInstance gearInstanceToAdd, bool isSorted)
     {
-        if (gearInstanceToAdd is EquipmentInstance equipmentInstance)
+        if (gearInstanceToAdd is EquipmentInstance equipmentInstanceToAdd)
         {
             for (int i = 0; i < gearInstanceInventory.Count; i++)
             {
                 if (gearInstanceInventory[i].gearSO == null)
                 {
-                    gearInstanceInventory[i] = equipmentInstance;
+                    gearInstanceInventory[i] = new EquipmentInstance(equipmentInstanceToAdd);
                     if (isSorted) SortInventory();
 
                     return true;
@@ -31,13 +31,13 @@ public class InventorySO : ScriptableObject
             return false;
         }
 
-        else if (gearInstanceToAdd is ConsumableInstance consumableInstance)
+        else if (gearInstanceToAdd is ConsumableInstance consumableInstanceToAdd)
         {
             // Debug.Log("consumable detected");
 
             for (int i = 0; i < gearInstanceInventory.Count; i++)
             {
-                if (gearInstanceInventory[i].gearSO == consumableInstance.gearSO)
+                if (gearInstanceInventory[i].gearSO == consumableInstanceToAdd.gearSO)
                 {
                     // Debug.Log("match detected");
                     ConsumableInstance existingConsumableInstance = gearInstanceInventory[i] as ConsumableInstance;
@@ -59,7 +59,7 @@ public class InventorySO : ScriptableObject
                 if (gearInstanceInventory[i].gearSO == null)
                 {
                     //Debug.Log("create fresh instance");
-                    gearInstanceInventory[i] = new ConsumableInstance(consumableInstance);
+                    gearInstanceInventory[i] = new ConsumableInstance(consumableInstanceToAdd);
                     if (isSorted) SortInventory();
                     return true;
                 }
@@ -106,7 +106,7 @@ public class InventorySO : ScriptableObject
             if (a.gearSO == null) return 1;
             if (b.gearSO == null) return -1;
 
-            int nameCompare = a.gearSO.gearName.CompareTo(b.gearSO.gearName);
+            int nameCompare = a.gearSO.GearName.CompareTo(b.gearSO.GearName);
             if (nameCompare != 0)
                 return nameCompare;
 

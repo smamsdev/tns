@@ -61,8 +61,8 @@ public class LockerGearMenu : LockerMenu
                 var gearInstance = inventorySO.gearInstanceInventory[i];
 
                 inventorySlotUI.gearInstance = gearInstance;
-                inventorySlotUI.itemNameTMP.text = gearInstance.gearSO.gearName;
-                inventorySlotUI.itemQuantityTMP.text = inventorySlotUI.gearInstance.GearQuantityRemainingString();
+                inventorySlotUI.itemNameTMP.text = gearInstance.gearSO.GearName;
+                inventorySlotUI.itemQuantityTMP.text = inventorySlotUI.gearInstance.QuantityString();
 
                 bool isEquipment = gearInstance.gearSO is EquipmentSO;
                 inventorySlotUI.icon.sprite = isEquipment ? inventorySlotUI.equipmentIcon : inventorySlotUI.consumableIcon;
@@ -213,7 +213,7 @@ public class LockerGearMenu : LockerMenu
         var gearHighlightedInstance = inventorySlot.gearInstance;
 
         lockerMenuManager.lockerMainMenu.UpdateDescriptionDisplayTMPs(gearHighlightedInstance);
-        lockerMenuManager.lockerMainMenu.SetHeaderTMP("Cache " + gearHighlightedInstance.gearSO.gearName + "?");
+        lockerMenuManager.lockerMainMenu.SetHeaderTMP("Cache " + gearHighlightedInstance.gearSO.GearName + "?");
     }
 
     public void DeleteAllInventoryUI()
@@ -268,7 +268,7 @@ public class LockerGearMenu : LockerMenu
 
     public void UnequipHighlightedGearInstance(GearInstance gearInstance)
     {
-        lockerMenuManager.lockerMainMenu.playerInventorySO.UnequipGearFromSlot(gearInstance);
+        lockerMenuManager.lockerMainMenu.playerInventorySO.UnequipGear(gearInstance);
         InitialiseInventoryUI();
         SetAllGearSlotsAlpha(1, .5f);
     }

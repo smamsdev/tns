@@ -21,36 +21,44 @@ public class PlayerInventorySO : InventorySO
 
     public void EquipGearToSlot(GearInstance gearInstanceToEquip, int equipSlotNumber)
     {
-        if (gearInstanceEquipped[equipSlotNumber].gearSO != null)
-        {
-            UnequipGearFromSlot(gearInstanceEquipped[equipSlotNumber]);
-        }
+        if (gearInstanceToEquip is EquipmentInstance equipmentInstance)
+            EquipEquipmentToSlot(equipmentInstance, equipSlotNumber);
 
-        gearInstanceToEquip.isCurrentlyEquipped = true;
+        else if (gearInstanceToEquip is ConsumableInstance consumableInstance)
+            EquipConsumableToSlot(consumableInstance, equipSlotNumber);
 
-        if (gearInstanceToEquip is ConsumableInstance consumableInstance)
-        {
-            consumableInstance.quantityAvailable--;
-            gearInstanceEquipped[equipSlotNumber] = consumableInstance;
-        }
 
-        else if (gearInstanceToEquip is EquipmentInstance equipmentInstance)
-        {
-            gearInstanceEquipped[equipSlotNumber] = gearInstanceToEquip;
-        }
-
-        else
-            Debug.Log("something went wrong");
     }
 
-    public void UnequipGearFromSlot(GearInstance gearInstanceToUnequip)
+    void EquipEquipmentToSlot(EquipmentInstance equipmentInstanceToEquip, int equipSlotNumber)
     {
-        gearInstanceToUnequip.isCurrentlyEquipped = false;
-        int i = gearInstanceEquipped.IndexOf(gearInstanceToUnequip);
-        gearInstanceEquipped[i] = new GearInstance();
+        equipmentInstanceToEquip.isCurrentlyEquipped = true;
 
-        if (gearInstanceToUnequip is ConsumableInstance consumableInstance)
-            consumableInstance.quantityAvailable++;
+        if (gearInstanceEquipped[equipSlotNumber].gearSO != null)
+            UnequipGear(gearInstanceEquipped[equipSlotNumber]);
+
+        gearInstanceEquipped[equipSlotNumber] = equipmentInstanceToEquip;
+    }
+
+    void EquipConsumableToSlot(ConsumableInstance consumableInstanceToEquip, int equipSlotNumber)
+    {
+        ConsumableInstance newConsumableIntance = new ConsumableInstance(consumableInstanceToEquip);
+        
+        newConsumableIntance.isCurrentlyEquipped = true;
+        RemoveGearFromInventory(consumableInstanceToEquip, true);
+
+        if (gearInstanceEquipped[equipSlotNumber].gearSO != null)
+            UnequipGear(gearInstanceEquipped[equipSlotNumber]);
+
+        gearInstanceEquipped[equipSlotNumber] = newConsumableIntance;
+    }
+
+    public void UnequipGear(GearInstance gearInstanceToUnequip)
+    {
+        int i = gearInstanceToUnequip.EquippedSlotInt(this);
+
+        gearInstanceToUnequip.isCurrentlyEquipped = false;
+        gearInstanceEquipped[i] = new GearInstance();
     }
 
     public void GearConsumed(GearSO gearToUnequip)

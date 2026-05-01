@@ -5,10 +5,16 @@ using UnityEngine;
 [CreateAssetMenu]
 
 public abstract class GearSO : ScriptableObject
-{   //should i use getters on these to be safe?
-    public string gearName;
-    [TextArea(2, 5)] public string gearDescription;
-    public int value;
+{
+    public string GearName { get => gearName; }
+    [SerializeField] string gearName;
+
+    public string GearDescription { get => gearDescription; }
+    [TextArea(2, 5)][SerializeField] string gearDescription;
+
+    public int Value { get => value; }
+    [SerializeField] int value;
+
+    public GameObject GearPrefab {get => gearPrefab;}
     public GameObject gearPrefab;
-    [System.NonSerialized] public Gear gearInstance;
 }

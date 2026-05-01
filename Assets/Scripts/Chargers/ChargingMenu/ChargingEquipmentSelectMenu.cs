@@ -8,7 +8,7 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
     public GameObject inventorySlotUIPrefab, inventorySlotUIsParent, propertiesGO;
     public ChargingMainMenu chargingMainMenu;
     public ChargingSlotMenu chargingSlotMenu;
-    public TextMeshProUGUI gearDescriptionTMP, gearTypeTMP, gearEquipStatusTMP, headerTMP;
+    public TextMeshProUGUI gearDescriptionTMP, gearQuantityTMP, gearEquipStatusTMP, headerTMP;
 
     [Header("Dynamic")]
 
@@ -24,7 +24,7 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
     public override void EnterMenu()
     {
         var inventorySO = chargingMainMenu.playerInventorySO;
-        if (inventorySO.gearInstanceInventory.TrueForAll(x => x == null))
+        if (inventorySO.gearInstanceInventory.TrueForAll(x => x.gearSO == null))
         {
             chargingMenuManager.menuUpdateMethod = chargingMenuManager.chargingMainMenu;
             return;
@@ -64,9 +64,9 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
                 var gearInstance = inventorySO.gearInstanceInventory[i];
 
                 inventorySlotUI.gearInstance = gearInstance;
-                inventorySlotUI.itemNameTMP.text = gearInstance.gearSO.gearName;
-                inventorySlotUI.itemQuantityTMP.text = inventorySlotUI.gearInstance.GearQuantityRemainingString();
-                inventorySlotUI.name = "gear slot " + i + "" + inventorySlotUI.gearInstance.gearSO.gearName;
+                inventorySlotUI.itemNameTMP.text = gearInstance.gearSO.GearName;
+                inventorySlotUI.itemQuantityTMP.text = inventorySlotUI.gearInstance.QuantityString();
+                inventorySlotUI.name = "gear slot " + i + "" + inventorySlotUI.gearInstance.gearSO.GearName;
 
                 bool isEquipment = gearInstance.gearSO is EquipmentSO;
 
@@ -131,7 +131,7 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
     void ClearText()
     {
         gearDescriptionTMP.text = "";
-        gearTypeTMP.text = "";
+        gearQuantityTMP.text = "";
         gearEquipStatusTMP.text = "";
     }
 
@@ -158,52 +158,49 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
         SetInventorySlotColor(inventorySlotUI, Color.yellow);
         highlightedButtonIndex = inventorySlotUIs.IndexOf(inventorySlotUI);
 
-        var gear = inventorySlotUI.gearInstance;
+        var gi = inventorySlotUI.gearInstance;
 
-        gearDescriptionTMP.text = "Description: " + gear.gearSO.gearDescription;
+        gearDescriptionTMP.text = "Description: " + gi.gearSO.GearDescription;
 
         EquipmentInstance equipment = null;
 
-        switch (gear)
+        switch (gi)
         {
             case EquipmentInstance equipmentInstance:
                 equipment = equipmentInstance;
-                gearTypeTMP.text = "Charge " + equipmentInstance.Charge + " / " + ((EquipmentSO)equipmentInstance.gearSO).maxPotential;
+                gearQuantityTMP.text = equipmentInstance.ChargeTotalString();
                 break;
 
             case ConsumableInstance:
-                gearTypeTMP.text = "";
+                gearQuantityTMP.text = gi.QuantityString();
                 gearEquipStatusTMP.text = "";
                 headerTMP.text = "CONSUMABLE unable to charge";
                 return;
         }
 
-        if (gear.isCurrentlyEquipped)
+        if (gi.isCurrentlyEquipped)
         {
             headerTMP.text = "GEAR is equipped to Slot " +
-                (chargingMainMenu.playerInventorySO.gearInstanceEquipped.IndexOf(gear) + 1);
+                (chargingMainMenu.playerInventorySO.gearInstanceEquipped.IndexOf(gi) + 1);
 
-            gearEquipStatusTMP.text = "Ctrl to unequip";
+            gearEquipStatusTMP.text = gearEquipStatusTMP.text = "Equipped to Slot " + (gi.EquippedSlotInt(chargingMainMenu.playerInventorySO) + 1) + ". Press CTRL to unequip";
             return;
         }
 
         if (equipment.ChargePercentage() == 100)
         {
-            headerTMP.text = gear.gearSO.gearName + " at max charge";
+            headerTMP.text = gi.gearSO.GearName + " at max charge";
             gearEquipStatusTMP.text = "";
             return;
         }
 
-        headerTMP.text = "Charge " + gear.gearSO.gearName + "?";
+        headerTMP.text = "Charge " + gi.gearSO.GearName + "?";
         gearEquipStatusTMP.text = "";
     }
 
     public void UnequipHighlightedGearInstance(GearInstance gearInstance)
     {
         int i = chargingMainMenu.playerInventorySO.gearInstanceEquipped.IndexOf(gearInstance);
-
-        chargingMainMenu.playerInventorySO.UnequipGearFromSlot(chargingMainMenu.playerInventorySO.gearInstanceEquipped[i]);
-        InitialiseInventoryUI();
     }
 
     public override void ExitMenu()
@@ -233,8 +230,8 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
         {
             if (inventorySlotUIs[highlightedButtonIndex].gearInstance.isCurrentlyEquipped)
             {
-                DisplayMenu(true);
-                UnequipHighlightedGearInstance(inventorySlotUIs[highlightedButtonIndex].gearInstance);
+                chargingMainMenu.playerInventorySO.UnequipGear(inventorySlotUIs[highlightedButtonIndex].gearInstance);
+                InitialiseInventoryUI();
                 inventorySlotUIs[highlightedButtonIndex].button.Select();
             }
         }

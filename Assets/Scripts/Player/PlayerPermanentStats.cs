@@ -29,6 +29,11 @@ public class PlayerPermanentStats : PartyMemberSO
         }
     }
 
+    public string SmamsFormattedString()
+    { 
+        return "Account: " + Smams.ToString("N0") + " $MAMS";
+    }
+
     public int FocusBase
     {
         get { return focusBase; }

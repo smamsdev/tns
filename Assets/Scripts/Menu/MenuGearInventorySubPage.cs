@@ -43,8 +43,8 @@ public class MenuGearInventorySubPage : PauseMenu
                 var gearInstance = inventorySO.gearInstanceInventory[i];
 
                 inventorySlotUI.gearInstance = gearInstance;
-                inventorySlotUI.itemNameTMP.text = gearInstance.gearSO.gearName;
-                inventorySlotUI.itemQuantityTMP.text = inventorySlotUI.gearInstance.GearQuantityRemainingString();
+                inventorySlotUI.itemNameTMP.text = gearInstance.gearSO.GearName;
+                inventorySlotUI.itemQuantityTMP.text = inventorySlotUI.gearInstance.QuantityString();
 
                 bool isEquipment = gearInstance.gearSO is EquipmentSO;
                 bool isCurrentlyEquipped = gearInstance.isCurrentlyEquipped;
@@ -141,14 +141,14 @@ public class MenuGearInventorySubPage : PauseMenu
         highlightedButtonIndex = inventorySlots.IndexOf(inventorySlot);
         menuGearMainPage.SetSlotColor(inventorySlot, Color.yellow);
         menuGearMainPage.UpdateGearDescriptionTMPs(gi);
-        menuGearMainPage.UpdateHeaderTMP(gi.isCurrentlyEquipped? gi.gearSO.gearName + " already equipped" : "Equip " + gi.gearSO.gearName + "?");
+        menuGearMainPage.UpdateHeaderTMP(gi.isCurrentlyEquipped? gi.gearSO.GearName + " already equipped" : "Equip " + gi.gearSO.GearName + "?");
     }
 
     public void UnequipHighlightedGearInstance(GearInstance gearInstance)
     {
         int i = menuGearMainPage.playerInventorySO.gearInstanceEquipped.IndexOf(gearInstance);
 
-        menuGearMainPage.playerInventorySO.UnequipGearFromSlot(menuGearMainPage.playerInventorySO.gearInstanceEquipped[i]);
+        menuGearMainPage.playerInventorySO.UnequipGear(menuGearMainPage.playerInventorySO.gearInstanceEquipped[i]);
         InitialiseInventoryUI();
         menuGearEquipSubPage.InitialiseEquipSlots();
     }

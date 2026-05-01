@@ -54,12 +54,12 @@ public class MenuGearEquipSubPage : PauseMenu
 
             InventorySlotUI equipSlot = UIEquipSlotGO.GetComponent<InventorySlotUI>();
 
-            equipSlot.button.onClick.AddListener(() => EquipSlotSelected(equipSlot));
+            equipSlot.button.onClick.AddListener(() => OnEquipSlotSelected(equipSlot));
             equipSlot.icon.sprite = equipSlot.equipmentIcon;
 
             if (gearInstanceEquipped[i] == null || gearInstanceEquipped[i].gearSO == null)
             {
-                equipSlot.itemNameTMP.text = "Slot " + (i + 1) + ": " + "EMPTY";
+                equipSlot.itemNameTMP.text = "Free";
                 equipSlot.itemQuantityTMP.text = "";
                 equipSlot.icon.sprite = equipSlot.freeIcon;
                 equipSlot.gearInstance = new GearInstance();
@@ -68,9 +68,9 @@ public class MenuGearEquipSubPage : PauseMenu
             else
             {
                 equipSlot.gearInstance = gearInstanceEquipped[i];
-                equipSlot.itemNameTMP.text = equipSlot.gearInstance.gearSO.gearName;
+                equipSlot.itemNameTMP.text = equipSlot.gearInstance.gearSO.GearName;
 
-                equipSlot.itemQuantityTMP.text = equipSlot.gearInstance.GearQuantityRemainingString();
+                equipSlot.itemQuantityTMP.text = equipSlot.gearInstance.QuantityString();
 
                 bool isEquipment = equipSlot.gearInstance is EquipmentInstance;
                 equipSlot.icon.sprite = isEquipment? equipSlot.equipmentIcon: equipSlot.consumableIcon;
@@ -78,7 +78,7 @@ public class MenuGearEquipSubPage : PauseMenu
 
             equipSlot.onHighlighted = () =>
             {
-                EquipSlotHighlighted(equipSlot);
+                OnEquipSlotHighlighted(equipSlot);
             };
 
             equipSlot.onUnHighlighted = () =>
@@ -106,7 +106,7 @@ public class MenuGearEquipSubPage : PauseMenu
         }
     }
 
-    public void EquipSlotHighlighted(InventorySlotUI inventorySlotUI)
+    public void OnEquipSlotHighlighted(InventorySlotUI inventorySlotUI)
     {
         var gearInstance = inventorySlotUI.gearInstance;
 
@@ -130,10 +130,10 @@ public class MenuGearEquipSubPage : PauseMenu
 
         var gear = menuGearInventorySubPage.inventorySlots[menuGearInventorySubPage.highlightedButtonIndex].gearInstance;
 
-        menuGearMainPage.UpdateHeaderTMP("Equip " + gear.gearSO.gearName + " to Slot " + (highlightedButtonIndex + 1) + "?");
+        menuGearMainPage.UpdateHeaderTMP("Equip " + gear.gearSO.GearName + " to Slot " + (highlightedButtonIndex + 1) + "?");
     }
 
-    public void EquipSlotSelected(InventorySlotUI gearEquipSlotSelected)
+    public void OnEquipSlotSelected(InventorySlotUI gearEquipSlotSelected)
     {
         var slot = equipSlots[highlightedButtonIndex];
 

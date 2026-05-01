@@ -9,21 +9,9 @@ using UnityEngine.InputSystem;
 public class ShopMainMenu : ShopMenu
 {
     [Header("")]
-
-    public TextMeshProUGUI shopnameTMP;
-    public TextMeshProUGUI smamsInventoryTMP;
+    public TextMeshProUGUI headerTMP, shopnameTMP, descriptionFieldTMP, quantityTMP, valueTMP, smamsInventoryTMP, equipStatusTMP;
     public Button firstMenuButton;
-    public Animator animator;
-    public Animator smamsColorAnimator;
-    public TextMeshProUGUI headerTMP;
-
-    public GameObject GearDescriptionGO;
-
-    [SerializeField] TextMeshProUGUI descriptionFieldTMP;
-    [SerializeField] TextMeshProUGUI itemTypeTMP;
-    [SerializeField] TextMeshProUGUI itemValueTMP;
-
-    public GameObject player;
+    public Animator animator, smamsColorAnimator;
     public PlayerInventorySO playerInventorySO;
     public PlayerPermanentStats playerPermanentStats;
 
@@ -48,10 +36,11 @@ public class ShopMainMenu : ShopMenu
 
     public void InitialiseShop()
     {
+        DescriptionFieldClear();
         displayContainer.SetActive(true);
         this.gameObject.SetActive(true);
 
-        player = GameObject.FindGameObjectWithTag("Player");
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
         playerInventorySO = player.GetComponent<PlayerCombat>().playerInventorySO;
         playerPermanentStats = player.GetComponent<PlayerCombat>().playerPermanentStats;
 
@@ -82,14 +71,12 @@ public class ShopMainMenu : ShopMenu
     public override void EnterMenu()
     {
         WireAllMainButtons();
-
-        shopMenuManager.mainMenu.GearDescriptionGO.SetActive(false);
         firstMenuButton.Select();
     }
 
     public void UpdateSmamsUI()
     {
-        smamsInventoryTMP.text = playerPermanentStats.Smams.ToString("N0");
+        smamsInventoryTMP.text = playerPermanentStats.SmamsFormattedString();
     }
 
     public override void ExitMenu()
@@ -111,28 +98,43 @@ public class ShopMainMenu : ShopMenu
         headerTMP.text = text;
     }
 
-    public void UpdateDescriptionField(GearSO gear)
+    public void DescriptionFieldClear()
     {
-        descriptionFieldTMP.text = gear.gearDescription;
+        quantityTMP.text = "";
+        descriptionFieldTMP.text = "";
+        valueTMP.text = "";
+        equipStatusTMP.text = "";
+    }
 
-        if (gear is EquipmentSO)
-        {
-            itemTypeTMP.text = "Type: Equipment";
-        }
-
-        else
-        {
-            itemTypeTMP.text = "Type: Consumable";
-        }
+    public void UpdateDescriptionField(GearInstance gearInstance)
+    {
+        descriptionFieldTMP.text = gearInstance.DescriptionFormatted();
 
         if (shopMenuManager.menuUpdateMethod == shopMenuManager.buyMenu)
-        {
-            itemValueTMP.text = "Buy: " + gear.value.ToString("N0") + " $MAMS";
+        { 
+            valueTMP.text = gearInstance.BuyValueFormattedString(shopMenuManager.buyMenu.shop.shopMarkupPer);
+            quantityTMP.text = "";
+            equipStatusTMP.text = "";
+            return;
         }
 
         if (shopMenuManager.menuUpdateMethod == shopMenuManager.sellMenu)
         {
-            itemValueTMP.text = "Sell: " + (gear.value / 2).ToString("N0") + " $MAMS";
+            valueTMP.text = gearInstance.SellValueFormattedString();
+
+            if (gearInstance.isCurrentlyEquipped)
+                equipStatusTMP.text = "Equipped to Slot " + (gearInstance.EquippedSlotInt(playerInventorySO) + 1) + ". Press CTRL to unequip";
+
+            else
+                equipStatusTMP.text = "";
+
+            if (gearInstance is EquipmentInstance equipmentInstance)
+            {
+                quantityTMP.text = equipmentInstance.ChargeTotalString();
+                return;
+            }
+
+            quantityTMP.text = gearInstance.QuantityString();
         }
     }
 }

@@ -6,6 +6,7 @@ public class Shop : ToTrigger
 {
     public string shopName;
     public List<GearSO> shopGearInventory = new List<GearSO>();
+    public int shopMarkupPer;
     public ShopMenuManager shopMenuManager;
     public GameObject shopContainerDisplay;
 

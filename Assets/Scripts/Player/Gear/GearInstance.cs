@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 using static Cinemachine.DocumentationSortingAttribute;
 using static Unity.VisualScripting.Member;
 using static UnityEngine.Rendering.DebugUI;
@@ -9,7 +10,7 @@ public class GearInstance
     public GearSO gearSO;
     public bool isCurrentlyEquipped = false;
 
-    public string GearQuantityRemainingString()
+    public string QuantityString()
     {
         if (this is EquipmentInstance equipmentInstance)
             return equipmentInstance.ChargePercentage() + "%";
@@ -18,6 +19,31 @@ public class GearInstance
             return "x " + consumableInstance.quantityAvailable;
 
         return "";
+    }
+
+    public string DescriptionFormatted()
+    {
+        return "Description: " + gearSO.GearDescription;
+    }
+
+    public int BuyValue(int shopMarkupPer)
+    {
+        return Mathf.RoundToInt(gearSO.Value * (1f + shopMarkupPer / 100f));
+    }
+
+    public string BuyValueFormattedString(int shopMarkupPer)
+    {
+        return "Buy: " + BuyValue(shopMarkupPer).ToString("N0") + " $MAMS";
+    }
+
+    public string SellValueFormattedString()
+    {
+        return "Sell: " + gearSO.Value.ToString("N0") + " $MAMS";
+    }
+
+    public int EquippedSlotInt(PlayerInventorySO playerInventorySO)
+    {
+         return playerInventorySO.gearInstanceEquipped.IndexOf(this);
     }
 }
 
@@ -29,7 +55,6 @@ public class ConsumableInstance : GearInstance
     public ConsumableInstance(ConsumableInstance sourceToClone)
     {
         gearSO = sourceToClone.gearSO;
-        isCurrentlyEquipped = sourceToClone.isCurrentlyEquipped;
         quantityAvailable = 1;
     }
 

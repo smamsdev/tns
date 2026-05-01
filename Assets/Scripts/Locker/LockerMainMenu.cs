@@ -1,5 +1,5 @@
 using TMPro;using UnityEngine;public class LockerMainMenu : LockerMenu{    public InventorySO lockerInventorySO;
-    public PlayerInventorySO playerInventorySO;    public MenuButtonHighlighted[] mainMenuButtons;    public TextMeshProUGUI headerTMP,chargeTMP, gearDescriptionTMP, gearValueTMP, gearEquipStatusTMP;
+    public PlayerInventorySO playerInventorySO;    public MenuButtonHighlighted[] mainMenuButtons;    public TextMeshProUGUI headerTMP, cacheNameTMP, chargeTMP, gearDescriptionTMP, gearValueTMP, gearEquipStatusTMP;
     public Animator animator;    public void InitializeMenu()    {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         playerInventorySO = player.GetComponent<PlayerCombat>().playerInventorySO;
@@ -23,8 +23,8 @@ using TMPro;using UnityEngine;public class LockerMainMenu : LockerMenu{    
 
     public void UpdateDescriptionDisplayTMPs(GearInstance gearInstance)
     {
-        gearDescriptionTMP.text = "Description: " + gearInstance.gearSO.gearDescription;
-        gearValueTMP.text = "Sell Value: " + gearInstance.gearSO.value.ToString("N0") + " $MAMS";
+        gearDescriptionTMP.text = "Description: " + gearInstance.gearSO.GearDescription;
+        gearValueTMP.text = "Sell Value: " + gearInstance.gearSO.Value.ToString("N0") + " $MAMS";
 
         //Gear Type
         if (gearInstance is EquipmentInstance equipmentInstance)

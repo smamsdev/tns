@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class MenuGearMainPage : PauseMenu
 {
@@ -10,7 +11,6 @@ public class MenuGearMainPage : PauseMenu
     public MenuGearEquipSubPage menuGearEquipSubPage;
     public MenuGearInventorySubPage menuGearInventorySubPage;
     public PlayerInventorySO playerInventorySO;
-    bool isInitialized = false;
 
     public override void DisplayMenu(bool on)
     {
@@ -56,7 +56,6 @@ public class MenuGearMainPage : PauseMenu
 
     public override void ExitMenu()
     {
-        isInitialized = false;
         pauseMenuManager.EnterMenu(pauseMenuManager.main);
         pauseMenuManager.menuUpdateMethod.lastParentButtonSelected.SetButtonNormalColor(Color.white);
         pauseMenuManager.menuUpdateMethod.lastParentButtonSelected.button.Select();
@@ -93,18 +92,18 @@ public class MenuGearMainPage : PauseMenu
         }
 
         //charge
-        if (gearInstance is EquipmentInstance equipmentInstance) chargeAmountTMP.text = equipmentInstance.ChargeTotalString();
-        else chargeAmountTMP.text = "";
+        if (gearInstance is EquipmentInstance equipmentInstance) 
+            chargeAmountTMP.text = equipmentInstance.ChargeTotalString();
 
-        //desc
-        gearDescriptionTMP.text = gearInstance.gearSO.gearDescription;
+        else if (gearInstance is ConsumableInstance consumableInstance)
+            chargeAmountTMP.text = consumableInstance.QuantityString();
 
-        //value
-        gearValueTMP.text = $"Sell Value: {gearInstance.gearSO.value:N0} $MAMS";
-
+        gearDescriptionTMP.text = gearInstance.DescriptionFormatted();
+        gearValueTMP.text = gearInstance.SellValueFormattedString();
 
         if (gearInstance.isCurrentlyEquipped)
-            gearEquipStatusTMP.text = "CTRL to unequip";
+            gearEquipStatusTMP.text = "Equipped to Slot " + (gearInstance.EquippedSlotInt(playerInventorySO) + 1) + ". Press CTRL to unequip";
+
 
         else
             gearEquipStatusTMP.text = "";

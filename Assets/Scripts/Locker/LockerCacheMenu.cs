@@ -64,17 +64,17 @@ public class LockerCacheMenu : LockerMenu
                 if (inventorySO.gearInstanceInventory[i] is EquipmentInstance equipmentInstance)
                 {
                     inventorySlotUI.icon.sprite = inventorySlotUI.equipmentIcon;
-                    inventorySlotUI.itemQuantityTMP.text = inventorySlotUI.gearInstance.GearQuantityRemainingString();
+                    inventorySlotUI.itemQuantityTMP.text = inventorySlotUI.gearInstance.QuantityString();
                 }
             
                 if (inventorySO.gearInstanceInventory[i] is ConsumableInstance consumableInstance)
                 {
                     inventorySlotUI.icon.sprite = inventorySlotUI.consumableIcon;
-                    inventorySlotUI.itemQuantityTMP.text = inventorySlotUI.gearInstance.GearQuantityRemainingString();
+                    inventorySlotUI.itemQuantityTMP.text = inventorySlotUI.gearInstance.QuantityString();
                 }
             
-                inventorySlotUI.itemNameTMP.text = inventorySO.gearInstanceInventory[i].gearSO.gearName.ToUpper();
-                inventorySlotUI.name = "Bay Slot " + inventorySO.gearInstanceInventory[i].gearSO.gearName;
+                inventorySlotUI.itemNameTMP.text = inventorySO.gearInstanceInventory[i].gearSO.GearName.ToUpper();
+                inventorySlotUI.name = "Bay Slot " + inventorySO.gearInstanceInventory[i].gearSO.GearName;
             }
 
                 ResizeBorder(inventorySlotUI);
@@ -159,7 +159,7 @@ public class LockerCacheMenu : LockerMenu
                 return;
             }
 
-            lockerMenuManager.lockerMainMenu.SetHeaderTMP("Retrieve " + inventorySlotUI.gearInstance.gearSO.gearName + "?");
+            lockerMenuManager.lockerMainMenu.SetHeaderTMP("Retrieve " + inventorySlotUI.gearInstance.gearSO.GearName + "?");
             lockerMenuManager.lockerMainMenu.UpdateDescriptionDisplayTMPs(inventorySlotUI.gearInstance);
         }
 
@@ -169,7 +169,7 @@ public class LockerCacheMenu : LockerMenu
 
             if (inventorySlotUI.gearInstance.gearSO == null)
             {
-                string toCache = gearToCache.gearSO.gearName;
+                string toCache = gearToCache.gearSO.GearName;
                 lockerMenuManager.lockerMainMenu.SetHeaderTMP("Cache " + toCache + " in bay " + (highlightedButtonIndex + 1) + "?");
             }
 
@@ -178,7 +178,7 @@ public class LockerCacheMenu : LockerMenu
                      cacheConsumable.gearSO == slotConsumable.gearSO &&
                      slotConsumable.quantityAvailable < 3)
             {
-                string toCache = gearToCache.gearSO.gearName;
+                string toCache = gearToCache.gearSO.GearName;
                 lockerMenuManager.lockerMainMenu.SetHeaderTMP("Cache " + toCache + " in bay " + (highlightedButtonIndex + 1) + "?");
             }
 

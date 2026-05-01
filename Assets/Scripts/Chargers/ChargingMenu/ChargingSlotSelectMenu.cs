@@ -138,7 +138,7 @@ public class ChargingSlotMenu : ChargingMenu
 
         else
         {
-            gearDescriptionTMP.text = $"Description: {inventorySlotUI.gearInstance.gearSO.gearDescription}";
+            gearDescriptionTMP.text = $"Description: {inventorySlotUI.gearInstance.gearSO.GearDescription}";
         }
     }
 
@@ -148,7 +148,7 @@ public class ChargingSlotMenu : ChargingMenu
         {
             EquipmentInstance gearInstanceToCharge = chargingMenuManager.chargingEquipmentSelectMenu.equipmentInstanceToCharge;
 
-            headerTMP.text = "Charge " + gearInstanceToCharge.gearSO.gearName + " in slot " + (slotSelectedIndex+1) + "?";
+            headerTMP.text = "Charge " + gearInstanceToCharge.gearSO.GearName + " in slot " + (slotSelectedIndex+1) + "?";
             return;
         }
 
@@ -190,7 +190,7 @@ public class ChargingSlotMenu : ChargingMenu
             if (chargingSlotSelected.gearInstance.gearSO != null)
             {
                 if (TryRetrieveGear(chargingSlotSelected))
-                    headerTMP.text = "Charge " + gearInstanceToCharge.gearSO.gearName + " in slot " + (slotSelectedIndex + 1) + "?";
+                    headerTMP.text = "Charge " + gearInstanceToCharge.gearSO.GearName + " in slot " + (slotSelectedIndex + 1) + "?";
                 return;
             }
 

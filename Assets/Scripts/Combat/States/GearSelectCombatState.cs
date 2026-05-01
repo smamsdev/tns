@@ -52,14 +52,14 @@ public class GearSelectCombatState : State
        //
        //     else 
        //     {
-       //         playerInventorySO.UnequipGearFromSlot(geartoEquip); //if the gear to equip is already in another slot, remove it first
+       //         playerInventorySO.UnequipGear(geartoEquip); //if the gear to equip is already in another slot, remove it first
        //         playerInventorySO.DestroyGearInstance(geartoEquip);
        //     }
        // }
        //
        // if (equipSlotSelectMenu.equipSlotSelected.gearEquipped != null) //if a gear already exists in that slot remove it before equipping a new one
        // {
-       //     playerInventorySO.UnequipGearFromSlot(equipSlotSelectMenu.equipSlotSelected.gearEquipped);
+       //     playerInventorySO.UnequipGear(equipSlotSelectMenu.equipSlotSelected.gearEquipped);
        //     playerInventorySO.DestroyGearInstance(equipSlotSelectMenu.equipSlotSelected.gearEquipped);
        // }
        //

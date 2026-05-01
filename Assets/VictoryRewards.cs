@@ -226,7 +226,7 @@ public class VictoryRewards : MonoBehaviour
                 rewardItemSlotGO.transform.SetParent(rewardsParent.transform);
                 rewardItemSlotGO.name = "ItemDrop" + i;
                 var rewardSlotTMP = rewardItemSlotGO.GetComponent<TextMeshProUGUI>();
-                rewardSlotTMP.text = drop.gearName;
+                rewardSlotTMP.text = drop.GearName;
                 rewardTextElements.Add(rewardSlotTMP);
             }
         }
