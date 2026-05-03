@@ -14,6 +14,7 @@ public class wheelRotation : MonoBehaviour
     [SerializeField] GameObject rWheel;
     [SerializeField] Animator lAnim, rAnim;
     public Action rotationMethod;
+    public bool isVertical;
 
     float lastY;
     float lastX;
@@ -23,7 +24,11 @@ public class wheelRotation : MonoBehaviour
         lastY = transform.position.y;
         lastX = transform.position.x;
 
+        if ( !isVertical )
         rotationMethod = HorizontalRotation;
+
+        else
+            rotationMethod = VerticalRotation;
     }
 
     void FixedUpdate()

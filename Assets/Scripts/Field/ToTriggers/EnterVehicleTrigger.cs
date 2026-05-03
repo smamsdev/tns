@@ -10,6 +10,10 @@ public class EnterVehicleTrigger : ToTrigger
     {
         GameObject GOToEnter;
 
+        CombatEvents.LockPlayerMovement();
+        yield return new WaitForSeconds (.5f);
+
+
         if (optionalActorToEnter != null)
             GOToEnter = optionalActorToEnter;
 
@@ -17,6 +21,8 @@ public class EnterVehicleTrigger : ToTrigger
             GOToEnter = GameObject.FindGameObjectWithTag("Player");
 
         vehicleInstance.EnterVehicle(GOToEnter);
+
+        CombatEvents.UnlockPlayerMovement();
         yield return null;
     }
 }

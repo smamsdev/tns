@@ -14,7 +14,7 @@ public class PlayerMovementScript : MovementScript
 
     public float previousPositionmag;
     public float newPositionmag;
-    private Vector2 previousRigidPosition;
+    public Vector2 previousRigidPosition;
     public Vector2 delta;
 
     private void OnEnable()
@@ -76,6 +76,11 @@ public class PlayerMovementScript : MovementScript
     }
 
     void FixedUpdate()
+    {
+        FixedUpdateMethod();
+    }
+
+    public virtual void FixedUpdateMethod()
     {
         if (!FieldEvents.movementLocked)
         {
