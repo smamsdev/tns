@@ -6,6 +6,8 @@ using UnityEngine;
 public class VehicleInstance : MonoBehaviour
 {
     public VehiclesMovementScript movementScript;
+    public string vehicleName;
+    public InventorySO batteryInventorySO;
     public wheelRotation wheelRotation;
     public GameObject collidersU, collidersD, collidersL, collidersR, optionalPlaceholderSprite;
     public GameObject exitPosU, exitPosD, exitPosL, exitPosR;

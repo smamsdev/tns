@@ -35,3 +35,8 @@ public abstract class LockerMenu : Menu
 {
     public LockerMenuManager lockerMenuManager;
 }
+
+public abstract class BatteryMenu : Menu
+{
+    public BatteryMenuManager batteryMenuManager;
+}

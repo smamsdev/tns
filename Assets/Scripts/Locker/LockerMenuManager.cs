@@ -7,7 +7,6 @@ public class LockerMenuManager : MonoBehaviour
     public LockerCacheMenu lockerCacheMenu;
     public LockerGearMenu lockerGearMenu;
 
-
     [Header("Debug")]
     public Menu menuUpdateMethod;
 
