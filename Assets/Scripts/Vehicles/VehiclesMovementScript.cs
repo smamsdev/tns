@@ -1,8 +1,29 @@
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class VehiclesMovementScript : PlayerMovementScript
 {
+    public float accelerationDelta;
+    public float distance;
+    public VehicleInstance vehicleInstance;
+
+    [SerializeField, Range(0f, 1f)]
+    private float accelerationFactor;
+
+    Vector2 input;
+
+
     public override void FixedUpdateMethod()
+    {
+        if (vehicleInstance.playerDriving == null)
+            return;
+
+        HandleMovement();
+        HandleDistanceTravelled();
+        HandleLookDirection();
+    }
+
+    void HandleMovement()
     {
         if (!FieldEvents.movementLocked)
         {
@@ -10,15 +31,35 @@ public class VehiclesMovementScript : PlayerMovementScript
             verticalInput = Input.GetAxis("Vertical");
         }
 
-        Vector2 input = new Vector2(horizontalInput, verticalInput + sloping);
+        bool hasInput = Mathf.Abs(horizontalInput) == 1 || Mathf.Abs(verticalInput) == 1;
+
+        if (hasInput && vehicleInstance.batteryCharge > 0f)
+        {
+            accelerationFactor += accelerationDelta * Time.fixedDeltaTime;
+        }
+        else
+        {
+            accelerationFactor *= 0.98f;
+        }
+
+        accelerationFactor = Mathf.Clamp01(accelerationFactor);
+
+        input = new Vector2((horizontalInput * accelerationFactor), (verticalInput * accelerationFactor) + sloping);
 
         Vector2 newPosition = rigidBody2d.position + input * movementSpeed * Time.fixedDeltaTime;
         rigidBody2d.MovePosition(newPosition);
+    }
 
-        delta = rigidBody2d.position - previousRigidPosition;
-        distanceTravelled += delta.magnitude;
-        previousRigidPosition = rigidBody2d.position;
+    void HandleDistanceTravelled()
+    {
+        delta = (Vector2)transform.position - previousPosition;
+        distance = delta.magnitude;
+        distanceTravelled += distance;
+        previousPosition = transform.position;
+    }
 
+    void HandleLookDirection()
+    {
         Vector2 inputDir = input;
 
         float deadZone = 0.01f;

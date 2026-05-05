@@ -15,9 +15,9 @@ public class BatteryMenuManager : MonoBehaviour
 
     public void OpenBatteryMenu()
     {
+        this.gameObject.SetActive(true);
         batteryMainMenu.DisplayMenu(true);
         batteryMainMenu.InitializeMenu();
-        menuUpdateMethod = batteryMainMenu;
         batteryMainMenu.EnterMenu();
     }
 
@@ -28,10 +28,10 @@ public class BatteryMenuManager : MonoBehaviour
         menuToDisplay.DisplayMenu(true);
     }
 
-    public void EnterMenu(Menu chargingMenu)
+    public void EnterMenu(Menu menuClass)
     {
-        menuUpdateMethod = chargingMenu;
-        chargingMenu.EnterMenu();
+        menuUpdateMethod = menuClass;
+        menuClass.EnterMenu();
     }
 
     void Update()

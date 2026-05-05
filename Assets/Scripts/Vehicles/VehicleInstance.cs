@@ -2,27 +2,66 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using Unity.VisualScripting;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+using static UnityEngine.RuleTile.TilingRuleOutput;
+using TMPro;
+using System.Security.Claims;
 
 public class VehicleInstance : MonoBehaviour
 {
     public VehiclesMovementScript movementScript;
     public string vehicleName;
+    public float batteryCharge;
+    public float chargeUsageFactor;
     public InventorySO batteryInventorySO;
     public wheelRotation wheelRotation;
-    public GameObject collidersU, collidersD, collidersL, collidersR, optionalPlaceholderSprite;
-    public GameObject exitPosU, exitPosD, exitPosL, exitPosR;
-    public Animator bodyAnimator;
+    public GameObject collidersU, collidersD, collidersL, collidersR, bodyU, bodyD, bodyL, bodyR;
+    public GameObject exitPosU, exitPosD, exitPosL, exitPosR, vehicleUI;
+    public TextMeshProUGUI vehicleUIChargeTMP;
+    public Animator bodyAnimator, vehicleUIChargeTMPAnimator;
     public List<GameObject> passengers = new List<GameObject>();
-    [SerializeField] GameObject playerDriving;
+    public GameObject playerDriving;
+
+    private void FixedUpdate()
+    {
+        if (playerDriving != null)
+            UpdateBatteryCharge();
+    }
+
+    public void UpdateBatteryCharge()
+    {
+        EquipmentInstance battery = batteryInventorySO.gearInstanceInventory[0] as EquipmentInstance;
+        float batteryDrain = (movementScript.distance * chargeUsageFactor);
+        battery.RemoveCharge(batteryDrain);
+        batteryCharge = battery.Charge;
+        vehicleUIChargeTMP.text = battery.QuantityString();
+        vehicleUIChargeTMPAnimator.SetFloat("Charge", battery.ChargePercentage());
+    }
 
     private void Start()
     {
+        UpdateBatteryCharge();
+
+        //this is dumb but will prevent other bodies from showing if they were accidentally left on in edit mode
+        {
+            bodyAnimator.gameObject.SetActive(false);
+            bodyU.SetActive(false);
+            bodyD.SetActive(false);
+            bodyL.SetActive(false);
+            bodyR.SetActive(false);
+            collidersU.SetActive(false);
+            collidersD.SetActive(false);
+            collidersL.SetActive(false);
+            collidersR.SetActive(false);
+            vehicleUI.SetActive(false);
+            bodyAnimator.gameObject.SetActive(true);
+        }
+
         Vector2 dir = movementScript.lookDirection;
 
         bodyAnimator.SetFloat("LookDirectionX", movementScript.lookDirection.x);
         bodyAnimator.SetFloat("LookDirectionY", movementScript.lookDirection.y);
-
-        optionalPlaceholderSprite.SetActive(false);
 
         if (dir == Vector2.up)
         {
@@ -48,7 +87,8 @@ public class VehicleInstance : MonoBehaviour
     }
 
     public void EnterVehicle(GameObject GOToEnter)
-    { 
+    {
+        UpdateBatteryCharge();
         GOToEnter.SetActive(false);
         passengers.Add(GOToEnter);
 
@@ -56,6 +96,7 @@ public class VehicleInstance : MonoBehaviour
         collidersD.SetActive(false);
         collidersL.SetActive(false);
         collidersR.SetActive(false);
+        vehicleUI.SetActive(true);
 
         if (GOToEnter.tag == "Player")
         { 
@@ -74,6 +115,8 @@ public class VehicleInstance : MonoBehaviour
         CombatEvents.LockPlayerMovement();
         yield return new WaitForSeconds(.5f);
         CombatEvents.UnlockPlayerMovement();
+        UpdateBatteryCharge();
+        vehicleUI.SetActive(false);
 
         movementScript.rigidBody2d.bodyType = RigidbodyType2D.Kinematic;
 

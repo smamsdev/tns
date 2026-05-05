@@ -29,8 +29,6 @@ public class BatteryMainMenu : BatteryMenu
         displayContainer.SetActive(true);
         this.gameObject.SetActive(true);
         animator.Play("OpenMenu");
-
-        mainMenuButtons[0].button.Select();
     }
 
     public void UpdateDescriptionDisplayTMPs(GearInstance gearInstance)
@@ -74,7 +72,10 @@ public class BatteryMainMenu : BatteryMenu
 
     public override void EnterMenu()
     {
-        //
+        batteryMenuManager.batteryMainMenu.DisplayMainButtons(true);
+        headerTMP.text = "";
+        ClearAllDescriptionTMPs();
+        mainMenuButtons[0].button.Select();
     }
 
     public void DisplayMainButtons(bool on)

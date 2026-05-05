@@ -22,7 +22,8 @@ public class BatteryEquipMenu : BatteryMenu
 
     public override void ExitMenu()
     {
-        throw new System.NotImplementedException();
+        batteryMenuManager.EnterMenu(batteryMenuManager.batteryMainMenu);
+        isGearSelectMode = false;
     }
 
     public override void StateUpdate()
@@ -42,10 +43,14 @@ public class BatteryEquipMenu : BatteryMenu
                 if (playerInventorySO.AttemptAddGearToInventory(batteryInstanceSO.gearInstanceInventory[0], true))
                 {
                     batteryInstanceSO.gearInstanceInventory[0] = new EquipmentInstance();
+                    batteryMenuManager.batteryMainMenu.vehicleInstance.UpdateBatteryCharge();
                     InitialiseBatterySlot();
                     InitialiseInventoryUI();
                     batterySlotUI.onHighlighted.Invoke();
-                } 
+                }
+
+                else
+                    batteryMenuManager.batteryMainMenu.headerTMP.text = "Inventory full";
             }
 
             if (inventorySlots[highlightedButtonIndex].gearInstance.isCurrentlyEquipped)
@@ -205,25 +210,29 @@ public class BatteryEquipMenu : BatteryMenu
     public void OnInventorySlotSelected(InventorySlotUI inventorySlotUI)
     {
         bool isAvailable = !inventorySlotUI.gearInstance.isCurrentlyEquipped && inventorySlotUI.gearInstance.gearSO is BatterySO;
+        var inventorySO = batteryMenuManager.batteryMainMenu.playerInventorySO;
 
         if (!isAvailable)
             return;
 
+        var batteryToInstall = inventorySlotUI.gearInstance;
+
+        inventorySO.RemoveGearFromInventory(batteryToInstall, true);
+
         if (batterySlotUI.gearInstance.gearSO != null)
         {
-            if (!batteryMenuManager.batteryMainMenu.playerInventorySO.AttemptAddGearToInventory(batterySlotUI.gearInstance, true))
-            {
-                batteryMenuManager.batteryMainMenu.headerTMP.text = "Inventory full, unable to retrieve " + batterySlotUI.gearInstance.gearSO.GearName;
-                return;
-            }
+            var batteryToReplace = batteryMenuManager.batteryMainMenu.vehicleInstance.batteryInventorySO.gearInstanceInventory[0];
+            if (!inventorySO.AttemptAddGearToInventory(batteryToReplace, true))
+                Debug.Log("something went wrong");
         }
 
-        batteryMenuManager.batteryMainMenu.vehicleInstance.batteryInventorySO.gearInstanceInventory[0] = inventorySlotUI.gearInstance;
+        batteryMenuManager.batteryMainMenu.vehicleInstance.batteryInventorySO.gearInstanceInventory[0] = batteryToInstall;
+        batteryMenuManager.batteryMainMenu.vehicleInstance.UpdateBatteryCharge();
         batteryMenuManager.batteryEquipMenu.InitialiseBatterySlot();
         batteryMenuManager.batteryEquipMenu.InitialiseInventoryUI();
         batteryMenuManager.batteryMainMenu.ClearAllDescriptionTMPs();
         isGearSelectMode = false;
-        batterySlotUI.onHighlighted.Invoke();
+        ExitMenu();
     }
 
     public void OnInventorySlotHighlighted(InventorySlotUI inventorySlot)

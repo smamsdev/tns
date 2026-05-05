@@ -80,8 +80,16 @@ public class EquipmentInstance : GearInstance
 
     public float Charge
     {
-        get => Mathf.RoundToInt(charge);
-        private set => charge = Mathf.Max(0f, value);
+        get => charge;
+        private set => charge = Mathf.Clamp(value, 0f, MaxCharge());
+    }
+
+    private float MaxCharge()
+    {
+        if (gearSO is EquipmentSO equipment)
+            return equipment.maxPotential;
+
+        return 0f;
     }
 
     public int PayableChargesAccrued
@@ -102,7 +110,7 @@ public class EquipmentInstance : GearInstance
 
     public string ChargeTotalString()
     {
-        return "Charge: " + Charge + " / " + MaxPotential();
+        return "Charge: " + Mathf.RoundToInt(Charge) + " / " + MaxPotential();
     }
 
     public int MaxPotential()
@@ -112,7 +120,12 @@ public class EquipmentInstance : GearInstance
 
     public void AddCharge(float amount)
     {
-        charge += amount;
+        Charge += amount;
+    }
+
+    public void RemoveCharge(float amount)
+    {
+        Charge -= amount;
     }
 
     public void AddAccruedCharge(int amount)
@@ -122,7 +135,7 @@ public class EquipmentInstance : GearInstance
 
     public void SetCharge(float value)
     {
-        charge = Mathf.Max(0f, value);
+        Charge = Mathf.Max(0f, value);
     }
 
     public void ResetPayableChargesAccrued()
@@ -134,7 +147,7 @@ public class EquipmentInstance : GearInstance
     {
         gearSO = null;
         isCurrentlyEquipped = false;
-        charge = 0f;
+        Charge = 0f;
         payableChargesAccrued = 0;
     }
 
@@ -142,7 +155,7 @@ public class EquipmentInstance : GearInstance
     {
         gearSO = source.gearSO;
         isCurrentlyEquipped = source.isCurrentlyEquipped;
-        charge = source.charge;
+        Charge = source.Charge;
     }
 
     public EquipmentInstance(GearSO sourceSO)

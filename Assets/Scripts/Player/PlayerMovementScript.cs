@@ -11,10 +11,6 @@ public class PlayerMovementScript : MovementScript
     public Vector2 previousPosition;
     public bool movementLocked;
     public float distanceTravelled;
-
-    public float previousPositionmag;
-    public float newPositionmag;
-    public Vector2 previousRigidPosition;
     public Vector2 delta;
 
     private void OnEnable()
@@ -31,7 +27,6 @@ public class PlayerMovementScript : MovementScript
 
     private void Start()
     {
-        previousRigidPosition = rigidBody2d.position;
         movementSpeed = defaultMovementspeed;
         rigidBody2d.bodyType = RigidbodyType2D.Dynamic;
         movementLocked = FieldEvents.movementLocked;
@@ -93,9 +88,9 @@ public class PlayerMovementScript : MovementScript
         Vector2 newPosition = rigidBody2d.position + input * movementSpeed * Time.fixedDeltaTime;
         rigidBody2d.MovePosition(newPosition);
 
-        delta = rigidBody2d.position - previousRigidPosition;
+        delta = (Vector2)this.transform.position - previousPosition;
         distanceTravelled += delta.magnitude;
-        previousRigidPosition = rigidBody2d.position;
+        previousPosition = this.transform.position;
 
         if (input.sqrMagnitude > 0.01f)
         {
