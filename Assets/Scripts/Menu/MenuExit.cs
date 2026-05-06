@@ -34,7 +34,7 @@ public class MenuExit : PauseMenu
 
     public override void ExitMenu()
     {
-        pauseMenuManager.menuUpdateMethod = pauseMenuManager.main;
+        pauseMenuManager.menuUpdateMethod = pauseMenuManager.menuMain;
     }
 
     public override void StateUpdate()

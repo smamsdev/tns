@@ -41,8 +41,6 @@ public class VehicleInstance : MonoBehaviour
 
     private void Start()
     {
-        UpdateBatteryCharge();
-
         //this is dumb but will prevent other bodies from showing if they were accidentally left on in edit mode
         {
             bodyAnimator.gameObject.SetActive(false);

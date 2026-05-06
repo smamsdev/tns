@@ -11,7 +11,7 @@ public class menuMain : PauseMenu
     public Animator animator;
 
     public GameObject[] blueUnderlines;
-    public MenuButtonHighlighted[] sideButtonsHighlighted;
+    public MenuButtonHighlighted[] menuButtonHighlighteds;
 
     [SerializeField] TextMeshProUGUI locationTMP;
     [SerializeField] TextMeshProUGUI smamsValue;
@@ -29,22 +29,24 @@ public class menuMain : PauseMenu
     {
         masterMenuContainer.SetActive(false);
         animator.enabled = false;
+
+        StartCoroutine(CaptureScreenshotAndEnter());
     }
 
     void WireButtons()
     {
-        for (int i = 0; i < sideButtonsHighlighted.Length; i++)
+        for (int i = 0; i < menuButtonHighlighteds.Length; i++)
         {
             int index = i;
 
-            sideButtonsHighlighted[i].onHighlighted = () =>
+            menuButtonHighlighteds[i].onHighlighted = () =>
             {
-                blueUnderlines[index].SetActive(true);
+              //  blueUnderlines[index].SetActive(true);
             };
 
-            sideButtonsHighlighted[i].onUnHighlighted = () =>
+            menuButtonHighlighteds[i].onUnHighlighted = () =>
             {
-                blueUnderlines[index].SetActive(false);
+              //  blueUnderlines[index].SetActive(false);
             };
         }
     }
@@ -89,6 +91,10 @@ public class menuMain : PauseMenu
         animator.enabled = true;
 
         firstMenuButton.Select();
+
+        //debugging
+        menuButtonHighlighteds[2].button.onClick.Invoke();
+
     }
 
     public override void ExitMenu() //triggered via animation transition event

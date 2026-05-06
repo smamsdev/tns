@@ -14,7 +14,7 @@ public abstract class Menu : MonoBehaviour
     public abstract void ExitMenu();
     public abstract void StateUpdate();
     public abstract void DisplayMenu(bool on);
-}//
+}
 
 public abstract class PauseMenu : Menu
 {

@@ -81,9 +81,9 @@ public class MenuStats : PauseMenu
     public override void ExitMenu()
     {
         arrowGO.SetActive(false);
-        pauseMenuManager.EnterMenu(pauseMenuManager.main);
-        pauseMenuManager.menuUpdateMethod.lastParentButtonSelected.SetButtonNormalColor(Color.white);
-        pauseMenuManager.menuUpdateMethod.lastParentButtonSelected.button.Select();
+        pauseMenuManager.EnterMenu(pauseMenuManager.menuMain);
+        pauseMenuManager.menuMain.menuButtonHighlighteds[0].SetButtonNormalColor(Color.white);
+        pauseMenuManager.menuMain.menuButtonHighlighteds[0].button.Select();
     }
 
     public override void StateUpdate()

@@ -9,14 +9,15 @@ using UnityEngine.UI;
 
 public class PauseMenuManager : MonoBehaviour
 {
-    public Menu statsPage, gearPageSelection, gearEquipSubPage, gearInventorySubPage, movesPage, moveInventory, configPage, savePage, exitPage, main;
+    public Menu statsPage, gearPageSelection, gearEquipSubPage, gearInventorySubPage, movesPage, moveInventory, configPage, savePage, exitPage;
+    public menuMain menuMain;
     [Header("")]
     public Menu menuUpdateMethod;
     public GameObject[] subPageGOs;
 
     private void Start()
     {
-        menuUpdateMethod = main;
+        menuUpdateMethod = menuMain;
         foreach (GameObject go in subPageGOs) 
         { 
             go.SetActive(true);
@@ -25,7 +26,7 @@ public class PauseMenuManager : MonoBehaviour
 
     public void ClearThenDisplayMenu (Menu menuScript)
     {
-        main.DisplayMenu(false);
+        menuMain.DisplayMenu(false);
         statsPage.DisplayMenu(false);
         gearPageSelection.DisplayMenu(false);
         gearEquipSubPage.DisplayMenu(false);

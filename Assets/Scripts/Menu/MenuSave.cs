@@ -87,7 +87,7 @@ public class MenuSave : PauseMenu
 
     public override void ExitMenu()
     {
-        pauseMenuManager.EnterMenu(pauseMenuManager.main);
+        pauseMenuManager.EnterMenu(pauseMenuManager.menuMain);
     }
 
     public override void StateUpdate()

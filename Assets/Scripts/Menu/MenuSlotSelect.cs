@@ -9,11 +9,10 @@ public class MenuSlotSelect : PauseMenu
 {
     public Button firstButtonToHighlight;
     public Color colourForSelectedParent;
-    public MenuMoveType menuMoveTypeScript;
-    public MoveSlot moveSlotHighlighted;
+    public MoveSlotUI moveSlotHighlighted;
+    public MoveSlotUI MoveSlotUIToRemove;
     public MenuMoves menuMoves;
     public MenuMoveInventory menuMoveInventory;
-    public IMenuMoveStyleHighlighted iMenuMoveStyleHighlighted;
     public List<MoveSO> equippedMoveListOfType;
 
     public override void DisplayMenu(bool on)
@@ -21,20 +20,13 @@ public class MenuSlotSelect : PauseMenu
         throw new System.NotImplementedException();
     }
 
-    public void ToggleHighlightMenu(bool isOn)
-
-    {
-        iMenuMoveStyleHighlighted.enabled = isOn;
-    }
-
     public override void EnterMenu()
     {
         if (moveSlotHighlighted == null)
         {
-            moveSlotHighlighted = firstButtonToHighlight.GetComponent<MoveSlot>();
+            moveSlotHighlighted = firstButtonToHighlight.GetComponent<MoveSlotUI>();
         }
 
-        ToggleHighlightMenu(false); //have to toggle this damn thing off because of the deselecter
         displayContainer.SetActive(true);
 
 
@@ -46,18 +38,14 @@ public class MenuSlotSelect : PauseMenu
     public override void ExitMenu()
     {
 
-
-        ToggleHighlightMenu(true);
-
-        pauseMenuManager.menuUpdateMethod = menuMoveTypeScript;
     }
 
-    void MoveSlotHighlighted(MoveSlot moveSlot)
+    void MoveSlotHighlighted(MoveSlotUI moveSlot)
     { 
         moveSlotHighlighted = moveSlot;
     }
 
-    public void MoveSlotSelected(MoveSlot moveSlotToEquipTo)
+    public void MoveSlotSelected(MoveSlotUI moveSlotToEquipTo)
     {
         if (moveSlotToEquipTo.moveSO == null || !moveSlotToEquipTo.moveSO.IsFlaw)
         {
@@ -71,17 +59,16 @@ public class MenuSlotSelect : PauseMenu
     {
         var movesPage = (MenuMoves)pauseMenuManager.movesPage;
 
-        MoveSlot moveSlotToRemove = moveSlotHighlighted;
+        MoveSlotUIToRemove = moveSlotHighlighted;
 
-        if (moveSlotToRemove.moveSO == null || moveSlotToRemove.moveSO.IsFlaw)
+        if (MoveSlotUIToRemove.moveSO == null || MoveSlotUIToRemove.moveSO.IsFlaw)
         {
             return;
         }
 
-        menuMoves.playerMoveManager.playerMoveInventorySO.UnequipMove(moveSlotToRemove.moveSO);
-        moveSlotToRemove.moveSO = null;
+        menuMoves.playerMoveManager.playerMoveInventorySO.UnequipMove(MoveSlotUIToRemove.moveSO);
+        MoveSlotUIToRemove.moveSO = null;
         movesPage.LoadAllEquippedMovesToUISlots();
-        moveSlotToRemove.UpdateMoveDescriptionText();
     }
 
     public override void StateUpdate()

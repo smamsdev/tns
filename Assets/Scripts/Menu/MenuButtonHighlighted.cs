@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ public class MenuButtonHighlighted : MonoBehaviour, ISelectHandler, IDeselectHan
     public Action onHighlighted;
     public Action onUnHighlighted;
     public Button button;
+    public TextMeshProUGUI tmp;
 
     public void OnSelect(BaseEventData eventData)
     {
