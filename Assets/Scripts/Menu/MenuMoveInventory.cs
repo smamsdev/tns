@@ -1,26 +1,19 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
+using static PlayerMoveInventorySO;
 
 public class MenuMoveInventory : PauseMenu
 {
-    [SerializeField] Button firstButtonToSelect;
-    public GameObject previousDisplayContainerToHide;
-    public Menu menuToRevertTo;
     public TextMeshProUGUI moveInventoryHeaderTMP;
     public MenuMoves menuMoves;
-
-    public List<MoveSO> moveInventory = new List<MoveSO>();
-    public List<MoveSlotUI> instantiatedMoveSlots =  new List<MoveSlotUI>();
-    public List<Button> instantiatedMoveSlotButtons = new List<Button>();
-
+    public MenuMoveEquipSlotSelect menuMoveEquipSlotSelectInPlay;
     [SerializeField] GameObject moveSlotPrefab, moveSlotsParent;
-    public TextMeshProUGUI moveDescriptionTMP, movePropertiesTMP;
-
-    MoveSlotUI moveSlotUIToEquipTo;
+    public TextMeshProUGUI headerTMP, moveNameTMP, probabilityTMP, moveDescriptionTMP, movePotentialChangeTMP, moveEquipStatusTMP;
+    public int highlightedButtonIndex = 0;
+    public List<MoveSO> moveList;
+    public List<MoveSlotUI> instantiatedMoveSlots = new List<MoveSlotUI>();
 
     private void Start()
     {
@@ -35,26 +28,14 @@ public class MenuMoveInventory : PauseMenu
     public override void EnterMenu()
     {
         pauseMenuManager.ClearThenDisplayMenu(pauseMenuManager.moveInventory);
-        previousDisplayContainerToHide.SetActive(false);
-        LoadInventoryToButtonSlots();
-        firstButtonToSelect.Select();
-    }
-
-    public void ChangeMenuToRevertTo(Menu _menuToRevertTo)
-    { 
-        menuToRevertTo = _menuToRevertTo;
-    }
-
-    public void MoveSlotToEquipTo(MoveSlotUI moveSlotUI)
-    { 
-        this.moveSlotUIToEquipTo = moveSlotUI;
+        ClearAllDescriptionTMPs();
+        InitMoveInventoryUI();
+        instantiatedMoveSlots[highlightedButtonIndex].button.Select();
     }
 
     public override void ExitMenu()
     {
-        previousDisplayContainerToHide.SetActive(true);
         displayContainer.SetActive(false);
-        pauseMenuManager.EnterMenu(menuToRevertTo);
     }
 
     public override void StateUpdate()
@@ -65,11 +46,34 @@ public class MenuMoveInventory : PauseMenu
         }
     }
 
-    public void LoadInventoryToButtonSlots()
+    public void ClearAllDescriptionTMPs()
     {
-        instantiatedMoveSlots.Clear();
+        headerTMP.text = "";
+        moveNameTMP.text = "";
+        probabilityTMP.text = "";
+        moveDescriptionTMP.text = "";
+        movePotentialChangeTMP.text = "";
+        moveEquipStatusTMP.text = "";
+    }
 
-        foreach (MoveSO moveSO in moveInventory)
+    public void DeleteAllInventoryUI()
+   {
+        instantiatedMoveSlots.Clear();
+   
+       for (int i = moveSlotsParent.transform.childCount - 1; i >= 0; i--)
+       {
+           Destroy(moveSlotsParent.transform.GetChild(i).gameObject);
+       }
+   }
+
+    public void InitMoveInventoryUI()
+    {
+        List<Button> buttons = new();
+
+        DeleteAllInventoryUI();
+  
+        //moveList is set by EquipSlotSelect Class before EnterMenu func
+        foreach (MoveSO moveSO in moveList)
         {
             GameObject moveSlotUIGO = Instantiate(moveSlotPrefab);
             moveSlotUIGO.name = moveSO.name;
@@ -84,17 +88,38 @@ public class MenuMoveInventory : PauseMenu
             {
                 FieldEvents.SetTextColor(moveSlotUI.slotText, Color.white, .7f);
             }
-       
-            instantiatedMoveSlotButtons.Add(moveSlotUI.button);
+
+            buttons.Add(moveSlotUI.button);
             instantiatedMoveSlots.Add(moveSlotUI);
+
+            moveSlotUI.onHighlighted = () => SlotHighlighted(moveSlotUI);
 
             moveSlotUI.button.onClick.AddListener(() => EquipMoveFromInventoryToSlot(moveSlotUI));
         }
 
-        FieldEvents.SetGridNavigationWrapAroundHorizontal(instantiatedMoveSlotButtons, 3);
-        firstButtonToSelect = instantiatedMoveSlotButtons[0];
+        FieldEvents.SetGridNavigationWrapAroundHorizontal(buttons, 3);
     }
 
+    void SlotHighlighted(MoveSlotUI moveSlotUI)
+    {
+        headerTMP.text = "Assign " + moveSlotUI.moveSO.MoveName + "?";
+    }
+
+    public void UpdateMoveDescriptions(MoveSlotUI moveSlotUI)
+    {
+        menuMoves.moveNameTMP.text = moveSlotUI.moveSO.MoveName;
+        menuMoves.probabilityTMP.text = moveSlotUI.moveSO.GetRarityDescription();
+        menuMoves.moveDescriptionTMP.text = moveSlotUI.moveSO.MoveDescription;
+        menuMoves.movePotentialChangeTMP.text = moveSlotUI.moveSO.PotentialChangeDescription;
+
+        if (moveSlotUI.moveSO.isEquipped)
+        {
+            menuMoves.moveEquipStatusTMP.text = "Assigned to. Press CTRL to unassign";
+            return;
+        }
+
+        menuMoves.moveEquipStatusTMP.text = "";
+    }
 
     public void EquipMoveFromInventoryToSlot(MoveSlotUI selectedInventorySlot)
     {
@@ -105,10 +130,10 @@ public class MenuMoveInventory : PauseMenu
 
         if (!selectedInventorySlot.moveSO.isEquipped)
         {
-            if (moveSlotUIToEquipTo.moveSO != null)
-            {
-                menuMoves.playerMoveManager.playerMoveInventorySO.UnequipMove(moveSlotUIToEquipTo.moveSO);
-            }
+            //if (moveSlotUIToEquipTo.moveSO != null)
+           // {
+           //     menuMoves.playerMoveManager.playerMoveInventorySO.UnequipMove(moveSlotUIToEquipTo.moveSO);
+           // }
 
             Debug.Log("fix");
             //menuMoves.playerMoveManager.playerMoveInventorySO.EquipMoveToSlot(SelectedMoveArray(), moveSlotUIToEquipTo.equipSlotNumber, selectedInventorySlot.moveSO);
@@ -117,62 +142,40 @@ public class MenuMoveInventory : PauseMenu
         }
     }
 
-    public void ChangeMoveInventoryHeaderText(string text)
+    public string GetInventoryListStringOfType(MoveType moveType)
     {
-        moveInventoryHeaderTMP.text = text;
-    }
+        switch (moveType)
+        {
+            case MoveType.ViolentAttack:
+                return "Violent Attack";
 
-    public void SetInventoryMoveTypeViolentAttacks()
-    {
-        moveInventory = menuMoves.playerMoveManager.playerMoveInventorySO.violentAttacksInventory;
-      //stringArrayToUpdateInSO = playerEquippedMovesSO.violentAttacksListString;
-    }
+            case MoveType.ViolentFend:
+                return "Violent Fend";
 
-    public void SetInventoryMoveTypeViolentFends()
-    {
-      //  moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.violentFendsInventory);
-     //   stringArrayToUpdateInSO = playerEquippedMovesSO.violentFendsListString;
-    }
+            case MoveType.ViolentFocus:
+                return "Violent Focus";
 
-    public void SetInventoryMoveTypeViolentFocuses()
-    {
-       // moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.violentFocusesInventory);
-      //  stringArrayToUpdateInSO = playerEquippedMovesSO.violentFocusesListString;
-    }
+            case MoveType.CautiousAttack:
+                return "Cautious Attack";
 
-    public void SetInventoryMoveTypeCautiousAttacks()
-    {
-    //    moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.cautiousAttacksInventory);
-     //   stringArrayToUpdateInSO = playerEquippedMovesSO.cautiousAttackssListString;
-    }
+            case MoveType.CautiousFend:
+                return "Cautious Fend";
 
-    public void SetInventoryMoveTypeCautiousFends()
-    {
-      //  moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.cautiousFendsInventory);
-     //   stringArrayToUpdateInSO = playerEquippedMovesSO.cautiousFendsListString;
-    }
+            case MoveType.CautiousFocus:
+                return "Cautious Focus";
 
-    public void SetInventoryMoveTypeCautiousFocuses()
-    {
-      //  moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.cautiousFocusesInventory);
-       // stringArrayToUpdateInSO = playerEquippedMovesSO.cautiousFocusesListString;
-    }
+            case MoveType.PreciseAttack:
+                return "Precise Attack";
 
-    public void SetInventoryMoveTypePreciseAttacks()
-    {
-     //   moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.preciseAttacksInventory);
-       // stringArrayToUpdateInSO = playerEquippedMovesSO.preciseAttacksListString;
-    }
+            case MoveType.PreciseFend:
+                return "Precise Fend";
 
-    public void SetInventoryMoveTypePreciseFends()
-    {
-     //   moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.preciseFendsInventory);
-       // stringArrayToUpdateInSO = playerEquippedMovesSO.preciseFendsListString;
-    }
+            case MoveType.PreciseFocus:
+                return "Precise Focus";
 
-    public void SetInventoryMoveTypePreciseFocuses()
-    {
-       // moveTypeInventoryToDisplay = new List<PlayerMove>(moveInventory.preciseFocusesInventory);
-      //  stringArrayToUpdateInSO = playerEquippedMovesSO.preciseFocusesListString;
+            default:
+                Debug.Log("something went wrong");
+                return null;
+        }
     }
 }

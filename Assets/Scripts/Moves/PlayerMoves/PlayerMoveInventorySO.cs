@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 public class PlayerMoveInventorySO : ScriptableObject
 {
+    public enum MoveType
+    { ViolentAttack, ViolentFend, ViolentFocus, CautiousAttack, CautiousFend, CautiousFocus, PreciseAttack, PreciseFend, PreciseFocus }
+
     public List<MoveSO> violentAttacksInventory = new List<MoveSO>();
     public List<MoveSO> violentFendsInventory = new List<MoveSO>();
     public List<MoveSO> violentFocusesInventory = new List<MoveSO>();
@@ -45,6 +48,80 @@ public class PlayerMoveInventorySO : ScriptableObject
         preciseFendsEquipped,
         preciseFocusesEquipped
         };
+    }
+ 
+    public List<MoveSO> GetMoveListOfType(MoveType moveType)
+    {
+        switch (moveType)
+        {
+            case MoveType.ViolentAttack:
+                return violentAttacksInventory;
+
+            case MoveType.ViolentFend:
+                return violentFendsInventory;
+
+            case MoveType.ViolentFocus:
+                return violentFocusesInventory;
+
+            case MoveType.CautiousAttack:
+                return cautiousAttacksInventory;
+
+            case MoveType.CautiousFend:
+                return cautiousFendsInventory;
+
+            case MoveType.CautiousFocus:
+                return cautiousFocusesInventory;
+
+            case MoveType.PreciseAttack:
+                return preciseAttacksInventory;
+
+            case MoveType.PreciseFend:
+                return preciseFendsInventory;
+
+            case MoveType.PreciseFocus:
+                return preciseFocusesInventory;
+
+            default:
+                Debug.Log("something went wrong");
+                return null;
+        }
+    }
+
+    public MoveSO[] GetEquippedArrayOfType(MoveType moveType)
+    {
+        switch (moveType)
+        {
+            case MoveType.ViolentAttack:
+                return violentAttacksEquipped;
+
+            case MoveType.ViolentFend:
+                return violentFendsEquipped;
+
+            case MoveType.ViolentFocus:
+                return violentFocusesEquipped;
+
+            case MoveType.CautiousAttack:
+                return cautiousAttacksEquipped;
+
+            case MoveType.CautiousFend:
+                return cautiousFendsEquipped;
+
+            case MoveType.CautiousFocus:
+                return cautiousFocusesEquipped;
+
+            case MoveType.PreciseAttack:
+                return preciseAttacksEquipped;
+
+            case MoveType.PreciseFend:
+                return preciseFendsEquipped;
+
+            case MoveType.PreciseFocus:
+                return preciseFocusesEquipped;
+
+            default:
+                Debug.Log("something went wrong");
+                return null;
+        }
     }
 
     public void EquipMoveToSlot(MoveSO[] equippedMoveArrayOfType, int moveEquipSlot, MoveSO moveSO)

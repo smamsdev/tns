@@ -3,36 +3,19 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using UnityEditor;
+using static PlayerMoveInventorySO;
 
 public class MenuMoves : PauseMenu
 {
-    public GameObject moveDescriptionGO;
     public bool isSelectingMove;
     public PlayerMoveManager playerMoveManager;
     public MenuMoveInventory menuMoveInventory;
-
-    public MenuButtonHighlighted[] violentButtonHighlighteds;
-    public MenuButtonHighlighted[] cautiousButtonHighlighteds;
-    public MenuButtonHighlighted[] preciseButtonHighlighteds;
-
-    public List<MenuButtonHighlighted> allMenuButtonHighlighteds;
-
     public int highlightedButtonIndex;
-
-    public TextMeshProUGUI moveDescriptions, movePropertyTMP;
+    public TextMeshProUGUI headerTMP, moveNameTMP, moveDescriptionTMP, probabilityTMP, movePotentialChangeTMP, moveEquipStatusTMP;
     public TextMeshProUGUI violentHeaderTMP, cautiousHeaderTMP, preciseHeaderTMP;
-
-    public GameObject[] slotsParents;
-
-    public MoveSlotUI[] violentAttackSlots = new MoveSlotUI[5];
-    public MoveSlotUI[] violentFendSlots = new MoveSlotUI[5];
-    public MoveSlotUI[] violentFocusSlots = new MoveSlotUI[5];
-    public MoveSlotUI[] cautiousAttackSlots = new MoveSlotUI[5];
-    public MoveSlotUI[] cautiousFendSlots = new MoveSlotUI[5];
-    public MoveSlotUI[] cautiousFocusSlots = new MoveSlotUI[5];
-    public MoveSlotUI[] preciseAttackSlots = new MoveSlotUI[5];
-    public MoveSlotUI[] preciseFendSlots = new MoveSlotUI[5];
-    public MoveSlotUI[] preciseFocusSlots = new MoveSlotUI[5];
+    public TextMeshProUGUI[] headerButtonsTMP;
+    public List<MenuButtonHighlighted> allMenuButtonHighlighteds;
+    public MenuMoveEquipSlotSelect[] menuMoveEquipSlotSelects;
 
     private void OnEnable()
     {
@@ -41,17 +24,30 @@ public class MenuMoves : PauseMenu
 
     public override void DisplayMenu(bool on)
     {
-        moveDescriptionGO.SetActive(false);
+        ClearAllDescriptionTMPs();
         displayContainer.SetActive(on);
+    }
+
+    public void ClearAllDescriptionTMPs()
+    {
+        headerTMP.text = "";
+        moveNameTMP.text = "";
+        probabilityTMP.text = "";
+        moveDescriptionTMP.text = "";
+        movePotentialChangeTMP.text = "";
+        moveEquipStatusTMP.text = "";
     }
 
     public override void EnterMenu()
     {
         pauseMenuManager.ClearThenDisplayMenu(this);
-        moveDescriptionGO.SetActive(true);
-        LoadAllEquippedMovesToUISlots();
+        InitAllEquippedMovesToUISlots();
         InitializeMainButtons();
-        violentButtonHighlighteds[0].button.Select();
+
+        ClearAllDescriptionTMPs();
+        SetAlphaAllMenuButtons(1);
+
+        allMenuButtonHighlighteds[highlightedButtonIndex].button.Select();
     }
 
     public override void ExitMenu()
@@ -69,6 +65,25 @@ public class MenuMoves : PauseMenu
         }
     }
 
+    void MoveArraySelected(MenuButtonHighlighted arrayHighlighted)
+    {
+        pauseMenuManager.EnterMenu(menuMoveEquipSlotSelects[highlightedButtonIndex]);
+        //headerButtonsGO.SetActive(false);
+        FieldEvents.SetTextColor(allMenuButtonHighlighteds[highlightedButtonIndex].tmp, Color.yellow, 1);
+        SetAlphaAllMenuButtons(.7f);
+    }
+
+    public void SetAlphaAllMenuButtons(float alpha)
+    { 
+        foreach (MenuButtonHighlighted menuButtonHighlighted in allMenuButtonHighlighteds)
+            FieldEvents.SetTextColor(menuButtonHighlighted.tmp, menuButtonHighlighted.tmp.color, alpha);
+
+        foreach (TextMeshProUGUI tmp in headerButtonsTMP)
+        {
+            FieldEvents.SetTextColor(tmp, tmp.color, alpha);
+        }
+    }
+
     public void InitializeMainButtons()
     {
         List<Button> buttons = new List<Button>();
@@ -77,13 +92,12 @@ public class MenuMoves : PauseMenu
         {
             buttons.Add(menuButtonHighlighted.button);
 
-            // Single source of truth for highlight behavior
             menuButtonHighlighted.onHighlighted = () => HandleMainHighlight(menuButtonHighlighted);
 
             menuButtonHighlighted.onUnHighlighted = () => FieldEvents.SetTextColor(menuButtonHighlighted.tmp, Color.white, 1);
+            menuButtonHighlighted.button.onClick.AddListener(() => MoveArraySelected(menuButtonHighlighted));
         }
 
-        // Setup navigation
         FieldEvents.SetGridNavigationWrapAround(buttons, 3);
     }
 
@@ -104,27 +118,36 @@ public class MenuMoves : PauseMenu
     void HighlightViolentListType()
     {
         HeaderColor(violentHeaderTMP, Color.yellow);
-        DisplayArrayTMPs(violentButtonHighlighteds, true);
+        HideAllButtonTMPS();
+        DisplayButtonTMP(allMenuButtonHighlighteds[0]);
+        DisplayButtonTMP(allMenuButtonHighlighteds[1]);
+        DisplayButtonTMP(allMenuButtonHighlighteds[2]);
     }
 
     void HighlightCautiousListType()
     {
         HeaderColor(cautiousHeaderTMP, Color.yellow);
-        DisplayArrayTMPs(cautiousButtonHighlighteds, true);
+        HideAllButtonTMPS();
+        DisplayButtonTMP(allMenuButtonHighlighteds[3]);
+        DisplayButtonTMP(allMenuButtonHighlighteds[4]);
+        DisplayButtonTMP(allMenuButtonHighlighteds[5]);
     }
 
     void HighlightPreciseListType()
     {
         HeaderColor(preciseHeaderTMP, Color.yellow);
-        DisplayArrayTMPs(preciseButtonHighlighteds, true);
+        HideAllButtonTMPS();
+        DisplayButtonTMP(allMenuButtonHighlighteds[6]);
+        DisplayButtonTMP(allMenuButtonHighlighteds[7]);
+        DisplayButtonTMP(allMenuButtonHighlighteds[8]);
     }
 
     void DisplaySlotsOfType()
     { 
-        foreach (GameObject gameObject in slotsParents)
-            gameObject.SetActive(false);
+        foreach (MenuMoveEquipSlotSelect menuSlotListOfType in menuMoveEquipSlotSelects)
+            menuSlotListOfType.gameObject.SetActive(false);
 
-        slotsParents[highlightedButtonIndex].SetActive(true);
+        menuMoveEquipSlotSelects[highlightedButtonIndex].gameObject.SetActive(true);
     }
 
     void HandleMainHighlight(MenuButtonHighlighted button)
@@ -136,11 +159,11 @@ public class MenuMoves : PauseMenu
         foreach (var b in allMenuButtonHighlighteds)
             b.tmp.enabled = false;
 
-        foreach (var go in slotsParents)
-            go.SetActive(false);
+        foreach (MenuMoveEquipSlotSelect menuSlotListOfType in menuMoveEquipSlotSelects)
+            menuSlotListOfType.gameObject.SetActive(false);
 
         //display correct slots and types
-        slotsParents[highlightedButtonIndex].SetActive(true);
+        menuMoveEquipSlotSelects[highlightedButtonIndex].gameObject.SetActive(true);
 
         int i = highlightedButtonIndex;
 
@@ -151,53 +174,87 @@ public class MenuMoves : PauseMenu
         else
             HighlightPreciseListType();
 
+        //update descriptionTMP
+        MoveType moveType = menuMoveEquipSlotSelects[highlightedButtonIndex].moveType;
+        UpdateMoveListDescription(moveType);
+
         //color button
         FieldEvents.SetTextColor(button.tmp, Color.yellow, 1);
     }
 
-    void DisplayArrayTMPs(MenuButtonHighlighted[] arrayTohide, bool on)
+    void DisplayButtonTMP(MenuButtonHighlighted menuButtonHighlighted)
     {
-        foreach (MenuButtonHighlighted typeButtonHighlighted in arrayTohide)
+        menuButtonHighlighted.tmp.enabled = true;
+    }
+
+    void HideAllButtonTMPS()
+    {
+        foreach (MenuButtonHighlighted menuButtonHighlighted in allMenuButtonHighlighteds)
+            menuButtonHighlighted.tmp.enabled = false;
+    }
+
+    public void InitAllEquippedMovesToUISlots()
+    {
+        foreach (MenuMoveEquipSlotSelect menuMoveEquipSlotSelect in menuMoveEquipSlotSelects)
         {
-            typeButtonHighlighted.tmp.enabled = on;
+           menuMoveEquipSlotSelect.InitMoveEquipSlotList();
         }
     }
 
-    public void LoadMoveList(MoveSO[] equippedMovesOfType, MoveSlotUI[] slots)
+    void UpdateMoveListDescription(MoveType moveType)
     {
-       for (int i = 0; i < slots.Length; i++)
-       {
-           if (i < equippedMovesOfType.Length && equippedMovesOfType[i] != null)
-           {
-               slots[i].moveSO = equippedMovesOfType[i];
-               slots[i].moveSO.isEquipped = true;
-               slots[i].slotText.text = $"Slot {i + 1}: {equippedMovesOfType[i].MoveName}";
-               slots[i].gameObject.name = $"Slot {i + 1}: {equippedMovesOfType[i].MoveName}";
+        switch (moveType)
+        {
+            case MoveType.ViolentAttack:
+                moveNameTMP.text = "Violent Attacks";
+                probabilityTMP.text = "Execute savage attacks with a heavy price";
+                break;
+ 
+            case MoveType.ViolentFend:
+                moveNameTMP.text = "Violent Fends";
+                probabilityTMP.text = "Protect yourself while still being dangerous";
+                break;
 
-            // Set alpha of the TextMeshProUGUI element based on whether the move is a flaw or is eqipped
-            FieldEvents.SetTextColor(slots[i].slotText, Color.white, slots[i].moveSO.IsFlaw ? 0.75f : 1f);
-           }
-           else
-           {
-                slots[i].slotText.text = $"Slot {i + 1}: Empty";
-                slots[i].gameObject.name = $"Slot {i + 1}: Empty";
-                FieldEvents.SetTextColor(slots[i].slotText, Color.white, .75f);
-           }
-       }
+            case MoveType.ViolentFocus:
+                moveNameTMP.text = "Violent Focuses";
+                probabilityTMP.text = "Gather strength at the cost of everything else";
+                break;
+
+            case MoveType.CautiousAttack:
+                moveNameTMP.text = "Cautious Attacks";
+                probabilityTMP.text = "Deliver damage without becoming vulnerable";
+                break;
+
+            case MoveType.CautiousFend:
+                moveNameTMP.text = "Cautious Fends";
+                probabilityTMP.text = "Protect yourself as a priority";
+                break;
+
+            case MoveType.CautiousFocus:
+                moveNameTMP.text = "Cautious Focuses";
+                probabilityTMP.text = "Grow stronger while minimising risk";
+                break;
+
+            case MoveType.PreciseAttack:
+                moveNameTMP.text = "Precises Attacks";
+                probabilityTMP.text = "Break down your enemies";
+                break;
+
+            case MoveType.PreciseFend:
+                moveNameTMP.text = "Precise Fends";
+                probabilityTMP.text = "Gaurd exploitation with expertise";
+                break;
+
+            case MoveType.PreciseFocus:
+                moveNameTMP.text = "Precise Focuses";
+                probabilityTMP.text = "Sharpen your potential";
+                break;
+
+            default:
+                Debug.Log("something went wrong");
+                break;
+        }
     }
 
-    public void LoadAllEquippedMovesToUISlots()
-    {
-        LoadMoveList(playerMoveManager.playerMoveInventorySO.violentAttacksEquipped, violentAttackSlots);
-        LoadMoveList(playerMoveManager.playerMoveInventorySO.violentFendsEquipped, violentFendSlots);
-        LoadMoveList(playerMoveManager.playerMoveInventorySO.violentFocusesEquipped, violentFocusSlots);
-        
-        LoadMoveList(playerMoveManager.playerMoveInventorySO.cautiousAttacksEquipped, cautiousAttackSlots);
-        LoadMoveList(playerMoveManager.playerMoveInventorySO.cautiousFendsEquipped, cautiousFendSlots);
-        LoadMoveList(playerMoveManager.playerMoveInventorySO.cautiousFocusesEquipped, cautiousFocusSlots);
-        
-        LoadMoveList(playerMoveManager.playerMoveInventorySO.preciseAttacksEquipped, preciseAttackSlots);
-        LoadMoveList(playerMoveManager.playerMoveInventorySO.preciseFendsEquipped, preciseFendSlots);
-        LoadMoveList(playerMoveManager.playerMoveInventorySO.preciseFocusesEquipped, preciseFocusSlots);
-    }
+
 }

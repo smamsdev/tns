@@ -92,7 +92,7 @@ public class menuMain : PauseMenu
 
         firstMenuButton.Select();
 
-        //debugging
+        //debugging MOVES
         menuButtonHighlighteds[2].button.onClick.Invoke();
 
     }

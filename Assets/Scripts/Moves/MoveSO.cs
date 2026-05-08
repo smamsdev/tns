@@ -3,12 +3,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Move")]
 public class MoveSO : ScriptableObject
 {
+    public enum Rarity {unassigned, common, uncommon, veryRare}
+
     [Header("Monobehaviour Prefab")]
     [SerializeField] private GameObject movePrefab;
 
     [Header("Move")]
     [SerializeField] private string moveName;
-    [SerializeField, TextArea(2, 5)] private string moveDescription;
     [SerializeField] private int moveWeighting;
     [SerializeField] private float attackPushStrength;
     [SerializeField] private float attackMoveModPercent;
@@ -19,7 +20,10 @@ public class MoveSO : ScriptableObject
     [SerializeField] private bool applyMoveToSelfOnly;
 
     [Header("Player Specific")]
-    [SerializeField] private int potentialChange;
+    [SerializeField] private int potentialChangeInt;
+    [SerializeField, TextArea(2, 5)] private string moveDescription;
+    [SerializeField] private Rarity rarity;
+    [SerializeField, TextArea(2, 5)] private string potentialChangeDescription;
     [SerializeField] private bool isFlaw;
     public bool isEquipped;
 
@@ -35,6 +39,24 @@ public class MoveSO : ScriptableObject
     [HideInInspector] public float TargetPositionHorizontalOffset => targetPositionHorizontalOffset;
     [HideInInspector] public bool TargetPosSelfOffset => targetPosSelfOffset;
     [HideInInspector] public bool ApplyMoveToSelfOnly => applyMoveToSelfOnly;
-    [HideInInspector] public int PotentialChange => potentialChange;
+    [HideInInspector] public int PotentialChange => potentialChangeInt;
+    [HideInInspector] public string PotentialChangeDescription => "Potential change: " + potentialChangeDescription;
     [HideInInspector] public bool IsFlaw => isFlaw;
+
+    public string GetRarityDescription()
+    {
+        return rarity switch
+        {
+            Rarity.unassigned => Error("rarity not assigned on " + MoveName + " moveSO"),
+            Rarity.uncommon => "(Uncommon)",
+            Rarity.common => "(Common)",
+            _ => Error("Unknown rarity encountered")
+        };
+
+        string Error(string desc)
+        {
+            Debug.Log(desc);
+            return "";
+        }
+    }
 }
