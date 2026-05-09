@@ -6,6 +6,8 @@ public class PlayerMoveInventorySO : ScriptableObject
     public enum MoveType
     { ViolentAttack, ViolentFend, ViolentFocus, CautiousAttack, CautiousFend, CautiousFocus, PreciseAttack, PreciseFend, PreciseFocus }
 
+    public bool isFlawReassignmentEnabled;
+
     public List<MoveSO> violentAttacksInventory = new List<MoveSO>();
     public List<MoveSO> violentFendsInventory = new List<MoveSO>();
     public List<MoveSO> violentFocusesInventory = new List<MoveSO>();
@@ -32,25 +34,7 @@ public class PlayerMoveInventorySO : ScriptableObject
 
     public MoveSO[][] allEquippedMoveArrays;
 
-    public void BuildEquippedReferences()
-    {
-        allEquippedMoveArrays = new MoveSO[][]
-        {
-        violentAttacksEquipped,
-        violentFendsEquipped,
-        violentFocusesEquipped,
-
-        cautiousAttacksEquipped,
-        cautiousFendsEquipped,
-        cautiousFocusesEquipped,
-
-        preciseAttacksEquipped,
-        preciseFendsEquipped,
-        preciseFocusesEquipped
-        };
-    }
- 
-    public List<MoveSO> GetMoveListOfType(MoveType moveType)
+    public List<MoveSO> GetMoveInventoryListOfType(MoveType moveType)
     {
         switch (moveType)
         {
@@ -124,31 +108,18 @@ public class PlayerMoveInventorySO : ScriptableObject
         }
     }
 
-    public void EquipMoveToSlot(MoveSO[] equippedMoveArrayOfType, int moveEquipSlot, MoveSO moveSO)
+    public void EquipMoveToSlot(MoveType movetype, int slotIndex, MoveSO moveSO)
     {
-        equippedMoveArrayOfType[moveEquipSlot] = moveSO;
+        GetEquippedArrayOfType(movetype)[slotIndex] = moveSO;
+        moveSO.isEquipped = true;
     }
 
-    public void UnequipMove(MoveSO moveSO)
+    public void UnequipMoveFromSlot(MoveType movetype, MoveSO moveSO)
     {
-        BuildEquippedReferences();
+        var EquipArray = GetEquippedArrayOfType(movetype);
+        int slotIndex = System.Array.IndexOf(EquipArray, moveSO);
 
-        for (int i = 0; i < allEquippedMoveArrays.Length; i++)
-        {
-            int index = System.Array.IndexOf(allEquippedMoveArrays[i], moveSO);
-
-            if (index != -1)
-            {
-                MoveSO[] equippedMoveArray = allEquippedMoveArrays[i];
-                int equippedSlot = index;
-
-                equippedMoveArray[equippedSlot] = null;
-                moveSO.isEquipped = false;
-
-                return; 
-            }
-        }
-
-        Debug.Log($"{moveSO.name} unable to locate.");
+        EquipArray[slotIndex] = null;
+        moveSO.isEquipped = false;
     }
 }

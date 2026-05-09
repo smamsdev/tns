@@ -45,18 +45,20 @@ public class MoveSO : ScriptableObject
 
     public string GetRarityDescription()
     {
-        return rarity switch
+        switch (rarity)
         {
-            Rarity.unassigned => Error("rarity not assigned on " + MoveName + " moveSO"),
-            Rarity.uncommon => "(Uncommon)",
-            Rarity.common => "(Common)",
-            _ => Error("Unknown rarity encountered")
-        };
+            case Rarity.unassigned:
+                Debug.LogError($"rarity not assigned on {MoveName}", this);
+                return "";
 
-        string Error(string desc)
-        {
-            Debug.Log(desc);
-            return "";
+            case Rarity.uncommon:
+                return "(Uncommon)";
+
+            case Rarity.common:
+                return "(Common)";
         }
+
+        Debug.LogError($"Unknown rarity encountered on {MoveName}", this);
+        return "";
     }
 }

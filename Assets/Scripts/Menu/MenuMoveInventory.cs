@@ -36,6 +36,7 @@ public class MenuMoveInventory : PauseMenu
     public override void ExitMenu()
     {
         displayContainer.SetActive(false);
+        pauseMenuManager.EnterMenu(menuMoveEquipSlotSelectInPlay);
     }
 
     public override void StateUpdate()
@@ -44,6 +45,25 @@ public class MenuMoveInventory : PauseMenu
         {
             ExitMenu();
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            UnassignSlot(instantiatedMoveSlots[highlightedButtonIndex].moveSO);
+        }
+    }
+
+    public void UnassignSlot(MoveSO moveSO)
+    {
+        if (moveSO.IsFlaw && !menuMoves.playerMoveManager.playerMoveInventorySO.isFlawReassignmentEnabled)
+            return;
+
+        MoveType moveType = menuMoveEquipSlotSelectInPlay.moveType;
+
+        menuMoves.playerMoveManager.playerMoveInventorySO.UnequipMoveFromSlot(moveType, moveSO);
+        menuMoveEquipSlotSelectInPlay.InitMoveEquipSlotList();
+        InitMoveInventoryUI();
+        menuMoves.InitAllEquippedMovesToUISlots();
+        instantiatedMoveSlots[highlightedButtonIndex].button.Select();
     }
 
     public void ClearAllDescriptionTMPs()
@@ -56,7 +76,7 @@ public class MenuMoveInventory : PauseMenu
         moveEquipStatusTMP.text = "";
     }
 
-    public void DeleteAllInventoryUI()
+   public void DeleteAllInventoryUI()
    {
         instantiatedMoveSlots.Clear();
    
@@ -82,19 +102,19 @@ public class MenuMoveInventory : PauseMenu
             MoveSlotUI moveSlotUI = moveSlotUIGO.GetComponent<MoveSlotUI>();
             moveSlotUI.moveSO = moveSO;
             moveSlotUI.slotText.text = moveSO.MoveName;
+            moveSlotUI.icon.sprite = moveSO.IsFlaw? moveSlotUI.flawIcon : moveSlotUI.moveIcon;
             FieldEvents.SetTextColor(moveSlotUI.slotText, Color.white, 1f);
 
             if (moveSO.isEquipped) 
-            {
                 FieldEvents.SetTextColor(moveSlotUI.slotText, Color.white, .7f);
-            }
+
+            if (moveSO.IsFlaw && !menuMoves.playerMoveManager.playerMoveInventorySO.isFlawReassignmentEnabled)
+                FieldEvents.SetTextColor(moveSlotUI.slotText, Color.white, .7f);
 
             buttons.Add(moveSlotUI.button);
             instantiatedMoveSlots.Add(moveSlotUI);
-
             moveSlotUI.onHighlighted = () => SlotHighlighted(moveSlotUI);
-
-            moveSlotUI.button.onClick.AddListener(() => EquipMoveFromInventoryToSlot(moveSlotUI));
+            moveSlotUI.button.onClick.AddListener(() => MoveSelected(moveSlotUI));
         }
 
         FieldEvents.SetGridNavigationWrapAroundHorizontal(buttons, 3);
@@ -102,42 +122,61 @@ public class MenuMoveInventory : PauseMenu
 
     void SlotHighlighted(MoveSlotUI moveSlotUI)
     {
-        headerTMP.text = "Assign " + moveSlotUI.moveSO.MoveName + "?";
+        highlightedButtonIndex = instantiatedMoveSlots.IndexOf(moveSlotUI);
+        UpdateMoveDescriptions(moveSlotUI);
     }
 
     public void UpdateMoveDescriptions(MoveSlotUI moveSlotUI)
     {
-        menuMoves.moveNameTMP.text = moveSlotUI.moveSO.MoveName;
-        menuMoves.probabilityTMP.text = moveSlotUI.moveSO.GetRarityDescription();
-        menuMoves.moveDescriptionTMP.text = moveSlotUI.moveSO.MoveDescription;
-        menuMoves.movePotentialChangeTMP.text = moveSlotUI.moveSO.PotentialChangeDescription;
+        int equipIndex = menuMoveEquipSlotSelectInPlay.highlightedButtonIndex;
+
+        moveNameTMP.text = moveSlotUI.moveSO.MoveName;
+        probabilityTMP.text = moveSlotUI.moveSO.GetRarityDescription();
+        moveDescriptionTMP.text = moveSlotUI.moveSO.MoveDescription;
+        movePotentialChangeTMP.text = moveSlotUI.moveSO.PotentialChangeDescription;
 
         if (moveSlotUI.moveSO.isEquipped)
         {
-            menuMoves.moveEquipStatusTMP.text = "Assigned to. Press CTRL to unassign";
-            return;
+            moveEquipStatusTMP.text = "Press CTRL to unassign";
+            var equipList = menuMoves.playerMoveManager.playerMoveInventorySO.GetEquippedArrayOfType(menuMoveEquipSlotSelectInPlay.moveType);
+            int equippedSlotIndex = System.Array.IndexOf(equipList, moveSlotUI.moveSO) + 1;
+            headerTMP.text = "Already assigned to " + equippedSlotIndex;
         }
 
-        menuMoves.moveEquipStatusTMP.text = "";
+        else
+        {
+            headerTMP.text = $"Assign {moveSlotUI.moveSO.MoveName} to slot {equipIndex + 1}?";
+            moveEquipStatusTMP.text = "";
+        }
+
+        if (moveSlotUI.moveSO.IsFlaw && !menuMoves.playerMoveManager.playerMoveInventorySO.isFlawReassignmentEnabled)
+        {
+            headerTMP.text = "Unable to assign a FLAW";
+            moveEquipStatusTMP.text = "";
+        }
     }
 
-    public void EquipMoveFromInventoryToSlot(MoveSlotUI selectedInventorySlot)
+    public void MoveSelected(MoveSlotUI selectedInventorySlot)
     {
         if (selectedInventorySlot.moveSO.isEquipped)
-        {
             return;
-        }
+
+        if (selectedInventorySlot.moveSO.IsFlaw && !menuMoves.playerMoveManager.playerMoveInventorySO.isFlawReassignmentEnabled)
+            return;
 
         if (!selectedInventorySlot.moveSO.isEquipped)
         {
-            //if (moveSlotUIToEquipTo.moveSO != null)
-           // {
-           //     menuMoves.playerMoveManager.playerMoveInventorySO.UnequipMove(moveSlotUIToEquipTo.moveSO);
-           // }
+            int slotIndex = menuMoveEquipSlotSelectInPlay.highlightedButtonIndex;
+            MoveSlotUI slotToEquipTo = menuMoveEquipSlotSelectInPlay.moveEquipArrayUI[slotIndex];
+            MoveType moveType = menuMoveEquipSlotSelectInPlay.moveType;
 
-            Debug.Log("fix");
-            //menuMoves.playerMoveManager.playerMoveInventorySO.EquipMoveToSlot(SelectedMoveArray(), moveSlotUIToEquipTo.equipSlotNumber, selectedInventorySlot.moveSO);
+            //manage if equip slot is occupied
+            if (slotToEquipTo.moveSO != null)
+                menuMoves.playerMoveManager.playerMoveInventorySO.UnequipMoveFromSlot(moveType, slotToEquipTo.moveSO);
 
+
+            menuMoves.playerMoveManager.playerMoveInventorySO.EquipMoveToSlot(moveType, slotIndex, selectedInventorySlot.moveSO);
+            menuMoveEquipSlotSelectInPlay.InitMoveEquipSlotList();
             ExitMenu();
         }
     }

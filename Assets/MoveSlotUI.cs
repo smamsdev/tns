@@ -11,6 +11,8 @@ public class MoveSlotUI : MonoBehaviour, ISelectHandler
     public MoveSO moveSO;
     public TextMeshProUGUI slotText;
     public Button button;
+    public Sprite moveIcon, flawIcon, freeIcon;
+    public Image icon;
 
     public virtual void OnSelect(BaseEventData eventData)
     {

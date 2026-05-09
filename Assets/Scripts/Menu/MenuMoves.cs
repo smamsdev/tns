@@ -68,7 +68,6 @@ public class MenuMoves : PauseMenu
     void MoveArraySelected(MenuButtonHighlighted arrayHighlighted)
     {
         pauseMenuManager.EnterMenu(menuMoveEquipSlotSelects[highlightedButtonIndex]);
-        //headerButtonsGO.SetActive(false);
         FieldEvents.SetTextColor(allMenuButtonHighlighteds[highlightedButtonIndex].tmp, Color.yellow, 1);
         SetAlphaAllMenuButtons(.7f);
     }

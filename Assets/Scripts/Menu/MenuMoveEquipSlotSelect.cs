@@ -6,16 +6,14 @@ using System.Collections.Generic;
 using TMPro;
 using System;
 using static PlayerMoveInventorySO;
-using static UnityEditor.Progress;
-using NUnit.Framework.Interfaces;
 
 public class MenuMoveEquipSlotSelect : PauseMenu
 {
     public Color colourForSelectedParent;
-    public MoveSlotUI MoveSlotUIToRemove;
     public MenuMoves menuMoves;
     public MenuMoveInventory menuMoveInventory;
-    public MoveSlotUI[] moveEquipArrayUI = new MoveSlotUI[5];
+    public GameObject moveSlotsParentGO, moveSlotUIPrefab;
+    public MoveSlotUI[] moveEquipArrayUI;
     public int highlightedButtonIndex = 0;
     public MoveType moveType;
 
@@ -26,83 +24,116 @@ public class MenuMoveEquipSlotSelect : PauseMenu
 
     public override void EnterMenu()
     {
+        menuMoves.DisplayMenu(true);
         displayContainer.SetActive(true);
+        SetMoveArrayEquipMode(true);
         moveEquipArrayUI[highlightedButtonIndex].button.Select();
-        SetMoveArrayAlpha(1);
+        //Can't figure out why I need to do this vvv
+        moveEquipArrayUI[highlightedButtonIndex].onHighlighted.Invoke();
     }
 
     public override void ExitMenu()
     {
         FieldEvents.SetTextColor(menuMoves.allMenuButtonHighlighteds[menuMoves.highlightedButtonIndex].tmp, Color.yellow, 1);
         pauseMenuManager.EnterMenu(menuMoves);
-        SetMoveArrayAlpha(.7f);
+        SetMoveArrayEquipMode(false);
     }
 
-    public void SetMoveArrayAlpha(float alpha)
-    { 
+    public void SetMoveArrayEquipMode(bool on)
+    {
         foreach (MoveSlotUI moveSlotUI in moveEquipArrayUI)
+        {
+            MoveSO move = moveSlotUI.moveSO;
+
+            bool isFlawRestricted =
+                move != null &&
+                move.IsFlaw &&
+                !menuMoves.playerMoveManager.playerMoveInventorySO.isFlawReassignmentEnabled;
+
+            float alpha = (on && !isFlawRestricted) ? 1f : 0.7f;
+
             FieldEvents.SetTextColor(moveSlotUI.slotText, moveSlotUI.slotText.color, alpha);
+        }
     }
 
    public void InitMoveEquipSlotList()
    {
-       MoveSO[] equippedMoveArray = menuMoves.playerMoveManager.playerMoveInventorySO.GetEquippedArrayOfType(moveType);
-   
-       for (int i = 0; i < moveEquipArrayUI.Length; i++)
-       {
-           MoveSlotUI moveSlotUI = moveEquipArrayUI[i];
-   
-           if (i < equippedMoveArray.Length && equippedMoveArray[i] != null)
-           {
-               moveSlotUI.moveSO = equippedMoveArray[i];
-               moveSlotUI.moveSO.isEquipped = true;
-               moveSlotUI.slotText.text = $"Slot {i + 1}: {equippedMoveArray[i].MoveName}";
-               moveSlotUI.gameObject.name = $"Slot {i + 1}: {equippedMoveArray[i].MoveName}";
-           }
-   
-           else
-           {
-               moveSlotUI.slotText.text = $"Slot {i + 1}: Empty";
-               moveSlotUI.gameObject.name = $"Slot {i + 1}: Empty";
-           }
+        MoveSO[] equippedMoveArray = menuMoves.playerMoveManager.playerMoveInventorySO.GetEquippedArrayOfType(moveType);
+        List<Button> buttons = new();
 
+        DeleteAllInventoryUI();
+        moveEquipArrayUI = new MoveSlotUI[5];
+
+        for (int i = 0; i < equippedMoveArray.Length; i++)
+        {
+            GameObject newMoveSlotGO = Instantiate(moveSlotUIPrefab, moveSlotsParentGO.transform);
+            MoveSlotUI moveSlotUI = newMoveSlotGO.GetComponent<MoveSlotUI>();
+            moveEquipArrayUI[i] = moveSlotUI;
             moveSlotUI.onHighlighted = () => MoveSlotHighlighted(moveSlotUI);
             moveSlotUI.button.onClick.AddListener(() => MoveSlotSelected(moveSlotUI));
+            buttons.Add(moveSlotUI.button);
+            FieldEvents.SetTextColor(moveSlotUI.slotText, Color.white, .7f);
 
-           FieldEvents.SetTextColor(moveSlotUI.slotText, Color.white, .7f);
-       }
-   }
+
+            if (equippedMoveArray[i] != null)
+            {
+                moveSlotUI.moveSO = equippedMoveArray[i];
+                moveSlotUI.slotText.text = $"Slot {i + 1}: {equippedMoveArray[i].MoveName}";
+                moveSlotUI.gameObject.name = $"Slot {i + 1}: {equippedMoveArray[i].MoveName}";
+                moveSlotUI.icon.sprite = equippedMoveArray[i].IsFlaw ? moveSlotUI.flawIcon : moveSlotUI.moveIcon;
+                continue;
+            }
+
+            moveSlotUI.slotText.text = "Unassigned";
+            moveSlotUI.gameObject.name = "Unassigned";
+            moveSlotUI.icon.sprite = moveSlotUI.freeIcon;
+        }
+
+        FieldEvents.SetGridNavigationWrapAround(buttons, 5);
+    }
+
+    public void DeleteAllInventoryUI()
+    {
+        for (int i = moveSlotsParentGO.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(moveSlotsParentGO.transform.GetChild(i).gameObject);
+        }
+    }
 
     void MoveSlotHighlighted(MoveSlotUI moveSlotUI)
     {
         highlightedButtonIndex = System.Array.IndexOf(moveEquipArrayUI, moveSlotUI);
         UpdateMoveDescriptions(moveSlotUI);
+        menuMoves.headerTMP.text = "";
     }
 
     public void MoveSlotSelected(MoveSlotUI moveSlotToEquipTo)
     {
-        if (moveSlotToEquipTo.moveSO == null || !moveSlotToEquipTo.moveSO.IsFlaw)
+        if (moveSlotToEquipTo.moveSO != null && moveSlotToEquipTo.moveSO.IsFlaw && !menuMoves.playerMoveManager.playerMoveInventorySO.isFlawReassignmentEnabled)
+            return;
+
+        //this needs to happen before checking the list count
+        menuMoveInventory.menuMoveEquipSlotSelectInPlay = this;
+        menuMoveInventory.moveList = menuMoves.playerMoveManager.playerMoveInventorySO.GetMoveInventoryListOfType(moveType);
+
+        if (menuMoveInventory.moveList.Count == 0)
         {
-            menuMoveInventory.menuMoveEquipSlotSelectInPlay = this;
-            menuMoveInventory.moveList = menuMoves.playerMoveManager.playerMoveInventorySO.GetMoveListOfType(moveType);
-
-            if (menuMoveInventory.moveList.Count == 0)
-            {
-                menuMoves.ClearAllDescriptionTMPs();
-                menuMoves.moveNameTMP.text = "No moves available to assign";
-                return;
-            }
-
-            pauseMenuManager.EnterMenu(menuMoveInventory);
+            menuMoves.ClearAllDescriptionTMPs();
+            menuMoves.moveNameTMP.text = "No moves available to assign";
+            return;
         }
+
+        menuMoveInventory.highlightedButtonIndex = 0;
+        pauseMenuManager.EnterMenu(menuMoveInventory);
     }
 
     public void UpdateMoveDescriptions(MoveSlotUI moveSlotUI)
     {
         if (moveSlotUI.moveSO == null)
         {
-            menuMoves.moveNameTMP.text = "Slot free";
-            menuMoves.moveDescriptionTMP.text = "Assign a " + GetEquippedArrayStringOfType(moveType) + " to slot " + (highlightedButtonIndex + 1) + "?";
+            menuMoves.moveNameTMP.text = "Assign a " + GetEquippedArrayStringOfType(moveType) + " move to slot " + (highlightedButtonIndex + 1) + "?";
+            menuMoves.probabilityTMP.text = "";
+            menuMoves.moveDescriptionTMP.text = "";
             menuMoves.movePotentialChangeTMP.text = "";
             menuMoves.moveEquipStatusTMP.text = "";
             return;
@@ -112,11 +143,10 @@ public class MenuMoveEquipSlotSelect : PauseMenu
         menuMoves.probabilityTMP.text = moveSlotUI.moveSO.GetRarityDescription();
         menuMoves.moveDescriptionTMP.text = moveSlotUI.moveSO.MoveDescription;
         menuMoves.movePotentialChangeTMP.text = moveSlotUI.moveSO.PotentialChangeDescription;
-        //menuMoves.headerTMP.text = "Replace " + moveSlotUI.moveSO.MoveName + " in slot " + (highlightedButtonIndex + 1) + "?";
 
-        if (moveSlotUI.moveSO.IsFlaw)
-        { 
-            menuMoves.moveEquipStatusTMP.text = "Unable to unassign a FLAW"; 
+        if (moveSlotUI.moveSO.IsFlaw && !menuMoves.playerMoveManager.playerMoveInventorySO.isFlawReassignmentEnabled)
+        {
+            menuMoves.moveEquipStatusTMP.text = "Unable to assign a FLAW";
             return;
         }
 
@@ -160,20 +190,18 @@ public class MenuMoveEquipSlotSelect : PauseMenu
         }
     }
 
-    public void UnassignSlot()
+    public void UnassignSlot(MoveSlotUI moveSlotUI)
     {
-        var movesPage = (MenuMoves)pauseMenuManager.movesPage;
-
-       // MoveSlotUIToRemove = moveSlotHighlighted;
-
-        if (MoveSlotUIToRemove.moveSO == null || MoveSlotUIToRemove.moveSO.IsFlaw)
-        {
+        if (moveSlotUI.moveSO == null)
             return;
-        }
 
-        menuMoves.playerMoveManager.playerMoveInventorySO.UnequipMove(MoveSlotUIToRemove.moveSO);
-        MoveSlotUIToRemove.moveSO = null;
-        movesPage.InitAllEquippedMovesToUISlots();
+        if (moveSlotUI.moveSO.IsFlaw && !menuMoves.playerMoveManager.playerMoveInventorySO.isFlawReassignmentEnabled)
+            return;
+
+        menuMoves.playerMoveManager.playerMoveInventorySO.UnequipMoveFromSlot(moveType, moveSlotUI.moveSO);
+        InitMoveEquipSlotList();
+        SetMoveArrayEquipMode(true);
+        moveEquipArrayUI[highlightedButtonIndex].button.Select();
     }
 
     public override void StateUpdate()
@@ -185,7 +213,7 @@ public class MenuMoveEquipSlotSelect : PauseMenu
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            UnassignSlot();
+            UnassignSlot(moveEquipArrayUI[highlightedButtonIndex]);
         }
     }
 }
