@@ -14,14 +14,9 @@ public class Battle : ToTrigger
     public bool isAllyFlanked = false;
     public bool isRandomEnounter;
 
-
-    private void OnEnable()
-    {
-        combatManager = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>();
-    }
-
     public override IEnumerator TriggerFunction()
     {
+        combatManager = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>();
         combatManager.battleScheme = this;
         combatManager.StartBattle();
         yield return null;

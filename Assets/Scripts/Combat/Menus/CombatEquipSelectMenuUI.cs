@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,6 +13,7 @@ public class CombatEquipSelectMenuUI : CombatMenu
     public CombatManager combatManager;
     public GameObject UIInventorySlotPrefab, equipSlotsParent;
     public List<InventorySlotUI> equipSlots = new List<InventorySlotUI>();
+    public GridLayoutGroup slotGridLayoutGroup;
 
     public void InitialiseEquipSlots()
     {
@@ -42,7 +45,12 @@ public class CombatEquipSelectMenuUI : CombatMenu
                 equipSlot.gearInstance = gearInstanceEquipped[i];
                 equipSlot.itemNameTMP.text = equipSlot.gearInstance.gearSO.GearName;
 
-                equipSlot.itemQuantityTMP.text = equipSlot.gearInstance.QuantityString();
+                if (gearInstanceEquipped[i] is EquipmentInstance)
+                    equipSlot.itemQuantityTMP.text = equipSlot.gearInstance.QuantityString();
+
+                // you can only ever equip a single instance of a consumable, so you might as well hide this
+                else
+                    equipSlot.itemQuantityTMP.text = "";
 
                 bool isEquipment = equipSlot.gearInstance is EquipmentInstance;
                 equipSlot.icon.sprite = isEquipment ? equipSlot.equipmentIcon : equipSlot.consumableIcon;
@@ -61,11 +69,26 @@ public class CombatEquipSelectMenuUI : CombatMenu
             equipSlots.Add(equipSlot);
         }
 
-        List<Button> equipSlotButtons = new List<Button>();
-        foreach (var equipSlot in equipSlots)
-            equipSlotButtons.Add(equipSlot.button);
+        InventorySlotUI longestSlot = FindSlotWithLongestText(equipSlots);
+        Vector2 newCellSize = slotGridLayoutGroup.cellSize;
+        int padding = 60;
+        float newWidth = longestSlot.itemNameTMP.preferredWidth + longestSlot.itemQuantityTMP.preferredWidth + padding;
 
-        FieldEvents.SetGridNavigationWrapAround(equipSlotButtons, gearInstanceEquipped.Count);
+        newCellSize = new Vector2(newWidth, newCellSize.y);
+        slotGridLayoutGroup.cellSize = newCellSize;
+
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        rectTransform.sizeDelta = new Vector2(newWidth + slotGridLayoutGroup.padding.left, rectTransform.sizeDelta.y);
+
+        foreach (var equipSlot in equipSlots)
+            menuButtons.Add(equipSlot.button);
+
+        FieldEvents.SetGridNavigationWrapAround(menuButtons, gearInstanceEquipped.Count);
+    }
+
+    InventorySlotUI FindSlotWithLongestText(List<InventorySlotUI> slots)
+    {
+        return slots.OrderByDescending(slot => slot.itemNameTMP.preferredWidth).First();
     }
 
     public void DeleteAllInventoryUI()

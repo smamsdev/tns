@@ -12,44 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40d261e7112dc2d4fb86b0a954f649e3, type: 3}
   m_Name: Player Inventory SO
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventorySO
-  debugGearToAddAsInstance: {fileID: 11400000, guid: e39ae3b4207aaac4ea0425a5df94e5fa, type: 2}
+  debugGearToAddAsInstance: {fileID: 11400000, guid: 895d7e7a430508d449345250b883aa58, type: 2}
   gearInstanceInventory:
   - rid: 1338844636460875928
   - rid: 1338844636460875934
   - rid: 1338844636460875949
-  - rid: 1338844636460875933
   - rid: 1338844636460875932
   - rid: 1338844636460875887
   - rid: 1338844636460875886
-  - rid: 1338844636460875901
-  - rid: 1338844636460875900
+  - rid: 1338844781563347025
   - rid: 1338844636460875950
   - rid: 1338844636460875930
   - rid: 1338844636460875903
-  - rid: 1338844636460875951
+  - rid: 1338844636460875933
+  - rid: 1338844636460875901
+  - rid: 1338844636460875900
   gearInstanceEquipped:
-  - rid: 1338844636460875896
+  - rid: 1338844636460875934
   - rid: 1338844623509913745
-  - rid: 1338844636460875897
-  - rid: 1338844623509913759
-  - rid: 4989509571914235986
+  - rid: 1338844781563347026
+  - rid: 1338844636460875933
   trenchStructuresInventory: []
-  debugInventorySlotToEquip: 0
-  debugEquipSlotToAddTo: 2
+  debugInventorySlotToEquip: 9
+  debugEquipSlotToAddTo: 4
   references:
     version: 2
     RefIds:
     - rid: 1338844623509913745
       type: {class: ConsumableInstance, ns: , asm: Assembly-CSharp}
       data:
-        gearSO: {fileID: 11400000, guid: 895d7e7a430508d449345250b883aa58, type: 2}
+        gearSO: {fileID: 0}
         isCurrentlyEquipped: 1
         quantityAvailable: 1
-    - rid: 1338844623509913759
-      type: {class: GearInstance, ns: , asm: Assembly-CSharp}
-      data:
-        gearSO: {fileID: 0}
-        isCurrentlyEquipped: 0
     - rid: 1338844636460875886
       type: {class: ConsumableInstance, ns: , asm: Assembly-CSharp}
       data:
@@ -63,28 +57,18 @@ MonoBehaviour:
         isCurrentlyEquipped: 0
         charge: 0
         payableChargesAccrued: 0
-    - rid: 1338844636460875896
-      type: {class: GearInstance, ns: , asm: Assembly-CSharp}
-      data:
-        gearSO: {fileID: 0}
-        isCurrentlyEquipped: 0
-    - rid: 1338844636460875897
-      type: {class: GearInstance, ns: , asm: Assembly-CSharp}
-      data:
-        gearSO: {fileID: 0}
-        isCurrentlyEquipped: 0
     - rid: 1338844636460875900
       type: {class: EquipmentInstance, ns: , asm: Assembly-CSharp}
       data:
-        gearSO: {fileID: 11400000, guid: e39ae3b4207aaac4ea0425a5df94e5fa, type: 2}
-        isCurrentlyEquipped: 0
-        charge: 2
+        gearSO: {fileID: 0}
+        isCurrentlyEquipped: 1
+        charge: 300
         payableChargesAccrued: 0
     - rid: 1338844636460875901
       type: {class: EquipmentInstance, ns: , asm: Assembly-CSharp}
       data:
-        gearSO: {fileID: 11400000, guid: e39ae3b4207aaac4ea0425a5df94e5fa, type: 2}
-        isCurrentlyEquipped: 0
+        gearSO: {fileID: 0}
+        isCurrentlyEquipped: 1
         charge: 100
         payableChargesAccrued: 0
     - rid: 1338844636460875903
@@ -118,15 +102,15 @@ MonoBehaviour:
     - rid: 1338844636460875933
       type: {class: EquipmentInstance, ns: , asm: Assembly-CSharp}
       data:
-        gearSO: {fileID: 11400000, guid: 61659de40aca88444870f9a1ce99dbca, type: 2}
-        isCurrentlyEquipped: 0
+        gearSO: {fileID: 0}
+        isCurrentlyEquipped: 1
         charge: 23
         payableChargesAccrued: 0
     - rid: 1338844636460875934
       type: {class: EquipmentInstance, ns: , asm: Assembly-CSharp}
       data:
         gearSO: {fileID: 11400000, guid: 61659de40aca88444870f9a1ce99dbca, type: 2}
-        isCurrentlyEquipped: 0
+        isCurrentlyEquipped: 1
         charge: 55
         payableChargesAccrued: 0
     - rid: 1338844636460875949
@@ -143,13 +127,15 @@ MonoBehaviour:
         isCurrentlyEquipped: 0
         charge: 3
         payableChargesAccrued: 0
-    - rid: 1338844636460875951
-      type: {class: GearInstance, ns: , asm: Assembly-CSharp}
+    - rid: 1338844781563347025
+      type: {class: ConsumableInstance, ns: , asm: Assembly-CSharp}
+      data:
+        gearSO: {fileID: 11400000, guid: 895d7e7a430508d449345250b883aa58, type: 2}
+        isCurrentlyEquipped: 0
+        quantityAvailable: 1
+    - rid: 1338844781563347026
+      type: {class: ConsumableInstance, ns: , asm: Assembly-CSharp}
       data:
         gearSO: {fileID: 0}
-        isCurrentlyEquipped: 0
-    - rid: 4989509571914235986
-      type: {class: GearInstance, ns: , asm: Assembly-CSharp}
-      data:
-        gearSO: {fileID: 0}
-        isCurrentlyEquipped: 0
+        isCurrentlyEquipped: 1
+        quantityAvailable: 1

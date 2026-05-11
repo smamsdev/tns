@@ -70,7 +70,12 @@ public class MenuGearEquipSubPage : PauseMenu
                 equipSlot.gearInstance = gearInstanceEquipped[i];
                 equipSlot.itemNameTMP.text = equipSlot.gearInstance.gearSO.GearName;
 
-                equipSlot.itemQuantityTMP.text = equipSlot.gearInstance.QuantityString();
+                if (gearInstanceEquipped[i] is EquipmentInstance)
+                    equipSlot.itemQuantityTMP.text = equipSlot.gearInstance.QuantityString();
+
+                // you can only ever equip a single instance of a consumable, so you might as well hide this
+                else
+                    equipSlot.itemQuantityTMP.text = "";
 
                 bool isEquipment = equipSlot.gearInstance is EquipmentInstance;
                 equipSlot.icon.sprite = isEquipment? equipSlot.equipmentIcon: equipSlot.consumableIcon;
