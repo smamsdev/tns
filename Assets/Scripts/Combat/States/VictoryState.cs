@@ -6,16 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class VictoryState : State
 {
-    public VictoryRewards victoryRewards;
+    public VictoryRewardsUI victoryRewardsUI;
 
     public override IEnumerator StartState()
     {
-        combatManager.combatMenuManager.DisableMenuState();
-        combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.VictoryMenu, true);
+        combatManager.combatMenuManager.DisableAllMenus();
+        victoryRewardsUI.DisplayMenu(true);
         combatManager.playerCombat.combatantUI.statsDisplay.ShowStatsDisplay(false);
 
-        yield return(victoryRewards.ShowRewards());
-        victoryRewards.totalXPButton.Select();
+        yield return(victoryRewardsUI.ShowRewards());
+        victoryRewardsUI.totalXPButton.Select();
 
         yield return null;
     }
@@ -29,7 +29,7 @@ public class VictoryState : State
         var playerAnimator = playerCombat.GetComponent<Animator>();
         playerAnimator.Play("Idle");
         playerAnimator.SetFloat("lookDirectionX", combatManager.playerCombat.CombatLookDirX);
-        yield return (victoryRewards.AnimateRewardsPage(1, 0, .5f));
+        yield return (victoryRewardsUI.AnimateRewardsPage(1, 0, .5f));
 
         if (combatManager.battleScheme.isRandomEnounter)
         {

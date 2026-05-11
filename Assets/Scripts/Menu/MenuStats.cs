@@ -96,7 +96,7 @@ public class MenuStats : PauseMenu
         
     public void InitializeStats()
     {
-        PartyMemberSO partyMember = partySO.partyMembers[partyMemberSlot];
+        PartyMemberPermanentStats partyMember = partySO.partyMembers[partyMemberSlot];
 
         if (partyMember is PlayerPermanentStats)
         {

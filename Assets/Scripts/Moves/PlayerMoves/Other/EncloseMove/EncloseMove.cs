@@ -14,11 +14,6 @@ public class EncloseMove : Move
         combatantToActAnimator.Play("Advance");
         yield return MoveToPosition(combatantToAct, AttackPositionLocation(combatantToAct));
         combatantToActAnimator.SetTrigger("CombatIdle");
-
-        //its simply outrageous to be modifying combatUI elements at Move level but i am very tired
-        combatManager.combatMenuManager.SetButtonNormalColor(combatManager.tacticalSelectState.lastButtonSelected, Color.white);
-        combatManager.tacticalSelectState.lastButtonSelected = combatManager.tacticalSelectState.returnButton;
-
         yield return new WaitForSeconds(1);
     }
 

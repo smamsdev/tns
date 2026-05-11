@@ -6,7 +6,7 @@ public class StatChanger : ToTrigger
 {
     [SerializeField] StatToChange statType;
     [SerializeField] int value;
-    public PartyMemberSO optionalPartyMemberStats;
+    public PartyMemberPermanentStats optionalPartyMemberStats;
 
     public enum StatToChange
     {

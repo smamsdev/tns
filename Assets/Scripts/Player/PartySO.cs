@@ -5,5 +5,5 @@ using UnityEngine;
 
 public class PartySO : ScriptableObject
 {
-    public List<PartyMemberSO> partyMembers = new List<PartyMemberSO>();
+    public List<PartyMemberPermanentStats> partyMembers = new List<PartyMemberPermanentStats>();
 }

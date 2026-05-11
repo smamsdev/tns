@@ -12,6 +12,8 @@ public class Setup : State
 
     public override IEnumerator StartState()
     {
+        combatMenuManager.DisableAllMenus();
+
         playerCombat = combatManager.playerCombat;
 
         yield return new WaitForSeconds(0.01f); //why?
@@ -91,16 +93,17 @@ public class Setup : State
         foreach (Ally ally in combatManager.allies)
         {
             SetcombatantUI(ally);
-            ally.InstantiateMoves();
 
             if (ally is PartyMemberCombat)
             {
                 PartyMemberCombat partyMember = ally as PartyMemberCombat;
 
-                partyMember.AttackBase = partyMember.partyMemberSO.AttackBase;
-                partyMember.FendBase = partyMember.partyMemberSO.FendBase;
-                partyMember.MaxHP = partyMember.partyMemberSO.MaxHP;
-                partyMember.CurrentHP = partyMember.partyMemberSO.CurrentHP;
+                partyMember.moveList = partyMember.partyMemberPermanentStats.moveList;
+                partyMember.AttackBase = partyMember.partyMemberPermanentStats.AttackBase;
+                partyMember.FendBase = partyMember.partyMemberPermanentStats.FendBase;
+                partyMember.MaxHP = partyMember.partyMemberPermanentStats.MaxHP;
+                partyMember.CurrentHP = partyMember.partyMemberPermanentStats.CurrentHP;
+                partyMember.InstantiateMoves();
             }
 
             if (!combatManager.battleScheme.isAllyFlanked)
@@ -116,7 +119,7 @@ public class Setup : State
         }
 
         //yield return new WaitForSeconds(1);
-        combatManager.SetState(combatManager.firstMove);
+        combatManager.SetState(combatManager.actionSelectState);
     }
 
     void SetcombatantUI(Combatant combatant)
@@ -144,9 +147,9 @@ public class Setup : State
     void InitializePermanentStatsAndGear()
     {
         //playerCombat.playerInventorySO.InstantiateAllEquippedGear(combatManager);
-        Debug.Log("instnatiate all gear fix");
+        //Debug.Log("instnatiate all gear fix");
 
-        Debug.Log(" mix this with aprty members");
+        //Debug.Log(" mix this with aprty members");
         //playerCombat.MaxHP = playerCombat.playerPermanentStats.maxHP;
         //playerCombat.CurrentHP = playerCombat.playerPermanentStats.currentHP;
         //playerCombat.MaxPotential = playerCombat.playerPermanentStats.maxPotential;

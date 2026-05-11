@@ -9,7 +9,7 @@ public class ApplyPlayerMove : State
 
     public override IEnumerator StartState()
     {
-        combatManager.combatMenuManager.DisableMenuState();
+        combatManager.combatMenuManager.DisableAllMenus();
         player = combatManager.playerCombat;
 
         yield return ApplyGear();

@@ -5,17 +5,22 @@ using UnityEngine.UIElements;
 
 [CreateAssetMenu]
 
-public class PartyMemberSO : ScriptableObject
+public class PartyMemberPermanentStats : ScriptableObject
 {
     public GameObject prefab;
+    [Header("MoveList for NPCs only")]
+    public List<MoveSO> moveList = new();
+
+    private void OnValidate()
+    {
+        if (moveList.Count == 0)
+            Debug.Log("movelist empty for SO " + this, this);
+    }
 
     public int AttackBase
-        {
-        get { return attackBase; }
-        set
-        {
-            attackBase = Mathf.Clamp(value, 1, 999);
-        }
+    {
+        get => attackBase;
+        set => attackBase = Mathf.Clamp(value, 1, 999);
     }
 
     public int FendBase

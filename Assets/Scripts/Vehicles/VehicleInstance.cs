@@ -16,10 +16,10 @@ public class VehicleInstance : MonoBehaviour
     public float chargeUsageFactor;
     public InventorySO batteryInventorySO;
     public wheelRotation wheelRotation;
-    public GameObject collidersU, collidersD, collidersL, collidersR, bodyU, bodyD, bodyL, bodyR;
+    public GameObject collidersU, collidersD, collidersL, collidersR, bodyU, bodyD, bodyL, bodyR, wheelsU, wheelsD, wheelsL, wheelsR;
     public GameObject exitPosU, exitPosD, exitPosL, exitPosR, vehicleUI;
     public TextMeshProUGUI vehicleUIChargeTMP;
-    public Animator bodyAnimator, vehicleUIChargeTMPAnimator;
+    public Animator bodyAnimator, vibrationAnimator, chargeMenuTransitionAnimator, vehicleUIChargeTMPAnimator;
     public List<GameObject> passengers = new List<GameObject>();
     public GameObject playerDriving;
 
@@ -48,6 +48,10 @@ public class VehicleInstance : MonoBehaviour
             bodyD.SetActive(false);
             bodyL.SetActive(false);
             bodyR.SetActive(false);
+            wheelsU.SetActive(false);
+            wheelsD.SetActive(false);
+            wheelsL.SetActive(false);
+            wheelsR.SetActive(false);
             collidersU.SetActive(false);
             collidersD.SetActive(false);
             collidersL.SetActive(false);
@@ -86,6 +90,9 @@ public class VehicleInstance : MonoBehaviour
 
     public void EnterVehicle(GameObject GOToEnter)
     {
+        vehicleUI.SetActive(true);
+        vibrationAnimator.enabled = true;
+        chargeMenuTransitionAnimator.Play("OpenMenu");
         UpdateBatteryCharge();
         GOToEnter.SetActive(false);
         passengers.Add(GOToEnter);
@@ -94,7 +101,6 @@ public class VehicleInstance : MonoBehaviour
         collidersD.SetActive(false);
         collidersL.SetActive(false);
         collidersR.SetActive(false);
-        vehicleUI.SetActive(true);
 
         if (GOToEnter.tag == "Player")
         { 
@@ -110,11 +116,14 @@ public class VehicleInstance : MonoBehaviour
     {
         Vector2 dir = movementScript.lookDirection;
 
+        vibrationAnimator.enabled = false;
         CombatEvents.LockPlayerMovement();
         yield return new WaitForSeconds(.5f);
         CombatEvents.UnlockPlayerMovement();
         UpdateBatteryCharge();
-        vehicleUI.SetActive(false);
+
+        //disables UI GO via animation event
+        chargeMenuTransitionAnimator.Play("CloseMenu");
 
         movementScript.rigidBody2d.bodyType = RigidbodyType2D.Kinematic;
 
@@ -162,6 +171,9 @@ public class VehicleInstance : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && playerDriving != null && !FieldEvents.isCoolDownBool)
             StartCoroutine(ExitVehicle(playerDriving));
+
+        if (passengers != null && batteryCharge <= 0)
+            vibrationAnimator.enabled = false;
 
         bodyAnimator.SetFloat("LookDirectionX", movementScript.lookDirection.x);
         bodyAnimator.SetFloat("LookDirectionY", movementScript.lookDirection.y);

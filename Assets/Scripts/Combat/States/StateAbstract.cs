@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public abstract class State : MonoBehaviour
 {
     public CombatManager combatManager;
-    public Button lastButtonSelected;
 
     public virtual IEnumerator StartState()
     {

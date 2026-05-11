@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FirstMoveState : State
+public class ActionSelectState : State
 {
+    public ActionSelectMenuUI actionSelectMenuUI;
+
     public override IEnumerator StartState()
     {
         if (combatManager.battleScheme.isAllyFlanked)
@@ -15,19 +17,19 @@ public class FirstMoveState : State
             yield break;
         }
 
+        actionSelectMenuUI.SetButtonNormalColor(actionSelectMenuUI.menuButtons[actionSelectMenuUI.highlightedButtonIndex], Color.white);
+        actionSelectMenuUI.menuButtons[actionSelectMenuUI.highlightedButtonIndex].Select();
         combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
         combatManager.playerCombat.combatantUI.statsDisplay.ShowStatsDisplay(true);
-        combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.firstMoveMenu, true);
-        combatManager.combatMenuManager.actionMenuDefaultButton.Select();
-        combatManager.playerCombat.playerMoveManager.firstMoveIs = 0;
+        actionSelectMenuUI.DisplayMenu(true);
+        combatManager.playerCombat.playerMoveManager.actionSelectStateIs = 0;
 
         yield break;
     }
 
     public void ActionButtonSelected (int moveValue)
     {
-        combatManager.combatMenuManager.actionMenuDefaultButton = lastButtonSelected;
-        combatManager.playerCombat.playerMoveManager.firstMoveIs = moveValue;
+        combatManager.playerCombat.playerMoveManager.actionSelectStateIs = moveValue;
 
         if (moveValue == 0)
         {
@@ -35,7 +37,7 @@ public class FirstMoveState : State
         }
         else
         {
-            combatManager.SetState(combatManager.secondMove);
+            combatManager.SetState(combatManager.styleSelectState);
         }
     }
 }

@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SelectEnemyMenuScript : MonoBehaviour
+public class EnemySelectMenuUI : CombatMenu
 {
     public CombatManager combatManager;
     public EnemySelectButtonScript enemySelectButtonScriptHighlighted;
@@ -37,7 +37,7 @@ public class SelectEnemyMenuScript : MonoBehaviour
         {
             GameObject enemySelectButtonGO = Instantiate(enemySelectButtonPrefab, selectEnemyMenuContainer.transform);
             EnemySelectButtonScript enemySelectButtonScript = enemySelectButtonGO.GetComponent<EnemySelectButtonScript>();
-            enemySelectButtonScript.selectEnemyMenuScript = this;
+            enemySelectButtonScript.enemySelectMenuUI = this;
             enemySelectButtonScript.combatant = combatManager.enemies[i];
             enemySelectButtonScript.buttonText.text = enemySelectButtonScript.combatant.combatantName;
             enemySelectButtonGO.name = enemySelectButtonScript.combatant.combatantName;
@@ -48,13 +48,11 @@ public class SelectEnemyMenuScript : MonoBehaviour
             buttons.Add(enemySelectButtonScript.button);
         }
         FieldEvents.SetGridNavigationWrapAround(buttons, 4);
-        combatManager.combatMenuManager.selectEnemyMenuDefaultButton = enemySelectButtons[0].button;
     }
 
     public void HighlightEnemy(EnemySelectButtonScript enemySelectScript)
     {
         combatManager.cameraFollow.transformToFollow = enemySelectScript.combatant.transform;
-        combatManager.combatMenuManager.selectEnemyMenuDefaultButton = enemySelectScript.button;
         enemySelectButtonScriptHighlighted = enemySelectScript;
         var combatantUI = enemySelectScript.combatant.combatantUI;
         combatantUI.statsDisplay.ShowStatsDisplay(true);

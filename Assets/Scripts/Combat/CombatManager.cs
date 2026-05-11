@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
+using UnityEngine.UI;
 
 public class CombatManager : MonoBehaviour
 {
@@ -18,8 +18,8 @@ public class CombatManager : MonoBehaviour
 
     [Header("States")]
     public Setup setup;
-    public FirstMoveState firstMove;
-    public SecondMoveState secondMove;
+    public ActionSelectState actionSelectState;
+    public StyleSelectState styleSelectState;
     public EnemySelectState enemySelectState;
     public AllyMoveState allyMoveState;
     public ApplyPlayerMove applyMove;
@@ -29,7 +29,7 @@ public class CombatManager : MonoBehaviour
     public Defeat defeat;
     public TacticalSelectState tacticalSelectState;
     public EquipSlotSelectState equipSlotSelectState;
-    public GearSelectCombatState gearSelectCombatState;
+    public CombatGearState CombatGearState;
     public EncloseSelectState encloseSelectState;
 
     [Header("Misc")]
@@ -37,6 +37,10 @@ public class CombatManager : MonoBehaviour
     public CameraFollow cameraFollow;
     public CombatMenuManager combatMenuManager;
     public int roundCount;
+
+    [Header("DebuggingGear")]
+    public Button firstOption;
+    public Button secondOption;
 
     private void OnEnable()
     {
@@ -90,29 +94,36 @@ public class CombatManager : MonoBehaviour
     {
         CombatEvents.LockPlayerMovement.Invoke();
 
-        if (playerCombat.playerMoveManager == null)
-        {
-            Debug.LogError("PlayerMoveManager is not found in StartBattle");
-            return;
-        }
+        //debugging
+        SetState(actionSelectState);
+        firstOption.onClick.Invoke();
+        secondOption.onClick.Invoke();
 
-        if (battleScheme.allies != null)
-        
-        {
-            allies = new List<Combatant>(battleScheme.allies);
-        }
+        return;
 
-        if (battleScheme.enemies != null)
-
-        {
-            enemies = new List<Combatant>(battleScheme.enemies);
-        }
-
-        else { Debug.Log("enemy not set in Battle"); }
-
-        allAlliesToTarget = new List<Combatant> { playerCombat }; //create a new list and add player do it, this is the pool of allies enemies can attack
-        allAlliesToTarget.AddRange(allies);
-        SetState(setup);
+        //if (playerCombat.playerMoveManager == null)
+        //{
+        //    Debug.LogError("PlayerMoveManager is not found in StartBattle");
+        //    return;
+        //}
+        //
+        //if (battleScheme.allies != null)
+        //
+        //{
+        //    allies = new List<Combatant>(battleScheme.allies);
+        //}
+        //
+        //if (battleScheme.enemies != null)
+        //
+        //{
+        //    enemies = new List<Combatant>(battleScheme.enemies);
+        //}
+        //
+        //else { Debug.Log("enemy not set in Battle"); }
+        //
+        //allAlliesToTarget = new List<Combatant> { playerCombat }; //create a new list and add player do it, this is the pool of allies enemies can attack
+        //allAlliesToTarget.AddRange(allies);
+        //SetState(setup);
     }
 
     public void SetState(State state)

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerPermanentStats : PartyMemberSO
+public class PlayerPermanentStats : PartyMemberPermanentStats
 {
     public int MaxPotential
     {

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class TacticalSelectState : State
 {
+    public TacticalSelectMenuUI tacticalSelectMenuUI;
     public bool isEnclosing = false;
     [SerializeField] EncloseMove encloseMove;
     [SerializeField] ReturnMove returnMove;
@@ -16,9 +17,9 @@ public class TacticalSelectState : State
     public override IEnumerator StartState()
     {
         CheckEncloseState();
-
-        combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.TacticalSelectMenu, true);
-        combatManager.tacticalSelectState.lastButtonSelected.Select();
+        combatManager.combatMenuManager.actionSelectMenuUI.DisplayMenu(true);
+        tacticalSelectMenuUI.SetButtonNormalColor(tacticalSelectMenuUI.menuButtons[tacticalSelectMenuUI.highlightedButtonIndex], Color.white);
+        tacticalSelectMenuUI.menuButtons[tacticalSelectMenuUI.highlightedButtonIndex].Select();
 
         yield break;
     }
@@ -27,16 +28,13 @@ public class TacticalSelectState : State
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.TacticalSelectMenu, false);
-            combatManager.combatMenuManager.SetButtonNormalColor(combatManager.firstMove.lastButtonSelected, Color.white);
-            combatManager.firstMove.lastButtonSelected.Select();
-            combatManager.SetState(combatManager.firstMove);
+            tacticalSelectMenuUI.DisplayMenu(false);
+            combatManager.SetState(combatManager.actionSelectState);
         }
     }
 
     public void TacticalOptionSelected(State state)
     {
-        combatManager.combatMenuManager.tacticalSelectMenuDefaultButton = lastButtonSelected;
         combatManager.SetState(state);
     }
 

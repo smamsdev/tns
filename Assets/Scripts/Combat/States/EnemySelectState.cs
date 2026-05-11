@@ -5,23 +5,23 @@ using UnityEngine.UI;
 
 public class EnemySelectState : State
 {
-    public SelectEnemyMenuScript selectEnemyMenuScript;
+    public EnemySelectMenuUI enemySelectMenuUI;
     int previousLookDirX;
 
     public override IEnumerator StartState()
     {
         previousLookDirX = combatManager.playerCombat.CombatLookDirX;
-        selectEnemyMenuScript.InitializeButtonSlots();
-        combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.enemySelectMenu, true);
-        combatManager.combatMenuManager.selectEnemyMenuDefaultButton.Select();
+        enemySelectMenuUI.InitializeButtonSlots();
+        enemySelectMenuUI.DisplayMenu(true);
+        enemySelectMenuUI.menuButtons[enemySelectMenuUI.highlightedButtonIndex].Select();
         yield break;
     }
 
     public void CombatantSelected(EnemySelectButtonScript enemySelectScript)
     {
         combatManager.playerCombat.targetCombatant = enemySelectScript.combatant;
-        selectEnemyMenuScript.DeselectEnemy(enemySelectScript);
-        selectEnemyMenuScript.isEnemySlotsInitialized = false;
+        enemySelectMenuUI.DeselectEnemy(enemySelectScript);
+        enemySelectMenuUI.isEnemySlotsInitialized = false;
         combatManager.SetState(combatManager.applyMove);
     }
 
@@ -31,13 +31,12 @@ public class EnemySelectState : State
 
         {
             combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
-            selectEnemyMenuScript.DeselectEnemy(selectEnemyMenuScript.enemySelectButtonScriptHighlighted);
-            combatManager.combatMenuManager.SetButtonNormalColor(combatManager.secondMove.lastButtonSelected, Color.white);
-            combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.enemySelectMenu, false);
+            enemySelectMenuUI.DeselectEnemy(enemySelectMenuUI.enemySelectButtonScriptHighlighted);
+            enemySelectMenuUI.DisplayMenu(false);
 
             combatManager.playerCombat.CombatLookDirX = previousLookDirX;
 
-            combatManager.SetState(combatManager.secondMove);
+            combatManager.SetState(combatManager.styleSelectState);
         }
     }
 }

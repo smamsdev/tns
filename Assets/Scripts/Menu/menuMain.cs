@@ -29,8 +29,6 @@ public class menuMain : PauseMenu
     {
         masterMenuContainer.SetActive(false);
         animator.enabled = false;
-
-        StartCoroutine(CaptureScreenshotAndEnter());
     }
 
     void WireButtons()
@@ -91,10 +89,6 @@ public class menuMain : PauseMenu
         animator.enabled = true;
 
         firstMenuButton.Select();
-
-        //debugging MOVES
-        menuButtonHighlighteds[2].button.onClick.Invoke();
-
     }
 
     public override void ExitMenu() //triggered via animation transition event

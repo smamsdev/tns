@@ -8,23 +8,23 @@ using UnityEngine.UI;
 
 public class EnemySelectButtonScript : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
-    public SelectEnemyMenuScript selectEnemyMenuScript;
+    public EnemySelectMenuUI enemySelectMenuUI;
     public TextMeshProUGUI buttonText;
     public Combatant combatant;
     public Button button;
 
     public void OnSelect(BaseEventData eventData)
     {
-        selectEnemyMenuScript.HighlightEnemy(this);
+        enemySelectMenuUI.HighlightEnemy(this);
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        selectEnemyMenuScript.DeselectEnemy(this);
+        enemySelectMenuUI.DeselectEnemy(this);
     }
 
     public void OnButtonSelected()
     {
-        selectEnemyMenuScript.combatManager.enemySelectState.CombatantSelected(this);
+        enemySelectMenuUI.combatManager.enemySelectState.CombatantSelected(this);
     }
 }

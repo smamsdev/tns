@@ -5,14 +5,13 @@ using UnityEngine.Rendering;
 
 public class EquipSlotSelectState : State
 {
-    [SerializeField] EquipSlotSelectMenu equipSlotSelectMenu;
+    [SerializeField] CombatEquipSelectMenuUI combatEquipSelectMenuUI;
 
     public override IEnumerator StartState()
     {
-        combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.EquipSlotSelectMenu, true);
-        equipSlotSelectMenu.DisplayEquipSlots();
-        combatManager.combatMenuManager.equipSlotSelectMenuDefaultButton.Select();
-
+        combatEquipSelectMenuUI.InitialiseEquipSlots();
+        combatEquipSelectMenuUI.menuButtons[combatEquipSelectMenuUI.highlightedButtonIndex].Select();
+        combatEquipSelectMenuUI.DisplayMenu(true);
         yield break;
     }
 
@@ -21,10 +20,8 @@ public class EquipSlotSelectState : State
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             StartCoroutine(FieldEvents.CoolDown(0.2f));
-            combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.EquipSlotSelectMenu, false);
+            combatEquipSelectMenuUI.DisplayMenu(false);
             combatManager.SetState(combatManager.tacticalSelectState);
-            combatManager.combatMenuManager.SetButtonNormalColor(combatManager.tacticalSelectState.lastButtonSelected, Color.white);
-            combatManager.tacticalSelectState.lastButtonSelected.Select();
             CombatEvents.UpdateNarrator("");
         }
     }

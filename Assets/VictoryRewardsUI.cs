@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
-public class VictoryRewards : MonoBehaviour
+public class VictoryRewardsUI : MonoBehaviour
 {
     public CombatManager combatManager;
     public GridLayoutGroup totalXPgridLayout;
@@ -27,6 +27,11 @@ public class VictoryRewards : MonoBehaviour
 
     float lastRewardWidth = 0f;
 
+    public void DisplayMenu(bool on)
+    {
+        this.gameObject.SetActive(on);
+    }
+
     void TotalXPEarned()
     {
         XPEarned = 0;
@@ -42,6 +47,8 @@ public class VictoryRewards : MonoBehaviour
 
     public IEnumerator ShowRewards()
     {
+        Debug.Log("refactor to make this calss focus on ui elements only and state or SOs handle logic");
+
         combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
         XPRewardsDistributeParent.SetActive(false);
         
@@ -156,15 +163,15 @@ public class VictoryRewards : MonoBehaviour
                 foreach (GameObject go in playerStatsOnly)
                 { go.SetActive(false); }
 
-                PartyMemberSO partyMemberSO = partyMemberCombat.partyMemberSO;
+                PartyMemberPermanentStats PartyMemberPermanentStats = partyMemberCombat.partyMemberPermanentStats;
 
-                partyMemberSO.UpdateThreshold();
+                PartyMemberPermanentStats.UpdateThreshold();
                 allyNameTMP.text = combatant.combatantName;
-                allyLevelTMP.text = partyMemberSO.Level.ToString();
-                allyAttackTMP.text = partyMemberSO.AttackBase.ToString();
-                allyFendTMP.text = partyMemberSO.FendBase.ToString();
+                allyLevelTMP.text = PartyMemberPermanentStats.Level.ToString();
+                allyAttackTMP.text = PartyMemberPermanentStats.AttackBase.ToString();
+                allyFendTMP.text = PartyMemberPermanentStats.FendBase.ToString();
 
-                var previousXP = partyMemberSO.XP;
+                var previousXP = PartyMemberPermanentStats.XP;
                 var targetXP = previousXP + XPEarned;
                 allyXPTMP.text = previousXP.ToString();
 
@@ -172,18 +179,18 @@ public class VictoryRewards : MonoBehaviour
 
                 FieldEvents.LerpValuesCoRo(previousXP, targetXP, 1, value =>
                 {
-                    partyMemberSO.XP = Mathf.RoundToInt(value);
-                    allyXPTMP.text = partyMemberSO.XP.ToString();
-                    allyXPRemainderTMP.text = (partyMemberSO.XPThreshold - partyMemberSO.XP).ToString();
+                    PartyMemberPermanentStats.XP = Mathf.RoundToInt(value);
+                    allyXPTMP.text = PartyMemberPermanentStats.XP.ToString();
+                    allyXPRemainderTMP.text = (PartyMemberPermanentStats.XPThreshold - PartyMemberPermanentStats.XP).ToString();
 
                     UpdateXPGainLayout();
 
-                    if (partyMemberSO.XP >= partyMemberSO.XPThreshold)
+                    if (PartyMemberPermanentStats.XP >= PartyMemberPermanentStats.XPThreshold)
                     {
-                        partyMemberSO.LevelUp();
-                        allyLevelTMP.text = partyMemberSO.Level.ToString();
-                        allyAttackTMP.text = partyMemberSO.AttackBase.ToString();
-                        allyFendTMP.text = partyMemberSO.FendBase.ToString();
+                        PartyMemberPermanentStats.LevelUp();
+                        allyLevelTMP.text = PartyMemberPermanentStats.Level.ToString();
+                        allyAttackTMP.text = PartyMemberPermanentStats.AttackBase.ToString();
+                        allyFendTMP.text = PartyMemberPermanentStats.FendBase.ToString();
                     }
                 });
             }

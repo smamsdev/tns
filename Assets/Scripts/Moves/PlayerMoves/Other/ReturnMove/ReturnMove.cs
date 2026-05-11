@@ -13,10 +13,6 @@ public class ReturnMove : Move
         combatantToActAnimator.Play("Advance");
         yield return MoveToPosition(combatantToAct, combatantToAct.fightingPosition.transform.position);
         combatantToActAnimator.SetTrigger("CombatIdle");
-        combatManager.combatMenuManager.SetButtonNormalColor(combatManager.tacticalSelectState.lastButtonSelected, Color.white);
-        combatManager.tacticalSelectState.lastButtonSelected = combatManager.tacticalSelectState.gearButton;
-
-
         Vector3 direction = (combatantToAct.targetCombatant.transform.position - combatantToAct.transform.position).normalized;
         combatantToAct.CombatLookDirX = (int)Mathf.Sign(direction.x);
 

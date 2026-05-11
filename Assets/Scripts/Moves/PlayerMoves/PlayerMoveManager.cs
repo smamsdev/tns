@@ -6,7 +6,7 @@ using System;
 
 public class PlayerMoveManager : MonoBehaviour
 {
-    public int firstMoveIs;
+    public int actionSelectStateIs;
     public int secondMoveIs;
     public PlayerMoveInventorySO playerMoveInventorySO;
 
@@ -60,7 +60,7 @@ public class PlayerMoveManager : MonoBehaviour
 
     public void CombineStanceAndMove()
     {
-        switch (firstMoveIs)
+        switch (actionSelectStateIs)
         {
             case 0:
                 Debug.Log("set gear as a move, update this");

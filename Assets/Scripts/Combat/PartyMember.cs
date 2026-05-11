@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class PartyMemberCombat : Ally
 {
-    public PartyMemberSO partyMemberSO;
-    public  Texture portraitImage;
+    public PartyMemberPermanentStats partyMemberPermanentStats;
+    public Texture portraitImage;
 
     private void OnEnable()
     {

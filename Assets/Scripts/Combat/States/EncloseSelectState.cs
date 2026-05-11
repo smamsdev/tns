@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class EncloseSelectState : State
 {
-    public SelectEnemyMenuScript selectEnemyMenuScript;
+    public EnemySelectMenuUI enemySelectMenuUI;
     int previousLookDirX;
 
     public override IEnumerator StartState()
     {
         previousLookDirX = combatManager.playerCombat.CombatLookDirX;
-        selectEnemyMenuScript.InitializeButtonSlots();
-        combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.enemySelectMenu, true);
-        combatManager.combatMenuManager.selectEnemyMenuDefaultButton.Select();
+        enemySelectMenuUI.InitializeButtonSlots();
+        enemySelectMenuUI.DisplayMenu(true);
+        enemySelectMenuUI.menuButtons[enemySelectMenuUI.highlightedButtonIndex].Select();
         yield break;
     }
 
@@ -24,10 +24,7 @@ public class EncloseSelectState : State
         {
             combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
             combatManager.tacticalSelectState.isEnclosing = false;
-            selectEnemyMenuScript.DeselectEnemy(selectEnemyMenuScript.enemySelectButtonScriptHighlighted);
-            combatManager.combatMenuManager.SetButtonNormalColor(combatManager.tacticalSelectState.lastButtonSelected, Color.white);
-            combatManager.combatMenuManager.DisplayMenuGO(combatManager.combatMenuManager.enemySelectMenu, false);
-            combatManager.tacticalSelectState.lastButtonSelected.Select();
+            enemySelectMenuUI.DeselectEnemy(enemySelectMenuUI.enemySelectButtonScriptHighlighted);
             combatManager.playerCombat.CombatLookDirX = previousLookDirX;
             combatManager.SetState(combatManager.tacticalSelectState);
         }
