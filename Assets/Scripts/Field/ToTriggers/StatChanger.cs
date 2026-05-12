@@ -1,23 +1,12 @@
 using System.Collections;
 using UnityEngine;
-using static Shift;
+using static StatModifier;
 
 public class StatChanger : ToTrigger
 {
     [SerializeField] StatToChange statType;
     [SerializeField] int value;
     public PartyMemberPermanentStats optionalPartyMemberStats;
-
-    public enum StatToChange
-    {
-        Smams,
-        MaxPotential,
-        FocusBase,
-        AttackBase,
-        FendBase,
-        MaxHP,
-        XP
-    }
 
     public override IEnumerator TriggerFunction()
     {

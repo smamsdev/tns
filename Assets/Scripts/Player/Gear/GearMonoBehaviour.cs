@@ -2,12 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Gear : MonoBehaviour
+public abstract class GearMonoBehaviour : MonoBehaviour
 {
     [HideInInspector] public CombatManager combatManager;
-    public int turnsUntilConsumed;
+    [SerializeField] GearInstance gearInstance;
 
-    public abstract IEnumerator ApplyGear();
+    public void SetGearInstance(GearInstance gearInstance)
+    {
+        if (gearInstance is EquipmentInstance equipmentInstance)
+            gearInstance = equipmentInstance;
 
-    public abstract void OnEquipGear();
+        else gearInstance = gearInstance as ConsumableInstance;
+    }
+
+    public virtual IEnumerator ApplyGear()
+    {
+        yield return null;
+    }
+
+    public virtual void OnEquipGear()
+    {
+        return;
+    }
 }

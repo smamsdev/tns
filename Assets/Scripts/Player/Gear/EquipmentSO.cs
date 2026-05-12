@@ -6,19 +6,11 @@ using UnityEngine;
 
 public class EquipmentSO : GearSO
 {
-    public int Potential
+    public int MaxCharge
     {
-        get
-        {
-            return potential;
-        }
-        set
-        {
-            potential = Mathf.Clamp(value, 0, maxPotential);
-        }
-
+        get => maxCharge;
+        set => maxCharge = Mathf.Clamp(value, 0, 9999);
     }
 
-    [SerializeField] int potential;
-    public int maxPotential;
+    [SerializeField] int maxCharge;
 }

@@ -7,8 +7,6 @@ using TMPro;using UnityEngine;public class LockerMainMenu : LockerMenu{    
         displayContainer.SetActive(true);
         this.gameObject.SetActive(true);
         animator.Play("OpenMenu");
-
-        FieldEvents.menuAvailable = false;
         CombatEvents.LockPlayerMovement();        ClearAllDescriptionTMPs();        lockerMenuManager.lockerCacheMenu.InstantiateUIBays();
         lockerMenuManager.lockerCacheMenu.SetBaySlotsAlpha(.7f, .7f);
         lockerMenuManager.lockerGearMenu.InitialiseInventoryUI();
@@ -29,7 +27,7 @@ using TMPro;using UnityEngine;public class LockerMainMenu : LockerMenu{    
         //Gear Type
         if (gearInstance is EquipmentInstance equipmentInstance)
         {
-            chargeTMP.text = "Charge " + equipmentInstance.Charge + " / " + ((EquipmentSO)equipmentInstance.gearSO).maxPotential;
+            chargeTMP.text = "Charge " + equipmentInstance.Charge + " / " + ((EquipmentSO)equipmentInstance.gearSO).MaxCharge;
         }
 
         else
@@ -62,7 +60,6 @@ using TMPro;using UnityEngine;public class LockerMainMenu : LockerMenu{    
         }
     }
     public override void DisplayMenu(bool on)    {        displayContainer.SetActive(on);    }    public override void EnterMenu()    {        //    }    public override void ExitMenu()    {        animator.Play("CloseMenu", 0, 0f);
-        FieldEvents.menuAvailable = true;
         CombatEvents.UnlockPlayerMovement();
         //Manager GO will be disabled via attached MenuAnimationFunctions script event once completed
     }    public override void StateUpdate()

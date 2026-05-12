@@ -45,8 +45,6 @@ public class ShopMainMenu : ShopMenu
         playerPermanentStats = player.GetComponent<PlayerCombat>().playerPermanentStats;
 
         animator.Play("OpenMenu");
-
-        FieldEvents.menuAvailable = false;
         CombatEvents.LockPlayerMovement();
 
         shopMenuManager.buyMenu.InstantiateUIShopInventorySlots();
@@ -82,7 +80,6 @@ public class ShopMainMenu : ShopMenu
     public override void ExitMenu()
     {
         animator.Play("CloseMenu", 0, 0f);
-        FieldEvents.menuAvailable = true;
         CombatEvents.UnlockPlayerMovement();
         //Manager GO will be disabled via attached MenuAnimationFunctions script event once completed
     }

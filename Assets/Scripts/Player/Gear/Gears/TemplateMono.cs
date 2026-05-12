@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BrassKnuckles : GearMonoBehaviour
+public class Template : GearMonoBehaviour
 {
     public override IEnumerator ApplyGear()
     {
-        throw new System.NotImplementedException();
+        yield return null;
     }
 
     public override void OnEquipGear()
     {
-        throw new System.NotImplementedException();
+        return;
     }
 }

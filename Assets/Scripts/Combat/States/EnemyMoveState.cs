@@ -23,11 +23,11 @@ public class EnemyMoveState : State
 
             var moveSelected = enemy.moveSelected;
             moveSelected.LoadMoveReferences(enemy, combatManager);
-            CombatEvents.UpdateNarrator(moveSelected.moveSO.MoveName);
+            combatManager.combatMenuManager.UpdateNarrator(moveSelected.moveSO.MoveName);
 
             yield return new WaitForSeconds(1f);
             moveSelected.CalculateMoveStats();
-            CombatEvents.UpdateNarrator("");
+            combatManager.combatMenuManager.UpdateNarrator("");
 
             //rock out
             yield return moveSelected.ApplyMove(enemy, enemy.targetCombatant);

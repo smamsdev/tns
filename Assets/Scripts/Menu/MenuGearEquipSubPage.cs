@@ -59,7 +59,7 @@ public class MenuGearEquipSubPage : PauseMenu
 
             if (gearInstanceEquipped[i] == null || gearInstanceEquipped[i].gearSO == null)
             {
-                equipSlot.itemNameTMP.text = "Free";
+                equipSlot.itemNameTMP.text = "Slot Available";
                 equipSlot.itemQuantityTMP.text = "";
                 equipSlot.icon.sprite = equipSlot.freeIcon;
                 equipSlot.gearInstance = new GearInstance();

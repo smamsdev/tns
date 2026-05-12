@@ -14,7 +14,6 @@ public static class CombatEvents
     public static Action<State> SendState;
 
     //Combat UI
-    public static Action<string> UpdateNarrator;
     public static Action<int> UpdateFendDisplay;
 
     public static Action<float> InputCoolDown;

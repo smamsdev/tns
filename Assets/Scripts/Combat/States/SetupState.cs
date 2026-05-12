@@ -146,7 +146,7 @@ public class Setup : State
 
     void InitializePermanentStatsAndGear()
     {
-        //playerCombat.playerInventorySO.InstantiateAllEquippedGear(combatManager);
+        //playerCombat.InstantiateAllEquippedGear(combatManager);
         //Debug.Log("instnatiate all gear fix");
 
         //Debug.Log(" mix this with aprty members");

@@ -17,7 +17,7 @@ public class TacticalSelectState : State
     public override IEnumerator StartState()
     {
         CheckEncloseState();
-        combatManager.combatMenuManager.actionSelectMenuUI.DisplayMenu(true);
+        tacticalSelectMenuUI.DisplayMenu(true);
         tacticalSelectMenuUI.SetButtonNormalColor(tacticalSelectMenuUI.menuButtons[tacticalSelectMenuUI.highlightedButtonIndex], Color.white);
         tacticalSelectMenuUI.menuButtons[tacticalSelectMenuUI.highlightedButtonIndex].Select();
 

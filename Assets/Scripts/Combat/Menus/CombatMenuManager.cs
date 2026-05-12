@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class CombatMenuManager : MonoBehaviour
 {
     public CombatManager combatManager;
-    public TextMeshProUGUI narratorTMP;
+    [SerializeField] TextMeshProUGUI narratorTMP;
 
     public ActionSelectMenuUI actionSelectMenuUI;
     public StyleSelectMenuUI styleSelectMenuUI;
@@ -36,5 +36,11 @@ public class CombatMenuManager : MonoBehaviour
             narratorTMP.gameObject.SetActive(true);
 
         narratorTMP.text = narratorText;
+    }
+
+    public void SetGearSlotUIColor(InventorySlotUI inventorySlot, Color normalColor, float alpha)
+    {
+        FieldEvents.SetTextColor(inventorySlot.itemNameTMP, normalColor,alpha);
+        FieldEvents.SetTextColor(inventorySlot.itemQuantityTMP, normalColor, alpha);
     }
 }

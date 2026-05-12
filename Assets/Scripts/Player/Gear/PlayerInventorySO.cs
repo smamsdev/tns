@@ -26,8 +26,6 @@ public class PlayerInventorySO : InventorySO
 
         else if (gearInstanceToEquip is ConsumableInstance consumableInstance)
             EquipConsumableToSlot(consumableInstance, equipSlotNumber);
-
-
     }
 
     void EquipEquipmentToSlot(EquipmentInstance equipmentInstanceToEquip, int equipSlotNumber)
@@ -60,58 +58,4 @@ public class PlayerInventorySO : InventorySO
         gearInstanceToUnequip.isCurrentlyEquipped = false;
         gearInstanceEquipped[i] = new GearInstance();
     }
-
-    public void GearConsumed(GearSO gearToUnequip)
-    {
-        //gearToUnequip.isCurrentlyEquipped = false;
-        //int index = inventorySO.equippedGear.IndexOf(gearToUnequip);
-        //inventorySO.equippedGear[index] = null;
-
-        Debug.Log("fix");
-    }
-
-   // public void InstantiateAllEquippedGear(CombatManager combatManager)
-   // {
-   //     foreach (GearInstance gearInstance in inventorySO.gearInstanceEquipped)
-   //     {
-   //         Debug.Log("fix");
-   //
-   //         //  if (gearInstance != null)
-   //         //  { 
-   //         //      GameObject gearInstanceGO = Instantiate(gearInstance.gearPrefab);
-   //         //      gearInstanceGO.name = gearInstance.gearName + "Instance";
-   //         //      gearInstanceGO.transform.SetParent(this.transform, false);
-   //         //
-   //         //      Gear gearInstance = gearInstanceGO.GetComponent<Gear>();
-   //         //      gearSO.gearInstance = gearInstance;
-   //         //      gearInstance.combatManager = combatManager;
-   //         //      gearInstance.OnEquipGear();
-   //         //
-   //         //      if (gearSO is ConsumbableSO)
-   //         //      { gearInstance.turnsUntilConsumed = -1; }
-   //         //  }
-   //     }
-   // }
-
-   // public void InstantiateNewEquippedGear(CombatManager combatManager, GearSO newGearSO)
-   // {
-   //     GameObject gearInstanceGO = Instantiate(newGearSO.gearPrefab);
-   //     gearInstanceGO.name = newGearSO.gearName + "Instance";
-   //     gearInstanceGO.transform.SetParent(this.transform, false);
-   //
-   //     Gear gearInstance = gearInstanceGO.GetComponent<Gear>();
-   //     newGearSO.gearInstance = gearInstance;
-   //     gearInstance.combatManager = combatManager;
-   //
-   //     if (newGearSO is EquipmentSO)
-   //     { gearInstance.turnsUntilConsumed = -1; }
-   // }
-   //
-   // public void DestroyGearInstance(GearSO gearSO)
-   // {
-   //     Destroy(gearSO.gearInstance.gameObject);
-   //     gearSO.gearInstance = null;
-   // }
-
-
 }

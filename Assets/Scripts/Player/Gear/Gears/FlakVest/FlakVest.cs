@@ -1,18 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
-public class FlakVest : Gear
+public class FlakVest : GearMonoBehaviour
 {
     public override IEnumerator ApplyGear()
     {
-        throw new System.NotImplementedException();
+        yield return null;
     }
 
     public override void OnEquipGear()
     {
-        throw new System.NotImplementedException();
+        return;
     }
 }

@@ -16,11 +16,11 @@ public class AllyMoveState : State
 
             var moveSelected = ally.moveSelected;
             moveSelected.LoadMoveReferences(ally, combatManager);
-            CombatEvents.UpdateNarrator(moveSelected.moveSO.MoveName);
+            combatManager.combatMenuManager.UpdateNarrator(moveSelected.moveSO.MoveName);
 
             yield return new WaitForSeconds(1f);
             moveSelected.CalculateMoveStats();
-            CombatEvents.UpdateNarrator("");
+            combatManager.combatMenuManager.UpdateNarrator("");
 
             //rock out
             yield return moveSelected.ApplyMove(ally, ally.targetCombatant);

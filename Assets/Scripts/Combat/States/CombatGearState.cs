@@ -30,9 +30,15 @@ public class CombatGearState : State
 
     void ApplyGearEquipMove()
     {
-        //combatManager.playerCombat.moveSelected = equipGearMove;
-        Debug.Log("asdasd");
-        //combatGearSelectMenuUI.equipSlotSelected = combatGearSelectMenuUI.uIGearEquipSlots[0];
+        combatManager.playerCombat.moveSelected = equipGearMove;
         combatManager.SetState(combatManager.applyMove);
+    }
+
+
+    public void OnInventorySlotSelected(InventorySlotUI inventorySlot)
+    {
+        int equipSlotIndex = combatManager.combatMenuManager.combatEquipSelectMenuUI.highlightedButtonIndex;
+        combatManager.playerCombat.playerInventorySO.EquipGearToSlot(inventorySlot.gearInstance, equipSlotIndex);
+        ApplyGearEquipMove();
     }
 }

@@ -29,7 +29,6 @@ public class VictoryRewardsUI : MonoBehaviour
 
     public void DisplayMenu(bool on)
     {
-        Debug.Log("asdasd");
         this.gameObject.SetActive(on);
     }
 

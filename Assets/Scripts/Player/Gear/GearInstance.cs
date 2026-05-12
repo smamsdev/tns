@@ -43,7 +43,15 @@ public class GearInstance
 
     public int EquippedSlotInt(PlayerInventorySO playerInventorySO)
     {
-         return playerInventorySO.gearInstanceEquipped.IndexOf(this);
+        int index = playerInventorySO.gearInstanceEquipped.IndexOf(this);
+
+        if (index == -1)
+        {
+            Debug.Log(this + " was not found in equipped gear list.");
+            return 0;
+        }
+
+        return index;
     }
 }
 
@@ -80,14 +88,14 @@ public class EquipmentInstance : GearInstance
 
     public float Charge
     {
-        get => charge;
+        get => charge = Mathf.Clamp(charge, 0f, MaxCharge());
         private set => charge = Mathf.Clamp(value, 0f, MaxCharge());
     }
 
     private float MaxCharge()
     {
         if (gearSO is EquipmentSO equipment)
-            return equipment.maxPotential;
+            return equipment.MaxCharge;
 
         return 0f;
     }
@@ -100,12 +108,12 @@ public class EquipmentInstance : GearInstance
 
     public float ChargePercentage()
     {
-        float max = ((EquipmentSO)gearSO).maxPotential;
+        float max = ((EquipmentSO)gearSO).MaxCharge;
 
         if (max <= 0f)
             return 0f;
 
-        return Mathf.RoundToInt((charge / max) * 100f);
+        return Mathf.RoundToInt((Charge / max) * 100f);
     }
 
     public string ChargeTotalString()
@@ -115,7 +123,7 @@ public class EquipmentInstance : GearInstance
 
     public int MaxPotential()
     {
-        return ((EquipmentSO)gearSO).maxPotential;
+        return ((EquipmentSO)gearSO).MaxCharge;
     }
 
     public void AddCharge(float amount)

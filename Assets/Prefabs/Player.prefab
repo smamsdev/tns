@@ -421,6 +421,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1040471762652772850
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2022996080660743627}
+  m_Layer: 7
+  m_Name: GearInstances
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2022996080660743627
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040471762652772850}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7291517550505530816}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1237916937157881194
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,18 +1128,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09795f0564bcb7347a45454697604cc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstMoveIs: 0
+  actionSelectStateIs: 0
   secondMoveIs: 0
   playerMoveInventorySO: {fileID: 11400000, guid: 4658aa4d7d4f0c24fb16a242861b273c, type: 2}
   ViolentAttacksFolder: {fileID: 7181943373128863204}
-  VioletFendsFolder: {fileID: 0}
-  ViolentFocusesFolder: {fileID: 0}
-  CautiousAttacksFolder: {fileID: 0}
-  CautiousFendsFolder: {fileID: 0}
-  CautiousFocusesFolder: {fileID: 0}
-  PreciseAttacksFolder: {fileID: 0}
-  PreciseFendsFolder: {fileID: 0}
-  PreciseFocusesFolder: {fileID: 0}
+  VioletFendsFolder: {fileID: 5300333938604542810}
+  ViolentFocusesFolder: {fileID: 8637928391364272614}
+  CautiousAttacksFolder: {fileID: 5457038480682525513}
+  CautiousFendsFolder: {fileID: 4122767040265247939}
+  CautiousFocusesFolder: {fileID: 1909128730201163071}
+  PreciseAttacksFolder: {fileID: 1263625616719364937}
+  PreciseFendsFolder: {fileID: 4210293672364492230}
+  PreciseFocusesFolder: {fileID: 6451062353674095499}
   playerCombat: {fileID: 8916189207439800493}
   violentAttackInstances: []
   violentFendInstances: []
@@ -1696,6 +1727,7 @@ Transform:
   - {fileID: 6720233661347898246}
   - {fileID: 4385107063098349603}
   - {fileID: 7480956048217281426}
+  - {fileID: 2022996080660743627}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5989087119214572885
@@ -1745,12 +1777,12 @@ SpriteRenderer:
   m_SortingLayerID: 627291665
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5589216068684474, guid: 13c6eb5774d73bf42ae3b3d8b94f927b, type: 3}
+  m_Sprite: {fileID: 5190724348879181900, guid: 2180598f9f88bbd4aa026e62c8fb6d6e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.19, y: 0.53}
+  m_Size: {x: 0.2, y: 0.53}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1810,8 +1842,6 @@ MonoBehaviour:
   previousPosition: {x: 0, y: 0}
   movementLocked: 0
   distanceTravelled: 0
-  previousPositionmag: 0
-  newPositionmag: 0
   delta: {x: 0, y: 0}
 --- !u!95 &8879681757372781048
 Animator:
@@ -1921,21 +1951,23 @@ MonoBehaviour:
   fightingPosition: {fileID: 0}
   isBackstabbed: 0
   isEnclosed: 1
-  _combatLookDirX: 0
-  attackBase: 55
-  fendBase: 55
-  maxHP: 0
-  currentHP: 0
   targetCombatant: {fileID: 0}
   moveSelected: {fileID: 0}
   moveList: []
   movesFolderGO: {fileID: 0}
-  partyMemberSO: {fileID: 11400000, guid: 891a8d8bd88cd9a45acd6a5ac406be03, type: 2}
+  _combatLookDirX: 1
+  attackBase: 0
+  fendBase: 0
+  maxHP: 0
+  currentHP: 0
+  partyMemberPermanentStats: {fileID: 0}
   portraitImage: {fileID: 2800000, guid: 872ec5dfdbea214418206775b2228593, type: 3}
   playerMoveManager: {fileID: 5232138969718999026}
   playerPermanentStats: {fileID: 11400000, guid: 891a8d8bd88cd9a45acd6a5ac406be03, type: 2}
   party: {fileID: 11400000, guid: 7b54538dd0515b34c937ff6de93a275f, type: 2}
   playerInventorySO: {fileID: 11400000, guid: 97dc67b5386968e44b5d9f736f57d1f1, type: 2}
+  gearMonoBehaviourParentFolder: {fileID: 1040471762652772850}
+  gearBehaviours: []
   maxPotential: 0
   currentPotential: 0
   focusBase: 0

@@ -16,7 +16,6 @@ public class BatteryMainMenu : BatteryMenu
         playerInventorySO = player.GetComponent<PlayerCombat>().playerInventorySO;
         vehicleInstance = GetComponentInParent<VehicleInstance>();
 
-        FieldEvents.menuAvailable = false;
         CombatEvents.LockPlayerMovement();
 
         ClearAllDescriptionTMPs();
@@ -39,7 +38,7 @@ public class BatteryMainMenu : BatteryMenu
         //Gear Type
         if (gearInstance is EquipmentInstance equipmentInstance)
         {
-            chargeTMP.text = "Charge " + equipmentInstance.Charge + " / " + ((EquipmentSO)equipmentInstance.gearSO).maxPotential;
+            chargeTMP.text = "Charge " + equipmentInstance.Charge + " / " + ((EquipmentSO)equipmentInstance.gearSO).MaxCharge;
         }
 
         else
@@ -89,7 +88,6 @@ public class BatteryMainMenu : BatteryMenu
     public override void ExitMenu()
     {
         animator.Play("CloseMenu", 0, 0f);
-        FieldEvents.menuAvailable = true;
         CombatEvents.UnlockPlayerMovement();
         //Manager GO will be disabled via attached MenuAnimationFunctions script event once completed
     }

@@ -14,11 +14,11 @@ public class Imitator : Move
         yield return new WaitForSeconds(0.25f);
 
         combatantToAct.moveSelected.LoadMoveReferences(combatantToAct, combatManager);
-        CombatEvents.UpdateNarrator(combatantToAct.moveSelected.moveSO.MoveName);
+        combatManager.combatMenuManager.UpdateNarrator(combatantToAct.moveSelected.moveSO.MoveName);
 
         yield return new WaitForSeconds(1f);
         combatantToAct.moveSelected.CalculateMoveStats();
-        CombatEvents.UpdateNarrator("");
+        combatManager.combatMenuManager.UpdateNarrator("");
 
         //rock out
         yield return combatantToAct.moveSelected.ApplyMove(combatantToAct, combatantToAct.targetCombatant);

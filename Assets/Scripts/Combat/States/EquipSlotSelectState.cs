@@ -10,7 +10,7 @@ public class EquipSlotSelectState : State
     public override IEnumerator StartState()
     {
         combatEquipSelectMenuUI.InitialiseEquipSlots();
-        combatEquipSelectMenuUI.menuButtons[0].Select();
+        combatEquipSelectMenuUI.menuButtons[combatEquipSelectMenuUI.highlightedButtonIndex].Select();
         combatEquipSelectMenuUI.DisplayMenu(true);
         yield break;
     }
@@ -21,8 +21,15 @@ public class EquipSlotSelectState : State
         {
             StartCoroutine(FieldEvents.CoolDown(0.2f));
             combatEquipSelectMenuUI.DisplayMenu(false);
+            combatEquipSelectMenuUI.highlightedButtonIndex = 0;
             combatManager.SetState(combatManager.tacticalSelectState);
-            CombatEvents.UpdateNarrator("");
+            combatManager.combatMenuManager.UpdateNarrator("");
         }
+    }
+
+    public void OnEquipSlotSelected(InventorySlotUI gearEquipSlotSelected)
+    {
+        combatManager.SetState(combatManager.combatGearState);
+        combatManager.combatMenuManager.SetGearSlotUIColor(gearEquipSlotSelected, Color.yellow, 1);
     }
 }

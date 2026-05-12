@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static StatModifier;
+using static UnityEngine.Rendering.DebugUI;
 
 public abstract class Combatant : MonoBehaviour
 {
@@ -30,47 +32,39 @@ public abstract class Combatant : MonoBehaviour
 
     [SerializeField] private int _combatLookDirX;
 
+    [Header("Stats")]
+    [SerializeField] private int attackBase;
     public int AttackBase
     {
-        get { return attackBase; }
-        set
-        {
-            attackBase = Mathf.Clamp(value, 0, 999);
-        }
+        get => (attackBase);
+        set => attackBase = Mathf.Clamp(value, 0, 999);
     }
 
+    [SerializeField] private int fendBase;
     public int FendBase
     {
-        get { return fendBase; }
-        set
-        {
-            fendBase = Mathf.Clamp(value, 0, 999);
-        }
+        get => (fendBase);
+        set => fendBase = Mathf.Clamp(value, 0, 999);
     }
 
+    [SerializeField] private int maxHP;
     public int MaxHP
     {
-        get { return maxHP; }
-        set
-        {
-            maxHP = Mathf.Clamp(value, 0, 9999);
-        }
+        get => (maxHP);
+        set => maxHP = Mathf.Clamp(value, 0, 9999);
     }
 
+    [SerializeField] private int currentHP;
     public int CurrentHP
     {
         get => currentHP;
-        set
-        {
-            currentHP = Mathf.Clamp(value, 0, 9999);
-        }
+        set => currentHP = Mathf.Clamp(value, 0, 9999);
     }
 
-    [Header("Stats")]
-    [SerializeField] private int attackBase;
-    [SerializeField] private int fendBase;
-    [SerializeField] private int maxHP;
-    [SerializeField] private int currentHP;
+
+
+
+
 
     [Tooltip("Set by code. Leave as 0.")]
     private int attackTotal = 0;
@@ -179,5 +173,42 @@ public abstract class Combatant : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
+    }
+
+    public virtual void ChangeStat(StatModifier mod)
+    {
+        int baseValueToChange;
+
+        switch (mod.statToChange)
+        {
+            case StatToChange.AttackBase:
+                baseValueToChange = AttackBase;
+                break;
+            case StatToChange.FendBase:
+                baseValueToChange = FendBase;
+                break;
+            case StatToChange.MaxHP:
+                baseValueToChange = MaxHP;
+                break;
+        //
+        //  //PartyMemberStats
+        //  case StatToChange.XP:
+        //      baseValueToChange = Xp;
+        //      break;
+        //
+        //  // Player stats
+        //  case StatToChange.Smams:
+        //      baseValueToChange = value;
+        //      break;
+        //  case StatToChange.MaxPotential:
+        //      baseValueToChange = value;
+        //      break;
+        //  case StatToChange.FocusBase:
+        //      baseValueToChange = value;
+        //      break;
+        //
+            default:
+                break;
+        }
     }
 }

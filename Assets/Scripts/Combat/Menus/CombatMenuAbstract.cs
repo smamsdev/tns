@@ -10,7 +10,7 @@ public class CombatMenu : MonoBehaviour
     public int highlightedButtonIndex;
 
     public void DisplayMenu(bool on)
-    { 
+    {
         this.gameObject.SetActive(on);
     }
 

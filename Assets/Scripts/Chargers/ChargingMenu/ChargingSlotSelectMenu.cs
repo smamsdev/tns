@@ -178,7 +178,7 @@ public class ChargingSlotMenu : ChargingMenu
         EquipmentSO equipmentSO = equipmentInstance.gearSO as EquipmentSO;
 
         feeTMP.text = "Charging Fee: " + (chargesAccrued * costPerCharge) + " $MAMS";
-        chargeAmountTMP.text = "Charge: " + equipmentInstance.Charge + " / " + equipmentSO.maxPotential;
+        chargeAmountTMP.text = "Charge: " + equipmentInstance.Charge + " / " + equipmentSO.MaxCharge;
     }
 
     public void ChargingSlotSelected(InventorySlotUI chargingSlotSelected)

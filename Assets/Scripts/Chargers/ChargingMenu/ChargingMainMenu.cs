@@ -26,7 +26,6 @@ public class ChargingMainMenu : ChargingMenu
         displayContainer.SetActive(true);
         animator.Play("OpenMenu");
 
-        FieldEvents.menuAvailable = false;
         CombatEvents.LockPlayerMovement();
 
         chargingMenuManager.ChargingSlotSelectMenu.rotatingChargerIndex = 0;
@@ -83,7 +82,6 @@ public class ChargingMainMenu : ChargingMenu
         chargingMenuManager.chargingEquipmentSelectMenu.DeleteAllInventoryUI();
         animator.Play("CloseMenu"); //animator has a Function to disable this GO once finished
         CombatEvents.UnlockPlayerMovement();
-        FieldEvents.menuAvailable = true;
     }
 
     public override void StateUpdate()

@@ -11,6 +11,7 @@ using UnityEngine.UI;
 public class CombatEquipSelectMenuUI : CombatMenu
 {
     public CombatManager combatManager;
+    public EquipSlotSelectState equipSlotSelectState;
     public GameObject UIInventorySlotPrefab, equipSlotsParent;
     public List<InventorySlotUI> equipSlots = new List<InventorySlotUI>();
     public GridLayoutGroup slotGridLayoutGroup;
@@ -29,15 +30,16 @@ public class CombatEquipSelectMenuUI : CombatMenu
 
             InventorySlotUI equipSlot = UIEquipSlotGO.GetComponent<InventorySlotUI>();
 
-            equipSlot.button.onClick.AddListener(() => OnEquipSlotSelected(equipSlot));
             equipSlot.icon.sprite = equipSlot.equipmentIcon;
 
             if (gearInstanceEquipped[i] == null || gearInstanceEquipped[i].gearSO == null)
             {
-                equipSlot.itemNameTMP.text = "Free";
+                equipSlot.itemNameTMP.text = "Slot Available";
                 equipSlot.itemQuantityTMP.text = "";
                 equipSlot.icon.sprite = equipSlot.freeIcon;
                 equipSlot.gearInstance = new GearInstance();
+
+                equipSlot.button.onClick.AddListener(() => equipSlotSelectState.OnEquipSlotSelected(equipSlot));
             }
 
             else
@@ -59,11 +61,12 @@ public class CombatEquipSelectMenuUI : CombatMenu
             equipSlot.onHighlighted = () =>
             {
                 OnEquipSlotHighlighted(equipSlot);
+                menuManager.SetGearSlotUIColor(equipSlot, Color.yellow, 1);
             };
 
             equipSlot.onUnHighlighted = () =>
             {
-                //menuGearMainPage.SetSlotColor(equipSlot, Color.white);
+                menuManager.SetGearSlotUIColor(equipSlot, Color.white, 1);
             };
 
             equipSlots.Add(equipSlot);
@@ -94,6 +97,7 @@ public class CombatEquipSelectMenuUI : CombatMenu
     public void DeleteAllInventoryUI()
     {
         equipSlots.Clear();
+        menuButtons.Clear();
 
         for (int i = equipSlotsParent.transform.childCount - 1; i >= 0; i--)
         {
@@ -103,12 +107,16 @@ public class CombatEquipSelectMenuUI : CombatMenu
 
     public void OnEquipSlotHighlighted(InventorySlotUI inventorySlotUI)
     {
-        //
-    }
+        GearSO gearSO = inventorySlotUI.gearInstance.gearSO;
+        highlightedButtonIndex = equipSlots.IndexOf(inventorySlotUI);
 
-    public void OnEquipSlotSelected(InventorySlotUI gearEquipSlotSelected)
-    {
-        //
+        if (gearSO == null)
+        {
+            menuManager.UpdateNarrator("Equip GEAR to Slot " + (highlightedButtonIndex + 1) + "?");
+            return;
+        }
+
+        menuManager.UpdateNarrator(inventorySlotUI.gearInstance.gearSO.GearDescription + "?\n" + "Press CTRL to unequip");
     }
 }
 

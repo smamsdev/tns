@@ -71,16 +71,16 @@ public class ApplyPlayerMove : State
 
         var moveSelected = combatManager.playerCombat.moveSelected;
         moveSelected.LoadMoveReferences(player, combatManager);
-        CombatEvents.UpdateNarrator(moveSelected.moveSO.MoveName);
+        combatManager.combatMenuManager.UpdateNarrator(moveSelected.moveSO.MoveName);
 
         ApplyPotentialChange();
         yield return new WaitForSeconds(1f);
         moveSelected.CalculateMoveStats();
-        CombatEvents.UpdateNarrator("");
+        combatManager.combatMenuManager.UpdateNarrator("");
 
         //rock out
         yield return moveSelected.ApplyMove(player, player.targetCombatant);
-        CombatEvents.UpdateNarrator("");
+        combatManager.combatMenuManager.UpdateNarrator("");
     }
 
     void ApplyPotentialChange()

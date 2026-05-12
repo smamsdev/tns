@@ -29,7 +29,7 @@ public class CombatManager : MonoBehaviour
     public Defeat defeat;
     public TacticalSelectState tacticalSelectState;
     public EquipSlotSelectState equipSlotSelectState;
-    public CombatGearState CombatGearState;
+    public CombatGearState combatGearState;
     public EncloseSelectState encloseSelectState;
 
     [Header("Misc")]
@@ -94,36 +94,35 @@ public class CombatManager : MonoBehaviour
     {
         CombatEvents.LockPlayerMovement.Invoke();
 
-        //debugging
-        SetState(actionSelectState);
-        firstOption.onClick.Invoke();
-        secondOption.onClick.Invoke();
+        ////debugging
+        //SetState(actionSelectState);
+        //firstOption.onClick.Invoke();
+        //secondOption.onClick.Invoke();
+        //return;
 
-        return;
-
-        //if (playerCombat.playerMoveManager == null)
-        //{
-        //    Debug.LogError("PlayerMoveManager is not found in StartBattle");
-        //    return;
-        //}
-        //
-        //if (battleScheme.allies != null)
-        //
-        //{
-        //    allies = new List<Combatant>(battleScheme.allies);
-        //}
-        //
-        //if (battleScheme.enemies != null)
-        //
-        //{
-        //    enemies = new List<Combatant>(battleScheme.enemies);
-        //}
-        //
-        //else { Debug.Log("enemy not set in Battle"); }
-        //
-        //allAlliesToTarget = new List<Combatant> { playerCombat }; //create a new list and add player do it, this is the pool of allies enemies can attack
-        //allAlliesToTarget.AddRange(allies);
-        //SetState(setup);
+        if (playerCombat.playerMoveManager == null)
+        {
+            Debug.LogError("PlayerMoveManager is not found in StartBattle");
+            return;
+        }
+        
+        if (battleScheme.allies != null)
+        
+        {
+            allies = new List<Combatant>(battleScheme.allies);
+        }
+        
+        if (battleScheme.enemies != null)
+        
+        {
+            enemies = new List<Combatant>(battleScheme.enemies);
+        }
+        
+        else { Debug.Log("enemy not set in Battle"); }
+        
+        allAlliesToTarget = new List<Combatant> { playerCombat }; //create a new list and add player do it, this is the pool of allies enemies can attack
+        allAlliesToTarget.AddRange(allies);
+        SetState(setup);
     }
 
     public void SetState(State state)

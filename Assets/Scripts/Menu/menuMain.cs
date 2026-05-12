@@ -113,7 +113,7 @@ public class menuMain : PauseMenu
 
     public override void StateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !FieldEvents.isCoolDownBool && FieldEvents.menuAvailable)
+        if (Input.GetKeyDown(KeyCode.Escape) && !FieldEvents.isCoolDownBool && !FieldEvents.movementLocked)
         {
             isMenuOn = !isMenuOn;
             ToggleMainMenu(isMenuOn);

@@ -12,8 +12,6 @@ public class CombatGearSelectMenuUI : CombatMenu
     public GameObject inventorySlotUIPrefab, inventorySlotsParent;
     public List<InventorySlotUI> inventorySlotUIs = new();
 
-    public bool isGearSlotsInitialized;
-
     public void InitialiseInventoryUI()
     {
         var inventorySO = combatManager.playerCombat.playerInventorySO;
@@ -46,12 +44,16 @@ public class CombatGearSelectMenuUI : CombatMenu
                 inventorySlotUI.icon.sprite = isEquipment ? inventorySlotUI.equipmentIcon : inventorySlotUI.consumableIcon;
 
                 if (!isCurrentlyEquipped)
-                    inventorySlotUI.button.onClick.AddListener(() => OnInventorySlotSelected(inventorySlotUI));
+                    inventorySlotUI.button.onClick.AddListener(() => combatGearState.OnInventorySlotSelected(inventorySlotUI));
 
-                inventorySlotUI.onHighlighted = () =>
-                {
+                if (isCurrentlyEquipped)
+                    menuManager.SetGearSlotUIColor(inventorySlotUI, Color.white, .7f);
+
+                    inventorySlotUI.onHighlighted = () =>
                     OnInventorySlotHighlighted(inventorySlotUI);
-                };
+
+                inventorySlotUI.onUnHighlighted = () =>
+                    OnInventorySlotUnhighlighted(inventorySlotUI);
 
                 inventorySlotUIs.Add(inventorySlotUI);
             }
@@ -75,15 +77,23 @@ public class CombatGearSelectMenuUI : CombatMenu
         }
     }
 
-    public void OnInventorySlotSelected(InventorySlotUI inventorySlot)
-    {
-        //todo
-    }
-
     public void OnInventorySlotHighlighted(InventorySlotUI inventorySlot)
     {
-        //todo
+        menuManager.SetGearSlotUIColor(inventorySlot, Color.yellow, inventorySlot.itemNameTMP.alpha);
+        menuManager.UpdateNarrator(inventorySlot.gearInstance.gearSO.GearDescription);
+
+        GearInstance gearInstance = inventorySlot.gearInstance;
+
+        if (gearInstance.isCurrentlyEquipped)
+        {
+            int slotNumber = gearInstance.EquippedSlotInt(combatManager.playerCombat.playerInventorySO);
+            menuManager.UpdateNarrator(gearInstance.gearSO.GearDescription + "\nEquipped to slot " + slotNumber + ". Press CTRL to unequip");
+        }
+
     }
 
-
+    public void OnInventorySlotUnhighlighted(InventorySlotUI inventorySlot)
+    {
+        menuManager.SetGearSlotUIColor(inventorySlot, Color.white, inventorySlot.itemNameTMP.alpha);
+    }
 }
