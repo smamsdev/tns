@@ -15,7 +15,7 @@ public abstract class GearMonoBehaviour : MonoBehaviour
         else gearInstance = gearInstance as ConsumableInstance;
     }
 
-    public virtual IEnumerator ApplyGear()
+    public virtual IEnumerator ApplyGearEffect()
     {
         yield return null;
     }

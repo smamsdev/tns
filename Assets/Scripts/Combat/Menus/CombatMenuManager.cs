@@ -9,9 +9,8 @@ public class CombatMenuManager : MonoBehaviour
 {
     public CombatManager combatManager;
     [SerializeField] TextMeshProUGUI narratorTMP;
-
-    public ActionSelectMenuUI actionSelectMenuUI;
     public StyleSelectMenuUI styleSelectMenuUI;
+    public ActionSelectMenuUI actionSelectMenuUI;
     public TacticalSelectMenuUI tacticalSelectMenuUI;
     public EnemySelectMenuUI enemySelectMenuUI;
     public CombatEquipSelectMenuUI combatEquipSelectMenuUI;

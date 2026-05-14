@@ -14,16 +14,14 @@ public class AllyMoveState : State
             combatManager.cameraFollow.transformToFollow = ally.transform;
             yield return new WaitForSeconds(0.25f);
 
-            var moveSelected = ally.moveSelected;
-            moveSelected.LoadMoveReferences(ally, combatManager);
-            combatManager.combatMenuManager.UpdateNarrator(moveSelected.moveSO.MoveName);
+            var moveSOSelected = ally.moveSOSelected;
+            combatManager.combatMenuManager.UpdateNarrator(moveSOSelected.MoveName);
 
             yield return new WaitForSeconds(1f);
-            moveSelected.CalculateMoveStats();
             combatManager.combatMenuManager.UpdateNarrator("");
 
             //rock out
-            yield return moveSelected.ApplyMove(ally, ally.targetCombatant);
+            yield return ally.currentMoveBehaviour.ApplyMove(ally, ally.targetCombatant);
   
             i++;
         }

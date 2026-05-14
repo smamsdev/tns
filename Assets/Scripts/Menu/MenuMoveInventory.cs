@@ -54,12 +54,12 @@ public class MenuMoveInventory : PauseMenu
 
     public void UnassignSlot(MoveSO moveSO)
     {
-        if (moveSO.IsFlaw && !menuMoves.playerMoveManager.playerMoveInventorySO.isFlawReassignmentEnabled)
+        if (moveSO.IsFlaw && !menuMoves.playerMoveInventorySO.isFlawReassignmentEnabled)
             return;
 
         MoveType moveType = menuMoveEquipSlotSelectInPlay.moveType;
 
-        menuMoves.playerMoveManager.playerMoveInventorySO.UnequipMoveFromSlot(moveType, moveSO);
+        menuMoves.playerMoveInventorySO.UnequipMoveFromSlot(moveType, moveSO);
         menuMoveEquipSlotSelectInPlay.InitMoveEquipSlotList();
         InitMoveInventoryUI();
         menuMoves.InitAllEquippedMovesToUISlots();
@@ -108,7 +108,7 @@ public class MenuMoveInventory : PauseMenu
             if (moveSO.isEquipped) 
                 FieldEvents.SetTextColor(moveSlotUI.slotText, Color.white, .7f);
 
-            if (moveSO.IsFlaw && !menuMoves.playerMoveManager.playerMoveInventorySO.isFlawReassignmentEnabled)
+            if (moveSO.IsFlaw && !menuMoves.playerMoveInventorySO.isFlawReassignmentEnabled)
                 FieldEvents.SetTextColor(moveSlotUI.slotText, Color.white, .7f);
 
             buttons.Add(moveSlotUI.button);
@@ -138,7 +138,7 @@ public class MenuMoveInventory : PauseMenu
         if (moveSlotUI.moveSO.isEquipped)
         {
             moveEquipStatusTMP.text = "Press CTRL to unassign";
-            var equipList = menuMoves.playerMoveManager.playerMoveInventorySO.GetEquippedArrayOfType(menuMoveEquipSlotSelectInPlay.moveType);
+            var equipList = menuMoves.playerMoveInventorySO.GetEquippedArrayOfType(menuMoveEquipSlotSelectInPlay.moveType);
             int equippedSlotIndex = System.Array.IndexOf(equipList, moveSlotUI.moveSO) + 1;
             headerTMP.text = "Already assigned to " + equippedSlotIndex;
         }
@@ -149,7 +149,7 @@ public class MenuMoveInventory : PauseMenu
             moveEquipStatusTMP.text = "";
         }
 
-        if (moveSlotUI.moveSO.IsFlaw && !menuMoves.playerMoveManager.playerMoveInventorySO.isFlawReassignmentEnabled)
+        if (moveSlotUI.moveSO.IsFlaw && !menuMoves.playerMoveInventorySO.isFlawReassignmentEnabled)
         {
             headerTMP.text = "Unable to assign a FLAW";
             moveEquipStatusTMP.text = "";
@@ -161,7 +161,7 @@ public class MenuMoveInventory : PauseMenu
         if (selectedInventorySlot.moveSO.isEquipped)
             return;
 
-        if (selectedInventorySlot.moveSO.IsFlaw && !menuMoves.playerMoveManager.playerMoveInventorySO.isFlawReassignmentEnabled)
+        if (selectedInventorySlot.moveSO.IsFlaw && !menuMoves.playerMoveInventorySO.isFlawReassignmentEnabled)
             return;
 
         if (!selectedInventorySlot.moveSO.isEquipped)
@@ -172,10 +172,10 @@ public class MenuMoveInventory : PauseMenu
 
             //manage if equip slot is occupied
             if (slotToEquipTo.moveSO != null)
-                menuMoves.playerMoveManager.playerMoveInventorySO.UnequipMoveFromSlot(moveType, slotToEquipTo.moveSO);
+                menuMoves.playerMoveInventorySO.UnequipMoveFromSlot(moveType, slotToEquipTo.moveSO);
 
 
-            menuMoves.playerMoveManager.playerMoveInventorySO.EquipMoveToSlot(moveType, slotIndex, selectedInventorySlot.moveSO);
+            menuMoves.playerMoveInventorySO.EquipMoveToSlot(moveType, slotIndex, selectedInventorySlot.moveSO);
             menuMoveEquipSlotSelectInPlay.InitMoveEquipSlotList();
             ExitMenu();
         }

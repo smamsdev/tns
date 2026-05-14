@@ -33,7 +33,6 @@ public class Setup : State
         var playerAnimator = playerCombat.GetComponent<Animator>();
         playerAnimator.SetTrigger("CombatIdle");
         InitializePermanentStatsAndGear();
-        playerCombat.playerMoveManager.InstantiateAllEquippedMoves();
         SetPlayerUI();
 
         yield return new WaitForSeconds(0.1f);
@@ -75,12 +74,13 @@ public class Setup : State
         foreach (Enemy enemy in combatManager.enemies)
         {
             SetcombatantUI(enemy);
-            enemy.InstantiateMoves();
+
+            enemy.SelectMove(combatManager);
 
             if (!combatManager.battleScheme.isEnemyFlanked)
             {
                 combatManager.SelectTargetToAttack(enemy, combatManager.allAlliesToTarget);
-                combatManager.SelectCombatantMove(enemy);
+
                 combatManager.cameraFollow.transformToFollow = enemy.transform;
                 enemy.combatantUI.DisplayCombatantMove(enemy);
                 yield return new WaitForSeconds(1f);
@@ -103,13 +103,12 @@ public class Setup : State
                 partyMember.FendBase = partyMember.partyMemberPermanentStats.FendBase;
                 partyMember.MaxHP = partyMember.partyMemberPermanentStats.MaxHP;
                 partyMember.CurrentHP = partyMember.partyMemberPermanentStats.CurrentHP;
-                partyMember.InstantiateMoves();
             }
 
             if (!combatManager.battleScheme.isAllyFlanked)
             {
                 combatManager.SelectTargetToAttack(ally, combatManager.enemies);
-                combatManager.SelectCombatantMove(ally);
+                ally.SelectMove(combatManager);
                 combatManager.cameraFollow.transformToFollow = ally.transform;
                 ally.combatantUI.DisplayCombatantMove(ally);
                 yield return new WaitForSeconds(1f);
@@ -119,7 +118,7 @@ public class Setup : State
         }
 
         //yield return new WaitForSeconds(1);
-        combatManager.SetState(combatManager.actionSelectState);
+        combatManager.SetState(combatManager.styleSelectState);
     }
 
     void SetcombatantUI(Combatant combatant)

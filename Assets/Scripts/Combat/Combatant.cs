@@ -1,3 +1,4 @@
+using NUnit.Framework.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,22 +16,22 @@ public abstract class Combatant : MonoBehaviour
 
     [Header("Moves")]
     public Combatant targetCombatant;
-    public Move moveSelected;
-    public List<MoveSO> moveList = new List<MoveSO>();
-    private List<Move> moveInstances = new List<Move>();
-    public GameObject movesFolderGO;
+    public MoveSO moveSOSelected;
+    public GameObject currentMoveBehaviourParent;
+    public MoveBehaviour currentMoveBehaviour;
+    public List<MoveSO> moveList = new();
 
     public int CombatLookDirX
     {
-        get => _combatLookDirX;
+        get => combatLookDirX;
         set
         {
-            _combatLookDirX = value;
+            combatLookDirX = value;
             movementScript.animator.SetFloat("CombatLookDirX", value);
         }
     }
 
-    [SerializeField] private int _combatLookDirX;
+    [SerializeField] private int combatLookDirX;
 
     [Header("Stats")]
     [SerializeField] private int attackBase;
@@ -62,10 +63,6 @@ public abstract class Combatant : MonoBehaviour
     }
 
 
-
-
-
-
     [Tooltip("Set by code. Leave as 0.")]
     private int attackTotal = 0;
     public int AttackTotal
@@ -87,29 +84,23 @@ public abstract class Combatant : MonoBehaviour
         movementScript = GetComponent<MovementScript>();
     }
 
-
-    public void InstantiateMoves()
+    public void InstantiateMoveBehaviour(MoveSO moveSO)
     {
-        foreach (MoveSO moveSO in moveList)
-        {
-            GameObject moveInstanceGO = Instantiate(moveSO.MovePrefab);
-            moveInstanceGO.name = moveSO.MoveName;
-            moveInstanceGO.transform.SetParent(movesFolderGO.transform, false);
-            Move moveInstance = moveInstanceGO.GetComponent<Move>();
-            Move move = moveInstanceGO.GetComponent<Move>();
-            moveInstance.moveSO = moveSO;
-            moveInstances.Add(move);
-        }
+        GameObject moveBehaviourGO = Instantiate(moveSO.MovePrefab, currentMoveBehaviourParent.transform);
+
+        moveBehaviourGO.name = moveSO.name + "Behaviour";
+        currentMoveBehaviour = moveBehaviourGO.GetComponent<MoveBehaviour>();
     }
-    public virtual void SelectMove()
+
+    public virtual void SelectMove(CombatManager combatManager)
     {
         int MoveWeightingTotal = 0;
 
-        foreach (Move move in moveInstances)
+        foreach (MoveSO moveSO in moveList)
         {
-            if (move != null && move.moveSO.MoveWeighting > 0)
+            if (moveSO.MoveWeighting > 0)
             {
-                MoveWeightingTotal += move.moveSO.MoveWeighting;
+                MoveWeightingTotal += moveSO.MoveWeighting;
             }
         }
 
@@ -121,17 +112,20 @@ public abstract class Combatant : MonoBehaviour
 
         int randomValue = Random.Range(1, MoveWeightingTotal + 1);
 
-        foreach (Move move in moveInstances)
+        foreach (MoveSO moveSO in moveList)
         {
-            if (move == null || move.moveSO.MoveWeighting == 0) continue;
+            if (moveSO.MoveWeighting == 0)
+                continue;
 
-            if (randomValue > move.moveSO.MoveWeighting)
-            {
-                randomValue -= move.moveSO.MoveWeighting;
-            }
+            if (randomValue > moveSO.MoveWeighting)
+                randomValue -= moveSO.MoveWeighting;
+
             else
             {
-                moveSelected = move;
+                moveSOSelected = moveSO;
+                InstantiateMoveBehaviour(moveSO);
+                currentMoveBehaviour.LoadMoveReferences(this, combatManager);
+                currentMoveBehaviour.CalculateMoveStats();
                 return;
             }
         }

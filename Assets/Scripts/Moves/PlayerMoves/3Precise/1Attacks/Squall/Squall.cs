@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Squall : Move
+public class Squall : MoveBehaviour
 {
     List<Combatant> targetsInFront = new List<Combatant>();
     List<Combatant> targetList;

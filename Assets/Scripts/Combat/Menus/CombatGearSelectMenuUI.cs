@@ -87,7 +87,7 @@ public class CombatGearSelectMenuUI : CombatMenu
         if (gearInstance.isCurrentlyEquipped)
         {
             int slotNumber = gearInstance.EquippedSlotInt(combatManager.playerCombat.playerInventorySO);
-            menuManager.UpdateNarrator(gearInstance.gearSO.GearDescription + "\nEquipped to slot " + slotNumber + ". Press CTRL to unequip");
+            menuManager.UpdateNarrator(gearInstance.gearSO.GearDescription + "\nEquipped to slot " + (slotNumber + 1) + ". Press CTRL to unequip");
         }
 
     }

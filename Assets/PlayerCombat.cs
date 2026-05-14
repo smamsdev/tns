@@ -7,12 +7,16 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerCombat : PartyMemberCombat
 {
-    public PlayerMoveManager playerMoveManager;
     public PlayerPermanentStats playerPermanentStats;
     public PartySO party;
     public PlayerInventorySO playerInventorySO;
+    public PlayerMoveInventorySO playerMoveInventorySO;
     public GameObject gearMonoBehaviourParentFolder;
     public List<GearMonoBehaviour> gearBehaviours = new();
+    public int styleType;
+    public int actionType;
+    
+    public CombatManager combatManager;
 
     [SerializeField] private int maxPotential;
     public int MaxPotential
@@ -52,7 +56,8 @@ public class PlayerCombat : PartyMemberCombat
     private void Start()
     {
         InitStatsFromSO();
-        InstantiateAllEquippedGearBehaviours(GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>());
+        combatManager = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>();
+        InstantiateAllEquippedGearBehaviours();
         ApplyAllGearStatMods();
     }
 
@@ -90,11 +95,86 @@ public class PlayerCombat : PartyMemberCombat
         StartCoroutine(playerStatsDisplay.UpdatePlayerPotentialUI(Mathf.RoundToInt(currentPotential)));
     }
 
-    public override void SelectMove()
+    public void CombineStanceAndMove()
     {
-        throw new System.NotImplementedException();
+        switch (actionType)
+        {
+            case 0: // Violent stance
+                switch (styleType)
+                {
+                    case 0: SelectMove(playerMoveInventorySO.violentAttacksEquipped); break;
+                    case 1: SelectMove(playerMoveInventorySO.violentFendsEquipped); break;
+                    case 2: SelectMove(playerMoveInventorySO.violentFocusesEquipped); break;
+                }
+                break;
+
+            case 1: // Cautious stance
+                switch (styleType)
+                {
+                    case 0: SelectMove(playerMoveInventorySO.cautiousAttacksEquipped); break;
+                    case 1: SelectMove(playerMoveInventorySO.cautiousFendsEquipped); break;
+                    case 2: SelectMove(playerMoveInventorySO.cautiousFocusesEquipped); break;
+                }
+                break;
+
+            case 2: // Precise stance
+                switch (styleType)
+                {
+                    case 0: SelectMove(playerMoveInventorySO.preciseAttacksEquipped); break;
+                    case 1: SelectMove(playerMoveInventorySO.preciseFendsEquipped); break;
+                    case 2: SelectMove(playerMoveInventorySO.preciseFocusesEquipped); break;
+                }
+                break;
+
+            default:
+                {
+                    Debug.Log("somethig went wrong");
+                    break;
+                }
+        }
     }
-        
+
+    void SelectMove(MoveSO[] equippedMoveSOs)
+    {
+        int MoveWeightingTotal = 0;
+
+        foreach (MoveSO moveSO in equippedMoveSOs)
+        {
+            if (moveSO!= null && moveSO.MoveWeighting > 0)
+            {
+                MoveWeightingTotal += moveSO.MoveWeighting;
+            }
+        }
+
+        if (MoveWeightingTotal == 0)
+        {
+            Debug.LogError("No valid moves available to select!!");
+            return;
+        }
+
+        int randomValue = UnityEngine.Random.Range(1, MoveWeightingTotal + 1);
+
+        foreach (MoveSO moveSO in equippedMoveSOs)
+        {
+            if (moveSO.MoveWeighting == 0) continue;
+
+            if (randomValue > moveSO.MoveWeighting)
+            {
+                randomValue -= moveSO.MoveWeighting;
+            }
+            else
+            {
+                moveSOSelected = moveSO;
+                InstantiateMoveBehaviour(moveSO);
+                currentMoveBehaviour.LoadMoveReferences(this, combatManager);
+                currentMoveBehaviour.CalculateMoveStats();
+                return;
+            }
+        }
+
+        Debug.LogError("Failed to select a move! This should never happen. Random value was " + randomValue);
+    }
+
     public void InitStatsFromSO()
     {
         MaxHP = playerPermanentStats.MaxHP;
@@ -106,7 +186,6 @@ public class PlayerCombat : PartyMemberCombat
         focusBase = playerPermanentStats.FocusBase;
     }
 
-
     public void GearConsumed(GearSO gearToUnequip)
     {
         //gearToUnequip.isCurrentlyEquipped = false;
@@ -116,7 +195,7 @@ public class PlayerCombat : PartyMemberCombat
         Debug.Log("fix");
     }
 
-    public void InstantiateAllEquippedGearBehaviours(CombatManager combatManager)
+    public void InstantiateAllEquippedGearBehaviours()
     {
         ClearAllGearBehaviours();
 
@@ -173,10 +252,12 @@ public class PlayerCombat : PartyMemberCombat
                 continue;
 
             foreach (StatModifier statModifier in gearInstance.gearSO.StatModifiers)
+            {
+                //Debug.Log(gearInstance.gearSO.GearName, gearInstance.gearSO);
                 ChangeStat(statModifier);
+            }
         }
     }
-
 
     public override void ChangeStat(StatModifier mod)
     {

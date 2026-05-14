@@ -7,8 +7,8 @@ public class TacticalSelectState : State
 {
     public TacticalSelectMenuUI tacticalSelectMenuUI;
     public bool isEnclosing = false;
-    [SerializeField] EncloseMove encloseMove;
-    [SerializeField] ReturnMove returnMove;
+    [SerializeField] MoveSO encloseMoveSO;
+    [SerializeField] MoveSO returnMoveSO;
     public GameObject encloseOption, returnOption;
     public Button gearButton, retreatButton, encloseButton, returnButton;
 
@@ -40,18 +40,32 @@ public class TacticalSelectState : State
 
     public void EncloseSelected()
     {
-        playerDefaultFightingPosition = combatManager.playerCombat.fightingPosition.transform.position;
+        var playerCombat = combatManager.playerCombat;
+
+        playerDefaultFightingPosition = playerCombat.fightingPosition.transform.position;
         isEnclosing = true;
-        combatManager.playerCombat.moveSelected = encloseMove;
-        encloseMove.LoadMoveReferences(combatManager.playerCombat, combatManager);
+
+        playerCombat.moveSOSelected = encloseMoveSO;
+        playerCombat.InstantiateMoveBehaviour(playerCombat.moveSOSelected);
+        playerCombat.currentMoveBehaviour.LoadMoveReferences(playerCombat, combatManager);
+        playerCombat.currentMoveBehaviour.CalculateMoveStats();
+
+
+        combatManager.SetState(combatManager.applyMove);
     }
 
     public void ReturnSelected()
     {
-        combatManager.playerCombat.fightingPosition.transform.position = playerDefaultFightingPosition;
+        var playerCombat = combatManager.playerCombat;
+
+        playerCombat.fightingPosition.transform.position = playerDefaultFightingPosition;
         isEnclosing = false;
-        combatManager.playerCombat.moveSelected = returnMove;
-        encloseMove.LoadMoveReferences(combatManager.playerCombat, combatManager);
+
+        playerCombat.moveSOSelected = returnMoveSO;
+        playerCombat.InstantiateMoveBehaviour(playerCombat.moveSOSelected);
+        playerCombat.currentMoveBehaviour.LoadMoveReferences(playerCombat, combatManager);
+        playerCombat.currentMoveBehaviour.CalculateMoveStats();
+
         combatManager.SetState(combatManager.applyMove);
     }
 

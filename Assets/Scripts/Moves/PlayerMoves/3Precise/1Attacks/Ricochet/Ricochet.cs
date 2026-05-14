@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ricochet : Move
+public class Ricochet : MoveBehaviour
 {
     public override IEnumerator MoveToPosition(Combatant combatant, Vector3 targetPosition)
     {

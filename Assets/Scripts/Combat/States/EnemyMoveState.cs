@@ -21,16 +21,14 @@ public class EnemyMoveState : State
             combatManager.cameraFollow.transformToFollow = enemy.transform;
             yield return new WaitForSeconds(0.25f);
 
-            var moveSelected = enemy.moveSelected;
-            moveSelected.LoadMoveReferences(enemy, combatManager);
-            combatManager.combatMenuManager.UpdateNarrator(moveSelected.moveSO.MoveName);
+            var moveSOSelected = enemy.moveSOSelected;
+            combatManager.combatMenuManager.UpdateNarrator(moveSOSelected.MoveName);
 
             yield return new WaitForSeconds(1f);
-            moveSelected.CalculateMoveStats();
             combatManager.combatMenuManager.UpdateNarrator("");
 
             //rock out
-            yield return moveSelected.ApplyMove(enemy, enemy.targetCombatant);
+            yield return enemy.currentMoveBehaviour.ApplyMove(enemy, enemy.targetCombatant);
  
             i++;
         }

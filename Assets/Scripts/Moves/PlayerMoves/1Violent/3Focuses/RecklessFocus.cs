@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RecklessFocus : Move
+public class RecklessFocus : MoveBehaviour
 {
     public override void CalculateMoveStats()
     {

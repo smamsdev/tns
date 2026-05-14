@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KatanaSlice : Move
+public class KatanaSlice : MoveBehaviour
 {
     public override IEnumerator TriggerMoveAnimation()
     {

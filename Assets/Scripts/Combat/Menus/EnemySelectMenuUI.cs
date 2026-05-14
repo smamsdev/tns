@@ -8,69 +8,71 @@ using UnityEngine.UI;
 public class EnemySelectMenuUI : CombatMenu
 {
     public CombatManager combatManager;
-    public EnemySelectButtonScript enemySelectButtonScriptHighlighted;
     [SerializeField] GameObject enemySelectButtonPrefab;
-    [SerializeField] GameObject selectEnemyMenuContainer;
-    public Button defaultButton;
-    public List<EnemySelectButtonScript> enemySelectButtons = new List<EnemySelectButtonScript>();
-    public GameObject selectEnemyLabelGO;
-    public bool isEnemySlotsInitialized;
+    [SerializeField] GameObject targetSelectButtonsParent;
+    public List<TargetSelectButtonUI> targetSelectButtonUIs = new List<TargetSelectButtonUI>();
 
-
-    public void InitializeButtonSlots()
+    public void InitializeButtonSlots(List<Combatant> targetList)
     {
-        if (isEnemySlotsInitialized)
-        { return; }
+        DestroyAllUI();
 
-        isEnemySlotsInitialized = true;
-
-        foreach (Transform child in selectEnemyMenuContainer.transform)
+        for (int i = 0; i < targetList.Count; i++)
         {
-            if (child != selectEnemyLabelGO.transform)
-            Destroy(child.gameObject);
+            GameObject enemySelectButtonGO = Instantiate(enemySelectButtonPrefab, targetSelectButtonsParent.transform);
+            TargetSelectButtonUI targetSelectButtonUI = enemySelectButtonGO.GetComponent<TargetSelectButtonUI>();
+            targetSelectButtonUI.combatant = combatManager.enemies[i];
+            targetSelectButtonUI.tmp.text = targetSelectButtonUI.combatant.combatantName;
+            enemySelectButtonGO.name = targetSelectButtonUI.combatant.combatantName;
+
+            targetSelectButtonUI.button.onClick.AddListener(() => TargetSelected(targetSelectButtonUI));
+            targetSelectButtonUI.onHighlighted = () => TargetHighlighted(targetSelectButtonUI);
+            targetSelectButtonUI.onUnHighlighted = () => TargerUnHighlighted(targetSelectButtonUI);
+
+            menuButtons.Add(targetSelectButtonUI.button);
+            targetSelectButtonUIs.Add(targetSelectButtonUI);
         }
 
-        enemySelectButtons.Clear();
-        List<Button> buttons = new List<Button>();
-
-        for (int i = 0; i < combatManager.enemies.Count; i++)
-        {
-            GameObject enemySelectButtonGO = Instantiate(enemySelectButtonPrefab, selectEnemyMenuContainer.transform);
-            EnemySelectButtonScript enemySelectButtonScript = enemySelectButtonGO.GetComponent<EnemySelectButtonScript>();
-            enemySelectButtonScript.enemySelectMenuUI = this;
-            enemySelectButtonScript.combatant = combatManager.enemies[i];
-            enemySelectButtonScript.buttonText.text = enemySelectButtonScript.combatant.combatantName;
-            enemySelectButtonGO.name = enemySelectButtonScript.combatant.combatantName;
-            enemySelectButtons.Add(enemySelectButtonScript);
-
-            enemySelectButtonScript.button.onClick.AddListener(enemySelectButtonScript.OnButtonSelected);
-
-            buttons.Add(enemySelectButtonScript.button);
-        }
-        FieldEvents.SetGridNavigationWrapAround(buttons, 4);
+        FieldEvents.SetGridNavigationWrapAroundHorizontal(menuButtons, 3);
     }
 
-    public void HighlightEnemy(EnemySelectButtonScript enemySelectScript)
+    void DestroyAllUI()
     {
-        combatManager.cameraFollow.transformToFollow = enemySelectScript.combatant.transform;
-        enemySelectButtonScriptHighlighted = enemySelectScript;
-        var combatantUI = enemySelectScript.combatant.combatantUI;
+        menuButtons.Clear();
+        targetSelectButtonUIs.Clear();
+
+        for (int i = targetSelectButtonsParent.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(targetSelectButtonsParent.transform.GetChild(i).gameObject);
+        }
+    }
+
+    void TargetHighlighted(TargetSelectButtonUI targetSelectButtonUI)
+    {
+        highlightedButtonIndex = targetSelectButtonUIs.IndexOf(targetSelectButtonUI);
+
+        combatManager.cameraFollow.transformToFollow = targetSelectButtonUI.combatant.transform;
+        var combatantUI = targetSelectButtonUI.combatant.combatantUI;
         combatantUI.statsDisplay.ShowStatsDisplay(true);
 
         combatantUI.selectedAnimator.SetBool("Flash", true);
-        enemySelectScript.combatant.combatantUI.DisplayCombatantMove(enemySelectScript.combatant);
+        targetSelectButtonUI.combatant.combatantUI.DisplayCombatantMove(targetSelectButtonUI.combatant);
 
-        Vector2 direction = (enemySelectScript.combatant.transform.position - combatManager.playerCombat.transform.position).normalized;
+        Vector2 direction = (targetSelectButtonUI.combatant.transform.position - combatManager.playerCombat.transform.position).normalized;
         combatManager.playerCombat.CombatLookDirX = (int)Mathf.Sign(direction.x);
     }
 
-    public void DeselectEnemy(EnemySelectButtonScript enemySelectScriptToDeselect)
+    void TargerUnHighlighted(TargetSelectButtonUI targetSelectButtonUI)
     {
-        var combatantUI = enemySelectScriptToDeselect.combatant.combatantUI;
+        var combatantUI = targetSelectButtonUIs[highlightedButtonIndex].combatant.combatantUI;
+
         combatantUI.selectedAnimator.SetBool("Flash", false);
         combatantUI.statsDisplay.ShowStatsDisplay(false);
-        combatantUI.attackDisplay.ShowAttackDisplay(enemySelectScriptToDeselect.combatant, false);
-        enemySelectScriptToDeselect.combatant.combatantUI.fendScript.ShowFendDisplay(enemySelectScriptToDeselect.combatant, false);
+        combatantUI.attackDisplay.ShowAttackDisplay(targetSelectButtonUIs[highlightedButtonIndex].combatant, false);
+        combatantUI.fendScript.ShowFendDisplay(targetSelectButtonUIs[highlightedButtonIndex].combatant, false);
     }
 
+    public void TargetSelected(TargetSelectButtonUI targetSelectButtonUI)
+    {
+        Debug.Log("todo");
+    }
 }

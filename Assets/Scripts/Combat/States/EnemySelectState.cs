@@ -11,31 +11,25 @@ public class EnemySelectState : State
     public override IEnumerator StartState()
     {
         previousLookDirX = combatManager.playerCombat.CombatLookDirX;
-        enemySelectMenuUI.InitializeButtonSlots();
+        enemySelectMenuUI.InitializeButtonSlots(combatManager.enemies);
         enemySelectMenuUI.DisplayMenu(true);
         enemySelectMenuUI.menuButtons[enemySelectMenuUI.highlightedButtonIndex].Select();
         yield break;
     }
 
-    public void CombatantSelected(EnemySelectButtonScript enemySelectScript)
+    public void CombatantSelected(TargetSelectButtonUI targetSelectButtonUI)
     {
-        combatManager.playerCombat.targetCombatant = enemySelectScript.combatant;
-        enemySelectMenuUI.DeselectEnemy(enemySelectScript);
-        enemySelectMenuUI.isEnemySlotsInitialized = false;
+        combatManager.playerCombat.targetCombatant = targetSelectButtonUI.combatant;
         combatManager.SetState(combatManager.applyMove);
     }
 
     public override void StateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-
         {
             combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
-            enemySelectMenuUI.DeselectEnemy(enemySelectMenuUI.enemySelectButtonScriptHighlighted);
             enemySelectMenuUI.DisplayMenu(false);
-
             combatManager.playerCombat.CombatLookDirX = previousLookDirX;
-
             combatManager.SetState(combatManager.styleSelectState);
         }
     }

@@ -22,21 +22,24 @@ public class ActionSelectState : State
         combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
         combatManager.playerCombat.combatantUI.statsDisplay.ShowStatsDisplay(true);
         actionSelectMenuUI.DisplayMenu(true);
-        combatManager.playerCombat.playerMoveManager.actionSelectStateIs = 0;
+        combatManager.playerCombat.actionType = -1;
 
         yield break;
     }
 
-    public void ActionButtonSelected (int moveValue)
+    public void ActionButtonSelected(int moveValue) //triggered via Button
     {
-        combatManager.playerCombat.playerMoveManager.actionSelectStateIs = moveValue;
+        combatManager.playerCombat.actionType = moveValue;
+        combatManager.playerCombat.CombineStanceAndMove();
+        combatManager.SetState(combatManager.enemySelectState);
+    }
 
-        if (moveValue == 0)
+    public override void StateUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            combatManager.SetState(combatManager.tacticalSelectState);
-        }
-        else
-        {
+            actionSelectMenuUI.DisplayMenu(false);
+
             combatManager.SetState(combatManager.styleSelectState);
         }
     }

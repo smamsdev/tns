@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GearHealingStrip : GearMonoBehaviour
 {
-    public override IEnumerator ApplyGear()
+    public override IEnumerator ApplyGearEffect()
     {
         var targetToHeal = combatManager.playerCombat;
         combatManager.cameraFollow.transformToFollow = targetToHeal.transform;

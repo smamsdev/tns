@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Template : GearMonoBehaviour
 {
-    public override IEnumerator ApplyGear()
+    public override IEnumerator ApplyGearEffect()
     {
         yield return null;
     }

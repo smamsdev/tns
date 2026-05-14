@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReturnMove : Move
+public class ReturnMove : MoveBehaviour
 {
     [SerializeField] EncloseMove encloseMove;
 

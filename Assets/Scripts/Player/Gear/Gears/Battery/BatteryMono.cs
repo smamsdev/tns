@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BatteryMono : GearMonoBehaviour
 {
-    public override IEnumerator ApplyGear()
+    public override IEnumerator ApplyGearEffect()
     {
         yield return null;
     }

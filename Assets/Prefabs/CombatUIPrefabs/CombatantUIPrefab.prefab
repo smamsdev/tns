@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8491250110212939934}
   - component: {fileID: 2762302259035543141}
   - component: {fileID: 3661870155590761621}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: FendIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3257547066863198435}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CombatUIContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 7648171888162620792}
   - component: {fileID: 2318855730669711040}
   - component: {fileID: 4268252782930089808}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: AttackDisplayText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,6 +171,11 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -192,6 +197,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -267,15 +273,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -295,7 +303,7 @@ MonoBehaviour:
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!95 &4268252782930089808
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -309,6 +317,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -326,7 +335,7 @@ GameObject:
   - component: {fileID: 6366289791813393971}
   - component: {fileID: 9014883034977845133}
   - component: {fileID: 7752680246627523804}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: AllyName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -369,6 +378,11 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -390,6 +404,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -465,15 +480,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -503,8 +520,8 @@ GameObject:
   - component: {fileID: 4923778448627148932}
   - component: {fileID: 593222869719147801}
   - component: {fileID: 8363805591985131572}
-  m_Layer: 0
-  m_Name: CombatantUI
+  m_Layer: 5
+  m_Name: CombatantUIPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -573,7 +590,7 @@ MonoBehaviour:
   combatUIContainer: {fileID: 548323060835749801}
 --- !u!95 &8363805591985131572
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -587,6 +604,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -604,7 +622,7 @@ GameObject:
   - component: {fileID: 1686081424437862982}
   - component: {fileID: 6590264723828274093}
   - component: {fileID: 44927219070899139}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: BackStabBonus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -701,15 +719,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -729,7 +749,7 @@ MonoBehaviour:
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!95 &44927219070899139
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -743,6 +763,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -759,7 +780,7 @@ GameObject:
   - component: {fileID: 2064113940813611108}
   - component: {fileID: 3739430770302892298}
   - component: {fileID: 1415258132781305973}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: FendText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -856,15 +877,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -893,7 +916,7 @@ GameObject:
   - component: {fileID: 3664669246059653375}
   - component: {fileID: 2044470504708626622}
   - component: {fileID: 7274620980783452556}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: AllyStatsDIsplayContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -947,7 +970,7 @@ MonoBehaviour:
   m_ConstraintCount: 2
 --- !u!95 &7274620980783452556
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -961,6 +984,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -977,7 +1001,7 @@ GameObject:
   - component: {fileID: 2812639997036261514}
   - component: {fileID: 8848423279824683679}
   - component: {fileID: 8349023166100208644}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: FendAndDamage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1006,7 +1030,7 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &8848423279824683679
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1020,6 +1044,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -1041,8 +1066,6 @@ MonoBehaviour:
   combatManager: {fileID: 0}
   fendAnimator: {fileID: 8848423279824683679}
   backStabAnimator: {fileID: 44927219070899139}
-  attackRemainder: 0
-  backStabBonus: 0
 --- !u!1 &5608869677582263366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1052,7 +1075,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2874923870777811751}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: OffsetContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1090,7 +1113,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9222852211831569034}
   - component: {fileID: 392294061992396101}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DamageTaken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1143,7 +1166,7 @@ GameObject:
   - component: {fileID: 6031583197485892999}
   - component: {fileID: 4372743488746379295}
   - component: {fileID: 8359463421636842507}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: AttackDisplayIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1217,7 +1240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7967519214408361957}
   - component: {fileID: 2523136155940707164}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: StatsDIsplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1274,7 +1297,7 @@ GameObject:
   - component: {fileID: 1773410434663769390}
   - component: {fileID: 2880120067658973986}
   - component: {fileID: 6662244301879555793}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: AttackDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1343,7 +1366,7 @@ GameObject:
   - component: {fileID: 8206148233120484189}
   - component: {fileID: 4321260326172680540}
   - component: {fileID: 4810800820633996477}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: AllyHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1386,6 +1409,11 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1407,6 +1435,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -1482,15 +1511,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -1510,7 +1541,7 @@ MonoBehaviour:
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!95 &4810800820633996477
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1524,6 +1555,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -1541,7 +1573,7 @@ GameObject:
   - component: {fileID: 5836600064596395534}
   - component: {fileID: 4960573047764758541}
   - component: {fileID: 3788256229213654098}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: DamageTakenText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1570,7 +1602,7 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &5836600064596395534
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1584,6 +1616,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -1660,15 +1693,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0

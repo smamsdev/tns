@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EncloseMove : Move
+public class EncloseMove : MoveBehaviour
 {
     public Combatant combatantEnclosed;
 

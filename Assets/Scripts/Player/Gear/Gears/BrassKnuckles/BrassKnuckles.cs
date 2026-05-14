@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BrassKnuckles : GearMonoBehaviour
 {
-    public override IEnumerator ApplyGear()
+    public override IEnumerator ApplyGearEffect()
     {
         throw new System.NotImplementedException();
     }

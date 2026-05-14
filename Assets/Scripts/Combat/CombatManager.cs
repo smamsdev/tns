@@ -18,8 +18,8 @@ public class CombatManager : MonoBehaviour
 
     [Header("States")]
     public Setup setup;
-    public ActionSelectState actionSelectState;
     public StyleSelectState styleSelectState;
+    public ActionSelectState actionSelectState;
     public EnemySelectState enemySelectState;
     public AllyMoveState allyMoveState;
     public ApplyPlayerMove applyMove;
@@ -94,18 +94,6 @@ public class CombatManager : MonoBehaviour
     {
         CombatEvents.LockPlayerMovement.Invoke();
 
-        ////debugging
-        //SetState(actionSelectState);
-        //firstOption.onClick.Invoke();
-        //secondOption.onClick.Invoke();
-        //return;
-
-        if (playerCombat.playerMoveManager == null)
-        {
-            Debug.LogError("PlayerMoveManager is not found in StartBattle");
-            return;
-        }
-        
         if (battleScheme.allies != null)
         
         {
@@ -147,14 +135,6 @@ public class CombatManager : MonoBehaviour
 
         yield return (combatantMoveMentInstance.MoveCombatant(goToMove, targetPosition));
         Destroy(combatantMoveMentInstanceGO);
-    }
-
-    public void SelectCombatantMove(Combatant combatant)
-    {
-        combatant.SelectMove();
-        combatant.moveSelected.LoadMoveReferences(combatant, this);
-        combatant.moveSelected.CalculateMoveStats();
-
     }
 
     void PlayerDefeated()

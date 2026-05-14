@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -17,12 +18,10 @@ public class PlayerStatsDisplay : StatsDisplay
 
     public override void UpdateHPDisplay(int value)
     {
-        combatantHPTextMeshPro.text = "HP: " + value.ToString();
+        combatantHPTextMeshPro.text = combatant.CurrentHP.ToString() + " / " + combatant.MaxHP;
 
         if (combatant.CurrentHP <= 0)
-        {
             Debug.LogError("player just died do someth");
-        }
     }
 
     public IEnumerator UpdatePlayerPotentialUI(int newValue)
@@ -32,13 +31,14 @@ public class PlayerStatsDisplay : StatsDisplay
         float elapsedTime = 0f;
         float lerpDuration = 0.5f;
         int valueToOutput;
+        var playerCombatant = combatant as PlayerCombat;
 
         while (elapsedTime < lerpDuration)
         {
             float t = Mathf.Clamp01(elapsedTime / lerpDuration);
 
             valueToOutput = Mathf.RoundToInt(Mathf.Lerp(currentPotential, newValue, t));
-            potentialTMP.text = "Potential: " + valueToOutput.ToString();
+            potentialTMP.text = valueToOutput.ToString() + " / " + playerCombatant.MaxPotential;
 
             elapsedTime += Time.deltaTime;
 
@@ -51,11 +51,11 @@ public class PlayerStatsDisplay : StatsDisplay
     public override void InitialiseCombatStatsDisplay(Combatant combatant)
     {
         combatantHP = combatant.CurrentHP;
-        combatantHPTextMeshPro.text = "HP: " + combatant.CurrentHP.ToString();
+        combatantHPTextMeshPro.text = combatant.CurrentHP.ToString() + " / " + combatant.MaxHP;
 
         var playerCombatant = combatant as PlayerCombat;
 
         currentPotential = playerCombatant.CurrentPotential;
-        potentialTMP.text = "Potential: " + playerCombatant.CurrentPotential.ToString();
+        potentialTMP.text = playerCombatant.CurrentPotential.ToString() + " / " + playerCombatant.MaxPotential; 
     }
 }

@@ -9,9 +9,10 @@ public class EquipSlotSelectState : State
 
     public override IEnumerator StartState()
     {
-        combatEquipSelectMenuUI.InitialiseEquipSlots();
-        combatEquipSelectMenuUI.menuButtons[combatEquipSelectMenuUI.highlightedButtonIndex].Select();
         combatEquipSelectMenuUI.DisplayMenu(true);
+        combatEquipSelectMenuUI.InitialiseEquipSlots();
+
+        combatEquipSelectMenuUI.menuButtons[combatEquipSelectMenuUI.highlightedButtonIndex].Select();
         yield break;
     }
 

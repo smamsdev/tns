@@ -83,7 +83,7 @@ public class FendScript : MonoBehaviour
         IEnumerator PushBack()
         {
             var stepBackPos = new Vector2
-            (target.transform.position.x + (combatantApplying.moveSelected.moveSO.AttackPushStrength * combatantApplying.CombatLookDirX),
+            (target.transform.position.x + (combatantApplying.moveSOSelected.AttackPushStrength * combatantApplying.CombatLookDirX),
             target.transform.position.y);
 
             var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);

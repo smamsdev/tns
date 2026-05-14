@@ -8,8 +8,8 @@ using static PlayerMoveInventorySO;
 public class MenuMoves : PauseMenu
 {
     public bool isSelectingMove;
-    public PlayerMoveManager playerMoveManager;
     public MenuMoveInventory menuMoveInventory;
+    public PlayerMoveInventorySO playerMoveInventorySO;
     public int highlightedButtonIndex;
     public TextMeshProUGUI headerTMP, moveNameTMP, moveDescriptionTMP, probabilityTMP, movePotentialChangeTMP, moveEquipStatusTMP;
     public TextMeshProUGUI violentHeaderTMP, cautiousHeaderTMP, preciseHeaderTMP;
@@ -17,9 +17,9 @@ public class MenuMoves : PauseMenu
     public List<MenuButtonHighlighted> allMenuButtonHighlighteds;
     public MenuMoveEquipSlotSelect[] menuMoveEquipSlotSelects;
 
-    private void OnEnable()
+    private void Start()
     {
-        playerMoveManager = GameObject.Find("Player").GetComponentInChildren<PlayerMoveManager>();
+        playerMoveInventorySO = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMoveInventorySO>();
     }
 
     public override void DisplayMenu(bool on)

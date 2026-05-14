@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class ApplyPlayerMove : State
 {
-    PlayerCombat player;
+    PlayerCombat playerCombat;
 
     public override IEnumerator StartState()
     {
         combatManager.combatMenuManager.DisableAllMenus();
-        player = combatManager.playerCombat;
+        playerCombat = combatManager.playerCombat;
 
-        yield return ApplyGear();
+        yield return ApplyGearEffect();
         yield return ApplyMove();
 
         if (combatManager.enemies.Count == 0)
@@ -34,57 +34,33 @@ public class ApplyPlayerMove : State
         }
     }
 
-    IEnumerator ApplyGear()
+    IEnumerator ApplyGearEffect()
     {
-        //var equipped = player.playerInventorySO.equippedGear;
-        // for (int i = equipped.Count - 1; i >= 0; i--)
-        // {
-        //     GearSO gearSO = equipped[i];
-        //     if (gearSO == null) continue;
-        //
-        //     yield return gearSO.gearInstance.ApplyGear();
-        //
+        foreach (GearMonoBehaviour gearMonoBehaviour in playerCombat.gearBehaviours)
+        {
+            gearMonoBehaviour.ApplyGearEffect();
+        }
+
         yield return null;
-            Debug.Log("fiox");
-           // if (!gearSO.isConsumable)
-           // {
-           //     gearSO.gearInstance.turnsUntilConsumed = -1;
-           // }
-           //
-           // else
-           // {
-           //     gearSO.gearInstance.turnsUntilConsumed--;
-           // }
-           //
-           // if (gearSO.gearInstance.turnsUntilConsumed == 0)
-           // {
-           //     player.playerInventorySO.DestroyGearInstance(gearSO);
-           //     player.playerInventorySO.GearConsumed(gearSO);
-           // }
-        
     }
 
     IEnumerator ApplyMove()
     {
         //reset narrator focus camera on allyToAct and wait
-        combatManager.cameraFollow.transformToFollow = player.transform;
-
-        var moveSelected = combatManager.playerCombat.moveSelected;
-        moveSelected.LoadMoveReferences(player, combatManager);
-        combatManager.combatMenuManager.UpdateNarrator(moveSelected.moveSO.MoveName);
+        combatManager.cameraFollow.transformToFollow = playerCombat.transform;
+        combatManager.combatMenuManager.UpdateNarrator(playerCombat.moveSOSelected.MoveName);
 
         ApplyPotentialChange();
         yield return new WaitForSeconds(1f);
-        moveSelected.CalculateMoveStats();
         combatManager.combatMenuManager.UpdateNarrator("");
 
         //rock out
-        yield return moveSelected.ApplyMove(player, player.targetCombatant);
+        yield return playerCombat.currentMoveBehaviour.ApplyMove(playerCombat, playerCombat.targetCombatant);
         combatManager.combatMenuManager.UpdateNarrator("");
     }
 
     void ApplyPotentialChange()
     {
-        CombatEvents.UpdatePlayerPot.Invoke(combatManager.playerCombat.moveSelected.CalculateAndReturnPotentialChange());
+        CombatEvents.UpdatePlayerPot.Invoke(combatManager.playerCombat.currentMoveBehaviour.CalculateAndReturnPotentialChange());
     }
 }

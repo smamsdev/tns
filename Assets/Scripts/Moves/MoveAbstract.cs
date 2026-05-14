@@ -2,13 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Move : MonoBehaviour
+public abstract class MoveBehaviour : MonoBehaviour
 {
     public MoveSO moveSO;
-    public CombatManager combatManager;
-    protected Animator combatantToActAnimator;
+    [HideInInspector] public CombatManager combatManager;
+    [HideInInspector] protected Animator combatantToActAnimator;
     public MovementScript combatantToActMovementScript;
     public Combatant combatantToAct, targetCombatant;
+
+    private void OnEnable()
+    {
+        if (moveSO == null)
+        {
+            Debug.Log("missing SO on move behaviour" + this, this);
+            Debug.Break();
+        }
+    }
 
     public virtual IEnumerator MoveToPosition(Combatant combatant, Vector3 targetPosition)
     {

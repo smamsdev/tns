@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CombatGearState : State
 {
     public CombatGearSelectMenuUI combatGearSelectMenuUI;
-    [SerializeField] Move equipGearMove; //player needs a move assigned to complete their turn
+    [SerializeField]MoveSO equipGearMoveSO; //player needs a move assigned to complete their turn
 
     public override IEnumerator StartState()
     {
@@ -28,9 +28,9 @@ public class CombatGearState : State
         }
     }
 
-    void ApplyGearEquipMove()
+    void ApplyGearEffectEquipMove()
     {
-        combatManager.playerCombat.moveSelected = equipGearMove;
+        combatManager.playerCombat.moveSOSelected = equipGearMoveSO;
         combatManager.SetState(combatManager.applyMove);
     }
 
@@ -39,6 +39,6 @@ public class CombatGearState : State
     {
         int equipSlotIndex = combatManager.combatMenuManager.combatEquipSelectMenuUI.highlightedButtonIndex;
         combatManager.playerCombat.playerInventorySO.EquipGearToSlot(inventorySlot.gearInstance, equipSlotIndex);
-        ApplyGearEquipMove();
+        ApplyGearEffectEquipMove();
     }
 }

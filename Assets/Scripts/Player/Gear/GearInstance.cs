@@ -13,7 +13,7 @@ public class GearInstance
     public string QuantityString()
     {
         if (this is EquipmentInstance equipmentInstance)
-            return equipmentInstance.ChargePercentage() + "%";
+            return ": " + equipmentInstance.ChargePercentage() + "%";
 
         if (this is ConsumableInstance consumableInstance)
             return "x " + consumableInstance.quantityAvailable;

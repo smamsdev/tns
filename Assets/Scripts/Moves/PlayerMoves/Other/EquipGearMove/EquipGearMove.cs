@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EquipGearMove : Move
+public class EquipGearMove : MoveBehaviour
 {
     public override IEnumerator ApplyMove(Combatant combatantToAct, Combatant targetCombatant)
     {

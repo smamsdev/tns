@@ -18,7 +18,7 @@ public class RoundReset : State
             combatManager.SelectTargetToAttack(enemy, combatManager.allAlliesToTarget);
             enemy.combatantUI.attackDisplay.SetAttackDisplayDirBasedOnLookDir(enemy);
 
-            combatManager.SelectCombatantMove(enemy);
+            enemy.SelectMove(combatManager);
             enemy.combatantUI.DisplayCombatantMove(enemy);
 
             yield return new WaitForSeconds(1f);
@@ -31,7 +31,7 @@ public class RoundReset : State
             combatManager.SelectTargetToAttack(ally, combatManager.enemies);
             ally.combatantUI.attackDisplay.SetAttackDisplayDirBasedOnLookDir(ally);
 
-            combatManager.SelectCombatantMove(ally);
+            ally.SelectMove(combatManager);
             ally.combatantUI.DisplayCombatantMove(ally);
             yield return new WaitForSeconds(1f);
             ally.combatantUI.attackDisplay.ShowAttackDisplay(ally, false);
@@ -42,8 +42,8 @@ public class RoundReset : State
 
         combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
         combatManager.roundCount++;
-        combatManager.playerCombat.playerMoveManager.actionSelectStateIs = 0;
-        combatManager.playerCombat.playerMoveManager.secondMoveIs = 0;
+        combatManager.playerCombat.actionType = -1;
+        combatManager.playerCombat.styleType = -1;
         combatManager.playerCombat.AttackTotal = 0;
         combatManager.playerCombat.FendTotal = 0;
         combatManager.playerCombat.combatantUI.fendScript.fendTextMeshProUGUI.text = "0";

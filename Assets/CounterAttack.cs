@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CounterAttack : Move
+public class CounterAttack : MoveBehaviour
 {
     public override IEnumerator OnReceieveAttack(Combatant combatantApplying, Combatant combatantReceiving)
     {

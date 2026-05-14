@@ -11,34 +11,19 @@ public class StyleSelectState : State
         styleSelectMenuUI.DisplayMenu(true);
         styleSelectMenuUI.menuButtons[styleSelectMenuUI.highlightedButtonIndex].Select();
         styleSelectMenuUI.SetButtonNormalColor(styleSelectMenuUI.menuButtons[styleSelectMenuUI.highlightedButtonIndex], Color.white);
-        combatManager.playerCombat.playerMoveManager.secondMoveIs = 0;
+        combatManager.playerCombat.styleType = -1;
 
         yield break;
     }
 
-    public override void StateUpdate()
+    public void StyleButtonSelected(int moveValue)
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            styleSelectMenuUI.DisplayMenu(false);
+        combatManager.playerCombat.styleType = moveValue;
 
-            combatManager.SetState(combatManager.actionSelectState);
-        }
-    }
+        if (moveValue == 3)
+            combatManager.SetState(combatManager.tacticalSelectState);
 
-    public void StyleButtonSelected(int moveValue) //triggered via Button
-    {
-        combatManager.playerCombat.playerMoveManager.secondMoveIs = moveValue;
-        combatManager.playerCombat.playerMoveManager.CombineStanceAndMove();
-
-        if (!combatManager.playerCombat.moveSelected.moveSO.ApplyMoveToSelfOnly)
-        {
-            combatManager.SetState(combatManager.enemySelectState);
-        }
         else
-        {
-            combatManager.playerCombat.targetCombatant = combatManager.playerCombat;
-            combatManager.SetState(combatManager.applyMove);
-        }
+            combatManager.SetState(combatManager.actionSelectState);
     }
 }
