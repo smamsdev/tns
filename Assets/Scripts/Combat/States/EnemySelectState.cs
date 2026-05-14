@@ -30,7 +30,7 @@ public class EnemySelectState : State
             combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
             enemySelectMenuUI.DisplayMenu(false);
             combatManager.playerCombat.CombatLookDirX = previousLookDirX;
-            combatManager.SetState(combatManager.styleSelectState);
+            combatManager.SetState(combatManager.actionSelectState);
         }
     }
 }

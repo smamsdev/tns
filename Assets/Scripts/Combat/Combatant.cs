@@ -86,6 +86,11 @@ public abstract class Combatant : MonoBehaviour
 
     public void InstantiateMoveBehaviour(MoveSO moveSO)
     {
+        for (int i = currentMoveBehaviourParent.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(currentMoveBehaviourParent.transform.GetChild(i).gameObject);
+        }
+
         GameObject moveBehaviourGO = Instantiate(moveSO.MovePrefab, currentMoveBehaviourParent.transform);
 
         moveBehaviourGO.name = moveSO.name + "Behaviour";

@@ -18,7 +18,10 @@ public class StyleSelectState : State
 
     public void StyleButtonSelected(int moveValue)
     {
+        styleSelectMenuUI.highlightedButtonIndex = moveValue;
+        styleSelectMenuUI.SetButtonNormalColor(styleSelectMenuUI.menuButtons[styleSelectMenuUI.highlightedButtonIndex], Color.yellow);
         combatManager.playerCombat.styleType = moveValue;
+
 
         if (moveValue == 3)
             combatManager.SetState(combatManager.tacticalSelectState);

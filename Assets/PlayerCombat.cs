@@ -96,22 +96,27 @@ public class PlayerCombat : PartyMemberCombat
     }
 
     public void CombineStanceAndMove()
-    {
-        switch (actionType)
+    { 
+        switch (styleType)
         {
             case 0: // Violent stance
-                switch (styleType)
+                switch (actionType)
                 {
-                    case 0: SelectMove(playerMoveInventorySO.violentAttacksEquipped); break;
-                    case 1: SelectMove(playerMoveInventorySO.violentFendsEquipped); break;
-                    case 2: SelectMove(playerMoveInventorySO.violentFocusesEquipped); break;
+                    case 0: 
+                        SelectMove(playerMoveInventorySO.violentAttacksEquipped);break;
+                    case 1: 
+                        SelectMove(playerMoveInventorySO.violentFendsEquipped);
+                        break;
+                    case 2: 
+                        SelectMove(playerMoveInventorySO.violentFocusesEquipped);
+                        break;
                 }
                 break;
 
             case 1: // Cautious stance
                 switch (styleType)
                 {
-                    case 0: SelectMove(playerMoveInventorySO.cautiousAttacksEquipped); break;
+                    case 0: SelectMove(playerMoveInventorySO.cautiousAttacksEquipped);break;
                     case 1: SelectMove(playerMoveInventorySO.cautiousFendsEquipped); break;
                     case 2: SelectMove(playerMoveInventorySO.cautiousFocusesEquipped); break;
                 }
@@ -120,7 +125,7 @@ public class PlayerCombat : PartyMemberCombat
             case 2: // Precise stance
                 switch (styleType)
                 {
-                    case 0: SelectMove(playerMoveInventorySO.preciseAttacksEquipped); break;
+                    case 0: SelectMove(playerMoveInventorySO.preciseAttacksEquipped);break;
                     case 1: SelectMove(playerMoveInventorySO.preciseFendsEquipped); break;
                     case 2: SelectMove(playerMoveInventorySO.preciseFocusesEquipped); break;
                 }
@@ -129,6 +134,7 @@ public class PlayerCombat : PartyMemberCombat
             default:
                 {
                     Debug.Log("somethig went wrong");
+                    Debug.DebugBreak();
                     break;
                 }
         }
@@ -140,10 +146,8 @@ public class PlayerCombat : PartyMemberCombat
 
         foreach (MoveSO moveSO in equippedMoveSOs)
         {
-            if (moveSO!= null && moveSO.MoveWeighting > 0)
-            {
+            if (moveSO != null && moveSO.MoveWeighting > 0)
                 MoveWeightingTotal += moveSO.MoveWeighting;
-            }
         }
 
         if (MoveWeightingTotal == 0)

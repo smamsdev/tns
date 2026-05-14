@@ -9,7 +9,7 @@ public class CombatMenu : MonoBehaviour
     public List<Button> menuButtons;
     public int highlightedButtonIndex;
 
-    public void DisplayMenu(bool on)
+    public virtual void DisplayMenu(bool on)
     {
         this.gameObject.SetActive(on);
     }

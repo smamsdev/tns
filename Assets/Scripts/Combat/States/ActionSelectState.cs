@@ -17,8 +17,6 @@ public class ActionSelectState : State
             yield break;
         }
 
-        actionSelectMenuUI.SetButtonNormalColor(actionSelectMenuUI.menuButtons[actionSelectMenuUI.highlightedButtonIndex], Color.white);
-        actionSelectMenuUI.menuButtons[actionSelectMenuUI.highlightedButtonIndex].Select();
         combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
         combatManager.playerCombat.combatantUI.statsDisplay.ShowStatsDisplay(true);
         actionSelectMenuUI.DisplayMenu(true);
@@ -27,7 +25,7 @@ public class ActionSelectState : State
         yield break;
     }
 
-    public void ActionButtonSelected(int moveValue) //triggered via Button
+    public void ActionButtonSelected(int moveValue)
     {
         combatManager.playerCombat.actionType = moveValue;
         combatManager.playerCombat.CombineStanceAndMove();
