@@ -141,27 +141,28 @@ public abstract class Combatant : MonoBehaviour
         StartCoroutine(UpdateHPCoRo(value));
     }
 
-    public virtual IEnumerator UpdateHPCoRo(int value)
+    public virtual IEnumerator UpdateHPCoRo(int change)
     {
-        var newHPValue = CurrentHP + value;
+        if (change >= 0)
+            combatantUI.statsDisplay.HPTMPAnimator.Play("CombatUIStatPlus");
 
-        float elapsedTime = 0f;
+        else
+            combatantUI.statsDisplay.HPTMPAnimator.Play("CombatUIStatMinus");
+
+        int initialHP = CurrentHP;
+        int finalHP = CurrentHP + change;
         float lerpDuration = 1f;
-        int valueToOutput;
 
-        combatantUI.statsDisplay.HPTMPAnimator.SetTrigger("bump");
-
-        while (elapsedTime < lerpDuration)
+        yield return FieldEvents.LerpValuesCoRo(initialHP, finalHP, lerpDuration, (output) => 
         {
-            float t = Mathf.Clamp01(elapsedTime / lerpDuration);
+            int outputInt = Mathf.RoundToInt(output);
 
-            valueToOutput = Mathf.RoundToInt(Mathf.Lerp(CurrentHP, newHPValue, t));
-            CurrentHP = valueToOutput;
-            combatantUI.statsDisplay.UpdateHPDisplay(CurrentHP);
+            currentHP = outputInt;
+            combatantUI.statsDisplay.UpdateHPDisplay(outputInt);
+        });
 
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+        currentHP = finalHP;
+        combatantUI.statsDisplay.UpdateHPDisplay(finalHP);
 
         if (CurrentHP == 0)
         {

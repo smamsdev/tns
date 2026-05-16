@@ -12,11 +12,7 @@ public abstract class MoveBehaviour : MonoBehaviour
 
     private void OnEnable()
     {
-        if (moveSO == null)
-        {
-            Debug.Log("missing SO on move behaviour" + this, this);
-            Debug.Break();
-        }
+
     }
 
     public virtual IEnumerator MoveToPosition(Combatant combatant, Vector3 targetPosition)
@@ -50,6 +46,12 @@ public abstract class MoveBehaviour : MonoBehaviour
 
     public virtual void LoadMoveReferences(Combatant combatantToAct, CombatManager combatManager)
     {
+        if (moveSO == null)
+        {
+            Debug.Log("missing SO on move behaviour" + this, this);
+            Debug.Break();
+        }
+
         this.combatManager = combatManager;
         combatantToActAnimator = combatantToAct.GetComponent<Animator>();
         combatantToActMovementScript = combatantToAct.GetComponent<MovementScript>();

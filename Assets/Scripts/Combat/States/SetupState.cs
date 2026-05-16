@@ -73,9 +73,6 @@ public class Setup : State
         //set enemy ui and attack
         foreach (Enemy enemy in combatManager.enemies)
         {
-
- 
-
             if (!combatManager.battleScheme.isEnemyFlanked)
             {
                 enemy.SelectMove(combatManager);

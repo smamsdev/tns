@@ -24,6 +24,7 @@ public class EnemySelectState : State
         combatManager.playerCombat.targetCombatant = targetSelectButtonUI.combatant;
         combatManager.playerCombat.currentMoveBehaviour.targetCombatant = targetSelectButtonUI.combatant;
         combatManager.SetState(combatManager.applyMove);
+        TargetUnHighlighted(targetSelectButtonUI.combatant);
     }
 
 
@@ -56,6 +57,8 @@ public class EnemySelectState : State
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            int index = enemySelectMenuUI.highlightedButtonIndex;
+            TargetUnHighlighted(enemySelectMenuUI.targetSelectButtonUIs[index].combatant);
             combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
             enemySelectMenuUI.DisplayMenu(false);
             combatManager.playerCombat.CombatLookDirX = previousLookDirX;

@@ -87,11 +87,11 @@ public class PlayerCombat : PartyMemberCombat
         return potentialMod;
     }
 
-    public void UpdatePlayerPot(int value)
+    public void UpdatePlayerPot(int change)
     {
-        currentPotential += value;
+        currentPotential += change;
         PlayerStatsDisplay playerStatsDisplay = combatantUI.statsDisplay as PlayerStatsDisplay;
-        StartCoroutine(playerStatsDisplay.UpdatePlayerPotentialUI(Mathf.RoundToInt(currentPotential)));
+        StartCoroutine(playerStatsDisplay.UpdatePlayerPotentialUI(Mathf.RoundToInt(change)));
     }
 
     public void CombineStanceAndMove()
