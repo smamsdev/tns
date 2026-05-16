@@ -16,6 +16,11 @@ public class PlayerStatsDisplay : StatsDisplay
         return;
     }
 
+    public override void ShowCombatantName(bool on)
+    {
+        return;
+    }
+
     public override void UpdateHPDisplay(int value)
     {
         combatantHPTextMeshPro.text = combatant.CurrentHP.ToString() + " / " + combatant.MaxHP;
@@ -56,7 +61,6 @@ public class PlayerStatsDisplay : StatsDisplay
 
     public override void InitialiseCombatStatsDisplay(Combatant combatant)
     {
-        combatantHP = combatant.CurrentHP;
         combatantHPTextMeshPro.text = combatant.CurrentHP.ToString() + " / " + combatant.MaxHP;
 
         var playerCombatant = combatant as PlayerCombat;

@@ -29,7 +29,7 @@ public class TacticalSelectState : State
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             tacticalSelectMenuUI.DisplayMenu(false);
-            combatManager.SetState(combatManager.actionSelectState);
+            combatManager.SetState(combatManager.styleSelectState);
         }
     }
 

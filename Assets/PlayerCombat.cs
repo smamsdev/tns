@@ -7,16 +7,7 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerCombat : PartyMemberCombat
 {
-    public PlayerPermanentStats playerPermanentStats;
-    public PartySO party;
-    public PlayerInventorySO playerInventorySO;
-    public PlayerMoveInventorySO playerMoveInventorySO;
-    public GameObject gearMonoBehaviourParentFolder;
-    public List<GearMonoBehaviour> gearBehaviours = new();
-    public int styleType;
-    public int actionType;
-    
-    public CombatManager combatManager;
+    [Header("Player Specific")]
 
     [SerializeField] private int maxPotential;
     public int MaxPotential
@@ -39,8 +30,22 @@ public class PlayerCombat : PartyMemberCombat
         set => focusBase = Mathf.Clamp(value, 0, 9999);
     }
 
+    public List<GearMonoBehaviour> gearBehaviours = new();
+
     public float fendPotMod;
     public float attackPowerPotMod;
+
+    [Header("Player refs")]
+    public PlayerPermanentStats playerPermanentStats;
+    public PartySO partySO;
+    public PlayerInventorySO playerInventorySO;
+    public PlayerMoveInventorySO playerMoveInventorySO;
+    public GameObject gearMonoBehaviourParentFolder;
+
+    [HideInInspector] public int styleType;
+    [HideInInspector] public int actionType;
+
+    [HideInInspector] public CombatManager combatManager;
 
     private void OnEnable()
     {

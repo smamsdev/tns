@@ -9,10 +9,11 @@ public class ApplyPlayerMove : State
 
     public override IEnumerator StartState()
     {
-        combatManager.combatMenuManager.DisableAllMenus();
         playerCombat = combatManager.playerCombat;
 
+        combatManager.combatMenuManager.DisableAllMenus();
         playerCombat.currentMoveBehaviour.LoadMoveReferences(playerCombat, combatManager);
+        playerCombat.currentMoveBehaviour.CalculateMoveStats();
 
         yield return GearEffectOnTurn();
         yield return ApplyMove();

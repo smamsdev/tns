@@ -71,9 +71,9 @@ public class Encounter : ToTrigger
             ally.amountSpawned = 0;
         }
 
-        for (int i = 0; i < playerCombat.party.partyMembers.Count; i++)
+        for (int i = 0; i < playerCombat.partySO.partyMembers.Count; i++)
         { 
-            GameObject allyToAdd = Instantiate(playerCombat.party.partyMembers[i].prefab,this.transform);
+            GameObject allyToAdd = Instantiate(playerCombat.partySO.partyMembers[i].prefab,this.transform);
             Combatant allyCombatant = allyToAdd.GetComponent<Combatant>();
             battle.allies.Add(allyCombatant);
 
@@ -84,7 +84,7 @@ public class Encounter : ToTrigger
         if (bonusAllyRoster.Length > 0)
         {
             int randomNumberOfAllies = Random.Range(0, maxBonusAllies + 1);
-            int totalAllies = randomNumberOfAllies + playerCombat.party.partyMembers.Count;
+            int totalAllies = randomNumberOfAllies + playerCombat.partySO.partyMembers.Count;
 
             for (int i = 0; i < randomNumberOfAllies; i++)
             {

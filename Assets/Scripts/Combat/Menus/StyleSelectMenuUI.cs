@@ -25,33 +25,34 @@ public class StyleSelectMenuUI : CombatMenu
     void MenuOptionHighlighted(Button button)
     {
         highlightedButtonIndex = menuButtons.IndexOf(button);
-        UpdateNarrator(highlightedButtonIndex);
+       // UpdateNarrator(highlightedButtonIndex);
     }
 
-    void UpdateNarrator(int index)
-    {
-        string text;
-
-        switch (index)
-        {
-            case 0:
-                text = "Execute a Violent Move?";
-                break;
-            case 1:
-                text = "Execute a Cautious Move?";
-                break;
-            case 2:
-                text = "Execute a Precise Move?";
-                break;
-            case 3:
-                text = "Select Tactic?";
-                break;
-            default:
-                Debug.Log("something went wrong");
-                text = null;
-                break;
-        }
-
-        menuManager.UpdateNarrator(text);   
-    }
+    //dont really like this
+    //void UpdateNarrator(int index)
+    //{
+    //    string text;
+    //
+    //    switch (index)
+    //    {
+    //        case 0:
+    //            text = "Execute a Violent Move?";
+    //            break;
+    //        case 1:
+    //            text = "Execute a Cautious Move?";
+    //            break;
+    //        case 2:
+    //            text = "Execute a Precise Move?";
+    //            break;
+    //        case 3:
+    //            text = "Select Tactic?";
+    //            break;
+    //        default:
+    //            Debug.Log("something went wrong");
+    //            text = null;
+    //            break;
+    //    }
+    //
+    //    menuManager.UpdateNarrator(text);   
+    //}
 }

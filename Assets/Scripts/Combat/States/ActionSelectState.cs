@@ -10,15 +10,6 @@ public class ActionSelectState : State
 
     public override IEnumerator StartState()
     {
-        if (combatManager.battleScheme.isAllyFlanked)
-        {
-            combatManager.battleScheme.isAllyFlanked = false;
-            combatManager.SetState(combatManager.enemyMoveState);
-            yield break;
-        }
-
-        combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
-        combatManager.playerCombat.combatantUI.statsDisplay.ShowStatsDisplay(true);
         actionSelectMenuUI.DisplayMenu(true);
         combatManager.playerCombat.actionType = -1;
 
@@ -37,7 +28,7 @@ public class ActionSelectState : State
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             actionSelectMenuUI.DisplayMenu(false);
-
+            combatManager.combatMenuManager.UpdateNarrator("");
             combatManager.SetState(combatManager.styleSelectState);
         }
     }

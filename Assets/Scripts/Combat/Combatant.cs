@@ -45,7 +45,12 @@ public abstract class Combatant : MonoBehaviour
     public int FendBase
     {
         get => (fendBase);
-        set => fendBase = Mathf.Clamp(value, 0, 999);
+        set
+        {
+            fendBase = Mathf.Clamp(value, 0, 999);
+            //Debug.Log("fend changed");
+        }
+
     }
 
     [SerializeField] private int maxHP;
@@ -55,24 +60,24 @@ public abstract class Combatant : MonoBehaviour
         set => maxHP = Mathf.Clamp(value, 0, 9999);
     }
 
-    [SerializeField] private int currentHP;
+    [SerializeField] private int _currentHP;
     public int CurrentHP
     {
-        get => currentHP;
-        set => currentHP = Mathf.Clamp(value, 0, 9999);
+        get => _currentHP;
+        set => _currentHP = Mathf.Clamp(value, 0, 9999);
     }
 
 
-    [Tooltip("Set by code. Leave as 0.")]
-    private int attackTotal = 0;
+    [Header("Written by MoveBehaviour")]
+    [SerializeField] int attackTotal = 0;
     public int AttackTotal
     { 
         get => attackTotal;
         set => attackTotal = Mathf.Clamp(value, 0, 9999);
     }
 
-    [Tooltip("Set by code. Leave as 0.")]
-    private int fendTotal = 0;
+    [Header ("Written by MoveBehaviour")]
+    [SerializeField] int fendTotal = 0;
     public int FendTotal
     {
         get => fendTotal;
@@ -136,13 +141,11 @@ public abstract class Combatant : MonoBehaviour
         Debug.LogError("Failed to select a move! This should never happen. Random value was " + randomValue);
     }
 
-    public virtual void UpdateHP(int value)
+    public virtual IEnumerator CombatUpdateHPCoRo(int change)
     {
-        StartCoroutine(UpdateHPCoRo(value));
-    }
+        combatantUI.statsDisplay.ShowStatsDisplay(true);
+        combatantUI.statsDisplay.ShowCombatantName(false);
 
-    public virtual IEnumerator UpdateHPCoRo(int change)
-    {
         if (change >= 0)
             combatantUI.statsDisplay.HPTMPAnimator.Play("CombatUIStatPlus");
 
@@ -150,27 +153,39 @@ public abstract class Combatant : MonoBehaviour
             combatantUI.statsDisplay.HPTMPAnimator.Play("CombatUIStatMinus");
 
         int initialHP = CurrentHP;
-        int finalHP = CurrentHP + change;
-        float lerpDuration = 1f;
+        int finalHP = Mathf.Clamp(CurrentHP + change, 0, 9999); 
+        float lerpDuration = .5f;
 
         yield return FieldEvents.LerpValuesCoRo(initialHP, finalHP, lerpDuration, (output) => 
         {
             int outputInt = Mathf.RoundToInt(output);
 
-            currentHP = outputInt;
-            combatantUI.statsDisplay.UpdateHPDisplay(outputInt);
+            CurrentHP = outputInt;
+            combatantUI.statsDisplay.UpdateHPDisplay(CurrentHP);
+
         });
 
-        currentHP = finalHP;
+        CurrentHP = finalHP;
         combatantUI.statsDisplay.UpdateHPDisplay(finalHP);
 
         if (CurrentHP == 0)
         {
             combatantUI.statsDisplay.statsDisplayContainerAnimator.Play("StatsDisplayOnDefeat");
             movementScript.animator.Play("Fall");
+            yield return new WaitForSeconds(1f);
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(.5f);
+        combatantUI.statsDisplay.HPTMPAnimator.Play("CombatUIStatsFade");
+        yield return new WaitForSeconds(.5f);
+        combatantUI.statsDisplay.ShowStatsDisplay(false);
+    }
+
+    public IEnumerator CombatDamageTaken(int attackRemainder)
+    {
+        StartCoroutine(combatantUI.damageTakenDisplay.ShowDamageDisplayCoro(attackRemainder));
+        yield return CombatUpdateHPCoRo(-attackRemainder);
+        combatantUI.statsDisplay.ShowStatsDisplay(false);
     }
 
     public virtual void ChangeStat(StatModifier mod)

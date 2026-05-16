@@ -32,7 +32,6 @@ public class Setup : State
         playerMovementScript.animator.SetFloat("CombatLookDirX", playerCombat.CombatLookDirX);
         var playerAnimator = playerCombat.GetComponent<Animator>();
         playerAnimator.SetTrigger("CombatIdle");
-        InitializePermanentStatsAndGear();
         SetPlayerUI();
 
         yield return new WaitForSeconds(0.1f);
@@ -146,6 +145,7 @@ public class Setup : State
 
     void InitializePermanentStatsAndGear()
     {
+        Debug.Log("todo for allies");
         //playerCombat.InstantiateAllEquippedGear(combatManager);
         //Debug.Log("instnatiate all gear fix");
 

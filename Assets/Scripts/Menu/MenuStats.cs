@@ -40,7 +40,7 @@ public class MenuStats : PauseMenu
     {
         pauseMenuManager.ClearThenDisplayMenu(this);
         arrowGO.SetActive(false);
-        partySO = menuMain.playerCombat.party;
+        partySO = menuMain.playerCombat.partySO;
 
         foreach (var gameObject in partyMemberHeaderGOs)
         {

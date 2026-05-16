@@ -7,10 +7,9 @@ public class StatsDisplay : MonoBehaviour
 {
     public TextMeshProUGUI combatantNameTextMeshPro;
     public TextMeshProUGUI combatantHPTextMeshPro;
-    public GameObject statsDisplayGameObject;
+    [SerializeField] GameObject statsDisplayGameObject, combatantNameGO;
     public Animator HPTMPAnimator, statsDisplayContainerAnimator;
     public Combatant combatant;
-    public int combatantHP;
 
     private void OnDisable()
     {
@@ -20,19 +19,25 @@ public class StatsDisplay : MonoBehaviour
     public virtual void ShowStatsDisplay(bool on)
     {
         statsDisplayGameObject.SetActive(on);
+        combatantNameGO.SetActive(on);
+        combatantHPTextMeshPro.alpha = 1.0f;
     }
 
     public virtual void UpdateHPDisplay(int value)
     {
-        combatantHPTextMeshPro.text = "HP: " + value.ToString();
+        combatantHPTextMeshPro.text = value.ToString() + " / " + combatant.MaxHP.ToString();
+    }
+
+    public virtual void ShowCombatantName(bool on)
+    {
+      //  combatantNameGO.SetActive(on);
     }
 
     public virtual void InitialiseCombatStatsDisplay(Combatant combatant)
     {
         this.combatant = combatant;
 
-        combatantHP = combatant.CurrentHP;
-        combatantHPTextMeshPro.text = "HP: " + combatant.CurrentHP.ToString();
+        combatantHPTextMeshPro.text = combatant.CurrentHP.ToString() + " / " + combatant.MaxHP.ToString();
         combatantNameTextMeshPro.text = combatant.combatantName;
     }
 }

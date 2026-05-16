@@ -49,7 +49,7 @@ public class FendScript : MonoBehaviour
         if (target.FendTotal == 0)
         {
             yield return PushBack();
-            yield return DamageTaken();
+            yield return target.CombatDamageTaken(attackRemainder);
             yield break;
         }
 
@@ -71,8 +71,12 @@ public class FendScript : MonoBehaviour
             {
                 fendAnimator.Play("FendBreak", 0, 0);
                 fendTextMeshProUGUI.text = "";
-                yield return PushBack();
-                yield return DamageTaken();
+
+                if (attackRemainder > 0)
+                {
+                    yield return PushBack();
+                    yield return target.CombatDamageTaken(attackRemainder);
+                }
             }
 
             yield return null;
@@ -88,24 +92,8 @@ public class FendScript : MonoBehaviour
 
             var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);
             var combatMovementInstance = combatMovementInstanceGO.GetComponent<CombatMovement>();
-            yield return (combatMovementInstance.LerpPositionFixedTime(target.gameObject, stepBackPos, .5f));
+            yield return (combatMovementInstance.LerpPositionFixedTime(target.gameObject, stepBackPos, .2f));
             Destroy(combatMovementInstanceGO);
-
-            yield break;
-        }
-
-        IEnumerator DamageTaken()
-        {
-            target.combatantUI.statsDisplay.ShowStatsDisplay(true);
-
-            if (attackRemainder > 0)
-            {
-                StartCoroutine(target.combatantUI.damageTakenDisplay.ShowDamageDisplayCoro(attackRemainder));
-                target.UpdateHP(-attackRemainder);
-            }
-
-            yield return new WaitForSeconds(1.5f);
-            target.combatantUI.statsDisplay.ShowStatsDisplay(false);
 
             yield break;
         }
