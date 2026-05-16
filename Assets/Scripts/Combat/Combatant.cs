@@ -129,8 +129,6 @@ public abstract class Combatant : MonoBehaviour
             {
                 moveSOSelected = moveSO;
                 InstantiateMoveBehaviour(moveSO);
-                currentMoveBehaviour.LoadMoveReferences(this, combatManager);
-                currentMoveBehaviour.CalculateMoveStats();
                 return;
             }
         }

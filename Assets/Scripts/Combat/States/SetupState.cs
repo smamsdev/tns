@@ -73,17 +73,20 @@ public class Setup : State
         //set enemy ui and attack
         foreach (Enemy enemy in combatManager.enemies)
         {
-            SetcombatantUI(enemy);
 
-            enemy.SelectMove(combatManager);
+ 
 
             if (!combatManager.battleScheme.isEnemyFlanked)
             {
+                enemy.SelectMove(combatManager);
                 combatManager.SelectTargetToAttack(enemy, combatManager.allAlliesToTarget);
-
+                enemy.currentMoveBehaviour.LoadMoveReferences(enemy, combatManager);
+                enemy.currentMoveBehaviour.CalculateMoveStats();
+                SetcombatantUI(enemy);
                 combatManager.cameraFollow.transformToFollow = enemy.transform;
                 enemy.combatantUI.DisplayCombatantMove(enemy);
                 yield return new WaitForSeconds(1f);
+
                 enemy.combatantUI.attackDisplay.ShowAttackDisplay(enemy, false);
                 enemy.combatantUI.fendScript.ShowFendDisplay(enemy, false);
             }
@@ -92,8 +95,6 @@ public class Setup : State
         //set ally ui and attack
         foreach (Ally ally in combatManager.allies)
         {
-            SetcombatantUI(ally);
-
             if (ally is PartyMemberCombat)
             {
                 PartyMemberCombat partyMember = ally as PartyMemberCombat;
@@ -109,6 +110,9 @@ public class Setup : State
             {
                 combatManager.SelectTargetToAttack(ally, combatManager.enemies);
                 ally.SelectMove(combatManager);
+                ally.currentMoveBehaviour.LoadMoveReferences(ally, combatManager);
+                ally.currentMoveBehaviour.CalculateMoveStats();
+                SetcombatantUI(ally);
                 combatManager.cameraFollow.transformToFollow = ally.transform;
                 ally.combatantUI.DisplayCombatantMove(ally);
                 yield return new WaitForSeconds(1f);

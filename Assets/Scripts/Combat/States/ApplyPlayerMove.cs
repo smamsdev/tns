@@ -12,7 +12,9 @@ public class ApplyPlayerMove : State
         combatManager.combatMenuManager.DisableAllMenus();
         playerCombat = combatManager.playerCombat;
 
-        yield return ApplyGearEffect();
+        playerCombat.currentMoveBehaviour.LoadMoveReferences(playerCombat, combatManager);
+
+        yield return GearEffectOnTurn();
         yield return ApplyMove();
 
         if (combatManager.enemies.Count == 0)
@@ -21,7 +23,7 @@ public class ApplyPlayerMove : State
             yield break;
         }
 
-        if (combatManager.allies.Count > 0 && combatManager.enemies.Count > 0)
+        if (combatManager.allies.Count > 0)
         {
             combatManager.SetState(combatManager.allyMoveState);
             yield break;
@@ -34,11 +36,11 @@ public class ApplyPlayerMove : State
         }
     }
 
-    IEnumerator ApplyGearEffect()
+    IEnumerator GearEffectOnTurn()
     {
         foreach (GearMonoBehaviour gearMonoBehaviour in playerCombat.gearBehaviours)
         {
-            gearMonoBehaviour.ApplyGearEffect();
+            yield return gearMonoBehaviour.GearEffectOnTurn();
         }
 
         yield return null;

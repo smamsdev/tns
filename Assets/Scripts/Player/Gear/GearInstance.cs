@@ -53,6 +53,21 @@ public class GearInstance
 
         return index;
     }
+
+    public GearInstance GetGearType()
+    {
+        if (this is EquipmentInstance equipmentInstance)
+            return this as EquipmentInstance;
+
+        else if (this is ConsumableInstance consumableInstance)
+            return this as ConsumableInstance;
+
+        else
+        {
+            Debug.Log("something went wrong");
+            return null;
+        }
+    }
 }
 
 [System.Serializable]

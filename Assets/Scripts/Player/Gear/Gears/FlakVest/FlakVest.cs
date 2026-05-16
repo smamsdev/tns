@@ -3,13 +3,8 @@ using UnityEngine;
 
 public class FlakVest : GearMonoBehaviour
 {
-    public override IEnumerator ApplyGearEffect()
+    public override IEnumerator GearEffectOnTurn()
     {
         yield return null;
-    }
-
-    public override void OnEquipGear()
-    {
-        return;
     }
 }

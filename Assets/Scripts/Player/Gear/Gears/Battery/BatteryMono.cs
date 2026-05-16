@@ -3,26 +3,8 @@ using UnityEngine;
 
 public class BatteryMono : GearMonoBehaviour
 {
-    public override IEnumerator ApplyGearEffect()
+    public override IEnumerator GearEffectOnTurn()
     {
         yield return null;
-    }
-
-    public override void OnEquipGear()
-    {
-        ////
-        ///
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

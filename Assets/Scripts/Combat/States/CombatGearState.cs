@@ -28,7 +28,7 @@ public class CombatGearState : State
         }
     }
 
-    void ApplyGearEffectEquipMove()
+    void GearEffectOnTurnEquipMove()
     {
         combatManager.playerCombat.moveSOSelected = equipGearMoveSO;
         combatManager.SetState(combatManager.applyMove);
@@ -39,6 +39,6 @@ public class CombatGearState : State
     {
         int equipSlotIndex = combatManager.combatMenuManager.combatEquipSelectMenuUI.highlightedButtonIndex;
         combatManager.playerCombat.playerInventorySO.EquipGearToSlot(inventorySlot.gearInstance, equipSlotIndex);
-        ApplyGearEffectEquipMove();
+        GearEffectOnTurnEquipMove();
     }
 }

@@ -58,7 +58,6 @@ public class PlayerCombat : PartyMemberCombat
         InitStatsFromSO();
         combatManager = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>();
         InstantiateAllEquippedGearBehaviours();
-        ApplyAllGearStatMods();
     }
 
     public float CalculatePotentialMod()
@@ -160,7 +159,8 @@ public class PlayerCombat : PartyMemberCombat
 
         foreach (MoveSO moveSO in equippedMoveSOs)
         {
-            if (moveSO.MoveWeighting == 0) continue;
+            if (moveSO == null || moveSO.MoveWeighting <= 0)
+                continue;
 
             if (randomValue > moveSO.MoveWeighting)
             {
@@ -170,8 +170,6 @@ public class PlayerCombat : PartyMemberCombat
             {
                 moveSOSelected = moveSO;
                 InstantiateMoveBehaviour(moveSO);
-                currentMoveBehaviour.LoadMoveReferences(this, combatManager);
-                currentMoveBehaviour.CalculateMoveStats();
                 return;
             }
         }
@@ -205,7 +203,7 @@ public class PlayerCombat : PartyMemberCombat
 
         for (int i = 0; i < playerInventorySO.gearInstanceEquipped.Count; i++)
         {
-            var gearInstance = playerInventorySO.gearInstanceEquipped[i];
+            GearInstance gearInstance = playerInventorySO.gearInstanceEquipped[i].GetGearType();
 
             if (gearInstance.gearSO != null)
             {
@@ -221,6 +219,25 @@ public class PlayerCombat : PartyMemberCombat
         }
     }
 
+
+    public void InstantiateGearBehaviour(CombatManager combatManager, GearInstance gearInstance, int i)
+    {
+        GameObject gearMonoBehaviourGO = Instantiate(gearInstance.gearSO.MonobehaviourPrefab, gearMonoBehaviourParentFolder.transform);
+        gearMonoBehaviourGO.name = "EquipSlot" + (i + 1) + gearInstance.gearSO.name + "Monobehaviour";
+
+        GearMonoBehaviour gearMonoBehaviour = gearMonoBehaviourGO.GetComponent<GearMonoBehaviour>();
+
+        gearMonoBehaviour.gearInstance = gearInstance;
+        gearMonoBehaviour.combatManager = combatManager;
+
+        foreach (StatModifier statModifier in gearInstance.gearSO.StatModifiers)
+        {
+            ChangeStat(statModifier);
+        }
+
+        gearBehaviours.Add(gearMonoBehaviour);
+    }
+
     void ClearAllGearBehaviours()
     {
         gearBehaviours.Clear();
@@ -228,38 +245,6 @@ public class PlayerCombat : PartyMemberCombat
         foreach (Transform child in gearMonoBehaviourParentFolder.transform)
         {
             Destroy(child.gameObject);
-        }
-    }
-
-    public void InstantiateGearBehaviour(CombatManager combatManager, GearInstance gearInstance, int i)
-    {
-        GameObject gearMonoBehaviourGO = Instantiate(gearInstance.gearSO.MonobehaviourPrefab, gearMonoBehaviourParentFolder.transform);
-        gearMonoBehaviourGO.name = "EquipSlot" + (i + 1) +gearInstance.gearSO.name + "Monobehaviour";
-
-        GearMonoBehaviour gearMonoBehaviour = gearMonoBehaviourGO.GetComponent<GearMonoBehaviour>();
-
-        gearMonoBehaviour.SetGearInstance(gearInstance);
-        gearMonoBehaviour.combatManager = combatManager;
-        gearMonoBehaviour.OnEquipGear();
-
-        gearBehaviours.Add(gearMonoBehaviour);
-    }
-
-    public void ApplyAllGearStatMods()
-    {
-        foreach (GearInstance gearInstance in playerInventorySO.gearInstanceEquipped)
-        {
-            if (gearInstance.gearSO == null)
-                continue;
-
-            if (gearInstance is EquipmentInstance equipmentInstance && equipmentInstance.Charge <= 0)
-                continue;
-
-            foreach (StatModifier statModifier in gearInstance.gearSO.StatModifiers)
-            {
-                //Debug.Log(gearInstance.gearSO.GearName, gearInstance.gearSO);
-                ChangeStat(statModifier);
-            }
         }
     }
 

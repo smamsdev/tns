@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class LithiumMono : GearMonoBehaviour
 {
-    public override IEnumerator ApplyGearEffect()
+    public override IEnumerator GearEffectOnTurn()
     {
         yield return null;
-    }
-
-    public override void OnEquipGear()
-    {
-        return;
     }
 }

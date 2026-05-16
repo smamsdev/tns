@@ -55,6 +55,12 @@ public abstract class MoveBehaviour : MonoBehaviour
         combatantToActMovementScript = combatantToAct.GetComponent<MovementScript>();
         this.combatantToAct = combatantToAct;
         this.targetCombatant = combatantToAct.targetCombatant;
+
+        if (this.targetCombatant == null)
+        {
+            Debug.Log("target is null");
+            Debug.Break();
+        }
     }
 
     public virtual void CalculateMoveStats()

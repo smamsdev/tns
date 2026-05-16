@@ -5,23 +5,10 @@ using UnityEngine;
 public abstract class GearMonoBehaviour : MonoBehaviour
 {
     [HideInInspector] public CombatManager combatManager;
-    [SerializeField] GearInstance gearInstance;
+    public GearInstance gearInstance;
 
-    public void SetGearInstance(GearInstance gearInstance)
-    {
-        if (gearInstance is EquipmentInstance equipmentInstance)
-            gearInstance = equipmentInstance;
-
-        else gearInstance = gearInstance as ConsumableInstance;
-    }
-
-    public virtual IEnumerator ApplyGearEffect()
+    public virtual IEnumerator GearEffectOnTurn()
     {
         yield return null;
-    }
-
-    public virtual void OnEquipGear()
-    {
-        return;
     }
 }

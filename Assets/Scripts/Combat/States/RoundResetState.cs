@@ -47,7 +47,7 @@ public class RoundReset : State
         combatManager.playerCombat.AttackTotal = 0;
         combatManager.playerCombat.FendTotal = 0;
         combatManager.playerCombat.combatantUI.fendScript.fendTextMeshProUGUI.text = "0";
-        combatManager.SetState(combatManager.actionSelectState);
+        combatManager.SetState(combatManager.styleSelectState);
         yield break;
     }
 }

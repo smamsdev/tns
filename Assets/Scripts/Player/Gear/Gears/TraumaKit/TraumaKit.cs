@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class TraumaKit : GearMonoBehaviour
 {
-    public override IEnumerator ApplyGearEffect()
+    public override IEnumerator GearEffectOnTurn()
     {
-        throw new System.NotImplementedException();
-    }
-
-    public override void OnEquipGear()
-    {
-        throw new System.NotImplementedException();
+        return null;
     }
 }
