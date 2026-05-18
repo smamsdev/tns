@@ -79,6 +79,7 @@ public class CombatGearSelectMenuUI : CombatMenu
 
     public void OnInventorySlotHighlighted(InventorySlotUI inventorySlot)
     {
+        highlightedButtonIndex = inventorySlotUIs.IndexOf(inventorySlot);
         menuManager.SetGearSlotUIColor(inventorySlot, Color.yellow, inventorySlot.itemNameTMP.alpha);
         menuManager.UpdateNarrator(inventorySlot.gearInstance.gearSO.GearDescription);
 

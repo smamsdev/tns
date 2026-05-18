@@ -10,13 +10,13 @@ public class Imitator : MoveBehaviour
 
         yield return ApplyMoveToSelf();
 
-        combatantToAct.moveSOSelected = combatantToAct.targetCombatant.moveSOSelected;
+        combatantToAct.InstantiateMoveBehaviour(combatantToAct.targetCombatant.currentMoveBehaviour.moveSO);
 
         combatManager.cameraFollow.transformToFollow = combatantToAct.transform;
         yield return new WaitForSeconds(0.25f);
 
         combatantToAct.currentMoveBehaviour.LoadMoveReferences(combatantToAct, combatManager);
-        combatManager.combatMenuManager.UpdateNarrator(combatantToAct.moveSOSelected.MoveName);
+        combatManager.combatMenuManager.UpdateNarrator(combatantToAct.currentMoveBehaviour.moveSO.MoveName);
 
         yield return new WaitForSeconds(1f);
         combatantToAct.currentMoveBehaviour.CalculateMoveStats();

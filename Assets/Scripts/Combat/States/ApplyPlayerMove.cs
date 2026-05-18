@@ -6,6 +6,7 @@ using UnityEngine;
 public class ApplyPlayerMove : State
 {
     PlayerCombat playerCombat;
+    public string dynamicMoveName;
 
     public override IEnumerator StartState()
     {
@@ -41,7 +42,8 @@ public class ApplyPlayerMove : State
     {
         foreach (GearMonoBehaviour gearMonoBehaviour in playerCombat.gearBehaviours)
         {
-            yield return gearMonoBehaviour.GearEffectOnTurn();
+            if (gearMonoBehaviour != null)
+                yield return gearMonoBehaviour.GearEffectOnTurn();
         }
 
         yield return null;
@@ -51,7 +53,15 @@ public class ApplyPlayerMove : State
     {
         //reset narrator focus camera on allyToAct and wait
         combatManager.cameraFollow.transformToFollow = playerCombat.transform;
-        combatManager.combatMenuManager.UpdateNarrator(playerCombat.moveSOSelected.MoveName);
+
+        if (string.IsNullOrWhiteSpace(dynamicMoveName))
+            combatManager.combatMenuManager.UpdateNarrator(playerCombat.currentMoveBehaviour.moveSO.MoveName);
+
+        else
+        {
+            combatManager.combatMenuManager.UpdateNarrator(dynamicMoveName);
+            dynamicMoveName = null;
+        }
 
         ApplyPotentialChange();
         yield return new WaitForSeconds(1f);
@@ -64,6 +74,6 @@ public class ApplyPlayerMove : State
 
     void ApplyPotentialChange()
     {
-        CombatEvents.UpdatePlayerPot.Invoke(combatManager.playerCombat.currentMoveBehaviour.CalculateAndReturnPotentialChange());
+        playerCombat.UpdatePlayerPot(playerCombat.currentMoveBehaviour.CalculateAndReturnPotentialChange());
     }
 }

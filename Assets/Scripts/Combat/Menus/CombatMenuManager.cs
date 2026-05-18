@@ -29,6 +29,16 @@ public class CombatMenuManager : MonoBehaviour
         narratorTMP.gameObject.SetActive(false);
     }
 
+    public void ZeroAllMenuIndexes()
+    {
+        actionSelectMenuUI.highlightedButtonIndex = 0;
+        styleSelectMenuUI.highlightedButtonIndex = 0;
+        tacticalSelectMenuUI.highlightedButtonIndex = 0;
+        enemySelectMenuUI.highlightedButtonIndex = 0;
+        combatEquipSelectMenuUI.highlightedButtonIndex = 0;
+        combatGearSelectMenuUI.highlightedButtonIndex = 0;
+    }
+
     public void UpdateNarrator(string narratorText)
     {
         if (!narratorTMP.gameObject.activeSelf)

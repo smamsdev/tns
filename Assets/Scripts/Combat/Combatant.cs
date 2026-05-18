@@ -16,7 +16,7 @@ public abstract class Combatant : MonoBehaviour
 
     [Header("Moves")]
     public Combatant targetCombatant;
-    public MoveSO moveSOSelected;
+    [SerializeField] MoveSO moveSOSelected;
     public GameObject currentMoveBehaviourParent;
     public MoveBehaviour currentMoveBehaviour;
     public List<MoveSO> moveList = new();
@@ -34,54 +34,54 @@ public abstract class Combatant : MonoBehaviour
     [SerializeField] private int combatLookDirX;
 
     [Header("Stats")]
-    [SerializeField] private int attackBase;
+    [SerializeField] private int _attackBase;
     public int AttackBase
     {
-        get => (attackBase);
-        set => attackBase = Mathf.Clamp(value, 0, 999);
+        get => (_attackBase);
+        set => _attackBase = Mathf.Clamp(value, 0, 999);
     }
 
-    [SerializeField] private int fendBase;
+    [SerializeField] private int _fendBase;
     public int FendBase
     {
-        get => (fendBase);
+        get => (_fendBase);
         set
         {
-            fendBase = Mathf.Clamp(value, 0, 999);
+            _fendBase = Mathf.Clamp(value, 0, 999);
             //Debug.Log("fend changed");
         }
 
     }
 
-    [SerializeField] private int maxHP;
+    [SerializeField] private int _maxHP;
     public int MaxHP
     {
-        get => (maxHP);
-        set => maxHP = Mathf.Clamp(value, 0, 9999);
+        get => (_maxHP);
+        set => _maxHP = Mathf.Clamp(value, 0, 9999);
     }
 
     [SerializeField] private int _currentHP;
     public int CurrentHP
     {
         get => _currentHP;
-        set => _currentHP = Mathf.Clamp(value, 0, 9999);
+        set => _currentHP = Mathf.Clamp(value, 0, MaxHP);
     }
 
 
     [Header("Written by MoveBehaviour")]
-    [SerializeField] int attackTotal = 0;
+    [SerializeField] int _attackTotal = 0;
     public int AttackTotal
     { 
-        get => attackTotal;
-        set => attackTotal = Mathf.Clamp(value, 0, 9999);
+        get => _attackTotal;
+        set => _attackTotal = Mathf.Clamp(value, 0, 9999);
     }
 
     [Header ("Written by MoveBehaviour")]
-    [SerializeField] int fendTotal = 0;
+    [SerializeField] int _fendTotal = 0;
     public int FendTotal
     {
-        get => fendTotal;
-        set => fendTotal = Mathf.Clamp(value, 0, 9999);
+        get => _fendTotal;
+        set => _fendTotal = Mathf.Clamp(value, 0, 9999);
     }
 
     private void OnEnable()
@@ -98,6 +98,7 @@ public abstract class Combatant : MonoBehaviour
 
         GameObject moveBehaviourGO = Instantiate(moveSO.MovePrefab, currentMoveBehaviourParent.transform);
 
+        moveSOSelected = moveSO;
         moveBehaviourGO.name = moveSO.name + "Behaviour";
         currentMoveBehaviour = moveBehaviourGO.GetComponent<MoveBehaviour>();
     }
@@ -132,7 +133,6 @@ public abstract class Combatant : MonoBehaviour
 
             else
             {
-                moveSOSelected = moveSO;
                 InstantiateMoveBehaviour(moveSO);
                 return;
             }
@@ -171,17 +171,19 @@ public abstract class Combatant : MonoBehaviour
         if (CurrentHP == 0)
         {
             combatantUI.statsDisplay.statsDisplayContainerAnimator.Play("StatsDisplayOnDefeat");
+
             movementScript.animator.Play("Fall");
             yield return new WaitForSeconds(1f);
+            yield break;
         }
 
         yield return new WaitForSeconds(.5f);
-        combatantUI.statsDisplay.HPTMPAnimator.Play("CombatUIStatsFade");
+        combatantUI.statsDisplay.statsDisplayContainerAnimator.Play("CombatUIStatsFade");
         yield return new WaitForSeconds(.5f);
         combatantUI.statsDisplay.ShowStatsDisplay(false);
     }
 
-    public IEnumerator CombatDamageTaken(int attackRemainder)
+    public IEnumerator CombatHPChanged(int attackRemainder)
     {
         StartCoroutine(combatantUI.damageTakenDisplay.ShowDamageDisplayCoro(attackRemainder));
         yield return CombatUpdateHPCoRo(-attackRemainder);

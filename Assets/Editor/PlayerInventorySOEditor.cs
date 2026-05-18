@@ -20,10 +20,9 @@ public class PlayerInventorySOEditor : InventorySOEditor
             var instanceToEquip =
                 playerInventorySO.gearInstanceInventory[playerInventorySO.debugInventorySlotToEquip];
 
-            playerInventorySO.EquipGearToSlot(
-                instanceToEquip,
-                playerInventorySO.debugEquipSlotToAddTo
-            );
+            PlayerCombat playerCombat = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>();
+
+            playerInventorySO.EquipGearToSlot(instanceToEquip, playerInventorySO.debugEquipSlotToAddTo, playerCombat);
         }
 
         base.OnInspectorGUI();

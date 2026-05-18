@@ -13,10 +13,11 @@ public class Setup : State
     public override IEnumerator StartState()
     {
         combatMenuManager.DisableAllMenus();
+        combatMenuManager.ZeroAllMenuIndexes();
 
         playerCombat = combatManager.playerCombat;
 
-        yield return new WaitForSeconds(0.01f); //why?
+        yield return null; //why?
         CombatEvents.isBattleMode = true;
         combatManager.cameraFollow.transformToFollow = combatManager.battleScheme.battleCenterPosition;
 
@@ -27,6 +28,7 @@ public class Setup : State
 
         yield return combatManager.PositionCombatant(playerCombat.gameObject, playerCombat.fightingPosition.transform.position);
         playerMovementScript.movementSpeed = playerMovementScript.defaultMovementspeed * 1;
+        playerCombat.CombatLookDirX = (int)playerMovementScript.lookDirection.x;
 
         //set up player stance and UI
         playerMovementScript.animator.SetFloat("CombatLookDirX", playerCombat.CombatLookDirX);

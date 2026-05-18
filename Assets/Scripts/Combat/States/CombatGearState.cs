@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CombatGearState : State
 {
     public CombatGearSelectMenuUI combatGearSelectMenuUI;
-    [SerializeField]MoveSO equipGearMoveSO; //player needs a move assigned to complete their turn
+    [SerializeField]MoveSO gearChangeSO; //player needs a move assigned to complete their turn
 
     public override IEnumerator StartState()
     {
@@ -22,23 +22,33 @@ public class CombatGearState : State
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             StartCoroutine(FieldEvents.CoolDown(0.2f));
-            combatGearSelectMenuUI.DisplayMenu(false);
+            combatGearSelectMenuUI.DisplayMenu(false); 
             combatManager.SetState(combatManager.equipSlotSelectState);
             combatManager.combatMenuManager.UpdateNarrator("");
         }
-    }
 
-    void GearEffectOnTurnEquipMove()
-    {
-        combatManager.playerCombat.moveSOSelected = equipGearMoveSO;
-        combatManager.SetState(combatManager.applyMove);
-    }
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            GearInstance gearToUnequip = combatGearSelectMenuUI.inventorySlotUIs[combatGearSelectMenuUI.highlightedButtonIndex].gearInstance;
 
+            if (!gearToUnequip.isCurrentlyEquipped)
+                return;
+
+            combatManager.playerCombat.playerInventorySO.UnequipGear(gearToUnequip, combatManager.playerCombat);
+            combatManager.applyMove.dynamicMoveName = "Unequipping " + gearToUnequip.gearSO.GearName;
+            combatGearSelectMenuUI.highlightedButtonIndex = 0;
+            combatManager.playerCombat.InstantiateMoveBehaviour(gearChangeSO);
+
+            combatManager.SetState(combatManager.applyMove);
+        }
+    }
 
     public void OnInventorySlotSelected(InventorySlotUI inventorySlot)
     {
         int equipSlotIndex = combatManager.combatMenuManager.combatEquipSelectMenuUI.highlightedButtonIndex;
-        combatManager.playerCombat.playerInventorySO.EquipGearToSlot(inventorySlot.gearInstance, equipSlotIndex);
-        GearEffectOnTurnEquipMove();
+        combatManager.playerCombat.playerInventorySO.EquipGearToSlot(inventorySlot.gearInstance, equipSlotIndex, combatManager.playerCombat);
+        combatManager.applyMove.dynamicMoveName = "Equipping " + inventorySlot.gearInstance.gearSO.GearName;
+        combatManager.playerCombat.InstantiateMoveBehaviour(gearChangeSO);
+        combatManager.SetState(combatManager.applyMove);
     }
 }

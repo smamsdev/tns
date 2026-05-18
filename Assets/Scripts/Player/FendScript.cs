@@ -48,8 +48,10 @@ public class FendScript : MonoBehaviour
 
         if (target.FendTotal == 0)
         {
-            yield return PushBack();
-            yield return target.CombatDamageTaken(attackRemainder);
+            if (attackRemainder > 0)
+                yield return PushBack();
+
+            yield return target.CombatHPChanged(attackRemainder);
             yield break;
         }
 
@@ -75,7 +77,7 @@ public class FendScript : MonoBehaviour
                 if (attackRemainder > 0)
                 {
                     yield return PushBack();
-                    yield return target.CombatDamageTaken(attackRemainder);
+                    yield return target.CombatHPChanged(attackRemainder);
                 }
             }
 
@@ -87,7 +89,7 @@ public class FendScript : MonoBehaviour
         IEnumerator PushBack()
         {
             var stepBackPos = new Vector2
-            (target.transform.position.x + (combatantApplying.moveSOSelected.AttackPushStrength * combatantApplying.CombatLookDirX),
+            (target.transform.position.x + (combatantApplying.currentMoveBehaviour.moveSO.AttackPushStrength * combatantApplying.CombatLookDirX),
             target.transform.position.y);
 
             var combatMovementInstanceGO = Instantiate(combatManager.combatMovementPrefab, this.transform);

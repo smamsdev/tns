@@ -148,7 +148,7 @@ public class MenuGearInventorySubPage : PauseMenu
     {
         int i = menuGearMainPage.playerInventorySO.gearInstanceEquipped.IndexOf(gearInstance);
 
-        menuGearMainPage.playerInventorySO.UnequipGear(menuGearMainPage.playerInventorySO.gearInstanceEquipped[i]);
+        menuGearMainPage.playerInventorySO.UnequipGear(menuGearMainPage.playerInventorySO.gearInstanceEquipped[i], GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>());
         InitialiseInventoryUI();
         menuGearEquipSubPage.InitialiseEquipSlots();
     }

@@ -21,6 +21,7 @@ public class StatsDisplay : MonoBehaviour
         statsDisplayGameObject.SetActive(on);
         combatantNameGO.SetActive(on);
         combatantHPTextMeshPro.alpha = 1.0f;
+        combatantNameTextMeshPro.alpha = 1.0f;
     }
 
     public virtual void UpdateHPDisplay(int value)

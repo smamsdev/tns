@@ -188,7 +188,7 @@ public class ShopSellMenu : ShopMenu
         {
             if (inventorySlots[highlightedButtonIndex].gearInstance.isCurrentlyEquipped)
             {
-                shopMenuManager.mainMenu.playerInventorySO.UnequipGear(inventorySlots[highlightedButtonIndex].gearInstance);
+                shopMenuManager.mainMenu.playerInventorySO.UnequipGear(inventorySlots[highlightedButtonIndex].gearInstance, GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>());
                 InitialiseInventoryUI();
                 inventorySlots[highlightedButtonIndex].button.Select();
             }

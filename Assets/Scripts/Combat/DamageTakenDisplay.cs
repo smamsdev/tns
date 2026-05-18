@@ -10,6 +10,8 @@ public class DamageTakenDisplay : MonoBehaviour
 
     public IEnumerator ShowDamageDisplayCoro(int damage, bool isHeal = false)
     {
+        if (damage <= 0)
+            yield break;
 
         float elapsedTime = 0f;
         float lerpDuration = .75f;

@@ -70,7 +70,7 @@ public class InventorySO : ScriptableObject
 
         else
         {
-            Debug.Log("something went wrong");
+            Debug.Log("no space available");
             return false;
         }
     }

@@ -60,6 +60,12 @@ public abstract class MoveBehaviour : MonoBehaviour
 
         if (this.targetCombatant == null)
         {
+            if (moveSO.ApplyMoveToSelfOnly)
+            {
+                combatantToAct.targetCombatant = combatantToAct;
+                return;
+            }
+
             Debug.Log("target is null");
             Debug.Break();
         }
@@ -90,7 +96,7 @@ public abstract class MoveBehaviour : MonoBehaviour
             yield return ApplyMoveToEnemy();
         }
 
-        if (combatantToAct.FendTotal > 0)
+        if (combatantToAct.FendTotal > 0 && combatManager.enemies.Count > 0)
         {
             combatantToAct.combatantUI.fendScript.ShowFendDisplay(combatantToAct, true);
             yield return new WaitForSeconds(1f);

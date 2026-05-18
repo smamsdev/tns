@@ -19,13 +19,16 @@ public class PlayerInventorySO : InventorySO
         gearInstanceEquipped.Add(new GearInstance());
     }
 
-    public void EquipGearToSlot(GearInstance gearInstanceToEquip, int equipSlotNumber)
+    public void EquipGearToSlot(GearInstance gearInstanceToEquip, int equipSlotNumber, PlayerCombat playerCombat)
     {
         if (gearInstanceToEquip is EquipmentInstance equipmentInstance)
             EquipEquipmentToSlot(equipmentInstance, equipSlotNumber);
 
         else if (gearInstanceToEquip is ConsumableInstance consumableInstance)
             EquipConsumableToSlot(consumableInstance, equipSlotNumber);
+
+        playerCombat.InstantiateGearBehaviour(gearInstanceToEquip, equipSlotNumber);
+        playerCombat.SyncHierarchyToGearList();
     }
 
     void EquipEquipmentToSlot(EquipmentInstance equipmentInstanceToEquip, int equipSlotNumber)
@@ -33,7 +36,7 @@ public class PlayerInventorySO : InventorySO
         equipmentInstanceToEquip.isCurrentlyEquipped = true;
 
         if (gearInstanceEquipped[equipSlotNumber].gearSO != null)
-            UnequipGear(gearInstanceEquipped[equipSlotNumber]);
+            UnequipGear(gearInstanceEquipped[equipSlotNumber], GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>());
 
         gearInstanceEquipped[equipSlotNumber] = equipmentInstanceToEquip;
     }
@@ -46,16 +49,22 @@ public class PlayerInventorySO : InventorySO
         RemoveGearFromInventory(consumableInstanceToEquip, true);
 
         if (gearInstanceEquipped[equipSlotNumber].gearSO != null)
-            UnequipGear(gearInstanceEquipped[equipSlotNumber]);
+            UnequipGear(gearInstanceEquipped[equipSlotNumber], GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>());
 
         gearInstanceEquipped[equipSlotNumber] = newConsumableIntance;
     }
 
-    public void UnequipGear(GearInstance gearInstanceToUnequip)
+    public void UnequipGear(GearInstance gearInstanceToUnequip, PlayerCombat playerCombat)
     {
         int i = gearInstanceToUnequip.EquippedSlotInt(this);
 
         gearInstanceToUnequip.isCurrentlyEquipped = false;
         gearInstanceEquipped[i] = new GearInstance();
+
+        if (playerCombat.gearBehaviours != null && playerCombat.gearBehaviours[i] != null)
+        {
+            GameObject.Destroy(playerCombat.gearBehaviours[i].gameObject);
+            playerCombat.gearBehaviours[i] = null;
+        }
     }
 }

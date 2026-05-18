@@ -73,7 +73,7 @@ public class PartyMemberPermanentStats : ScriptableObject
         get { return xPThreshold; }
         set
         {
-            XPThreshold = Mathf.Clamp(value, 0, 100);
+            xPThreshold = Mathf.Clamp(value, 0, 100);
         }
     }
 

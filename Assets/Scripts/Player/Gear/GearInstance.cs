@@ -64,8 +64,7 @@ public class GearInstance
 
         else
         {
-            Debug.Log("something went wrong");
-            return null;
+            return this as GearInstance;
         }
     }
 }

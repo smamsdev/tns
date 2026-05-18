@@ -268,7 +268,7 @@ public class LockerGearMenu : LockerMenu
 
     public void UnequipHighlightedGearInstance(GearInstance gearInstance)
     {
-        lockerMenuManager.lockerMainMenu.playerInventorySO.UnequipGear(gearInstance);
+        lockerMenuManager.lockerMainMenu.playerInventorySO.UnequipGear(gearInstance, GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>());
         InitialiseInventoryUI();
         SetAllGearSlotsAlpha(1, .5f);
     }

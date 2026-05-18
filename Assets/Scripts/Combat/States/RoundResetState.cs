@@ -8,11 +8,6 @@ public class RoundReset : State
     {
         combatManager.playerCombat.combatantUI.fendScript.ShowFendDisplay(combatManager.playerCombat, false);
 
-        combatManager.combatMenuManager.actionSelectMenuUI.highlightedButtonIndex = 0;
-        combatManager.combatMenuManager.styleSelectMenuUI.highlightedButtonIndex = 0;
-        combatManager.combatMenuManager.tacticalSelectMenuUI.highlightedButtonIndex = 0;
-
-
         foreach (Enemy enemy in combatManager.enemies)
         {
             enemy.SelectMove(combatManager);

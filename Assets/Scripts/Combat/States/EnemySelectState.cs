@@ -6,15 +6,17 @@ using UnityEngine.UI;
 public class EnemySelectState : State
 {
     public EnemySelectMenuUI enemySelectMenuUI;
-    int previousLookDirX;
+    public int previousLookDirX;
 
     public override IEnumerator StartState()
     {
         previousLookDirX = combatManager.playerCombat.CombatLookDirX;
         enemySelectMenuUI.InitializeButtonSlots(combatManager.enemies);
         enemySelectMenuUI.DisplayMenu(true);
+
+        //i think you need the frame yield here to not mess up the lookDir snapshot
+        yield return null;
         enemySelectMenuUI.menuButtons[enemySelectMenuUI.highlightedButtonIndex].Select();
-        yield break;
     }
 
     public void CombatantSelected(TargetSelectButtonUI targetSelectButtonUI)
@@ -25,6 +27,7 @@ public class EnemySelectState : State
         combatManager.playerCombat.currentMoveBehaviour.targetCombatant = targetSelectButtonUI.combatant;
         combatManager.SetState(combatManager.applyMove);
         TargetUnHighlighted(targetSelectButtonUI.combatant);
+        enemySelectMenuUI.highlightedButtonIndex = 0;
     }
 
 
@@ -57,8 +60,7 @@ public class EnemySelectState : State
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            int index = enemySelectMenuUI.highlightedButtonIndex;
-            TargetUnHighlighted(enemySelectMenuUI.targetSelectButtonUIs[index].combatant);
+            TargetUnHighlighted(enemySelectMenuUI.targetSelectButtonUIs[enemySelectMenuUI.highlightedButtonIndex].combatant);
             combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
             enemySelectMenuUI.DisplayMenu(false);
             combatManager.playerCombat.CombatLookDirX = previousLookDirX;

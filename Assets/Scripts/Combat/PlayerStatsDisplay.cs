@@ -9,7 +9,7 @@ public class PlayerStatsDisplay : StatsDisplay
 {
     public TextMeshProUGUI potentialTMP;
     [SerializeField] Animator potentialTMPAnimator;
-    public int currentPotential;
+    public float currentPotential;
 
     public override void ShowStatsDisplay(bool on)
     {
@@ -29,7 +29,7 @@ public class PlayerStatsDisplay : StatsDisplay
             Debug.LogError("player just died do someth");
     }
 
-    public IEnumerator UpdatePlayerPotentialUI(int change)
+    public IEnumerator UpdatePlayerPotentialUI(int change, int maxPot)
     {
         if (change >= 0)
             potentialTMPAnimator.Play("CombatUIStatPlus");
@@ -39,24 +39,18 @@ public class PlayerStatsDisplay : StatsDisplay
 
         float current = currentPotential;
         float finalValue = currentPotential += change;
-        float elapsedTime = 0f;
+        currentPotential = finalValue;
         float lerpDuration = 0.5f;
-        int valueToOutput;
         var playerCombatant = combatant as PlayerCombat;
 
-        while (elapsedTime < lerpDuration)
+        StartCoroutine(FieldEvents.LerpValuesCoRo(current, finalValue, lerpDuration, (output) =>
         {
-            float t = Mathf.Clamp01(elapsedTime / lerpDuration);
-
-            valueToOutput = Mathf.RoundToInt(Mathf.Lerp(current, finalValue, t));
-            potentialTMP.text = valueToOutput.ToString() + " / " + playerCombatant.MaxPotential;
-
-            elapsedTime += Time.deltaTime;
-
-            yield return null;
+            int newValue = Mathf.Clamp((Mathf.RoundToInt(output)), 0, maxPot);
+            potentialTMP.text = newValue + " / " + maxPot;
         }
+        ));
 
-        currentPotential = Mathf.RoundToInt(finalValue);
+        yield return null;
     }
 
     public override void InitialiseCombatStatsDisplay(Combatant combatant)

@@ -230,7 +230,7 @@ public class ChargingEquipmentSelectMenu : ChargingMenu
         {
             if (inventorySlotUIs[highlightedButtonIndex].gearInstance.isCurrentlyEquipped)
             {
-                chargingMainMenu.playerInventorySO.UnequipGear(inventorySlotUIs[highlightedButtonIndex].gearInstance);
+                chargingMainMenu.playerInventorySO.UnequipGear(inventorySlotUIs[highlightedButtonIndex].gearInstance, GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>());
                 InitialiseInventoryUI();
                 inventorySlotUIs[highlightedButtonIndex].button.Select();
             }

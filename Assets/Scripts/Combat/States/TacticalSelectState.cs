@@ -45,8 +45,7 @@ public class TacticalSelectState : State
         playerDefaultFightingPosition = playerCombat.fightingPosition.transform.position;
         isEnclosing = true;
 
-        playerCombat.moveSOSelected = encloseMoveSO;
-        playerCombat.InstantiateMoveBehaviour(playerCombat.moveSOSelected);
+        playerCombat.InstantiateMoveBehaviour(encloseMoveSO);
         playerCombat.currentMoveBehaviour.LoadMoveReferences(playerCombat, combatManager);
         playerCombat.currentMoveBehaviour.CalculateMoveStats();
 
@@ -60,9 +59,7 @@ public class TacticalSelectState : State
 
         playerCombat.fightingPosition.transform.position = playerDefaultFightingPosition;
         isEnclosing = false;
-
-        playerCombat.moveSOSelected = returnMoveSO;
-        playerCombat.InstantiateMoveBehaviour(playerCombat.moveSOSelected);
+        playerCombat.InstantiateMoveBehaviour(returnMoveSO);
         playerCombat.currentMoveBehaviour.LoadMoveReferences(playerCombat, combatManager);
         playerCombat.currentMoveBehaviour.CalculateMoveStats();
 

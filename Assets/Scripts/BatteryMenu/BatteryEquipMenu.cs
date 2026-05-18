@@ -120,7 +120,7 @@ public class BatteryEquipMenu : BatteryMenu
 
     public void UnequipHighlightedGearInstance(GearInstance gearInstance)
     {
-        batteryMenuManager.batteryMainMenu.playerInventorySO.UnequipGear(gearInstance);
+        batteryMenuManager.batteryMainMenu.playerInventorySO.UnequipGear(gearInstance, GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>());
         InitialiseInventoryUI();
 
         foreach (InventorySlotUI inventorySlotUI in inventorySlots)

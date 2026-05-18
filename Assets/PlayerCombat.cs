@@ -9,25 +9,25 @@ public class PlayerCombat : PartyMemberCombat
 {
     [Header("Player Specific")]
 
-    [SerializeField] private int maxPotential;
+    [SerializeField] private int _maxPotential;
     public int MaxPotential
     {
-        get => (maxPotential);
-        set => maxPotential = Mathf.Clamp(value, 0, 9999);
+        get => (_maxPotential);
+        set => _maxPotential = Mathf.Clamp(value, 0, 9999);
     }
 
-    [SerializeField] private int currentPotential;
+    [SerializeField] private int _currentPotential;
     public int CurrentPotential
     {
-        get => (currentPotential);
-        set => currentPotential = Mathf.Clamp(value, 0, 9999);
+        get => (_currentPotential);
+        set => _currentPotential = Mathf.Clamp(value, 0, MaxPotential);
     }
 
-    [SerializeField] int focusBase;
+    [SerializeField] int _focusBase;
     public int FocusBase
     {
-        get => (focusBase);
-        set => focusBase = Mathf.Clamp(value, 0, 9999);
+        get => (_focusBase);
+        set => _focusBase = Mathf.Clamp(value, 0, 9999);
     }
 
     public List<GearMonoBehaviour> gearBehaviours = new();
@@ -49,13 +49,7 @@ public class PlayerCombat : PartyMemberCombat
 
     private void OnEnable()
     {
-        CombatEvents.UpdatePlayerPot += UpdatePlayerPot;
         movementScript = GetComponent<MovementScript>();
-    }
-
-    private void OnDisable()
-    {
-        CombatEvents.UpdatePlayerPot -= UpdatePlayerPot;
     }
 
     private void Start()
@@ -65,26 +59,37 @@ public class PlayerCombat : PartyMemberCombat
         InstantiateAllEquippedGearBehaviours();
     }
 
+    public void SyncHierarchyToGearList()
+    {
+        for (int i = 0; i < gearBehaviours.Count; i++)
+        {
+            if (gearBehaviours[i] != null)
+            {
+                gearBehaviours[i].transform.SetSiblingIndex(i);
+            }
+        }
+    }
+
     public float CalculatePotentialMod()
     {
         float potentialMod = 0;
 
-        if (currentPotential <= 0)
+        if (CurrentPotential <= 0)
         {
             potentialMod = -0.1f;
         }
 
-        if (currentPotential == playerPermanentStats.MaxPotential)
+        if (CurrentPotential == playerPermanentStats.MaxPotential)
         {
             potentialMod = 2;
         }
 
-        if (currentPotential > 0 && currentPotential < ( (float) (playerPermanentStats.MaxPotential /2) ))
+        if (CurrentPotential > 0 && CurrentPotential < ( (float) (playerPermanentStats.MaxPotential /2) ))
         {   
-            potentialMod = ((float)currentPotential / playerPermanentStats.MaxPotential) * 2.5f;
+            potentialMod = ((float)CurrentPotential / playerPermanentStats.MaxPotential) * 2.5f;
         }
 
-        if (currentPotential< playerPermanentStats.MaxPotential && currentPotential >= ((float)(playerPermanentStats.MaxPotential / 2)))
+        if (CurrentPotential < playerPermanentStats.MaxPotential && CurrentPotential >= ((float)(playerPermanentStats.MaxPotential / 2)))
         {
             potentialMod = 1;
         }
@@ -94,9 +99,42 @@ public class PlayerCombat : PartyMemberCombat
 
     public void UpdatePlayerPot(int change)
     {
-        currentPotential += change;
+        CurrentPotential += change;
         PlayerStatsDisplay playerStatsDisplay = combatantUI.statsDisplay as PlayerStatsDisplay;
-        StartCoroutine(playerStatsDisplay.UpdatePlayerPotentialUI(Mathf.RoundToInt(change)));
+        StartCoroutine(playerStatsDisplay.UpdatePlayerPotentialUI(change, MaxPotential));
+    }
+
+    public override IEnumerator CombatUpdateHPCoRo(int change)
+    {
+        if (change >= 0)
+            combatantUI.statsDisplay.HPTMPAnimator.Play("CombatUIStatPlus");
+
+        else
+            combatantUI.statsDisplay.HPTMPAnimator.Play("CombatUIStatMinus");
+
+        int initialHP = CurrentHP;
+        int finalHP = Mathf.Clamp(CurrentHP + change, 0, 9999);
+        float lerpDuration = .5f;
+
+        yield return FieldEvents.LerpValuesCoRo(initialHP, finalHP, lerpDuration, (output) =>
+        {
+            int outputInt = Mathf.RoundToInt(output);
+
+            CurrentHP = outputInt;
+            combatantUI.statsDisplay.UpdateHPDisplay(CurrentHP);
+
+        });
+
+        CurrentHP = finalHP;
+        combatantUI.statsDisplay.UpdateHPDisplay(finalHP);
+
+        if (CurrentHP == 0)
+        {
+            movementScript.animator.Play("Fall");
+            yield return new WaitForSeconds(1f);
+        }
+
+        yield return new WaitForSeconds(.5f);
     }
 
     public void CombineStanceAndMove()
@@ -173,7 +211,6 @@ public class PlayerCombat : PartyMemberCombat
             }
             else
             {
-                moveSOSelected = moveSO;
                 InstantiateMoveBehaviour(moveSO);
                 return;
             }
@@ -190,7 +227,7 @@ public class PlayerCombat : PartyMemberCombat
         CurrentPotential = playerPermanentStats.CurrentPotential;
         AttackBase = playerPermanentStats.AttackBase;
         FendBase = playerPermanentStats.FendBase;
-        focusBase = playerPermanentStats.FocusBase;
+        FocusBase = playerPermanentStats.FocusBase;
     }
 
     public void GearConsumed(GearSO gearToUnequip)
@@ -206,26 +243,28 @@ public class PlayerCombat : PartyMemberCombat
     {
         ClearAllGearBehaviours();
 
-        for (int i = 0; i < playerInventorySO.gearInstanceEquipped.Count; i++)
+        int count = playerInventorySO.gearInstanceEquipped.Count;
+
+        gearBehaviours = new List<GearMonoBehaviour>(count);
+
+        for (int i = 0; i < count; i++)
         {
-            GearInstance gearInstance = playerInventorySO.gearInstanceEquipped[i].GetGearType();
+            gearBehaviours.Add(null);
+
+            var gearInstance = playerInventorySO.gearInstanceEquipped[i].GetGearType();
 
             if (gearInstance.gearSO != null)
             {
-                InstantiateGearBehaviour(combatManager, gearInstance, i);
+                InstantiateGearBehaviour(gearInstance, i);
             }
             else
             {
-                GameObject gameObject = new GameObject("EquipSlot" + (i+1) + "Empty");
-
-                gameObject.transform.SetParent(gearMonoBehaviourParentFolder.transform, false);
-                gearBehaviours.Add(null);
+               // new GameObject("EquipSlot" + (i + 1) + "Empty").transform.SetParent(gearMonoBehaviourParentFolder.transform, false);
             }
         }
     }
 
-
-    public void InstantiateGearBehaviour(CombatManager combatManager, GearInstance gearInstance, int i)
+    public void InstantiateGearBehaviour(GearInstance gearInstance, int i)
     {
         GameObject gearMonoBehaviourGO = Instantiate(gearInstance.gearSO.MonobehaviourPrefab, gearMonoBehaviourParentFolder.transform);
         gearMonoBehaviourGO.name = "EquipSlot" + (i + 1) + gearInstance.gearSO.name + "Monobehaviour";
@@ -233,14 +272,14 @@ public class PlayerCombat : PartyMemberCombat
         GearMonoBehaviour gearMonoBehaviour = gearMonoBehaviourGO.GetComponent<GearMonoBehaviour>();
 
         gearMonoBehaviour.gearInstance = gearInstance;
-        gearMonoBehaviour.combatManager = combatManager;
+        gearMonoBehaviour.combatManager = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>();
 
         foreach (StatModifier statModifier in gearInstance.gearSO.StatModifiers)
         {
             ChangeStat(statModifier);
         }
 
-        gearBehaviours.Add(gearMonoBehaviour);
+        gearBehaviours[i] = gearMonoBehaviour;
     }
 
     void ClearAllGearBehaviours()

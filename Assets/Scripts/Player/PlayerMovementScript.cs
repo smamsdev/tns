@@ -27,6 +27,9 @@ public class PlayerMovementScript : MovementScript
 
     private void Start()
     {
+        if (lookDirection == Vector2.zero)
+            lookDirection = Vector2.right;
+
         movementSpeed = defaultMovementspeed;
         rigidBody2d.bodyType = RigidbodyType2D.Dynamic;
         movementLocked = FieldEvents.movementLocked;

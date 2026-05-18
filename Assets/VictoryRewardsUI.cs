@@ -12,11 +12,10 @@ public class VictoryRewardsUI : MonoBehaviour
     public GridLayoutGroup totalXPgridLayout;
     public List<TextMeshProUGUI> rewardTextElements, distributeXPTextElements;
     public GridLayoutGroup XPGainGridLayoutGroup;
-    public VictoryState victory;
+    public VictoryState victoryState;
 
-    int XPEarned;
     public Button totalXPButton;
-    public int partyToLoop = 0;
+
 
     public TextMeshProUGUI allyNameTMP, allyLevelTMP, allyXPRemainderTMP, allyXPTMP, allyAttackTMP, allyFendTMP, playerFocusTMP;
 
@@ -32,47 +31,15 @@ public class VictoryRewardsUI : MonoBehaviour
         this.gameObject.SetActive(on);
     }
 
-    void TotalXPEarned()
-    {
-        XPEarned = 0;
-        foreach (Enemy enemy in combatManager.battleScheme.enemies)
-        {
-            XPEarned += enemy.XPReward;
-            if (enemy.XPReward == 0)
-            {
-                Debug.Log("no xp assigned for " + enemy.combatantName);
-            }
-        }
-    }
-
-    public IEnumerator ShowRewards()
-    {
-        Debug.Log("refactor to make this calss focus on ui elements only and state or SOs handle logic");
-
-        combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
-        XPRewardsDistributeParent.SetActive(false);
-        
-        partyToLoop = 0;
-        rewardTextElements.Clear();
-        rewardTextElements.Add(defaultRewardTextElements[0]);
-        rewardTextElements.Add(defaultRewardTextElements[1]);
-        
-        TotalXPEarned();
-        ShowXPReward();
-        ShowItemReward();
-        
-        float preferredWidth = FieldEvents.FindLongestText(rewardTextElements).preferredWidth;
-        Vector2 newCellSize = totalXPgridLayout.cellSize;
-        newCellSize.x = preferredWidth;
-        totalXPgridLayout.cellSize = newCellSize;
-
-        yield return AnimateRewardsPage(0, 1, .5f);
-    }
-
     public IEnumerator AnimateRewardsPage(float start, float end, float duration)
     {
         var rewardsRect = this.transform as RectTransform;
         var scale = rewardsRect.localScale;
+
+        rewardTextElements.Clear();
+        rewardTextElements.Add(defaultRewardTextElements[0]);
+        rewardTextElements.Add(defaultRewardTextElements[1]);
+        XPRewardsDistributeParent.SetActive(false);
 
         FieldEvents.LerpValuesCoRo(start, end, duration, animateScale =>
         {
@@ -80,6 +47,14 @@ public class VictoryRewardsUI : MonoBehaviour
         });
 
         yield return new WaitForSeconds(duration);
+    }
+
+    public void SizeUI()
+    {
+        float preferredWidth = FieldEvents.FindLongestText(rewardTextElements).preferredWidth;
+        Vector2 newCellSize = totalXPgridLayout.cellSize;
+        newCellSize.x = preferredWidth;
+        totalXPgridLayout.cellSize = newCellSize;
     }
 
     void UpdateXPGainLayout()
@@ -98,144 +73,118 @@ public class VictoryRewardsUI : MonoBehaviour
         XPGainGridLayoutGroup.spacing = newSpacing;
     }
 
-    public void CyclePartyMemberXPGain()
+    public void DisplayXPReward(int XPEarned)
     {
-        Debug.Log("REWORK THIS SINCE PALYER STATS NO IHERITS PLARTYNEMBVERS");
+        XPRewardsDistributeParent.SetActive(false);
+
+        rewardTextElements.Clear();
+        rewardTextElements.Add(defaultRewardTextElements[0]);
+        rewardTextElements.Add(defaultRewardTextElements[1]);
+
+        GameObject rewardXPSlotGO = Instantiate(uiRewardSlotPrefab);
+        rewardXPSlotGO.transform.SetParent(rewardsParent.transform);
+        rewardXPSlotGO.name = "XPEarned";
+        var rewardSlotTMP = rewardXPSlotGO.GetComponent<TextMeshProUGUI>();
+        rewardSlotTMP.text = XPEarned + " Experience";
+
+        rewardTextElements.Add(rewardSlotTMP);
+    }
+
+    public void DisplayPartyMemberStats(Combatant combatantInPlay, int XPEarned)
+    {
         if (!XPRewardsDistributeParent.activeSelf) { XPRewardsDistributeParent.SetActive(true); }
-        
-        if (partyToLoop >= combatManager.allAlliesToTarget.Count)
-        {
-            StartCoroutine(victory.EndBattle());
-            return;
-        }
-                
-        if (partyToLoop < combatManager.allAlliesToTarget.Count)
-        {
-            Combatant combatant = combatManager.allAlliesToTarget[partyToLoop];
-            combatManager.cameraFollow.transformToFollow = combatManager.allAlliesToTarget[partyToLoop].transform;
 
-            if (combatant is PlayerCombat playerCombat)
+
+        if (combatantInPlay is PlayerCombat playerCombat)
+        {
+            foreach (GameObject go in playerStatsOnly)
             {
-                foreach (GameObject go in playerStatsOnly)
+                go.SetActive(true);
+            }
+
+            PlayerPermanentStats playerStats = playerCombat.playerPermanentStats;
+
+            playerFocusTMP.text = playerStats.FocusBase.ToString();
+            playerStats.UpdateThreshold();
+            allyNameTMP.text = combatantInPlay.combatantName;
+            allyLevelTMP.text = playerStats.Level.ToString();
+            allyAttackTMP.text = playerStats.AttackBase.ToString();
+            allyFendTMP.text = playerStats.FendBase.ToString();
+
+            var previousXP = playerStats.XP;
+            var targetXP = previousXP + XPEarned;
+            allyXPTMP.text = previousXP.ToString();
+
+            UpdateXPGainLayout();
+
+            FieldEvents.LerpValuesCoRo(previousXP, targetXP, 1, value =>
+            {
+                playerStats.XP = Mathf.RoundToInt(value);
+                allyXPTMP.text = playerStats.XP.ToString();
+                allyXPRemainderTMP.text = (playerStats.XPThreshold - playerStats.XP).ToString();
+
+                UpdateXPGainLayout();
+
+                if (playerStats.XP >= playerStats.XPThreshold)
                 {
-                    go.SetActive(true);
+                    playerStats.LevelUp();
+                    allyLevelTMP.text = playerStats.Level.ToString();
+                    allyAttackTMP.text = playerStats.AttackBase.ToString();
+                    allyFendTMP.text = playerStats.FendBase.ToString();
+                    playerFocusTMP.text = playerStats.FocusBase.ToString();
                 }
+            });
+        }
 
-                PlayerPermanentStats playerStats = playerCombat.playerPermanentStats;
+        else
 
-                playerFocusTMP.text = playerStats.FocusBase.ToString();
-                playerStats.UpdateThreshold();
-                allyNameTMP.text = combatant.combatantName;
-                allyLevelTMP.text = playerStats.Level.ToString();
-                allyAttackTMP.text = playerStats.AttackBase.ToString();
-                allyFendTMP.text = playerStats.FendBase.ToString();
+        {
+            PartyMemberCombat partyMemberCombat = combatantInPlay as PartyMemberCombat;
 
-                var previousXP = playerStats.XP;
-                var targetXP = previousXP + XPEarned;
-                allyXPTMP.text = previousXP.ToString();
+            foreach (GameObject go in playerStatsOnly)
+            { go.SetActive(false); }
+
+            PartyMemberPermanentStats PartyMemberPermanentStats = partyMemberCombat.partyMemberPermanentStats;
+
+            PartyMemberPermanentStats.UpdateThreshold();
+            allyNameTMP.text = combatantInPlay.combatantName;
+            allyLevelTMP.text = PartyMemberPermanentStats.Level.ToString();
+            allyAttackTMP.text = PartyMemberPermanentStats.AttackBase.ToString();
+            allyFendTMP.text = PartyMemberPermanentStats.FendBase.ToString();
+
+            var previousXP = PartyMemberPermanentStats.XP;
+            var targetXP = previousXP + XPEarned;
+            allyXPTMP.text = previousXP.ToString();
+
+            UpdateXPGainLayout();
+
+            FieldEvents.LerpValuesCoRo(previousXP, targetXP, 1, value =>
+            {
+                PartyMemberPermanentStats.XP = Mathf.RoundToInt(value);
+                allyXPTMP.text = PartyMemberPermanentStats.XP.ToString();
+                allyXPRemainderTMP.text = (PartyMemberPermanentStats.XPThreshold - PartyMemberPermanentStats.XP).ToString();
 
                 UpdateXPGainLayout();
 
-                FieldEvents.LerpValuesCoRo(previousXP, targetXP, 1, value =>
+                if (PartyMemberPermanentStats.XP >= PartyMemberPermanentStats.XPThreshold)
                 {
-                    playerStats.XP = Mathf.RoundToInt(value);
-                    allyXPTMP.text = playerStats.XP.ToString();
-                    allyXPRemainderTMP.text = (playerStats.XPThreshold - playerStats.XP).ToString();
-
-                    UpdateXPGainLayout();
-
-                    if (playerStats.XP >= playerStats.XPThreshold)
-                    {
-                        playerStats.LevelUp();
-                        allyLevelTMP.text = playerStats.Level.ToString();
-                        allyAttackTMP.text = playerStats.AttackBase.ToString();
-                        allyFendTMP.text = playerStats.FendBase.ToString();
-                        playerFocusTMP.text = playerStats.FocusBase.ToString();
-                    }
-                });
-            }
-
-            else
-
-            {
-                PartyMemberCombat partyMemberCombat = combatant as PartyMemberCombat;
-
-                foreach (GameObject go in playerStatsOnly)
-                { go.SetActive(false); }
-
-                PartyMemberPermanentStats PartyMemberPermanentStats = partyMemberCombat.partyMemberPermanentStats;
-
-                PartyMemberPermanentStats.UpdateThreshold();
-                allyNameTMP.text = combatant.combatantName;
-                allyLevelTMP.text = PartyMemberPermanentStats.Level.ToString();
-                allyAttackTMP.text = PartyMemberPermanentStats.AttackBase.ToString();
-                allyFendTMP.text = PartyMemberPermanentStats.FendBase.ToString();
-
-                var previousXP = PartyMemberPermanentStats.XP;
-                var targetXP = previousXP + XPEarned;
-                allyXPTMP.text = previousXP.ToString();
-
-                UpdateXPGainLayout();
-
-                FieldEvents.LerpValuesCoRo(previousXP, targetXP, 1, value =>
-                {
-                    PartyMemberPermanentStats.XP = Mathf.RoundToInt(value);
-                    allyXPTMP.text = PartyMemberPermanentStats.XP.ToString();
-                    allyXPRemainderTMP.text = (PartyMemberPermanentStats.XPThreshold - PartyMemberPermanentStats.XP).ToString();
-
-                    UpdateXPGainLayout();
-
-                    if (PartyMemberPermanentStats.XP >= PartyMemberPermanentStats.XPThreshold)
-                    {
-                        PartyMemberPermanentStats.LevelUp();
-                        allyLevelTMP.text = PartyMemberPermanentStats.Level.ToString();
-                        allyAttackTMP.text = PartyMemberPermanentStats.AttackBase.ToString();
-                        allyFendTMP.text = PartyMemberPermanentStats.FendBase.ToString();
-                    }
-                });
-            }
-        
-        partyToLoop++;
+                    PartyMemberPermanentStats.LevelUp();
+                    allyLevelTMP.text = PartyMemberPermanentStats.Level.ToString();
+                    allyAttackTMP.text = PartyMemberPermanentStats.AttackBase.ToString();
+                    allyFendTMP.text = PartyMemberPermanentStats.FendBase.ToString();
+                }
+            });
         }
+
     }
 
-    void ShowXPReward()
+    public void DisplayGearReward(GearSO drop, int i)
     {
-        if (XPEarned > 0)
-        {
-
-            GameObject rewardXPSlotGO = Instantiate(uiRewardSlotPrefab);
-            rewardXPSlotGO.transform.SetParent(rewardsParent.transform);
-            rewardXPSlotGO.name = "XPEarned";
-            var rewardSlotTMP = rewardXPSlotGO.GetComponent<TextMeshProUGUI>();
-            rewardSlotTMP.text = XPEarned + " Experience";
-
-            rewardTextElements.Add(rewardSlotTMP);
-        }
-    }
-
-    void ShowItemReward()
-    {
-        foreach (Enemy enemy in combatManager.battleScheme.enemies)
-        {
-            var drop = enemy.ItemDrop();
-            int i = 0;
-
-            if (drop != null)
-            {
-                GearInstance gearInstance = new GearInstance();
-                gearInstance.gearSO = drop;
-
-                combatManager.playerCombat.playerInventorySO.AttemptAddGearToInventory(gearInstance, true);
-                Debug.Log("fix this for inventory maangement later");
-                i++;
-                GameObject rewardItemSlotGO = Instantiate(uiRewardSlotPrefab);
-                rewardItemSlotGO.transform.SetParent(rewardsParent.transform);
-                rewardItemSlotGO.name = "ItemDrop" + i;
-                var rewardSlotTMP = rewardItemSlotGO.GetComponent<TextMeshProUGUI>();
-                rewardSlotTMP.text = drop.GearName;
-                rewardTextElements.Add(rewardSlotTMP);
-            }
-        }
+        GameObject rewardGearSlotUIGO = Instantiate(uiRewardSlotPrefab);
+        rewardGearSlotUIGO.transform.SetParent(rewardsParent.transform);
+        rewardGearSlotUIGO.name = "ItemDrop" + i;
+        var rewardSlotTMP = rewardGearSlotUIGO.GetComponent<TextMeshProUGUI>();
+        rewardSlotTMP.text = drop.GearName;
+        rewardTextElements.Add(rewardSlotTMP);
     }
 }
