@@ -11,6 +11,7 @@ public class VictoryState : State
 
     int XPEarned;
     public int partyMemberIndex = 0;
+    public List<GearSO> gearDrops = new();
 
     public override IEnumerator StartState()
     {
@@ -28,6 +29,9 @@ public class VictoryState : State
 
     public IEnumerator EndBattle()
     {
+        victoryRewardsUI.rewardsListContainerAnimator.Play("CloseMenu");
+        yield return victoryRewardsUI.TransitionDistributionPageDown();
+
         combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
 
         CombatEvents.isBattleMode = false;
@@ -53,34 +57,31 @@ public class VictoryState : State
         if (XPEarned > 0)
             victoryRewardsUI.DisplayXPReward(XPEarned);
 
-        TotalGearRewards();
+        TotalGearDrops();
         victoryRewardsUI.SizeUI();
 
         yield return victoryRewardsUI.AnimateRewardsPage(0, 1, .5f);
     }
 
-    void TotalGearRewards()
+    void TotalGearDrops()
     {
+        int i = 0;
+        gearDrops.Clear();
+
         foreach (Enemy enemy in combatManager.battleScheme.enemies)
         {
-            var drop = enemy.ItemDrop();
-            int i = 0;
+            GearSO drop = enemy.ItemDrop();
 
-            if (drop != null)
-            {
-                GearInstance dropInstance = new GearInstance();
-                dropInstance.gearSO = drop;
+            if (drop == null)
+                continue;
 
-                if (!combatManager.playerCombat.playerInventorySO.AttemptAddGearToInventory(dropInstance, true))
-                    Debug.Log("no space rn you needc to build an inventory overflow system, have fun");
-
-                victoryRewardsUI.DisplayGearReward(drop, i);
-                i++;
-            }
+            gearDrops.Add(drop);
+            victoryRewardsUI.DisplayGearDropUI(drop, i);
+            i++;
         }
     }
 
-    public void CyclePartyMemberXPGain()
+    public void CycleRewardDistributionButtonSelected()
     {
         if (partyMemberIndex >= combatManager.allAlliesToTarget.Count)
         {
@@ -88,15 +89,22 @@ public class VictoryState : State
             return;
         }
 
-        if (partyMemberIndex < combatManager.allAlliesToTarget.Count)
-        {
-            Combatant combatant = combatManager.allAlliesToTarget[partyMemberIndex];
-            combatManager.cameraFollow.transformToFollow = combatManager.allAlliesToTarget[partyMemberIndex].transform;
+        else
+            StartCoroutine(NextPartyMember());
+    }
 
-            victoryRewardsUI.DisplayPartyMemberStats(combatant, XPEarned);
+    public IEnumerator NextPartyMember()
+    {
+        Debug.Log("hit");
+        Combatant combatant = combatManager.allAlliesToTarget[partyMemberIndex];
 
-            partyMemberIndex++;
-        }
+        combatManager.cameraFollow.transformToFollow = combatManager.allAlliesToTarget[partyMemberIndex].transform;
+
+        if (partyMemberIndex > 0)
+            yield return victoryRewardsUI.TransitionDistributionPageDown();
+
+        victoryRewardsUI.DisplayPartyMemberStats(combatant, XPEarned);
+        partyMemberIndex++;
     }
 
     public int CalculateXPEarned()

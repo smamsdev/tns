@@ -21,6 +21,8 @@ public abstract class GearSO : ScriptableObject
     public GameObject MonobehaviourPrefab { get => monobehaviourPrefab; }
     [SerializeField] GameObject monobehaviourPrefab;
 
+    public abstract GearInstance CreateInstance();
+
     private void OnValidate()
     {
         if (MonobehaviourPrefab == null)

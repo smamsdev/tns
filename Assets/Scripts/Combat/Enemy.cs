@@ -5,7 +5,6 @@ using NUnit.Framework.Interfaces;
 public class Enemy : Ally
 {
     public int XPReward;
-    public GearSO itemReward;
     public List<GearDrop> gearDrops = new();
 
     public GearSO ItemDrop()
@@ -38,7 +37,7 @@ public class Enemy : Ally
             }
         }
 
-        Debug.LogError("Failed to select a move! This should never happen. Random value was " + randomValue);
+        Debug.LogError("Failed to select a drop! This should never happen. Random value was " + randomValue);
         return null;
     }
 }

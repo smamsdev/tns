@@ -28,24 +28,26 @@ public class InventorySO : ScriptableObject
                 }
             }
 
+            //Debug.Log("no room for Equipment");
             return false;
+
         }
 
         else if (gearInstanceToAdd is ConsumableInstance consumableInstanceToAdd)
         {
-            // Debug.Log("consumable detected");
+             //Debug.Log("consumable detected");
 
             for (int i = 0; i < gearInstanceInventory.Count; i++)
             {
                 if (gearInstanceInventory[i].gearSO == consumableInstanceToAdd.gearSO)
                 {
-                    // Debug.Log("match detected");
+                     //Debug.Log("match detected");
                     ConsumableInstance existingConsumableInstance = gearInstanceInventory[i] as ConsumableInstance;
 
                     //if the stack limit is not exceeded, +1 to existing stack
                     if (existingConsumableInstance.quantityAvailable < 3)
                     {
-                        // Debug.Log("available to add to stack");
+                         //Debug.Log("available to add to stack");
                         existingConsumableInstance.quantityAvailable++;
                         return true;
                     }
@@ -65,12 +67,13 @@ public class InventorySO : ScriptableObject
                 }
             }
 
+            //Debug.Log("no room for Consumable");
             return false;
         }
 
         else
         {
-            Debug.Log("no space available");
+            Debug.Log("something went wrong");
             return false;
         }
     }

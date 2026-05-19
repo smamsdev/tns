@@ -71,6 +71,8 @@ public class Encounter : ToTrigger
             ally.amountSpawned = 0;
         }
 
+        Debug.Log("        //maybe this should go in battle trigger setup");
+
         for (int i = 0; i < playerCombat.partySO.partyMembers.Count; i++)
         { 
             GameObject allyToAdd = Instantiate(playerCombat.partySO.partyMembers[i].prefab,this.transform);

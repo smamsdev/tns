@@ -19,7 +19,7 @@ public class MenuMoves : PauseMenu
 
     private void Start()
     {
-        playerMoveInventorySO = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMoveInventorySO>();
+        playerMoveInventorySO = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>().playerMoveInventorySO;
     }
 
     public override void DisplayMenu(bool on)

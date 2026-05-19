@@ -10,15 +10,9 @@ public class GearInstance
     public GearSO gearSO;
     public bool isCurrentlyEquipped = false;
 
-    public string QuantityString()
+    public virtual string QuantityString()
     {
-        if (this is EquipmentInstance equipmentInstance)
-            return ": " + equipmentInstance.ChargePercentage() + "%";
-
-        if (this is ConsumableInstance consumableInstance)
-            return "x " + consumableInstance.quantityAvailable;
-
-        return "";
+        return null;
     }
 
     public string DescriptionFormatted()
@@ -54,18 +48,9 @@ public class GearInstance
         return index;
     }
 
-    public GearInstance GetGearType()
+    public virtual GearInstance GetGearType()
     {
-        if (this is EquipmentInstance equipmentInstance)
-            return this as EquipmentInstance;
-
-        else if (this is ConsumableInstance consumableInstance)
-            return this as ConsumableInstance;
-
-        else
-        {
-            return this as GearInstance;
-        }
+        return this as GearInstance;
     }
 }
 
@@ -73,6 +58,17 @@ public class GearInstance
 public class ConsumableInstance : GearInstance
 {
     public int quantityAvailable;
+
+    public override string QuantityString()
+    {
+        return "x " + quantityAvailable;
+    }
+
+
+    public override GearInstance GetGearType()
+    {
+        return this as ConsumableInstance;
+    }
 
     public ConsumableInstance(ConsumableInstance sourceToClone)
     {
@@ -106,12 +102,23 @@ public class EquipmentInstance : GearInstance
         private set => charge = Mathf.Clamp(value, 0f, MaxCharge());
     }
 
+    public override GearInstance GetGearType()
+    {
+        return this as EquipmentInstance;
+
+    }
+
     private float MaxCharge()
     {
         if (gearSO is EquipmentSO equipment)
             return equipment.MaxCharge;
 
         return 0f;
+    }
+
+    public override string QuantityString()
+    {
+        return ": " + ChargePercentage() + "%";
     }
 
     public int PayableChargesAccrued

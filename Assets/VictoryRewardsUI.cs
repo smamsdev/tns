@@ -15,14 +15,13 @@ public class VictoryRewardsUI : MonoBehaviour
     public VictoryState victoryState;
 
     public Button totalXPButton;
-
-
     public TextMeshProUGUI allyNameTMP, allyLevelTMP, allyXPRemainderTMP, allyXPTMP, allyAttackTMP, allyFendTMP, playerFocusTMP;
-
+    public Sprite XPIcon;
     public GameObject[] playerStatsOnly;
     public TextMeshProUGUI[] defaultRewardTextElements;
 
     public GameObject uiRewardSlotPrefab, rewardsParent, XPRewardsDistributeParent;
+    public Animator rewardsListContainerAnimator, distributionContainerAnimator;
 
     float lastRewardWidth = 0f;
 
@@ -76,6 +75,7 @@ public class VictoryRewardsUI : MonoBehaviour
     public void DisplayXPReward(int XPEarned)
     {
         XPRewardsDistributeParent.SetActive(false);
+        rewardsListContainerAnimator.Play("OpenMenu");
 
         rewardTextElements.Clear();
         rewardTextElements.Add(defaultRewardTextElements[0]);
@@ -84,16 +84,25 @@ public class VictoryRewardsUI : MonoBehaviour
         GameObject rewardXPSlotGO = Instantiate(uiRewardSlotPrefab);
         rewardXPSlotGO.transform.SetParent(rewardsParent.transform);
         rewardXPSlotGO.name = "XPEarned";
-        var rewardSlotTMP = rewardXPSlotGO.GetComponent<TextMeshProUGUI>();
-        rewardSlotTMP.text = XPEarned + " Experience";
+        InventorySlotUI inventorySlotUI = rewardXPSlotGO.GetComponent<InventorySlotUI>();
+        inventorySlotUI.itemNameTMP.text = XPEarned + " Experience";
+        inventorySlotUI.icon.sprite = XPIcon;
 
-        rewardTextElements.Add(rewardSlotTMP);
+        rewardTextElements.Add(inventorySlotUI.itemNameTMP);
+    }
+
+    public IEnumerator TransitionDistributionPageDown()
+    {
+        distributionContainerAnimator.Play("CloseMenu");
+        yield return new WaitForSeconds(0.5f);
     }
 
     public void DisplayPartyMemberStats(Combatant combatantInPlay, int XPEarned)
     {
-        if (!XPRewardsDistributeParent.activeSelf) { XPRewardsDistributeParent.SetActive(true); }
+        if (!XPRewardsDistributeParent.activeSelf)
+            XPRewardsDistributeParent.SetActive(true);
 
+        distributionContainerAnimator.Play("OpenMenu");
 
         if (combatantInPlay is PlayerCombat playerCombat)
         {
@@ -178,13 +187,16 @@ public class VictoryRewardsUI : MonoBehaviour
 
     }
 
-    public void DisplayGearReward(GearSO drop, int i)
+    public void DisplayGearDropUI(GearSO drop, int i)
     {
         GameObject rewardGearSlotUIGO = Instantiate(uiRewardSlotPrefab);
         rewardGearSlotUIGO.transform.SetParent(rewardsParent.transform);
-        rewardGearSlotUIGO.name = "ItemDrop" + i;
-        var rewardSlotTMP = rewardGearSlotUIGO.GetComponent<TextMeshProUGUI>();
-        rewardSlotTMP.text = drop.GearName;
-        rewardTextElements.Add(rewardSlotTMP);
+        rewardGearSlotUIGO.name = "ItemDrop" + (i + 1);
+        InventorySlotUI inventorySlotUI = rewardGearSlotUIGO.GetComponent<InventorySlotUI>();
+        inventorySlotUI.itemNameTMP.text = drop.GearName;
+        rewardTextElements.Add(inventorySlotUI.itemNameTMP);
+
+        bool isEquipment = drop is EquipmentSO;
+        inventorySlotUI.icon.sprite = isEquipment? inventorySlotUI.equipmentIcon : inventorySlotUI.consumableIcon;
     }
 }

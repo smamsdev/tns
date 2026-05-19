@@ -72,12 +72,15 @@ public class Squall : MoveBehaviour
 
     public override IEnumerator ReturnTargetToFightingPos()
     {
+        float singleEnemyDeathDelay = 0.5f;
+
         foreach (Combatant combatant in targetsInFront)
         {
             if (combatant.CurrentHP == 0)
             {
                 combatManager.CombatantDefeated(combatant);
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(singleEnemyDeathDelay);
+                singleEnemyDeathDelay = 0;
             }
 
             else //return target to original pos if still alive

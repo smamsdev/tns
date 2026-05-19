@@ -367,19 +367,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combatantName: Graeber
   combatantUI: {fileID: 0}
-  movementScript: {fileID: 0}
+  movementScript: {fileID: 7227340624722440874}
   fightingPosition: {fileID: 0}
   isBackstabbed: 0
   isEnclosed: 0
-  _combatLookDirX: 0
-  attackBase: 12
-  fendBase: 12
-  maxHP: 12
-  currentHP: 12
+  collisionCollider: {fileID: 607055468327230848}
   targetCombatant: {fileID: 0}
-  moveSelected: {fileID: 0}
+  moveSOSelected: {fileID: 0}
+  currentMoveBehaviourParent: {fileID: 8679503915426022358}
+  currentMoveBehaviour: {fileID: 0}
   moveList: []
-  movesFolderGO: {fileID: 8679503915426022358}
+  combatLookDirX: 0
+  _attackBase: 0
+  _fendBase: 0
+  _maxHP: 0
+  _currentHP: 0
+  _attackTotal: 0
+  _fendTotal: 0
   partyMemberPermanentStats: {fileID: 11400000, guid: bf592b4488a0521429ec46f17d0a52b8, type: 2}
   portraitImage: {fileID: 2800000, guid: b3c38158062c1574e989b2b9adff698a, type: 3}
 --- !u!1 &8679503915426022358
@@ -392,7 +396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6095635523497377144}
   m_Layer: 8
-  m_Name: Moves
+  m_Name: MoveParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

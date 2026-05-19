@@ -13,6 +13,7 @@ public abstract class Combatant : MonoBehaviour
     public GameObject fightingPosition;
     public bool isBackstabbed;
     public bool isEnclosed;
+    public Collider2D collisionCollider;
 
     [Header("Moves")]
     public Combatant targetCombatant;

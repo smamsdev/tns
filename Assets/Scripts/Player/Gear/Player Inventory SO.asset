@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventorySO
   debugGearToAddAsInstance: {fileID: 11400000, guid: 895d7e7a430508d449345250b883aa58, type: 2}
   gearInstanceInventory:
-  - rid: 1338844817320575092
-  - rid: 1338844817320575093
-  - rid: 1338844817320575176
+  - rid: 1338844953924337784
+  - rid: 1338844953924337779
   gearInstanceEquipped:
-  - rid: 1338844817320575093
+  - rid: 1338844953924337749
   - rid: 1338844817320575176
   - rid: 1338844931691643047
   trenchStructuresInventory: []
@@ -27,24 +26,10 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 1338844817320575092
-      type: {class: EquipmentInstance, ns: , asm: Assembly-CSharp}
-      data:
-        gearSO: {fileID: 11400000, guid: ecfcac85a3c930441afbbf7dba187cc9, type: 2}
-        isCurrentlyEquipped: 0
-        charge: 150
-        payableChargesAccrued: 0
-    - rid: 1338844817320575093
-      type: {class: EquipmentInstance, ns: , asm: Assembly-CSharp}
-      data:
-        gearSO: {fileID: 11400000, guid: ecfcac85a3c930441afbbf7dba187cc9, type: 2}
-        isCurrentlyEquipped: 1
-        charge: 150
-        payableChargesAccrued: 0
     - rid: 1338844817320575176
       type: {class: EquipmentInstance, ns: , asm: Assembly-CSharp}
       data:
-        gearSO: {fileID: 11400000, guid: e39ae3b4207aaac4ea0425a5df94e5fa, type: 2}
+        gearSO: {fileID: 0}
         isCurrentlyEquipped: 1
         charge: 0
         payableChargesAccrued: 0
@@ -53,3 +38,20 @@ MonoBehaviour:
       data:
         gearSO: {fileID: 0}
         isCurrentlyEquipped: 0
+    - rid: 1338844953924337749
+      type: {class: GearInstance, ns: , asm: Assembly-CSharp}
+      data:
+        gearSO: {fileID: 0}
+        isCurrentlyEquipped: 0
+    - rid: 1338844953924337779
+      type: {class: GearInstance, ns: , asm: Assembly-CSharp}
+      data:
+        gearSO: {fileID: 0}
+        isCurrentlyEquipped: 0
+    - rid: 1338844953924337784
+      type: {class: EquipmentInstance, ns: , asm: Assembly-CSharp}
+      data:
+        gearSO: {fileID: 11400000, guid: e39ae3b4207aaac4ea0425a5df94e5fa, type: 2}
+        isCurrentlyEquipped: 0
+        charge: 0
+        payableChargesAccrued: 0
