@@ -2,50 +2,57 @@ using UnityEngine;
 
 public class PlayerPermanentStats : PartyMemberPermanentStats
 {
+    [SerializeField] private int maxPotential;
     public int MaxPotential
     {
-        get { return maxPotential; }
-        set
-        {
-            maxPotential = Mathf.Clamp(value, 1, 999);
-        }
+        get => maxPotential;
+        set => maxPotential = Mathf.Clamp(value, 1, 999);
     }
 
+    [SerializeField] private int currentPotential;
     public int CurrentPotential
     {
-        get { return currentPotential; }
-        set
-        {
-            currentPotential = Mathf.Clamp(value, 0, 999);
-        }
+        get => currentPotential;
+        set => currentPotential = Mathf.Clamp(value, 0, maxPotential);
     }
 
+    [SerializeField] private int focusBase;
+    public int FocusBase
+    {
+        get => focusBase;
+        set => focusBase = Mathf.Clamp(value, 1, 999);
+    }
+
+    [SerializeField] private int smams;
     public int Smams
     {
-        get { return smams; }
-        set
-        {
-            smams = Mathf.Clamp(value, 0, 1000000);
-        }
+        get => smams;
+        set => smams = Mathf.Clamp(value, 0, 1000000);
+    }
+
+    [SerializeField] private int maxPotentialBaseGrowth;
+    public int MaxPotentialBaseGrowth => maxPotentialBaseGrowth;
+
+    [SerializeField] private int focusBaseGrowth;
+    public int FocusBaseGrowth => focusBaseGrowth;
+
+    public override void LevelUp()
+    {
+        XPThreshold = NextLevelThreshold();
+        AttackBase += StatGrowth(AttackBaseGrowth);
+        FendBase += StatGrowth(FendBaseGrowth);
+        MaxPotential += StatGrowth(MaxPotentialBaseGrowth);
+        FocusBase += StatGrowth(FocusBaseGrowth);
+        Level++;
     }
 
     public string SmamsFormattedString()
-    { 
+    {
         return "Account: " + Smams.ToString("N0") + " $MAMS";
     }
 
-    public int FocusBase
+    public string GetPotentialString()
     {
-        get { return focusBase; }
-        set
-        {
-            focusBase = Mathf.Clamp(value, 1, 999);
-        }
+        return CurrentPotential + " / " + MaxPotential;
     }
-
-    [SerializeField] private int maxPotential;
-    [SerializeField] private int currentPotential;
-    [SerializeField] private int focusBase;
-    [SerializeField] private int smams;
-
 }

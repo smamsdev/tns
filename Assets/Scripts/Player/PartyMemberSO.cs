@@ -1,115 +1,98 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 [CreateAssetMenu]
-
 public class PartyMemberPermanentStats : ScriptableObject
 {
     public GameObject prefab;
-    [Header("MoveList for NPCs only")]
+
     public List<MoveSO> moveList = new();
 
-    private void OnValidate()
-    {
-        if (moveList.Count == 0)
-            Debug.Log("movelist empty for SO " + this, this);
-    }
-
+    [SerializeField] private int attackBase;
     public int AttackBase
     {
         get => attackBase;
         set => attackBase = Mathf.Clamp(value, 1, 999);
     }
 
+    [SerializeField] private int fendBase;
     public int FendBase
     {
-        get { return fendBase; }
-        set
-        {
-            fendBase = Mathf.Clamp(value, 1, 999);
-        }
+        get => fendBase;
+        set => fendBase = Mathf.Clamp(value, 1, 999);
     }
 
+    [SerializeField] private int maxHP;
     public int MaxHP
     {
-        get { return maxHP; }
-        set
-        {
-            maxHP = Mathf.Clamp(value, 1, 9999);
-        }
+        get => maxHP;
+        set => maxHP = Mathf.Clamp(value, 1, 9999);
     }
 
+    [SerializeField] private int currentHP;
     public int CurrentHP
-        {
-        get { return currentHP; }
-        set
-        {
-            currentHP = Mathf.Clamp(value, 0, 9999);
-        }
+    {
+        get => currentHP;
+        set => currentHP = Mathf.Clamp(value, 0, MaxHP);
     }
 
+    [SerializeField] private int level;
     public int Level
     {
-        get { return level; }
-        set
-        {
-            level = Mathf.Clamp(value, 0, 100);
-        }
+        get => level;
+        set => level = Mathf.Clamp(value, 0, 100);
     }
 
+    [SerializeField] private int xP;
     public int XP
     {
-        get { return xP; }
-        set
-        {
-            xP = Mathf.Clamp(value, 0, 100);
-        }
+        get => xP;
+        set => xP = Mathf.Clamp(value, 0, 10000000);
     }
 
+    [SerializeField] private int xPThreshold;
     public int XPThreshold
     {
-        get { return xPThreshold; }
-        set
-        {
-            xPThreshold = Mathf.Clamp(value, 0, 100);
-        }
+        get => xPThreshold;
+        set => xPThreshold = Mathf.Clamp(value, 0, 10000000);
     }
 
-    [SerializeField] private int attackBase;
-    [SerializeField] private int fendBase;
-    [SerializeField] private int maxHP;
-    [SerializeField] private int currentHP;
-    [SerializeField] int level;
-    [SerializeField] int xP;
-    [SerializeField] int xPThreshold;
+    [SerializeField] private int attackBaseGrowth;
+    public int AttackBaseGrowth => attackBaseGrowth;
 
+    [SerializeField] private int fendBaseGrowth;
+    public int FendBaseGrowth => fendBaseGrowth;
 
-    [SerializeField] int attackBaseGrowth;
-    [SerializeField] int fendBaseGrowth;
+    [SerializeField] private int maxHPGrowth;
+    public int MaxHPGrowth => maxHPGrowth;
+
+    private void OnValidate()
+    {
+        if (moveList.Count == 0)
+            Debug.Log("movelist empty for SO " + this, this);
+
+        UpdateThreshold();
+    }
 
     public virtual void LevelUp()
     {
         XPThreshold = NextLevelThreshold();
-        attackBase += StatGrowth(attackBaseGrowth);
-        fendBase += StatGrowth(fendBaseGrowth);
-        level++;
+        AttackBase += StatGrowth(AttackBaseGrowth);
+        FendBase += StatGrowth(FendBaseGrowth);
+        MaxHP += StatGrowth(MaxHPGrowth);
+        Level++;
     }
 
-    int StatGrowth(int growthFactor)
+    public int StatGrowth(int growthFactor)
     {
-        int rawStatGrowth;
-        int roundedStatGrowth;
-
-        rawStatGrowth = (growthFactor * level) / 10;
-        roundedStatGrowth = Mathf.CeilToInt(rawStatGrowth);
+        float rawStatGrowth = (growthFactor * level) / 10;
+        int roundedStatGrowth = Mathf.CeilToInt(rawStatGrowth);
         return roundedStatGrowth;
     }
 
     public int NextLevelThreshold()
     {
-        int rawXP = 100 + (level * level * level) * 2;
+        float rawXP = 100 + (level * level * level) * 2;
         int roundedXP = Mathf.RoundToInt(rawXP / 25f) * 25;
         return roundedXP;
     }
@@ -119,4 +102,8 @@ public class PartyMemberPermanentStats : ScriptableObject
         XPThreshold = NextLevelThreshold();
     }
 
+    public string GetHPString()
+    {
+        return CurrentHP + " / " + MaxHP;
+    }
 }
