@@ -7,33 +7,77 @@ using UnityEngine.UI;
 public class MenuStats : PauseMenu
 {
     [SerializeField] PartySO partySO;
-    [SerializeField] Button firstButtonToSelect;
     [SerializeField] menuMain menuMain;
     [SerializeField] GameObject arrowGO;
-    [SerializeField] List<Button> characterButtons = new List<Button>();
-
     [SerializeField] TextMeshProUGUI hpValue;
     [SerializeField] TextMeshProUGUI potentialValue;
     [SerializeField] TextMeshProUGUI strengthValue;
     [SerializeField] TextMeshProUGUI defenceValue;
     [SerializeField] TextMeshProUGUI focusValue;
-
-    [SerializeField] GameObject[] partyMemberHeaderGOs;
     [SerializeField] TextMeshProUGUI[] partyMemberLevelTMPs;
     [SerializeField] TextMeshProUGUI[] partyMemberNameTMPs;
     [SerializeField] RawImage[] partyMemberPortraitImages;
-
     [SerializeField] TextMeshProUGUI experienceValue;
     [SerializeField] TextMeshProUGUI nextLevelValue;
-
-
     public GameObject[] playerSpecificStatGOs;
     public GameObject[] spacers;
-    public int partyMemberSlot = 0;
+    public GameObject partyMemberUIPrefabGO, partyMemberUIParentGO;
+    public int highlightedIndex = 0;
+    public List<PartyMemberHighlightedIU> partyMemberHighlightedIUs = new();
 
     public override void DisplayMenu(bool on)
     {
         displayContainer.SetActive(on);
+    }
+
+    public void initBandPage()
+    {
+        List<Button> buttons = new List<Button>();
+
+        for (int i = 0; i < partySO.partyMembers.Count; i++)
+        {
+            GameObject partyMemberUIGO = Instantiate(partyMemberUIPrefabGO, partyMemberUIParentGO.transform);
+            PartyMemberHighlightedIU partyMemberHighlightedIU = partyMemberUIGO.GetComponent<PartyMemberHighlightedIU>();
+
+            partyMemberHighlightedIU.onHighlighted = () => PartyMemberHighlighted(partyMemberHighlightedIU.partyMemberCombat);
+
+            if (partySO.partyMembers[i] == null)
+            {
+                partyMemberNameTMPs[i].text = "Space Available";
+                partyMemberPortraitImages[i].enabled = false;
+                partyMemberPortraitImages[i].texture = null;
+                partyMemberPortraitImages[i].SetNativeSize();
+                partyMemberLevelTMPs[i].text = "";
+            }
+
+            else
+            {
+                PartyMemberCombat partyMemberCombat = partySO.partyMembers[i].prefab.GetComponent<PartyMemberCombat>();
+
+                partyMemberUIGO.gameObject.name = "Party Slot " + i + " " + partyMemberCombat.combatantName;
+                partyMemberHighlightedIU.partyMemberCombat = partyMemberCombat;
+                partyMemberNameTMPs[i].text = partyMemberCombat.combatantName;
+                partyMemberPortraitImages[i].enabled = true;
+                partyMemberPortraitImages[i].texture = partyMemberCombat.portraitImage;
+                partyMemberPortraitImages[i].SetNativeSize();
+                partyMemberLevelTMPs[i].text = $"Level: {partySO.partyMembers[i].Level}";
+            }
+
+            buttons.Add(partyMemberHighlightedIU.button);
+        }
+
+        FieldEvents.SetGridNavigationWrapAround(buttons, 1);
+        InitializeStats();
+
+        if (partySO.partyMembers.Count > 1) 
+            arrowGO.SetActive(true);
+
+        highlightedIndex = 0;
+    }
+
+    public void PartyMemberHighlighted(PartyMemberCombat partyMemberCombat)
+    { 
+    
     }
 
     public override void EnterMenu()
@@ -41,41 +85,7 @@ public class MenuStats : PauseMenu
         pauseMenuManager.ClearThenDisplayMenu(this);
         arrowGO.SetActive(false);
         partySO = menuMain.playerCombat.partySO;
-
-        foreach (var gameObject in partyMemberHeaderGOs)
-        {
-            gameObject.SetActive(false);
-        }
-
-        foreach (var rawImage in partyMemberPortraitImages)
-        {
-            rawImage.enabled = false;
-        }
-
-        List<Button> characterButtonInstances = new List<Button>();
-
-        for (int i = 0; i < partySO.partyMembers.Count; i++)
-        {
-            PartyMemberCombat partyMemberCombat = partySO.partyMembers[i].prefab.GetComponent<PartyMemberCombat>();
-
-            characterButtonInstances.Add(characterButtons[i]);
-            partyMemberHeaderGOs[i].SetActive(true);
-            partyMemberNameTMPs[i].text = partyMemberCombat.combatantName;
-            partyMemberPortraitImages[i].enabled = true;
-            partyMemberPortraitImages[i].texture = partyMemberCombat.portraitImage;
-            partyMemberPortraitImages[i].SetNativeSize();
-            partyMemberLevelTMPs[i].text = $"Level: {partySO.partyMembers[i].Level}";
-        }
-
-        FieldEvents.SetGridNavigationWrapAround(characterButtonInstances, 1);
-
-        InitializeStats();
-
-
-        if (partySO.partyMembers.Count > 1) arrowGO.SetActive(true);
-
-        partyMemberSlot = 0;
-        firstButtonToSelect.Select();
+        partyMemberHighlightedIUs[highlightedIndex].button.Select();
     }
 
     public override void ExitMenu()
@@ -96,7 +106,7 @@ public class MenuStats : PauseMenu
         
     public void InitializeStats()
     {
-        PartyMemberPermanentStats partyMember = partySO.partyMembers[partyMemberSlot];
+        PartyMemberPermanentStats partyMember = partySO.partyMembers[highlightedIndex];
 
         if (partyMember is PlayerPermanentStats)
         {

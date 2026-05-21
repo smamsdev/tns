@@ -51,7 +51,7 @@ public class MenuGearInventorySubPage : PauseMenu
 
                 inventorySlotUI.icon.sprite = isEquipment ? inventorySlotUI.equipmentIcon : inventorySlotUI.consumableIcon;
 
-                if (!isCurrentlyEquipped)
+                if (!isCurrentlyEquipped && inventorySO.IsMenuEquippingAvailable)
                     inventorySlotUI.button.onClick.AddListener(() => OnInventorySlotSelected(inventorySlotUI));
 
                 inventorySlotUI.onHighlighted = () =>
@@ -141,6 +141,13 @@ public class MenuGearInventorySubPage : PauseMenu
         highlightedButtonIndex = inventorySlots.IndexOf(inventorySlot);
         menuGearMainPage.SetSlotColor(inventorySlot, Color.yellow);
         menuGearMainPage.UpdateGearDescriptionTMPs(gi);
+
+        if (!menuGearMainPage.playerInventorySO.IsMenuEquippingAvailable)
+        {
+            menuGearMainPage.UpdateHeaderTMP(gi.gearSO.GearName);
+            return;
+        }
+
         menuGearMainPage.UpdateHeaderTMP(gi.isCurrentlyEquipped? gi.gearSO.GearName + " already equipped" : "Equip " + gi.gearSO.GearName + "?");
     }
 
@@ -163,7 +170,7 @@ public class MenuGearInventorySubPage : PauseMenu
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            if (inventorySlots[highlightedButtonIndex].gearInstance.isCurrentlyEquipped)
+            if (inventorySlots[highlightedButtonIndex].gearInstance.isCurrentlyEquipped && menuGearMainPage.playerInventorySO.IsMenuEquippingAvailable)
             {
                 UnequipHighlightedGearInstance(inventorySlots[highlightedButtonIndex].gearInstance);
                 inventorySlots[highlightedButtonIndex].button.Select();

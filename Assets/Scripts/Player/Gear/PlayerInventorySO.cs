@@ -10,6 +10,20 @@ public class PlayerInventorySO : InventorySO
     public List<GearInstance> gearInstanceEquipped = new List<GearInstance>();
     public List<TrenchStructureSO> trenchStructuresInventory = new List<TrenchStructureSO>();
 
+    [SerializeField] bool isGearMenuAvailable;
+    public bool IsGearMenuAvailable
+    {
+        get => isGearMenuAvailable;
+        set => isGearMenuAvailable = value;
+    }
+
+    [SerializeField] bool isMenuEquippingAvailable;
+    public bool IsMenuEquippingAvailable
+    {
+        get => isMenuEquippingAvailable;
+        set => isMenuEquippingAvailable = value;
+    }
+
     [Header("Debug")]
     public int debugInventorySlotToEquip;
     public int debugEquipSlotToAddTo;

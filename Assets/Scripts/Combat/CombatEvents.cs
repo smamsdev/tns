@@ -8,7 +8,6 @@ using TMPro;
 
 public static class CombatEvents
 {
-    public static bool isBattleMode;
     public static Action LockPlayerMovement;
     public static Action UnlockPlayerMovement;
     public static Action<State> SendState;

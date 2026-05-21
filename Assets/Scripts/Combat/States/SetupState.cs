@@ -12,13 +12,19 @@ public class Setup : State
 
     public override IEnumerator StartState()
     {
+        playerCombat = combatManager.playerCombat;
+
         combatMenuManager.DisableAllMenus();
         combatMenuManager.ZeroAllMenuIndexes();
 
-        playerCombat = combatManager.playerCombat;
+        //Disable all colliders
+        foreach (Ally ally in combatManager.allAlliesToTarget)
+            ally.collisionCollider.enabled = false;
 
-        yield return null; //why?
-        CombatEvents.isBattleMode = true;
+        foreach (Enemy enemy in combatManager.enemies)
+            enemy.collisionCollider.enabled = false;
+
+        //yield return null; //why?
         combatManager.cameraFollow.transformToFollow = combatManager.battleScheme.battleCenterPosition;
 
         //position player
@@ -35,8 +41,6 @@ public class Setup : State
         var playerAnimator = playerCombat.GetComponent<Animator>();
         playerAnimator.SetTrigger("CombatIdle");
         SetPlayerUI();
-
-        yield return new WaitForSeconds(0.1f);
 
         //position allies
         for (int i = 0; i < combatManager.allies.Count;)
@@ -119,7 +123,6 @@ public class Setup : State
             }
         }
 
-        //yield return new WaitForSeconds(1);
         combatManager.SetState(combatManager.styleSelectState);
     }
 
@@ -143,22 +146,6 @@ public class Setup : State
         playerCombat.combatantUI.statsDisplay.InitialiseCombatStatsDisplay(playerCombat);
         playerCombat.combatantUI.combatUIContainer.SetActive(true);
         playerCombat.combatantUI.fendScript.combatManager = combatManager;
-    }
-
-    void InitializePermanentStatsAndGear()
-    {
-        Debug.Log("todo for allies");
-        //playerCombat.InstantiateAllEquippedGear(combatManager);
-        //Debug.Log("instnatiate all gear fix");
-
-        //Debug.Log(" mix this with aprty members");
-        //playerCombat.MaxHP = playerCombat.playerPermanentStats.maxHP;
-        //playerCombat.CurrentHP = playerCombat.playerPermanentStats.currentHP;
-        //playerCombat.MaxPotential = playerCombat.playerPermanentStats.maxPotential;
-        //playerCombat.CurrentPotential = playerCombat.playerPermanentStats.currentPotential;
-        //playerCombat.AttackBase = playerCombat.playerPermanentStats.attackBase;
-        //playerCombat.FendBase = playerCombat.playerPermanentStats.fendBase;
-        //playerCombat.focusBase = playerCombat.playerPermanentStats.focusBase;
     }
 
     GameObject GetOrCreateFightingPosition(Combatant ally, int index)

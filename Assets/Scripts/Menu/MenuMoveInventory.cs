@@ -54,7 +54,7 @@ public class MenuMoveInventory : PauseMenu
 
     public void UnassignSlot(MoveSO moveSO)
     {
-        if (moveSO.IsFlaw && !menuMoves.playerMoveInventorySO.isFlawReassignmentEnabled)
+        if (moveSO.IsFlaw && !menuMoves.playerMoveInventorySO.IsFlawReassignmentEnabled)
             return;
 
         MoveType moveType = menuMoveEquipSlotSelectInPlay.moveType;
@@ -108,7 +108,7 @@ public class MenuMoveInventory : PauseMenu
             if (moveSO.isEquipped) 
                 FieldEvents.SetTextColor(moveSlotUI.slotText, Color.white, .7f);
 
-            if (moveSO.IsFlaw && !menuMoves.playerMoveInventorySO.isFlawReassignmentEnabled)
+            if (moveSO.IsFlaw && !menuMoves.playerMoveInventorySO.IsFlawReassignmentEnabled)
                 FieldEvents.SetTextColor(moveSlotUI.slotText, Color.white, .7f);
 
             buttons.Add(moveSlotUI.button);
@@ -149,7 +149,7 @@ public class MenuMoveInventory : PauseMenu
             moveEquipStatusTMP.text = "";
         }
 
-        if (moveSlotUI.moveSO.IsFlaw && !menuMoves.playerMoveInventorySO.isFlawReassignmentEnabled)
+        if (moveSlotUI.moveSO.IsFlaw && !menuMoves.playerMoveInventorySO.IsFlawReassignmentEnabled)
         {
             headerTMP.text = "Unable to assign a FLAW";
             moveEquipStatusTMP.text = "";
@@ -161,7 +161,7 @@ public class MenuMoveInventory : PauseMenu
         if (selectedInventorySlot.moveSO.isEquipped)
             return;
 
-        if (selectedInventorySlot.moveSO.IsFlaw && !menuMoves.playerMoveInventorySO.isFlawReassignmentEnabled)
+        if (selectedInventorySlot.moveSO.IsFlaw && !menuMoves.playerMoveInventorySO.IsFlawReassignmentEnabled)
             return;
 
         if (!selectedInventorySlot.moveSO.isEquipped)

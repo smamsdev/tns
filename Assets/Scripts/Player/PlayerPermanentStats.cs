@@ -36,6 +36,13 @@ public class PlayerPermanentStats : PartyMemberPermanentStats
     [SerializeField] private int focusBaseGrowth;
     public int FocusBaseGrowth => focusBaseGrowth;
 
+    [SerializeField] private bool isStatsMenuAvailable;
+    public bool IsStatsMenuAvailable
+    {
+        get => isStatsMenuAvailable;
+        set => isStatsMenuAvailable = value;
+    }
+
     public override void LevelUp()
     {
         XPThreshold = NextLevelThreshold();

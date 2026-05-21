@@ -128,104 +128,50 @@ public class VictoryState : State
     {
         victoryRewardsUI.rewardsListContainerAnimator.Play("CloseMenu");
         yield return victoryRewardsUI.TransitionDistributionPageDown();
+        WritePartyMemberPermanantStats();
     
-        combatManager.cameraFollow.transformToFollow = combatManager.playerCombat.transform;
-    
-        CombatEvents.isBattleMode = false;
         var playerCombat = combatManager.playerCombat;
         var playerAnimator = playerCombat.GetComponent<Animator>();
         playerAnimator.Play("Idle");
         playerAnimator.SetFloat("lookDirectionX", combatManager.playerCombat.CombatLookDirX);
-    
+        playerCombat.movementScript.rigidBody2d.bodyType = RigidbodyType2D.Dynamic;
+        playerCombat.collisionCollider.enabled = true;
+        combatManager.cameraFollow.transformToFollow = playerCombat.transform;
+
         if (combatManager.battleScheme.isRandomEnounter)
         {
+            CombatEvents.UnlockPlayerMovement();
             Debug.Log("do some scene entry/exit stuff here i dunno dude");
+            yield break;
         }
-    
+
+        if (combatManager.battleScheme.isSpawningPartyMembers)
+        {
+            foreach (PartyMemberCombat partyMember in combatManager.allies)
+            {
+                partyMember.movementScript.animator.Play("Idle");
+                yield return combatManager.PositionCombatant(partyMember.gameObject, playerCombat.transform.position);
+                GameObject.Destroy(partyMember.gameObject);
+                yield return new WaitForSeconds(0.25f);
+            }
+
+            CombatEvents.UnlockPlayerMovement();
+        }
+
+
         else
             CombatEvents.UnlockPlayerMovement();
     }
 
- //  public void DisplayPartyMemberStats(Combatant combatantInPlay, int startXP, int finalXP)
- //  {
- //      if (!XPRewardsDistributeParent.activeSelf)
- //          XPRewardsDistributeParent.SetActive(true);
- //
- //      distributionContainerAnimator.Play("OpenMenu");
- //
- //      if (combatantInPlay is PlayerCombat playerCombat)
- //      {
- //          foreach (GameObject go in playerStatsOnly)
- //          {
- //              go.SetActive(true);
- //          }
- //
- //          PlayerPermanentStats playerStats = playerCombat.playerPermanentStats;
- //
- //          playerFocusTMP.text = playerStats.FocusBase.ToString();
- //          playerStats.UpdateThreshold();
- //          allyNameTMP.text = combatantInPlay.combatantName;
- //          allyLevelTMP.text = playerStats.Level.ToString();
- //          allyAttackTMP.text = playerStats.AttackBase.ToString();
- //          allyFendTMP.text = playerStats.FendBase.ToString();
- //
- //          SizeGLGWidth(distributeXPTextElements, distributeGridLayoutGroup);
- //
- //          StartCoroutine(FieldEvents.LerpValuesCoRo(startXP, finalXP, 2, value =>
- //          {
- //              playerStats.XP = Mathf.RoundToInt(value);
- //              allyXPTMP.text = playerStats.XP.ToString();
- //              allyXPRemainderTMP.text = (playerStats.XPThreshold - playerStats.XP).ToString();
- //
- //              SizeGLGWidth(distributeXPTextElements, distributeGridLayoutGroup);
- //
- //              if (playerStats.XP >= playerStats.XPThreshold)
- //              {
- //                  playerStats.LevelUp();
- //                  allyLevelTMP.text = playerStats.Level.ToString();
- //                  allyAttackTMP.text = playerStats.AttackBase.ToString();
- //                  allyFendTMP.text = playerStats.FendBase.ToString();
- //                  playerFocusTMP.text = playerStats.FocusBase.ToString();
- //              }
- //          }));
- //      }
- //
- //      else
- //
- //      {
- //          PartyMemberCombat partyMemberCombat = combatantInPlay as PartyMemberCombat;
- //
- //          foreach (GameObject go in playerStatsOnly)
- //          { go.SetActive(false); }
- //
- //          PartyMemberPermanentStats PartyMemberPermanentStats = partyMemberCombat.partyMemberPermanentStats;
- //
- //          PartyMemberPermanentStats.UpdateThreshold();
- //          allyNameTMP.text = combatantInPlay.combatantName;
- //          allyLevelTMP.text = PartyMemberPermanentStats.Level.ToString();
- //          allyAttackTMP.text = PartyMemberPermanentStats.AttackBase.ToString();
- //          allyFendTMP.text = PartyMemberPermanentStats.FendBase.ToString();
- //
- //          SizeGLGWidth(distributeXPTextElements, distributeGridLayoutGroup);
- //
- //          StartCoroutine(FieldEvents.LerpValuesCoRo(startXP, finalXP, 2, value =>
- //          {
- //              PartyMemberPermanentStats.XP = Mathf.RoundToInt(value);
- //              allyXPTMP.text = PartyMemberPermanentStats.XP.ToString();
- //              allyXPRemainderTMP.text = (PartyMemberPermanentStats.XPThreshold - PartyMemberPermanentStats.XP).ToString();
- //
- //              SizeGLGWidth(distributeXPTextElements, distributeGridLayoutGroup);
- //
- //              if (PartyMemberPermanentStats.XP >= PartyMemberPermanentStats.XPThreshold)
- //              {
- //                  PartyMemberPermanentStats.LevelUp();
- //                  allyLevelTMP.text = PartyMemberPermanentStats.Level.ToString();
- //                  allyAttackTMP.text = PartyMemberPermanentStats.AttackBase.ToString();
- //                  allyFendTMP.text = PartyMemberPermanentStats.FendBase.ToString();
- //              }
- //          }));
- //      }
- //  }
- //
- //
+
+    void WritePartyMemberPermanantStats()
+    {
+        foreach (PartyMemberCombat partyMember in combatManager.allAlliesToTarget)
+        {
+            partyMember.partyMemberPermanentStats.CurrentHP = partyMember.CurrentHP;
+
+            if (partyMember is PlayerCombat playerCombat)
+                playerCombat.playerPermanentStats.CurrentPotential = playerCombat.CurrentPotential; 
+        }
+    }
 }

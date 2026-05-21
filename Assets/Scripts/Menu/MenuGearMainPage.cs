@@ -33,7 +33,8 @@ public class MenuGearMainPage : PauseMenu
 
     public override void EnterMenu()
     {
-        playerInventorySO = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>().playerInventorySO;
+        playerInventorySO = pauseMenuManager.menuMain.playerCombat.playerInventorySO;
+
         UpdateHeaderTMP("");
         displayContainer.SetActive(true);
         ShowMainButtons(true);
@@ -50,7 +51,11 @@ public class MenuGearMainPage : PauseMenu
         foreach (var slot in menuGearInventorySubPage.inventorySlots)
             SetSlotAlpha(slot, false);
 
-        if (lastParentButtonSelected ==null) { lastParentButtonSelected = equippedHighlightedButton; }
+        if (lastParentButtonSelected == null)
+            lastParentButtonSelected = equippedHighlightedButton;
+
+        EnableGearEquipping(playerInventorySO.IsMenuEquippingAvailable);
+
         lastParentButtonSelected.button.Select();
     }
 
@@ -59,6 +64,18 @@ public class MenuGearMainPage : PauseMenu
         pauseMenuManager.EnterMenu(pauseMenuManager.menuMain);
         pauseMenuManager.menuMain.menuButtonHighlighteds[1].SetButtonNormalColor(Color.white);
         pauseMenuManager.menuMain.menuButtonHighlighteds[1].button.Select();
+    }
+
+    void EnableGearEquipping(bool enable)
+    {
+        equippedHighlightedButton.gameObject.SetActive(enable);
+        equippedDisplayContainer.SetActive(enable);
+
+        if (enable)
+            lastParentButtonSelected = equippedHighlightedButton;
+
+        else
+            lastParentButtonSelected = inventoryHighlightedButton;
     }
 
     public void EnterEquipSubPage()

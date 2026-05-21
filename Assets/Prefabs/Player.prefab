@@ -138,7 +138,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -1002,7 +1002,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -1267,7 +1267,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -1757,7 +1757,7 @@ MonoBehaviour:
   forceLookDirectionOnLoad: {x: 0, y: 0}
   animator: {fileID: 8879681757372781048}
   movementDirection: {x: 0, y: 0}
-  lookDirection: {x: 0, y: 0}
+  lookDirection: {x: -1, y: 0}
   descendingFactor: 0
   rigidBody2d: {fileID: 4400780416818078350}
   newPosition: {x: 0, y: 0}
@@ -1821,8 +1821,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.01, y: 0.03}
-  m_Size: {x: 0.19, y: 0.06}
+  m_Offset: {x: 0.0049999845, y: 0.029999997}
+  m_Size: {x: 0.20000008, y: 0.060000025}
   m_Direction: 1
 --- !u!114 &8511064882151163904
 MonoBehaviour:
@@ -1873,32 +1873,35 @@ MonoBehaviour:
   fightingPosition: {fileID: 0}
   isBackstabbed: 0
   isEnclosed: 1
+  collisionCollider: {fileID: 0}
   targetCombatant: {fileID: 0}
   moveSOSelected: {fileID: 0}
   currentMoveBehaviourParent: {fileID: 2390835128513454465}
   currentMoveBehaviour: {fileID: 0}
   moveList: []
-  combatLookDirX: 0
-  attackBase: 0
-  fendBase: 0
-  maxHP: 0
-  currentHP: 0
-  partyMemberPermanentStats: {fileID: 0}
+  combatLookDirX: -1
+  _attackBase: 0
+  _fendBase: 0
+  _maxHP: 0
+  _currentHP: 0
+  _attackTotal: 0
+  _fendTotal: 0
+  partyMemberPermanentStats: {fileID: 11400000, guid: 891a8d8bd88cd9a45acd6a5ac406be03, type: 2}
   portraitImage: {fileID: 2800000, guid: 872ec5dfdbea214418206775b2228593, type: 3}
+  _maxPotential: 0
+  _currentPotential: 0
+  _focusBase: 0
+  gearBehaviours: []
+  fendPotMod: 0
+  attackPowerPotMod: 0
   playerPermanentStats: {fileID: 11400000, guid: 891a8d8bd88cd9a45acd6a5ac406be03, type: 2}
-  party: {fileID: 11400000, guid: 7b54538dd0515b34c937ff6de93a275f, type: 2}
+  partySO: {fileID: 11400000, guid: 7b54538dd0515b34c937ff6de93a275f, type: 2}
   playerInventorySO: {fileID: 11400000, guid: 97dc67b5386968e44b5d9f736f57d1f1, type: 2}
   playerMoveInventorySO: {fileID: 11400000, guid: 4658aa4d7d4f0c24fb16a242861b273c, type: 2}
   gearMonoBehaviourParentFolder: {fileID: 1040471762652772850}
-  gearBehaviours: []
   styleType: 0
   actionType: 0
   combatManager: {fileID: 0}
-  maxPotential: 0
-  currentPotential: 0
-  focusBase: 0
-  fendPotMod: 0
-  attackPowerPotMod: 0
 --- !u!1 &8463103151050209164
 GameObject:
   m_ObjectHideFlags: 0
@@ -2300,10 +2303,10 @@ MonoBehaviour:
   combatantNameTextMeshPro: {fileID: 3806247342547371097}
   combatantHPTextMeshPro: {fileID: 2151639050498604810}
   statsDisplayGameObject: {fileID: 4645553439046408796}
+  combatantNameGO: {fileID: 0}
   HPTMPAnimator: {fileID: 7662298597158072242}
   statsDisplayContainerAnimator: {fileID: 1170908821512508967}
   combatant: {fileID: 8916189207439800493}
-  combatantHP: 0
   potentialTMP: {fileID: 283436429949113002}
   potentialTMPAnimator: {fileID: 2751501527694007602}
   currentPotential: 0

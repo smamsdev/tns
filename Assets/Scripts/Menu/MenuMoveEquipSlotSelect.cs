@@ -48,7 +48,7 @@ public class MenuMoveEquipSlotSelect : PauseMenu
             bool isFlawRestricted =
                 move != null &&
                 move.IsFlaw &&
-                !menuMoves.playerMoveInventorySO.isFlawReassignmentEnabled;
+                !menuMoves.playerMoveInventorySO.IsFlawReassignmentEnabled;
 
             float alpha = (on && !isFlawRestricted) ? 1f : 0.7f;
 
@@ -109,7 +109,7 @@ public class MenuMoveEquipSlotSelect : PauseMenu
 
     public void MoveSlotSelected(MoveSlotUI moveSlotToEquipTo)
     {
-        if (moveSlotToEquipTo.moveSO != null && moveSlotToEquipTo.moveSO.IsFlaw && !menuMoves.playerMoveInventorySO.isFlawReassignmentEnabled)
+        if (moveSlotToEquipTo.moveSO != null && moveSlotToEquipTo.moveSO.IsFlaw && !menuMoves.playerMoveInventorySO.IsFlawReassignmentEnabled)
             return;
 
         //this needs to happen before checking the list count
@@ -144,7 +144,7 @@ public class MenuMoveEquipSlotSelect : PauseMenu
         menuMoves.moveDescriptionTMP.text = moveSlotUI.moveSO.MoveDescription;
         menuMoves.movePotentialChangeTMP.text = moveSlotUI.moveSO.PotentialChangeDescription;
 
-        if (moveSlotUI.moveSO.IsFlaw && !menuMoves.playerMoveInventorySO.isFlawReassignmentEnabled)
+        if (moveSlotUI.moveSO.IsFlaw && !menuMoves.playerMoveInventorySO.IsFlawReassignmentEnabled)
         {
             menuMoves.moveEquipStatusTMP.text = "Unable to assign a FLAW";
             return;
@@ -195,7 +195,7 @@ public class MenuMoveEquipSlotSelect : PauseMenu
         if (moveSlotUI.moveSO == null)
             return;
 
-        if (moveSlotUI.moveSO.IsFlaw && !menuMoves.playerMoveInventorySO.isFlawReassignmentEnabled)
+        if (moveSlotUI.moveSO.IsFlaw && !menuMoves.playerMoveInventorySO.IsFlawReassignmentEnabled)
             return;
 
         menuMoves.playerMoveInventorySO.UnequipMoveFromSlot(moveType, moveSlotUI.moveSO);

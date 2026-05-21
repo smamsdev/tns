@@ -39,6 +39,9 @@ public abstract class ColliderInteractableAbstract : ToTrigger
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (!this.gameObject.activeInHierarchy)
+            return;
+
         if (playerInTrigger != null)
         {
             if (collision.CompareTag("Player"))

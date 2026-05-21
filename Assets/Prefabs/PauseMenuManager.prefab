@@ -5215,6 +5215,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!1 &2257030266686202100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4422662073357472047}
+  m_Layer: 0
+  m_Name: 'Spacer (Missing Prefab with guid: 8e076f3bf20aa604386e80eb57e13fbd)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4422662073357472047
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2257030266686202100}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4874136465680771249}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2275661337448965066
 GameObject:
   m_ObjectHideFlags: 0
@@ -6153,7 +6188,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1762879143635952213
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7940,8 +7975,8 @@ MonoBehaviour:
   lastParentButtonSelected: {fileID: 0}
   pauseMenuManager: {fileID: 2568331554325341034}
   isSelectingMove: 0
-  playerMoveManager: {fileID: 0}
   menuMoveInventory: {fileID: 2287245709318218665}
+  playerMoveInventorySO: {fileID: 0}
   highlightedButtonIndex: 0
   headerTMP: {fileID: 6534646347381020579}
   moveNameTMP: {fileID: 5120472315318957363}
@@ -12039,10 +12074,6 @@ MonoBehaviour:
   pauseMenuManager: {fileID: 2568331554325341034}
   firstMenuButton: {fileID: 2423776314585888500}
   animator: {fileID: 4204778356261870487}
-  blueUnderlines:
-  - {fileID: 8709475058252399566}
-  - {fileID: 2788889360098463375}
-  - {fileID: 7681453829988044539}
   menuButtonHighlighteds:
   - {fileID: 4740351971099662728}
   - {fileID: 5603106608443442632}
@@ -12053,7 +12084,11 @@ MonoBehaviour:
   menuSave: {fileID: 2996304496066677591}
   menuGearInventorySubPage: {fileID: 0}
   playerCombat: {fileID: 0}
+  sideButtonGOs: []
+  extraSpacerGOs: []
   masterMenuContainer: {fileID: 4413126599282567741}
+  firstSpacerGO: {fileID: 0}
+  sideButtonParentGO: {fileID: 4054288517340385917}
   isMenuOn: 0
 --- !u!1 &4698488410605608191
 GameObject:
@@ -19815,41 +19850,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &8247639558256014278
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4422662073357472047}
-  m_Layer: 5
-  m_Name: Spacer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &4422662073357472047
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8247639558256014278}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4874136465680771249}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8408598424921002935
 GameObject:
   m_ObjectHideFlags: 0

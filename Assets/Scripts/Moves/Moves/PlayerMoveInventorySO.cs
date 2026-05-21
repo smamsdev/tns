@@ -6,7 +6,20 @@ public class PlayerMoveInventorySO : ScriptableObject
     public enum MoveType
     { ViolentAttack, ViolentFend, ViolentFocus, CautiousAttack, CautiousFend, CautiousFocus, PreciseAttack, PreciseFend, PreciseFocus }
 
-    public bool isFlawReassignmentEnabled;
+    public bool IsFlawReassignmentEnabled;
+    [SerializeField]bool isFlawReassignmentEnabled
+    {
+        get => IsFlawReassignmentEnabled;
+        set => IsFlawReassignmentEnabled = value;
+    }
+
+    public bool IsMoveMenuAvailable;
+    [SerializeField] bool isMoveMenuAvailable
+    {
+        get => IsMoveMenuAvailable;
+        set => IsMoveMenuAvailable = value; 
+    }
+
 
     public List<MoveSO> violentAttacksInventory = new List<MoveSO>();
     public List<MoveSO> violentFendsInventory = new List<MoveSO>();
