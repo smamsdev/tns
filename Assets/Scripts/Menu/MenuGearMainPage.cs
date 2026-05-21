@@ -8,9 +8,11 @@ public class MenuGearMainPage : PauseMenu
     [SerializeField] GameObject equippedDisplayContainer, inventoryDisplayContainer, gearPropertiesDisplay;
     public TextMeshProUGUI headerTMP, chargeAmountTMP, gearDescriptionTMP, gearValueTMP, gearEquipStatusTMP;
     public MenuButtonHighlighted equippedHighlightedButton, inventoryHighlightedButton;
+    public MenuStats menuStats;
     public MenuGearEquipSubPage menuGearEquipSubPage;
     public MenuGearInventorySubPage menuGearInventorySubPage;
     public PlayerInventorySO playerInventorySO;
+    public MenuButtonHighlighted lastParentButtonSelected;
 
     public override void DisplayMenu(bool on)
     {

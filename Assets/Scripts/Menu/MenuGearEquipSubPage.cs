@@ -178,8 +178,6 @@ public class MenuGearEquipSubPage : PauseMenu
     public override void ExitMenu()
     {
         pauseMenuManager.EnterMenu(pauseMenuManager.gearPageSelection);
-        pauseMenuManager.menuUpdateMethod.lastParentButtonSelected.SetButtonNormalColor(Color.white);
-        pauseMenuManager.menuUpdateMethod.lastParentButtonSelected.button.Select();
     }
 
     public override void StateUpdate()

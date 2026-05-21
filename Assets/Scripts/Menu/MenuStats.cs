@@ -9,45 +9,49 @@ public class MenuStats : PauseMenu
     [SerializeField] PartySO partySO;
     [SerializeField] menuMain menuMain;
     [SerializeField] GameObject arrowGO;
-    [SerializeField] TextMeshProUGUI hpValue;
-    [SerializeField] TextMeshProUGUI potentialValue;
-    [SerializeField] TextMeshProUGUI strengthValue;
-    [SerializeField] TextMeshProUGUI defenceValue;
-    [SerializeField] TextMeshProUGUI focusValue;
-    [SerializeField] TextMeshProUGUI[] partyMemberLevelTMPs;
-    [SerializeField] TextMeshProUGUI[] partyMemberNameTMPs;
-    [SerializeField] RawImage[] partyMemberPortraitImages;
-    [SerializeField] TextMeshProUGUI experienceValue;
-    [SerializeField] TextMeshProUGUI nextLevelValue;
-    public GameObject[] playerSpecificStatGOs;
-    public GameObject[] spacers;
-    public GameObject partyMemberUIPrefabGO, partyMemberUIParentGO;
+    [SerializeField] TextMeshProUGUI hpValueTMP, potentialValueTMP, focusValueTMP, strengthValueTMP, defenceValueTMP, experienceValueTMP, nextLevelValueTMP, potentialLabelTMP, focusLabelTMP;
+    [SerializeField] PartyMemberPortrait[] partyMemberPortraits;
+
+    public GameObject partyMemberUIPrefabGO, partyMemberUIParentGO, allStatsContainerGO;
     public int highlightedIndex = 0;
-    public List<PartyMemberHighlightedIU> partyMemberHighlightedIUs = new();
+    public List<PartyMemberUI> partyMemberUIs = new();
 
     public override void DisplayMenu(bool on)
     {
         displayContainer.SetActive(on);
     }
 
-    public void initBandPage()
+    public void InitBandPage()
     {
         List<Button> buttons = new List<Button>();
+
+        foreach (PartyMemberPortrait partyMemberPortrait in partyMemberPortraits)
+            partyMemberPortrait.gameObject.SetActive(false);
+
+        partySO = menuMain.playerCombat.partySO;
 
         for (int i = 0; i < partySO.partyMembers.Count; i++)
         {
             GameObject partyMemberUIGO = Instantiate(partyMemberUIPrefabGO, partyMemberUIParentGO.transform);
-            PartyMemberHighlightedIU partyMemberHighlightedIU = partyMemberUIGO.GetComponent<PartyMemberHighlightedIU>();
+            PartyMemberUI partyMemberUI = partyMemberUIGO.GetComponent<PartyMemberUI>();
+            partyMemberUIs.Add(partyMemberUI);
 
-            partyMemberHighlightedIU.onHighlighted = () => PartyMemberHighlighted(partyMemberHighlightedIU.partyMemberCombat);
+            partyMemberUI.onHighlighted = () => PartyMemberHighlighted(partyMemberUI);
+            partyMemberUI.onUnHighlighted = () =>
+            {
+                if (partyMemberUI.partyMemberCombat != null)
+                    partyMemberUI.partyMemberPortrait.arrowGO.SetActive(false);
+            };
 
             if (partySO.partyMembers[i] == null)
             {
-                partyMemberNameTMPs[i].text = "Space Available";
-                partyMemberPortraitImages[i].enabled = false;
-                partyMemberPortraitImages[i].texture = null;
-                partyMemberPortraitImages[i].SetNativeSize();
-                partyMemberLevelTMPs[i].text = "";
+                partyMemberUIGO.gameObject.name = "Party Slot " + i + "Vacant" ;
+                partyMemberUI.nameTMP.text = "Vacant";
+                partyMemberUI.levelTMP.text = "Level: --";
+                //partyMemberPortraitImages[i].enabled = false;
+                //partyMemberPortraitImages[i].texture = null;
+                //partyMemberPortraitImages[i].SetNativeSize();
+                partyMemberUI.partyMemberPortrait = null;
             }
 
             else
@@ -55,19 +59,24 @@ public class MenuStats : PauseMenu
                 PartyMemberCombat partyMemberCombat = partySO.partyMembers[i].prefab.GetComponent<PartyMemberCombat>();
 
                 partyMemberUIGO.gameObject.name = "Party Slot " + i + " " + partyMemberCombat.combatantName;
-                partyMemberHighlightedIU.partyMemberCombat = partyMemberCombat;
-                partyMemberNameTMPs[i].text = partyMemberCombat.combatantName;
-                partyMemberPortraitImages[i].enabled = true;
-                partyMemberPortraitImages[i].texture = partyMemberCombat.portraitImage;
-                partyMemberPortraitImages[i].SetNativeSize();
-                partyMemberLevelTMPs[i].text = $"Level: {partySO.partyMembers[i].Level}";
+                partyMemberUI.partyMemberCombat = partyMemberCombat;
+                partyMemberUI.nameTMP.text = partyMemberCombat.combatantName;
+                partyMemberUI.levelTMP.text = $"Level: {partySO.partyMembers[i].Level}";
+                partyMemberUI.partyMemberPortrait = partyMemberPortraits[i];
+                partyMemberUI.partyMemberPortrait.portrait.sprite = partyMemberCombat.portraitImage;
+                partyMemberPortraits[i].gameObject.SetActive(true);
+                partyMemberPortraits[i].arrowGO.SetActive(false);
+
+                //partyMemberPortraitImages[i].enabled = true;
+                //partyMemberPortraitImages[i].texture = partyMemberCombat.portraitImage;
+                //partyMemberPortraitImages[i].SetNativeSize();
+
             }
 
-            buttons.Add(partyMemberHighlightedIU.button);
+            buttons.Add(partyMemberUIs[i].button);
         }
 
         FieldEvents.SetGridNavigationWrapAround(buttons, 1);
-        InitializeStats();
 
         if (partySO.partyMembers.Count > 1) 
             arrowGO.SetActive(true);
@@ -75,17 +84,23 @@ public class MenuStats : PauseMenu
         highlightedIndex = 0;
     }
 
-    public void PartyMemberHighlighted(PartyMemberCombat partyMemberCombat)
+    public void PartyMemberHighlighted(PartyMemberUI partyMemberUI)
     { 
-    
+        PartyMemberCombat partyMemberCombat = partyMemberUI.partyMemberCombat;
+
+        highlightedIndex = partyMemberUIs.IndexOf(partyMemberUI);
+        UpdateStatTMPS(partyMemberCombat);
+
+        if (partyMemberUI.partyMemberCombat != null)
+        partyMemberUI.partyMemberPortrait.arrowGO.SetActive(true);
     }
 
     public override void EnterMenu()
     {
+        InitBandPage();
         pauseMenuManager.ClearThenDisplayMenu(this);
         arrowGO.SetActive(false);
-        partySO = menuMain.playerCombat.partySO;
-        partyMemberHighlightedIUs[highlightedIndex].button.Select();
+        partyMemberUIs[highlightedIndex].button.Select();
     }
 
     public override void ExitMenu()
@@ -104,44 +119,39 @@ public class MenuStats : PauseMenu
         }
     }
         
-    public void InitializeStats()
+    public void UpdateStatTMPS(PartyMemberCombat partyMemberCombat)
     {
-        PartyMemberPermanentStats partyMember = partySO.partyMembers[highlightedIndex];
-
-        if (partyMember is PlayerPermanentStats)
+        if (partyMemberCombat == null)
         {
-            foreach (GameObject gameObject in playerSpecificStatGOs)
-            {
-                gameObject.SetActive(true);
-            }
+            allStatsContainerGO.SetActive(false);
+            return;
+        }
 
-            foreach (GameObject gameObject in spacers)
-            {
-                gameObject.SetActive(false);
-            }
+        allStatsContainerGO.SetActive(true);
 
-            var playerPermanentstats = (PlayerPermanentStats)partyMember;
-            focusValue.text = $"{playerPermanentstats.FocusBase}";
-            potentialValue.text = $"{playerPermanentstats.CurrentPotential} / {playerPermanentstats.MaxPotential}";
+        PartyMemberPermanentStats stats = partyMemberCombat.partyMemberPermanentStats;
+
+        hpValueTMP.text = $"{stats.CurrentHP} / {stats.MaxHP}";
+        strengthValueTMP.text = $"{stats.AttackBase}";
+        defenceValueTMP.text = $"{stats.FendBase}";
+        experienceValueTMP.text = $"{stats.XP}";
+        nextLevelValueTMP.text = $"{stats.XPThreshold}";
+
+        if (partyMemberCombat is PlayerCombat playerCombat)
+        {
+            var playerPermanentstats = playerCombat.playerPermanentStats;
+            potentialLabelTMP.text = "Potential:";
+            potentialValueTMP.text = $"{playerPermanentstats.CurrentPotential} / {playerPermanentstats.MaxPotential}";
+            focusLabelTMP.text = "Focus:";
+            focusValueTMP.text = $"{playerPermanentstats.FocusBase}";
         }
 
         else
         {
-            foreach (GameObject gameObject in playerSpecificStatGOs)
-            {
-                gameObject.SetActive(false);
-            }
-
-            foreach (GameObject gameObject in spacers)
-            {
-                gameObject.SetActive(true);
-            }
+            potentialLabelTMP.text = "";
+            potentialValueTMP.text = "";
+            focusLabelTMP.text = "";
+            focusValueTMP.text = "";
         }
-
-        hpValue.text = $"{partyMember.CurrentHP} / {partyMember.MaxHP}";
-        strengthValue.text = $"{partyMember.AttackBase}";
-        defenceValue.text = $"{partyMember.FendBase}";
-        experienceValue.text = $"{partyMember.XP}";
-        nextLevelValue.text = $"{partyMember.XPThreshold}";
     }
 }

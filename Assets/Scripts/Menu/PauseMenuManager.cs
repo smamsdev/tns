@@ -41,11 +41,6 @@ public class PauseMenuManager : MonoBehaviour
         menuScript.DisplayMenu(true);
     }
 
-    public void SetLastButtonSelected(MenuButtonHighlighted menuButton)
-    {
-        menuUpdateMethod.lastParentButtonSelected = menuButton;
-    }
-
     public void EnterMenu(Menu menuScript)
     {
         menuScript.EnterMenu();

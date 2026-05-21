@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public abstract class Menu : MonoBehaviour
 {
     public GameObject displayContainer;
-    public MenuButtonHighlighted lastParentButtonSelected;
 
     public abstract void EnterMenu();
     public abstract void ExitMenu();

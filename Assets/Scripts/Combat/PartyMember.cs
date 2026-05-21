@@ -8,7 +8,7 @@ using static UnityEngine.Rendering.DebugUI;
 public class PartyMemberCombat : Ally
 {
     public PartyMemberPermanentStats partyMemberPermanentStats;
-    public Texture portraitImage;
+    public Sprite portraitImage;
 
     private void OnEnable()
     {
