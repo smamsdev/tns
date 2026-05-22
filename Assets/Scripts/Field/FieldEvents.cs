@@ -172,7 +172,7 @@ public static class FieldEvents
             int rowStart = row * columns;
             int rowEnd = Mathf.Min(rowStart + columns, buttonCount);
 
-            if (col < 0) col = rowEnd - rowStart - 1; 
+            if (col < 0) col = rowEnd - rowStart - 1;
             if (col >= rowEnd - rowStart) col = 0;
 
 
@@ -181,8 +181,8 @@ public static class FieldEvents
 
         int WrapVertical(int row, int col)
         {
-            if (row < 0) row = rows - 1;      
-            if (row >= rows) row = 0;         
+            if (row < 0) row = rows - 1;
+            if (row >= rows) row = 0;
 
             int rowStart = row * columns;
             int rowEnd = Mathf.Min(rowStart + columns, buttonCount);
@@ -191,6 +191,15 @@ public static class FieldEvents
             if (col < 0) col = 0;
 
             return rowStart + col;
+        }
+    }
+
+    public static void ShuffleList<T>(this IList<T> list)
+    {
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int j = UnityEngine.Random.Range(0, i + 1);
+            (list[i], list[j]) = (list[j], list[i]);
         }
     }
 

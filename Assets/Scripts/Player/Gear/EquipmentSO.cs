@@ -15,7 +15,15 @@ public class EquipmentSO : GearSO
 
     public override GearInstance CreateInstance()
     {
-        var newEquipmentInstance = new EquipmentInstance(this);
+        EquipmentInstance newEquipmentInstance = new EquipmentInstance(this);
+        newEquipmentInstance.gearSO = this;
+
+        return newEquipmentInstance;
+    }
+
+    public EquipmentInstance CreateEquipmentInstance()
+    {
+        EquipmentInstance newEquipmentInstance = new EquipmentInstance(this);
         newEquipmentInstance.gearSO = this;
 
         return newEquipmentInstance;

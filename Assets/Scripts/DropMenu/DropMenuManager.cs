@@ -1,11 +1,11 @@
 using UnityEditor;
 using UnityEngine;
 
-public class LockerMenuManager : MonoBehaviour
+public class DropMenuManager : MonoBehaviour
 {
-    public LockerMainMenu lockerMainMenu;
-    public LockerCacheMenu lockerCacheMenu;
-    public LockerGearMenu lockerGearMenu;
+    public DropMainMenu dropMainMenu;
+    public DropSeizedMenu dropSeizedMenu;
+    public DropGearMenu dropGearMenu;
 
     [Header("Debug")]
     public Menu menuUpdateMethod;
@@ -17,16 +17,16 @@ public class LockerMenuManager : MonoBehaviour
 
     public void OpenLocker()
     {
-        lockerMainMenu.DisplayMenu(true);
-        lockerMainMenu.InitializeMenu();
-        menuUpdateMethod = lockerMainMenu;
-        lockerMainMenu.EnterMenu();
+        dropMainMenu.DisplayMenu(true);
+        dropMainMenu.InitializeMenu();
+        menuUpdateMethod = dropMainMenu;
+        dropMainMenu.EnterMenu();
     }
     
     public void DisplaySubMenu(Menu menuToDisplay)
     {
-        lockerCacheMenu.DisplayMenu(false);
-        lockerGearMenu.DisplayMenu(false);
+        dropSeizedMenu.DisplayMenu(false);
+        dropGearMenu.DisplayMenu(false);
     
         menuToDisplay.DisplayMenu(true);
     }

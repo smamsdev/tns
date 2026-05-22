@@ -39,3 +39,8 @@ public abstract class BatteryMenu : Menu
 {
     public BatteryMenuManager batteryMenuManager;
 }
+
+public abstract class DropMenu : Menu
+{
+    public DropMenuManager dropMenuManager;
+}

@@ -114,7 +114,7 @@ public class Encounter : ToTrigger
             }
         }
 
-        battle.allies.Shuffle();
+        battle.allies.ShuffleList();
         NumberDuplicates(battle.allies);
 
 
@@ -201,7 +201,7 @@ public class Encounter : ToTrigger
         {
             combatantIndices[i] = i * sideMultiplier;
         }
-        combatantIndices.Shuffle();
+        combatantIndices.ShuffleList();
 
         for (int i = 0; i < combatantCount; i++)
         {

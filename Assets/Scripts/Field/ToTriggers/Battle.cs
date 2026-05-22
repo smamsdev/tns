@@ -20,25 +20,31 @@ public class Battle : ToTrigger
     {
         combatManager = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>();
         playerCombat = combatManager.playerCombat;
+        combatManager.battleScheme = this;
 
-        if (isSpawningPartyMembers)
+        if (isSpawningPartyMembers && playerCombat.partySO.partyMembers.Count > 1)
         {
             AddPartyMembers();
             SetPartyMemberPositions();
         }
 
-        combatManager.battleScheme = this;
         combatManager.StartBattle();
         yield return null;
     }
 
     void AddPartyMembers()
     {
-        for (int i = 0; i < playerCombat.partySO.partyMembers.Count; i++)
+        //start at 1 because we can skip the player/party leader
+        for (int i = 1; i < playerCombat.partySO.partyMembers.Count; i++)
         {
+            if (playerCombat.partySO.partyMembers[i] == null)
+                continue;
+
             GameObject allyToAddGO = Instantiate(playerCombat.partySO.partyMembers[i].prefab, this.transform);
             Combatant allyCombatant = allyToAddGO.GetComponent<Combatant>();
             allies.Add(allyCombatant);
+            if (allyCombatant.collisionCollider == null)
+                Debug.Log("no collider on prefab " + playerCombat.partySO.partyMembers[i].prefab.name);
             allyCombatant.collisionCollider.enabled = false;
         }
     }

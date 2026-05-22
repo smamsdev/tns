@@ -25,6 +25,8 @@ public class MenuStats : PauseMenu
     {
         List<Button> buttons = new List<Button>();
 
+        DeleteAllPartyMemberUIs();
+
         foreach (PartyMemberPortrait partyMemberPortrait in partyMemberPortraits)
             partyMemberPortrait.gameObject.SetActive(false);
 
@@ -48,9 +50,8 @@ public class MenuStats : PauseMenu
                 partyMemberUIGO.gameObject.name = "Party Slot " + i + "Vacant" ;
                 partyMemberUI.nameTMP.text = "Vacant";
                 partyMemberUI.levelTMP.text = "Level: --";
-                //partyMemberPortraitImages[i].enabled = false;
-                //partyMemberPortraitImages[i].texture = null;
-                //partyMemberPortraitImages[i].SetNativeSize();
+                FieldEvents.SetTextColor(partyMemberUI.nameTMP, partyMemberUI.nameTMP.color, 0.7f);
+                FieldEvents.SetTextColor(partyMemberUI.levelTMP, partyMemberUI.levelTMP.color, 0.7f);
                 partyMemberUI.partyMemberPortrait = null;
             }
 
@@ -62,6 +63,8 @@ public class MenuStats : PauseMenu
                 partyMemberUI.partyMemberCombat = partyMemberCombat;
                 partyMemberUI.nameTMP.text = partyMemberCombat.combatantName;
                 partyMemberUI.levelTMP.text = $"Level: {partySO.partyMembers[i].Level}";
+                FieldEvents.SetTextColor(partyMemberUI.nameTMP, partyMemberUI.nameTMP.color, 1f);
+                FieldEvents.SetTextColor(partyMemberUI.levelTMP, partyMemberUI.levelTMP.color, 1f);
                 partyMemberUI.partyMemberPortrait = partyMemberPortraits[i];
                 partyMemberUI.partyMemberPortrait.portrait.sprite = partyMemberCombat.portraitImage;
                 partyMemberPortraits[i].gameObject.SetActive(true);
@@ -93,6 +96,16 @@ public class MenuStats : PauseMenu
 
         if (partyMemberUI.partyMemberCombat != null)
         partyMemberUI.partyMemberPortrait.arrowGO.SetActive(true);
+    }
+
+    void DeleteAllPartyMemberUIs()
+    {
+        partyMemberUIs.Clear();
+
+        for (int i = partyMemberUIParentGO.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(partyMemberUIParentGO.transform.GetChild(i).gameObject);
+            }
     }
 
     public override void EnterMenu()
