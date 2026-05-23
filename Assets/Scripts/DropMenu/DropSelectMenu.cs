@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DropSeizedMenu : DropMenu
+public class DropSelectMenu : DropMenu
 {
     public GameObject inventorySlotPrefab, inventoryUIParent;
     public List<InventorySlotUI> inventorySlots = new List<InventorySlotUI>();
@@ -24,23 +24,28 @@ public class DropSeizedMenu : DropMenu
 
     public override void EnterMenu()
     {
+        if (inventorySlots.TrueForAll(x => x.gearInstance.gearSO == null))
+        {
+            dropMenuManager.menuUpdateMethod = dropMenuManager.dropMainMenu;
+            return;
+        }
+
         dropMenuManager.dropGearMenu.highlightedButtonIndex = 0;
         highlightedButtonIndex = 0;
         SetBaySlotsAlpha(.5f, 1);
         dropMenuManager.dropMainMenu.SetHeaderTMP("");
 
         inventorySlots[highlightedButtonIndex].button.Select();
-        dropMenuManager.dropMainMenu.mainMenuButtons[1].SetButtonNormalColor(Color.yellow);
+        dropMenuManager.dropMainMenu.mainMenuButtons[0].SetButtonNormalColor(Color.yellow);
 
         dropMenuManager.dropMainMenu.DisplayMainButtons(false);
     }
 
-    public void InstantiateUIBays()
+    public void InitDropUI()
     {
         DeleteAllInventoryUI();
 
-
-        var inventorySO = dropMenuManager.dropMainMenu.dropInventory;
+        var inventorySO = dropMenuManager.dropMainMenu.dropManagerInventorySO;
 
         for (int i = 0; i < inventorySO.gearInstanceInventory.Count; i++)
         {
@@ -98,74 +103,21 @@ public class DropSeizedMenu : DropMenu
         }
     }
 
-    public void SetBaySlotsAlphaUICachingMode(float alphaIfAvailableToCache, float alphaIfUnavailableToCache)
-    {
-        foreach (InventorySlotUI inventorySlotUI in inventorySlots)
-        {
-            bool availableToCache = false;
-            GearInstance gearToCache = dropMenuManager.dropGearMenu.selectedGearInstanceToCache;
-
-            if (inventorySlotUI.gearInstance.gearSO == null)
-            {
-                availableToCache = true;
-            }
-
-            else if (inventorySlotUI.gearInstance is ConsumableInstance slotConsumable &&
-                     gearToCache is ConsumableInstance cacheConsumable &&
-                     cacheConsumable.gearSO == slotConsumable.gearSO &&
-                     slotConsumable.quantityAvailable < 3)
-            {
-                availableToCache = true;
-            }
-
-            float alpha = availableToCache ? alphaIfAvailableToCache : alphaIfUnavailableToCache;
-
-            FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.white, alpha);
-            FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.white, alpha);
-        }
-    }
-
     void SlotHighlighted(InventorySlotUI inventorySlotUI)
     {
         HighlightedButtonIndex = inventorySlots.IndexOf(inventorySlotUI);
         FieldEvents.SetTextColor(inventorySlotUI.itemNameTMP, Color.yellow, inventorySlotUI.itemNameTMP.alpha);
         FieldEvents.SetTextColor(inventorySlotUI.itemQuantityTMP, Color.yellow, inventorySlotUI.itemNameTMP.alpha);
 
-        if (!dropMenuManager.dropGearMenu.isGearSelectedForCache)
+        if (inventorySlotUI.gearInstance.gearSO == null)
         {
-            if (inventorySlotUI.gearInstance.gearSO == null)
-            {
-                dropMenuManager.dropMainMenu.SetHeaderTMP("Bay " + (highlightedButtonIndex + 1) + " empty");
-                dropMenuManager.dropMainMenu.ClearAllDescriptionTMPs();
-                return;
-            }
-
-            dropMenuManager.dropMainMenu.SetHeaderTMP("Retrieve " + inventorySlotUI.gearInstance.gearSO.GearName + "?");
-            dropMenuManager.dropMainMenu.UpdateDescriptionDisplayTMPs(inventorySlotUI.gearInstance);
+            dropMenuManager.dropMainMenu.SetHeaderTMP("Bay " + (highlightedButtonIndex + 1) + " empty");
+            dropMenuManager.dropMainMenu.ClearAllDescriptionTMPs();
+            return;
         }
 
-        if (dropMenuManager.dropGearMenu.isGearSelectedForCache)
-        {
-            GearInstance gearToCache = dropMenuManager.dropGearMenu.selectedGearInstanceToCache;
-
-            if (inventorySlotUI.gearInstance.gearSO == null)
-            {
-                string toCache = gearToCache.gearSO.GearName;
-                dropMenuManager.dropMainMenu.SetHeaderTMP("Cache " + toCache + " in bay " + (highlightedButtonIndex + 1) + "?");
-            }
-
-            else if (inventorySlotUI.gearInstance is ConsumableInstance slotConsumable &&
-                     gearToCache is ConsumableInstance cacheConsumable &&
-                     cacheConsumable.gearSO == slotConsumable.gearSO &&
-                     slotConsumable.quantityAvailable < 3)
-            {
-                string toCache = gearToCache.gearSO.GearName;
-                dropMenuManager.dropMainMenu.SetHeaderTMP("Cache " + toCache + " in bay " + (highlightedButtonIndex + 1) + "?");
-            }
-
-            else
-                dropMenuManager.dropMainMenu.SetHeaderTMP("Bay " + (highlightedButtonIndex + 1) + " is occupied");
-        }
+        dropMenuManager.dropMainMenu.SetHeaderTMP("Retrieve " + inventorySlotUI.gearInstance.gearSO.GearName + "?");
+        dropMenuManager.dropMainMenu.UpdateDescriptionDisplayTMPs(inventorySlotUI.gearInstance);
     }
      
     void SlotUnHighlighted(InventorySlotUI inventorySlotUI)
@@ -176,7 +128,7 @@ public class DropSeizedMenu : DropMenu
 
     void BaySelected(InventorySlotUI inventorySlotUI)
     {
-        var dropInventorySO = dropMenuManager.dropMainMenu.dropInventory;
+        var dropManagerInventorySOSO = dropMenuManager.dropMainMenu.dropManagerInventorySO;
 
         if (!dropMenuManager.dropMainMenu.playerInventorySO.AttemptAddGearToInventory(inventorySlotUI.gearInstance, true))
         {
@@ -184,9 +136,15 @@ public class DropSeizedMenu : DropMenu
             return;
         }
 
-        dropInventorySO.RemoveGearFromInventory(inventorySlots[highlightedButtonIndex].gearInstance, true);
-        InstantiateUIBays();
+        dropManagerInventorySOSO.RemoveGearFromInventory(inventorySlots[highlightedButtonIndex].gearInstance, true);
+        InitDropUI();
         dropMenuManager.dropGearMenu.InitialiseInventoryUI();
+
+        if (inventorySlots.TrueForAll(x => x.gearInstance.gearSO == null))
+        {
+            ExitMenu();
+            return;
+        }
 
         highlightedButtonIndex = Mathf.Clamp(highlightedButtonIndex, 0, inventorySlotButtons.Count - 1);
         inventorySlots[HighlightedButtonIndex].button.Select();
@@ -217,9 +175,9 @@ public class DropSeizedMenu : DropMenu
         dropMenuManager.dropMainMenu.ClearAllDescriptionTMPs();
 
         dropMenuManager.EnterMenu(dropMenuManager.dropMainMenu);
-        dropMenuManager.dropMainMenu.mainMenuButtons[1].SetButtonNormalColor(Color.white);
-        dropMenuManager.dropSeizedMenu.SetBaySlotsAlpha(.7f, .7f);
-        dropMenuManager.dropMainMenu.mainMenuButtons[1].button.Select();
+        dropMenuManager.dropMainMenu.mainMenuButtons[0].SetButtonNormalColor(Color.white);
+        dropMenuManager.dropSelectMenu.SetBaySlotsAlpha(.7f, .7f);
+        dropMenuManager.dropMainMenu.mainMenuButtons[0].button.Select();
     }
 
     public override void StateUpdate()

@@ -9,7 +9,7 @@ public class EnemyMoveState : State
         if (combatManager.battleScheme.isEnemyFlanked)
         {
             combatManager.battleScheme.isEnemyFlanked = false;
-            combatManager.SetState(combatManager.roundReset);
+            combatManager.SetState(combatManager.roundResetState);
             yield break;
         }
 
@@ -33,6 +33,6 @@ public class EnemyMoveState : State
             i++;
         }
 
-        combatManager.SetState(combatManager.roundReset);
+        combatManager.SetState(combatManager.roundResetState);
     }
 }

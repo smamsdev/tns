@@ -4,18 +4,13 @@ using UnityEngine;
 public class DropMenuManager : MonoBehaviour
 {
     public DropMainMenu dropMainMenu;
-    public DropSeizedMenu dropSeizedMenu;
+    public DropSelectMenu dropSelectMenu;
     public DropGearMenu dropGearMenu;
 
     [Header("Debug")]
     public Menu menuUpdateMethod;
 
-    private void Start()
-    {
-        OpenLocker();
-    }
-
-    public void OpenLocker()
+    public void OpenDropMenu()
     {
         dropMainMenu.DisplayMenu(true);
         dropMainMenu.InitializeMenu();
@@ -25,7 +20,7 @@ public class DropMenuManager : MonoBehaviour
     
     public void DisplaySubMenu(Menu menuToDisplay)
     {
-        dropSeizedMenu.DisplayMenu(false);
+        dropSelectMenu.DisplayMenu(false);
         dropGearMenu.DisplayMenu(false);
     
         menuToDisplay.DisplayMenu(true);

@@ -1,18 +1,18 @@
 using NUnit.Framework;using System.Collections.Generic;using TMPro;using UnityEngine;public class DropMainMenu : DropMenu{
     public PlayerInventorySO playerInventorySO;
-    public InventorySO dropInventory;
-    public List<GearSO> testList = new();    public MenuButtonHighlighted[] mainMenuButtons;    public TextMeshProUGUI headerTMP, chargeTMP, gearDescriptionTMP, gearValueTMP, gearEquipStatusTMP;
+    public List<GearSO> rawDropList = new();
+    public InventorySO dropManagerInventorySO;    public MenuButtonHighlighted[] mainMenuButtons;    public TextMeshProUGUI headerTMP, chargeTMP, gearDescriptionTMP, gearValueTMP, gearEquipStatusTMP;
     public Animator animator;    public void InitializeMenu()    {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         playerInventorySO = player.GetComponent<PlayerCombat>().playerInventorySO;
 
-        InstantiateDropListSOs(testList);
+        InstantiateDropListSOs(rawDropList);
 
         displayContainer.SetActive(true);
         this.gameObject.SetActive(true);
         animator.Play("OpenMenu");
-        CombatEvents.LockPlayerMovement();        ClearAllDescriptionTMPs();        dropMenuManager.dropSeizedMenu.InstantiateUIBays();
-        dropMenuManager.dropSeizedMenu.SetBaySlotsAlpha(.7f, .7f);
+        CombatEvents.LockPlayerMovement();        ClearAllDescriptionTMPs();        dropMenuManager.dropSelectMenu.InitDropUI();
+        dropMenuManager.dropSelectMenu.SetBaySlotsAlpha(.7f, .7f);
         dropMenuManager.dropGearMenu.InitialiseInventoryUI();
         dropMenuManager.dropGearMenu.SetAllGearSlotsAlpha(.7f, .7f);
         mainMenuButtons[0].button.Select();
@@ -20,19 +20,22 @@ using NUnit.Framework;using System.Collections.Generic;using TMPro;using Unit
 
     void InstantiateDropListSOs(List<GearSO> dropSOList)
     {
-        dropInventory.gearInstanceInventory.Clear();
+        dropManagerInventorySO.gearInstanceInventory.Clear();
         dropSOList.ShuffleList();
 
-        //5 max slots
+        //init 5 max empty slots
         for (int i = 0; i < 5; i++)
         {
             var emptyInstance = new GearInstance();
-            dropInventory.gearInstanceInventory.Add(emptyInstance);
+            dropManagerInventorySO.gearInstanceInventory.Add(emptyInstance);
         }
 
-        //4 max drops
-        for (int i = 0; i < 4; i++)
+        //drop list should be limited to the first 4 items max
+        for (int i = 0; i < Mathf.Min(dropSOList.Count, 4); i++)
         {
+            if (dropSOList[i] == null)
+                continue;
+
             var gearInstance = dropSOList[i].CreateInstance();
 
             if (gearInstance is EquipmentInstance equipmentInstance)
@@ -41,7 +44,7 @@ using NUnit.Framework;using System.Collections.Generic;using TMPro;using Unit
                 equipmentInstance.SetCharge(randomValue);
             }
 
-            if (!dropInventory.AttemptAddGearToInventory(gearInstance, true))
+            if (!dropManagerInventorySO.AttemptAddGearToInventory(gearInstance, true))
                 return;
         }
 

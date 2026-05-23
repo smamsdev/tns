@@ -22,11 +22,12 @@ public class CombatManager : MonoBehaviour
     public ActionSelectState actionSelectState;
     public EnemySelectState enemySelectState;
     public AllyMoveState allyMoveState;
-    public ApplyPlayerMove applyMove;
+    public ApplyPlayerMove applyMoveState;
     public EnemyMoveState enemyMoveState;
-    public RoundReset roundReset;
-    public VictoryState victory;
-    public Defeat defeat;
+    public RoundReset roundResetState;
+    public DropMenuState dropMenuState;
+    public VictoryState victoryState;
+    public Defeat defeatState;
     public TacticalSelectState tacticalSelectState;
     public EquipSlotSelectState equipSlotSelectState;
     public CombatGearState combatGearState;
@@ -139,8 +140,8 @@ public class CombatManager : MonoBehaviour
 
     void PlayerDefeated()
     {
-        defeat.playerDefeated = true;
-        SetState(defeat);
+        defeatState.playerDefeated = true;
+        SetState(defeatState);
     }
 
     public void SelectTargetToAttack(Combatant combatant, List<Combatant> targetList)

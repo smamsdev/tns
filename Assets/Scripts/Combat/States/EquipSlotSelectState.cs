@@ -36,11 +36,11 @@ public class EquipSlotSelectState : State
                 return;
 
             combatManager.playerCombat.playerInventorySO.UnequipGear(gearToUnequip, combatManager.playerCombat);
-            combatManager.applyMove.dynamicMoveName = "Uneqquipping " + gearToUnequip.gearSO.GearName;
+            combatManager.applyMoveState.dynamicMoveName = "Uneqquipping " + gearToUnequip.gearSO.GearName;
             combatEquipSelectMenuUI.highlightedButtonIndex = 0;
             combatManager.playerCombat.InstantiateMoveBehaviour(gearChangeSO);
 
-            combatManager.SetState(combatManager.applyMove);
+            combatManager.SetState(combatManager.applyMoveState);
         }
     }
 

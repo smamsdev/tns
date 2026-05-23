@@ -16,6 +16,7 @@ public class CombatMenuManager : MonoBehaviour
     public CombatEquipSelectMenuUI combatEquipSelectMenuUI;
     public CombatGearSelectMenuUI combatGearSelectMenuUI;
     public VictoryRewardsUI victoryRewardsUI;
+    public GameObject menuParent;
 
     public void DisableAllMenus()
     {
@@ -27,6 +28,12 @@ public class CombatMenuManager : MonoBehaviour
         combatGearSelectMenuUI.DisplayMenu(false);
         victoryRewardsUI.DisplayMenu(false);
         narratorTMP.gameObject.SetActive(false);
+
+        if (!menuParent.activeSelf || !this.gameObject.activeSelf)
+        {
+            menuParent.SetActive(true);
+            this.gameObject.SetActive(true);
+        }
     }
 
     public void ZeroAllMenuIndexes()

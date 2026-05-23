@@ -50,7 +50,7 @@ public class TacticalSelectState : State
         playerCombat.currentMoveBehaviour.CalculateMoveStats();
 
 
-        combatManager.SetState(combatManager.applyMove);
+        combatManager.SetState(combatManager.applyMoveState);
     }
 
     public void ReturnSelected()
@@ -63,7 +63,7 @@ public class TacticalSelectState : State
         playerCombat.currentMoveBehaviour.LoadMoveReferences(playerCombat, combatManager);
         playerCombat.currentMoveBehaviour.CalculateMoveStats();
 
-        combatManager.SetState(combatManager.applyMove);
+        combatManager.SetState(combatManager.applyMoveState);
     }
 
     void CheckEncloseState()

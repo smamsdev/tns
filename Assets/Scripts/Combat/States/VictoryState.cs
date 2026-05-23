@@ -9,7 +9,6 @@ using UnityEngine.SceneManagement;
 public class VictoryState : State
 {
     public VictoryRewardsUI victoryRewardsUI;
-
     int XPEarned;
     public int partyMemberIndex = 0;
     public List<GearSO> gearDrops = new();
@@ -17,6 +16,7 @@ public class VictoryState : State
     public override IEnumerator StartState()
     {
         combatManager.combatMenuManager.DisableAllMenus();
+        combatManager.playerCombat.combatantUI.combatUIContainer.SetActive(false);
         victoryRewardsUI.DisplayMenu(true);
         combatManager.playerCombat.combatantUI.statsDisplay.ShowStatsDisplay(false);
         XPEarned = 0;
@@ -77,12 +77,41 @@ public class VictoryState : State
     {
         if (partyMemberIndex >= combatManager.allAlliesToTarget.Count)
         {
-            StartCoroutine(EndBattle());
+            AddDropsToInventory();
             return;
         }
 
         else
             StartCoroutine(DistributeXPToPartyMember());
+    }
+
+    void AddDropsToInventory()
+    {
+        PlayerInventorySO playerInventorySO = combatManager.playerCombat.playerInventorySO;
+
+        //reverse forloop because we are modifying the list as we go
+        for (int i = gearDrops.Count - 1; i >= 0; i--)
+        {
+            GearSO gearSO = gearDrops[i];
+
+            bool spaceAvailable =
+                playerInventorySO.AttemptAddGearToInventory(
+                    gearSO.CreateInstance(),
+                    true);
+
+            if (spaceAvailable)
+            {
+                gearDrops.RemoveAt(i);
+            }
+            else
+            {
+                combatManager.dropMenuState.dropMenuManager.dropMainMenu.rawDropList = gearDrops;
+                combatManager.SetState(combatManager.dropMenuState);
+                return;
+            }
+        }
+
+        StartCoroutine(EndBattle());
     }
 
     public IEnumerator DistributeXPToPartyMember()

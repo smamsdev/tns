@@ -28,7 +28,7 @@ public class AllyMoveState : State
 
         if (combatManager.enemies.Count == 0)
         {
-            combatManager.SetState(combatManager.victory);
+            combatManager.SetState(combatManager.victoryState);
             yield break;
         }
 

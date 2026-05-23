@@ -35,11 +35,11 @@ public class CombatGearState : State
                 return;
 
             combatManager.playerCombat.playerInventorySO.UnequipGear(gearToUnequip, combatManager.playerCombat);
-            combatManager.applyMove.dynamicMoveName = "Unequipping " + gearToUnequip.gearSO.GearName;
+            combatManager.applyMoveState.dynamicMoveName = "Unequipping " + gearToUnequip.gearSO.GearName;
             combatGearSelectMenuUI.highlightedButtonIndex = 0;
             combatManager.playerCombat.InstantiateMoveBehaviour(gearChangeSO);
 
-            combatManager.SetState(combatManager.applyMove);
+            combatManager.SetState(combatManager.applyMoveState);
         }
     }
 
@@ -47,8 +47,8 @@ public class CombatGearState : State
     {
         int equipSlotIndex = combatManager.combatMenuManager.combatEquipSelectMenuUI.highlightedButtonIndex;
         combatManager.playerCombat.playerInventorySO.EquipGearToSlot(inventorySlot.gearInstance, equipSlotIndex, combatManager.playerCombat);
-        combatManager.applyMove.dynamicMoveName = "Equipping " + inventorySlot.gearInstance.gearSO.GearName;
+        combatManager.applyMoveState.dynamicMoveName = "Equipping " + inventorySlot.gearInstance.gearSO.GearName;
         combatManager.playerCombat.InstantiateMoveBehaviour(gearChangeSO);
-        combatManager.SetState(combatManager.applyMove);
+        combatManager.SetState(combatManager.applyMoveState);
     }
 }

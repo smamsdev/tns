@@ -26,7 +26,7 @@ public class EnemySelectState : State
         combatManager.playerCombat.CombatLookDirX = previousLookDirX;
         combatManager.playerCombat.targetCombatant = targetSelectButtonUI.combatant;
         combatManager.playerCombat.currentMoveBehaviour.targetCombatant = targetSelectButtonUI.combatant;
-        combatManager.SetState(combatManager.applyMove);
+        combatManager.SetState(combatManager.applyMoveState);
         TargetUnHighlighted(targetSelectButtonUI.combatant);
         enemySelectMenuUI.highlightedButtonIndex = 0;
     }
