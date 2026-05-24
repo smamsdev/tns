@@ -22,7 +22,17 @@ public class VictoryRewardsUI : MonoBehaviour
 
     public void DisplayMenu(bool on)
     {
-        this.gameObject.SetActive(on);
+        if (on)
+        {
+            this.gameObject.SetActive(on);
+            return;
+        }
+        
+        if (!on && this.gameObject.activeSelf)
+        {
+            rewardsListContainerAnimator.Play("CloseMenu");
+            distributionContainerAnimator.Play("CloseMenu");
+        }
     }
 
     public void DisplayAllRewards()
@@ -41,34 +51,6 @@ public class VictoryRewardsUI : MonoBehaviour
         newCellSize.x = preferredWidth;
         glg.cellSize = newCellSize;
     }
-
-    ////hopefully dont need this anymore
-    ///    //float lastRewardWidth = 0f;
-    //public void SizeAllRewardUI()
-    //{
-    //    float preferredWidth = FieldEvents.FindLongestText(allRewardTextElements).preferredWidth;
-    //    Vector2 newCellSize = distributeGridLayoutGroup.cellSize;
-    //    newCellSize.x = preferredWidth;
-    //    distributeGridLayoutGroup.cellSize = newCellSize;
-    //}
-
-    //hopefully dont need this anymore
-    //void SizeDistributeUI()
-    //{
-    //    float preferredWidth = FieldEvents.FindLongestText(distributeXPTextElements).preferredWidth;
-    //    if (Mathf.Approximately(preferredWidth, lastRewardWidth)) return;
-    //    lastRewardWidth = preferredWidth;
-    //
-    //    Vector2 newCellSize = allRewardsGridLayoutGroup.cellSize;
-    //    Vector2 newSpacing = allRewardsGridLayoutGroup.spacing;
-    //
-    //    newCellSize.x = 50 + (preferredWidth - 50);
-    //    newSpacing.x = 150 - (preferredWidth - 50);
-    //
-    //    distributeGridLayoutGroup.cellSize = newCellSize;
-    //    distributeGridLayoutGroup.spacing = newSpacing;
-    //}
-
     public void InstantiateXPRewardTextElement(int XPEarned)
     {
         rewardsListContainerAnimator.Play("OpenMenu");
@@ -84,6 +66,28 @@ public class VictoryRewardsUI : MonoBehaviour
         allRewardTextElements.Add(defaultRewardTextElements[0]);
         allRewardTextElements.Add(defaultRewardTextElements[1]);
         allRewardTextElements.Add(inventorySlotUI.itemNameTMP);
+    }
+
+    public void InstantiateGearDropTextElement(List <GearInstance> gearInstances)
+    {
+        foreach (GearInstance gearInstance in gearInstances)
+        {
+            if (gearInstance.gearSO == null)
+                continue;
+
+            bool isEquipment = gearInstance is EquipmentInstance;
+            GameObject rewardGearSlotUIGO = Instantiate(uiRewardSlotPrefab, rewardsListParent.transform);
+
+            rewardGearSlotUIGO.name = "GearDrop" + gearInstance.gearSO.name + gearInstance.QuantityString();
+
+            InventorySlotUI inventorySlotUI = rewardGearSlotUIGO.GetComponent<InventorySlotUI>();
+
+            inventorySlotUI.gearInstance = gearInstance;
+            inventorySlotUI.itemNameTMP.text = inventorySlotUI.gearInstance.gearSO.GearName;
+            inventorySlotUI.itemQuantityTMP.text = inventorySlotUI.gearInstance.QuantityString();
+            inventorySlotUI.icon.sprite = isEquipment ? inventorySlotUI.equipmentIcon : inventorySlotUI.consumableIcon;
+            allRewardTextElements.Add(inventorySlotUI.itemNameTMP);
+        }
     }
 
     public IEnumerator TransitionDistributionPageDown()
@@ -125,19 +129,5 @@ public class VictoryRewardsUI : MonoBehaviour
         {
             go.SetActive(isPlayer);
         }
-    }
-
-    public void InstantiateGearDropTextElement(GearSO drop, int i)
-    {
-        bool isEquipment = drop is EquipmentSO;
-
-        GameObject rewardGearSlotUIGO = Instantiate(uiRewardSlotPrefab);
-        rewardGearSlotUIGO.transform.SetParent(rewardsListParent.transform);
-        rewardGearSlotUIGO.name = "ItemDrop" + (i + 1);
-        InventorySlotUI inventorySlotUI = rewardGearSlotUIGO.GetComponent<InventorySlotUI>();
-        inventorySlotUI.itemNameTMP.text = drop.GearName;
-        inventorySlotUI.icon.sprite = isEquipment ? inventorySlotUI.equipmentIcon : inventorySlotUI.consumableIcon;
-
-        allRewardTextElements.Add(inventorySlotUI.itemNameTMP);
     }
 }

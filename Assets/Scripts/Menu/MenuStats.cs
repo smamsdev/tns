@@ -9,7 +9,7 @@ public class MenuStats : PauseMenu
     [SerializeField] PartySO partySO;
     [SerializeField] menuMain menuMain;
     [SerializeField] GameObject arrowGO;
-    [SerializeField] TextMeshProUGUI hpValueTMP, potentialValueTMP, focusValueTMP, strengthValueTMP, defenceValueTMP, experienceValueTMP, nextLevelValueTMP, potentialLabelTMP, focusLabelTMP;
+    [SerializeField] TextMeshProUGUI hpValueTMP, potentialValueTMP, focusValueTMP, virtuosityValueTMP, strengthValueTMP, defenceValueTMP, experienceValueTMP, nextLevelValueTMP, potentialLabelTMP, focusLabelTMP, virtuosityLabelTMP;
     [SerializeField] PartyMemberPortrait[] partyMemberPortraits;
 
     public GameObject partyMemberUIPrefabGO, partyMemberUIParentGO, allStatsContainerGO;
@@ -157,6 +157,8 @@ public class MenuStats : PauseMenu
             potentialValueTMP.text = $"{playerPermanentstats.CurrentPotential} / {playerPermanentstats.MaxPotential}";
             focusLabelTMP.text = "Focus:";
             focusValueTMP.text = $"{playerPermanentstats.FocusBase}";
+            virtuosityLabelTMP.text = "Virtuosity:";
+            virtuosityValueTMP.text = $"{playerPermanentstats.Virtuosity}";
         }
 
         else
@@ -165,6 +167,8 @@ public class MenuStats : PauseMenu
             potentialValueTMP.text = "";
             focusLabelTMP.text = "";
             focusValueTMP.text = "";
+            virtuosityLabelTMP.text = "";
+            virtuosityValueTMP.text = "";
         }
     }
 }

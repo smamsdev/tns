@@ -51,7 +51,7 @@ public class FendScript : MonoBehaviour
             if (attackRemainder > 0)
                 yield return PushBack();
 
-            yield return target.CombatHPChanged(attackRemainder);
+            yield return target.CombatHPChanged(-attackRemainder, combatManager);
             yield break;
         }
 
@@ -77,7 +77,7 @@ public class FendScript : MonoBehaviour
                 if (attackRemainder > 0)
                 {
                     yield return PushBack();
-                    yield return target.CombatHPChanged(attackRemainder);
+                    yield return target.CombatHPChanged(-attackRemainder, combatManager);
                 }
             }
 

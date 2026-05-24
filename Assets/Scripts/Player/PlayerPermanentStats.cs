@@ -1,32 +1,40 @@
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerPermanentStats : PartyMemberPermanentStats
 {
     [SerializeField] private int maxPotential;
     public int MaxPotential
     {
-        get => maxPotential;
+        get => Mathf.Clamp(maxPotential, 1, 999);
         set => maxPotential = Mathf.Clamp(value, 1, 999);
     }
 
     [SerializeField] private int currentPotential;
     public int CurrentPotential
     {
-        get => currentPotential;
+        get => Mathf.Clamp(currentPotential, 0, maxPotential);
         set => currentPotential = Mathf.Clamp(value, 0, maxPotential);
     }
 
     [SerializeField] private int focusBase;
     public int FocusBase
     {
-        get => focusBase;
+        get => Mathf.Clamp(focusBase, 1, 999);
         set => focusBase = Mathf.Clamp(value, 1, 999);
+    }
+
+    [SerializeField] private int virtuosity;
+    public int Virtuosity
+    {
+        get => Mathf.Clamp(virtuosity, 1, 999);
+        set => virtuosity = Mathf.Clamp(value, 1, 999);
     }
 
     [SerializeField] private int smams;
     public int Smams
     {
-        get => smams;
+        get => Mathf.Clamp(smams, 0, 1000000);
         set => smams = Mathf.Clamp(value, 0, 1000000);
     }
 

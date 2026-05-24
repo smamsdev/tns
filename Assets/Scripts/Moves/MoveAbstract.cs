@@ -142,8 +142,6 @@ public abstract class MoveBehaviour : MonoBehaviour
         }
 
         //apply stats to enemy and animate
-        combatManager.cameraFollow.transformToFollow = targetCombatant.transform;
-
         yield return TriggerMoveAnimation();
         yield return ApplyAttackToTarget();
         targetCombatant.combatantUI.fendScript.ShowFendDisplay(targetCombatant, false);
@@ -166,7 +164,6 @@ public abstract class MoveBehaviour : MonoBehaviour
     {
         if (combatantToAct.targetCombatant.CurrentHP == 0)
         {
-            combatManager.CombatantDefeated(combatantToAct.targetCombatant);
             yield return new WaitForSeconds(1.5f);
         }
 

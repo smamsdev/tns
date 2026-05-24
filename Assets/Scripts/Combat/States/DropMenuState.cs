@@ -18,14 +18,8 @@ public class DropMenuState : State
         dropMenuManager.dropMainMenu.ExitMenu();
         dropMenuManager.gameObject.SetActive(false);
         combatManager.currentState = combatManager.victoryState;
-        combatManager.victoryState.EndBattle();
+        StartCoroutine(combatManager.victoryState.EndBattle());
     }
 
-    public override void StateUpdate()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            ExitState();
-        }
-    }
+    public override void StateUpdate() { }// see dropMenuManager state
 }

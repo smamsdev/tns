@@ -108,19 +108,7 @@ public class Setup : State
                 partyMember.CurrentHP = partyMember.partyMemberPermanentStats.CurrentHP;
             }
 
-            if (!combatManager.battleScheme.isAllyFlanked)
-            {
-                combatManager.SelectTargetToAttack(ally, combatManager.enemies);
-                ally.SelectMove(combatManager);
-                ally.currentMoveBehaviour.LoadMoveReferences(ally, combatManager);
-                ally.currentMoveBehaviour.CalculateMoveStats();
-                SetcombatantUI(ally);
-                combatManager.cameraFollow.transformToFollow = ally.transform;
-                ally.combatantUI.DisplayCombatantMove(ally);
-                yield return new WaitForSeconds(1f);
-                ally.combatantUI.attackDisplay.ShowAttackDisplay(ally, false);
-                ally.combatantUI.fendScript.ShowFendDisplay(ally, false);
-            }
+            SetcombatantUI(ally);
         }
 
         combatManager.SetState(combatManager.styleSelectState);

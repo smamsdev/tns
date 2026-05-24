@@ -19,11 +19,11 @@ public class ApplyPlayerMove : State
         yield return GearEffectOnTurn();
         yield return ApplyMove();
 
-        if (combatManager.enemies.Count == 0)
-        {
-            combatManager.SetState(combatManager.victoryState);
-            yield break;
-        }
+       // if (combatManager.enemies.Count == 0)
+       // {
+       //     combatManager.SetState(combatManager.victoryState);
+       //     yield break;
+       // }
 
         if (combatManager.allies.Count > 0)
         {

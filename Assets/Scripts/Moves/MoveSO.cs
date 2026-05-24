@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 [CreateAssetMenu(menuName = "Move")]
 public class MoveSO : ScriptableObject

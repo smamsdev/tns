@@ -8,6 +8,12 @@ public class RoundReset : State
     {
         combatManager.playerCombat.combatantUI.fendScript.ShowFendDisplay(combatManager.playerCombat, false);
 
+        if (combatManager.enemies.Count == 0)
+        {
+            combatManager.SetState(combatManager.victoryState);
+            yield break;
+        }
+
         foreach (Enemy enemy in combatManager.enemies)
         {
             enemy.SelectMove(combatManager);
@@ -22,19 +28,19 @@ public class RoundReset : State
             enemy.combatantUI.fendScript.ShowFendDisplay(enemy, false);
         }
 
-        foreach (Ally ally in combatManager.allies)
-        {
-            ally.SelectMove(combatManager);
-            combatManager.SelectTargetToAttack(ally, combatManager.allAlliesToTarget);
-            ally.currentMoveBehaviour.LoadMoveReferences(ally, combatManager);
-            ally.currentMoveBehaviour.CalculateMoveStats();
-            ally.combatantUI.attackDisplay.SetAttackDisplayDirBasedOnLookDir(ally);
-            ally.combatantUI.DisplayCombatantMove(ally);
-
-            yield return new WaitForSeconds(1f);
-            ally.combatantUI.attackDisplay.ShowAttackDisplay(ally, false);
-            ally.combatantUI.fendScript.ShowFendDisplay(ally, false);
-        }
+       //foreach (Ally ally in combatManager.allies)
+       //{
+       //    ally.SelectMove(combatManager);
+       //    combatManager.SelectTargetToAttack(ally, combatManager.allAlliesToTarget);
+       //    ally.currentMoveBehaviour.LoadMoveReferences(ally, combatManager);
+       //    ally.currentMoveBehaviour.CalculateMoveStats();
+       //    ally.combatantUI.attackDisplay.SetAttackDisplayDirBasedOnLookDir(ally);
+       //    ally.combatantUI.DisplayCombatantMove(ally);
+       //
+       //    yield return new WaitForSeconds(1f);
+       //    ally.combatantUI.attackDisplay.ShowAttackDisplay(ally, false);
+       //    ally.combatantUI.fendScript.ShowFendDisplay(ally, false);
+       //}
 
         yield return new WaitForSeconds(0.5f);
 

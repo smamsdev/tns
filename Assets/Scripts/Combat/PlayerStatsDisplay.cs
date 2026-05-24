@@ -24,9 +24,6 @@ public class PlayerStatsDisplay : StatsDisplay
     public override void UpdateHPDisplay(int value)
     {
         combatantHPTextMeshPro.text = combatant.CurrentHP.ToString() + " / " + combatant.MaxHP;
-
-        if (combatant.CurrentHP <= 0)
-            Debug.LogError("player just died do someth");
     }
 
     public IEnumerator UpdatePlayerPotentialUI(int change, int maxPot)

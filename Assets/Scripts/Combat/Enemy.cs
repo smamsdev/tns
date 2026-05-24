@@ -5,16 +5,16 @@ using NUnit.Framework.Interfaces;
 public class Enemy : Ally
 {
     public int XPReward;
-    public List<GearDrop> gearDrops = new();
+    public List<GearDrop> rawGearSODrops = new();
 
     public GearSO ItemDrop()
     {
-        if (gearDrops == null)
+        if (rawGearSODrops == null)
             return null;
 
         int weightingTotal = 0;
 
-        foreach (GearDrop gearDrop in gearDrops)
+        foreach (GearDrop gearDrop in rawGearSODrops)
             if (gearDrop.RewardWeighting > 0)
                 weightingTotal += gearDrop.RewardWeighting;
 
@@ -23,7 +23,7 @@ public class Enemy : Ally
 
         int randomValue = Random.Range(1, weightingTotal + 1);
 
-        foreach (GearDrop gearDrop in gearDrops)
+        foreach (GearDrop gearDrop in rawGearSODrops)
         {
             if (gearDrop.RewardWeighting == 0)
                 continue;

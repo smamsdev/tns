@@ -16,6 +16,13 @@ public class Battle : ToTrigger
     public bool isRandomEnounter;
     public bool isSpawningPartyMembers = false;
 
+    private void Start()
+    {
+        foreach (Combatant combatant in enemies)
+            if (combatant == null)
+                Debug.Log(combatant + " enemy index is null on " + this, this);
+    }
+
     public override IEnumerator TriggerFunction()
     {
         combatManager = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>();

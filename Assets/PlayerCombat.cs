@@ -130,6 +130,7 @@ public class PlayerCombat : PartyMemberCombat
 
         if (CurrentHP == 0)
         {
+            Debug.Log("teh");
             movementScript.animator.Play("Fall");
             yield return new WaitForSeconds(1f);
         }

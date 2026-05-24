@@ -1,13 +1,10 @@
 using NUnit.Framework;using System.Collections.Generic;using TMPro;using UnityEngine;public class DropMainMenu : DropMenu{
     public PlayerInventorySO playerInventorySO;
-    public List<GearSO> rawDropList = new();
+    public List<GearSO> remainingDropList = new();
     public InventorySO dropManagerInventorySO;    public MenuButtonHighlighted[] mainMenuButtons;    public TextMeshProUGUI headerTMP, chargeTMP, gearDescriptionTMP, gearValueTMP, gearEquipStatusTMP;
     public Animator animator;    public void InitializeMenu()    {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         playerInventorySO = player.GetComponent<PlayerCombat>().playerInventorySO;
-
-        InstantiateDropListSOs(rawDropList);
-
         displayContainer.SetActive(true);
         this.gameObject.SetActive(true);
         animator.Play("OpenMenu");
@@ -16,38 +13,6 @@ using NUnit.Framework;using System.Collections.Generic;using TMPro;using Unit
         dropMenuManager.dropGearMenu.InitialiseInventoryUI();
         dropMenuManager.dropGearMenu.SetAllGearSlotsAlpha(.7f, .7f);
         mainMenuButtons[0].button.Select();
-    }
-
-    void InstantiateDropListSOs(List<GearSO> dropSOList)
-    {
-        dropManagerInventorySO.gearInstanceInventory.Clear();
-        dropSOList.ShuffleList();
-
-        //init 5 max empty slots
-        for (int i = 0; i < 5; i++)
-        {
-            var emptyInstance = new GearInstance();
-            dropManagerInventorySO.gearInstanceInventory.Add(emptyInstance);
-        }
-
-        //drop list should be limited to the first 4 items max
-        for (int i = 0; i < Mathf.Min(dropSOList.Count, 4); i++)
-        {
-            if (dropSOList[i] == null)
-                continue;
-
-            var gearInstance = dropSOList[i].CreateInstance();
-
-            if (gearInstance is EquipmentInstance equipmentInstance)
-            {
-                int randomValue = Random.Range(0, equipmentInstance.MaxPotential() / 2);
-                equipmentInstance.SetCharge(randomValue);
-            }
-
-            if (!dropManagerInventorySO.AttemptAddGearToInventory(gearInstance, true))
-                return;
-        }
-
     }
 
     public void SetHeaderTMP(string text)
@@ -100,6 +65,6 @@ using NUnit.Framework;using System.Collections.Generic;using TMPro;using Unit
         //Manager GO will be disabled via attached MenuAnimationFunctions script event once completed
     }    public override void StateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            ExitMenu();
+       if (Input.GetKeyDown(KeyCode.Escape))
+           ExitMenu();
     }}

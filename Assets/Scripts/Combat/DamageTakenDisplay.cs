@@ -6,37 +6,37 @@ using UnityEngine;
 public class DamageTakenDisplay : MonoBehaviour
 {
     [SerializeField] Animator animator;
-    public TextMeshProUGUI damageTakenTextMeshProUGUI, backStabText;
+    public TextMeshProUGUI DamageTakenTextMeshProUGUI, backStabText;
 
-    public IEnumerator ShowDamageDisplayCoro(int damage, bool isHeal = false)
+    public IEnumerator ShowDamageDisplayCoro(int change, Combatant combatant)
     {
-        if (damage <= 0)
+        if (change == 0)
             yield break;
 
-        float elapsedTime = 0f;
         float lerpDuration = .75f;
-        int startNumber = 1;
-        int valueToDisplay;
+        int startValue = 1;
+        int deltaToDisplay;
 
-        if (isHeal)
+        if (change > 0)
         {
             animator.Play("HealingTaken");
+            deltaToDisplay = Mathf.Min(change, combatant.MaxHP - combatant.CurrentHP);
         }
         else
         {
             animator.Play("DamageTaken");
+            deltaToDisplay = change;
         }
 
-        while (elapsedTime < lerpDuration)
-        {
-            float t = Mathf.Clamp01(elapsedTime / lerpDuration);
-            valueToDisplay = Mathf.RoundToInt(Mathf.Lerp(startNumber, damage, t));
-            damageTakenTextMeshProUGUI.text = valueToDisplay.ToString();
-            elapsedTime += Time.deltaTime;
-
-            yield return null; 
-        }
+        yield return FieldEvents.LerpValuesCoRo(startValue, deltaToDisplay, lerpDuration, UpdateTMP);
 
         yield return new WaitForSeconds(0.5f);
+    }
+
+    void UpdateTMP(float output)
+    {
+        string changeDisplay = Mathf.Abs(Mathf.RoundToInt(output)).ToString();
+
+        DamageTakenTextMeshProUGUI.text = changeDisplay;
     }
 }

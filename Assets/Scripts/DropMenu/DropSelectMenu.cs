@@ -173,7 +173,6 @@ public class DropSelectMenu : DropMenu
         dropMenuManager.dropMainMenu.DisplayMainButtons(true);
         dropMenuManager.dropMainMenu.SetHeaderTMP(null);
         dropMenuManager.dropMainMenu.ClearAllDescriptionTMPs();
-
         dropMenuManager.EnterMenu(dropMenuManager.dropMainMenu);
         dropMenuManager.dropMainMenu.mainMenuButtons[0].SetButtonNormalColor(Color.white);
         dropMenuManager.dropSelectMenu.SetBaySlotsAlpha(.7f, .7f);

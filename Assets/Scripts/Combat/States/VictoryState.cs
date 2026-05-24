@@ -5,13 +5,15 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Progress;
 
 public class VictoryState : State
 {
     public VictoryRewardsUI victoryRewardsUI;
     int XPEarned;
     public int partyMemberIndex = 0;
-    public List<GearSO> gearDrops = new();
+    public List<GearSO> rawGearSODrops = new();
+    public InventorySO finalGearDropList;
 
     public override IEnumerator StartState()
     {
@@ -35,7 +37,8 @@ public class VictoryState : State
             victoryRewardsUI.InstantiateXPRewardTextElement(XPEarned);
 
         TotalGearDrops();
-
+        InstantiateDropListSOs(rawGearSODrops);
+        victoryRewardsUI.InstantiateGearDropTextElement(finalGearDropList.gearInstanceInventory);
         victoryRewardsUI.DisplayAllRewards();
     }
 
@@ -58,7 +61,7 @@ public class VictoryState : State
     void TotalGearDrops()
     {
         int i = 0;
-        gearDrops.Clear();
+        rawGearSODrops.Clear();
 
         foreach (Enemy enemy in combatManager.battleScheme.enemies)
         {
@@ -67,8 +70,7 @@ public class VictoryState : State
             if (drop == null)
                 continue;
 
-            gearDrops.Add(drop);
-            victoryRewardsUI.InstantiateGearDropTextElement(drop, i);
+            rawGearSODrops.Add(drop);
             i++;
         }
     }
@@ -77,7 +79,7 @@ public class VictoryState : State
     {
         if (partyMemberIndex >= combatManager.allAlliesToTarget.Count)
         {
-            AddDropsToInventory();
+            StartCoroutine(AddDropsToInventory());
             return;
         }
 
@@ -85,30 +87,64 @@ public class VictoryState : State
             StartCoroutine(DistributeXPToPartyMember());
     }
 
-    void AddDropsToInventory()
+    void InstantiateDropListSOs(List<GearSO> dropSOList)
+    {
+        finalGearDropList.gearInstanceInventory.Clear();
+        rawGearSODrops.ShuffleList();
+
+        //init 5 max empty slots
+        for (int i = 0; i < 5; i++)
+        {
+            var emptyInstance = new GearInstance();
+            finalGearDropList.gearInstanceInventory.Add(emptyInstance);
+        }
+
+        //drop list should be limited to the first 4 items max
+        for (int i = 0; i < Mathf.Min(dropSOList.Count, 4); i++)
+        {
+            if (dropSOList[i] == null)
+                continue;
+
+            var gearInstance = dropSOList[i].CreateInstance();
+
+            if (gearInstance is EquipmentInstance equipmentInstance)
+            {
+                int randomValue = Random.Range(0, equipmentInstance.MaxPotential() / 2);
+                equipmentInstance.SetCharge(randomValue);
+            }
+
+            if (!finalGearDropList.AttemptAddGearToInventory(gearInstance, true))
+                return;
+        }
+    }
+
+    IEnumerator AddDropsToInventory()
     {
         PlayerInventorySO playerInventorySO = combatManager.playerCombat.playerInventorySO;
 
-        //reverse forloop because we are modifying the list as we go
-        for (int i = gearDrops.Count - 1; i >= 0; i--)
+        for (int i = 0; i < finalGearDropList.gearInstanceInventory.Count; i++)
         {
-            GearSO gearSO = gearDrops[i];
+            var gearInstance = finalGearDropList.gearInstanceInventory[i];
 
-            bool spaceAvailable =
-                playerInventorySO.AttemptAddGearToInventory(
-                    gearSO.CreateInstance(),
-                    true);
+            if (gearInstance.gearSO == null)
+                continue;
+
+            bool spaceAvailable =playerInventorySO.AttemptAddGearToInventory(gearInstance, true);
 
             if (spaceAvailable)
             {
-                gearDrops.RemoveAt(i);
+                //repeat this for consumable stacks
+                finalGearDropList.RemoveGearFromInventory(gearInstance, true);
+                i--;
+                continue;
             }
-            else
-            {
-                combatManager.dropMenuState.dropMenuManager.dropMainMenu.rawDropList = gearDrops;
-                combatManager.SetState(combatManager.dropMenuState);
-                return;
-            }
+
+            victoryRewardsUI.DisplayMenu(false);
+            yield return new WaitForSeconds(0.25f);
+
+            combatManager.dropMenuState.dropMenuManager.dropMainMenu.dropManagerInventorySO = finalGearDropList;
+            combatManager.SetState(combatManager.dropMenuState);
+            yield break;
         }
 
         StartCoroutine(EndBattle());

@@ -168,12 +168,19 @@ public abstract class Combatant : MonoBehaviour
 
         CurrentHP = finalHP;
         combatantUI.statsDisplay.UpdateHPDisplay(finalHP);
+    }
+
+    public IEnumerator CombatHPChanged(int change, CombatManager combatManager)
+    {
+
+        StartCoroutine(combatantUI.damageTakenDisplay.ShowDamageDisplayCoro(change, this));
+        yield return CombatUpdateHPCoRo(change);
 
         if (CurrentHP == 0)
         {
             combatantUI.statsDisplay.statsDisplayContainerAnimator.Play("StatsDisplayOnDefeat");
-
             movementScript.animator.Play("Fall");
+            combatManager.CombatantDefeated(this);
             yield return new WaitForSeconds(1f);
             yield break;
         }
@@ -181,13 +188,6 @@ public abstract class Combatant : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         combatantUI.statsDisplay.statsDisplayContainerAnimator.Play("CombatUIStatsFade");
         yield return new WaitForSeconds(.5f);
-        combatantUI.statsDisplay.ShowStatsDisplay(false);
-    }
-
-    public IEnumerator CombatHPChanged(int attackRemainder)
-    {
-        StartCoroutine(combatantUI.damageTakenDisplay.ShowDamageDisplayCoro(attackRemainder));
-        yield return CombatUpdateHPCoRo(-attackRemainder);
         combatantUI.statsDisplay.ShowStatsDisplay(false);
     }
 
