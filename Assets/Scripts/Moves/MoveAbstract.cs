@@ -38,7 +38,7 @@ public abstract class MoveBehaviour : MonoBehaviour
             float attackDirX = Mathf.Sign(direction.x);
 
             targetPosition = new Vector3(combatant.targetCombatant.transform.position.x - (moveSO.TargetPositionHorizontalOffset * attackDirX),
-                                         combatant.targetCombatant.transform.position.y -0.005f); //slightly lower than even so the sprite sort point is in front
+                                         combatant.targetCombatant.transform.position.y - 0.005f); //slightly lower than even so the sprite sort point is in front
         }
 
         return targetPosition;
@@ -118,6 +118,7 @@ public abstract class MoveBehaviour : MonoBehaviour
         combatantToActAnimator.Play("Advance");
         yield return MoveToPosition(combatantToAct, AttackPositionLocation(combatantToAct));
         yield return TriggerMoveAnimation();
+        yield return ApplyCustomMoveFunction();
 
         yield return new WaitForSeconds(0.5f);
         //return combatantToAct to fightingpos
@@ -143,6 +144,7 @@ public abstract class MoveBehaviour : MonoBehaviour
 
         //apply stats to enemy and animate
         yield return TriggerMoveAnimation();
+        yield return ApplyCustomMoveFunction();
         yield return ApplyAttackToTarget();
         targetCombatant.combatantUI.fendScript.ShowFendDisplay(targetCombatant, false);
 
@@ -195,5 +197,11 @@ public abstract class MoveBehaviour : MonoBehaviour
     public virtual IEnumerator OnReceieveAttack(Combatant combatantApplying, Combatant combatantReceiving)
     {
         yield break;
+    }
+
+    // Optional. Default does nothing.
+    public virtual IEnumerator ApplyCustomMoveFunction()
+    {
+        yield return null;
     }
 }

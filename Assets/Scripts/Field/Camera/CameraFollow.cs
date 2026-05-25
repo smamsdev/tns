@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class CameraFollow : MonoBehaviour
     public float smoothTime = 0.15f; // how quickly camera catches up
     public float xOffset;
     public float yOffset;
+    public PixelPerfectCamera pixelPerfectCamera;
 
     private Vector3 velocity = Vector3.zero;
 

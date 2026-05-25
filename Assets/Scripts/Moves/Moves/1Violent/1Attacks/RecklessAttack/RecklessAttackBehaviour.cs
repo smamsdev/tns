@@ -16,6 +16,7 @@ public class RecklessAttackBehaviour : MoveBehaviour
 
         if (combatantToAct.CurrentHP <= 0)
         {
+            targetCombatant.combatantUI.fendScript.ShowFendDisplay(targetCombatant, false);
             yield return new WaitForSeconds(1f);
             yield break;
         }

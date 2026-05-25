@@ -26,6 +26,9 @@ public class RecklessFocus : MoveBehaviour
 
     public override int CalculateAndReturnPotentialChange()
     {
+        if (combatantToAct is not PlayerCombat)
+            return 0;
+
         int dynamicPotentialChange;
         PlayerCombat playerCombat = combatantToAct as PlayerCombat;
 

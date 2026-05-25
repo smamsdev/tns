@@ -862,11 +862,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9128356807493420244, guid: 2886a77e0ed244747a6ee7bb09ec4289, type: 3}
       propertyPath: _maxHP
-      value: 3
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 9128356807493420244, guid: 2886a77e0ed244747a6ee7bb09ec4289, type: 3}
+      propertyPath: _fendBase
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9128356807493420244, guid: 2886a77e0ed244747a6ee7bb09ec4289, type: 3}
       propertyPath: _currentHP
-      value: 3
+      value: 222
       objectReference: {fileID: 0}
     - target: {fileID: 9128356807493420244, guid: 2886a77e0ed244747a6ee7bb09ec4289, type: 3}
       propertyPath: fightingPosition
@@ -875,7 +879,7 @@ PrefabInstance:
     - target: {fileID: 9128356807493420244, guid: 2886a77e0ed244747a6ee7bb09ec4289, type: 3}
       propertyPath: 'moveList.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 23830d7113ed1ca4dbd0b59dd9003c94, type: 2}
+      objectReference: {fileID: 11400000, guid: d97d7240ce2e62e4282017308bae34b4, type: 2}
     - target: {fileID: 9128356807493420244, guid: 2886a77e0ed244747a6ee7bb09ec4289, type: 3}
       propertyPath: rawGearSODrops.Array.size
       value: 1
@@ -2628,6 +2632,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e1f90ae6098fb45996a39735b1c8ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1763308998 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5009585112503694955, guid: 1043ae82aa594a04e89098cedb341589, type: 3}
+  m_PrefabInstance: {fileID: 3203464327039275315}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1990922839 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7688472819551781606, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+  m_PrefabInstance: {fileID: 5489358879724395098}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf324802e4252041a0d14c95eac4910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &2034541583
 GameObject:
   m_ObjectHideFlags: 0
@@ -2731,10 +2757,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3203464326901901177, guid: 1043ae82aa594a04e89098cedb341589, type: 3}
+      propertyPath: orthographic size
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 3203464326901901179, guid: 1043ae82aa594a04e89098cedb341589, type: 3}
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 3203464326901901182, guid: 1043ae82aa594a04e89098cedb341589, type: 3}
+      propertyPath: pixelPerfectCamera
+      value: 
+      objectReference: {fileID: 1763308998}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2849,6 +2883,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CombatManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8735244431903782409, guid: e36916dd6c27a9149ab344fa3b0590b7, type: 3}
+      propertyPath: dropMenuState
+      value: 
+      objectReference: {fileID: 1990922839}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -15,8 +15,6 @@ public class DropMenuState : State
 
     public void ExitState()
     {
-        dropMenuManager.dropMainMenu.ExitMenu();
-        dropMenuManager.gameObject.SetActive(false);
         combatManager.currentState = combatManager.victoryState;
         StartCoroutine(combatManager.victoryState.EndBattle());
     }

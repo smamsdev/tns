@@ -197,7 +197,7 @@ public class VictoryState : State
     
         var playerCombat = combatManager.playerCombat;
         var playerAnimator = playerCombat.GetComponent<Animator>();
-        playerAnimator.Play("Idle");
+        playerAnimator.CrossFade("Idle", 0.2f);
         playerAnimator.SetFloat("lookDirectionX", combatManager.playerCombat.CombatLookDirX);
         playerCombat.movementScript.rigidBody2d.bodyType = RigidbodyType2D.Dynamic;
         playerCombat.collisionCollider.enabled = true;
@@ -219,13 +219,9 @@ public class VictoryState : State
                 GameObject.Destroy(partyMember.gameObject);
                 yield return new WaitForSeconds(0.25f);
             }
-
-            CombatEvents.UnlockPlayerMovement();
         }
 
-
-        else
-            CombatEvents.UnlockPlayerMovement();
+        CombatEvents.UnlockPlayerMovement();
     }
 
 

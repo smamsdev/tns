@@ -139,7 +139,7 @@ public class PlayerCombat : PartyMemberCombat
     }
 
     public void CombineStanceAndMove()
-    { 
+    {
         switch (styleType)
         {
             case 0: // Violent stance
@@ -157,7 +157,7 @@ public class PlayerCombat : PartyMemberCombat
                 break;
 
             case 1: // Cautious stance
-                switch (styleType)
+                switch (actionType)
                 {
                     case 0: SelectMove(playerMoveInventorySO.cautiousAttacksEquipped);break;
                     case 1: SelectMove(playerMoveInventorySO.cautiousFendsEquipped); break;
@@ -166,7 +166,7 @@ public class PlayerCombat : PartyMemberCombat
                 break;
 
             case 2: // Precise stance
-                switch (styleType)
+                switch (actionType)
                 {
                     case 0: SelectMove(playerMoveInventorySO.preciseAttacksEquipped);break;
                     case 1: SelectMove(playerMoveInventorySO.preciseFendsEquipped); break;

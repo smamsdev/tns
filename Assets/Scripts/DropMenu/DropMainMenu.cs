@@ -2,6 +2,7 @@ using NUnit.Framework;using System.Collections.Generic;using TMPro;using Unit
     public PlayerInventorySO playerInventorySO;
     public List<GearSO> remainingDropList = new();
     public InventorySO dropManagerInventorySO;    public MenuButtonHighlighted[] mainMenuButtons;    public TextMeshProUGUI headerTMP, chargeTMP, gearDescriptionTMP, gearValueTMP, gearEquipStatusTMP;
+    public DropMenuState dropMenuState;
     public Animator animator;    public void InitializeMenu()    {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         playerInventorySO = player.GetComponent<PlayerCombat>().playerInventorySO;
@@ -61,7 +62,7 @@ using NUnit.Framework;using System.Collections.Generic;using TMPro;using Unit
         }
     }
     public override void DisplayMenu(bool on)    {        displayContainer.SetActive(on);    }    public override void EnterMenu()    {        //    }    public override void ExitMenu()    {        animator.Play("CloseMenu", 0, 0f);
-        CombatEvents.UnlockPlayerMovement();
+        dropMenuState.ExitState();
         //Manager GO will be disabled via attached MenuAnimationFunctions script event once completed
     }    public override void StateUpdate()
     {
