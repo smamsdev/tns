@@ -23,9 +23,7 @@ public class DialogueBox : MonoBehaviour
     {
         this.dialogueElement = dialogueElement;
         speakerSpriteRenderer = dialogueElement.actorGameObject.GetComponent<SpriteRenderer>();
-
         SetupTextBox();
-
         SetFinalPosition();
         animator.SetTrigger("OpenDialogue");
 
@@ -38,7 +36,7 @@ public class DialogueBox : MonoBehaviour
         actorPos = dialogueElement.actorGameObject.transform.position;
         dialogueFinalPosition.x = actorPos.x;
 
-        //0.3 above the speakers highest sprite point
+        //magic number 0.3 above the speaker's highest sprite point
         dialogueFinalPosition.y = actorPos.y + speakerSpriteRenderer.bounds.size.y + 0.3f;
     }
 
@@ -89,5 +87,8 @@ public class DialogueBox : MonoBehaviour
         this.transform.position = finalPosition;
     }
 
-    public void DestoryDialogueBox() { Destroy(this.gameObject); }
+    public void DestoryDialogueBox() 
+    { 
+        Destroy(this.gameObject);
+    }
 }

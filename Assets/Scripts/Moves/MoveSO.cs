@@ -29,21 +29,25 @@ public class MoveSO : ScriptableObject
     [SerializeField] private bool isFlaw;
     public bool isEquipped;
 
-    //Getters
-    [HideInInspector] public GameObject MovePrefab => movePrefab;
-    [HideInInspector] public string MoveName => moveName;
-    [HideInInspector] public string MoveDescription => moveDescription;
-    [HideInInspector] public int MoveWeighting => moveWeighting;
-    [HideInInspector] public float AttackPushStrength => attackPushStrength;
-    [HideInInspector] public float AttackMoveModPercent => attackMoveModPercent;
-    [HideInInspector] public float FendMoveModPercent => fendMoveModPercent;
-    [HideInInspector] public float MoveAnimationFloat => moveAnimationFloat;
-    [HideInInspector] public float TargetPositionHorizontalOffset => targetPositionHorizontalOffset;
-    [HideInInspector] public bool TargetPosSelfOffset => targetPosSelfOffset;
-    [HideInInspector] public bool ApplyMoveToSelfOnly => applyMoveToSelfOnly;
-    [HideInInspector] public int PotentialChange => potentialChangeInt;
-    [HideInInspector] public string PotentialChangeDescription => "Potential change: " + potentialChangeDescription;
-    [HideInInspector] public bool IsFlaw => isFlaw;
+    public GameObject MovePrefab => movePrefab;
+    public string MoveName => moveName;
+    public string MoveDescription => moveDescription;
+    public int MoveWeighting => moveWeighting;
+    public float AttackPushStrength => attackPushStrength;
+    public float AttackMoveModPercent
+    {
+        get => attackMoveModPercent;
+        set => attackMoveModPercent = value;
+    }
+   
+    public float FendMoveModPercent => fendMoveModPercent;
+    public float MoveAnimationFloat => moveAnimationFloat;
+    public float TargetPositionHorizontalOffset => targetPositionHorizontalOffset;
+    public bool TargetPosSelfOffset => targetPosSelfOffset;
+    public bool ApplyMoveToSelfOnly => applyMoveToSelfOnly;
+    public int PotentialChange => potentialChangeInt;
+    public string PotentialChangeDescription => "Potential change: " + potentialChangeDescription;
+    public bool IsFlaw => isFlaw;
 
     public string GetRarityDescription()
     {

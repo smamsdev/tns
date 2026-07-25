@@ -35,15 +35,10 @@ public class FendScript : MonoBehaviour
 
     public IEnumerator ApplyAttackToCombatant(Combatant combatantApplying, Combatant target)
     {
-        int backStabBonus = target.isBackstabbed ? combatantApplying.AttackTotal : 0;
-
         if (target.isBackstabbed)
-        {
             backStabAnimator.Play("BackStabShowAndFade");
-        }
 
-        int attackCombinedTotal = combatantApplying.AttackTotal + backStabBonus;
-        int attackRemainder = attackCombinedTotal - target.FendTotal;
+        int attackRemainder = combatantApplying.AttackTotal - target.FendTotal;
         target.GetComponent<Animator>().Play("Pain");
 
         if (target.FendTotal == 0)
@@ -60,7 +55,7 @@ public class FendScript : MonoBehaviour
         float elapsedTime = 0f;
         float lerpDuration = 1f;
         int startNumber = target.FendTotal;
-        int endValue = target.FendTotal - attackCombinedTotal;
+        int endValue = target.FendTotal - combatantApplying.AttackTotal;
 
         while (elapsedTime < lerpDuration && target.FendTotal > 0)
         {

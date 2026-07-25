@@ -33,7 +33,6 @@ public class DialogueManager : MonoBehaviour
     }
 
     public void SpawnDialogueBox()
-
     {
         dialogueBoxGameObject = Instantiate(prefabToUse, this.transform);
         dialogueBoxGameObject.name = dialogue[0].dialogueGameObject.name + "Dialogue#" + dialogueElement;

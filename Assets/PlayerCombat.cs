@@ -315,6 +315,7 @@ public class PlayerCombat : PartyMemberCombat
 
             case StatToChange.FocusBase:
                 FocusBase = Apply(FocusBase, mod);
+                Debug.Log(FocusBase);
                 break;
         }
 
@@ -323,7 +324,7 @@ public class PlayerCombat : PartyMemberCombat
             if (mod.modifierType == ModifierType.Flat)
                 return value + Mathf.RoundToInt(mod.amount);
 
-            return Mathf.RoundToInt(value * mod.amount);
+            return Mathf.RoundToInt(value + (value * mod.amount));
         }
     }
 

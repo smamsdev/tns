@@ -2,6 +2,7 @@ using NUnit.Framework.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static StatModifier;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -58,7 +59,7 @@ public abstract class Combatant : MonoBehaviour
     public int MaxHP
     {
         get => (_maxHP);
-        set => _maxHP = Mathf.Clamp(value, 0, 9999);
+        set => _maxHP = Mathf.Clamp(value, 1, 9999);
     }
 
     [SerializeField] private int _currentHP;
@@ -193,38 +194,38 @@ public abstract class Combatant : MonoBehaviour
 
     public virtual void ChangeStat(StatModifier mod)
     {
-        int baseValueToChange;
-
         switch (mod.statToChange)
         {
             case StatToChange.AttackBase:
-                baseValueToChange = AttackBase;
+                AttackBase = Apply(AttackBase, mod);
                 break;
+
             case StatToChange.FendBase:
-                baseValueToChange = FendBase;
+                FendBase = Apply(FendBase, mod);
                 break;
+
             case StatToChange.MaxHP:
-                baseValueToChange = MaxHP;
+                MaxHP = Apply(MaxHP, mod);
                 break;
-        //
-        //  //PartyMemberStats
-        //  case StatToChange.XP:
-        //      baseValueToChange = Xp;
-        //      break;
-        //
-        //  // Player stats
-        //  case StatToChange.Smams:
-        //      baseValueToChange = value;
-        //      break;
-        //  case StatToChange.MaxPotential:
-        //      baseValueToChange = value;
-        //      break;
-        //  case StatToChange.FocusBase:
-        //      baseValueToChange = value;
-        //      break;
-        //
+
+            //case StatToChange.MaxPotential:
+            //    MaxPotential = Apply(MaxPotential, mod);
+            //    break;
+            //
+            //case StatToChange.FocusBase:
+            //    FocusBase = Apply(FocusBase, mod);
+            //    break;
+
             default:
                 break;
+        }
+
+        static int Apply(int value, StatModifier mod)
+        {
+            if (mod.modifierType == ModifierType.Flat)
+                return value + Mathf.RoundToInt(mod.amount);
+
+            return Mathf.RoundToInt(value + (value * mod.amount));
         }
     }
 }

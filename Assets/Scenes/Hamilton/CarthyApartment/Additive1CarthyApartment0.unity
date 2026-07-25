@@ -1541,6 +1541,7 @@ MonoBehaviour:
   customSceneStart: {fileID: 0}
   isTriggerOnLoad: 1
   triggerOnLoad: {fileID: 436584859}
+  optionalSceneNameForMenu: default
 --- !u!1 &1466854640
 GameObject:
   m_ObjectHideFlags: 0
@@ -2133,47 +2134,47 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1445998880353221278, guid: 43b527ea3c73846488c59e753ea2c8f9, type: 3}
+    - target: {fileID: 5262734312274439744, guid: 0255d914920192644a005c26a0b534c2, type: 3}
       propertyPath: m_Name
-      value: Menu
+      value: PauseMenuManager
       objectReference: {fileID: 0}
-    - target: {fileID: 1884171994528421907, guid: 43b527ea3c73846488c59e753ea2c8f9, type: 3}
+    - target: {fileID: 6637890276910515605, guid: 0255d914920192644a005c26a0b534c2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.13283
       objectReference: {fileID: 0}
-    - target: {fileID: 1884171994528421907, guid: 43b527ea3c73846488c59e753ea2c8f9, type: 3}
+    - target: {fileID: 6637890276910515605, guid: 0255d914920192644a005c26a0b534c2, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.15989
       objectReference: {fileID: 0}
-    - target: {fileID: 1884171994528421907, guid: 43b527ea3c73846488c59e753ea2c8f9, type: 3}
+    - target: {fileID: 6637890276910515605, guid: 0255d914920192644a005c26a0b534c2, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1884171994528421907, guid: 43b527ea3c73846488c59e753ea2c8f9, type: 3}
+    - target: {fileID: 6637890276910515605, guid: 0255d914920192644a005c26a0b534c2, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1884171994528421907, guid: 43b527ea3c73846488c59e753ea2c8f9, type: 3}
+    - target: {fileID: 6637890276910515605, guid: 0255d914920192644a005c26a0b534c2, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1884171994528421907, guid: 43b527ea3c73846488c59e753ea2c8f9, type: 3}
+    - target: {fileID: 6637890276910515605, guid: 0255d914920192644a005c26a0b534c2, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1884171994528421907, guid: 43b527ea3c73846488c59e753ea2c8f9, type: 3}
+    - target: {fileID: 6637890276910515605, guid: 0255d914920192644a005c26a0b534c2, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1884171994528421907, guid: 43b527ea3c73846488c59e753ea2c8f9, type: 3}
+    - target: {fileID: 6637890276910515605, guid: 0255d914920192644a005c26a0b534c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1884171994528421907, guid: 43b527ea3c73846488c59e753ea2c8f9, type: 3}
+    - target: {fileID: 6637890276910515605, guid: 0255d914920192644a005c26a0b534c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1884171994528421907, guid: 43b527ea3c73846488c59e753ea2c8f9, type: 3}
+    - target: {fileID: 6637890276910515605, guid: 0255d914920192644a005c26a0b534c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
@@ -2181,7 +2182,7 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 43b527ea3c73846488c59e753ea2c8f9, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 0255d914920192644a005c26a0b534c2, type: 3}
 --- !u!1 &2053153693
 GameObject:
   m_ObjectHideFlags: 0
@@ -2430,8 +2431,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 6322698934351413073}
-  totalXPgridLayout: {fileID: 1630656329050611603}
-  rewardTextElements: []
+  allRewardsGridLayoutGroup: {fileID: 0}
+  distributeGridLayoutGroup: {fileID: 0}
+  allRewardTextElements: []
   distributeXPTextElements:
   - {fileID: 8735225238616491294}
   - {fileID: 3505370139413099814}
@@ -2441,17 +2443,18 @@ MonoBehaviour:
   - {fileID: 8716324699786297820}
   - {fileID: 6826742469433591716}
   - {fileID: 1369790302396103015}
-  XPGainGridLayoutGroup: {fileID: 8284332222709506986}
-  victory: {fileID: 1759061277199544510}
-  totalXPButton: {fileID: 4109488685095832455}
-  partyToLoop: 0
+  victoryState: {fileID: 0}
+  allRewardsButton: {fileID: 0}
   allyNameTMP: {fileID: 1122873212461280233}
   allyLevelTMP: {fileID: 8735225238616491294}
   allyXPRemainderTMP: {fileID: 3505370139413099814}
   allyXPTMP: {fileID: 464290498005719718}
+  allyHP: {fileID: 0}
   allyAttackTMP: {fileID: 8716324699786297820}
   allyFendTMP: {fileID: 6826742469433591716}
+  playerPotentialTMP: {fileID: 0}
   playerFocusTMP: {fileID: 1369790302396103015}
+  XPIcon: {fileID: 0}
   playerStatsOnly:
   - {fileID: 4094074227306269743}
   - {fileID: 8640433684675262261}
@@ -2461,8 +2464,10 @@ MonoBehaviour:
   - {fileID: 5363426915457996084}
   - {fileID: 8761855756527835191}
   uiRewardSlotPrefab: {fileID: 2364763152722137922, guid: 2fb5b267c9c4e0640a346730588a584c, type: 3}
-  rewardsParent: {fileID: 3788358145559288615}
+  rewardsListParent: {fileID: 0}
   XPRewardsDistributeParent: {fileID: 6241078675022944422}
+  rewardsListContainerAnimator: {fileID: 0}
+  distributionContainerAnimator: {fileID: 0}
 --- !u!222 &176189967655705475
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2671,7 +2676,6 @@ MonoBehaviour:
   combatManager: {fileID: 0}
   combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
   encloseMove: {fileID: 4583473275459978830}
 --- !u!1 &447226964998292553
 GameObject:
@@ -2814,10 +2818,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 6322698934351413073}
-  lastButtonSelected: {fileID: 0}
-  equipSlotSelectMenu: {fileID: 7895929885328166318}
-  gearSelectCombatMenu: {fileID: 2434644616690792059}
-  equipGearMove: {fileID: 8656697051631049367}
+  combatGearSelectMenuUI: {fileID: 0}
+  gearChangeSO: {fileID: 0}
 --- !u!224 &516379093263186569
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2928,7 +2930,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 6322698934351413073}
-  lastButtonSelected: {fileID: 0}
   combatantUIPrefab: {fileID: 3277375303926951123, guid: 5960bcfa750ea67429ae09d54c0557f4, type: 3}
   combatMenuManager: {fileID: 8048630600323401904}
 --- !u!4 &615034890732176718
@@ -3232,14 +3233,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc78dc816b4266442a6800919c090c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuManager: {fileID: 0}
+  menuButtons: []
+  highlightedButtonIndex: 0
   combatManager: {fileID: 6322698934351413073}
-  enemySelectButtonScriptHighlighted: {fileID: 0}
   enemySelectButtonPrefab: {fileID: 7601083301187507106, guid: 3d026390181295d46915247017717648, type: 3}
-  selectEnemyMenuContainer: {fileID: 8031468370657466113}
-  defaultButton: {fileID: 0}
-  enemySelectButtons: []
-  selectEnemyLabelGO: {fileID: 8490237264045769849}
-  isEnemySlotsInitialized: 0
+  targetSelectButtonsParent: {fileID: 0}
+  targetSelectButtonUIs: []
+  enemySelectState: {fileID: 0}
 --- !u!114 &1072277786190055369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3253,7 +3254,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 6322698934351413073}
-  lastButtonSelected: {fileID: 0}
   combatUIContainer: {fileID: 335402769328206340}
   playerDefeated: 0
 --- !u!114 &1122873212461280233
@@ -3360,7 +3360,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 6322698934351413073}
-  lastButtonSelected: {fileID: 0}
 --- !u!222 &1153395355213791207
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3657,8 +3656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 6322698934351413073}
-  lastButtonSelected: {fileID: 0}
-  selectEnemyMenuScript: {fileID: 1036055017449821644}
+  enemySelectMenuUI: {fileID: 0}
 --- !u!1 &1507921725423886341
 GameObject:
   m_ObjectHideFlags: 0
@@ -4018,8 +4016,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 6322698934351413073}
-  lastButtonSelected: {fileID: 0}
-  victoryRewards: {fileID: 160484950708896142}
+  victoryRewardsUI: {fileID: 0}
+  partyMemberIndex: 0
+  rawGearSODrops: []
+  finalGearDropList: {fileID: 0}
 --- !u!114 &1866551715070332845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4499,13 +4499,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e246198f75ae1f4cbf8e03d3e02fa79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuManager: {fileID: 0}
+  menuButtons: []
+  highlightedButtonIndex: 0
   combatManager: {fileID: 6322698934351413073}
-  UICombatGearSlotPrefab: {fileID: 7732399050573741445, guid: f24ffa1fc4cd4674dbb08416378b6e16, type: 3}
+  combatGearState: {fileID: 0}
+  inventorySlotUIPrefab: {fileID: 0}
   inventorySlotsParent: {fileID: 4677002607749165102}
-  gearSelectCombatState: {fileID: 496209432706889957}
-  gearSlots: []
-  UICombatGearSlotHighlighed: {fileID: 0}
-  isGearSlotsInitialized: 0
+  inventorySlotUIs: []
 --- !u!1 &2448939786870620662
 GameObject:
   m_ObjectHideFlags: 0
@@ -4592,8 +4593,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 6322698934351413073}
-  lastButtonSelected: {fileID: 0}
-  selectEnemyMenuScript: {fileID: 1036055017449821644}
+  enemySelectMenuUI: {fileID: 0}
+  previousLookDirX: 0
 --- !u!224 &2493025106527821336
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4686,8 +4687,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 6322698934351413073}
-  lastButtonSelected: {fileID: 0}
-  equipSlotSelectMenu: {fileID: 7895929885328166318}
+  combatEquipSelectMenuUI: {fileID: 0}
+  gearChangeSO: {fileID: 0}
 --- !u!114 &2576014697650546511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4937,10 +4938,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 6322698934351413073}
-  lastButtonSelected: {fileID: 4712338259882099791}
+  tacticalSelectMenuUI: {fileID: 0}
   isEnclosing: 0
-  encloseMove: {fileID: 4583473275459978830}
-  returnMove: {fileID: 375722453080687839}
+  encloseMoveSO: {fileID: 0}
+  returnMoveSO: {fileID: 0}
   encloseOption: {fileID: 7701450682076724666}
   returnOption: {fileID: 632140381044050315}
   gearButton: {fileID: 4712338259882099791}
@@ -7082,7 +7083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 6322698934351413073}
-  lastButtonSelected: {fileID: 0}
+  dynamicMoveName: 
 --- !u!222 &4439567900993379696
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7282,7 +7283,6 @@ MonoBehaviour:
   combatManager: {fileID: 0}
   combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
   combatantEnclosed: {fileID: 0}
 --- !u!114 &4623258980414053242
 MonoBehaviour:
@@ -8259,7 +8259,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 6322698934351413073}
-  lastButtonSelected: {fileID: 0}
 --- !u!222 &5313534949869241636
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9125,7 +9124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 6322698934351413073}
-  lastButtonSelected: {fileID: 0}
+  actionSelectMenuUI: {fileID: 0}
 --- !u!114 &6322698934351413073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9145,23 +9144,26 @@ MonoBehaviour:
   enemies: []
   allAlliesToTarget: []
   setup: {fileID: 605427109549752027}
-  firstMove: {fileID: 6314902108021885151}
-  secondMove: {fileID: 8294734829555303881}
+  styleSelectState: {fileID: 0}
+  actionSelectState: {fileID: 0}
   enemySelectState: {fileID: 2480434471034559844}
   allyMoveState: {fileID: 7674881519142258485}
-  applyMove: {fileID: 4414184210592722113}
+  applyMoveState: {fileID: 0}
   enemyMoveState: {fileID: 5285348282029140589}
-  roundReset: {fileID: 1129210980423578502}
-  victory: {fileID: 1759061277199544510}
-  defeat: {fileID: 1072277786190055369}
+  roundResetState: {fileID: 0}
+  dropMenuState: {fileID: 0}
+  victoryState: {fileID: 0}
+  defeatState: {fileID: 0}
   tacticalSelectState: {fileID: 2814025605883100108}
   equipSlotSelectState: {fileID: 2546200200429946261}
-  gearSelectCombatState: {fileID: 496209432706889957}
+  combatGearState: {fileID: 0}
   encloseSelectState: {fileID: 0}
   combatMovementPrefab: {fileID: 4589934564278126355, guid: e36457b4fa252f0468a0e2e36dcdc00a, type: 3}
   cameraFollow: {fileID: 0}
   combatMenuManager: {fileID: 8048630600323401904}
   roundCount: 0
+  firstOption: {fileID: 0}
+  secondOption: {fileID: 0}
 --- !u!1 &6328207846115996554
 GameObject:
   m_ObjectHideFlags: 0
@@ -10555,7 +10557,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 6322698934351413073}
-  lastButtonSelected: {fileID: 0}
 --- !u!222 &7683838340193988449
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10719,20 +10720,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7714831cd1a8a7c40a789ce42541417c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuManager: {fileID: 0}
+  menuButtons: []
+  highlightedButtonIndex: 0
   combatManager: {fileID: 6322698934351413073}
-  uIGearEquipSlots:
-  - {fileID: 540367865108780130}
-  - {fileID: 1008415757402682127}
-  - {fileID: 9101969442969272497}
-  - {fileID: 8403534877702251844}
-  - {fileID: 6555850414843536192}
-  uIGearEquipSlotButtons:
-  - {fileID: 2858414934731745030}
-  - {fileID: 8789035329093754037}
-  - {fileID: 8958022037749382699}
-  - {fileID: 6935284713178292105}
-  - {fileID: 4623258980414053242}
-  equipSlotSelected: {fileID: 0}
+  equipSlotSelectState: {fileID: 0}
+  UIInventorySlotPrefab: {fileID: 0}
+  equipSlotsParent: {fileID: 0}
+  equipSlots: []
+  slotGridLayoutGroup: {fileID: 0}
 --- !u!222 &7901792608935196887
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10864,20 +10860,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combatManager: {fileID: 6322698934351413073}
   narratorTMP: {fileID: 5849675566896015437}
-  firstMoveMenu: {fileID: 727830777752642044}
-  secondMoveMenu: {fileID: 1318417097378591087}
-  enemySelectMenu: {fileID: 8031468370657466113}
-  TacticalSelectMenu: {fileID: 3063707500726503626}
-  EquipSlotSelectMenu: {fileID: 447226964998292553}
-  GearSelectMenu: {fileID: 4677002607749165102}
-  VictoryMenu: {fileID: 9138832579210615114}
-  actionMenuDefaultButton: {fileID: 1743770268171539774}
-  styleMenuDefaultButton: {fileID: 1715929821249003706}
-  selectEnemyMenuDefaultButton: {fileID: 0}
-  tacticalSelectMenuDefaultButton: {fileID: 4712338259882099791}
-  equipSlotSelectMenuDefaultButton: {fileID: 2858414934731745030}
-  gearSelectMenuDefaultButton: {fileID: 0}
-  buttonSelectedYellow: {r: 1, g: 0.9098039, b: 0.21960784, a: 1}
+  styleSelectMenuUI: {fileID: 0}
+  actionSelectMenuUI: {fileID: 0}
+  tacticalSelectMenuUI: {fileID: 0}
+  enemySelectMenuUI: {fileID: 0}
+  combatEquipSelectMenuUI: {fileID: 0}
+  combatGearSelectMenuUI: {fileID: 0}
+  victoryRewardsUI: {fileID: 0}
+  menuParent: {fileID: 0}
 --- !u!1 &8089406425114529212
 GameObject:
   m_ObjectHideFlags: 0
@@ -10981,7 +10971,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 6322698934351413073}
-  lastButtonSelected: {fileID: 0}
+  styleSelectMenuUI: {fileID: 0}
 --- !u!114 &8296010526146481699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11479,7 +11469,6 @@ MonoBehaviour:
   combatManager: {fileID: 0}
   combatantToActMovementScript: {fileID: 0}
   combatantToAct: {fileID: 0}
-  targetCombatant: {fileID: 0}
 --- !u!222 &8694841588862073847
 CanvasRenderer:
   m_ObjectHideFlags: 0
