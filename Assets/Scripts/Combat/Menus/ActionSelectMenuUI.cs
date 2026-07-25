@@ -94,7 +94,12 @@ public class ActionSelectMenuUI : CombatMenu
             else
             {
                 FieldEvents.SetTextColor(menuButtonHighlighteds[index].tmp, menuButtonHighlighteds[index].tmp.color, 0.7f);
-                menuButtonHighlighteds[index].onHighlighted = () => menuManager.UpdateNarrator("No " + moveTypeName[index] + " available");
+
+                menuButtonHighlighteds[index].onHighlighted = () =>
+                {
+                    menuManager.UpdateNarrator("No " + moveTypeName[index] + " available");
+                    highlightedButtonIndex = menuButtons.IndexOf(menuButtonHighlighteds[index].button);
+                };
             }
         }
     }
