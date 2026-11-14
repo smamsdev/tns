@@ -35,7 +35,8 @@ public class ShakesPerformance : MonoBehaviour
                 EndPerformance();
             }
 
-            if (playerMovementScript.movementDirection == Vector2.zero)
+
+            if (playerMovementScript.input == Vector2.zero)
             {
                 idleTimer += Time.deltaTime;
 

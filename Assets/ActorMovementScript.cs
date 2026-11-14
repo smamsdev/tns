@@ -12,6 +12,9 @@ public class ActorMovementScript : MovementScript
         movementSpeed = defaultMovementspeed;
         rigidBody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+        if (descendingFactor == 0)
+            descendingFactor = 1;
     }
 
     private void Start()
@@ -87,8 +90,11 @@ public class ActorMovementScript : MovementScript
             lookDirection = input.normalized;
         }
 
-        animator.SetFloat("sqrMagnitude", input.sqrMagnitude);
-        animator.SetFloat("lookDirectionX", lookDirection.x);
-        animator.SetFloat("lookDirectionY", lookDirection.y);
+        if (animator.enabled)
+        {
+            animator.SetFloat("sqrMagnitude", input.sqrMagnitude);
+            animator.SetFloat("lookDirectionX", lookDirection.x);
+            animator.SetFloat("lookDirectionY", lookDirection.y);
+        }
     }
 }

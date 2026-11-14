@@ -10,9 +10,6 @@ public class VehiclesMovementScript : PlayerMovementScript
     [SerializeField, Range(0f, 1f)]
     private float accelerationFactor;
 
-    Vector2 input;
-
-
     public override void FixedUpdateMethod()
     {
         if (vehicleInstance.playerDriving == null)

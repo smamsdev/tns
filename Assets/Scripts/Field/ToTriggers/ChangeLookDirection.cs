@@ -10,9 +10,18 @@ public class ChangeLookDirection : ToTrigger
     public override IEnumerator TriggerFunction()
     {
         var movementScript = ActorGameObject.GetComponent<MovementScript>();
-        movementScript.lookDirection = newLookDirection;
+
         yield return null;
 
+        if (!movementScript.animator.enabled)
+            movementScript.animator.enabled = true;
+
+        movementScript.lookDirection = newLookDirection;
+        Debug.Log("treh" + movementScript.lookDirection);
+
+        yield return null;
+
+        movementScript.animator.enabled = false;
         FieldEvents.HasCompleted.Invoke(this.gameObject);
     }
 }

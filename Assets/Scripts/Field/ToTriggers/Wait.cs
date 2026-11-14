@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Wait : ToTrigger
 {
-
     public float waitTime;
 
     public override IEnumerator TriggerFunction()

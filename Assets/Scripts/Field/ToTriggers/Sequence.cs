@@ -36,7 +36,6 @@ public class Sequence : ToTrigger
 
     void TriggerAction(GameObject gameObject)
     {
-
         if (isSequenceRunning)
         {
             if (i < toTrigger.Length && toTrigger[i].gameObject == gameObject)

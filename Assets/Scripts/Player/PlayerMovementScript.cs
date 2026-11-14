@@ -12,6 +12,7 @@ public class PlayerMovementScript : MovementScript
     public bool movementLocked;
     public float distanceTravelled;
     public Vector2 delta;
+    public Vector2 input;
 
     private void OnEnable()
     {
@@ -80,13 +81,15 @@ public class PlayerMovementScript : MovementScript
 
     public virtual void FixedUpdateMethod()
     {
+        Debug.Log(lookDirection);
+        input = new Vector2(horizontalInput, verticalInput + sloping);
+
         if (!FieldEvents.movementLocked)
         {
             horizontalInput = Input.GetAxis("Horizontal");
             verticalInput = Input.GetAxis("Vertical");
+            lookDirection = input.normalized;
         }
-
-        Vector2 input = new Vector2(horizontalInput, verticalInput + sloping);
 
         Vector2 newPosition = rigidBody2d.position + input * movementSpeed * Time.fixedDeltaTime;
         rigidBody2d.MovePosition(newPosition);
@@ -95,12 +98,9 @@ public class PlayerMovementScript : MovementScript
         distanceTravelled += delta.magnitude;
         previousPosition = this.transform.position;
 
-        if (input.sqrMagnitude > 0.01f)
-        {
-            lookDirection = input.normalized;
-            animator.SetFloat("lookDirectionX", lookDirection.x);
-            animator.SetFloat("lookDirectionY", lookDirection.y);
-        }
+
+        animator.SetFloat("lookDirectionX", lookDirection.x);
+        animator.SetFloat("lookDirectionY", lookDirection.y);
 
         animator.SetFloat("sqrMagnitude", input.sqrMagnitude);
     }
@@ -111,6 +111,7 @@ public class PlayerMovementScript : MovementScript
         horizontalInput = 0;
         verticalInput = 0;
         movementLocked = FieldEvents.movementLocked;
+        animator.enabled = false;
 
         //Debug.Log("locked");
     }
@@ -121,6 +122,7 @@ public class PlayerMovementScript : MovementScript
         {
             FieldEvents.movementLocked = false;
             movementLocked = FieldEvents.movementLocked;
+            animator.enabled = true;
 
             //Debug.Log("unlocked");
         }

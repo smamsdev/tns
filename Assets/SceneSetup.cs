@@ -39,6 +39,7 @@ public class SceneSetup : MonoBehaviour
         }
 
         if (FieldEvents.sceneName == null) FieldEvents.sceneName = optionalSceneNameForMenu;
+        
         StartSceneTrigger();
     }
 

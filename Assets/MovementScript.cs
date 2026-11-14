@@ -13,7 +13,7 @@ public abstract class MovementScript : MonoBehaviour
     public Vector2 forceLookDirectionOnLoad;
 
     public Animator animator;
-    public Vector2 movementDirection;
+    //public Vector2 movementDirection;
     public Vector2 lookDirection;
     public int descendingFactor = 1;
     public Rigidbody2D rigidBody2d;
