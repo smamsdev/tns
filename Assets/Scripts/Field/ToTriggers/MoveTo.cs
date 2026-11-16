@@ -47,7 +47,7 @@ public class MoveTo : ToTrigger
         {
             if (Time.time - startTime > timeoutDuration)
             {
-                Debug.LogError("actor stuck.");
+                Debug.LogError("actor stuck.");//
                 yield break; 
             }
 

@@ -10,7 +10,6 @@ public abstract class MovementScript : MonoBehaviour
     public float movementSpeed;
 
     public float sloping;
-    public Vector2 forceLookDirectionOnLoad;
 
     public Animator animator;
     //public Vector2 movementDirection;

@@ -26,19 +26,31 @@ public class PlayerMovementScript : MovementScript
         CombatEvents.UnlockPlayerMovement -= UnlockPlayerMovement;
     }
 
+    private void Awake()
+    {
+        movementSpeed = defaultMovementspeed;
+        rigidBody2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+
+        if (descendingFactor == 0)
+            descendingFactor = 1;
+    }
+
     private void Start()
     {
         if (lookDirection == Vector2.zero)
             lookDirection = Vector2.right;
 
         movementSpeed = defaultMovementspeed;
-        rigidBody2d.bodyType = RigidbodyType2D.Dynamic;
+       // rigidBody2d.bodyType = RigidbodyType2D.Dynamic;
         movementLocked = FieldEvents.movementLocked;
         distanceTravelled = 0;
     }
 
     private void OnValidate()
     {
+        FieldEvents.movementLocked = false;
+
         // Prevent NaN from ever sticking to the serialized value
         if (float.IsNaN(lookDirection.x) || float.IsNaN(lookDirection.y))
         {
@@ -81,27 +93,30 @@ public class PlayerMovementScript : MovementScript
 
     public virtual void FixedUpdateMethod()
     {
-        Debug.Log(lookDirection);
-        input = new Vector2(horizontalInput, verticalInput + sloping);
-
         if (!FieldEvents.movementLocked)
         {
+            input = new Vector2(horizontalInput, verticalInput + sloping);
             horizontalInput = Input.GetAxis("Horizontal");
             verticalInput = Input.GetAxis("Vertical");
+
+            if (input.sqrMagnitude > 0.01f)
+            lookDirection = input.normalized;
+        }
+
+        else 
+        {
+            input = new Vector2(horizontalInput, verticalInput + sloping);
             lookDirection = input.normalized;
         }
 
         Vector2 newPosition = rigidBody2d.position + input * movementSpeed * Time.fixedDeltaTime;
         rigidBody2d.MovePosition(newPosition);
-
         delta = (Vector2)this.transform.position - previousPosition;
         distanceTravelled += delta.magnitude;
         previousPosition = this.transform.position;
 
-
         animator.SetFloat("lookDirectionX", lookDirection.x);
         animator.SetFloat("lookDirectionY", lookDirection.y);
-
         animator.SetFloat("sqrMagnitude", input.sqrMagnitude);
     }
 
@@ -111,7 +126,6 @@ public class PlayerMovementScript : MovementScript
         horizontalInput = 0;
         verticalInput = 0;
         movementLocked = FieldEvents.movementLocked;
-        animator.enabled = false;
 
         //Debug.Log("locked");
     }
@@ -122,7 +136,6 @@ public class PlayerMovementScript : MovementScript
         {
             FieldEvents.movementLocked = false;
             movementLocked = FieldEvents.movementLocked;
-            animator.enabled = true;
 
             //Debug.Log("unlocked");
         }

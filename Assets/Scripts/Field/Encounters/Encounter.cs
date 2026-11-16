@@ -225,7 +225,6 @@ public class Encounter : ToTrigger
             }
 
             var movementScript = combatant.movementScript;
-            movementScript.forceLookDirectionOnLoad = Vector2.zero;
             movementScript.lookDirection = lookDir;
             movementScript.movementSpeed = movementScript.defaultMovementspeed * 3;
         }

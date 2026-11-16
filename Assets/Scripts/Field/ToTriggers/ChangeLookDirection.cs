@@ -11,17 +11,10 @@ public class ChangeLookDirection : ToTrigger
     {
         var movementScript = ActorGameObject.GetComponent<MovementScript>();
 
-        yield return null;
-
-        if (!movementScript.animator.enabled)
-            movementScript.animator.enabled = true;
-
         movementScript.lookDirection = newLookDirection;
-        Debug.Log("treh" + movementScript.lookDirection);
 
         yield return null;
 
-        movementScript.animator.enabled = false;
         FieldEvents.HasCompleted.Invoke(this.gameObject);
     }
 }

@@ -20,12 +20,6 @@ public class ActorMovementScript : MovementScript
     private void Start()
     {
         rigidBody2d.bodyType = RigidbodyType2D.Dynamic;
-
-        if (forceLookDirectionOnLoad != Vector2.zero ) 
-        
-        { 
-            lookDirection = forceLookDirectionOnLoad;
-        }
     }
 
     private void Update()
