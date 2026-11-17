@@ -7,33 +7,29 @@ public class ChangeCameraFollow : ToTrigger
 
     public Transform newTransformToFollow;
     public float delaybeforeTransitionDuration;
-    public float transitionDuration;
+    public float transitionFactor;
 
     public override IEnumerator TriggerFunction()
     {
         CombatEvents.LockPlayerMovement();
 
-        Debug.Log("update camera.main");
         cameraFollow = GameObject.FindWithTag("MainCamera").GetComponent<CameraFollow>();
+        float defaultSmoothTime = cameraFollow.smoothTime;
+        cameraFollow.smoothTime = transitionFactor;
 
         yield return new WaitForSeconds(delaybeforeTransitionDuration);
 
-        Vector3 startPosition = cameraFollow.transform.position;
-        var newPos = new Vector3(newTransformToFollow.position.x + cameraFollow.xOffset, newTransformToFollow.position.y + cameraFollow.yOffset, -10f);
+        cameraFollow.transformToFollow = newTransformToFollow;
 
-        float elapsedTime = 0;
+        yield return new WaitForSeconds(transitionFactor);
 
-        while (elapsedTime < transitionDuration)
+        while (cameraFollow.velocity.sqrMagnitude > 0.0001f)
         {
-            Vector3 newPosition = Vector3.Lerp(startPosition, newPos, elapsedTime / transitionDuration);
-            cameraFollow.transform.position = newPosition;
-
-            elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        cameraFollow.transform.position = newPos;
-        cameraFollow.transformToFollow = newTransformToFollow;
+        cameraFollow.smoothTime = defaultSmoothTime;
+
         CombatEvents.UnlockPlayerMovement();
         FieldEvents.HasCompleted.Invoke(this.gameObject);
 

@@ -13,6 +13,7 @@ public class DialogueBox : MonoBehaviour
     public GridLayoutGroup gridLayoutSizer;
     public Animator animator;
     SpriteRenderer speakerSpriteRenderer;
+    float speakerHeight;
 
     Vector2 actorPos;
     public Vector2 dialogueFinalPosition;
@@ -23,6 +24,13 @@ public class DialogueBox : MonoBehaviour
     {
         this.dialogueElement = dialogueElement;
         speakerSpriteRenderer = dialogueElement.actorGameObject.GetComponent<SpriteRenderer>();
+        if (speakerSpriteRenderer != null)
+        {
+            speakerHeight = speakerSpriteRenderer.bounds.size.y;
+        }
+
+        else speakerHeight = 0;
+
         SetupTextBox();
         SetFinalPosition();
         animator.SetTrigger("OpenDialogue");
@@ -37,7 +45,7 @@ public class DialogueBox : MonoBehaviour
         dialogueFinalPosition.x = actorPos.x;
 
         //magic number 0.3 above the speaker's highest sprite point
-        dialogueFinalPosition.y = actorPos.y + speakerSpriteRenderer.bounds.size.y + 0.3f;
+        dialogueFinalPosition.y = actorPos.y + speakerHeight + 0.3f;
     }
 
     void SetupTextBox()
@@ -76,7 +84,7 @@ public class DialogueBox : MonoBehaviour
     {
         float elapsedTime = 0;
         float seconds = 0.4f;
-        Vector2 startingPos = new Vector2 (actorPos.x, actorPos.y + speakerSpriteRenderer.bounds.size.y - 0.1f);
+        Vector2 startingPos = new Vector2 (actorPos.x, actorPos.y + speakerHeight - 0.1f);
         while (elapsedTime < seconds)
         {
             this.transform.position = Vector2.Lerp(startingPos, finalPosition, (elapsedTime / seconds));

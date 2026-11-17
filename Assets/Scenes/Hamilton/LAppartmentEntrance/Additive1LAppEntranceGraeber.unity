@@ -359,54 +359,6 @@ MonoBehaviour:
     - {x: -2.1, y: 0.15999997, z: 0}
     - {x: -2.1, y: 0.98999995, z: 0}
     - {x: -0.06999993, y: 0.98999995, z: 0}
---- !u!1 &180316279
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 180316281}
-  - component: {fileID: 180316280}
-  m_Layer: 0
-  m_Name: test
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &180316280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 180316279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66133870d80cf0446a1ebdc1bbef7b3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MoveTo
-  actorMove:
-    actorGO: {fileID: 1795666628}
-    destination:
-    - {x: -1.3700252, y: 1.0147955, z: 0}
---- !u!4 &180316281
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 180316279}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1458070173}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &184711164
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -445,7 +397,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7227340624722440874, guid: fa949162a57d96241a4504056afb3076, type: 3}
       propertyPath: lookDirection.y
-      value: 1
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7227340624722440874, guid: fa949162a57d96241a4504056afb3076, type: 3}
       propertyPath: forceLookDirectionOnLoad.x
@@ -504,6 +456,57 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa949162a57d96241a4504056afb3076, type: 3}
+--- !u!1 &210802049
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 210802051}
+  - component: {fileID: 210802050}
+  m_Layer: 0
+  m_Name: You
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &210802050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210802049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3074f9f12c26914d9fd823d3c034dfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueContainer
+  dialogue:
+  - actorGameObject: {fileID: 123073695}
+    actorName: 
+    dialoguetext: ...You!?
+    dialogueGameObject: {fileID: 0}
+  dialogueLaunched: 0
+  isLoopedDialogue: 0
+--- !u!4 &210802051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210802049}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1462460763}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &303754661
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,7 +518,7 @@ GameObject:
   - component: {fileID: 303754662}
   - component: {fileID: 303754663}
   m_Layer: 0
-  m_Name: YouDialogue
+  m_Name: MainDialogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -549,21 +552,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueContainer
   dialogue:
-  - actorGameObject: {fileID: 123073695}
-    actorName: 
-    dialoguetext: ...You!?
-    dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 1795666628}
     actorName: 
     dialoguetext: You.
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 123073695}
     actorName: 
-    dialoguetext: You watched when that psychopath put me in the hospital.
+    dialoguetext: You watched that psychopath put me in the hospital.
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 1795666628}
     actorName: 
-    dialoguetext: You had the bearing of a pup then.
+    dialoguetext: While you had the bearing of a pup.
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 123073695}
     actorName: 
@@ -574,7 +573,7 @@ MonoBehaviour:
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 1795666628}
     actorName: 
-    dialoguetext: Could you even do anything about it if I did?
+    dialoguetext: Could you do anything about it if I did?
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 123073695}
     actorName: 
@@ -582,11 +581,13 @@ MonoBehaviour:
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 1795666628}
     actorName: 
-    dialoguetext: You seem ready to bear up now. Ha!
+    dialoguetext: 'Are you ready to bear up now?
+
+      Ha!'
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 123073695}
     actorName: 
-    dialoguetext: WHAT DO YOU WANT, OLD MAN!?
+    dialoguetext: WHAT DO YOU WANT, OLD MAN!!?
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 1795666628}
     actorName: 
@@ -594,19 +595,17 @@ MonoBehaviour:
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 1795666628}
     actorName: 
-    dialoguetext: 'And like any good opportunity, it will only be available once.
+    dialoguetext: 'And like the best of propositions, it is only available once.
 
 '
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 2108973030}
     actorName: 
-    dialoguetext: ' Liam, is everything OK, who are you talking to down there?
-
-'
+    dialoguetext: ' Liam, is everything OK?'
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 123073695}
     actorName: 
-    dialoguetext: ... It's just Top, band business. I'll be right up.
+    dialoguetext: ... It's just...Top. Band business. I'll be right up.
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 1795666628}
     actorName: 
@@ -614,28 +613,27 @@ MonoBehaviour:
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 123073695}
     actorName: 
-    dialoguetext: "And you think you get a say in what I do and don\u2019t deserve..."
+    dialoguetext: You think you get a say in what we deserve...
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 1795666628}
     actorName: 
-    dialoguetext: 'I''m a judge of these things.
+    dialoguetext: 'I judge these things.
 
 '
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 123073695}
     actorName: 
-    dialoguetext: 'Yeah? With whatever spare time you have
+    dialoguetext: "Yeah? You judge others while hanging \nwith violent drug dealers?"
+    dialogueGameObject: {fileID: 0}
+  - actorGameObject: {fileID: 1795666628}
+    actorName: 
+    dialoguetext: "Worry less about me, and more about what \nis best for your family...\r\n"
+    dialogueGameObject: {fileID: 0}
+  - actorGameObject: {fileID: 1795666628}
+    actorName: 
+    dialoguetext: '...Like $1000 SMAMS.
 
-      not hanging with
-      drug dealers?'
-    dialogueGameObject: {fileID: 0}
-  - actorGameObject: {fileID: 1795666628}
-    actorName: 
-    dialoguetext: "Worry less about me, and more about whats \nbest for your family\r\n"
-    dialogueGameObject: {fileID: 0}
-  - actorGameObject: {fileID: 1795666628}
-    actorName: 
-    dialoguetext: 'Like $1000 SMAMS. No strings attached.
+      No strings attached.
 
 '
     dialogueGameObject: {fileID: 0}
@@ -645,30 +643,33 @@ MonoBehaviour:
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 1795666628}
     actorName: 
-    dialoguetext: 'Be serious? Speak for yourself, cub. '
+    dialoguetext: "Serious? Speak seriously for yourself. \n"
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 1795666628}
     actorName: 
-    dialoguetext: 'If I wanted you hurt or in pain, the easiest thing I could
+    dialoguetext: 'If I wanted you in pain, the easiest thing to
 
-      do
-      is leave you to your own devices, right now.'
+      do is leave
+      you to your own devices.'
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 1795666628}
     actorName: 
-    dialoguetext: 'Tomorrow. Outside Five bar. Listen to what I have to offer.
+    dialoguetext: 'Tomorrow. Outside Five bar. Listen to what I tell you.
 
 '
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 1795666628}
     actorName: 
     dialoguetext: "Afterwards, you can choose to continue with whatever \nlife you
-      have left, and I'll wish you luck.\nBut if you do, you will doing it 1000 $MAMS
-      richer."
+      have left, and I'll wish you great luck....\n"
+    dialogueGameObject: {fileID: 0}
+  - actorGameObject: {fileID: 1795666628}
+    actorName: 
+    dialoguetext: "...But if you do, you will be doing it \n1000 $MAMS richer."
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 123073695}
     actorName: 
-    dialoguetext: I'll think about it. Whatever.
+    dialoguetext: 'Whatever. I''ll think about it. '
     dialogueGameObject: {fileID: 0}
   - actorGameObject: {fileID: 1795666628}
     actorName: 
@@ -737,6 +738,53 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b17b1bcc13b2b24194ff14c202d37cf, type: 3}
+--- !u!1 &482087862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 482087864}
+  - component: {fileID: 482087863}
+  m_Layer: 0
+  m_Name: CameraChangeToLiam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &482087863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482087862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 424f6f900cb17054cb5ddccab9909810, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChangeCameraFollow
+  newTransformToFollow: {fileID: 886389405}
+  delaybeforeTransitionDuration: 0
+  transitionFactor: 0.15
+--- !u!4 &482087864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482087862}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1462460763}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &555133404
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,6 +833,51 @@ MonoBehaviour:
     actorGO: {fileID: 1795666628}
     destination:
     - {x: -2.1200252, y: 0.14479558, z: 0}
+--- !u!1 &611625819
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 611625820}
+  - component: {fileID: 611625821}
+  m_Layer: 0
+  m_Name: Pause
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &611625820
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611625819}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1554311750}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &611625821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611625819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8624795733654a840b9cd6aa1ff1228a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Wait
+  waitTime: 1
 --- !u!4 &886389405 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7291517550505530816, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
@@ -931,6 +1024,53 @@ MonoBehaviour:
     actorGO: {fileID: 1795666628}
     destination:
     - {x: -2.1200252, y: 0.45, z: 0}
+--- !u!1 &1384061580
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1384061582}
+  - component: {fileID: 1384061581}
+  m_Layer: 0
+  m_Name: CameraChangeToGraeber
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1384061581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1384061580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 424f6f900cb17054cb5ddccab9909810, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChangeCameraFollow
+  newTransformToFollow: {fileID: 1795666636}
+  delaybeforeTransitionDuration: 0
+  transitionFactor: 0.3
+--- !u!4 &1384061582
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1384061580}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1462460763}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1458070172
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,9 +1100,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 180316281}
-  - {fileID: 1619837089}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1458070175
@@ -979,7 +1117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customSceneStart: {fileID: 0}
   isTriggerOnLoad: 1
-  triggerOnLoad: {fileID: 1619837088}
+  triggerOnLoad: {fileID: 1462460762}
   optionalSceneNameForMenu: 
 --- !u!1 &1462460761
 GameObject:
@@ -1011,7 +1149,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sequence
   toTrigger:
-  - {fileID: 0}
+  - {fileID: 611625821}
+  - {fileID: 210802050}
+  - {fileID: 1384061581}
+  - {fileID: 303754663}
+  - {fileID: 1554311751}
   isLoopable: 0
   reload: []
 --- !u!4 &1462460763
@@ -1027,6 +1169,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 210802051}
+  - {fileID: 1384061582}
+  - {fileID: 482087864}
   - {fileID: 303754662}
   - {fileID: 1554311750}
   m_Father: {fileID: 0}
@@ -1062,6 +1207,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1214837470}
+  - {fileID: 611625820}
   - {fileID: 975576328}
   - {fileID: 2137127814}
   - {fileID: 555133405}
@@ -1085,9 +1231,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sequence
   toTrigger:
   - {fileID: 1214837471}
+  - {fileID: 611625821}
   - {fileID: 975576329}
   - {fileID: 2137127815}
+  - {fileID: 611625821}
   - {fileID: 555133406}
+  - {fileID: 482087863}
   - {fileID: 1601325199}
   - {fileID: 1103967143}
   - {fileID: 175618172}
@@ -1139,7 +1288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActorExit
   actorToLeave: {fileID: 1795666636}
   optionalTriggerToLeave: {fileID: 0}
---- !u!1 &1619837087
+--- !u!1 &1675308122
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1147,45 +1296,28 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1619837089}
-  - component: {fileID: 1619837088}
+  - component: {fileID: 1675308123}
   m_Layer: 0
-  m_Name: Ltest
+  m_Name: CameraPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1619837088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1619837087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66133870d80cf0446a1ebdc1bbef7b3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MoveTo
-  actorMove:
-    actorGO: {fileID: 123073695}
-    destination:
-    - {x: -2.08, y: 1.39, z: 0}
---- !u!4 &1619837089
+--- !u!4 &1675308123
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1619837087}
+  m_GameObject: {fileID: 1675308122}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.42, y: 1.76, z: 0}
+  m_LocalPosition: {x: -0.3769499, y: 0.9743699, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1458070173}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1729645717
 PrefabInstance:
@@ -1253,7 +1385,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7291517550505530816, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.81
+      value: 0.18999994
       objectReference: {fileID: 0}
     - target: {fileID: 7291517550505530816, guid: ea0521c60c9fb3c4eaa2d6158c547cd2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1327,7 +1459,7 @@ Transform:
   m_GameObject: {fileID: 2108973030}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.12607002, y: 1.02746, z: 0}
+  m_LocalPosition: {x: -0.74607, y: 1.24746, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1452,4 +1584,5 @@ SceneRoots:
   - {fileID: 1729645717}
   - {fileID: 184711164}
   - {fileID: 2108973031}
+  - {fileID: 1675308123}
   - {fileID: 1462460763}

@@ -9,7 +9,7 @@ public class CameraFollow : MonoBehaviour
     public float yOffset;
     public PixelPerfectCamera pixelPerfectCamera;
 
-    private Vector3 velocity = Vector3.zero;
+    public Vector3 velocity = Vector3.zero;
 
     private void Awake()
     {

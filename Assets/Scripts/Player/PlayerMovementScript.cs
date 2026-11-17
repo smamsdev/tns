@@ -98,16 +98,15 @@ public class PlayerMovementScript : MovementScript
             input = new Vector2(horizontalInput, verticalInput + sloping);
             horizontalInput = Input.GetAxis("Horizontal");
             verticalInput = Input.GetAxis("Vertical");
-
-            if (input.sqrMagnitude > 0.01f)
-            lookDirection = input.normalized;
         }
 
         else 
         {
             input = new Vector2(horizontalInput, verticalInput + sloping);
-            lookDirection = input.normalized;
         }
+
+        if (input.sqrMagnitude > 0.01f)
+            lookDirection = input.normalized;
 
         Vector2 newPosition = rigidBody2d.position + input * movementSpeed * Time.fixedDeltaTime;
         rigidBody2d.MovePosition(newPosition);
