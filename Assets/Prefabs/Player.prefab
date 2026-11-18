@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 8088262132899306759}
-  damageTakenTextMeshProUGUI: {fileID: 2947267426782114021}
+  DamageTakenTextMeshProUGUI: {fileID: 0}
   backStabText: {fileID: 2805487330885409026}
 --- !u!1 &1632519439353851384
 GameObject:
@@ -1801,10 +1801,8 @@ MonoBehaviour:
   defaultMovementspeed: 1.2
   movementSpeed: 0
   sloping: 0
-  forceLookDirectionOnLoad: {x: 0, y: 0}
   animator: {fileID: 8879681757372781048}
-  movementDirection: {x: 0, y: 0}
-  lookDirection: {x: -1, y: 0}
+  lookDirection: {x: 1, y: 0}
   descendingFactor: 0
   rigidBody2d: {fileID: 4400780416818078350}
   newPosition: {x: 0, y: 0}
@@ -1812,6 +1810,7 @@ MonoBehaviour:
   movementLocked: 0
   distanceTravelled: 0
   delta: {x: 0, y: 0}
+  input: {x: 0, y: 0}
 --- !u!95 &8879681757372781048
 Animator:
   serializedVersion: 7
