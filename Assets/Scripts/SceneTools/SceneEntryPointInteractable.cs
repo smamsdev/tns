@@ -47,7 +47,7 @@ public class EntryPoint : ColliderInteractableAbstract
         yield return new WaitForSeconds(0.5f);
 
         yield return LoadScene(sceneCombo.baseScene.name, sceneCombo.additiveScenes[sceneCombo.activeAdditiveIteration].name);
-        var playerGO = GameObject.FindGameObjectWithTag("Player");
+        //var playerGO = GameObject.FindGameObjectWithTag("Player"); DO I NEED THIS
     }
 
     public IEnumerator LoadScene(String newBaseSceneName, String newAdditiveSceneName)
