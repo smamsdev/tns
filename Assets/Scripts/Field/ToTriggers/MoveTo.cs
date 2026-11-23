@@ -43,6 +43,8 @@ public class MoveTo : ToTrigger
         float endPointDeltaX = Mathf.Abs(movementScript.transform.position.x - targetPosition.x);
         float endPointDeltaY = Mathf.Abs(movementScript.transform.position.y - targetPosition.y);
 
+        movementScript.rigidBody2d.bodyType = RigidbodyType2D.Dynamic;
+
         while (endPointDeltaX > 0.03f)
         {
             if (Time.time - startTime > timeoutDuration)
@@ -80,6 +82,8 @@ public class MoveTo : ToTrigger
 
         movementScript.verticalInput = 0;
         movementScript.transform.position = new Vector3(targetPosition.x, targetPosition.y, movementScript.transform.position.z);
+
+        movementScript.rigidBody2d.bodyType = RigidbodyType2D.Dynamic;
     }
 }
 
